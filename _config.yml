@@ -27,7 +27,7 @@ github: [metadata]
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: midnight
 plugins:
   - jekyll-feed
 
