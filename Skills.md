@@ -1,5 +1,5 @@
 ---
-title: Skills and competences
+title: Skills
 layout: page
 ---
 
