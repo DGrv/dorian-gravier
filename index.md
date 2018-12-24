@@ -8,6 +8,7 @@ layout: home
     {% endunless %}
 {% endfor %}
 </ul>
+{: .-three-column}
 ---
 
 
