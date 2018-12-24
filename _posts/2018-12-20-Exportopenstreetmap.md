@@ -16,7 +16,7 @@ However what I am explaining now is certainly highly directed to people working 
   
 So let's begin.
 
-#Getting Elevation data : SRTM
+# Getting Elevation data : SRTM
 
 
 Hmmm let's ask wikipedia :  
@@ -45,9 +45,9 @@ Latitude and longitude is the center of the area you wanna download, area the ar
   
 Example :  
 
- ![Photo][assets/1094120_orig.jpg](assets/1094120_orig.jpg) 
+ ![Photo](assets/1094120_orig.jpg) 
 
- ![Photo][assets/6888434_orig.jpg](assets/6888434_orig.jpg) 
+ ![Photo](assets/6888434_orig.jpg) 
 
 This will create a .osm file with the name specified that you will open with [JOSM](https://josm.openstreetmap.de/)...
 
@@ -60,7 +60,7 @@ Let's first have a look to our elevation data : 
 
 - just open the osm file created via josm
 
- ![Photo][assets/905061_orig.jpg](assets/905061_orig.jpg) 
+ ![Photo](assets/905061_orig.jpg) 
 
 Then it is time to download the data from the area you are interested in :  
 
@@ -68,12 +68,12 @@ Then it is time to download the data from the area you are interested in :
 - Choose you area  
 - Download  
 
- ![Photo][assets/7874726_orig.jpg](assets/7874726_orig.jpg) 
+ ![Photo](assets/7874726_orig.jpg) 
 
 You now have 2 layers that you can merge via the merge button :  
   
 
- ![Photo][assets/97958_orig.jpg](assets/97958_orig.jpg) 
+ ![Photo](assets/97958_orig.jpg) 
 
 Save the project osm.  
   
@@ -90,19 +90,19 @@ Open a command prompt as described before where your .osm and osm2ai.pl are.
 Run : **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai>**  
   
   
->>>> Done you have your .ai files with different layers:  
+Done you have your .ai files with different layers:  
   
 
- ![Photo][assets/838468174.png](assets/838468174_orig.png) 
+ ![Photo](assets/838468174_orig.png) 
 
-#Elevation missing and not enough detailed
+# Elevation missing and not enough detailed
 
 
 Mmmm you would like the elevation of course and maybe to have more divided layers.  
 Then first go back to JOSM. Identify the tag of the layers you are interested in :  
   
 
- ![Photo][assets/5900834_orig.jpg](assets/5900834_orig.jpg) 
+ ![Photo](assets/5900834_orig.jpg) 
 
 Why not building, architects are interested in buildings right ?  
 We will now create a .txt file that will tell the osm2ai.pl script to differentiate the entity with the tag we want.  
@@ -173,11 +173,11 @@ Now you just have to put your .txt in the folder with your .osm data, the osm2ai
 **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai> ****\--filter D\_filters.txt**  
   
 
- ![Photo][assets/6634892_orig.jpg](assets/6634892_orig.jpg) 
+ ![Photo](assets/6634892_orig.jpg) 
 
 Isn't that nice :)
 
- ![Photo][assets/7107445_orig.jpg](assets/7107445_orig.jpg) 
+ ![Photo](assets/7107445_orig.jpg) 
 
 Save it in .dxf and work with ArchiCad :)  
 Have fun.
