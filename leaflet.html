@@ -10,6 +10,8 @@ layout: page
 		<title>A Leaflet map!</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
+		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 		 <style>
 			#map{ width: 900px; height: 500px; }
@@ -21,26 +23,20 @@ layout: page
 		<script>
 
 			// initialize the map
-			var map = L.map('map').setView([42.35, -71.08], 13);
+			var map = L.map('map').setView([47.5, 9.6], 8);
 
 			// load a tile layer
 			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
 			{
 				attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>',
 				maxZoom: 17,
-				minZoom: 9
+				minZoom: 1
 			}).addTo(map);
 			
 			
 			
-			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			
-			<!-- var fs = require('fs'); -->
-			<!-- var gpx = fs.readdirSync('https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/'); -->
-			
-			var gpx = ['201901_Idee_Santislow_Emma.gpx.gpx',
-			'201901_Idee_Santis_Emma.gpx.gpx',
-			'201901_Idee_Churfirsten_Emma.gpx']
+			<!-- var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself -->
+			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
 			new L.GPX(gpx, {async: true}).on('loaded', function(e) {
 				map.fitBounds(e.target.getBounds());
 			}).addTo(map);
