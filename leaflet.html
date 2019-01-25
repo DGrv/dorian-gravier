@@ -57,7 +57,7 @@ layout: page
 			
 			
 			for (var i = 0; i < listgpx.length; i += 1) {
-				new L.GPX(listgpxi, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			}
 			
 			
