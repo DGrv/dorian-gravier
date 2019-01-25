@@ -9,4 +9,4 @@ I thought of leaflet and wanted rapidly to give a try.
 
 I pretty happy of the first shot :) 
 
-[Have a look here](leaflet.html)
+[Have a look here](../leaflet.html)
