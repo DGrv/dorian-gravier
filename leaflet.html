@@ -34,8 +34,13 @@ layout: page
 			
 			
 			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			var fs = require('fs');
-			var gpx = fs.readdirSync('https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/');
+			
+			<!-- var fs = require('fs'); -->
+			<!-- var gpx = fs.readdirSync('https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/'); -->
+			
+			var gpx = ['201901_Idee_Santislow_Emma.gpx.gpx',
+			'201901_Idee_Santis_Emma.gpx.gpx',
+			'201901_Idee_Churfirsten_Emma.gpx']
 			new L.GPX(gpx, {async: true}).on('loaded', function(e) {
 				map.fitBounds(e.target.getBounds());
 			}).addTo(map);
