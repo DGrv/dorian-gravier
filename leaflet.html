@@ -35,11 +35,21 @@ layout: page
 			
 			
 			
-			<!-- var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself -->
-			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true}).on('loaded', function(e) {
-				map.fitBounds(e.target.getBounds());
+			var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
+			<!-- var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself -->
+			new L.GPX(gpx, {async: true, parseElements: 'track'}).on('loaded', function(e) {
 			}).addTo(map);
+			
+			
+			var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
+			<!-- var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself -->
+			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {
+				e.target.get_elevation_gain();
+			}).addTo(map);
+			
+			
+			
+			
 
 		</script>
 	</body>
