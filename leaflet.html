@@ -13,6 +13,8 @@ layout: page
 		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
 		 <style>
 			#map{ width: 900px; height: 500px; }
 		</style>
@@ -42,12 +44,21 @@ layout: page
 			
 			
 			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
-			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {
-				e.target.bindPopup(get_elevation_gain());
-			}).addTo(map);
+			var gpx = 'gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
+			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			
+			var listgpx =['gpx/WG-Touren.gpx',
+				'gpx/Velo-route-rhone_schweiss_2018.gpx',
+				'gpx/Plattberg-Upssitze-Ostreich.gpx',
+				'gpx/Jura-mittelland-aaare_route_2018.gpx',
+				'gpx/201901_Idee_Santislow_Emma.gpx.gpx',
+				'gpx/201901_Idee_Santis_Emma.gpx.gpx',
+				'gpx/201901_Idee_Churfirsten_Emma.gpx']
 			
 			
+			for (var i = 0; i < listgpx.length; i += 1) {
+				new L.GPX(listgpxi, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			}
 			
 			
 
