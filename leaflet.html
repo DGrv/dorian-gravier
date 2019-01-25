@@ -31,7 +31,7 @@ layout: page
 				minZoom: 9
 			}).addTo(map);
 			
-			var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
+			var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/'; // URL to your GPX file or the GPX itself
 			new L.GPX(gpx, {async: true}).on('loaded', function(e) {
 				map.fitBounds(e.target.getBounds());
 			}).addTo(map);
