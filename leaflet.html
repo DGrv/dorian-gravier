@@ -16,6 +16,7 @@ layout: page
 
 		<style>
 			#map{ width: 900px; height: 500px; }
+			#mapBU{ width: 900px; height: 500px; }
 		</style>
 	</head>
 	<body>
@@ -48,18 +49,50 @@ layout: page
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
 			<?php
-				$gpx = glob("gpx/*.*");
-				print_r($gpx);
+				$listgpx = glob("gpx/*.*");
+				print_r($listgpx);
 			?>
-			var gpx = <?php json_encode($gpx) ?>;
+			var listgpx ="<?php json_encode($gpx) ?>";
 			
-			gpx.toString();
+			listgpx.toString();
 			
 			
 			
-			for (var i = 0; i < gpx.length; i += 1) {
-				new L.GPX(gpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			for (var i = 0; i < listgpx.length; i += 1) {
+				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			};
+			
+			
+			// -----------------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------------
+			
+						// initialize the map
+			var map = L.map('mapBU').setView([47.5, 9.6], 8);
+			// load a tile layer
+			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
+			{
+				attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>',
+				maxZoom: 17,
+				minZoom: 1
+			}).addTo(mapBU);
+
+			
+			var listgpx =['gpx/WG-Touren.gpx',
+				'gpx/Velo-route-rhone_schweiss_2018.gpx',
+				'gpx/Plattberg-Upssitze-Ostreich.gpx',
+				'gpx/Jura-mittelland-aaare_route_2018.gpx',
+				'gpx/201901_Idee_Santislow_Emma.gpx.gpx',
+				'gpx/201901_Idee_Santis_Emma.gpx.gpx',
+				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
+			
+			
+			for (var i = 0; i < listgpx.length; i += 1) {
+				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU);
+			};
+			
 			
 			
 			
