@@ -93,6 +93,9 @@ layout: page
 					.setContent(info)
 					.openOn(map);        
 				});
+				g.on('mouseout', function(e) {        
+					var popup = L.popup().openOn(map);       
+				});
 				g.addTo(map);
 			};
 
@@ -115,6 +118,9 @@ layout: page
 					.setLatLng(popLocation)
 					.setContent(info)
 					.openOn(map);        
+				});
+				g.on('mouseout', function(e) {        
+					var popup = L.popup().openOn(map);       
 				});
 				g.addTo(map);
 			};
@@ -140,6 +146,9 @@ layout: page
 					.setContent(info)
 					.openOn(map);        
 				});
+				g.on('mouseout', function(e) {        
+					var popup = L.popup().openOn(map);       
+				});
 				g.addTo(map);
 				
 			};
@@ -163,6 +172,9 @@ layout: page
 					.setLatLng(popLocation)
 					.setContent(info)
 					.openOn(map);        
+				});
+				g.on('mouseout', function(e) {        
+					var popup = L.popup().openOn(map);       
 				});
 				g.addTo(map);
 		    	
