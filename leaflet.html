@@ -96,23 +96,25 @@ layout: page
 
 
 			for (var i = 0; i < listgpxpro.length; i += 1) {
-				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}}).on('loaded', function(e) {
-							var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-				 
-							// register popup on click
-							gpx.getLayers()[0].bindPopup(
-								"Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-							)
-
-				}).addTo(map);
+				var g = new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}});
+				g.on('mouseover', function(e) {        
+					var gpx = e.target,
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var info = "Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+					var popLocation= e.latlng;
+					var popup = L.popup()
+					.setLatLng(popLocation)
+					.setContent(info)
+					.openOn(map);        
+				});
+				g.addTo(map);
 			};
 
 
