@@ -124,9 +124,14 @@ layout: page
 			};
 			
 
-			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
+			for (var i = 0; i < listgpxvelo2.length; i += 1) {
+				var g = new L.GPX(listgpxvelo2[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
 				g.addTo(map);
+				g.getLayers()[0].bindPopup(
+								"Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+							);
 				g.on('mouseover', function (e) {
 				  this.openPopup();
 				});
