@@ -68,8 +68,8 @@ layout: page
 			var listgpxdone =['gpx/201901_Idee_Churfirsten_Emma.gpx'];
 			var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
 				'gpx/201901_Idee_Santislow_Emma.gpx.gpx'];
-			var listgpxvelo =['gpx/WG-Touren.gpx',
-				'gpx/Velo-route-rhone_schweiss_2018.gpx',
+			var listgpxvelo =['gpx/Velo-route-rhone_schweiss_2018.gpx'];
+			var listgpxvelo2 =['gpx/WG-Touren.gpx',,
 				'gpx/Plattberg-Upssitze-Ostreich.gpx'];
 			
 			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
@@ -136,6 +136,24 @@ layout: page
 				el.addData(e.line);
 			});
 			g.addTo(map);
+
+			for (var i = 0; i < listgpxvelo.length; i += 1) {
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
+				g.on("loaded",function(e){
+					el.addData(e.line);
+				});
+				g.on('mouseover',function(e) {
+		      		g.openPopup(
+			      		"Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+					);
+		    	});
+		    	g.on('mouseout',function(e) {
+		      		g.closePopup();
+		    	});
+				g.addTo(map);
+			};
 			
 		
 			
