@@ -71,7 +71,7 @@ layout: page
 			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 			
 			for (var i = 0; i < listgpxdone.length; i += 1) {
-				var test =  L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {
+				var test = new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {
 							var gpx = e.target,
 								name = gpx.get_name(),
 							    distM = gpx.get_distance(),
