@@ -83,7 +83,13 @@ layout: page
 							    distKmRnd = distKm.toFixed(1),
 							    eleGain = gpx.get_elevation_gain().toFixed(0),
 							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-				 
+				 			
+							// register popup on click
+							gpx.getLayers()[0].bindPopup(
+								"Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+							)
 							
 				}).addTo(map);
 			};
@@ -115,6 +121,8 @@ layout: page
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
+				g.on("loaded",function(e){
+				});
 				g.on("addline",function(e){
 					el.addData(e.line);
 				});
@@ -124,9 +132,6 @@ layout: page
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
-				g.on("loaded",function(e){
-					el.addData(e.line);
-				}).addTo(map);
 				g.on('mouseover',function(e) {
 		      		g.openPopup(
 			      		"Name: " + name + "</br>" +
