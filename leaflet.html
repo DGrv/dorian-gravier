@@ -31,7 +31,19 @@ layout: page
 		<div id="map"></div> 
 		<div id="mapBU"></div>
 		
+		
+		<?php
+				$listgpx = glob("gpx/*.*");
+				print_r($listgpx);
+		?>
 		<!-- Script only -->
+		
+		<!-- Test your script here : https://jsbin.com/?html,output -->
+		<!-- Test your script here : https://jsbin.com/?html,output -->
+		<!-- Test your script here : https://jsbin.com/?html,output -->
+		<!-- Test your script here : https://jsbin.com/?html,output -->
+		
+		
 		
 		<script>
 
@@ -52,10 +64,7 @@ layout: page
 			
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
-			<?php
-				$listgpx = glob("gpx/*.*");
-				print_r($listgpx);
-			?>
+			
 			var listgpx ="<?php json_encode($gpx) ?>";
 			
 			listgpx.toString();
