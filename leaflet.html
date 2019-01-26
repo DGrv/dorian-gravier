@@ -19,7 +19,7 @@ layout: page
 		
 		<style>
 			#map{ width: 900px; height: 500px; }
-			#mapBU{ width: 900px; height: 500px; }
+			<!-- #mapBU{ width: 900px; height: 500px; } -->
 		</style>
 		
 		
@@ -33,10 +33,10 @@ layout: page
 		
 		<!-- Script only -->
 		
-		<!-- Test your script here : https://jsbin.com/?html,output -->
-		<!-- Test your script here : https://jsbin.com/?html,output -->
-		<!-- Test your script here : https://jsbin.com/?html,output -->
-		<!-- Test your script here : https://jsbin.com/?html,output -->
+		<!-- Test your script here : https://codepen.io/pen/ -->
+		<!-- Test your script here : https://codepen.io/pen/ -->
+		<!-- Test your script here : https://codepen.io/pen/ -->
+		<!-- Test your script here : https://codepen.io/pen/ -->
 		
 		
 		
@@ -62,9 +62,9 @@ layout: page
 
 			var listgpxdone =['gpx/201901_Idee_Santis_Emma.gpx.gpx',
 				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
-				var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
+			var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
 				'gpx/201901_Idee_Santislow_Emma.gpx.gpx'];
-				var listgpxvelo =['gpx/WG-Touren.gpx',
+			var listgpxvelo =['gpx/WG-Touren.gpx',
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
 				'gpx/Plattberg-Upssitze-Ostreich.gpx'];
 			
@@ -74,10 +74,10 @@ layout: page
 			};
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
-				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], color: 'red', dashArray = '4 1'}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], color: 'red', dashArray = '4 1'}).on('loaded', function(e) {}).addTo(map);
 			};
 			
-			for (var i = 0; i < listgpxdone.length; i += 1) {
+			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], color: 'blue'}).on('loaded', function(e) {}).addTo(map);
 			};
 			
