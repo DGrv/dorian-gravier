@@ -57,16 +57,10 @@ layout: page
 			
 			
 			
-			for (var i = 0; i < listgpx.length; i += 1) {
-				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			for (var i = 0; i < gpx.length; i += 1) {
+				new L.GPX(gpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			};
 			
-			const testFolder = 'gpx/';
-			const fs = require('fs');
-
-			fs.readdirSync(testFolder).forEach(file => {
-			  console.log(file);
-			});
 			
 			
 
