@@ -68,6 +68,7 @@ layout: page
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
 				'gpx/Plattberg-Upssitze-Ostreich.gpx'];
 			
+			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 			
 			for (var i = 0; i < listgpxdone.length; i += 1) {
 				new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {
@@ -77,24 +78,48 @@ layout: page
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
 				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}}).on('loaded', function(e) {
-					map.bindPopup(e.target.get_distance());
+							var gpx = e.target,
+								name = gpx.get_name(),
+							    distM = gpx.get_distance(),
+							    distKm = distM / 1000,
+							    distKmRnd = distKm.toFixed(1),
+							    eleGain = gpx.get_elevation_gain().toFixed(0),
+							    eleLoss = gpx.get_elevation_loss().toFixed(0);
+				 
+							// register popup on click
+							gpx.getLayers()[0].bindPopup(
+								"Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+							)
+
+							gpx.getLayers()[0].on('mouseover',function(ev) {
+						      gpx.openPopup();
+						    });
+						    gpx.getLayers()[0].on('mouseout',function(ev) {
+						      gpx.closePopup();
+						    });
+
 				}).addTo(map);
 			};
+
+
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
 						var gpx = e.target,
+						name = gpx.get_name(),
 					    distM = gpx.get_distance(),
 					    distKm = distM / 1000,
 					    distKmRnd = distKm.toFixed(1),
-					    eleGain = gpx.get_elevation_gain().toFixed(3),
-					    eleLoss = gpx.get_elevation_loss().toFixed(3);
+					    eleGain = gpx.get_elevation_gain().toFixed(0),
+					    eleLoss = gpx.get_elevation_loss().toFixed(0);
 		 
 						// register popup on click
 						gpx.getLayers()[0].bindPopup(
-						"Distance " + distKmRnd + " km </br>" +
-						"Elevation Gain " + eleGain + " m </br>" +
-						"Elevation Loss " + eleLoss + " m"
+							"Name: " + name + "</br>" +
+							"Distance: " + distKmRnd + " km </br>" +
+							"Elevation Gain: " + eleGain + " m </br>"
 						)
 
 				}).addTo(map);
