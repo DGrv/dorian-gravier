@@ -37,7 +37,7 @@ layout: page
 			
 			
 		
-			var gpx =['gpx/WG-Touren.gpx',
+			var listggpx =['gpx/WG-Touren.gpx',
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
 				'gpx/Plattberg-Upssitze-Ostreich.gpx',
 				'gpx/Jura-mittelland-aaare_route_2018.gpx',
@@ -48,8 +48,8 @@ layout: page
 	
 			
 			
-			for (var i = 0; i < gpx.length; i += 1) {
-				new L.GPX(gpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			for (var i = 0; i < listggpx.length; i += 1) {
+				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			
