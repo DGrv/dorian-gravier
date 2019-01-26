@@ -88,23 +88,6 @@ layout: page
 				}).addTo(map);
 			};
 
-			line.on('mouseover',function(e) {
-		      line.openPopup(
-		      	"Name: " + name + "</br>" +
-				"Distance: " + distKmRnd + " km </br>" +
-				"Elevation Gain: " + eleGain + " m </br>");
-		    });
-		    line.on('mouseout',function(e) {
-		      line.closePopup();
-		    });
-			
-
-			var el = L.control.elevation();
-
-
-
-
-
 
 			for (var i = 0; i < listgpxpro.length; i += 1) {
 				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}}).on('loaded', function(e) {
@@ -129,19 +112,21 @@ layout: page
 
 			var el = L.control.elevation();
 			el.addTo(map);
+
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
+				g.on("addline",function(e){
+					el.addData(e.line);
+				});
+				g.addTo(map);
 			};
-			g.on("addline",function(e){
-				el.addData(e.line);
-			});
-			g.addTo(map);
+			
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
 				g.on("loaded",function(e){
 					el.addData(e.line);
-				});
+				}).addTo(map);
 				g.on('mouseover',function(e) {
 		      		g.openPopup(
 			      		"Name: " + name + "</br>" +
@@ -152,7 +137,6 @@ layout: page
 		    	g.on('mouseout',function(e) {
 		      		g.closePopup();
 		    	});
-				g.addTo(map);
 			};
 			
 		
