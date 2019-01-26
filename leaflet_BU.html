@@ -13,31 +13,37 @@ layout: page
 		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
-
-		<style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		 <style>
 			#map{ width: 900px; height: 500px; }
 		</style>
 	</head>
 	<body>
-
 		<div id="map"></div>
 		<script>
-
 			// initialize the map
 			var map = L.map('map').setView([47.5, 9.6], 8);
-
 			// load a tile layer
 			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
 			{
-				attribution: 'Tiles by <a href="https://opentopomap.org/">OpenTopoMap</a>',
+				attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>',
 				maxZoom: 17,
 				minZoom: 1
 			}).addTo(map);
 			
 			
 			
-		
-			var listggpx =['gpx/WG-Touren.gpx',
+			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
+			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
+			new L.GPX(gpx, {async: true, parseElements: 'track'}).on('loaded', function(e) {
+			}).addTo(map);
+			
+			
+			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
+			var gpx = 'gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
+			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			
+			var listgpx =['gpx/WG-Touren.gpx',
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
 				'gpx/Plattberg-Upssitze-Ostreich.gpx',
 				'gpx/Jura-mittelland-aaare_route_2018.gpx',
@@ -45,16 +51,18 @@ layout: page
 				'gpx/201901_Idee_Santis_Emma.gpx.gpx',
 				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
 			
-	
 			
-			
-			for (var i = 0; i < listggpx.length; i += 1) {
+			for (var i = 0; i < listgpx.length; i += 1) {
 				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			};
 			
+			const testFolder = 'gpx/';
+			const fs = require('fs');
+			fs.readdirSync(testFolder).forEach(file => {
+			  console.log(file);
+			});
 			
 			
-
 		</script>
 	</body>
 </html>
