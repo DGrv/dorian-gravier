@@ -83,13 +83,13 @@ layout: page
 				}).addTo(map);
 			};
 
-			line.on('mouseover',function(ev) {
+			line.on('mouseover',function(e) {
 		      line.openPopup(
 		      	"Name: " + name + "</br>" +
 				"Distance: " + distKmRnd + " km </br>" +
 				"Elevation Gain: " + eleGain + " m </br>");
 		    });
-		        line.on('mouseout',function(ev) {
+		    line.on('mouseout',function(e) {
 		      line.closePopup();
 		    });
 			
@@ -110,13 +110,6 @@ layout: page
 								"Elevation Gain: " + eleGain + " m </br>"
 							)
 
-							gpx.getLayers()[0].on('mouseover',function(ev) {
-						      gpx.openPopup();
-						    });
-						    gpx.getLayers()[0].on('mouseout',function(ev) {
-						      gpx.closePopup();
-						    });
-
 				}).addTo(map);
 			};
 
@@ -124,20 +117,7 @@ layout: page
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
-						var gpx = e.target,
-						name = gpx.get_name(),
-					    distM = gpx.get_distance(),
-					    distKm = distM / 1000,
-					    distKmRnd = distKm.toFixed(1),
-					    eleGain = gpx.get_elevation_gain().toFixed(0),
-					    eleLoss = gpx.get_elevation_loss().toFixed(0);
-		 
-						// register popup on click
-						gpx.getLayers()[0].bindPopup(
-							"Name: " + name + "</br>" +
-							"Distance: " + distKmRnd + " km </br>" +
-							"Elevation Gain: " + eleGain + " m </br>"
-						)
+						
 
 				}).addTo(map);
 			};
