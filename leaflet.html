@@ -47,10 +47,10 @@ layout: page
 				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
 			
 			
-			<?php
-			print_r(glob("gpx/*.*"));
-			var gpx = glob("gpx/*.*");
-			?>
+			
+			<?php $gpx = glob("gpx/*.*");?>
+			var gpx = <?php echo json_encode($gpx); ?>;
+			
 			
 			
 			for (var i = 0; i < listgpx.length; i += 1) {
