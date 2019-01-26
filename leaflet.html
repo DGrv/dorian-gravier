@@ -118,61 +118,50 @@ layout: page
 			};
 
 
-			var el = L.control.elevation();
-			el.addTo(map);
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
-				g.on("loaded",function(e){
-				});
-				g.on("addline",function(e){
-					el.addData(e.line);
-				});
-				g.addTo(map);
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
+							var gpx = e.target,
+								name = gpx.get_name(),
+							    distM = gpx.get_distance(),
+							    distKm = distM / 1000,
+							    distKmRnd = distKm.toFixed(1),
+							    eleGain = gpx.get_elevation_gain().toFixed(0),
+							    eleLoss = gpx.get_elevation_loss().toFixed(0);
+				 
+							// register popup on click
+							gpx.getLayers()[0].bindPopup(
+								"Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+							)
+
+				}).addTo(map);
+				
 			};
 			
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
-				g.on('mouseover',function(e) {
-		      		g.openPopup(
-			      		"Name: " + name + "</br>" +
-						"Distance: " + distKmRnd + " km </br>" +
-						"Elevation Gain: " + eleGain + " m </br>"
-					);
-		    	});
-		    	g.on('mouseout',function(e) {
-		      		g.closePopup();
-		    	});
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}})on('loaded', function(e) {
+							var gpx = e.target,
+								name = gpx.get_name(),
+							    distM = gpx.get_distance(),
+							    distKm = distM / 1000,
+							    distKmRnd = distKm.toFixed(1),
+							    eleGain = gpx.get_elevation_gain().toFixed(0),
+							    eleLoss = gpx.get_elevation_loss().toFixed(0);
+				 
+							// register popup on click
+							gpx.getLayers()[0].bindPopup(
+								"Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+							)
+
+				}).addTo(map);
+		    	
 			};
 			
-		
-		var mapw = new L.Map('map');
-
-		var url = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg',
-			attr ='Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-			service = new L.TileLayer(url, {subdomains:"1234",attribution: attr});
-
-		var el = L.control.elevation();
-		el.addTo(mapw);
-		var g=new L.GPX("./demo.gpx", {
-			async: true,
-			 marker_options: {
-			    startIconUrl: './lib/leaflet-gpx/pin-icon-start.png',
-			    endIconUrl: './lib/leaflet-gpx/pin-icon-end.png',
-			    shadowUrl: './lib/leaflet-gpx/pin-shadow.png'
-			  }
-		});
-		g.on('loaded', function(e) {
-		  		mapw.fitBounds(e.target.getBounds());
-		});
-		g.on("addline",function(e){
-			el.addData(e.line);
-		});
-		g.addTo(mapw);
-		map.addLayer(service);
-		
-		
 		
 		
 		
