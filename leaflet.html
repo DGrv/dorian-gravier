@@ -37,23 +37,20 @@ layout: page
 			
 			
 			
-			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true, parseElements: 'track'}).on('loaded', function(e) {
-			}).addTo(map);
+		
+			<!-- var listgpx =['gpx/WG-Touren.gpx', -->
+				<!-- 'gpx/Velo-route-rhone_schweiss_2018.gpx', -->
+				<!-- 'gpx/Plattberg-Upssitze-Ostreich.gpx', -->
+				<!-- 'gpx/Jura-mittelland-aaare_route_2018.gpx', -->
+				<!-- 'gpx/201901_Idee_Santislow_Emma.gpx.gpx', -->
+				<!-- 'gpx/201901_Idee_Santis_Emma.gpx.gpx', -->
+				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
 			
 			
-			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
-			var gpx = 'gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
-			
-			var listgpx =['gpx/WG-Touren.gpx',
-				'gpx/Velo-route-rhone_schweiss_2018.gpx',
-				'gpx/Plattberg-Upssitze-Ostreich.gpx',
-				'gpx/Jura-mittelland-aaare_route_2018.gpx',
-				'gpx/201901_Idee_Santislow_Emma.gpx.gpx',
-				'gpx/201901_Idee_Santis_Emma.gpx.gpx',
-				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
+			<?php
+			print_r(glob("gpx/*.*"));
+			var gpx = glob("gpx/*.*");
+			?>
 			
 			
 			for (var i = 0; i < listgpx.length; i += 1) {
