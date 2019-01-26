@@ -14,14 +14,25 @@ layout: page
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
+		
+		<!-- Need set size to display -->
+		
 		<style>
 			#map{ width: 900px; height: 500px; }
 			#mapBU{ width: 900px; height: 500px; }
 		</style>
+		
+		
 	</head>
 	<body>
-
-		<div id="map"></div>
+		
+		<!-- div to display the maps -->
+		
+		<div id="map"></div> 
+		<div id="mapBU"></div>
+		
+		<!-- Script only -->
+		
 		<script>
 
 			// initialize the map
@@ -38,16 +49,6 @@ layout: page
 				minZoom: 1
 			}).addTo(map);
 			
-			
-			
-		
-			<!-- var listgpx =['gpx/WG-Touren.gpx', -->
-				<!-- 'gpx/Velo-route-rhone_schweiss_2018.gpx', -->
-				<!-- 'gpx/Plattberg-Upssitze-Ostreich.gpx', -->
-				<!-- 'gpx/Jura-mittelland-aaare_route_2018.gpx', -->
-				<!-- 'gpx/201901_Idee_Santislow_Emma.gpx.gpx', -->
-				<!-- 'gpx/201901_Idee_Santis_Emma.gpx.gpx', -->
-				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
 			
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
