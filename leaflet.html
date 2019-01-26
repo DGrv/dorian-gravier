@@ -29,13 +29,8 @@ layout: page
 		<!-- div to display the maps -->
 		
 		<div id="map"></div> 
-		<div id="mapBU"></div>
+		<!-- <div id="mapBU"></div> -->
 		
-		
-		<?php
-				$listgpx = glob("gpx/*.*");
-				print_r($listgpx);
-		?>
 		<!-- Script only -->
 		
 		<!-- Test your script here : https://jsbin.com/?html,output -->
@@ -64,15 +59,26 @@ layout: page
 			
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
+
+			var listgpxdone =['gpx/201901_Idee_Santis_Emma.gpx.gpx',
+				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
+				var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
+				'gpx/201901_Idee_Santislow_Emma.gpx.gpx'];
+				var listgpxvelo =['gpx/WG-Touren.gpx',
+				'gpx/Velo-route-rhone_schweiss_2018.gpx',
+				'gpx/Plattberg-Upssitze-Ostreich.gpx'];
 			
-			var listgpx ="<?php json_encode($gpx) ?>";
 			
-			listgpx.toString();
+			for (var i = 0; i < listgpxdone.length; i += 1) {
+				new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], color: 'green'}).on('loaded', function(e) {}).addTo(map);
+			};
 			
+			for (var i = 0; i < listgpxpro.length; i += 1) {
+				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], color: 'red', dashArray = '4 1'}).on('loaded', function(e) {}).addTo(map);
+			};
 			
-			
-			for (var i = 0; i < listgpx.length; i += 1) {
-				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+			for (var i = 0; i < listgpxdone.length; i += 1) {
+				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], color: 'blue'}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			
@@ -82,29 +88,29 @@ layout: page
 			// -----------------------------------------------------------------------------------
 			// -----------------------------------------------------------------------------------
 			
-						// initialize the map
-			var mapBU = L.map('mapBU').setView([47.5, 9.6], 8);
-			// load a tile layer
-			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
-			{
-				attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>',
-				maxZoom: 17,
-				minZoom: 1
-			}).addTo(mapBU);
+			<!-- // initialize the map -->
+			<!-- var mapBU = L.map('mapBU').setView([47.5, 9.6], 8); -->
+			<!-- // load a tile layer -->
+			<!-- L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png', -->
+			<!-- { -->
+				<!-- attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>', -->
+				<!-- maxZoom: 17, -->
+				<!-- minZoom: 1 -->
+			<!-- }).addTo(mapBU); -->
 
 			
-			var listgpxBU =['gpx/WG-Touren.gpx',
-				'gpx/Velo-route-rhone_schweiss_2018.gpx',
-				'gpx/Plattberg-Upssitze-Ostreich.gpx',
-				'gpx/Jura-mittelland-aaare_route_2018.gpx',
-				'gpx/201901_Idee_Santislow_Emma.gpx.gpx',
-				'gpx/201901_Idee_Santis_Emma.gpx.gpx',
-				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
+			<!-- var listgpxBU =['gpx/WG-Touren.gpx', -->
+				<!-- 'gpx/Velo-route-rhone_schweiss_2018.gpx', -->
+				<!-- 'gpx/Plattberg-Upssitze-Ostreich.gpx', -->
+				<!-- 'gpx/Jura-mittelland-aaare_route_2018.gpx', -->
+				<!-- 'gpx/201901_Idee_Santislow_Emma.gpx.gpx', -->
+				<!-- 'gpx/201901_Idee_Santis_Emma.gpx.gpx', -->
+				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
 			
 			
-			for (var i = 0; i < listgpxBU.length; i += 1) {
-				new L.GPX(listgpxBU[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU);
-			};
+			<!-- for (var i = 0; i < listgpxBU.length; i += 1) { -->
+				<!-- new L.GPX(listgpxBU[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU); -->
+			<!-- }; -->
 			
 			
 			
