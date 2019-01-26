@@ -24,7 +24,6 @@ layout: page
 		
 		<style>
 			#map{ width: 900px; height: 500px; }
-			#mapw{ width: 900px; height: 500px; }
 			<!-- #mapBU{ width: 900px; height: 500px; } -->
 		</style>
 		
@@ -35,7 +34,6 @@ layout: page
 		<!-- div to display the maps -->
 		
 		<div id="map"></div> 
-		<div id="mapw"></div> 
 		<!-- <div id="mapBU"></div> -->
 		
 		<!-- Script only -->
@@ -120,45 +118,21 @@ layout: page
 
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
-							var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-				 
-							// register popup on click
-							gpx.getLayers()[0].bindPopup(
-								"Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-							)
-
-				}).addTo(map);
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
+				g.addTo(map);
 				
 			};
 			
 
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}})on('loaded', function(e) {
-							var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-				 
-							// register popup on click
-							gpx.getLayers()[0].bindPopup(
-								"Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-							)
-
-				}).addTo(map);
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
+				g.addTo(map);
+				g.on('mouseover', function (e) {
+				  this.openPopup();
+				});
+				g.on('mouseout', function (e) {
+				  this.closePopup();
+				});
 		    	
 			};
 			
