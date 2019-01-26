@@ -46,10 +46,13 @@ layout: page
 				<!-- 'gpx/201901_Idee_Santis_Emma.gpx.gpx', -->
 				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
 			
-			
-			
-			<?php $gpx = glob("gpx/*.*");?>
-			var gpx = <?php echo json_encode($gpx); ?>;
+			// info glob php to js
+			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
+			<?php
+				$gpx = glob("gpx/*.*");
+				print_r($gpx);
+			?>
+			var gpx = <?php json_encode($gpx) ?>;
 			
 			gpx.toString();
 			
