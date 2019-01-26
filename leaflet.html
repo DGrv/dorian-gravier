@@ -14,6 +14,11 @@ layout: page
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
+
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<link rel="stylesheet" href="./lib/elevation/Leaflet.Elevation-0.0.2.css" />
+		<script type="text/javascript" src="./lib/elevation/Leaflet.Elevation-0.0.2.min.js"></script>
+
 		
 		<!-- Need set size to display -->
 		
@@ -93,6 +98,14 @@ layout: page
 		      line.closePopup();
 		    });
 			
+
+			var el = L.control.elevation();
+
+
+
+
+
+
 			for (var i = 0; i < listgpxpro.length; i += 1) {
 				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}}).on('loaded', function(e) {
 							var gpx = e.target,
@@ -114,13 +127,16 @@ layout: page
 			};
 
 
-			
+			var el = L.control.elevation();
+			el.addTo(map);
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
-						
-
-				}).addTo(map);
+				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
 			};
+			g.on("addline",function(e){
+				el.addData(e.line);
+			});
+			g.addTo(map);
+			
 		
 			
 			// -----------------------------------------------------------------------------------
