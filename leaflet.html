@@ -70,15 +70,15 @@ layout: page
 			
 			
 			for (var i = 0; i < listgpxdone.length; i += 1) {
-				new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], color: 'green'}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
-				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], color: 'red', dashArray = '4 1'}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray = '4 1'}}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], color: 'blue'}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			
