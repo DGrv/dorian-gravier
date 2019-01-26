@@ -74,7 +74,7 @@ layout: page
 			};
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
-				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray = '4 1'}}).on('loaded', function(e) {}).addTo(map);
+				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '4 1'}}).on('loaded', function(e) {}).addTo(map);
 			};
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
