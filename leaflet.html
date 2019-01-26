@@ -70,7 +70,7 @@ layout: page
 			// -----------------------------------------------------------------------------------
 			
 						// initialize the map
-			var map = L.map('mapBU').setView([47.5, 9.6], 8);
+			var mapBU = L.map('map').setView([47.5, 9.6], 8);
 			// load a tile layer
 			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
 			{
@@ -80,7 +80,7 @@ layout: page
 			}).addTo(mapBU);
 
 			
-			var listgpx =['gpx/WG-Touren.gpx',
+			var listgpxBU =['gpx/WG-Touren.gpx',
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
 				'gpx/Plattberg-Upssitze-Ostreich.gpx',
 				'gpx/Jura-mittelland-aaare_route_2018.gpx',
@@ -89,8 +89,8 @@ layout: page
 				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
 			
 			
-			for (var i = 0; i < listgpx.length; i += 1) {
-				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU);
+			for (var i = 0; i < listgpxBU.length; i += 1) {
+				new L.GPX(listgpxBU[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU);
 			};
 			
 			
