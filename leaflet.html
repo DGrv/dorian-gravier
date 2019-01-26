@@ -83,10 +83,23 @@ layout: page
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
-					
+						var gpx = e.target,
+					    distM = gpx.get_distance(),
+					    distKm = distM / 1000,
+					    distKmRnd = distKm.toFixed(1),
+					    eleGain = gpx.get_elevation_gain().toFixed(3),
+					    eleLoss = gpx.get_elevation_loss().toFixed(3);
+		 
+						// register popup on click
+						gpx.getLayers()[0].bindPopup(
+						"Distance " + distKmRnd + " km </br>" +
+						"Elevation Gain " + eleGain + " m </br>" +
+						"Elevation Loss " + eleLoss + " m"
+						)
+
 				}).addTo(map);
 			};
-			
+		
 			
 			// -----------------------------------------------------------------------------------
 			// -----------------------------------------------------------------------------------
