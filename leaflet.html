@@ -14,12 +14,6 @@ layout: page
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
-
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<link rel="stylesheet" href="./lib/elevation/Leaflet.Elevation-0.0.2.css" />
-		<script type="text/javascript" src="./lib/elevation/Leaflet.Elevation-0.0.2.min.js"></script>
-
-
 		<!-- Need set size to display -->
 
 		<style>
@@ -36,12 +30,6 @@ layout: page
 		<div id="map"></div>
 		<!-- <div id="mapBU"></div> -->
 
-		<!-- Script only -->
-
-		<!-- Test your script here : https://codepen.io/pen/ -->
-		<!-- Test your script here : https://codepen.io/pen/ -->
-		<!-- Test your script here : https://codepen.io/pen/ -->
-		<!-- Test your script here : https://codepen.io/pen/ -->
 
 
 
@@ -156,7 +144,7 @@ layout: page
 
 			for (var i = 0; i < listgpxvelo2.length; i += 1) {
 				var g = new L.GPX(listgpxvelo2[i], {async: true, parseElements: ['track'], polyline_options: { color: 'yellow'}});
-				
+
 				g.addTo(map);
 
 			};
