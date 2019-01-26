@@ -30,18 +30,7 @@ layout: page
 				maxZoom: 17,
 				minZoom: 1
 			}).addTo(map);
-			
-			
-			
-			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			var gpx = 'gpx/201901_Idee_Churfirsten_Emma.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true, parseElements: 'track'}).on('loaded', function(e) {
-			}).addTo(map);
-			
-			
-			//var gpx = 'https://raw.githubusercontent.com/DGrv/dorian.gravier.github.io/master/gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
-			var gpx = 'gpx/201901_Idee_Santis_Emma.gpx.gpx'; // URL to your GPX file or the GPX itself
-			new L.GPX(gpx, {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
+
 			
 			var listgpx =['gpx/WG-Touren.gpx',
 				'gpx/Velo-route-rhone_schweiss_2018.gpx',
@@ -55,12 +44,7 @@ layout: page
 			for (var i = 0; i < listgpx.length; i += 1) {
 				new L.GPX(listgpx[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(map);
 			};
-			
-			const testFolder = 'gpx/';
-			const fs = require('fs');
-			fs.readdirSync(testFolder).forEach(file => {
-			  console.log(file);
-			});
+
 			
 			
 		</script>
