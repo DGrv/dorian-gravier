@@ -77,14 +77,14 @@ layout: page
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
 				new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red', dashArray: '10, 10'}}).on('loaded', function(e) {
-					e.target.get_distance();
-				}).addTo(map).bindPopup(e.target.get_distance());
+					map.bindPopup(e.target.get_distance());
+				}).addTo(map);
 			};
 			
 			for (var i = 0; i < listgpxvelo.length; i += 1) {
 				new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}}).on('loaded', function(e) {
 					
-				}).addTo(map).bindPopup("test");
+				}).addTo(map);
 			};
 			
 			
