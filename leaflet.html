@@ -60,8 +60,7 @@ layout: page
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
 
-			var listgpxdone =['gpx/201901_Idee_Santis_Emma.gpx.gpx',
-				'gpx/201901_Idee_Churfirsten_Emma.gpx'];
+			var listgpxdone =['gpx/201901_Idee_Churfirsten_Emma.gpx'];
 			var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
 				'gpx/201901_Idee_Santislow_Emma.gpx.gpx'];
 			var listgpxvelo =['gpx/WG-Touren.gpx',
@@ -71,7 +70,7 @@ layout: page
 			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 			
 			for (var i = 0; i < listgpxdone.length; i += 1) {
-				var test = new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {
+				var line = new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}}).on('loaded', function(e) {
 							var gpx = e.target,
 								name = gpx.get_name(),
 							    distM = gpx.get_distance(),
@@ -80,20 +79,18 @@ layout: page
 							    eleGain = gpx.get_elevation_gain().toFixed(0),
 							    eleLoss = gpx.get_elevation_loss().toFixed(0);
 				 
-							// register popup on click
-							gpx.getLayers()[0].bindPopup(
-								"Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-							)
+							
 				}).addTo(map);
 			};
 
-			test.on('mouseover',function(ev) {
-		      test.openPopup();
+			line.on('mouseover',function(ev) {
+		      line.openPopup(
+		      	"Name: " + name + "</br>" +
+				"Distance: " + distKmRnd + " km </br>" +
+				"Elevation Gain: " + eleGain + " m </br>");
 		    });
-		        test.on('mouseout',function(ev) {
-		      test.closePopup();
+		        line.on('mouseout',function(ev) {
+		      line.closePopup();
 		    });
 			
 			for (var i = 0; i < listgpxpro.length; i += 1) {
