@@ -9,10 +9,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
 
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
-		<link rel="stylesheet" href="http://mrmufflon.github.io/Leaflet.Elevation/example/lib/elevation/Leaflet.Elevation-0.0.2.css" />
-		<script src="http://mrmufflon.github.io/Leaflet.Elevation/example/lib/elevation/Leaflet.Elevation-0.0.2.min.js"></script>
 
 		<!-- Need set size to display -->
 
@@ -84,7 +80,7 @@
           .openOn(map);
         });
         g.on('mouseout', function(e) {
-          var popup = L.popup().openOn(map);
+          map.closePopup();
         });
 
         g.addTo(map);
