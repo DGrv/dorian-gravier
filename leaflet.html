@@ -63,17 +63,78 @@ layout: page
 			// info glob php to js
 			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
 
-			var listgpxdone =['gpx/201901_Idee_Churfirsten_Emma.gpx'];
-			var listgpxpro =['gpx/Jura-mittelland-aaare_route_2018.gpx',
-				'gpx/201901_Idee_Santislow_Emma.gpx.gpx'];
-			var listgpxvelo =['gpx/Velo-route-rhone_schweiss_2018.gpx'];
-			var listgpxvelo2 =['gpx/WG-Touren.gpx',
-				'gpx/Plattberg-Upssitze-Ostreich.gpx'];
+			// create file
+			var Bike = [
+			'gpx/Bike/201511_mtb.gpx',
+			'gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
+			'gpx/Bike/201709_Bike_Travel.gpx',
+			'gpx/Bike/201808_Schwarzwald.gpx',
+			'gpx/Bike/201809_Bike_Switzerland.gpx']
+
+			var Hike = [
+			'gpx/Hike/2017_Grosser_Mythen.gpx',
+			'gpx/Hike/2017_KS_2TAllgäuerHochalpen-NebelhornzuGrosserDaumen.gpx',
+			'gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
+			'gpx/Hike/2017_Lütispitze.gpx',
+			'gpx/Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx',
+			'gpx/Hike/2017_W_RotspitzeHinterstein.gpx',
+			'gpx/Hike/201708_Druesberg.gpx',
+			'gpx/Hike/201711_Wgausflug.gpx',
+			'gpx/Hike/2018_W_HochYbrig_Druesberg.gpx',
+			'gpx/Hike/201804_Bockmattli.gpx',
+			'gpx/Hike/201804_Pfaender.gpx',
+			'gpx/Hike/201805_WG_Hike_0001.gpx',
+			'gpx/Hike/201805_WG_Hike_0002.gpx',
+			'gpx/Hike/201806_Zimba.gpx',
+			'gpx/Hike/201808_Feldberg.gpx',
+			'gpx/Hike/201809_Ottenhöfen_imSchwarzwaldHiking.gpx',
+			'gpx/Hike/201810_Pizol.gpx',
+			'gpx/Hike/201811_Silberplatte_Klettern.gpx',
+			'gpx/Hike/brunnenhochflue-t4.gpx',
+			'gpx/Hike/chaeserrugg_vonwalenstadt.gpx',
+			'gpx/Hike/hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx',
+			'gpx/Hike/murgtal_murgseeturm.gpx',
+			'gpx/Hike/plattberg_upssitzeostreich.gpx',
+			'gpx/Hike/saentis_vonsudden.gpx',
+			'gpx/Hike/sarek_2016.gpx',
+			'gpx/Hike/um_herumdergimpel.gpx',
+			'gpx/Hike/via_dellebochette.gpx']
+
+			var HikeProject = [
+			'gpx/Hike/Project/AKD_project.gpx',
+			'gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',
+			'gpx/Hike/Project/moew-paiserspitze_.gpx']
+
+			var gpx = [
+			'gpx/Name_var_js-html_tocopy_in_leaflet.txt',
+			'gpx/R_Create_variable_for_js-html.R']
+
+			var Schitour = [
+			'gpx/Schitour/2016_biet_weglosen.gpx',
+			'gpx/Schitour/2016_ober_kamorschitour.gpx',
+			'gpx/Schitour/2017_Innerlatenrns.gpx',
+			'gpx/Schitour/201711_LindauHutte.gpx',
+			'gpx/Schitour/2018_Fullfirst.gpx']
+
+			var SchitourProject = [
+			'gpx/Schitour/Project/mo1.gpx',
+			'gpx/Schitour/Project/mo11.gpx',
+			'gpx/Schitour/Project/mo12.gpx',
+			'gpx/Schitour/Project/mo2.gpx',
+			'gpx/Schitour/Project/mo3.gpx',
+			'gpx/Schitour/Project/mo4.gpx',
+			'gpx/Schitour/Project/mo5.gpx',
+			'gpx/Schitour/Project/mo6.gpx',
+			'gpx/Schitour/Project/mo8.gpx',
+			'gpx/Schitour/Project/mo9.gpx',
+			'gpx/Schitour/Project/no10.gpx']
+
+
 
 			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 
-			for (var i = 0; i < listgpxdone.length; i += 1) {
-				var g = new L.GPX(listgpxdone[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}});
+			for (var i = 0; i < Bike.length; i += 1) {
+				var g = new L.GPX(Bike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}});
 				g.on('mouseover', function(e) {
           var gpx = e.target,
 								name = gpx.get_name(),
@@ -97,120 +158,110 @@ layout: page
 				g.addTo(map);
 			};
 
-
-
-			for (var i = 0; i < listgpxpro.length; i += 1) {
-				var g = new L.GPX(listgpxpro[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', dashArray: '10, 10'}});
+			for (var i = 0; i < Hike.length; i += 1) {
+				var g = new L.GPX(Hike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'brown'}});
 				g.on('mouseover', function(e) {
-          var gpx = e.target,
+					var gpx = e.target,
 								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-          var info = "Name: " + name + "</br>" +
+									distM = gpx.get_distance(),
+									distKm = distM / 1000,
+									distKmRnd = distKm.toFixed(1),
+									eleGain = gpx.get_elevation_gain().toFixed(0),
+									eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var info = "Name: " + name + "</br>" +
 								"Distance: " + distKmRnd + " km </br>" +
 								"Elevation Gain: " + eleGain + " m </br>"
-          var popLocation= e.latlng;
-          var popup = L.popup()
-          .setLatLng(popLocation)
-          .setContent(info)
-          .openOn(map);
-        });
-        g.on('mouseout', function(e) {
-          map.closePopup();
-        });
-				g.addTo(map);
-			};
-
-			for (var i = 0; i < listgpxvelo.length; i += 1) {
-				var g = new L.GPX(listgpxvelo[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red'}});
-				g.on('mouseover', function(e) {
-          var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-          var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-          var popLocation= e.latlng;
-          var popup = L.popup()
-          .setLatLng(popLocation)
-          .setContent(info)
-          .openOn(map);
-        });
-        g.on('mouseout', function(e) {
-          map.closePopup();
-        });
-				g.addTo(map);
-			};
-
-			for (var i = 0; i < listgpxvelo2.length; i += 1) {
-				var g = new L.GPX(listgpxvelo2[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purple'}});
-				g.on('mouseover', function(e) {
-          var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-          var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-          var popLocation= e.latlng;
-          var popup = L.popup()
-          .setLatLng(popLocation)
-          .setContent(info)
-          .openOn(map);
-        });
-        g.on('mouseout', function(e) {
-          map.closePopup();
-        });
+					var popLocation= e.latlng;
+					var popup = L.popup()
+					.setLatLng(popLocation)
+					.setContent(info)
+					.openOn(map);
+				});
+				g.on('mouseout', function(e) {
+					map.closePopup();
+				});
 				g.addTo(map);
 			};
 
 
+			for (var i = 0; i < HikeProject.length; i += 1) {
+				var g = new L.GPX(HikeProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'brown', opacity: 0.5}});
+				g.on('mouseover', function(e) {
+					var gpx = e.target,
+								name = gpx.get_name(),
+									distM = gpx.get_distance(),
+									distKm = distM / 1000,
+									distKmRnd = distKm.toFixed(1),
+									eleGain = gpx.get_elevation_gain().toFixed(0),
+									eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var info = "Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+					var popLocation= e.latlng;
+					var popup = L.popup()
+					.setLatLng(popLocation)
+					.setContent(info)
+					.openOn(map);
+				});
+				g.on('mouseout', function(e) {
+					map.closePopup();
+				});
+				g.addTo(map);
+			};
+
+			for (var i = 0; i < Schitour.length; i += 1) {
+				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
+				g.on('mouseover', function(e) {
+					var gpx = e.target,
+								name = gpx.get_name(),
+									distM = gpx.get_distance(),
+									distKm = distM / 1000,
+									distKmRnd = distKm.toFixed(1),
+									eleGain = gpx.get_elevation_gain().toFixed(0),
+									eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var info = "Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+					var popLocation= e.latlng;
+					var popup = L.popup()
+					.setLatLng(popLocation)
+					.setContent(info)
+					.openOn(map);
+				});
+				g.on('mouseout', function(e) {
+					map.closePopup();
+				});
+				g.addTo(map);
+			};
+
+			for (var i = 0; i < SchitourProject.length; i += 1) {
+				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.5}});
+				g.on('mouseover', function(e) {
+					var gpx = e.target,
+								name = gpx.get_name(),
+									distM = gpx.get_distance(),
+									distKm = distM / 1000,
+									distKmRnd = distKm.toFixed(1),
+									eleGain = gpx.get_elevation_gain().toFixed(0),
+									eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var info = "Name: " + name + "</br>" +
+								"Distance: " + distKmRnd + " km </br>" +
+								"Elevation Gain: " + eleGain + " m </br>"
+					var popLocation= e.latlng;
+					var popup = L.popup()
+					.setLatLng(popLocation)
+					.setContent(info)
+					.openOn(map);
+				});
+				g.on('mouseout', function(e) {
+					map.closePopup();
+				});
+				g.addTo(map);
+			};
 
 
 
 
-
-
-
-			// -----------------------------------------------------------------------------------
-			// -----------------------------------------------------------------------------------
-			// -----------------------------------------------------------------------------------
-			// -----------------------------------------------------------------------------------
-			// -----------------------------------------------------------------------------------
-
-			<!-- // initialize the map -->
-			<!-- var mapBU = L.map('mapBU').setView([47.5, 9.6], 8); -->
-			<!-- // load a tile layer -->
-			<!-- L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png', -->
-			<!-- { -->
-				<!-- attribution: 'Tiles by <a href="https://opentopomap.org/#map=5/49.000/10.000">OpenTopoMap</a>', -->
-				<!-- maxZoom: 17, -->
-				<!-- minZoom: 1 -->
-			<!-- }).addTo(mapBU); -->
-
-
-			<!-- var listgpxBU =['gpx/WG-Touren.gpx', -->
-				<!-- 'gpx/Velo-route-rhone_schweiss_2018.gpx', -->
-				<!-- 'gpx/Plattberg-Upssitze-Ostreich.gpx', -->
-				<!-- 'gpx/Jura-mittelland-aaare_route_2018.gpx', -->
-				<!-- 'gpx/201901_Idee_Santislow_Emma.gpx.gpx', -->
-				<!-- 'gpx/201901_Idee_Santis_Emma.gpx.gpx', -->
-				<!-- 'gpx/201901_Idee_Churfirsten_Emma.gpx']; -->
-
-
-			<!-- for (var i = 0; i < listgpxBU.length; i += 1) { -->
-				<!-- new L.GPX(listgpxBU[i], {async: true, parseElements: ['track']}).on('loaded', function(e) {}).addTo(mapBU); -->
-			<!-- }; -->
 
 
 
