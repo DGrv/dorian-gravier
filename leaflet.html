@@ -185,7 +185,7 @@ layout: page
 
 
 			for (var i = 0; i < HikeProject.length; i += 1) {
-				var g = new L.GPX(HikeProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'brown', opacity: 0.8, dashArray: 1 3}});
+				var g = new L.GPX(HikeProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'brown', opacity: 0.8, dashArray: '1 3'}});
 				g.on('mouseover', function(e) {
 					var gpx = e.target,
 								name = gpx.get_name(),
@@ -235,7 +235,7 @@ layout: page
 			};
 
 			for (var i = 0; i < SchitourProject.length; i += 1) {
-				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.8, dashArray: 1 3}});
+				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.8, dashArray: '1 3'}});
 				g.on('mouseover', function(e) {
 					var gpx = e.target,
 								name = gpx.get_name(),
