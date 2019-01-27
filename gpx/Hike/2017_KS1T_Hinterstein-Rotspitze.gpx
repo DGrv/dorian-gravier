@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gpx
+	version="1.1"
+	creator="MyTourbook 18.9.0.20180831-1243 - http://mytourbook.sourceforge.net"
+	xmlns="http://www.topografix.com/GPX/1/1"
+	xmlns:gpxdata="http://www.cluetrust.com/XML/GPXDATA/1/0"
+	xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+	xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+	xmlns:mt="net.tourbook/1"
+	xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd 
+	http://www.cluetrust.com/XML/GPXDATA/1/0 http://www.cluetrust.com/Schemas/gpxdata10.xsd 
+	http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd 
+	http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metadata>	
+		<time>1999-12-31T23:00:00Z</time>
+		<bounds minlat="47.48379" minlon="10.38939" maxlat="47.48379" maxlon="10.38939"/>
+	</metadata>
+	<trk>
+		<trkseg>
+			<trkpt lat="47.48379" lon="10.38939">
+				<time>1999-12-31T23:00:00Z</time>
+				<ele>829.3</ele>
+				<extensions>
+					<gpxtpx:TrackPointExtension>
+						<gpxtpx:cad>0</gpxtpx:cad>
+					</gpxtpx:TrackPointExtension>
+					<gpxdata:distance>0.0</gpxdata:distance>
+				</extensions>
+			</trkpt>
+		</trkseg>
+	</trk>
+</gpx>
