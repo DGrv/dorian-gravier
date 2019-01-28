@@ -16,17 +16,17 @@ for(i in seq_along(lisdir)) {
   } else {
     varname <- basename(lisdir[i])
   }
-  write(paste0("var ", varname, " = ["), file = "Name_var_js-html_tocopy_in_leaflet.txt", append = T)
-  
+
   lis2 <- lis[dir == lisdir[i]]
-  
+
   for( j in 1:nrow(lis2)) {
-    if( j == nrow(lis2)) {
+    if( j == 1) {
+      write(paste0("var ", varname, " = ['", lis2[j, path2], "',\n"), file = "Name_var_js-html_tocopy_in_leaflet.txt", append = T)
+    } else if( j == nrow(lis2)) {
       write(paste0("'", lis2[j, path2], "']\n"), file = "Name_var_js-html_tocopy_in_leaflet.txt", append = T)
     } else {
       write(paste0("'", lis2[j, path2], "',"), file = "Name_var_js-html_tocopy_in_leaflet.txt", append = T)
     }
   }
-  
-}
 
+}
