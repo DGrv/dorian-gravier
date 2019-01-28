@@ -21,6 +21,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
+		<!-- For full screen -->
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+
 		<style>
 			#map{ width: 900px; height: 500px; }
 		</style>
@@ -49,7 +54,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    var map = L.map('map', {
 	      center: [47.5, 9.6],
 	      zoom: 8,
-	      layers: [topo, open]
+	      layers: [topo, open],
+    		fullscreenControl: true,
 	    });
 
 	    var baseLayers = {
