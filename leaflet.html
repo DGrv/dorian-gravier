@@ -64,13 +64,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    };
 
 	   	// create layers
-			var slope = L.tileLayer('https://s{r}.outdooractive.com/map/xGradient/{z}/{x}/{y}.png?project=alpenverein', {
-				foo: 'bar',
-				attribution: 'Map data from <a href="">alpenvereinaktiv</a>',
+			var hill = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1
 			});
-			var lSlope= L.layerGroup();
+
 			var lBike = L.layerGroup();
 			var lBikeProject = L.layerGroup();
 			var lHike = L.layerGroup();
@@ -78,7 +76,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var lSchiTour = L.layerGroup();
 			var lSchiTourProject = L.layerGroup();
 
-			var overlays = {"Slope": slope,
+			var overlays = {"Hillshading": hill,
 			"Bike": lBike,
 			"Hike": lHike,
 			"SchiTour": lSchiTour,
