@@ -65,20 +65,15 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var lSchiTour = L.layerGroup();
 			var lSchiTourProject = L.layerGroup();
 
-			var lBike2 = {"Bike": lBike};
-			var lHike2 = {"Hike": lHike};
-			var lSchiTour2 = {"SchiTour": lSchiTour};
-			var lBikeProject2 = {"Project Bike": lBikeProject};
-			var lHikeProject2 = {"Project Hike": lHikeProject};
-			var lSchiTourProject2 = {"Project SchiTour": lSchiTourProject};
+			var overlays = {"Bike": lBike,
+			"Hike": lHike,
+			"SchiTour": lSchiTour,
+			"Project Bike": lBikeProject,
+			"Project Hike": lHikeProject,
+			"Project SchiTour": lSchiTourProject
+			};
 
-			L.control.layers(baseLayers,
-		  lBike2,
-		  lHike2,
-		  lSchiTour2,
-		  lBikeProject2,
-		  lHikeProject2,
-		  lSchiTourProject2).addTo(map);
+			L.control.layers(baseLayers, overlays).addTo(map);
 
 			// create variable with path from the gpx
 			var Bike = ['gpx/Bike/201511_mtb.gpx',
