@@ -17,48 +17,29 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<title>A Leaflet map!</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-
 		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
-
-		<!-- Need set size to display -->
-
 		<style>
 			#map{ width: 900px; height: 500px; }
-			<!-- #mapBU{ width: 900px; height: 500px; } -->
+			/* To add a second map */
+			/* #mapBU{ width: 900px; height: 500px; } */
 		</style>
-
-
 	</head>
 	<body>
-
-		<!-- div to display the maps -->
-
+		<!-- To display the map -->
 		<div id="map"></div>
-		<!-- <div id="mapBU"></div> -->
-
-
-
 
 		<script>
-
-				// test your script on https://plnkr.co
-				// test your script on https://plnkr.co
-				// test your script on https://plnkr.co
-				// test your script on https://plnkr.co
-				// test your script on https://plnkr.co
-				// test your script on https://plnkr.co
-
+			// test your script on https://plnkr.co
 
 			// initialize the map
 			var map = L.map('map').setView([47.5, 9.6], 8);
 
-
+			// load a tile layer
 			// check example maps
 			// http://leaflet-extras.github.io/leaflet-providers/preview/
-			// load a tile layer
 			L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
 			{
 				attribution: 'Tiles by <a href="https://opentopomap.org/">OpenTopoMap</a>',
@@ -67,19 +48,15 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			}).addTo(map);
 
 
-			// info glob php to js
-			// https://stackoverflow.com/questions/5957460/passing-array-from-php-to-javascript
 
-			// create file
-			var Bike = [
-			'gpx/Bike/201511_mtb.gpx',
+			// create variable with path from the gpx
+			var Bike = ['gpx/Bike/201511_mtb.gpx',
 			'gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
 			'gpx/Bike/201709_Bike_Travel.gpx',
 			'gpx/Bike/201808_Schwarzwald.gpx',
 			'gpx/Bike/201809_Bike_Switzerland.gpx']
 
-			var Hike = [
-			'gpx/Hike/2017_Grosser_Mythen.gpx',
+			var Hike = ['gpx/Hike/2017_Grosser_Mythen.gpx',
 			'gpx/Hike/2017_KS_2TAllgäuerHochalpen-NebelhornzuGrosserDaumen.gpx',
 			'gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
 			'gpx/Hike/2017_Lütispitze.gpx',
@@ -107,24 +84,20 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			'gpx/Hike/um_herumdergimpel.gpx',
 			'gpx/Hike/via_dellebochette.gpx']
 
-			var HikeProject = [
-			'gpx/Hike/Project/AKD_project.gpx',
+			var HikeProject = ['gpx/Hike/Project/AKD_project.gpx',
 			'gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',
 			'gpx/Hike/Project/moew-paiserspitze_.gpx']
 
-			var gpx = [
-			'gpx/Name_var_js-html_tocopy_in_leaflet.txt',
+			var gpx = ['gpx/Name_var_js-html_tocopy_in_leaflet.txt',
 			'gpx/R_Create_variable_for_js-html.R']
 
-			var Schitour = [
-			'gpx/Schitour/2016_biet_weglosen.gpx',
+			var Schitour = ['gpx/Schitour/2016_biet_weglosen.gpx',
 			'gpx/Schitour/2016_ober_kamorschitour.gpx',
 			'gpx/Schitour/2017_Innerlatenrns.gpx',
 			'gpx/Schitour/201711_LindauHutte.gpx',
 			'gpx/Schitour/2018_Fullfirst.gpx']
 
-			var SchitourProject = [
-			'gpx/Schitour/Project/mo1.gpx',
+			var SchitourProject = ['gpx/Schitour/Project/mo1.gpx',
 			'gpx/Schitour/Project/mo11.gpx',
 			'gpx/Schitour/Project/mo12.gpx',
 			'gpx/Schitour/Project/mo2.gpx',
@@ -140,129 +113,123 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 
+			//Bike -------------------------------------------------------------------------------------
+
 			for (var i = 0; i < Bike.length; i += 1) {
 				var g = new L.GPX(Bike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}});
-				g.on('mouseover', function(e) {
-          var gpx = e.target,
-								name = gpx.get_name(),
-							    distM = gpx.get_distance(),
-							    distKm = distM / 1000,
-							    distKmRnd = distKm.toFixed(1),
-							    eleGain = gpx.get_elevation_gain().toFixed(0),
-							    eleLoss = gpx.get_elevation_loss().toFixed(0);
-          var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-          var popLocation= e.latlng;
-          var popup = L.popup()
-          .setLatLng(popLocation)
-          .setContent(info)
-          .openOn(map);
-        });
-        g.on('mouseout', function(e) {
-          map.closePopup();
-        });
+				g.on('loaded', function(e) {
+ 		     var gpx = e.target,
+ 		       name = gpx.get_name(),
+ 		       distM = gpx.get_distance(),
+ 		       distKm = distM / 1000,
+ 		       distKmRnd = distKm.toFixed(1),
+ 		       eleGain = gpx.get_elevation_gain().toFixed(0),
+ 		       eleLoss = gpx.get_elevation_loss().toFixed(0);
+
+ 		     var info = "Name: " + name + "</br>" +
+ 		       "Distance: " + distKmRnd + " km </br>" +
+ 		       "Elevation Gain: " + eleGain + " m </br>"
+
+ 		     // register popup on click
+ 					gpx.getLayers()[0].bindPopup(info)
 				g.addTo(map);
 			};
+
+
+			//Hike -------------------------------------------------------------------------------------
+
 
 			for (var i = 0; i < Hike.length; i += 1) {
 				var g = new L.GPX(Hike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'red'}});
-				g.on('mouseover', function(e) {
+				g.on('loaded', function(e) {
 					var gpx = e.target,
-								name = gpx.get_name(),
-									distM = gpx.get_distance(),
-									distKm = distM / 1000,
-									distKmRnd = distKm.toFixed(1),
-									eleGain = gpx.get_elevation_gain().toFixed(0),
-									eleLoss = gpx.get_elevation_loss().toFixed(0);
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+
 					var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-					var popLocation= e.latlng;
-					var popup = L.popup()
-					.setLatLng(popLocation)
-					.setContent(info)
-					.openOn(map);
-				});
-				g.on('mouseout', function(e) {
-					map.closePopup();
-				});
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+
+					// register popup on click
+					 gpx.getLayers()[0].bindPopup(info)
 				g.addTo(map);
 			};
 
+
+
+
+			//HikeProject -------------------------------------------------------------------------------------
 
 			for (var i = 0; i < HikeProject.length; i += 1) {
 				var g = new L.GPX(HikeProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'brown', opacity: 0.95, dashArray: '3 6'}});
-				g.on('mouseover', function(e) {
+				g.on('loaded', function(e) {
 					var gpx = e.target,
-								name = gpx.get_name(),
-									distM = gpx.get_distance(),
-									distKm = distM / 1000,
-									distKmRnd = distKm.toFixed(1),
-									eleGain = gpx.get_elevation_gain().toFixed(0),
-									eleLoss = gpx.get_elevation_loss().toFixed(0);
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+
 					var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-					var popLocation= e.latlng;
-					var popup = L.popup()
-					.setLatLng(popLocation)
-					.setContent(info)
-					.openOn(map);
-				});
-				g.on('mouseout', function(e) {
-					map.closePopup();
-				});
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+
+					// register popup on click
+					 gpx.getLayers()[0].bindPopup(info)
 				g.addTo(map);
 			};
+
+
+
+			//Schitour -------------------------------------------------------------------------------------
 
 			for (var i = 0; i < Schitour.length; i += 1) {
 				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
-				g.on('mouseover', function(e) {
-					var gpx = e.target,
-								name = gpx.get_name(),
-									distM = gpx.get_distance(),
-									distKm = distM / 1000,
-									distKmRnd = distKm.toFixed(1),
-									eleGain = gpx.get_elevation_gain().toFixed(0),
-									eleLoss = gpx.get_elevation_loss().toFixed(0);
-					var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-					var popLocation= e.latlng;
-					var popup = L.popup()
-					.setLatLng(popLocation)
-					.setContent(info)
-					.openOn(map);
-				});
-				g.on('mouseout', function(e) {
-					map.closePopup();
-				});
+				g.on('loaded', function(e) {
+ 		     var gpx = e.target,
+ 		       name = gpx.get_name(),
+ 		       distM = gpx.get_distance(),
+ 		       distKm = distM / 1000,
+ 		       distKmRnd = distKm.toFixed(1),
+ 		       eleGain = gpx.get_elevation_gain().toFixed(0),
+ 		       eleLoss = gpx.get_elevation_loss().toFixed(0);
+
+ 		     var info = "Name: " + name + "</br>" +
+ 		       "Distance: " + distKmRnd + " km </br>" +
+ 		       "Elevation Gain: " + eleGain + " m </br>"
+
+ 		     // register popup on click
+ 					gpx.getLayers()[0].bindPopup(info)
 				g.addTo(map);
 			};
 
+
+
+
+			//SchitourProject -------------------------------------------------------------------------------------
+
 			for (var i = 0; i < SchitourProject.length; i += 1) {
 				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.95, dashArray: '3 6'}});
-				g.on('mouseover', function(e) {
+				g.on('loaded', function(e) {
 					var gpx = e.target,
-								name = gpx.get_name(),
-									distM = gpx.get_distance(),
-									distKm = distM / 1000,
-									distKmRnd = distKm.toFixed(1),
-									eleGain = gpx.get_elevation_gain().toFixed(0),
-									eleLoss = gpx.get_elevation_loss().toFixed(0);
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+
 					var info = "Name: " + name + "</br>" +
-								"Distance: " + distKmRnd + " km </br>" +
-								"Elevation Gain: " + eleGain + " m </br>"
-					var popLocation= e.latlng;
-					var popup = L.popup()
-					.setLatLng(popLocation)
-					.setContent(info)
-					.openOn(map);
-				});
-				g.on('mouseout', function(e) {
-					map.closePopup();
-				});
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+
+					// register popup on click
+					 gpx.getLayers()[0].bindPopup(info)
 				g.addTo(map);
 			};
 
