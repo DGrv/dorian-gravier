@@ -57,10 +57,29 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	      "OpenStreet": open
 	    };
 
+	    L.control.layers(baseLayers, overlays).addTo(map);
 
 
-	    L.control.layers(baseLayers).addTo(map);
 
+
+
+			// create layers
+			var lBike = L.layerGroup();
+			var lBikeProject = L.layerGroup();
+			var lHike = L.layerGroup();
+			var lHikeProject = L.layerGroup();
+			var lSchiTour = L.layerGroup();
+			var lSchiTourProject = L.layerGroup();
+
+			var overlays = {
+				"Bike": lBike,
+				"Hike": lHike,
+				"SchiTour": lSchiTour,
+				"Project Bike": lBikeProject,
+				"Project Hike": lHikeProject,
+				"Project SchiTour": lSchiTourProject,
+
+			};
 
 
 			// create variable with path from the gpx
@@ -147,7 +166,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
  		     // register popup on click
  					gpx.getLayers()[0].bindPopup(info);
 				});
-				g.addTo(map);
+				g.addTo(lBike);
 			};
 
 
@@ -172,7 +191,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(map);
+				g.addTo(lHike);
 			};
 
 
@@ -198,7 +217,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(map);
+				g.addTo(lHikeProject);
 			};
 
 
@@ -223,7 +242,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
  		     // register popup on click
  					gpx.getLayers()[0].bindPopup(info);
 				});
-				g.addTo(map);
+				g.addTo(lSchiTour);
 			};
 
 
@@ -249,7 +268,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(map);
+				g.addTo(lSchiTourProject);
 			};
 
 
