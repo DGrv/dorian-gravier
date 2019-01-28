@@ -1,10 +1,13 @@
 library(data.table)
 
-wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/gpx"
+wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/gpx/"
+if( !exists(wd) ) {
+  wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/gpx/"
+}
 setwd(wd)
 
 lis <- data.table(path = list.files(wd, full = T, recursive = T))
-lis[, path2 := gsub("D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/", "", path) ]
+lis[, path2 := gsub(dirname(wd), "", path) ]
 lis[, dir := dirname(path2) ]
 lisdir <- unique(lis$dir)
 
@@ -28,5 +31,21 @@ for(i in seq_along(lisdir)) {
       write(paste0("'", lis2[j, path2], "',"), file = "Name_var_js-html_tocopy_in_leaflet.txt", append = T)
     }
   }
-
 }
+
+write("// create file", file = "Link_gpx_tocopy_in_leaflet.txt")
+for(i in seq_along(lisdir)) {
+  if( basename(lisdir[i]) == "Project" ) {
+    varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
+  } else {
+    varname <- basename(lisdir[i])
+  }
+
+  lis2 <- lis[dir == lisdir[i]]
+
+  write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
+  for( j in 1:nrow(lis2)) {
+      write(paste0("\t- ", lis2[j, path2], ""), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
+  }
+}
+
