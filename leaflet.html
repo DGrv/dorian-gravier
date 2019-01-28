@@ -57,7 +57,13 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	      "OpenStreet": open
 	    };
 
-	    L.control.layers(baseLayers, overlays).addTo(map);
+	    L.control.layers(baseLayers,
+			lBike2,
+			lHike2,
+			lSchiTour2,
+			lBikeProject2,
+			lHikeProject2,
+			lSchiTourProject2).addTo(map);
 
 
 
@@ -78,8 +84,15 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				"Project Bike": lBikeProject,
 				"Project Hike": lHikeProject,
 				"Project SchiTour": lSchiTourProject,
-
 			};
+
+			var lBike2 = {"Bike": lBike},
+			lHike2 = {"Hike": lHike},
+			lSchiTour2 = {"SchiTour": lSchiTour},
+			lBikeProject2 = {"Project Bike": lBikeProject},
+			lHikeProject2 = {"Project Hike": lHikeProject},
+			lSchiTourProject2 = {"Project SchiTour": lSchiTourProject};
+
 
 
 			// create variable with path from the gpx
