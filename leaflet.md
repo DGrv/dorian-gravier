@@ -3,7 +3,6 @@ title: Leaflet
 layout: page
 ---
 
-<section markdown="1">
 
 Please wait a bit that all the gpx are loaded. This page will be updated and improved soon.
 As legend :
@@ -14,7 +13,7 @@ As legend :
 
 Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
-</section>
+
 
 <html>
 	<head>
