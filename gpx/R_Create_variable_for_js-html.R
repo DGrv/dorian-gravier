@@ -1,8 +1,8 @@
 library(data.table)
 
-wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/gpx/"
+wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/gpx"
 if( !exists(wd) ) {
-  wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/gpx/"
+  wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/gpx"
 }
 setwd(wd)
 
