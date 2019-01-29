@@ -13,8 +13,8 @@ As legend :
 
 Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
-
-
+</br>
+</br>
 
 
 
@@ -45,13 +45,13 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			// test your script on https://plnkr.co
 
 			var topo = L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	        attribution: 'Tiles by <a href="https://opentopomap.org/">OpenTopoMap</a>',
+	        attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | map style: © OpenTopoMap (CC-BY-SA)',
 	        maxZoom: 17,
 	        minZoom: 1
 	      }),
 	      open = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
 	        foo: 'bar',
-	        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	        attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	        maxZoom: 17,
 	        minZoom: 1
 	      });
@@ -61,7 +61,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    var map = L.map('map', {
 	      center: [47.5, 9.6],
 	      zoom: 8,
-	      layers: [topo, open],
+	      layers: topo,
     		fullscreenControl: true,
 	    });
 
@@ -289,7 +289,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	</body>
 </html>
 
-
+</br>
+</br>
+</br>
 
 
 
