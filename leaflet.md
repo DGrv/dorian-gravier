@@ -44,6 +44,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<br>
 		<br>
 		<br>
+
 		<script>
 			// test your script on https://plnkr.co
 
@@ -100,63 +101,64 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			// create variable with path from the gpx
 			// create file
-			var Bike = ['gpx//Bike/201511_mtb.gpx',
-			'gpx//Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
-			'gpx//Bike/201709_Bike_Travel.gpx',
-			'gpx//Bike/201808_Schwarzwald.gpx',
-			'gpx//Bike/201809_Bike_Switzerland.gpx']
+			var Bike = ['gpx/Bike/201511_mtb.gpx',
+			'gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
+			'gpx/Bike/201709_Bike_Travel.gpx',
+			'gpx/Bike/201808_Schwarzwald.gpx',
+			'gpx/Bike/201809_Bike_Switzerland.gpx']
 
-			var Hike = ['gpx//Hike/2017_Grosser_Mythen.gpx',
-			'gpx//Hike/2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx',
-			'gpx//Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
-			'gpx//Hike/2017_Luetispitze.gpx',
-			'gpx//Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx',
-			'gpx//Hike/201708_Druesberg.gpx',
-			'gpx//Hike/201711_Wgausflug.gpx',
-			'gpx//Hike/2018_W_HochYbrig_Druesberg.gpx',
-			'gpx//Hike/201804_Bockmattli.gpx',
-			'gpx//Hike/201804_Pfaender.gpx',
-			'gpx//Hike/201805_WG_Hike_0001.gpx',
-			'gpx//Hike/201805_WG_Hike_0002.gpx',
-			'gpx//Hike/201806_Zimba.gpx',
-			'gpx//Hike/201808_Feldberg.gpx',
-			'gpx//Hike/201809_Ottenh�fen_imSchwarzwaldHiking.gpx',
-			'gpx//Hike/201810_Pizol.gpx',
-			'gpx//Hike/201811_Silberplatte_Klettern.gpx',
-			'gpx//Hike/brunnenhochflue-t4.gpx',
-			'gpx//Hike/chaeserrugg_vonwalenstadt.gpx',
-			'gpx//Hike/hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx',
-			'gpx//Hike/murgtal_murgseeturm.gpx',
-			'gpx//Hike/plattberg_upssitzeostreich.gpx',
-			'gpx//Hike/saentis_vonsudden.gpx',
-			'gpx//Hike/sarek_2016.gpx',
-			'gpx//Hike/um_herumdergimpel.gpx',
-			'gpx//Hike/via_dellebochette.gpx']
+			var Hike = ['gpx/Hike/2017_Grosser_Mythen.gpx',
+			'gpx/Hike/2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx',
+			'gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
+			'gpx/Hike/2017_Luetispitze.gpx',
+			'gpx/Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx',
+			'gpx/Hike/201708_Druesberg.gpx',
+			'gpx/Hike/201711_Wgausflug.gpx',
+			'gpx/Hike/2018_W_HochYbrig_Druesberg.gpx',
+			'gpx/Hike/201804_Bockmattli.gpx',
+			'gpx/Hike/201804_Pfaender.gpx',
+			'gpx/Hike/201805_WG_Hike_0001.gpx',
+			'gpx/Hike/201805_WG_Hike_0002.gpx',
+			'gpx/Hike/201806_Zimba.gpx',
+			'gpx/Hike/201808_Feldberg.gpx',
+			'gpx/Hike/201809_Ottenh�fen_imSchwarzwaldHiking.gpx',
+			'gpx/Hike/201810_Pizol.gpx',
+			'gpx/Hike/201811_Silberplatte_Klettern.gpx',
+			'gpx/Hike/brunnenhochflue-t4.gpx',
+			'gpx/Hike/chaeserrugg_vonwalenstadt.gpx',
+			'gpx/Hike/hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx',
+			'gpx/Hike/murgtal_murgseeturm.gpx',
+			'gpx/Hike/plattberg_upssitzeostreich.gpx',
+			'gpx/Hike/saentis_vonsudden.gpx',
+			'gpx/Hike/sarek_2016.gpx',
+			'gpx/Hike/um_herumdergimpel.gpx',
+			'gpx/Hike/via_dellebochette.gpx']
 
-			var HikeProject = ['gpx//Hike/Project/AKD_project.gpx',
-			'gpx//Hike/Project/moe_saladinspitze_rotewand_.gpx',
-			'gpx//Hike/Project/moew-paiserspitze_.gpx']
+			var HikeProject = ['gpx/Hike/Project/AKD_project.gpx',
+			'gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',
+			'gpx/Hike/Project/moew-paiserspitze_.gpx']
 
-			var Schitour = ['gpx//Schitour/2016_biet_weglosen.gpx',
-			'gpx//Schitour/2016_ober_kamorschitour.gpx',
-			'gpx//Schitour/2017_Innerlatenrns.gpx',
-			'gpx//Schitour/201711_LindauHutte.gpx',
-			'gpx//Schitour/2018_Fullfirst.gpx']
+			var Schitour = ['gpx/Schitour/2016_biet_weglosen.gpx',
+			'gpx/Schitour/2016_ober_kamorschitour.gpx',
+			'gpx/Schitour/2017_Innerlatenrns.gpx',
+			'gpx/Schitour/201711_LindauHutte.gpx',
+			'gpx/Schitour/2018_Fullfirst.gpx']
 
-			var SchitourProject = ['gpx//Schitour/Project/t109036230_st-moematona.gpx',
-			'gpx//Schitour/Project/t109036358_st-moemoerzelspitze.gpx',
-			'gpx//Schitour/Project/t109398209_moe-st-2t-heilbronner_huette.gpx',
-			'gpx//Schitour/Project/t109398283_moe-st-mattjischhorn.gpx',
-			'gpx//Schitour/Project/t109398323_moe-st-2t-carschinahuette.gpx',
-			'gpx//Schitour/Project/t109398379_moe-st-2t-carschinahuette_2.gpx',
-			'gpx//Schitour/Project/t109398429_moe-st-2t-claridenhuette.gpx',
-			'gpx//Schitour/Project/t109414864_moe-st-hirschberg.gpx',
-			'gpx//Schitour/Project/t110089676_moe-st_gerenspitze.gpx',
-			'gpx//Schitour/Project/t110089738_moe-st_alpilakopf.gpx',
-			'gpx//Schitour/Project/t110089773_moe-st_windeggerspitze.gpx',
-			'gpx//Schitour/Project/t110089814_moe-st_analperjoch.gpx',
-			'gpx//Schitour/Project/t110099994_moe-st_gafier.gpx',
-			'gpx//Schitour/Project/t110100024_moe-st_gampapingalpe.gpx']
+			var SchitourProject = ['gpx/Schitour/Project/t109036230_st-moematona.gpx',
+			'gpx/Schitour/Project/t109036358_st-moemoerzelspitze.gpx',
+			'gpx/Schitour/Project/t109398209_moe-st-2t-heilbronner_huette.gpx',
+			'gpx/Schitour/Project/t109398283_moe-st-mattjischhorn.gpx',
+			'gpx/Schitour/Project/t109398323_moe-st-2t-carschinahuette.gpx',
+			'gpx/Schitour/Project/t109398379_moe-st-2t-carschinahuette_2.gpx',
+			'gpx/Schitour/Project/t109398429_moe-st-2t-claridenhuette.gpx',
+			'gpx/Schitour/Project/t109414864_moe-st-hirschberg.gpx',
+			'gpx/Schitour/Project/t110089676_moe-st_gerenspitze.gpx',
+			'gpx/Schitour/Project/t110089738_moe-st_alpilakopf.gpx',
+			'gpx/Schitour/Project/t110089773_moe-st_windeggerspitze.gpx',
+			'gpx/Schitour/Project/t110089814_moe-st_analperjoch.gpx',
+			'gpx/Schitour/Project/t110099994_moe-st_gafier.gpx',
+			'gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx']
+
 
 
 
@@ -304,60 +306,60 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 - Bike
-	- [201511_mtb.gpx](gpx//Bike/201511_mtb.gpx)
-	- [2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx](gpx//Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx)
-	- [201709_Bike_Travel.gpx](gpx//Bike/201709_Bike_Travel.gpx)
-	- [201808_Schwarzwald.gpx](gpx//Bike/201808_Schwarzwald.gpx)
-	- [201809_Bike_Switzerland.gpx](gpx//Bike/201809_Bike_Switzerland.gpx)
+	- [201511_mtb.gpx](gpx/Bike/201511_mtb.gpx)
+	- [2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx](gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx)
+	- [201709_Bike_Travel.gpx](gpx/Bike/201709_Bike_Travel.gpx)
+	- [201808_Schwarzwald.gpx](gpx/Bike/201808_Schwarzwald.gpx)
+	- [201809_Bike_Switzerland.gpx](gpx/Bike/201809_Bike_Switzerland.gpx)
 - Hike
-	- [2017_Grosser_Mythen.gpx](gpx//Hike/2017_Grosser_Mythen.gpx)
-	- [2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx//Hike/2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx)
-	- [2017_KS1T_Hinterstein-Rotspitze.gpx](gpx//Hike/2017_KS1T_Hinterstein-Rotspitze.gpx)
-	- [2017_Luetispitze.gpx](gpx//Hike/2017_Luetispitze.gpx)
-	- [2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx](gpx//Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx)
-	- [201708_Druesberg.gpx](gpx//Hike/201708_Druesberg.gpx)
-	- [201711_Wgausflug.gpx](gpx//Hike/201711_Wgausflug.gpx)
-	- [2018_W_HochYbrig_Druesberg.gpx](gpx//Hike/2018_W_HochYbrig_Druesberg.gpx)
-	- [201804_Bockmattli.gpx](gpx//Hike/201804_Bockmattli.gpx)
-	- [201804_Pfaender.gpx](gpx//Hike/201804_Pfaender.gpx)
-	- [201805_WG_Hike_0001.gpx](gpx//Hike/201805_WG_Hike_0001.gpx)
-	- [201805_WG_Hike_0002.gpx](gpx//Hike/201805_WG_Hike_0002.gpx)
-	- [201806_Zimba.gpx](gpx//Hike/201806_Zimba.gpx)
-	- [201808_Feldberg.gpx](gpx//Hike/201808_Feldberg.gpx)
-	- [201809_Ottenh�fen_imSchwarzwaldHiking.gpx](gpx//Hike/201809_Ottenh�fen_imSchwarzwaldHiking.gpx)
-	- [201810_Pizol.gpx](gpx//Hike/201810_Pizol.gpx)
-	- [201811_Silberplatte_Klettern.gpx](gpx//Hike/201811_Silberplatte_Klettern.gpx)
-	- [brunnenhochflue-t4.gpx](gpx//Hike/brunnenhochflue-t4.gpx)
-	- [chaeserrugg_vonwalenstadt.gpx](gpx//Hike/chaeserrugg_vonwalenstadt.gpx)
-	- [hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx](gpx//Hike/hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx)
-	- [murgtal_murgseeturm.gpx](gpx//Hike/murgtal_murgseeturm.gpx)
-	- [plattberg_upssitzeostreich.gpx](gpx//Hike/plattberg_upssitzeostreich.gpx)
-	- [saentis_vonsudden.gpx](gpx//Hike/saentis_vonsudden.gpx)
-	- [sarek_2016.gpx](gpx//Hike/sarek_2016.gpx)
-	- [um_herumdergimpel.gpx](gpx//Hike/um_herumdergimpel.gpx)
-	- [via_dellebochette.gpx](gpx//Hike/via_dellebochette.gpx)
+	- [2017_Grosser_Mythen.gpx](gpx/Hike/2017_Grosser_Mythen.gpx)
+	- [2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx/Hike/2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx)
+	- [2017_KS1T_Hinterstein-Rotspitze.gpx](gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx)
+	- [2017_Luetispitze.gpx](gpx/Hike/2017_Luetispitze.gpx)
+	- [2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx](gpx/Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx)
+	- [201708_Druesberg.gpx](gpx/Hike/201708_Druesberg.gpx)
+	- [201711_Wgausflug.gpx](gpx/Hike/201711_Wgausflug.gpx)
+	- [2018_W_HochYbrig_Druesberg.gpx](gpx/Hike/2018_W_HochYbrig_Druesberg.gpx)
+	- [201804_Bockmattli.gpx](gpx/Hike/201804_Bockmattli.gpx)
+	- [201804_Pfaender.gpx](gpx/Hike/201804_Pfaender.gpx)
+	- [201805_WG_Hike_0001.gpx](gpx/Hike/201805_WG_Hike_0001.gpx)
+	- [201805_WG_Hike_0002.gpx](gpx/Hike/201805_WG_Hike_0002.gpx)
+	- [201806_Zimba.gpx](gpx/Hike/201806_Zimba.gpx)
+	- [201808_Feldberg.gpx](gpx/Hike/201808_Feldberg.gpx)
+	- [201809_Ottenh�fen_imSchwarzwaldHiking.gpx](gpx/Hike/201809_Ottenh�fen_imSchwarzwaldHiking.gpx)
+	- [201810_Pizol.gpx](gpx/Hike/201810_Pizol.gpx)
+	- [201811_Silberplatte_Klettern.gpx](gpx/Hike/201811_Silberplatte_Klettern.gpx)
+	- [brunnenhochflue-t4.gpx](gpx/Hike/brunnenhochflue-t4.gpx)
+	- [chaeserrugg_vonwalenstadt.gpx](gpx/Hike/chaeserrugg_vonwalenstadt.gpx)
+	- [hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx](gpx/Hike/hohenschwangauwildsulzhuette-saeuling-saeulinghau.gpx)
+	- [murgtal_murgseeturm.gpx](gpx/Hike/murgtal_murgseeturm.gpx)
+	- [plattberg_upssitzeostreich.gpx](gpx/Hike/plattberg_upssitzeostreich.gpx)
+	- [saentis_vonsudden.gpx](gpx/Hike/saentis_vonsudden.gpx)
+	- [sarek_2016.gpx](gpx/Hike/sarek_2016.gpx)
+	- [um_herumdergimpel.gpx](gpx/Hike/um_herumdergimpel.gpx)
+	- [via_dellebochette.gpx](gpx/Hike/via_dellebochette.gpx)
 - HikeProject
-	- [AKD_project.gpx](gpx//Hike/Project/AKD_project.gpx)
-	- [moe_saladinspitze_rotewand_.gpx](gpx//Hike/Project/moe_saladinspitze_rotewand_.gpx)
-	- [moew-paiserspitze_.gpx](gpx//Hike/Project/moew-paiserspitze_.gpx)
+	- [AKD_project.gpx](gpx/Hike/Project/AKD_project.gpx)
+	- [moe_saladinspitze_rotewand_.gpx](gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx)
+	- [moew-paiserspitze_.gpx](gpx/Hike/Project/moew-paiserspitze_.gpx)
 - Schitour
-	- [2016_biet_weglosen.gpx](gpx//Schitour/2016_biet_weglosen.gpx)
-	- [2016_ober_kamorschitour.gpx](gpx//Schitour/2016_ober_kamorschitour.gpx)
-	- [2017_Innerlatenrns.gpx](gpx//Schitour/2017_Innerlatenrns.gpx)
-	- [201711_LindauHutte.gpx](gpx//Schitour/201711_LindauHutte.gpx)
-	- [2018_Fullfirst.gpx](gpx//Schitour/2018_Fullfirst.gpx)
+	- [2016_biet_weglosen.gpx](gpx/Schitour/2016_biet_weglosen.gpx)
+	- [2016_ober_kamorschitour.gpx](gpx/Schitour/2016_ober_kamorschitour.gpx)
+	- [2017_Innerlatenrns.gpx](gpx/Schitour/2017_Innerlatenrns.gpx)
+	- [201711_LindauHutte.gpx](gpx/Schitour/201711_LindauHutte.gpx)
+	- [2018_Fullfirst.gpx](gpx/Schitour/2018_Fullfirst.gpx)
 - SchitourProject
-	- [t109036230_st-moematona.gpx](gpx//Schitour/Project/t109036230_st-moematona.gpx)
-	- [t109036358_st-moemoerzelspitze.gpx](gpx//Schitour/Project/t109036358_st-moemoerzelspitze.gpx)
-	- [t109398209_moe-st-2t-heilbronner_huette.gpx](gpx//Schitour/Project/t109398209_moe-st-2t-heilbronner_huette.gpx)
-	- [t109398283_moe-st-mattjischhorn.gpx](gpx//Schitour/Project/t109398283_moe-st-mattjischhorn.gpx)
-	- [t109398323_moe-st-2t-carschinahuette.gpx](gpx//Schitour/Project/t109398323_moe-st-2t-carschinahuette.gpx)
-	- [t109398379_moe-st-2t-carschinahuette_2.gpx](gpx//Schitour/Project/t109398379_moe-st-2t-carschinahuette_2.gpx)
-	- [t109398429_moe-st-2t-claridenhuette.gpx](gpx//Schitour/Project/t109398429_moe-st-2t-claridenhuette.gpx)
-	- [t109414864_moe-st-hirschberg.gpx](gpx//Schitour/Project/t109414864_moe-st-hirschberg.gpx)
-	- [t110089676_moe-st_gerenspitze.gpx](gpx//Schitour/Project/t110089676_moe-st_gerenspitze.gpx)
-	- [t110089738_moe-st_alpilakopf.gpx](gpx//Schitour/Project/t110089738_moe-st_alpilakopf.gpx)
-	- [t110089773_moe-st_windeggerspitze.gpx](gpx//Schitour/Project/t110089773_moe-st_windeggerspitze.gpx)
-	- [t110089814_moe-st_analperjoch.gpx](gpx//Schitour/Project/t110089814_moe-st_analperjoch.gpx)
-	- [t110099994_moe-st_gafier.gpx](gpx//Schitour/Project/t110099994_moe-st_gafier.gpx)
-	- [t110100024_moe-st_gampapingalpe.gpx](gpx//Schitour/Project/t110100024_moe-st_gampapingalpe.gpx)
+	- [t109036230_st-moematona.gpx](gpx/Schitour/Project/t109036230_st-moematona.gpx)
+	- [t109036358_st-moemoerzelspitze.gpx](gpx/Schitour/Project/t109036358_st-moemoerzelspitze.gpx)
+	- [t109398209_moe-st-2t-heilbronner_huette.gpx](gpx/Schitour/Project/t109398209_moe-st-2t-heilbronner_huette.gpx)
+	- [t109398283_moe-st-mattjischhorn.gpx](gpx/Schitour/Project/t109398283_moe-st-mattjischhorn.gpx)
+	- [t109398323_moe-st-2t-carschinahuette.gpx](gpx/Schitour/Project/t109398323_moe-st-2t-carschinahuette.gpx)
+	- [t109398379_moe-st-2t-carschinahuette_2.gpx](gpx/Schitour/Project/t109398379_moe-st-2t-carschinahuette_2.gpx)
+	- [t109398429_moe-st-2t-claridenhuette.gpx](gpx/Schitour/Project/t109398429_moe-st-2t-claridenhuette.gpx)
+	- [t109414864_moe-st-hirschberg.gpx](gpx/Schitour/Project/t109414864_moe-st-hirschberg.gpx)
+	- [t110089676_moe-st_gerenspitze.gpx](gpx/Schitour/Project/t110089676_moe-st_gerenspitze.gpx)
+	- [t110089738_moe-st_alpilakopf.gpx](gpx/Schitour/Project/t110089738_moe-st_alpilakopf.gpx)
+	- [t110089773_moe-st_windeggerspitze.gpx](gpx/Schitour/Project/t110089773_moe-st_windeggerspitze.gpx)
+	- [t110089814_moe-st_analperjoch.gpx](gpx/Schitour/Project/t110089814_moe-st_analperjoch.gpx)
+	- [t110099994_moe-st_gafier.gpx](gpx/Schitour/Project/t110099994_moe-st_gafier.gpx)
+	- [t110100024_moe-st_gampapingalpe.gpx](gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx)
