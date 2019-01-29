@@ -35,7 +35,7 @@ for(i in seq_along(lisdir)) {
   }
 }
 
-write("", file = "Link_gpx_tocopy_in_leaflet.md")
+write("", file = "Link_gpx_tocopy_in_leaflet.txt")
 for(i in seq_along(lisdir)) {
   if( lisdir[i] != "gpx" ) {
     if( basename(lisdir[i]) == "Project" ) {
@@ -46,9 +46,9 @@ for(i in seq_along(lisdir)) {
 
     lis2 <- lis[dir == lisdir[i]]
 
-    write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
+    write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
     for( j in 1:nrow(lis2)) {
-        write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
+        write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
     }
   }
 }
