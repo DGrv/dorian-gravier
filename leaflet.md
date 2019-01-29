@@ -13,8 +13,6 @@ As legend :
 
 Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
-<br>
-<br>
 
 
 
@@ -38,9 +36,13 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		</style>
 	</head>
 	<body>
+		<br>
+		<br>
 		<!-- To display the map -->
 		<div id="map"></div>
-
+		<br>
+		<br>
+		<br>
 		<script>
 			// test your script on https://plnkr.co
 
@@ -291,9 +293,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	</body>
 </html>
 
-<br>
-<br>
-<br>
+
 
 
 # List of the gpx
