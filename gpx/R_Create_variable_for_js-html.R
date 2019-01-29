@@ -7,7 +7,7 @@ if( !exists(wd) ) {
 setwd(wd)
 
 lis <- data.table(path = list.files(wd, full = T, recursive = T))
-lis[, path2 := gsub(dirname(wd), "", path) ]
+lis[, path2 := gsub(paste0(dirname(wd), "/"), "", path) ]
 lis[, dir := dirname(path2) ]
 lisdir <- unique(lis$dir)
 
@@ -33,7 +33,7 @@ for(i in seq_along(lisdir)) {
   }
 }
 
-write("// create file", file = "Link_gpx_tocopy_in_leaflet.txt")
+write("", file = "Link_gpx_tocopy_in_leaflet.md")
 for(i in seq_along(lisdir)) {
   if( basename(lisdir[i]) == "Project" ) {
     varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
@@ -43,8 +43,8 @@ for(i in seq_along(lisdir)) {
 
   lis2 <- lis[dir == lisdir[i]]
 
-  write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
+  write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
   for( j in 1:nrow(lis2)) {
-      write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
+      write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
   }
 }
