@@ -19,6 +19,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 <html>
 	<head>
+
 		<title>A Leaflet map!</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
@@ -30,10 +31,10 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
-
 		<style>
 			#map{ width: 900px; height: 500px; }
 		</style>
+
 	</head>
 	<body>
 		<br>
@@ -60,10 +61,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 	    // initialize the map
+			// only add 1 layer here to avoid the 2 layers to load
 	    var map = L.map('map', {
 	      center: [47.5, 9.6],
 	      zoom: 8,
-	      layers: topo, // only add 1 here to avoid the 2 layers to load
+	      layers: topo,
     		fullscreenControl: true,
 	    });
 
