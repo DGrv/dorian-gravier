@@ -37,16 +37,18 @@ for(i in seq_along(lisdir)) {
 
 write("", file = "Link_gpx_tocopy_in_leaflet.md")
 for(i in seq_along(lisdir)) {
-  if( basename(lisdir[i]) == "Project" ) {
-    varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
-  } else {
-    varname <- basename(lisdir[i])
-  }
+  if( lisdir[i] != "gpx" ) {
+    if( basename(lisdir[i]) == "Project" ) {
+      varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
+    } else {
+      varname <- basename(lisdir[i])
+    }
 
-  lis2 <- lis[dir == lisdir[i]]
+    lis2 <- lis[dir == lisdir[i]]
 
-  write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
-  for( j in 1:nrow(lis2)) {
-      write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
+    write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
+    for( j in 1:nrow(lis2)) {
+        write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.md", append = T)
+    }
   }
 }
