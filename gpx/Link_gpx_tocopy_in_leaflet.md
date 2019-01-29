@@ -7,7 +7,7 @@
 	- [201809_Bike_Switzerland.gpx](gpx/Bike/201809_Bike_Switzerland.gpx)
 - Hike
 	- [2017_Grosser_Mythen.gpx](gpx/Hike/2017_Grosser_Mythen.gpx)
-	- [2017_KS_2TAllgäuerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx/Hike/2017_KS_2TAllgäuerHochalpen-NebelhornzuGrosserDaumen.gpx)
+	- [2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx/Hike/2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx)
 	- [2017_KS1T_Hinterstein-Rotspitze.gpx](gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx)
 	- [2017_Luetispitze.gpx](gpx/Hike/2017_Luetispitze.gpx)
 	- [2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx](gpx/Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx)
@@ -20,7 +20,7 @@
 	- [201805_WG_Hike_0002.gpx](gpx/Hike/201805_WG_Hike_0002.gpx)
 	- [201806_Zimba.gpx](gpx/Hike/201806_Zimba.gpx)
 	- [201808_Feldberg.gpx](gpx/Hike/201808_Feldberg.gpx)
-	- [201809_Ottenhöfen_imSchwarzwaldHiking.gpx](gpx/Hike/201809_Ottenhöfen_imSchwarzwaldHiking.gpx)
+	- [201809_Ottenhofen_imSchwarzwaldHiking.gpx](gpx/Hike/201809_Ottenhofen_imSchwarzwaldHiking.gpx)
 	- [201810_Pizol.gpx](gpx/Hike/201810_Pizol.gpx)
 	- [201811_Silberplatte_Klettern.gpx](gpx/Hike/201811_Silberplatte_Klettern.gpx)
 	- [brunnenhochflue-t4.gpx](gpx/Hike/brunnenhochflue-t4.gpx)
