@@ -4,7 +4,7 @@ layout: page
 ---
 
 
-Please wait a bit that all the gpx are loaded. This page will be updated and improved soon.
+Enjoy :).
 As legend :
 
 - <span style="color:green">Green : Bike</span>
