@@ -37,45 +37,42 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 	</head>
 	<body>
-		<br>
-		<br>
+
 		<!-- To display the map -->
 		<div id="map"></div>
-		<br>
-		<br>
-		<br>
+
 
 		<script>
 			// test your script on https://plnkr.co
 
 			var topo = L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	        attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | map style: © OpenTopoMap (CC-BY-SA)',
-	        maxZoom: 17,
-	        minZoom: 1
-	      }),
-	      open = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
-	        foo: 'bar',
-	        attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	        maxZoom: 17,
-	        minZoom: 1
-	      });
+				attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | map style: © OpenTopoMap (CC-BY-SA)',
+					maxZoom: 17,
+					minZoom: 1
+				}),
+				open = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
+					foo: 'bar',
+					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					maxZoom: 17,
+					minZoom: 1
+				});
 
 
-	    // initialize the map
+				// initialize the map
 			// only add 1 layer here to avoid the 2 layers to load
-	    var map = L.map('map', {
-	      center: [47.5, 9.6],
-	      zoom: 8,
-	      layers: topo,
-    		fullscreenControl: true,
-	    });
+			var map = L.map('map', {
+				center: [47.5, 9.6],
+				zoom: 8,
+				layers: topo,
+				fullscreenControl: true,
+			});
 
-	    var baseLayers = {
-	      "OpenTopo": topo,
-	      "OpenStreet": open
-	    };
+			var baseLayers = {
+				"OpenTopo": topo,
+				"OpenStreet": open
+			};
 
-	   	// create layers
+			// create layers
 			var hill = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1
@@ -171,19 +168,19 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			for (var i = 0; i < Bike.length; i += 1) {
 				var g = new L.GPX(Bike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}});
 				g.on('loaded', function(e) {
- 		     var gpx = e.target,
- 		       name = gpx.get_name(),
- 		       distM = gpx.get_distance(),
- 		       distKm = distM / 1000,
- 		       distKmRnd = distKm.toFixed(1),
- 		       eleGain = gpx.get_elevation_gain().toFixed(0),
- 		       eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var gpx = e.target,
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
 
- 		     var info = "Name: " + name + "</br>" +
- 		       "Distance: " + distKmRnd + " km </br>" +
- 		       "Elevation Gain: " + eleGain + " m </br>"
+					var info = "Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
 
- 		     // register popup on click
+						// register popup on click
  					gpx.getLayers()[0].bindPopup(info);
 				});
 				g.addTo(lBike);
@@ -247,19 +244,19 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			for (var i = 0; i < Schitour.length; i += 1) {
 				var g = new L.GPX(Schitour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
 				g.on('loaded', function(e) {
- 		     var gpx = e.target,
- 		       name = gpx.get_name(),
- 		       distM = gpx.get_distance(),
- 		       distKm = distM / 1000,
- 		       distKmRnd = distKm.toFixed(1),
- 		       eleGain = gpx.get_elevation_gain().toFixed(0),
- 		       eleLoss = gpx.get_elevation_loss().toFixed(0);
+					var gpx = e.target,
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
 
- 		     var info = "Name: " + name + "</br>" +
- 		       "Distance: " + distKmRnd + " km </br>" +
- 		       "Elevation Gain: " + eleGain + " m </br>"
+					var info = "Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
 
- 		     // register popup on click
+					// register popup on click
  					gpx.getLayers()[0].bindPopup(info);
 				});
 				g.addTo(lSchiTour);
@@ -313,7 +310,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	- [201809_Bike_Switzerland.gpx](gpx/Bike/201809_Bike_Switzerland.gpx)
 - Hike
 	- [2017_Grosser_Mythen.gpx](gpx/Hike/2017_Grosser_Mythen.gpx)
-	- [2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx/Hike/2017_KS_2TAllg�uerHochalpen-NebelhornzuGrosserDaumen.gpx)
+	- [2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx](gpx/Hike/2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx)
 	- [2017_KS1T_Hinterstein-Rotspitze.gpx](gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx)
 	- [2017_Luetispitze.gpx](gpx/Hike/2017_Luetispitze.gpx)
 	- [2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx](gpx/Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx)
@@ -326,7 +323,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	- [201805_WG_Hike_0002.gpx](gpx/Hike/201805_WG_Hike_0002.gpx)
 	- [201806_Zimba.gpx](gpx/Hike/201806_Zimba.gpx)
 	- [201808_Feldberg.gpx](gpx/Hike/201808_Feldberg.gpx)
-	- [201809_Ottenhofen_imSchwarzwaldHiking.gpx](gpx/Hike/201809_Ottenh�fen_imSchwarzwaldHiking.gpx)
+	- [201809_Ottenhofen_imSchwarzwaldHiking.gpx](gpx/Hike/201809_Ottenhofen_imSchwarzwaldHiking.gpx)
 	- [201810_Pizol.gpx](gpx/Hike/201810_Pizol.gpx)
 	- [201811_Silberplatte_Klettern.gpx](gpx/Hike/201811_Silberplatte_Klettern.gpx)
 	- [brunnenhochflue-t4.gpx](gpx/Hike/brunnenhochflue-t4.gpx)
