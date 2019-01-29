@@ -1,18 +1,15 @@
 // create file
 var Bike = ['gpx//Bike/201511_mtb.gpx',
-
 'gpx//Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
 'gpx//Bike/201709_Bike_Travel.gpx',
 'gpx//Bike/201808_Schwarzwald.gpx',
 'gpx//Bike/201809_Bike_Switzerland.gpx']
 
 var Hike = ['gpx//Hike/2017_Grosser_Mythen.gpx',
-
 'gpx//Hike/2017_KS_2TAllgäuerHochalpen-NebelhornzuGrosserDaumen.gpx',
 'gpx//Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
-'gpx//Hike/2017_Lütispitze.gpx',
+'gpx//Hike/2017_Luetispitze.gpx',
 'gpx//Hike/2017_Nord_LechtalElbigenalp-Krotenkopf-Ubeleskarspitze-Hinterbornbach.gpx',
-'gpx//Hike/2017_W_RotspitzeHinterstein.gpx',
 'gpx//Hike/201708_Druesberg.gpx',
 'gpx//Hike/201711_Wgausflug.gpx',
 'gpx//Hike/2018_W_HochYbrig_Druesberg.gpx',
@@ -36,32 +33,27 @@ var Hike = ['gpx//Hike/2017_Grosser_Mythen.gpx',
 'gpx//Hike/via_dellebochette.gpx']
 
 var HikeProject = ['gpx//Hike/Project/AKD_project.gpx',
-
 'gpx//Hike/Project/moe_saladinspitze_rotewand_.gpx',
 'gpx//Hike/Project/moew-paiserspitze_.gpx']
 
 var Schitour = ['gpx//Schitour/2016_biet_weglosen.gpx',
-
 'gpx//Schitour/2016_ober_kamorschitour.gpx',
 'gpx//Schitour/2017_Innerlatenrns.gpx',
 'gpx//Schitour/201711_LindauHutte.gpx',
 'gpx//Schitour/2018_Fullfirst.gpx']
 
-var SchitourProject = ['gpx//Schitour/Project/mo1.gpx',
-
-'gpx//Schitour/Project/mo11.gpx',
-'gpx//Schitour/Project/mo12.gpx',
-'gpx//Schitour/Project/mo2.gpx',
-'gpx//Schitour/Project/mo3.gpx',
-'gpx//Schitour/Project/mo4.gpx',
-'gpx//Schitour/Project/mo5.gpx',
-'gpx//Schitour/Project/mo6.gpx',
-'gpx//Schitour/Project/mo8.gpx',
-'gpx//Schitour/Project/mo9.gpx',
-'gpx//Schitour/Project/no10.gpx']
-
-var gpx = ['gpx/Link_gpx_tocopy_in_leaflet.txt',
-
-'gpx/Name_var_js-html_tocopy_in_leaflet.txt',
-'gpx/R_Create_variable_for_js-html.R']
+var SchitourProject = ['gpx//Schitour/Project/t109036230_st-moematona.gpx',
+'gpx//Schitour/Project/t109036358_st-moemoerzelspitze.gpx',
+'gpx//Schitour/Project/t109398209_moe-st-2t-heilbronner_huette.gpx',
+'gpx//Schitour/Project/t109398283_moe-st-mattjischhorn.gpx',
+'gpx//Schitour/Project/t109398323_moe-st-2t-carschinahuette.gpx',
+'gpx//Schitour/Project/t109398379_moe-st-2t-carschinahuette_2.gpx',
+'gpx//Schitour/Project/t109398429_moe-st-2t-claridenhuette.gpx',
+'gpx//Schitour/Project/t109414864_moe-st-hirschberg.gpx',
+'gpx//Schitour/Project/t110089676_moe-st_gerenspitze.gpx',
+'gpx//Schitour/Project/t110089738_moe-st_alpilakopf.gpx',
+'gpx//Schitour/Project/t110089773_moe-st_windeggerspitze.gpx',
+'gpx//Schitour/Project/t110089814_moe-st_analperjoch.gpx',
+'gpx//Schitour/Project/t110099994_moe-st_gafier.gpx',
+'gpx//Schitour/Project/t110100024_moe-st_gampapingalpe.gpx']
 
