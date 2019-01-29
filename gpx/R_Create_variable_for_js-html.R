@@ -45,7 +45,6 @@ for(i in seq_along(lisdir)) {
 
   write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
   for( j in 1:nrow(lis2)) {
-      write(paste0("\t- ", lis2[j, path2], ""), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
+      write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
   }
 }
-
