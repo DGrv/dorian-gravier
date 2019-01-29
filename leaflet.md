@@ -359,7 +359,3 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	- [t110089814_moe-st_analperjoch.gpx](gpx//Schitour/Project/t110089814_moe-st_analperjoch.gpx)
 	- [t110099994_moe-st_gafier.gpx](gpx//Schitour/Project/t110099994_moe-st_gafier.gpx)
 	- [t110100024_moe-st_gampapingalpe.gpx](gpx//Schitour/Project/t110100024_moe-st_gampapingalpe.gpx)
-- gpx
-	- [Link_gpx_tocopy_in_leaflet.md](gpx/Link_gpx_tocopy_in_leaflet.md)
-	- [Name_var_js-html_tocopy_in_leaflet.txt](gpx/Name_var_js-html_tocopy_in_leaflet.txt)
-	- [R_Create_variable_for_js-html.R](gpx/R_Create_variable_for_js-html.R)
