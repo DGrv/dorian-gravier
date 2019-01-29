@@ -37,10 +37,12 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 	</head>
 	<body>
-
+	
+		<br>
 		<!-- To display the map -->
 		<div id="map"></div>
-
+		<br>
+		<br>
 
 		<script>
 			// test your script on https://plnkr.co
