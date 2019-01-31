@@ -84,28 +84,27 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var lBike = L.layerGroup();
 			var lBikeProject = L.layerGroup();
 			var lHike = L.layerGroup();
-			var lSchneeSchuhe = L.layerGroup();
+			var lSchneeS = L.layerGroup();
 			var lHikeProject = L.layerGroup();
 			var lSchiTour = L.layerGroup();
 			var lSchiTourProject = L.layerGroup();
-			var lSchneeSchuheProject = L.layerGroup();
+			var lSchneeSProject = L.layerGroup();
 
 
 			var overlays = {"Hillshading": hill,
 			"Bike": lBike,
 			"Hike": lHike,
 			"SchiTour": lSchiTour,
-			"SchneeSchuhe": lSchneeSchuhe,
+			"SchneeSchuhe": lSchneeS,
 			"Project Bike": lBikeProject,
 			"Project Hike": lHikeProject,
 			"Project SchiTour": lSchiTourProject,
-			"Project SchneeSchuhe": lSchneeSchuheProject
+			"Project SchneeSchuhe": lSchneeSProject
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
 
 			// create variable with path from the gpx
-			// create file
 			// create file
 			var Bike = ['gpx/Bike/201511_mtb.gpx',
 			'gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
@@ -165,11 +164,15 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			'gpx/Schitour/Project/t110099994_moe-st_gafier.gpx',
 			'gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx']
 
-			var SchneeSchuheProject = ['gpx/SchneeSchuhe/Project/P_SW_Malans-Tschugga.gpx',
-			'gpx/SchneeSchuhe/Project/P_SW_Mattner_first.gpx',
-			'gpx/SchneeSchuhe/Project/P_SW_Nussen_innertal.gpx',
-			'gpx/SchneeSchuhe/Project/P_SW_Silberen.gpx',
-			'gpx/SchneeSchuhe/Project/P_SW_Wilhaus_1.gpx']
+			var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
+			'gpx/SchneeS/Project/P_SW_Mattner_first.gpx',
+			'gpx/SchneeS/Project/P_SW_Nussen_innertal.gpx',
+			'gpx/SchneeS/Project/P_SW_Silberen.gpx',
+			'gpx/SchneeS/Project/P_SW_Wilhaus_1.gpx']
+
+
+
+
 
 
 
@@ -307,8 +310,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			//SchitourProject -------------------------------------------------------------------------------------
 
-			for (var i = 0; i < SchneeSchuhe.length; i += 1) {
-				var g = new L.GPX(SchneeSchuhe[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
+			for (var i = 0; i < SchneeS.length; i += 1) {
+				var g = new L.GPX(SchneeS[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -325,13 +328,13 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchneeSchuhe);
+				g.addTo(lSchneeS);
 			};
 
 			//SchneeTourProject -------------------------------------------------------------------------------------
 
-			for (var i = 0; i < SchneeSchuheProject.length; i += 1) {
-				var g = new L.GPX(SchneeSchuheProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.95, dashArray: '3 6'}});
+			for (var i = 0; i < SchneeSProject.length; i += 1) {
+				var g = new L.GPX(SchneeSProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.95, dashArray: '3 6'}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -348,7 +351,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchneeSchuheProject);
+				g.addTo(lSchneeSProject);
 			};
 
 
@@ -361,6 +364,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 # List of the gpx
+
+
 
 
 
@@ -424,9 +429,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	- [t110089814_moe-st_analperjoch.gpx](gpx/Schitour/Project/t110089814_moe-st_analperjoch.gpx)
 	- [t110099994_moe-st_gafier.gpx](gpx/Schitour/Project/t110099994_moe-st_gafier.gpx)
 	- [t110100024_moe-st_gampapingalpe.gpx](gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx)
-- SchneeSchuheProject
-	- [P_SW_Malans-Tschugga.gpx](gpx/SchneeSchuhe/Project/P_SW_Malans-Tschugga.gpx)
-	- [P_SW_Mattner_first.gpx](gpx/SchneeSchuhe/Project/P_SW_Mattner_first.gpx)
-	- [P_SW_Nussen_innertal.gpx](gpx/SchneeSchuhe/Project/P_SW_Nussen_innertal.gpx)
-	- [P_SW_Silberen.gpx](gpx/SchneeSchuhe/Project/P_SW_Silberen.gpx)
-	- [P_SW_Wilhaus_1.gpx](gpx/SchneeSchuhe/Project/P_SW_Wilhaus_1.gpx)
+- SchneeSProject
+	- [P_SW_Malans-Tschugga.gpx](gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx)
+	- [P_SW_Mattner_first.gpx](gpx/SchneeS/Project/P_SW_Mattner_first.gpx)
+	- [P_SW_Nussen_innertal.gpx](gpx/SchneeS/Project/P_SW_Nussen_innertal.gpx)
+	- [P_SW_Silberen.gpx](gpx/SchneeS/Project/P_SW_Silberen.gpx)
+	- [P_SW_Wilhaus_1.gpx](gpx/SchneeS/Project/P_SW_Wilhaus_1.gpx)
