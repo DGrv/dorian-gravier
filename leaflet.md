@@ -84,17 +84,22 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var lBike = L.layerGroup();
 			var lBikeProject = L.layerGroup();
 			var lHike = L.layerGroup();
+			var lSchneeSchuhe = L.layerGroup();
 			var lHikeProject = L.layerGroup();
 			var lSchiTour = L.layerGroup();
 			var lSchiTourProject = L.layerGroup();
+			var lSchneeSchuheProject = L.layerGroup();
+
 
 			var overlays = {"Hillshading": hill,
 			"Bike": lBike,
 			"Hike": lHike,
 			"SchiTour": lSchiTour,
+			"SchneeSchuheTour": lSchneeSchuhe,
 			"Project Bike": lBikeProject,
 			"Project Hike": lHikeProject,
-			"Project SchiTour": lSchiTourProject
+			"Project SchiTour": lSchiTourProject,
+			"Project SchneeSchuhe": lSchneeSchuheProject
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
