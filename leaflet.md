@@ -307,8 +307,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			//SchitourProject -------------------------------------------------------------------------------------
 
-			for (var i = 0; i < SchneeTour.length; i += 1) {
-				var g = new L.GPX(SchneeTour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purlpe'}});
+			for (var i = 0; i < SchneeSchuhe.length; i += 1) {
+				var g = new L.GPX(SchneeSchuhe[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purlpe'}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -325,13 +325,13 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchneeTour);
+				g.addTo(lSchneeSchuhe);
 			};
 
 			//SchneeTourProject -------------------------------------------------------------------------------------
 
-			for (var i = 0; i < SchneeTourProject.length; i += 1) {
-				var g = new L.GPX(SchneeTourProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purple', opacity: 0.95, dashArray: '3 6'}});
+			for (var i = 0; i < SchneeSchuheProject.length; i += 1) {
+				var g = new L.GPX(SchneeSchuheProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purple', opacity: 0.95, dashArray: '3 6'}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -348,7 +348,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchneeTourProject);
+				g.addTo(lSchneeSchuheProject);
 			};
 
 
