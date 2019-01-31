@@ -95,7 +95,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			"Bike": lBike,
 			"Hike": lHike,
 			"SchiTour": lSchiTour,
-			"SchneeSchuheTour": lSchneeSchuhe,
+			"SchneeSchuhe": lSchneeSchuhe,
 			"Project Bike": lBikeProject,
 			"Project Hike": lHikeProject,
 			"Project SchiTour": lSchiTourProject,
@@ -325,7 +325,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchiTourProject);
+				g.addTo(lSchneeTour);
 			};
 
 			//SchneeTourProject -------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
 				 });
-				g.addTo(lSchiTourProject);
+				g.addTo(lSchneeTourProject);
 			};
 
 
