@@ -23,6 +23,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<title>A Leaflet map!</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+		<script src='js/Leaflet.LocationShare.js'></script>
 		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
@@ -100,6 +101,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			// create variable with path from the gpx
 			// create file
+			// create file
 			var Bike = ['gpx/Bike/201511_mtb.gpx',
 			'gpx/Bike/2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
 			'gpx/Bike/201709_Bike_Travel.gpx',
@@ -157,6 +159,14 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			'gpx/Schitour/Project/t110089814_moe-st_analperjoch.gpx',
 			'gpx/Schitour/Project/t110099994_moe-st_gafier.gpx',
 			'gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx']
+
+			var SchneeSchuheProject = ['gpx/SchneeSchuhe/Project/P_SW_Malans-Tschugga.gpx',
+			'gpx/SchneeSchuhe/Project/P_SW_Mattner_first.gpx',
+			'gpx/SchneeSchuhe/Project/P_SW_Nussen_innertal.gpx',
+			'gpx/SchneeSchuhe/Project/P_SW_Silberen.gpx',
+			'gpx/SchneeSchuhe/Project/P_SW_Wilhaus_1.gpx']
+
+
 
 
 
@@ -290,6 +300,52 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				g.addTo(lSchiTourProject);
 			};
 
+			//SchitourProject -------------------------------------------------------------------------------------
+
+			for (var i = 0; i < SchneeTour.length; i += 1) {
+				var g = new L.GPX(SchneeTour[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purlpe'}});
+				g.on('loaded', function(e) {
+					var gpx = e.target,
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+
+					var info = "Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+
+					// register popup on click
+					 gpx.getLayers()[0].bindPopup(info);
+				 });
+				g.addTo(lSchiTourProject);
+			};
+
+			//SchneeTourProject -------------------------------------------------------------------------------------
+
+			for (var i = 0; i < SchneeTourProject.length; i += 1) {
+				var g = new L.GPX(SchneeTourProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purple', opacity: 0.95, dashArray: '3 6'}});
+				g.on('loaded', function(e) {
+					var gpx = e.target,
+						name = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0);
+
+					var info = "Name: " + name + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>"
+
+					// register popup on click
+					 gpx.getLayers()[0].bindPopup(info);
+				 });
+				g.addTo(lSchiTourProject);
+			};
+
 
 
 		</script>
@@ -300,6 +356,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 # List of the gpx
+
 
 
 
@@ -362,3 +419,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	- [t110089814_moe-st_analperjoch.gpx](gpx/Schitour/Project/t110089814_moe-st_analperjoch.gpx)
 	- [t110099994_moe-st_gafier.gpx](gpx/Schitour/Project/t110099994_moe-st_gafier.gpx)
 	- [t110100024_moe-st_gampapingalpe.gpx](gpx/Schitour/Project/t110100024_moe-st_gampapingalpe.gpx)
+- SchneeSchuheProject
+	- [P_SW_Malans-Tschugga.gpx](gpx/SchneeSchuhe/Project/P_SW_Malans-Tschugga.gpx)
+	- [P_SW_Mattner_first.gpx](gpx/SchneeSchuhe/Project/P_SW_Mattner_first.gpx)
+	- [P_SW_Nussen_innertal.gpx](gpx/SchneeSchuhe/Project/P_SW_Nussen_innertal.gpx)
+	- [P_SW_Silberen.gpx](gpx/SchneeSchuhe/Project/P_SW_Silberen.gpx)
+	- [P_SW_Wilhaus_1.gpx](gpx/SchneeSchuhe/Project/P_SW_Wilhaus_1.gpx)
