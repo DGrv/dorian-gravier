@@ -74,11 +74,6 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 					maxZoom: 17,
 					minZoom: 1
-				}),
-				hike = L.tileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
-					attribution: 'Map Data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-					maxZoom: 17,
-					minZoom: 1
 				});
 
 
@@ -95,7 +90,6 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				"OpenTopo": topo,
 				"OpenStreet": open,
 				"Thunderforest Outdoors": outdoors,
-				"Hike and Bike": hike,
 				"Mobile Atlas": atlas,
 				"Transport": transport
 			};
@@ -229,7 +223,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + Bike[i] + ">Link</a> </br>"
 
 						// register popup on click
  					gpx.getLayers()[0].bindPopup(info);
@@ -255,7 +249,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + Hike[i] + ">Link</a> </br>"
 
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
@@ -282,7 +276,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + HikeProject[i] + ">Link</a> </br>"
 
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
@@ -308,7 +302,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + Schitour[i] + ">Link</a> </br>"
 
 					// register popup on click
  					gpx.getLayers()[0].bindPopup(info);
@@ -335,7 +329,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + SchitourProject[i] + ">Link</a> </br>"
 
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
@@ -345,32 +339,8 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 
 			//SchitourProject -------------------------------------------------------------------------------------
 
-			for (var i = 0; i < SchneeS.length; i += 1) {
-				var g = new L.GPX(SchneeS[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue'}});
-				g.on('loaded', function(e) {
-					var gpx = e.target,
-						name = gpx.get_name(),
-						distM = gpx.get_distance(),
-						distKm = distM / 1000,
-						distKmRnd = distKm.toFixed(1),
-						eleGain = gpx.get_elevation_gain().toFixed(0),
-						eleLoss = gpx.get_elevation_loss().toFixed(0);
-
-					var info = "Name: " + name + "</br>" +
-						"Distance: " + distKmRnd + " km </br>" +
-						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
-
-					// register popup on click
-					 gpx.getLayers()[0].bindPopup(info);
-				 });
-				g.addTo(lSchneeS);
-			};
-
-			//SchneeTourProject -------------------------------------------------------------------------------------
-
 			for (var i = 0; i < SchneeSProject.length; i += 1) {
-				var g = new L.GPX(SchneeSProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'blue', opacity: 0.95, dashArray: '3 6'}});
+				var g = new L.GPX(SchneeSProject[i], {async: true, parseElements: ['track'], polyline_options: { color: 'purple', opacity: 0.95, dashArray: '3 6'}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -383,7 +353,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					var info = "Name: " + name + "</br>" +
 						"Distance: " + distKmRnd + " km </br>" +
 						"Elevation Gain: " + eleGain + " m </br>" +
-						"<a href=" + SchneeS[i] + ">Link</a> </br>"
+						"<a href=" + SchneeSProject[i] + ">Link</a> </br>"
 
 					// register popup on click
 					 gpx.getLayers()[0].bindPopup(info);
