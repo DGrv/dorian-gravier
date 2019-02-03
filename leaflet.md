@@ -70,6 +70,10 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				outdoors = L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
 					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 					maxZoom: 17
+				}),
+				hike = L.TileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
+					maxZoom: 17,
+					attribution: 'Map Data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 				});
 
 
@@ -85,8 +89,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var baseLayers = {
 				"OpenTopo": topo,
 				"OpenStreet": open,
-				"ThunderforestOutdoors": outdoors,
-				"MobileAtlas": atlas,
+				"Thunderforest Outdoors": outdoors,
+				"Hike and Bike": hike,
+				"Mobile Atlas": atlas,
 				"Transport": transport
 			};
 
