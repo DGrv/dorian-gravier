@@ -10,6 +10,7 @@ As legend :
 - <span style="color:green">Green : Bike</span>
 - <span style="color:red">Red : Hike</span>
 - <span style="color:blue">Blue : SkiTour</span>
+- <span style="color:purple">Purple : Snow schoes hike</span>
 
 Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
@@ -59,7 +60,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					maxZoom: 17,
 					minZoom: 1
 				}),
-				Transport = L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
+				transport = L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
 					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 					maxZoom: 17,
 					minZoom: 1
