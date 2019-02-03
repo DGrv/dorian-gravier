@@ -74,7 +74,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					maxZoom: 17,
 					minZoom: 1
 				}),
-				hike = L.TileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
+				hike = L.tileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
 					attribution: 'Map Data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					maxZoom: 17,
 					minZoom: 1
