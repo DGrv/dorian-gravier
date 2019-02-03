@@ -58,15 +58,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					maxZoom: 17,
 					minZoom: 1
-				}),
-				HikeBike = L.TileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
-					maxZoom: 17,
-					attribution: 'Map Data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-				}),
-				ThunderforestOutdoors = L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}{y}{r}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
-						maxZoom: 18,
-						attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-					});
+				});
 
 
 				// initialize the map
@@ -80,9 +72,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			var baseLayers = {
 				"OpenTopo": topo,
-				"OpenStreet": open,
-				"Hike Bike": HikeBike,
-				"Thunderforest Outdoors": ThunderforestOutdoors
+				"OpenStreet": open
 			};
 
 			// create layers
