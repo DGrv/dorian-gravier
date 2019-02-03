@@ -58,7 +58,19 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					maxZoom: 17,
 					minZoom: 1
-				});
+				}),
+				HikeBike = L.TileLayer('http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
+					maxZoom: 17,
+					attribution: 'Map Data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+				}),
+				ThunderforestOutdoors = L.tileLayer(
+					'https://tile.thunderforest.com/outdoors/{z}/{x}/{y}{r}.png?apikey=bcecc6dc7a9a46cca6d1eff04dd595cf',
+					{
+						maxZoom: 18,
+						attribution:
+							'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+					}
+				);
 
 
 				// initialize the map
@@ -72,13 +84,16 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			var baseLayers = {
 				"OpenTopo": topo,
-				"OpenStreet": open
+				"OpenStreet": open,
+				"Hike & Bike": HikeBike,
+				"Thunderforest Outdoors": ThunderforestOutdoors
 			};
 
 			// create layers
 			var hill = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
 				maxZoom: 17,
-				minZoom: 1
+				minZoom: 1,
+				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
 			});
 
 			var lBike = L.layerGroup();
@@ -103,6 +118,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
+			L.control.addMinimap(map, L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'));
 
 			// create variable with path from the gpx
 			// create file
