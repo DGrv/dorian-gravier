@@ -366,8 +366,3 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 		</script>
 	</body>
 </html>
-
-
-
-
-# List of the gpx
