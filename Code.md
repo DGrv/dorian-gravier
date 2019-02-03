@@ -193,6 +193,88 @@ Stop with ctrl-c.
 
 ## Dose Response Curve
 
+# Youtube-dl
+
+## Easy Commands
+
+Command to dowload the audio from a video or playlist:
+
+```batch
+ffmpeg -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i the-url-of-your-video
+```
+
+Command to download a video (best quality):
+
+```batch
+ffmpeg -f best the-url-of-your-video
+```
+
+Command to download a video (with choosen quality):
+Get the list of possible format ...
+
+```batch
+ffmpeg -F the-url-of-your-video
+```
+
+Choose one and run the following line
+
+```batch
+ffmpeg -f format-choosen the-url-of-your-video
+```
+
+## Batch
+
+This little batch file will ask you the url of a video and give you the choise to download only the audio or the video (with choosing the format if you need).
+
+You will have to change the 2 variables:
+
+- pathexe
+- wd
+
+_E.g.:_
+
+- set pathexe=C:\\Users\\DGrv\\Downloads\\Software\\Youtube-dl\\youtube-dl.exe
+- set wd=C:\\Users\\DGrv\\Downloads\\Youtube_music
+
+_Use brackets "" if you have space in your path._
+
+For noobies.
+
+- Download [Youtube-dl](https://rg3.github.io/youtube-dl/download.html), if you have windows, download the Windows.exe. Move it to a safe folder where you know where it is. Note path of the file.
+- Copy the following lines of codes in a txt file (with notepad for example), change the 2 variables explained above and save it as a .bat file.
+- Run the bat file and enjoy.
+
+```batch
+@echo off
+echo Will download the audio of a youtube video in C:Users\DGrv\Downloads\Software\Youtube-dl
+set pathexe=C:\path-of-your\youtube-dl.exe
+set wd=path-of-your-output-folder
+
+cd %wd%
+
+set /p url="Enter the url: "
+set /p choice="Do you want to download the audio or the video ? (Audio=1, Video=2)   "
+
+if "%choice%"=="1" (
+	%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i %url%
+)
+if "%choice%"=="2" (
+	set /p choice2="Choose your format (1) and choose best (2): "
+	if "%choice2%"=="2" (
+		%pathexe% -f best %url%
+	)
+	if "%choice2%"=="1" (
+		set choice=3
+		%pathexe% -F %url%
+		set /p format="Which one do you want: "
+	)
+)
+if "%choice%"=="3" (
+	%pathexe% -f %format% %url%
+)
+```
+
+
 # Leaflet
 
 Complexer example in [my leaflet page](../leaflet.md)
