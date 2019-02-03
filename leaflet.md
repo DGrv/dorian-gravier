@@ -118,7 +118,6 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
-			L.control.addMinimap(map, L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'));
 
 			// create variable with path from the gpx
 			// create file
