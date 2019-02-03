@@ -4,6 +4,28 @@ title: Code
 permalink: /code/
 ---
 
+<!-- TOC START min:1 max:3 link:true update:true -->
+- [Batch](#batch)
+	- [Magick](#magick)
+		- [Merge in batch](#merge-in-batch)
+		- [Convert in batch](#convert-in-batch)
+	- [FFmpeg](#ffmpeg)
+	- [Record screen and audio](#record-screen-and-audio)
+- [R](#r)
+	- [data.table tricks](#datatable-tricks)
+	- [Dose Response Curve](#dose-response-curve)
+- [Youtube-dl](#youtube-dl)
+	- [Easy Commands](#easy-commands)
+	- [Batch](#batch-1)
+- [Leaflet](#leaflet)
+	- [Gpx](#gpx)
+		- [Load multiple gpx](#load-multiple-gpx)
+		- [Popup on click](#popup-on-click)
+
+<!-- TOC END -->
+
+
+
 # Batch
 
 ## Magick
