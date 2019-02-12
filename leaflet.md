@@ -244,7 +244,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							distKmRnd = distKm.toFixed(1),
 							eleGain = gpx.get_elevation_gain().toFixed(0),
 							eleLoss = gpx.get_elevation_loss().toFixed(0)
-							cen = gpx.getBounds().getCenter().toString;
+							cen = gpx.getBounds().getCenter().toString();
 
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
