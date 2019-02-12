@@ -221,10 +221,10 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 			var loopinfo = {
-				what = [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
-				layer = [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
-				trackcolor = ['green', 'red', 'red', 'blue', 'blue', 'purple'],
-				project = [false, false, true, false, true, true]
+				what: [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
+				layer: [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
+				trackcolor: ['green', 'red', 'red', 'blue', 'blue', 'purple'],
+				project: [false, false, true, false, true, true]
 			};
 
 
