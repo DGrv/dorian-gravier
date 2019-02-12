@@ -235,7 +235,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			for (var j = 0; j < loopinfo.what.length; j += 1) {
 				for (var i = 0; i < loopinfo.what[j].length; i += 1) {
-					var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: trackcolor}});
+					var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: loopinfo.trackcolor[j]}});
 					g.on('loaded', function(e) {
 						var gpx = e.target,
 							name = gpx.get_name(),
