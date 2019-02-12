@@ -267,7 +267,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    		});
 
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: 'red'});
+	      		e.target.setStyle({color: loopinfo.trackcolor[j]});
 	    		});
 
 					g.addTo(loopinfo.layer[j]);
