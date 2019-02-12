@@ -235,7 +235,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			for (var j = 0; j < loopinfo.what.length; j += 1) {
 				for (var i = 0; i < loopinfo.what[j].length; i += 1) {
-					var g = new L.GPX(Loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: trackcolor}});
+					var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: trackcolor}});
 					g.on('loaded', function(e) {
 						var gpx = e.target,
 							name = gpx.get_name(),
@@ -248,12 +248,12 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
-							"<a href=" + Loopinfo.what[j][i] + ">Link</a> </br>"
+							"<a href=" + loopinfo.what[j][i] + ">Link</a> </br>"
 
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
 
-						if ( Loopinfo.project[j] ) {
+						if ( loopinfo.project[j] ) {
 							gpx.setStyle({opacity: 0.95, dashArray: '3 6'})
 						};
 					});
@@ -263,7 +263,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					g.on('mouseout', function(e) {
 	      		e.target.setStyle({color: trackcolor});
 	    		});
-					g.addTo(Loopinfo.layer[j]);
+					g.addTo(loopinfo.layer[j]);
 				};
 			};
 
