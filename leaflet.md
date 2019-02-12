@@ -243,14 +243,16 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							distKm = distM / 1000,
 							distKmRnd = distKm.toFixed(1),
 							eleGain = gpx.get_elevation_gain().toFixed(0),
-							eleLoss = gpx.get_elevation_loss().toFixed(0)
-							cen = gpx.getBounds().getCenter().toString();
+							eleLoss = gpx.get_elevation_loss().toFixed(0),
+							cen = gpx.getBounds().getCenter().toString().replace("LatLng(", "").replace(")", "").split(", ");
+
+						var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen[0] + '&lng=' + cen[1];
 
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
 							"<a href=" + loopinfo.what[j][i] + ">Link</a> </br>" +
-							cen;
+							"<a href=" + share + ">Share location</a> </br>";
 
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
@@ -259,12 +261,12 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							gpx.setStyle({opacity: 0.95, dashArray: '3 6'})
 						};
 					});
-					//g.on('mouseover', function(e) {
-	      	//	e.target.setStyle({color: 'yellow'});
-	    		//});
-					//g.on('mouseout', function(e) {
-	      	//	e.target.setStyle({color: loopinfo.trackcolor[j]});
-	    		//});
+					g.on('mouseover', function(e) {
+	      		e.target.setStyle({color: 'yellow'});
+	    		});
+					g.on('mouseout', function(e) {
+	      		e.target.setStyle({color: loopinfo.trackcolor[j]});
+	    		});
 					g.addTo(loopinfo.layer[j]);
 				};
 			};
