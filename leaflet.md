@@ -224,7 +224,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				what = [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
 				layer = [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
 				trackcolor = ['green', 'red', 'red', 'blue', 'blue', 'purple'],
-				project = [F, F, T, F, T, T]
+				project = [false, false, true, false, true, true]
 			};
 
 
