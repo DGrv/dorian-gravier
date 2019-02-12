@@ -244,9 +244,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							distKmRnd = distKm.toFixed(1),
 							eleGain = gpx.get_elevation_gain().toFixed(0),
 							eleLoss = gpx.get_elevation_loss().toFixed(0),
-							cen = gpx.getBounds().getCenter().toString().replace("LatLng(", "").replace(")", "").split(", ");
+							cen = gpx.getBounds().getCenter();
 
-						var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen[0] + '&lng=' + cen[1];
+						var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen.lat + '&lng=' + cen.lng;
 
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
@@ -265,7 +265,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	      		e.target.setStyle({color: 'yellow'});
 	    		});
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: loopinfo.trackcolor[j]});
+	      		e.target.setStyle({color: 'red'});
 	    		});
 					g.addTo(loopinfo.layer[j]);
 				};
