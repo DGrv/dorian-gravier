@@ -259,12 +259,12 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							gpx.setStyle({opacity: 0.95, dashArray: '3 6'})
 						};
 					});
-					g.on('mouseover', function(e) {
-	      		e.target.setStyle({color: 'yellow'});
-	    		});
-					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: loopinfo.trackcolor[j]});
-	    		});
+					//g.on('mouseover', function(e) {
+	      	//	e.target.setStyle({color: 'yellow'});
+	    		//});
+					//g.on('mouseout', function(e) {
+	      	//	e.target.setStyle({color: loopinfo.trackcolor[j]});
+	    		//});
 					g.addTo(loopinfo.layer[j]);
 				};
 			};
