@@ -243,12 +243,14 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 							distKm = distM / 1000,
 							distKmRnd = distKm.toFixed(1),
 							eleGain = gpx.get_elevation_gain().toFixed(0),
-							eleLoss = gpx.get_elevation_loss().toFixed(0);
+							eleLoss = gpx.get_elevation_loss().toFixed(0)
+							info = gpx.getBounds().getCenter().toString;
 
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
-							"<a href=" + loopinfo.what[j][i] + ">Link</a> </br>"
+							"<a href=" + loopinfo.what[j][i] + ">Link</a> </br>" +
+							info;
 
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
@@ -261,7 +263,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	      		e.target.setStyle({color: 'yellow'});
 	    		});
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: trackcolor});
+	      		e.target.setStyle({color: loopinfo.trackcolor[j]});
 	    		});
 					g.addTo(loopinfo.layer[j]);
 				};
