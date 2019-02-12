@@ -74,6 +74,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 					maxZoom: 17,
 					minZoom: 1
+				}),
+				toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					maxZoom: 17,
+					minZoom: 1
 				});
 
 
@@ -89,6 +94,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var baseLayers = {
 				"OpenTopo": topo,
 				"OpenStreet": open,
+				"OpenToner": toner,
 				"Thunderforest Outdoors": outdoors,
 				"Mobile Atlas": atlas,
 				"Transport": transport
@@ -209,8 +215,10 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 
 			//Bike -------------------------------------------------------------------------------------
 
+
+			var trackcolor = 'green'
 			for (var i = 0; i < Bike.length; i += 1) {
-				var g = new L.GPX(Bike[i], {async: true, parseElements: ['track'], polyline_options: { color: 'green'}});
+				var g = new L.GPX(Bike[i], {async: true, parseElements: ['track'], polyline_options: { color: trackcolor}});
 				g.on('loaded', function(e) {
 					var gpx = e.target,
 						name = gpx.get_name(),
@@ -228,6 +236,12 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 						// register popup on click
  					gpx.getLayers()[0].bindPopup(info);
 				});
+				g.on('mouseover', function(e) {
+      		e.target.setStyle({color: 'yellow'});
+    		});
+				g.on('mouseout', function(e) {
+      		e.target.setStyle({color: trackcolor});
+    		});
 				g.addTo(lBike);
 			};
 
