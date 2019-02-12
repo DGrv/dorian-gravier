@@ -31,7 +31,13 @@ var Hike = ['gpx/Hike/2017_Grosser_Mythen.gpx',
 'gpx/Hike/saentis_vonsudden.gpx',
 'gpx/Hike/sarek_2016.gpx',
 'gpx/Hike/um_herumdergimpel.gpx',
-'gpx/Hike/via_dellebochette.gpx']
+'gpx/Hike/via_dellebochette.gpx',
+'gpx/Hike/W_2013_Ebenalp.gpx',
+'gpx/Hike/W_2013_Marwees.gpx',
+'gpx/Hike/W_2015_Rosteinpass.gpx',
+'gpx/Hike/W_2015_Saxer-luecke.gpx',
+'gpx/Hike/W_2016_Santis.gpx',
+'gpx/Hike/W_2017_Alpstein.gpx']
 
 var HikeProject = ['gpx/Hike/Project/AKD_project.gpx',
 'gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',
@@ -57,8 +63,10 @@ var Schitour = ['gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'gpx/Schitour/ST_2017_Innerlatenrns.gpx',
 'gpx/Schitour/ST_201711_LindauHutte.gpx',
 'gpx/Schitour/ST_2018_Fullfirst.gpx',
+'gpx/Schitour/ST_2018_Gross-Chaerpf.gpx',
 'gpx/Schitour/ST_201901_Gamperdun.gpx',
-'gpx/Schitour/ST_201901_Stockberg.gpx']
+'gpx/Schitour/ST_201901_Stockberg.gpx',
+'gpx/Schitour/ST_201902_Schneeglocke.gpx']
 
 var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 'gpx/SchneeS/Project/P_SW_Mattner_first.gpx',
