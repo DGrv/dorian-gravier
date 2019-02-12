@@ -112,19 +112,19 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var lHike = L.layerGroup();
 			var lSchneeS = L.layerGroup();
 			var lHikeProject = L.layerGroup();
-			var lSchiTour = L.layerGroup();
-			var lSchiTourProject = L.layerGroup();
+			var lSchitour = L.layerGroup();
+			var lSchitourProject = L.layerGroup();
 			var lSchneeSProject = L.layerGroup();
 
 
 			var overlays = {"Hillshading": hill,
 			"Bike": lBike,
 			"Hike": lHike,
-			"SchiTour": lSchiTour,
+			"SchiTour": lSchitour,
 			"SchneeSchuhe": lSchneeS,
 			"Project Bike": lBikeProject,
 			"Project Hike": lHikeProject,
-			"Project SchiTour": lSchiTourProject,
+			"Project SchiTour": lSchitourProject,
 			"Project SchneeSchuhe": lSchneeSProject
 			};
 
@@ -221,8 +221,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 			var loopinfo = {
-				what = [Bike, Hike, HikeProject, SchiTour, SchitourProject, SchneeSProject],
-				layer = [lBike, lHike, lHikeProject, lSchiTour, lSchitourProject, lSchneeSProject],
+				what = [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
+				layer = [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
 				trackcolor = ['green', 'red', 'red', 'blue', 'blue', 'purple'],
 				project = [F, F, T, F, T, T]
 			};
