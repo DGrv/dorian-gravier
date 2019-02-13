@@ -253,8 +253,8 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
-							"<a href=" + loopinfo.what[j][i].toString() + ">Link</a></br>" +
-							"<a href=" + share + ">Share location</a> </br>";
+							"<a href='" + loopinfo.what[j][i] + "'>Link</a></br>" +
+							"<a href='" + share + "'>Share location</a> </br>";
 
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
@@ -269,9 +269,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    		});
 
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: loopinfo.trackcolor[j].toString(), weight: 3});
-						console.log(loopinfo.trackcolor[j].toString());
-						console.log(loopinfo.What[j][i].toString());
+	      		e.target.setStyle({color: loopinfo.trackcolor[j], weight: 3});
+						console.log(loopinfo.trackcolor[j]);
+						console.log(loopinfo.What[j][i]);
 	    		});
 
 					g.addTo(loopinfo.layer[j]);
