@@ -391,3 +391,31 @@ var g = new L.GPX(gpx, {
 
    g.addTo(map);
 ```
+
+### Highlight or change color on mouseover
+
+[Example in plnkr](https://embed.plnkr.co/plunk/BWsn5CFrsgarwcFa)
+
+```javascript
+var g = new L.GPX(gpx, {
+     async: true,
+     parseElements: ['track'],
+     polyline_options: {
+       color: 'blue'
+     }
+   });
+
+   g.on('mouseover', function(e) {
+		 e.target.setStyle({opacity: 0.7, weight: 10});
+		 // if you want only to keep same color and change weight and so on ...
+		 //e.target.setStyle({color: 'yellow'});
+   });
+
+   g.on('mouseout', function(e) {
+		 e.target.setStyle({color: 'blue'});
+		 // if you want only to keep same color and change weight and so on ...
+		 //e.target.setStyle({opacity: 1, weight: 3});
+   });
+
+   g.addTo(map);
+```
