@@ -242,7 +242,6 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 					g.on('loaded', function(e) {
 						var gpx = e.target,
-							name = gpx.get_name(),
 							distM = gpx.get_distance(),
 							distKm = distM / 1000,
 							distKmRnd = distKm.toFixed(1),
@@ -252,7 +251,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 						var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen.lat + '&lng=' + cen.lng;
 
-						var info = "Name: " + name + "</br>" +
+						var info = "Name: " + link + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
 							"<a href='" + link + "'>Link</a></br>" +
@@ -267,7 +266,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					});
 
 					g.on('mouseover', function(e) {
-	      		e.target.setStyle({opacity: 0.8, weight: 10});
+	      		e.target.setStyle({opacity: 0.6, weight: 10});
 	    		});
 
 					g.on('mouseout', function(e) {
