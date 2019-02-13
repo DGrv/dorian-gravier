@@ -49,7 +49,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<script>
 			// test your script on https://plnkr.co
 
-			var topo = L.tileLayer('http://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			var topo = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
 				attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | map style: © OpenTopoMap (CC-BY-SA)',
 					maxZoom: 17,
 					minZoom: 1
@@ -75,7 +75,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					maxZoom: 17,
 					minZoom: 1
 				}),
-				toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+				toner = L.tileLayer('https://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
 					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					maxZoom: 17,
 					minZoom: 1
@@ -101,7 +101,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			};
 
 			// create layers
-			var hill = L.tileLayer('http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
+			var hill = L.tileLayer('https://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
@@ -238,6 +238,9 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 					var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: loopinfo.trackcolor[j]}});
 
+					var link = loopinfo.what[j][i];
+					var defaultcolor = loopinfo.trackcolor[j];
+					
 					g.on('loaded', function(e) {
 						var gpx = e.target,
 							name = gpx.get_name(),
@@ -253,7 +256,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 						var info = "Name: " + name + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
-							"<a href='" + loopinfo.what[j][i] + "'>Link</a></br>" +
+							"<a href='" + link + "'>Link</a></br>" +
 							"<a href='" + share + "'>Share location</a> </br>";
 
 							// register popup on click
@@ -269,9 +272,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 	    		});
 
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: loopinfo.trackcolor[j], weight: 3});
-						console.log(loopinfo.trackcolor[j]);
-						console.log(loopinfo.What[j][i]);
+	      		e.target.setStyle({color: defaultcolor, weight: 3});
 	    		});
 
 					g.addTo(loopinfo.layer[j]);
