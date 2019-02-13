@@ -266,7 +266,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					});
 
 					g.on('mouseover', function(e) {
-	      		e.target.setStyle({opacity: 0.6, weight: 10});
+	      		e.target.setStyle({opacity: 0.7, weight: 10});
 	    		});
 
 					g.on('mouseout', function(e) {
