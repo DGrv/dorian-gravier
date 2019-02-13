@@ -239,8 +239,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: loopinfo.trackcolor[j]}});
 
 					var link = loopinfo.what[j][i];
-					var defaultcolor = loopinfo.trackcolor[j];
-					
+
 					g.on('loaded', function(e) {
 						var gpx = e.target,
 							name = gpx.get_name(),
@@ -268,11 +267,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					});
 
 					g.on('mouseover', function(e) {
-	      		e.target.setStyle({color: 'yellow', weight: 6});
+	      		e.target.setStyle({opacity: 0.8, weight: 10});
 	    		});
 
 					g.on('mouseout', function(e) {
-	      		e.target.setStyle({color: defaultcolor, weight: 3});
+	      		e.target.setStyle({opacity: 1, weight: 3});
 	    		});
 
 					g.addTo(loopinfo.layer[j]);
