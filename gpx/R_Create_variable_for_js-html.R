@@ -12,6 +12,8 @@ lis[, dir := dirname(path2) ]
 lisdir <- unique(lis$dir)
 
 
+
+
 write("// create file", file = "Name_var_js-html_tocopy_in_leaflet.txt")
 for(i in seq_along(lisdir)) {
   if( lisdir[i] != "gpx" ) {
@@ -35,20 +37,10 @@ for(i in seq_along(lisdir)) {
   }
 }
 
-write("", file = "Link_gpx_tocopy_in_leaflet.txt")
-for(i in seq_along(lisdir)) {
-  if( lisdir[i] != "gpx" ) {
-    if( basename(lisdir[i]) == "Project" ) {
-      varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
-    } else {
-      varname <- basename(lisdir[i])
-    }
+leaf <- readLines(paste0(dirname(wd), "/leaflet.md"))
+leaf1 <- leaf[1:grep("// VARIABLE START", leaf)]
+leaf2 <- leaf[grep("// VARIABLE END", leaf):length(leaf)]
 
-    lis2 <- lis[dir == lisdir[i]]
-
-    write(paste0("- ", varname), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
-    for( j in 1:nrow(lis2)) {
-        write(paste0("\t- [", basename(lis2[j, path2]), "](", lis2[j, path2], ")"), file = "Link_gpx_tocopy_in_leaflet.txt", append = T)
-    }
-  }
-}
+var <- readLines("Name_var_js-html_tocopy_in_leaflet.txt")
+leafnew <- c(leaf1, var, leaf2)
+writeLines(leafnew, paste0(dirname(wd), "/leaflet.md"))
