@@ -265,7 +265,7 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 					});
 
 					g.on('mouseover', function(e) {
-	      		e.target.setStyle({opacity: 0.7, weight: 10});
+	      		e.target.setStyle({opacity: 0.7, weight: 6});
 	    		});
 
 					g.on('mouseout', function(e) {
