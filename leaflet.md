@@ -106,6 +106,16 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				minZoom: 1,
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
 			});
+			var cycleroutes = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+				maxZoom: 17,
+				minZoom: 1,
+				attribution: 'Map Data: © <a href="https://cycling.waymarkedtrails.org">Waymarked Trails Cycling</a> contributors'
+			});
+			var hiketrails = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+				maxZoom: 17,
+				minZoom: 1,
+				attribution: 'Map Data: © <a href="https://hiking.waymarkedtrails.org">Waymarked Trails Hiking</a> contributors'
+			});
 
 			var lBike = L.layerGroup();
 			var lBikeProject = L.layerGroup();
@@ -118,7 +128,11 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 
 			var overlays = {"Hillshading": hill,
-			"Bike": lBike,
+			"Hiking trails": hiketrails,
+			"Cycling routes": cycleroutes
+			};
+
+			var DoriGpx = {"Bike": lBike,
 			"Hike": lHike,
 			"SchiTour": lSchitour,
 			"SchneeSchuhe": lSchneeS,
@@ -128,7 +142,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			"Project SchneeSchuhe": lSchneeSProject
 			};
 
-			L.control.layers(baseLayers, overlays).addTo(map);
+			L.control.layers(baseLayers, overlays, DoriGpx).addTo(map);
 
 // VARIABLE START
 // create file
