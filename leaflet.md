@@ -30,7 +30,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
 		<!-- Copyright (c) 2013 Michael Lawrence Evans -->
-		<script src="https://github.com/mlevans/leaflet-hash/blob/master/leaflet-hash.js"></script>
+		<script src="js/leaflet-hash.js"></script>
 
 		<!-- For full screen -->
 		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
