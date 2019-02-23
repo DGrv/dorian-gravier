@@ -38,6 +38,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 		<style>
 			#map{ width: 900px; height: 500px; }
+    </style>
 		</style>
 
 	</head>
@@ -91,9 +92,10 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				center: [47.5, 9.6],
 				zoom: 8,
 				layers: topo,
-				fullscreenControl: {
-					pseudoFullscreen: false // if true, fullscreen to page width and height
-				}});
+				fullscreenControl {
+					pseudoFullscreen: true // if true, fullscreen to page width and height
+				}
+			});
 
 			var baseLayers = {
 				"OpenTopo": topo,
