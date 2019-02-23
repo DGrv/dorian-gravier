@@ -39,7 +39,6 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<style>
 			#map{ width: 900px; height: 500px; }
     </style>
-		</style>
 
 	</head>
 	<body>
