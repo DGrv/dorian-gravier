@@ -109,11 +109,12 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			var OpenPtMap = L.tileLayer('http://openptmap.org/tiles/{z}/{x}/{y}.png', {
 					maxZoom: 17,
 					attribution: 'Map data: &copy; <a href="http://www.openptmap.org">OpenPtMap</a> contributors'
-			}),
+			});
 			var OpenRailwayMap = L.tileLayer('https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png', {
 					maxZoom: 19,
+					minZoom: 1,
 					attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy; <a href="https://www.OpenRailwayMap.org">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-			}),
+			});
 			var cycleroutes = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
