@@ -101,7 +101,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 			};
 
 			// create layers
-			var hill = L.tileLayer('https://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
+			var hill = L.tileLayer('https://tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
@@ -294,7 +294,8 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 				};
 			};
 
-
+			// Copyright (c) 2013 Michael Lawrence Evans
+			var hash = new L.Hash(map);
 
 
 
