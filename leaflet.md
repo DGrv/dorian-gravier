@@ -91,7 +91,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 				center: [47.5, 9.6],
 				zoom: 8,
 				layers: topo,
-				fullscreenControl {
+				fullscreenControl: {
 					pseudoFullscreen: true // if true, fullscreen to page width and height
 				}
 			});
