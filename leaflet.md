@@ -63,25 +63,23 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 					maxZoom: 17,
 					minZoom: 1
 				}),
-				transport = L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
-					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-					maxZoom: 17,
-					minZoom: 1
-				}),
-				atlas = L.tileLayer('https://tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
-					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-					maxZoom: 17,
-					minZoom: 1
-				}),
+				OpenCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
+					attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					apikey: 'e2ca2754befd4a5ea91cbafc804c47fe',
+					maxZoom: 22
+				});
 				outdoors = L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e2ca2754befd4a5ea91cbafc804c47fe', {
 					attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 					maxZoom: 17,
-					minZoom: 1
+					minZoom: 1,
+					apikey: 'e2ca2754befd4a5ea91cbafc804c47fe'
 				}),
-				toner = L.tileLayer('https://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
-					attribution: 'map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-					maxZoom: 17,
-					minZoom: 1
+				Stamen_Toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+					attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					subdomains: 'abcd',
+					minZoom: 0,
+					maxZoom: 20,
+					ext: 'png'
 				});
 
 
@@ -98,11 +96,10 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 
 			var baseLayers = {
 				"OpenTopo": topo,
-				"OpenStreet": open,
-				"OpenToner": toner,
-				"Thunderforest Outdoors": outdoors,
-				"Mobile Atlas": atlas,
-				"Transport": transport
+				"OpenStreetMap": open,
+				"OpenCycleMap": OpenCycleMap,
+				"StamenToner": Stamen_Toner,
+				"Thunderforest Outdoors": outdoors
 			};
 
 			// create layers
