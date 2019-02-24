@@ -91,27 +91,33 @@ layout: page
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
-			});
-			var OpenPtMap = L.tileLayer('http://openptmap.org/tiles/{z}/{x}/{y}.png', {
+			}),
+			OpenSlopeMap_HR = L.tileLayer('https://tileserver{ID}.openslopemap.org/OSloOVERLAY_UHR_AlpsEast_16/{z}/{x}/{y}.png', {
+				ID: {1,2,3,4},
+				maxZoom: 17,
+				minZoom: 1,
+				attribution: 'Map data: &copy; <a href="https://www.openslopemap.org/">OpenSlopeMap</a>'
+			}),
+			 OpenPtMap = L.tileLayer('http://openptmap.org/tiles/{z}/{x}/{y}.png', {
 					maxZoom: 17,
 					attribution: 'Map data: &copy; <a href="http://www.openptmap.org">OpenPtMap</a> contributors'
-			});
-			var OpenRailwayMap = L.tileLayer('https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png', {
+			}),
+			OpenRailwayMap = L.tileLayer('https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png', {
 					maxZoom: 19,
 					minZoom: 1,
 					attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy; <a href="https://www.OpenRailwayMap.org">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-			});
-			var cycleroutes = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+			})
+			cycleroutes = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Map Data: © <a href="https://cycling.waymarkedtrails.org">Waymarked Trails Cycling</a> contributors'
-			});
-			var hiketrails = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+			}),
+			hiketrails = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Map Data: © <a href="https://hiking.waymarkedtrails.org">Waymarked Trails Hiking</a> contributors'
-			});
-			var pistes = L.tileLayer('https://tile.waymarkedtrails.org/slopes/{z}/{x}/{y}.png', {
+			}),
+			pistes = L.tileLayer('https://tile.waymarkedtrails.org/slopes/{z}/{x}/{y}.png', {
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Map Data: © <a href="https://slopes.waymarkedtrails.org">Waymarked Trails Slopes</a> contributors'
@@ -127,20 +133,21 @@ layout: page
 			var lSchneeSProject = L.layerGroup();
 
 
-			var overlays = {"Hillshading": hill,
-			"Public Transport": OpenPtMap,
-			"Train lines": OpenRailwayMap,
-			"Hiking trails": hiketrails,
-			"Cycling routes": cycleroutes,
-			"Ski pistes": pistes,
-			"Bike": lBike,
-			"Hike": lHike,
-			"SchiTour": lSchitour,
-			"SchneeSchuhe": lSchneeS,
-			"Project Bike": lBikeProject,
-			"Project Hike": lHikeProject,
-			"Project SchiTour": lSchitourProject,
-			"Project SchneeSchuhe": lSchneeSProject
+			var overlays = {"OpenSlopeMap": OpenSlopeMap_HR,
+				"Hillshading": hill,
+				"Public Transport": OpenPtMap,
+				"Train lines": OpenRailwayMap,
+				"Hiking trails": hiketrails,
+				"Cycling routes": cycleroutes,
+				"Ski pistes": pistes,
+				"Bike": lBike,
+				"Hike": lHike,
+				"SchiTour": lSchitour,
+				"SchneeSchuhe": lSchneeS,
+				"Project Bike": lBikeProject,
+				"Project Hike": lHikeProject,
+				"Project SchiTour": lSchitourProject,
+				"Project SchneeSchuhe": lSchneeSProject
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
