@@ -1,9 +1,9 @@
 ---
 lazout: post
-title: New layers in leaflet
+title: New layers in leaflet - Slope
 ---
 
-I was looking for such informations since a long time: Slope.
+I was looking for such informations since a long time Slope.
 I finally discovered the recent project from [OpenSlopeMap](https://www.openslopemap.org/). Exactly like me their goal is to be able to provide information to people going in the montain in order to make better decision. For more information I invite you to read their really complete website.
 
 You will find 2 layers:
