@@ -8,8 +8,7 @@ layout: page
 		<title>A Leaflet map!</title>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-		<script src='js/Leaflet.LocationShare.js'></script>
-		<!-- Copyright (C) 2011-2012 Pavel Shramov -->
+
 		<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
@@ -92,10 +91,18 @@ layout: page
 				minZoom: 1,
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
 			}),
-			OpenSlopeMap_HR = L.tileLayer('https://tileserver{ID}.openslopemap.org/OSloOVERLAY_UHR_AlpsEast_16/{z}/{x}/{y}.png', {
-				ID: [1,2,3,4],
+			OpenSlopeMap_HR = L.tileLayer('https://tileserver{s}.openslopemap.org/OSloOVERLAY_UHR_AlpsEast_16/{z}/{x}/{y}.png', {
+				subdomains: '1234',
 				maxZoom: 17,
 				minZoom: 1,
+				opacity: 0.5,
+				attribution: 'Map data: &copy; <a href="https://www.openslopemap.org/">OpenSlopeMap</a>'
+			}),
+			OpenSlopeMap_LR = L.tileLayer('https://tileserver{s}.openslopemap.org/OSloOVERLAY_LR_All_16/{z}/{x}/{y}.png', {
+				subdomains: '1234',
+				maxZoom: 17,
+				minZoom: 1,
+				opacity: 0.5,
 				attribution: 'Map data: &copy; <a href="https://www.openslopemap.org/">OpenSlopeMap</a>'
 			}),
 			 OpenPtMap = L.tileLayer('http://openptmap.org/tiles/{z}/{x}/{y}.png', {
@@ -133,21 +140,22 @@ layout: page
 			var lSchneeSProject = L.layerGroup();
 
 
-			var overlays = {"OpenSlopeMap": OpenSlopeMap_HR,
-				"Hillshading": hill,
-				"Public Transport": OpenPtMap,
-				"Train lines": OpenRailwayMap,
-				"Hiking trails": hiketrails,
-				"Cycling routes": cycleroutes,
-				"Ski pistes": pistes,
-				"Bike": lBike,
-				"Hike": lHike,
-				"SchiTour": lSchitour,
-				"SchneeSchuhe": lSchneeS,
-				"Project Bike": lBikeProject,
-				"Project Hike": lHikeProject,
-				"Project SchiTour": lSchitourProject,
-				"Project SchneeSchuhe": lSchneeSProject
+			var overlays = {"Hillshading": hill,
+				"Slope - OpenSlopeMapHR": OpenSlopeMap_HR,
+				"Slope - OpenSlopeMapLR": OpenSlopeMap_LR,
+				"Transport - Pt": OpenPtMap,
+				"Transport - Train": OpenRailwayMap,
+				"Ways - Hiking trails": hiketrails,
+				"Ways - Cycling routes": cycleroutes,
+				"Ways - Ski pistes": pistes,
+				"DG - Bike": lBike,
+				"DG - Hike": lHike,
+				"DG - SchiTour": lSchitour,
+				"DG - SchneeSchuhe": lSchneeS,
+				"DG - Project Bike": lBikeProject,
+				"DG - Project Hike": lHikeProject,
+				"DG - Project SchiTour": lSchitourProject,
+				"DG - Project SchneeSchuhe": lSchneeSProject
 			};
 
 			L.control.layers(baseLayers, overlays).addTo(map);
@@ -277,7 +285,6 @@ var SchneeSProject = ['gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 							"Elevation Gain: " + eleGain + " m </br>" +
 							"<a href='" + link + "'>Link</a></br>" +
 							"<a href='" + share + "'>Share location</a> </br>";
-
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
 
