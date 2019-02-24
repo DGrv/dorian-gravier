@@ -93,7 +93,7 @@ layout: page
 				attribution: 'Hillshading: SRTM3 v2 (<a href="http://www2.jpl.nasa.gov/srtm/">NASA</a>)'
 			}),
 			OpenSlopeMap_HR = L.tileLayer('https://tileserver{ID}.openslopemap.org/OSloOVERLAY_UHR_AlpsEast_16/{z}/{x}/{y}.png', {
-				ID: {1,2,3,4},
+				ID: [1,2,3,4],
 				maxZoom: 17,
 				minZoom: 1,
 				attribution: 'Map data: &copy; <a href="https://www.openslopemap.org/">OpenSlopeMap</a>'
