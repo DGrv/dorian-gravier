@@ -2,22 +2,6 @@
 title: Leaflet
 layout: page
 ---
-
-
-Enjoy :).
-As legend :
-
-- <span style="color:green">Green : Bike</span>
-- <span style="color:red">Red : Hike</span>
-- <span style="color:blue">Blue : SkiTour</span>
-- <span style="color:purple">Purple : Snow schoes hike</span>
-
-Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
-
-
-
-
-
 <html>
 	<head>
 
@@ -37,7 +21,7 @@ Then comes a bit more transparent gpx with a dash array, this are 'Projects' :)
 		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
 		<style>
-			#map{ width: 900px; height: 500px; }
+			#map{ width: 800px; height: 500px; }
     </style>
 
 	</head>
