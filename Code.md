@@ -7,13 +7,18 @@ permalink: /code/
 <!-- TOC -->
 
 - [Batch](#batch)
+	- [Get system info](#get-system-info)
+		- [OS bits](#os-bits)
+		- [OS version](#os-version)
+		- [Format date or time](#format-date-or-time)
+		- [Get timestamp](#get-timestamp)
 	- [Magick](#magick)
 		- [Merge in batch](#merge-in-batch)
 		- [Convert in batch](#convert-in-batch)
 			- [level brightness](#level-brightness)
 			- [flex files to tiff](#flex-files-to-tiff)
 	- [FFmpeg](#ffmpeg)
-	- [Record screen and audio](#record-screen-and-audio)
+		- [Record screen and audio](#record-screen-and-audio)
 	- [Add variable to system variable PATH (Windows)](#add-variable-to-system-variable-path-windows)
 - [R](#r)
 	- [data.table tricks](#datatable-tricks)
@@ -29,8 +34,71 @@ permalink: /code/
 <!-- /TOC -->
 
 
-
 # Batch
+
+## Change color console
+
+I created a batch file to change the color
+
+## Get system info
+
+### OS bits
+
+```batch
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+if %OS%==32BIT (
+	echo 32bits
+) else (
+	echo 64bits
+)
+```
+### OS version
+
+```batch
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version" | find /i "XP" > NUL && set ver=XP || set ver=other
+echo %ver%
+```
+
+### Format date or time
+
+If the input locale is englisch the month and day are reversed.
+Here a solution to get it right.
+
+```batch
+systeminfo | findstr /B /C:"Input Locale:" | find /i "de;" > NUL && set lan=de || set lan=en
+if %lan%==de (
+	set month=%date:~-7,2%
+	set day=%date:~-10,2%
+) else (
+	set day=%date:~-7,2%
+	set month=%date:~-10,2%
+)
+```
+
+### Get timestamp
+
+```batch
+:: ---------- Find Time ----------
+set hour=%time:~0,2%
+if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
+set min=%time:~3,2%
+if "%min:~0,1%" == " " set min=0%min:~1,1%
+::set secs=%time:~6,2%
+::if "%secs:~0,1%" == " " set secs=0%secs:~1,1%
+
+set year=%date:~-4%
+systeminfo | findstr /B /C:"Input Locale:" | find /i "de;" > NUL && set lan=de || set lan=en
+if %lan%==de (
+	set month=%date:~-7,2%
+	set day=%date:~-10,2%
+) else (
+	set day=%date:~-7,2%
+	set month=%date:~-10,2%
+)
+if "%month:~0,1%" == " " set month=0%month:~1,1%
+if "%day:~0,1%" == " " set day=0%day:~1,1%
+set datetimef=%year%%month%%day%%hour%%min%
+```
 
 ## Magick
 
@@ -188,7 +256,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*flex"') DO (
 
 ## FFmpeg
 
-## Record screen and audio
+### Record screen and audio
 
 ```Batch
 ffmpeg -list_devices true -f dshow -i dummy
@@ -211,6 +279,92 @@ ffmpeg -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A7
 ```
 
 Stop with ctrl-c.
+
+Batch file to automate it : *v02*
+
+```Batch
+@echo off
+
+
+
+
+
+
+:: ---------- User input ----------
+
+set /p xp=Are you on XP ? (0: NO, 1: Yes) :
+set /p audio=Do you want to record audio ? (0: NO, 1: Yes) :
+
+
+
+
+:: ---------- Find Time ----------
+set hour=%time:~0,2%
+if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
+set min=%time:~3,2%
+if "%min:~0,1%" == " " set min=0%min:~1,1%
+::set secs=%time:~6,2%
+::if "%secs:~0,1%" == " " set secs=0%secs:~1,1%
+
+set year=%date:~-4%
+set month=%date:~-7,2%
+if "%month:~0,1%" == " " set month=0%month:~1,1%
+set day=%date:~-10,2%
+if "%day:~0,1%" == " " set day=0%day:~1,1%
+
+
+set datetimef=%year%%month%%day%%hour%%min%
+
+:: ---------- Start ----------
+echo Batch script to record screen and audio
+
+if %audio%==1  (
+	ffmpeg -list_devices true -f dshow -i dummy
+	echo.
+	echo.
+	echo Copy the alternative name of your microphone:
+	echo Example : @device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{4286150F-8585-41D6-BA56-49CFB8009DDA}
+	echo.
+	set /p micro="Paste it here : "
+	echo.
+)
+
+
+set /p framer="Which frame rate per second do you want ? "
+
+
+echo.
+echo.
+echo Type CTRL-C to stop the recording.
+echo The recording will be stop and you will be asked if you want to terminate the batch job Y/N, choose N.
+echo The video will be created in the same folder as the batch file and a reduze resolution will be created.
+echo.
+set /p info=Type Enter to continue
+
+
+
+if %audio%==1  (
+	if %xp%==1 (
+		ffmpeg -f gdigrab -framerate %framer% -i desktop -f dshow -i audio="%micro%" %datetimef%_ScreenCapture.mkv
+		ffmpeg -i %datetimef%_ScreenCapture.mkv -vbr 3 -vf "scale=720:-2" -preset slow -crf 18 %datetimef%_ScreenCapture_low.mkv
+	) ELSE (
+		ffmpeg -f gdigrab -framerate %framer% -i desktop -f dshow -i audio="%micro%" %datetimef%_ScreenCapture.mp4
+		ffmpeg -i %datetimef%_ScreenCapture.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 18 %datetimef%_ScreenCapture_low.mp4
+	)
+) else (
+	if %xp%==1 (
+		ffmpeg -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.mkv
+		ffmpeg -i %datetimef%_ScreenCapture.mkv -vbr 3 -vf "scale=720:-2" -preset slow -crf 18 %datetimef%_ScreenCapture_low.mkv
+	) ELSE (
+		ffmpeg -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.mp4
+		ffmpeg -i %datetimef%_ScreenCapture.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 18 %datetimef%_ScreenCapture_low.mp4
+	)
+)
+
+
+
+
+```
 
 ## Add variable to system variable PATH (Windows)
 
