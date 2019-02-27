@@ -22,8 +22,10 @@ body { font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		border-radius: 5px;
 		box-shadow: 4px 6px 16px -2px rgba(105,103,105,1);
 	}
+	img.leaflet-tile { box-shadow: none; border-radius: 0; vertical-align: baseline; }
 
-	/** Links */
+	/** Link */
+
 a { color: #e7f24d;
 	text-decoration: none; }
 a:visited { color: #d0db32; }
