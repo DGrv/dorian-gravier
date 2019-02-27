@@ -40,6 +40,9 @@ listhu[, Name := gsub("ä", "ae", Name)]
 listhu[, Name := gsub("Ä", "Ae", Name)]
 listhu[, Name := gsub("ö", "oe", Name)]
 listhu[, Name := gsub("Ö", "Oe", Name)]
+listhu[, Name := gsub("ò", "o", Name)]
+listhu[, Name := gsub("é", "e", Name)]
+listhu[, Name := gsub("ß", "ss", Name)]
 
 
 
@@ -68,8 +71,8 @@ listhu2BU <- copy(listhu2)
 
 
 
-listhu2[1:(nrow(listhu2) - 1), js := paste0("['", Name, "',", lon, ",", lat, ",'", Link, "'],")]
-listhu2[nrow(listhu2), js := paste0("['", Name, "',", lon, ",", lat, ",'", Link, "'],")]
+listhu2[1:(nrow(listhu2) - 1), js := paste0("['", Name, "',", lon, ",", lat, ",'", link, "'],")]
+listhu2[nrow(listhu2), js := paste0("['", Name, "',", lon, ",", lat, ",'", link, "']")]
 
 jsvar <- c(jsvar.start, listhu2$js, jsvar.end)
 
