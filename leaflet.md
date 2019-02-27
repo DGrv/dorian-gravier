@@ -1,6 +1,7 @@
 ---
 title: Leaflet
 layout: page
+show_in_nav: false
 ---
 <html>
 	<head>
@@ -22,7 +23,7 @@ layout: page
 		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
 		<style>
-			#map{ width: 800px; height: 500px; }
+			#map{ width: 100%; height: 500px; }
     </style>
 
 	</head>

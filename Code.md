@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Code
-permalink: /code/
+order: 3
 ---
 
 <!-- TOC -->
