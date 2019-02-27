@@ -9,15 +9,15 @@ Skills and competences
 You can here have a look at a pretty detailed learning experience and knowledge obtained since I am studying ecology and working as a Robotic Engineer (only in English).   
 You will find this as a summary in my CV below.
 
-[![](http://www.weebly.com/weebly/images/file_icons/pdf.png)](assets/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
+[![](http://www.weebly.com/weebly/images/file_icons/pdf.png)](files/pdf/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
 
 **dorian\_gravier\_cv\_201803.pdf**
 
-[Download File](assets/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
+[Download File](files/pdf/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
 
 * * *
 
- ![Photo](assets/776374_orig.jpg) 
+ ![Photo](files/picture/776374_orig.jpg) 
 
 What am I actually doing ?
 --------------------------
@@ -32,7 +32,7 @@ My experience acquired during my career is based on several skills that I consid
 
 * * *
 
- ![Photo](assets/3098356_orig.jpg) 
+ ![Photo](files/picture/3098356_orig.jpg) 
 
 Languages
 ---------
@@ -71,9 +71,9 @@ I love bringing the power of computer science in a team via communication. This 
 *   High skills in office suites in general (Office or LibreOffice)
 *   Experience in dynamic presentation : [ImpressJS](https://github.com/impress/impress.js/)
 
- ![Photo](assets/1932032.jpg) 
+ ![Photo](files/picture/1932032.jpg) 
 
- ![Picture](assets/excel-ic502_orig.jpg) 
+ ![Picture](files/picture/excel-ic502_orig.jpg) 
 
 Robotic  
 
@@ -127,15 +127,15 @@ Robotic
     *   ​Scintillation Proximity Assays (SPA) radioative assay (HTS)
     *   ​Enzymatic assays
 
- ![Picture](assets/robocon.jpg?95) 
+ ![Picture](files/picture/robocon.jpg?95) 
 
- ![Picture](assets/presrobocon2.jpg?101) 
+ ![Picture](files/picture/presrobocon2.jpg?101) 
 
- ![Picture](assets/robocon2.jpg?103) 
+ ![Picture](files/picture/robocon2.jpg?103) 
 
- ![Picture](assets/cybio_orig.jpg) 
+ ![Picture](files/picture/cybio_orig.jpg) 
 
- ![Picture](assets/thermo_orig.jpg) 
+ ![Picture](files/picture/thermo_orig.jpg) 
 
 Bats
 ----
@@ -176,11 +176,11 @@ Bats
 
 *   2011 - January & February - Participation at approximatly 5 entire **winter prospection** week-end with the association [CPEPESC Lorraine](http://www.cpepesc-lorraine.fr/) in Lorraine (France).
 
- ![Photo](assets/2860214_orig.jpg) 
+ ![Photo](files/picture/2860214_orig.jpg) 
 
- ![Photo](assets/9654167.jpg?204) 
+ ![Photo](files/picture/9654167.jpg?204) 
 
- ![Photo](assets/6102908_orig.jpg) 
+ ![Photo](files/picture/6102908_orig.jpg) 
 
 Mammals in general
 ------------------
@@ -197,7 +197,7 @@ Mammals in general
     - **Centre National de la Recherche Scientifique** of Chizé on biologic studies | **Data analysis** (R) | Distribution, spatial usage, isotope analysis, Commerson dolphins (Cephalorhynchus commersonii) sociality from Kerguelen island. (Contact: christophe.guinet@cebc.cnrs.fr et paul.tixier@taaf.re)  
     \- **National Nature Reserve** of French Austral islands in Kerguelen. Charged of **Commerson dolphins' monitoring**. Help the CNRS of Chizé for setting-up on and off tags on elephant seals.
 
- ![Photo](assets/539720_orig.jpg) 
+ ![Photo](files/picture/539720_orig.jpg) 
 
 Birds
 -----
@@ -220,11 +220,11 @@ Birds
 *   2010 - April to August - **Intership** during 5 months with the Regional Natural Parc, Haute Vallée de Chevreuse (_supervisor : Alexandre Mari_). Subject : Elaboration of an actions plan to conserve two **L****ittle owl** population and monitoring of nesting boxes.  
     
 
- ![Photo](assets/9481651_orig.jpg) 
+ ![Photo](files/picture/9481651_orig.jpg) 
 
- ![Photo](assets/6180538.jpg?392) 
+ ![Photo](files/picture/6180538.jpg?392) 
 
- ![Photo](assets/3315922.jpg?273) 
+ ![Photo](files/picture/3315922.jpg?273) 
 
 Other contributions  
 
@@ -244,7 +244,7 @@ Other contributions
     
 *   2009 - Research and identification of Coccinellidae of north of France during my internship in 2009.
 
- ![Photo](assets/published/9516745.jpg?1520455160) 
+ ![Photo](files/picture/published/9516745.jpg?1520455160) 
 
 Presentations
 -------------
@@ -265,10 +265,10 @@ Presentations
   
   
 
- [![Photo](assets/7182505.jpg?155)](assets/7182505_orig.jpg) 
+ [![Photo](files/picture/7182505.jpg?155)](assets/7182505_orig.jpg) 
 
- [![Photo](assets/6375922_orig.jpg)](assets/6375922_orig.jpg) 
+ [![Photo](files/picture/6375922_orig.jpg)](assets/6375922_orig.jpg) 
 
- [![Photo](assets/6121603_orig.jpg)](assets/6121603_orig.jpg) 
+ [![Photo](files/picture/6121603_orig.jpg)](assets/6121603_orig.jpg) 
 
- [![Photo](assets/6841579_orig.jpg)](assets/6841579_orig.jpg)
+ [![Photo](files/picture/6841579_orig.jpg)](assets/6841579_orig.jpg)
