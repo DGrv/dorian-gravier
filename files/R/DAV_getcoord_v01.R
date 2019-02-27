@@ -54,6 +54,9 @@ listhu[, Name := gsub("ß", "ss", Name)]
     # listhu2 <- mutate_geocode(listhu, Name)
 
 #listhu2 <- data.table(left_join(listhu, listhu2))
+listhu2 <- listhu2[!is.na(lon)]
+listhu2BU <- copy(listhu2)
+# listhu2 <- copy(listhu2BU)
 
 p <- ggmap(get_map("Konstanz", zoom=7))
 p + geom_point(data=listhu2, aes(x=lon, y=lat))
@@ -66,8 +69,7 @@ write.csv(listhu2, "DAV_hutte_coord.csv", row.names = F)
 jsvar.start <- c("var DAVhutten = [")
 jsvar.end <- c("];")
 
-listhu2BU <- copy(listhu2)
-# listhu2 <- copy(listhu2BU)
+
 
 
 
