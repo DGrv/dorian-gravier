@@ -1,14 +1,14 @@
 ---
 layout: page
 title: About me
-permalink: /about/
+order: 10
 ---
 # Welcome
 
 Dorian Gravier like to cook, oh ja aber nicht nur. Even if he is a french guy ( ja you know French people and language), he can still speak something like his mother tongue as well as using them at work.
 
-Alright, let's stay a bit simple in what I am wanna present you here. The goal of this website is to give the opportunity to people to get an idea of what I have done and what I can or could do. Let's call it a Portofolio, it seems to be the mode since a while. 
-I invite you to look around, you may find something that is catching you curiosity. Do not hesitate to contact me if you would to get more information or give me a comment. 
+Alright, let's stay a bit simple in what I am wanna present you here. The goal of this website is to give the opportunity to people to get an idea of what I have done and what I can or could do. Let's call it a Portofolio, it seems to be the mode since a while.
+I invite you to look around, you may find something that is catching you curiosity. Do not hesitate to contact me if you would to get more information or give me a comment.
 
 I am found of personnal and professional development and I am constantly asking for feedback. Critics are always bringing forward (if they are of course constructive).
 
@@ -25,4 +25,3 @@ My experience acquired during my career is based on several skills that I consid
 
 # Contact
 EMail: dorian.gravier(*at*)gmail.com
-
