@@ -145,7 +145,7 @@ show_in_nav: false
 
 
 			var overlays = {
-				"Hutten": Hutten,
+				"DAV-SAC Hutten": Hutten,
 				"Hillshading": hill,
 				"Slope - OpenSlopeMapHR": OpenSlopeMap_HR,
 				"Slope - OpenSlopeMapLR": OpenSlopeMap_LR,
@@ -263,7 +263,7 @@ var DAVhutten = [
 ['Lidernenhuette SAC, SAC Mythen',8.6925125,46.9351944,'https://www.alpsonline.org/reservation/calendar?hut_id=5'],
 ['Monte Rosa Huette SAC, SAC Monte Rosa',7.8145789,45.9569375,'https://www.alpsonline.org/reservation/calendar?hut_id=6'],
 ['Capanna di Sciora CAS, SAC Hoher Rohn',9.6111967,46.3125,'https://www.alpsonline.org/reservation/calendar?hut_id=7'],
-['Capanna Bas�dino (Robiei) CAS, CAS Locarno',8.514105,46.4395411,'https://www.alpsonline.org/reservation/calendar?hut_id=8'],
+['Capanna Basodino (Robiei) CAS, CAS Locarno',8.514105,46.4395411,'https://www.alpsonline.org/reservation/calendar?hut_id=8'],
 ['Britanniahuette SAC, CAS Genevoise',7.9350557,46.0601385,'https://www.alpsonline.org/reservation/calendar?hut_id=9'],
 ['Cabane des Dix CAS, CAS Monte Rosa',7.8145789,45.9569375,'https://www.alpsonline.org/reservation/calendar?hut_id=10'],
 ['Doldenhornhuette SAC, SAC Emmental',7.697394,46.4868822,'https://www.alpsonline.org/reservation/calendar?hut_id=11'],
@@ -278,13 +278,10 @@ var DAVhutten = [
 ['Capanna Cristallina CAS, CAS Ticino',8.526377,46.471889,'https://www.alpsonline.org/reservation/calendar?hut_id=20'],
 ['Badushuette, SAC Manegg',8.6683981,46.6365737,'https://www.alpsonline.org/reservation/calendar?hut_id=21'],
 ['Cabane des Diablerets CAS, CAS Jaman',7.2154776,46.3386795,'https://www.alpsonline.org/reservation/calendar?hut_id=22'],
-['Baechlitalhuette SAC, SAC Am Albis',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=23'],
 ['Hohganthuette, SAC Emmental',7.90613,46.7826,'https://www.alpsonline.org/reservation/calendar?hut_id=24'],
-['Chamanna dEs-cha CAS, SAC Bernina',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=25'],
 ['Camona da Maighels CAS, SAC Piz Terri',8.6900692,46.6252899,'https://www.alpsonline.org/reservation/calendar?hut_id=26'],
 ['Gaulihuette SAC, SAC Bern',7.4362607,46.9412299,'https://www.alpsonline.org/reservation/calendar?hut_id=27'],
 ['Trifthuette SAC, SAC Bern',8.3766021,46.6779203,'https://www.alpsonline.org/reservation/calendar?hut_id=28'],
-['Taellihuette, Kraftwerke Oberhasli AG',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=29'],
 ['Zwinglipasshuette, SAC Toggenburg',9.3762035,47.2332194,'https://www.alpsonline.org/reservation/calendar?hut_id=30'],
 ['Dossenhuette SAC, SAC Oberaargau',8.0529396,46.6340468,'https://www.alpsonline.org/reservation/calendar?hut_id=31'],
 ['Hundsteinhuette SAC, SAC Saentis',9.4222242,47.25486,'https://www.alpsonline.org/reservation/calendar?hut_id=32'],
@@ -298,7 +295,7 @@ var DAVhutten = [
 ['Baergbeizli Underbaergli',7.7322387,46.5054343,'https://www.alpsonline.org/reservation/calendar?hut_id=40'],
 ['Rugghubelhuette SAC, SAC Titlis',8.4627557,46.8461725,'https://www.alpsonline.org/reservation/calendar?hut_id=41'],
 ['Capanna Adula CAS, CAS Ticino',8.9957999,46.4991,'https://www.alpsonline.org/reservation/calendar?hut_id=42'],
-['Cabane du V�lan CAS, CAS Genevoise',7.2454686,45.9169428,'https://www.alpsonline.org/reservation/calendar?hut_id=43'],
+['Cabane du Velan CAS, CAS Genevoise',7.2454686,45.9169428,'https://www.alpsonline.org/reservation/calendar?hut_id=43'],
 ['Gspaltenhornhuette SAC, SAC Bern',7.81025,46.5128,'https://www.alpsonline.org/reservation/calendar?hut_id=44'],
 ['Windgaellenhuette AACZ, AACZ',8.7557867,46.790173,'https://www.alpsonline.org/reservation/calendar?hut_id=45'],
 ['Carschinahuette SAC, SAC Raetia',9.827314,47.007077,'https://www.alpsonline.org/reservation/calendar?hut_id=46'],
@@ -330,7 +327,6 @@ var DAVhutten = [
 ['Refuge des Petoudes, CAS Diablerets',7.0111632,46.0200699,'https://www.alpsonline.org/reservation/calendar?hut_id=76'],
 ['Moenchsjochhuette, Genossenschaft Moenchsjochhuette',8.0057314,46.55474,'https://www.alpsonline.org/reservation/calendar?hut_id=77'],
 ['Chamonna Lischana CAS, CAS Engiadina Bassa',10.3345232,46.7655628,'https://www.alpsonline.org/reservation/calendar?hut_id=78'],
-['Klostertaler Umwelthuette, DAV Bundesverband',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=79'],
 ['Silvrettahuette SAC, SAC St.Gallen',10.0414342,46.8545346,'https://www.alpsonline.org/reservation/calendar?hut_id=80'],
 ['Blaueishuette, Sektion Berchtesgaden',12.975706,47.622179,'https://www.alpsonline.org/reservation/calendar?hut_id=81'],
 ['Hallerangerhaus, Sektion Schwaben',11.477182,47.3547403,'https://www.alpsonline.org/reservation/calendar?hut_id=82'],
@@ -371,7 +367,7 @@ var DAVhutten = [
 ['Greizer Huette, Sektion Greiz Sitz Marktredwitz',12.0899816,50.0035483,'https://www.alpsonline.org/reservation/calendar?hut_id=122'],
 ['Lizumerhuette, Alpenverein Hall in Tirol',11.640415,47.1667162,'https://www.alpsonline.org/reservation/calendar?hut_id=123'],
 ['Nuernberger Huette, Sektion Nuernberg',11.07516,49.4492687,'https://www.alpsonline.org/reservation/calendar?hut_id=124'],
-['Edelweisshuette/Schneeberg, Alpenverein Edelwei�',15.814893,47.791823,'https://www.alpsonline.org/reservation/calendar?hut_id=125'],
+['Edelweisshuette/Schneeberg, Alpenverein Edelweiss',15.814893,47.791823,'https://www.alpsonline.org/reservation/calendar?hut_id=125'],
 ['Meraner Huette, AVS Meran',11.281923,46.683204,'https://www.alpsonline.org/reservation/calendar?hut_id=126'],
 ['Reintalangerhuette, Sektion Muenchen',11.5478539,48.0996311,'https://www.alpsonline.org/reservation/calendar?hut_id=128'],
 ['Neue Magdeburger Huette, Sektion Geltendorf',11.035917,48.11597,'https://www.alpsonline.org/reservation/calendar?hut_id=129'],
@@ -396,14 +392,13 @@ var DAVhutten = [
 ['Gruttenhuette, Sektion Turner Alpenkraenzchen',12.3110068,47.5534685,'https://www.alpsonline.org/reservation/calendar?hut_id=154'],
 ['DAV Edelweisshaus, Sektion Stuttgart',10.301136,47.2159767,'https://www.alpsonline.org/reservation/calendar?hut_id=155'],
 ['Bordierhuette SAC, CAS Genevoise',7.8498,46.1445,'https://www.alpsonline.org/reservation/calendar?hut_id=156'],
-['Chamanna Jenatsch CAS, SAC Bernina',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=157'],
 ['Gruenburger Huette, Gruenburg',14.284616,47.921181,'https://www.alpsonline.org/reservation/calendar?hut_id=158'],
 ['Salmhuette, Alpenverein Wien',12.7206824,47.047044,'https://www.alpsonline.org/reservation/calendar?hut_id=159'],
 ['Muttekopfhuette, Alpenverein Imst Oberland',10.669766,47.262442,'https://www.alpsonline.org/reservation/calendar?hut_id=160'],
 ['Berglihuette SAC, SAC Grindelwald',8.0206445,46.5668057,'https://www.alpsonline.org/reservation/calendar?hut_id=161'],
 ['Neue Bonner Huette, Sektion Bonn',7.1172178,50.7387867,'https://www.alpsonline.org/reservation/calendar?hut_id=162'],
 ['Toelzer Huette am Schafreuter, Sektion Toelz',11.285,47.32,'https://www.alpsonline.org/reservation/calendar?hut_id=163'],
-['Wildhornhuette SAC, SAC Mol�son',7.388016,46.3792564,'https://www.alpsonline.org/reservation/calendar?hut_id=164'],
+['Wildhornhuette SAC, SAC Moleson',7.388016,46.3792564,'https://www.alpsonline.org/reservation/calendar?hut_id=164'],
 ['Cufercalhuette SAC, SAC Raetia',9.3590427,46.5933581,'https://www.alpsonline.org/reservation/calendar?hut_id=165'],
 ['Topalihuette SAC, CAS Genevoise',7.7620554,46.1569901,'https://www.alpsonline.org/reservation/calendar?hut_id=166'],
 ['Chamanna dal Linard CAS, CAS Engiadina Bassa',10.0829,46.7794,'https://www.alpsonline.org/reservation/calendar?hut_id=167'],
@@ -413,7 +408,7 @@ var DAVhutten = [
 ['Bad Kissinger Huette, Sektion Bad Kissingen',10.0815788,50.2071483,'https://www.alpsonline.org/reservation/calendar?hut_id=174'],
 ['Bietschhornhuette AACB',7.8171135,46.3949395,'https://www.alpsonline.org/reservation/calendar?hut_id=175'],
 ['Calandahuette SAC, SAC Raetia',9.4821802,46.8829834,'https://www.alpsonline.org/reservation/calendar?hut_id=176'],
-['Kampthalerhuette, Alpenverein Edelwei�',16.3727888,48.2029238,'https://www.alpsonline.org/reservation/calendar?hut_id=177'],
+['Kampthalerhuette, Alpenverein Edelweiss',16.3727888,48.2029238,'https://www.alpsonline.org/reservation/calendar?hut_id=177'],
 ['Kasseler Huette, Sektion Kassel',9.45601,51.2926,'https://www.alpsonline.org/reservation/calendar?hut_id=178'],
 ['Pfeishuette, Alpenverein Innsbruck',11.4257041,47.3301092,'https://www.alpsonline.org/reservation/calendar?hut_id=179'],
 ['Furtschaglhaus, Sektion Berlin',11.7470179,47.0014481,'https://www.alpsonline.org/reservation/calendar?hut_id=180'],
@@ -454,10 +449,8 @@ var DAVhutten = [
 ['Biberacher Huette, Sektion Biberach',9.7876486,48.100229,'https://www.alpsonline.org/reservation/calendar?hut_id=222'],
 ['Wanderheim Kreuzmoos, Private Huette',7.97712,48.18936,'https://www.alpsonline.org/reservation/calendar?hut_id=224'],
 ['Cabane des Vignettes CAS, CAS Monte Rosa',7.4758754,45.9897678,'https://www.alpsonline.org/reservation/calendar?hut_id=226'],
-['Salbithuette SAC, SAC Lindenberg',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=227'],
 ['Dammahuette SAC, SAC Pilatus',8.4577803,46.6448718,'https://www.alpsonline.org/reservation/calendar?hut_id=228'],
 ['Muttseehuette SAC, SAC Winterthur',9.0187224,46.857442,'https://www.alpsonline.org/reservation/calendar?hut_id=229'],
-['Oberetteshuette, AVS Matsch',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=230'],
 ['Passauer Huette, Sektion Passau',13.4228,48.5611,'https://www.alpsonline.org/reservation/calendar?hut_id=232'],
 ['Reuttener Huette, Alpenverein Reutte',10.7204775,47.4900772,'https://www.alpsonline.org/reservation/calendar?hut_id=233'],
 ['Augsburger Huette, Sektion Augsburg',10.895196,48.37173,'https://www.alpsonline.org/reservation/calendar?hut_id=235'],
@@ -473,7 +466,7 @@ var DAVhutten = [
 ['Berggasthaus Alpenblick',8.6421946,46.7695849,'https://www.alpsonline.org/reservation/calendar?hut_id=250'],
 ['Ybbstaler Huette, Alpenverein Austria',15.0250667,47.8075833,'https://www.alpsonline.org/reservation/calendar?hut_id=253'],
 ['Bifertenhuette AACB',9.0265386,46.814554,'https://www.alpsonline.org/reservation/calendar?hut_id=254'],
-['Chalet du Hohberg, CAS Mol�son',7.3355027,46.675724,'https://www.alpsonline.org/reservation/calendar?hut_id=255'],
+['Chalet du Hohberg, CAS Moleson',7.3355027,46.675724,'https://www.alpsonline.org/reservation/calendar?hut_id=255'],
 ['Huette Hammer, Sektion Muenchen',11.5819805,48.1351253,'https://www.alpsonline.org/reservation/calendar?hut_id=256'],
 ['Hochfeilerhuette, AVS Sterzing',11.7085069,46.9623095,'https://www.alpsonline.org/reservation/calendar?hut_id=257'],
 ['Jonsdorfer Huette, Sektion Zittau',14.6952157,50.8513108,'https://www.alpsonline.org/reservation/calendar?hut_id=258'],
@@ -485,7 +478,6 @@ var DAVhutten = [
 ['Zittauerhuette, Alpenverein Warnsdorf-Krimml',12.1242362,47.162766,'https://www.alpsonline.org/reservation/calendar?hut_id=266'],
 ['Wolayerseehuette, Alpenverein Austria',12.8670667,46.6122333,'https://www.alpsonline.org/reservation/calendar?hut_id=267'],
 ['Sewenhuette SAC, SAC Pfannenstiel',8.52104,46.7466,'https://www.alpsonline.org/reservation/calendar?hut_id=269'],
-['Prinz-Luitpoldhaus, Sektion Allgaeu-Immenstadt',NA,NA,'https://www.alpsonline.org/reservation/calendar?hut_id=270'],
 ['Kaunergrathuette, Sektion Mainz',8.2270668,50.0194179,'https://www.alpsonline.org/reservation/calendar?hut_id=271'],
 ['Otto- Mayr-Huette, Sektion Augsburg',10.6187153,47.5093016,'https://www.alpsonline.org/reservation/calendar?hut_id=272'],
 ['Millstaetter Huette, Alpenverein Millstatt',13.5596976,46.8109219,'https://www.alpsonline.org/reservation/calendar?hut_id=273'],
@@ -498,7 +490,7 @@ var DAVhutten = [
 ['Cabane Rambert CAS, CAS Diablerets',7.13415,46.2302,'https://www.alpsonline.org/reservation/calendar?hut_id=280'],
 ['Cabane du Trient CAS, CAS Diablerets',7.043674,45.9995954,'https://www.alpsonline.org/reservation/calendar?hut_id=281'],
 ['Schlernboedelehuette, AVS Schlern',11.5843762,46.5227112,'https://www.alpsonline.org/reservation/calendar?hut_id=284'],
-['Radlseehuette, AVS Brixen',11.5801457,46.7078792,'https://www.alpsonline.org/reservation/calendar?hut_id=285'],
+['Radlseehuette, AVS Brixen',11.5801457,46.7078792,'https://www.alpsonline.org/reservation/calendar?hut_id=285']
 ];
 // VARIABLE DAVHUTTEN END
 
@@ -541,8 +533,8 @@ var DAVhutten = [
 						var info = "Name: " + link + "</br>" +
 							"Distance: " + distKmRnd + " km </br>" +
 							"Elevation Gain: " + eleGain + " m </br>" +
-							"<a href='" + link + "'>Link</a></br>" +
-							"<a href='" + share + "'>Share location</a> </br>";
+							"<a href='" + link + "' target='_blank'>Link</a></br>" +
+							"<a href='" + share + "' target='_blank'>Share location</a> </br>";
 							// register popup on click
 	 					gpx.getLayers()[0].bindPopup(info);
 
@@ -563,7 +555,14 @@ var DAVhutten = [
 				};
 			};
 
-			var marker = L.marker([46.8545346, 10.0414342]).addTo(Hutten);
+			for (var i = 0; i < DAVhutten.length; i++) {
+				var p = new L.marker([DAVhutten[i][2], DAVhutten[i][1]]).bindPopup("Name: " + DAVhutten[i][0] + "</br>" +
+				"<a href='" + DAVhutten[i][3] + "' target='_blank'>Check places</a> </br>");
+
+
+
+				p.addTo(Hutten);
+			};
 
 
 			// Copyright (c) 2013 Michael Lawrence Evans
