@@ -44,7 +44,7 @@ I created a batch file to change the color
 
 ### OS bits
 
-```batch
+```shell
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
 if %OS%==32BIT (
 	echo 32bits
@@ -54,7 +54,7 @@ if %OS%==32BIT (
 ```
 ### OS version
 
-```batch
+```shell
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version" | find /i "XP" > NUL && set ver=XP || set ver=other
 echo %ver%
 ```
@@ -64,7 +64,7 @@ echo %ver%
 If the input locale is englisch the month and day are reversed.
 Here a solution to get it right.
 
-```batch
+```shell
 systeminfo | findstr /B /C:"Input Locale:" | find /i "de;" > NUL && set lan=de || set lan=en
 if %lan%==de (
 	set month=%date:~-7,2%
@@ -77,7 +77,7 @@ if %lan%==de (
 
 ### Get timestamp
 
-```batch
+```shell
 :: ---------- Find Time ----------
 set hour=%time:~0,2%
 if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
@@ -104,7 +104,7 @@ set datetimef=%year%%month%%day%%hour%%min%
 
 ### Merge in batch
 
-```batch
+```shell
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
@@ -149,7 +149,7 @@ echo magick convert Merge.%format% Merge.pdf
 
 #### level brightness
 
-```Batch
+```shell
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
@@ -194,7 +194,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*jpg"') DO (
 #### flex files to tiff
 
 
-```Batch
+```shell
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
@@ -258,7 +258,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*flex"') DO (
 
 ### Record screen and audio
 
-```Batch
+```shell
 ffmpeg -list_devices true -f dshow -i dummy
 ```
 
@@ -274,7 +274,7 @@ You will get information on your micro e.g.:
 ```
 Copy the **@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{282C5434-3354-4349-88E3-F7A5AD9ABD8B}**
 
-```Batch
+```shell
 ffmpeg -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{282C5434-3354-4349-88E3-F7A5AD9ABD8B}" output.mp4
 ```
 
@@ -282,7 +282,7 @@ Stop with ctrl-c.
 
 Batch file to automate it : *v02*
 
-```Batch
+```shell
 @echo off
 
 
@@ -376,7 +376,7 @@ The first version of this batch file was pretty simple:
 The problem is that I realized that it was creating duplicates, and rapidly your system variable PATH is full.
 I then created a version which would delete duplicated lines.
 
-```batch
+```shell
 :: Code ----------------------------------------------------------------------------
 @echo off
 setlocal enableDelayedExpansion
@@ -452,26 +452,26 @@ del temp2.txt
 
 Command to dowload the audio from a video or playlist:
 
-```batch
+```shell
 ffmpeg -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i the-url-of-your-video
 ```
 
 Command to download a video (best quality):
 
-```batch
+```shell
 ffmpeg -f best the-url-of-your-video
 ```
 
 Command to download a video (with choosen quality):
 Get the list of possible format ...
 
-```batch
+```shell
 ffmpeg -F the-url-of-your-video
 ```
 
 Choose one and run the following line
 
-```batch
+```shell
 ffmpeg -f format-choosen the-url-of-your-video
 ```
 
@@ -497,7 +497,7 @@ For noobies.
 - Copy the following lines of codes in a txt file (with notepad for example), change the 2 variables explained above and save it as a .bat file.
 - Run the bat file and enjoy.
 
-```batch
+```shell
 @echo off
 echo Will download the audio of a youtube video in C:Users\DGrv\Downloads\Software\Youtube-dl
 set pathexe=C:\path-of-your\youtube-dl.exe
