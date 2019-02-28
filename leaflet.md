@@ -429,7 +429,6 @@ show_in_nav: false
 					minZoom: 1,
 					maxZoom: 18
 				});
-;
 
 
 				// initialize the map
