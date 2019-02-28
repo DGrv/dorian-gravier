@@ -439,10 +439,7 @@ show_in_nav: false
 				layers: Stamen_Toner,
 				fullscreenControl: {
 					pseudoFullscreen: true // if true, fullscreen to page width and height
-				},
-				crs: L.CRS.EPSG3857,
-				continuousWorld: true,
-				worldCopyJump: false
+				}
 			});
 
 			var baseLayers = {
