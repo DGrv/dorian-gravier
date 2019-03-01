@@ -8,7 +8,7 @@ While I was planing a Ski tour I landed on a DAV website to reserve Hut. I reali
 Meaning that the all info from their hut are easily available for few lines of code with R for example.
 I decide to take the step and give me a challenge to have a Leaflet marker for all those Hut with a link to the reservation site.
 
-Here the summarized workflow I have built in the [Rscript](files/R/DAV_getcoord_v01.R):
+Here the summarized workflow I have built in the [Rscript](/files/R/DAV_getcoord_v01.R):
 
 - I first got all the hut name from the different url.
 - Use ggmap package to find the localisation of the names ([geocoding](https://www.r-bloggers.com/geocoding-with-ggmap-and-the-google-api/))
