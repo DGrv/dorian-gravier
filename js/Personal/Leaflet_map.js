@@ -43,7 +43,8 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
   });
 
-
+// Geoadmin info
+// http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml
 
   var baseLayers = {
     "OpenTopo": topo,

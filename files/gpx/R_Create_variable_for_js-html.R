@@ -1,6 +1,6 @@
 library(data.table)
 
-wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/gpx"
+wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/files/gpx"
 if( !dir.exists(wd) ) {
   wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/gpx"
 }
@@ -18,7 +18,7 @@ write("// create file", file = "Name_var_js-html_tocopy_in_leaflet.txt")
 for(i in seq_along(lisdir)) {
   if( lisdir[i] != "gpx" ) {
     if( basename(lisdir[i]) == "Project" ) {
-      varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
+      varname <- paste0(basename(dirname(dirname(lisdir[i]))), basename(dirname(lisdir[i])), basename(lisdir[i]))
     } else {
       varname <- basename(lisdir[i])
     }
