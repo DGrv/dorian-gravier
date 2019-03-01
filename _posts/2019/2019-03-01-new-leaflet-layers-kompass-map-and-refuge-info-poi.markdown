@@ -4,7 +4,7 @@ title: "New leaflet layers: Kompass map and refuge.info POI"
 date: "2019-03-01 21:25"
 ---
 
-A new tile layer is available in my [leaflet page](leaflet.html).
+A new tile layer is available in my [leaflet page](/leaflet.html).
 [Kompass](https://www.kompass.de/wanderkarte/) map from Austria.
 I was inspired by the sublime [Leaflet.Map.MultiVendors](https://dominique92.github.io/MyLeaflet/src/Leaflet.Map.MultiVendors/) from [Dominique92](https://github.com/Dominique92).
 
