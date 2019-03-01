@@ -57,7 +57,7 @@ show_in_nav: false
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
     		});
-
+				
     		L.control.layers(baseLayers, overlays).addTo(map);
 
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
