@@ -28,6 +28,13 @@ show_in_nav: false
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.js"></script>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.WRI.js"></script>
 
+			<!-- Minimap -->
+			<!-- https://github.com/Norkart/Leaflet-MiniMap
+			Copyright (c) 2012, Norkart AS
+			All rights reserved. -->
+			<script src="js/Minimap/Control.MiniMap.js"></script>
+			<link  href="js/Minimap/Control.MiniMap.css" rel="stylesheet"/>
+
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
     	<script src="js/Personal/gpx.js"></script>
@@ -57,7 +64,7 @@ show_in_nav: false
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
     		});
-				
+
     		L.control.layers(baseLayers, overlays).addTo(map);
 
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
@@ -119,6 +126,10 @@ show_in_nav: false
     			idAjaxStatus: 'ajax-status'
     		}).addTo(refugepoi);
 
+				// Minimap
+				var miniMap = new L.Control.MiniMap(OpenStreetMap_France, {
+					position: 'bottomleft'
+				}).addTo(map);
 
     		// Copyright (c) 2013 Michael Lawrence Evans
     		var hash = new L.Hash(map);
