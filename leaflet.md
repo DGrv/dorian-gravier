@@ -43,7 +43,15 @@ show_in_nav: false
 			<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 			<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-			<!-- map2gpx -->
+			<!-- leaflet-routing-machine -->
+			<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+			<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+			<!-- lrm-graphhopper -->
+			<script src="js/lrm-graphhopper/L.Routing.GraphHopper.js"></script>
+
+			<!-- FileLayer -->
+			<script src="js/FileLayer/leaflet.filelayer.js"></script>
 
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
@@ -154,6 +162,18 @@ show_in_nav: false
 
     		// Copyright (c) 2013 Michael Lawrence Evans
     		var hash = new L.Hash(map);
+
+				// FileLayer
+				L.Control.fileLayerLoad({
+					layer: L.geoJson,
+					layerOptions: {style: {color:'red'}},
+					addToMap: true,
+					fileSizeLimit: 3000,
+				}).addTo(map);
+
+				L.Routing.control({
+					router: new L.Routing.GraphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
+				}).addTo(map);
 
     	</script>
     </body>
