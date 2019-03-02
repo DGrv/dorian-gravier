@@ -48,6 +48,8 @@ show_in_nav: false
 			<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
 			<!-- lrm-graphhopper -->
+			<script src="js/lrm-graphhopper/polyline.js"></script>
+			<script src="js/lrm-graphhopper/corslite.js"></script>
 			<script src="js/lrm-graphhopper/L.Routing.GraphHopper.js"></script>
 
 			<!-- FileLayer -->
@@ -171,9 +173,25 @@ show_in_nav: false
 					fileSizeLimit: 3000,
 				}).addTo(map);
 
+
+
+
+
+
 				L.Routing.control({
-					router: new L.Routing.GraphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
-				}).addTo(map);
+			    waypoints: [
+			        L.latLng(47.58, 8.90),
+			        L.latLng(47.424, 9.37)
+			    ],
+			    router: L.Routing.graphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
+			    routeWhileDragging: true
+			}).addTo(map);
+
+			var router = routingControl.getRouter();
+			router.on('response',function(e){
+			  console.log('This request consumed ' + e.credits + ' credit(s)');
+			  console.log('You have ' + e.remaining + ' left');
+			});
 
     	</script>
     </body>
