@@ -178,20 +178,20 @@ show_in_nav: false
 
 
 
-				L.Routing.control({
-			    waypoints: [
-			        L.latLng(47.58, 8.90),
-			        L.latLng(47.424, 9.37)
-			    ],
-			    router: L.Routing.graphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
-			    routeWhileDragging: true
-			}).addTo(map);
-
-			var router = routingControl.getRouter();
-			router.on('response',function(e){
-			  console.log('This request consumed ' + e.credits + ' credit(s)');
-			  console.log('You have ' + e.remaining + ' left');
-			});
+		//		L.Routing.control({
+		//	    waypoints: [
+		//	        L.latLng(47.58, 8.90),
+		//	        L.latLng(47.424, 9.37)
+		//	    ],
+		//			show: false, // do not show the itinerary
+		//	    router: L.Routing.graphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
+		//	    routeWhileDragging: true
+		//	}).addTo(map);
+		//	var router = routingControl.getRouter();
+		//	router.on('response',function(e){
+		//	  console.log('This request consumed ' + e.credits + ' credit(s)');
+		//	  console.log('You have ' + e.remaining + ' left');
+		//	});
 
     	</script>
     </body>
