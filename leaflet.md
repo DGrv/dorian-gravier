@@ -35,11 +35,22 @@ show_in_nav: false
 			<script src="js/Minimap/Control.MiniMap.js"></script>
 			<link  href="js/Minimap/Control.MiniMap.css" rel="stylesheet"/>
 
+			<!-- topcenter -->
+			<link  href="js/topcenter/leaflet-control-topcenter.css" rel="stylesheet"/>
+			<script src="js/topcenter/leaflet-control-topcenter.js"></script>
+
+			<!-- geocoder -->
+			<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+			<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+			<!-- map2gpx -->
+
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
     	<script src="js/Personal/gpx.js"></script>
     	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Leaflet_overlays.js"></script>
+    	<script src="js/Personal/control.js"></script>
 
     	<style>#map{ width: 100%; height: 500px; }</style>
 
@@ -65,7 +76,17 @@ show_in_nav: false
     			}
     		});
 
+				L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
     		L.control.layers(baseLayers, overlays).addTo(map);
+
+				L.Control.geocoder({
+					position: 'topleft',
+					expand: 'click',
+					defaultMarkGeocode: false
+		    }).on('markgeocode', function(e) {
+	        map.setView(e.geocode.center, 11);
+		    }).addTo(map);
+
 
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 
@@ -127,7 +148,7 @@ show_in_nav: false
     		}).addTo(refugepoi);
 
 				// Minimap
-				var miniMap = new L.Control.MiniMap(OpenStreetMap_France, {
+				var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
 					position: 'bottomleft'
 				}).addTo(map);
 

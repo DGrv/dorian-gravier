@@ -1,6 +1,6 @@
 ---
 layout: "post"
-title: "Leaflet: Minimap"
+title: "Leaflet: Minimap and bottom center"
 date: "2019-03-02 13:35"
 ---
 
@@ -26,3 +26,22 @@ Pretty easy to integrate:
   	position: 'bottomleft'
   }).addTo(map);
     ```
+
+---
+I added a scale in the center as well (needed a control plugin - [topcenter](https://github.com/FCOO/leaflet-control-topcenter))
+
+Just load the css and js needed:
+```html
+<!-- topcenter -->
+<link  href="js/topcenter/leaflet-control-topcenter.css" rel="stylesheet"/>
+<script src="js/topcenter/leaflet-control-topcenter.js"></script>
+```
+
+You will have 2 new values available for the position option of the [Control from leaflet](https://leafletjs.com/reference-1.4.0.html#control):
+
+- bottomcenter
+- topcenter
+
+E.g.
+`L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
+`

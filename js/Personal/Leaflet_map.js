@@ -7,6 +7,10 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
     attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }),
+  OpenStreetMap_France_mini = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }),
   OpenCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     apikey: 'e2ca2754befd4a5ea91cbafc804c47fe',
@@ -41,6 +45,12 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     subdomains: '0123',
     minZoom: 1,
     maxZoom: 18
+  }),
+  Austria_topo = L.tileLayer('https://w{s}.outdooractive.com/map/v1/raster/topo_bev/{z}/{x}/{y}/t.png?', {
+    attribution: 'Map tiles by &copy;<a href="https://www.kompass.de/wanderkarte/">Kompass</a>',
+    subdomains: '0123',
+    minZoom: 1,
+    maxZoom: 18
   });
 
 // Geoadmin info
@@ -54,5 +64,6 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     "StamenTerrain": Stamen_Terrain,
     "Thunderforest Outdoors": outdoors,
     "GeoAdmin": GeoAdmin,
-    "Kompass": Kompass
+    "Kompass": Kompass,
+    "Austria topo": Austria_topo
   };
