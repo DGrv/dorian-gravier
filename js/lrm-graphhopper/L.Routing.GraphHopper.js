@@ -1,9 +1,7 @@
 (function() {
 	'use strict';
 
-	var L = require('leaflet');
-	var corslite = require('corslite');
-	var polyline = require('polyline');
+
 
 	L.Routing = L.Routing || {};
 
@@ -262,5 +260,5 @@
 		return new L.Routing.GraphHopper(apiKey, options);
 	};
 
-	module.exports = L.Routing.GraphHopper;
+
 })();
