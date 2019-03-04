@@ -1,6 +1,6 @@
 // create file
 var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
-'files/gpx/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
+'files/gpx/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx.gpx',
 'files/gpx/Bike/B_201709_Bike_Travel.gpx',
 'files/gpx/Bike/B_201808_Schwarzwald.gpx',
 'files/gpx/Bike/B_201809_Bike_Switzerland.gpx',
@@ -66,13 +66,10 @@ var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_2018_Gross-Chaerpf.gpx',
 'files/gpx/Schitour/ST_201901_Gamperdun.gpx',
 'files/gpx/Schitour/ST_201901_Stockberg.gpx',
-'files/gpx/Schitour/ST_201902_Schneeglocke.gpx',
-'files/gpx/Schitour/ST_201903_Klostertaler-Egghorn.gpx',
-'files/gpx/Schitour/ST_201903_Sonntagspitze.gpx']
+'files/gpx/Schitour/ST_201902_Schneeglocke.gpx']
 
 var SchneeSProject = ['files/gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 'files/gpx/SchneeS/Project/P_SW_Mattner_first.gpx',
 'files/gpx/SchneeS/Project/P_SW_Nussen_innertal.gpx',
 'files/gpx/SchneeS/Project/P_SW_Silberen.gpx',
 'files/gpx/SchneeS/Project/P_SW_Wilhaus_1.gpx']
-
