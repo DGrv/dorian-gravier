@@ -8,17 +8,23 @@ show_in_nav: false
 	<head>
 
     	<title>A Leaflet map!</title>
+
+
+			<!-- leaflet -->
     	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
     	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
 
+    	<!-- gpx.min -->
     	<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 
+
+			<!-- hash -->
     	<!-- Copyright (c) 2013 Michael Lawrence Evans -->
     	<script src="js/Hash/leaflet-hash.js"></script>
     	<script src="js/Hash/togeojson.js"></script>
 
-    	<!-- For full screen -->
+    	<!-- fullscreen -->
     	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
@@ -48,9 +54,7 @@ show_in_nav: false
 			<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
 			<!-- lrm-graphhopper -->
-			<script src="js/lrm-graphhopper/polyline.js"></script>
-			<script src="js/lrm-graphhopper/corslite.js"></script>
-			<script src="js/lrm-graphhopper/L.Routing.GraphHopper.js"></script>
+			<!-- <script src="js/lrm-graphhopper/lrm-graphhopper.js"></script>-->
 
 			<!-- FileLayer -->
 			<script src="js/FileLayer/leaflet.filelayer.js"></script>
@@ -86,8 +90,8 @@ show_in_nav: false
     			}
     		});
 
-				L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
     		L.control.layers(baseLayers, overlays).addTo(map);
+				L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 
 				L.Control.geocoder({
 					position: 'topleft',
