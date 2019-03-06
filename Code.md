@@ -434,7 +434,7 @@ pause
 
 
 :: get path and write file with replace ; as LF
-set path2=%path%%pathwanted%
+set path2=%path%;%pathwanted%
 echo %path% > BUpath.txt
 for %%a in ("%path2:;=" "%") do echo %%~a >> temp2.txt
 
@@ -478,6 +478,8 @@ echo %all%
 
 setx path=%all%
 del temp2.txt
+
+
 
 
 ```
