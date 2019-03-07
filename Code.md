@@ -7,6 +7,7 @@ order: 3
 <!-- TOC -->
 
 - [Batch](#batch)
+	- [Change color console](#change-color-console)
 	- [Get system info](#get-system-info)
 		- [OS bits](#os-bits)
 		- [OS version](#os-version)
@@ -30,6 +31,12 @@ order: 3
 	- [Gpx](#gpx)
 		- [Load multiple gpx](#load-multiple-gpx)
 		- [Popup on click](#popup-on-click)
+		- [Popup on mouseover](#popup-on-mouseover)
+		- [Highlight or change color on mouseover](#highlight-or-change-color-on-mouseover)
+- [Other](#other)
+	- [Add context menu (right clik) for files](#add-context-menu-right-clik-for-files)
+- [HTML](#html)
+	- [Image adjustement via css filter and slider](#image-adjustement-via-css-filter-and-slider)
 
 <!-- /TOC -->
 
@@ -595,9 +602,9 @@ for (var i = 0; i < Schitour.length; i += 1) {
 
 ### Popup on click
 
-[Example in plnkr](https://embed.plnkr.co/NO2acQlJPjnyQ3cF9qqW/)
+[Example in plnkr](https://embed.plnkr.co/NO2acQlJPjnyQ3cF9qqW)
 
-```javascript
+```js
 var g = new L.GPX(gpx, {
      async: true,
      parseElements: ['track'],
@@ -606,7 +613,7 @@ var g = new L.GPX(gpx, {
      }
    });
 
-   g.on('loaded', function(e) {
+	 g.on('loaded', function(e) {
      var gpx = e.target,
        name = gpx.get_name(),
        distM = gpx.get_distance(),
@@ -617,13 +624,18 @@ var g = new L.GPX(gpx, {
 
      var info = "Name: " + name + "</br>" +
        "Distance: " + distKmRnd + " km </br>" +
-       "Elevation Gain: " + eleGain + " m </br>"
+       "Elevation Gain: " + eleGain + " m </br>";
 
      // register popup on click
-			gpx.getLayers()[0].bindPopup(info)
+			gpx.getLayers()[0].bindPopup(info);
+		});
 
    g.addTo(map);
+
 ```
+
+
+
 
 ### Popup on mouseover
 
@@ -728,3 +740,89 @@ I created for example a small reg file to be able to convert rapidly my gpx. I g
 ```
 
 [Posted on Stackoverflow](https://stackoverflow.com/a/54953717/2444948)
+
+# HTML
+
+## Image adjustement via css filter and slider
+
+I discovered that the user can have the possibility to modify image (brightness, contrast and so on - [more info here](https://www.w3schools.com/cssref/css3_pr_filter.asp)).
+
+I finally wrote with help of google and all those nice programmers posting () a little script giving the possibility to modify the brigntess of all 'img' balise in a html page.
+
+```js
+<div class="slidecontainer">
+	<input type="range" min="-500" max="1000" value="10" class="slider" id="myRange">
+<p><font color="white">Brightness (%): <span id="demo"></span></font></p>
+</div>
+
+<button onclick="reset()">Reset</button><br><br>
+
+<script>
+	function reset() {
+		var input = document.getElementsByTagName("img");
+		var inputList = Array.prototype.slice.call(input);
+		for(i = 0;i < inputList.length; i++) {
+			inputList[i].style = "filter: brightness(100%)";
+		};
+	};
+
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	output.innerHTML = slider.value;
+	slider.oninput = function() {
+		output.innerHTML = this.value;
+		var input = document.getElementsByTagName("img");
+		var inputList = Array.prototype.slice.call(input);
+		for(i = 0;i < inputList.length; i++) {
+			inputList[i].style = "filter: brightness(" + this.value + "%)";
+		};
+	};
+
+</script>
+```
+
+Here a little example:
+
+
+<div class="example">
+	<div class="slidecontainer">
+		<input type="range" min="-500" max="1000" value="10" class="slider" id="myRange">
+	<p><font color="white">Brightness (%): <span id="demo"></span></font></p>
+</div>
+
+	<button onclick="reset()">Reset</button><br><br>
+
+	<script>
+		function reset() {
+			var input = document.getElementsByTagName("img");
+			var inputList = Array.prototype.slice.call(input);
+			for(i = 0;i < inputList.length; i++) {
+				inputList[i].style = "filter: brightness(100%)";
+			};
+		};
+
+		var slider = document.getElementById("myRange");
+		var output = document.getElementById("demo");
+		output.innerHTML = slider.value;
+		slider.oninput = function() {
+			output.innerHTML = this.value;
+			var input = document.getElementsByTagName("img");
+			var inputList = Array.prototype.slice.call(input);
+			for(i = 0;i < inputList.length; i++) {
+				inputList[i].style = "filter: brightness(" + this.value + "%)";
+			};
+		};
+
+	</script>
+
+
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_0.jpg'  />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_0.jpg'  />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_0.jpg'  />	</td></tr>
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_1.jpg'  />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_1.jpg'  />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_1.jpg'  />	</td></tr>
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_2.jpg' />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_2.jpg' />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_2.jpg' />	</td></tr>
+</div>
