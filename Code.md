@@ -797,7 +797,7 @@ Here a little example:
 			var input = document.getElementsByTagName("img");
 			var inputList = Array.prototype.slice.call(input);
 			for(i = 0;i < inputList.length; i++) {
-				inputList[i].style = "filter: brightness(100%)";
+				inputList[i].style = "border-radius: 0px; box-shadow: none; filter: brightness(100%)";
 			};
 		};
 
@@ -809,20 +809,20 @@ Here a little example:
 			var input = document.getElementsByTagName("img");
 			var inputList = Array.prototype.slice.call(input);
 			for(i = 0;i < inputList.length; i++) {
-				inputList[i].style = "filter: brightness(" + this.value + "%)";
+				inputList[i].style = "border-radius: 0px; box-shadow: none; filter: brightness(" + this.value + "%)";
 			};
 		};
 
 	</script>
 
 
-<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_0.jpg'  />	</td>
-		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_0.jpg'  />	</td>
-		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_0.jpg'  />	</td></tr>
-<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_1.jpg'  />	</td>
-		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_1.jpg'  />	</td>
-		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_1.jpg'  />	</td></tr>
-<tr><td id="tableHTML_column_3"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001001000Channel1_2.jpg' />	</td>
-		<td id="tableHTML_column_4"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001002000Channel1_2.jpg' />	</td>
-		<td id="tableHTML_column_5"><img style="border-radius: 0px box-shadow: none" src='/files/picture/microscope/001003000Channel1_2.jpg' />	</td></tr>
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001001000Channel1_0.jpg'  />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001002000Channel1_0.jpg'  />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001003000Channel1_0.jpg'  />	</td></tr>
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001001000Channel1_1.jpg'  />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001002000Channel1_1.jpg'  />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001003000Channel1_1.jpg'  />	</td></tr>
+<tr><td id="tableHTML_column_3"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001001000Channel1_2.jpg' />	</td>
+		<td id="tableHTML_column_4"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001002000Channel1_2.jpg' />	</td>
+		<td id="tableHTML_column_5"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001003000Channel1_2.jpg' />	</td></tr>
 </div>
