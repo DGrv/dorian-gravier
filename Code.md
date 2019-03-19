@@ -23,6 +23,18 @@ order: 3
 	- [Add variable to system variable PATH (Windows)](#add-variable-to-system-variable-path-windows)
 - [R](#r)
 	- [data.table tricks](#datatable-tricks)
+		- [Add last row as colnames for html](#add-last-row-as-colnames-for-html)
+		- [Create group ID or row ID](#create-group-id-or-row-id)
+		- [Max of a variable per group of variable](#max-of-a-variable-per-group-of-variable)
+		- [Calculation per group, by](#calculation-per-group-by)
+		- [Best 3 of a variable per group of variable (same variante as before but for DRC, meaning take the 3 best plates per CP)](#best-3-of-a-variable-per-group-of-variable-same-variante-as-before-but-for-drc-meaning-take-the-3-best-plates-per-cp)
+		- [Modify multiples columns at the same time](#modify-multiples-columns-at-the-same-time)
+		- [Order columns](#order-columns)
+		- [Summarize table depending on BY and .SDcols](#summarize-table-depending-on-by-and-sdcols)
+		- [Replace all values conditionnaly](#replace-all-values-conditionnaly)
+		- [sum of all previous row by a variable](#sum-of-all-previous-row-by-a-variable)
+		- [Access data.table with string](#access-datatable-with-string)
+		- [find duplicated value in data.table](#find-duplicated-value-in-datatable)
 	- [Dose Response Curve](#dose-response-curve)
 - [Youtube-dl](#youtube-dl)
 	- [Easy Commands](#easy-commands)
@@ -491,6 +503,173 @@ del temp2.txt
 # R
 
 ## data.table tricks
+
+### Add last row as colnames for html
+
+```r
+listimg3 <- rbindlist(list(listimg3, as.list(colnames(listimg3)))) # put again name of columns at the end
+```
+
+### Create group ID or row ID
+```r
+temp2 <- structure(list(CP = c("CRT_REF_0018", "CRT_REF_0019", "CRT_REF_0016",
+"CRT_REF_0006", "CRT_REF_0007", "CRT_REF_0008", "CRT_REF_0009",
+"CRT_REF_0003", "CRT_REF_0007", "CRT_REF_0015", "CRT_REF_0016",
+"CRT_REF_0008", "CRT_REF_0007", "CRT_REF_0018", "CRT_REF_0017",
+"CRT_REF_0015", "CRT_REF_0008", "CRT_REF_0008", "CRT_REF_0016",
+"CRT_REF_0006", "CRT_REF_0018", "CRT_REF_0005", "CRT_REF_0007",
+"CRT_REF_0006", "CRT_REF_0004", "CRT_REF_0015", "CRT_REF_0017",
+"CRT_REF_0004", "CRT_REF_0019", "CRT_REF_0012", "CRT_REF_0004",
+"CRT_REF_0012", "CRT_REF_0017", "CRT_REF_0018", "CRT_REF_0016",
+"CRT_REF_0017", "CRT_REF_0015", "CRT_REF_0004", "CRT_REF_0009",
+"CRT_REF_0019", "CRT_REF_0003", "CRT_REF_0005", "CRT_REF_0010",
+"CRT_REF_0016", "CRT_REF_0016", "CRT_REF_0012", "CRT_REF_0007",
+"CRT_REF_0015", "CRT_REF_0010", "CRT_REF_0017", "CRT_REF_0007",
+"CRT_REF_0012", "CRT_REF_0015", "CRT_REF_0003", "CRT_REF_0009",
+"CRT_REF_0003", "CRT_REF_0015", "CRT_REF_0009", "CRT_REF_0004",
+"CRT_REF_0012", "CRT_REF_0019", "CRT_REF_0006", "CRT_REF_0008",
+"CRT_REF_0018", "CRT_REF_0009", "CRT_REF_0011", "CRT_REF_0005",
+"CRT_REF_0012", "CRT_REF_0016", "CRT_REF_0008", "CRT_REF_0009",
+"CRT_REF_0008", "CRT_REF_0005", "CRT_REF_0019", "CRT_REF_0018",
+"CRT_REF_0019", "CRT_REF_0005", "CRT_REF_0007", "CRT_REF_0009",
+"CRT_REF_0017", "CRT_REF_0012", "CRT_REF_0006"), Session = c(17,
+16, 12, 10, 7, 9, 12, 4, 11, 18, 13, 13, 12, 14, 18, 12, 12,
+8, 18, 11, 15, 11, 10, 8, 4, 14, 19, 5, 20, 15, 7, 14, 14, 19,
+14, 17, 13, 8, 11, 21, 6, 6, 7, 15, 17, 12, 13, 17, 10, 16, 9,
+13, 16, 3, 14, 5, 15, 9, 6, 18, 18, 6, 7, 16, 10, 11, 10, 16,
+16, 10, 7, 11, 9, 19, 18, 17, 8, 8, 13, 15, 17, 9)), .Names = c("CP",
+"Session"), class = c("data.table", "data.frame"))
+
+temp2
+# temp2 need to be ordered depending on the 2 variable you are interested too.
+# rowid is just creating an id depending on a variable (here CP), but of course the table as to be sorted if it is depending on another variable (here Session)
+temp2[order(CP, Session), Usage_cycle := rowid(CP)]
+temp2
+all[order(CP, row, col, TD), Dupli := rowid(CP, row, col, TD)] # complexer example
+
+# other group id exists but the output is different, just other purpose, still highly usefull
+temp2[, groupid := .GRP, .(CP,Session)] # here is the group id per combinaison, so each combinaison (CP,Session) as a unique id
+temp2
+temp2[, groupid2 := seq_len(.N), .(CP,Session)] # here checking if the number of times the combinaison exists
+temp2
+temp2[, groupid3 := 1:.N, .(CP,Session)] # listimg2[, Repli := 1:.N, .(CPid, Field, What, CCM)]
+temp2
+
+```
+	[Source 1](https://stackoverflow.com/questions/13018696/data-table-key-indices-or-group-counter) and [source 2](https://stackoverflow.com/questions/12925063/numbering-rows-within-groups-in-a-data-frame?noredirect=1&lq=1)
+
+
+
+### Max of a variable per group of variable
+
+```r
+dataCP <- data[data[, .I[Zprimefactor == max(Zprimefactor, na.rm = T)], .(CP, Q)]$V1] # take best QC for a CP-Q
+```
+
+### Calculation per group, by
+
+```r
+rawWP[, MeasTime := .SD[1, MeasTime], Sample]
+rawWP[, MeasTime := max(.SD$MeasTime), Sample]
+```
+
+### Best 3 of a variable per group of variable (same variante as before but for DRC, meaning take the 3 best plates per CP)
+
+```r
+step1 <-  dataCP[, .N, .(CP, IP, Zprimefactor, Assay)] # summarize table to have 1 Zprimefactor per plate (due to use function sort)
+step2 <- step1[, .I[Zprimefactor %in% sort(Zprimefactor, decreasing = T)[1:3]], .(CP, Assay)] # get the 3 best Zprimefactor per Assay and CP
+step3 <- step1[step2$V1][, ':=' (Zprimefactor = NULL, N = NULL, Assay = NULL)] # get then the plate to keep
+dataCP <- dtjoin(dataCP, step3, "inner") # join again both here used as a subset.
+```
+
+### Modify multiples columns at the same time
+
+with user function:
+```r
+grepcol <- function(pattern, data) {
+return( names(data)[grep(pattern, names(data))] )
+}
+
+html1[ , (grepcol("DRC", html)) := lapply(.SD, function(x) gsub("~/HTS/", "H:/", x)), .SDcols = grepcol("DRC", html)]
+html1 <- html1[ , (grepcol("DRC", html)) := lapply(.SD, function(x) addimgbalise(x, 100)), .SDcols = grepcol("DRC", html)]
+htmlb64[ , (grepcol("DRC", html)) := lapply(.SD, function(x) mapply(image_uri, x, SIMPLIFY = T)), .SDcols = grepcol("DRC", html)]
+```
+
+### Order columns
+
+```r
+setcolorder(html, c("sample", temp$colname))
+```
+
+### Summarize table depending on BY and .SDcols
+
+```r
+temp <- rawWP[Sample %in% listsample[combin[,i]]]
+temp2 <- rbind(temp[, c(Sample = paste(listsample[combin[,i]], collapse ="."), What ="mean", lapply(.SD, mean)), .(row, col), .SDcols = coltokeep],
+temp[, c(Sample = paste(listsample[combin[,i]], collapse ="."), What = "sd", lapply(.SD, sd)), .(row, col), .SDcols = coltokeep],
+temp[, c(Sample = paste(listsample[combin[,i]], collapse ="."), What = "median", lapply(.SD, median)), .(row, col), .SDcols = coltokeep])
+```
+
+[Source 1](https://stackoverflow.com/questions/20459519/apply-function-on-a-subset-of-columns-sdcols-whilst-applying-a-different-func) and [source 2](https://stackoverflow.com/questions/14937165/using-dynamic-column-names-in-data-table?lq=1)
+
+### Replace all values conditionnaly
+
+```r
+for(col in names(dataBC2)) {
+	set(dataBC2, i=which(dataBC2[[col]] %in% dataNoPrint$AP), j=col, value="NoPrint")
+}
+```
+
+[Source](https://stackoverflow.com/questions/38226323/replace-all-values-in-a-data-table-given-a-condition?rq=1)
+
+### sum of all previous row by a variable
+
+```r
+setkey(dataPall, ID, Time) # important for ordering
+# calculate theory volume
+dataPall[, VolDispTT := cumsum(shift(VolumeTrans / 1000, fill=0)), by=ID] # order with setkey. sum of all previous rows per group, shift permit to shift the column of 1 row down.
+```
+
+### Access data.table with string
+
+For i `DT[get("x") == "b"]`
+
+For j	`DT[, get("x")]`
+
+With by `DT[, .N, "x"]` or `DT[, .N, c("x", "y")`
+
+
+### find duplicated value in data.table
+
+
+```r
+data[, check := .N > 1, .(Value.NPI, CPid, Sample, Hits)]
+  data[check == T]
+
+
+myDT <- data.table(id = sample(1e6),
+                 fB = sample(seq_len(1e3), size= 1e6, replace=TRUE),
+                 fC = sample(seq_len(1e3), size= 1e6,replace=TRUE ))
+setkey(myDT, fB, fC)
+
+microbenchmark(
+   key=myDT[, fD := .N > 1, by = key(myDT)],
+   unique=myDT[unique(myDT, by = key(myDT)),fD:=.N>1],
+   dup = myDT[,fD := duplicated.data.frame(.SD)|duplicated.data.frame(.SD, fromLast=TRUE),
+			  .SDcols = key(myDT)],
+   dup2 = {dups = duplicated(myDT, by = key(myDT)); myDT[, fD := dups | c(tail(dups, -1L), FALSE)]},
+   dup3 = {dups = duplicated(myDT, by = key(myDT)); myDT[, fD := dups | c(dups[-1L], FALSE)]},
+   times=10)
+
+#   expr       min        lq      mean    median        uq       max neval
+#    key  523.3568  567.5372  632.2379  578.1474  678.4399  886.8199    10
+# unique  189.7692  196.0417  215.4985  210.5258  224.4306  290.2597    10
+#    dup 4440.8395 4685.1862 4786.6176 4752.8271 4900.4952 5148.3648    10
+#   dup2  143.2756  153.3738  236.4034  161.2133  318.1504  419.4082    10
+#   dup3  144.1497  150.9244  193.3058  166.9541  178.0061  460.5448    10
+```
+
+[Source here](https://stackoverflow.com/questions/19392332/find-all-duplicated-records-in-data-table-not-all-but-one)
 
 ## Dose Response Curve
 
