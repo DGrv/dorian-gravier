@@ -422,10 +422,55 @@ if %audio%==1  (
 	)
 )
 
+```
 
+### Record screen and convert into gif
+
+Here a small example of how to record your screen, resize the video and create from it a gif.
+
+```shell
+	ffmpeg -f gdigrab -framerate 24 -i desktop screen.mp4
+	ffmpeg -i screen.mp4 -vcodec libx264 -vbr 3 -vf "scale=640:-2" -preset fast -crf 23 screen640.mp4
+	ffmpeg -y -i screen640.mp4 -vf palettegen palette.png
+	ffmpeg -y -i screen640.mp4 -i palette.png -filter_complex paletteuse -r 20 screen640.gif
+```
+
+Via a batch file (you will have to modify it depending on your needs): *v02*
+
+```shell
+	@echo off
+
+	:: ---------- Find Time ----------
+	set hour=%time:~0,2%
+	if "%hour:~0,1%" == " " set hour=0%hour:~1,1%
+	set min=%time:~3,2%
+	if "%min:~0,1%" == " " set min=0%min:~1,1%
+	::set secs=%time:~6,2%
+	::if "%secs:~0,1%" == " " set secs=0%secs:~1,1%
+
+	set year=%date:~-4%
+	set month=%date:~-7,2%
+	if "%month:~0,1%" == " " set month=0%month:~1,1%
+	set day=%date:~-10,2%
+	if "%day:~0,1%" == " " set day=0%day:~1,1%
+
+	set datetimef=%year%%month%%day%%hour%%min%
+
+	:: ---------- Start ----------
+	echo Batch script to record screen and create a gif
+
+	set framer=24
+
+	ffmpeg -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.mp4
+	ffmpeg -i %datetimef%_ScreenCapture.mp4 -vcodec libx264 -vbr 3 -vf "scale=640:-2" -preset fast -crf 23 %datetimef%_ScreenCapture640.mp4
+	ffmpeg -y -i %datetimef%_ScreenCapture640.mp4 -vf palettegen palette.png
+	ffmpeg -y -i %datetimef%_ScreenCapture640.mp4 -i palette.png -filter_complex paletteuse -r 20 %datetimef%_ScreenCapture640.gif
+	del palette.png
+	del %datetimef%_ScreenCapture.mp4
 
 
 ```
+
 
 ## Add variable to system variable PATH (Windows)
 
