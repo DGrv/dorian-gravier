@@ -482,6 +482,8 @@ The first version of this batch file was pretty simple:
 The problem is that I realized that it was creating duplicates, and rapidly your system variable PATH is full.
 I then created a version which would delete duplicated lines.
 
+Version: *v04*
+
 ```shell
 :: Code ----------------------------------------------------------------------------
 @echo off
@@ -533,6 +535,7 @@ del "%sorted%"
 
 (set all=)
 FOR /f "delims=" %%x IN (temp2.txt) DO call SET all=%%all%%;%%x
+set all="%all%;"
 set all=%all: ;=;%
 set all=%all:~1,20000%
 
@@ -540,8 +543,9 @@ set all=%all:~1,20000%
 echo %all% > NEWpath.txt
 echo %all%
 
-setx path=%all%
+setx path %all%
 del temp2.txt
+
 
 ```
 
