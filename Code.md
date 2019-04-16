@@ -549,6 +549,27 @@ del temp2.txt
 
 ```
 
+## Right click delete fast a folder (do not have to wait to continue to work)
+
+Copy those lines in a .txt file and save it as a .reg. Run it to add this Registry key.
+This key will allow you to have a new menu when you right click on a folder to delete it fast. The advantage is that is faster that the normal deleting method from windows and it will keep your explorer free to be used (useful for huge folder).
+
+![Picture](files/gif/Fast_delete.gif)
+
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\Fast_delete\command]
+@="cmd /c \"cd \"%1\" && DEL /F/Q/S \"%1\" > NUL && RMDIR /Q/S \"%1\"\""
+
+
+```
+
+Source :
+
+- [https://www.ghacks.net/2017/07/18/how-to-delete-large-folders-in-windows-super-fast/#comment-4408088](https://www.ghacks.net/2017/07/18/how-to-delete-large-folders-in-windows-super-fast/#comment-4408088)
+- [https://superuser.com/questions/19762/mass-deleting-files-in-windows/289399#289399](https://superuser.com/questions/19762/mass-deleting-files-in-windows/289399#289399)
+
 # R
 
 ## data.table tricks
