@@ -165,6 +165,8 @@ set datetimef=%year%%month%%day%%hour%%min%
 
 ### Merge in batch
 
+MAGICK_Merge_Vertical_jpg-png_v02.bat
+
 ```shell
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
@@ -174,7 +176,10 @@ set /p which="Do you want to merge jpg (type 1) or png (type 2) ? : "
 if %which%==1 set format="jpg"
 if %which%==2 set format="png"
 
+set /p per=percent to resize (numeric) (make a copy it will overwrite your files)?:
+
 echo Choose where your jpg are (choose 1 file):
+
 
 :: file choose and get dir
 set dialog="about:<input type=file id=FILE><script>FILE.click();new ActiveXObject
@@ -194,6 +199,11 @@ set /p nfiles= < temp
 ::set /a nfiles=nfiles
 del temp
 
+:: resize
+for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%p
+
+
+:: Merge
 magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
 magick convert Merge.%format% Merge.pdf
 
@@ -204,11 +214,52 @@ echo which %which%
 echo format %format%
 echo magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
 echo magick convert Merge.%format% Merge.pdf
+
 ```
 
-### Convert in batch
 
-#### level brightness
+
+### Resize in batch
+
+MAGICK_Resize_v01.bat
+
+```shell
+@echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+set /p which="Do you want to merge jpg (type 1) or png (type 2) ? : "
+
+if %which%==1 set format="jpg"
+if %which%==2 set format="png"
+
+set /p per=percent to resize (numeric) ?:
+
+echo Choose where your files are (choose 1 file):
+
+:: file choose and get dir
+set dialog="about:<input type=file id=FILE><script>FILE.click();new ActiveXObject
+set dialog=%dialog%('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);
+set dialog=%dialog%close();resizeTo(0,0);</script>"
+
+for /f "tokens=* delims=" %%p in ('mshta.exe %dialog%') do set "input=%%p"
+for /F %%i in ("%input%") do @set dir=%%~dpi
+for /F %%i in ("%input%") do @set drive=%%~di
+
+%drive%
+cd "%dir%"
+
+:: give info on what will be done
+dir /a-d /b "*%format%" | find /c %format% > temp
+set /p nfiles= < temp
+::set /a nfiles=nfiles
+del temp
+
+for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%~np_low.%format%
+
+
+```
+
+#### Level brightness
 
 ```shell
 @echo off
@@ -556,7 +607,7 @@ This key will allow you to have a new menu when you right click on a folder to d
 
 ![Picture](files/gif/Fast_delete.gif)
 
-```reg
+```
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\Directory\shell\Fast_delete\command]
