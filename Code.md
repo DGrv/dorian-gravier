@@ -15,12 +15,14 @@ order: 3
 		- [Get timestamp](#get-timestamp)
 	- [Magick](#magick)
 		- [Merge in batch](#merge-in-batch)
-		- [Convert in batch](#convert-in-batch)
-			- [level brightness](#level-brightness)
-			- [flex files to tiff](#flex-files-to-tiff)
+		- [Resize in batch](#resize-in-batch)
+		- [Level brightness](#level-brightness)
+		- [flex files to tiff](#flex-files-to-tiff)
 	- [FFmpeg](#ffmpeg)
 		- [Record screen and audio](#record-screen-and-audio)
+		- [Record screen and convert into gif](#record-screen-and-convert-into-gif)
 	- [Add variable to system variable PATH (Windows)](#add-variable-to-system-variable-path-windows)
+	- [Right click delete fast a folder (do not have to wait to continue to work)](#right-click-delete-fast-a-folder-do-not-have-to-wait-to-continue-to-work)
 - [R](#r)
 	- [data.table tricks](#datatable-tricks)
 		- [Add last row as colnames for html](#add-last-row-as-colnames-for-html)
@@ -49,6 +51,8 @@ order: 3
 	- [Add context menu (right clik) for files](#add-context-menu-right-clik-for-files)
 - [HTML](#html)
 	- [Image adjustement via css filter and slider](#image-adjustement-via-css-filter-and-slider)
+- [Office](#office)
+	- [Add a context menu to right click export to pdf](#add-a-context-menu-to-right-click-export-to-pdf)
 
 <!-- /TOC -->
 
@@ -259,7 +263,7 @@ for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%~np_low.%format%
 
 ```
 
-#### Level brightness
+### Level brightness
 
 ```shell
 @echo off
@@ -303,7 +307,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*jpg"') DO (
 
 ```
 
-#### flex files to tiff
+### flex files to tiff
 
 
 ```shell
@@ -1126,3 +1130,81 @@ Here a little example:
 		<td id="tableHTML_column_4"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001002000Channel1_2.jpg' />	</td>
 		<td id="tableHTML_column_5"><img style="border-radius: 0px; box-shadow: none" src='/files/picture/microscope/001003000Channel1_2.jpg' />	</td></tr>
 </div>
+
+# Office
+
+## Add a context menu to right click export to pdf
+
+I prefer to read pdf than word document. Word is for me only if the document is unfinished but if I want to look for something, pdf are for me much better and safer (you can not change something there).
+
+When I see word file laying arounf I wanna convert them fast in pdf.
+Best way I found is to install a context menu (right click) with .docx document.
+
+Here how to do:
+
+Create a macro in your 'Normal.dotm' file. Normally available under *C:\Users\**username**\AppData\Roaming\Microsoft\Templates*
+
+Example :
+
+```vba
+Sub export2pdf()
+    Application.ActiveProtectedViewWindow.Edit ' Allow editing of the document wihtout this line the macro will not work
+    ChangeFileOpenDirectory ThisDocument.Path
+    ActiveDocument.ExportAsFixedFormat _
+        OutputFileName:=Left(ActiveDocument.FullName, InStrRev(ActiveDocument.FullName, ".")) + "pdf", _
+        ExportFormat:=wdExportFormatPDF, _
+        OpenAfterExport:=True, _
+        OptimizeFor:=wdExportOptimizeForPrint, _
+        Range:=wdExportAllDocument, _
+        From:=1, _
+        To:=1, _
+        Item:=wdExportDocumentContent, _
+        IncludeDocProps:=True, _
+        KeepIRM:=True, _
+        CreateBookmarks:= _
+        wdExportCreateHeadingBookmarks, _
+        DocStructureTags:=True, _
+        BitmapMissingFonts:=True, _
+        UseISO19005_1:=False
+    Application.Quit SaveChanges:=wdDoNotSaveChanges
+End Sub
+```
+
+This macro would be then accessible by all word document you use.
+
+Add the context menu via a .reg file (copy this in a txt file and save it as .reg, run it)
+
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Word.Document.8\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.8\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office 15\\root\\Office15\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document.12\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.12\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office 15\\root\\Office15\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document.6\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.6\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office 15\\root\\Office15\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office 15\\root\\Office15\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+```
+
+
+Source:
+
+- [https://superuser.com/questions/541357/add-right-click-save-as-pdf-in-windows-explorer](https://superuser.com/questions/541357/add-right-click-save-as-pdf-in-windows-explorer)
+- [https://stackoverflow.com/questions/31042383/vba-to-enable-editing](https://stackoverflow.com/questions/31042383/vba-to-enable-editing)
