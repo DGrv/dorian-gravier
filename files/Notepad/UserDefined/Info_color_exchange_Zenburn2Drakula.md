@@ -1,0 +1,6 @@
+# Color exchange from Zenburn to Drakula
+
+From	to
+E3CEAB	FF79C6
+FF8040	50FA7B
+DCDCCC	F8F8F2
