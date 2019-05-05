@@ -205,6 +205,18 @@ _________________________________________________________________
 		-t is the seconds
 			ffmpeg -loop 1 -i input.jpg -t 5 output.mp4
 		_________________________________________________________________
+		REMOVE DUPLICATES
+			ffmpeg -i input.mp4 -vf mpdecimate,setpts=N/FRAME_RATE/TB output.mp4
+			
+			:: to run manually to remove duplicate frame from video. Problem is that if I put this in the script I can not use jpeg or title video ...
+			for %i in (*.mp4) do (
+				rename %i %~ni_temp.mp4
+				ffmpeg -hide_banner -loglevel error -err_detect ignore_err -i %~ni_temp.mp4 -c copy %~ni_temp2.mp4
+				del %~ni_temp.mp4
+				ffmpeg -hide_banner -loglevel error -i %~ni_temp2.mp4 -vf mpdecimate,setpts=N/FRAME_RATE/TB %i
+				del %~ni_temp2.mp4
+			)
+
 		_________________________________________________________________
 		
 ______________________________________________________________________________________________________________________________

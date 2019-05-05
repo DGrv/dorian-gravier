@@ -80,14 +80,12 @@
         <Command name="Open in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
         <Command name="Send via Outlook" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
     </UserDefinedCommands>
-    <PluginCommands>
-        <PluginCommand moduleName="Tidy2.dll" internalID="0" Ctrl="yes" Alt="no" Shift="yes" Key="54" />
-        <PluginCommand moduleName="IndentByFold.dll" internalID="0" Ctrl="no" Alt="yes" Shift="no" Key="75" />
-    </PluginCommands>
+    <PluginCommands />
     <ScintillaKeys>
         <ScintKey ScintID="2469" menuCmdID="42010" Ctrl="no" Alt="yes" Shift="yes" Key="38">
             <NextKey Ctrl="no" Alt="yes" Shift="yes" Key="40" />
         </ScintKey>
-        <ScintKey ScintID="2337" menuCmdID="0" Ctrl="yes" Alt="no" Shift="no" Key="68" />
+        <ScintKey ScintID="2337" menuCmdID="0" Ctrl="yes" Alt="no" Shift="yes" Key="76" />
+        <ScintKey ScintID="2338" menuCmdID="0" Ctrl="yes" Alt="no" Shift="no" Key="68" />
     </ScintillaKeys>
 </NotepadPlus>

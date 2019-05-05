@@ -1,0 +1,73 @@
+# Simple cmds
+
+remove file
+	rm filename
+remove directory
+	rd directoryname
+	rd /s directoryname
+create filename
+	touch filename
+	
+	TO READ
+	https://rubygarage.org/blog/most-basic-git-commands-with-examples#article_title_8
+
+# login
+
+set
+	git config --global user.name "DGrv"
+	git config --global user.email "dorian.gravier@gmail.com"
+check	
+	git config --global user.email
+	
+# update
+## clone
+
+copy repository in a new complete folder
+	git clone https://github.com/DGrv/dorian.gravier.github.io
+	
+## to local
+
+	cd D:\DG-Papers\GitHub\Website\dorian.gravier.github.io
+	git pull origin master
+
+## to github
+	
+	git add . 
+	git commit -m message
+	git push
+	https://services.github.com/on-demand/downloads/github-git-cheat-sheet/
+	
+## resolve some error ???
+	
+Follow the steps below:
+	git stash
+	git add .
+	git commit -m "your commit message"
+	
+# Branch
+
+Check which branch we are
+	git branch
+
+Create new branch
+	git branch gh-pages
+	git checkout -b test1
+change branch
+	git checkout namebranch
+
+delete branch
+	git branch -d namebranch
+	
+
+	
+	
+	
+	
+	
+# jekyll
+
+- Install Ruby: https://rubyinstaller.org/downloads/
+- Install the devkit (everything asked)
+- open cmd
+	- run 'gem install jekyll bundler'
+	
