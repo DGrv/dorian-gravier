@@ -796,6 +796,14 @@ microbenchmark(
 
 [Source here](https://stackoverflow.com/questions/19392332/find-all-duplicated-records-in-data-table-not-all-but-one)
 
+### Replace values of a table with values of another table
+
+*To test !!!*
+
+BC2[mapref, ':=' (CCM = i.CCM, CPid = i.CPid), on=.(row, col, CP)]
+
+Source: [https://stackoverflow.com/questions/32371188/merge-and-replace-values-in-two-data-tables](https://stackoverflow.com/questions/32371188/merge-and-replace-values-in-two-data-tables)
+
 ## Dose Response Curve
 
 # Youtube-dl
