@@ -13,4 +13,8 @@ for %%a in (%input%) do (
 	set ext=%%~xa
 )  
 
-ffmpeg -i %input% -codec copy -map_metadata 0 -metadata:s:v:0 rotate=180 %filepathnoext%_r%ext%
+:: only metadata, if you bind it with other, it will not be rotated ...
+::ffmpeg -i %input% -v quiet -stats -codec copy -map_metadata 0 -metadata:s:v:0 rotate=180 %filepathnoext%_r%ext%
+
+:: goo one
+ffmpeg -i %input% -v quiet -stats -vf "transpose=2,transpose=2" %filepathnoext%_r%ext%
