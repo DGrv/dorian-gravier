@@ -196,10 +196,12 @@ _________________________________________________________________
 		_________________________________________________________________
 		ROTATE
 		check metadata
-		ffmpeg -i input.mp4 2>&1 | grep rotate
+			ffmpeg -i input.mp4 2>&1 | grep rotate
 		
 		change metadata
-		ffmpeg -i input.mp4 -codec copy -map_metadata 0 -metadata:s:v:0 rotate=180 output.mp4	
+			ffmpeg -i input.mp4 -codec copy -map_metadata 0 -metadata:s:v:0 rotate=180 output.mp4
+		change real video for binding with normal orientated video (transpose=2 is 90grad)
+			ffmpeg -i input.mp4 -v quiet -stats -vf "transpose=2,transpose=2" output.mp4
 		_________________________________________________________________
 		FROM JPEG JPG
 		-t is the seconds
