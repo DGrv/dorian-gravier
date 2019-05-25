@@ -19,6 +19,7 @@ for %%a in (%last%) do (
 	set filenamenoext=%%~na
     set filepathnoext=%%~dpna
 	set ext=%%~xa
+	set drive=%%~da
 )  
 
 echo pathh : %pathh%
