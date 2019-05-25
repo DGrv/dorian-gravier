@@ -28,8 +28,25 @@ set datetimef=%year%%month%%day%%hour%%min%
 :: ---------- Start ----------
 echo Batch script to record screen and audio 
 
+
+if exist H:\ (
+	H:
+	set drive=H:
+) else (
+	X:
+	set drive=X:
+)
+if %ver%==XP (
+	set ffmpegpath=%drive%\TEMP\Software\FFmpeg\ffmpeg-3.4.1\ffmpeg.exe
+	set ext=mkv
+) else (
+	set ffmpegpath=%drive%\TEMP\Software\FFmpeg\ffmpeg-4.0.2-win32-static\bin\ffmpeg.exe
+	set ext=mp4
+)
+
+
 if %audio%==1  (
-	H:\TEMP\Software\ffmpeg-3.4.1\ffmpeg.exe -list_devices true -f dshow -i dummy
+	%ffmpegpath% -list_devices true -f dshow -i dummy
 	echo.
 	echo.
 	echo Copy the alternative name of your microphone:
@@ -52,20 +69,7 @@ echo.
 set /p info=Type Enter to continue
 
 
-if exist H:\ (
-	H:
-	set drive=H:
-) else (
-	X:
-	set drive=X:
-)
-if %ver%==XP (
-	set ffmpegpath=%drive%\TEMP\Software\FFmpeg\ffmpeg-3.4.1\ffmpeg.exe
-	set ext=mkv
-) else (
-	set ffmpegpath=%drive%\TEMP\Software\FFmpeg\ffmpeg-4.0.2-win32-static\bin\ffmpeg.exe
-	set ext=mp4
-)
+
 
 
 
@@ -78,7 +82,6 @@ if %audio%==1  (
 if %gif%==1 (
 	%ffmpegpath% -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -vf "fps=10,scale=1080:-1:flags=lanczos,palettegen" -y palette.png
 	%ffmpegpath% -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -i palette.png -lavfi "fps=10,scale=1080:-1:flags=lanczos [x]; [x][1:v] paletteuse" -y %datetimef%_ScreenCapture.gif
-	
 	del palette.png
 	::del %datetimef%_ScreenCapture.%ext%
 )

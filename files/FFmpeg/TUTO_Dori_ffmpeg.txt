@@ -182,10 +182,14 @@ _________________________________________________________________
 		CROP
 		https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg
 				ffmpeg -i in.mp4 -filter:v "crop=out_w:out_h:x:y" out.mp4
+				ffmpeg -i in.mp4 -filter:v "crop=in_w:in_h*0.8" -c:a copy out.mp4
 			Where the options are as follows:
 				out_w is the width of the output rectangle
 				out_h is the height of the output rectangle
 				x and y specify the top left corner of the output rectangle
+			Preview
+				take 10% on the height (both side)
+				ffplay -i in.mp4 -vf "crop=in_w:in_h*0.8" -x 500 -y 600 
 		
 		_________________________________________________________________
 		FIX TIME DURATION ERROR
