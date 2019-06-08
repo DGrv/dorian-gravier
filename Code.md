@@ -66,7 +66,7 @@ order: 3
 - Give your regex
 - The batch will print the list of file and tell you how many file it will delete, ask user yes or no
 
-```batch
+```shell
 @echo off
 
 set /p dirpath=Where are your files ?
