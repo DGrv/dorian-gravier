@@ -252,8 +252,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start convert low
 	echo.
 	
-	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25.mp4
-	::ffmpeg -stats -loglevel error -i output_low_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 18 output_low_handy.mp4		
+	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
+	ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
+	del output_720_crf25_temp.mp4	
 
 	pause
 	
