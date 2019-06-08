@@ -18,6 +18,8 @@ If I export the it I get a .reg :
 
 
 ```
+Windows Registry Editor Version 5.00
+
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.gpx\shell\Simplify gpx\command]
 @="\"C:\\Program Files (x86)\\GPSBabel\\gpsbabel.exe\" -r -i gpx -f \"%1\" -x simplify,count=1000 -o gpx -F \"%1.gpx\""
 ```
@@ -25,6 +27,8 @@ If I export the it I get a .reg :
 I created for example a small reg file to be able to convert rapidly my gpx. I guess a dropdown menu is possible but I was satisfied with this:
 
 ```
+Windows Registry Editor Version 5.00
+
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.gpx\shell\Simplify gpx 500pts\command]
 @="\"C:\\Program Files (x86)\\GPSBabel\\gpsbabel.exe\" -r -i gpx -f \"%1\" -x simplify,count=500 -o gpx -F \"%1_500.gpx\""
 
@@ -36,3 +40,16 @@ I created for example a small reg file to be able to convert rapidly my gpx. I g
 ```
 
 [Posted on Stackoverflow](https://stackoverflow.com/a/54953717/2444948)
+
+
+Edit:
+
+New example to convert jpg file to pdf via Magick
+
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.jpg\shell\Convert to pdf\command]
+@="\"H:\\TEMP\\Software\\Pictures\\ImageMagick-7.0.8-28-portable-Q16-x86\\magick.exe\" convert \"%1\" \"%1.pdf\""
+```
+
