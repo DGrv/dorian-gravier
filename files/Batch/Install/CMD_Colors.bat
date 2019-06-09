@@ -3,19 +3,19 @@ systeminfo | findstr /B /C:"OS Name" /C:"OS Version" | find /i "XP" > NUL && set
 if %OS%==32BIT (
 	if exist H:\ (
 		H:
-		H:\TEMP\Software\ansi186\x86\ansicon.exe -i
+		H:\TEMP\Software\ansi189\x86\ansicon.exe -i
 	) else (
 		X:
-		X:\TEMP\Software\ansi186\x86\ansicon.exe -i
+		X:\TEMP\Software\ansi189\x86\ansicon.exe -i
 	)
 )
 if %OS%==64BIT (
 	if exist H:\ (
 		H:
-		H:\TEMP\Software\ansi186\x64\ansicon.exe -i
+		H:\TEMP\Software\ansi189\x64\ansicon.exe -i
 	) else (
 		X:
-		X:\TEMP\Software\ansi186\x64\ansicon.exe -i
+		X:\TEMP\Software\ansi189\x64\ansicon.exe -i
 	)
 )
 

@@ -58,4 +58,3 @@ echo %all%
 
 setx path %all%
 del temp2.txt
-
