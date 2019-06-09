@@ -14,8 +14,8 @@ Same for LaTex files (.tex)
 Just put those 2 codes in a xml files in your /userDefineLangs folder.
 You will also find those files here :
 
-- [Markdown xml](../files/Notepad/UserDefined/Md_dracula.xml)
-- [LaTex xml](../files/Notepad/UserDefined/NuTeX_dracula.xml)
+- [Markdown xml](/files/Notepad/UserDefined/Md_dracula.xml)
+- [LaTex xml](/files/Notepad/UserDefined/NuTeX_dracula.xml)
 
 # Markdown
 
