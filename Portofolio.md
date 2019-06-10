@@ -9,23 +9,37 @@ Overview of my work.
 
 You have an access to some final documents of what I have done (essentially from interships) since 2008. This is only to give you an idea of what I am able to do so far. If you need more information, do not hesitate to ask me (_cf_ contact in the Home page).
 
-*   2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).​
-*   2017 - Importance of documentation and Standard Operational Procedures (HDC GmbH, Konstanz, BW, DE).
-*   2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) ​(HDC GmbH, Konstanz, BW,  DE).
-*   2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).
-*   2014 - Example of data analysis for quality control of Hight throughtput screening data ​(HDC GmbH, Konstanz, BW, DE).
-*   2013 - Charged of data analysis (CNRS Chizé, Deux-Sèvres, FR).
-*   2012 - Intership on bats and aquatic insect emergences (Limnological Institute, Konstanz, BW, DE).
-*   2012 - Erasmus in Sweden (Gothenburg, SE).
-*   2011 - Intership on bats (Cholet, Maine-et-Loire, FR)
-*   2010 - Intership on the Little Owl (Chevreuse, Yevelines, FR).
-*   2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais,  FR).
-*   2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).
-*   Other - R graphics.
 
- 2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).](#2017---making-a-new-kinetic-data-variable-available-the-slopehdc-gmbh-konstanz-bw-de)
+- [2017 - Importance of documentation and Standard Operational Procedures (HDC GmbH, Konstanz, BW, DE).](#2017---importance-of-documentation-and-standard-operational-procedureshdc-gmbh-konstanz-bw-de)
+- [2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).](#2016---hts-data-processing-and-analysis-example-of-possibilities-with-open-source-softwares-r-hdc-gmbh-konstanz-bw-de)
+- [2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).](#2015---overview-of-tools-developed-with-rhdc-gmbh-konstanz-bw-de)
+- [2014 - Example of data analysis for quality control of Hight Throughtput Screening data (HDC GmbH, Konstanz, BW, DE).](#2014---example-of-data-analysis-for-quality-control-of-hight-throughtput-screening-data-hdc-gmbh-konstanz-bw-de)
+- [2013 - Spatial and isotope analysis from the Commerson dolphins’ *(Cephalorhynchus commersonii kerguelenensis)* monitoring at Kerguelen island (CNRS Chizé, Deux-Sèvres, FR).](#2013---spatial-and-isotope-analysis-from-the-commerson-dolphins-cephalorhynchus-commersonii-kerguelenensis-monitoring-at-kerguelen-island-cnrs-chizé-deux-sèvres-fr)
+- [2013 - Implementation of Commerson dolphins’ monitoring protocol via photo-identification (National Nature Reserve of French Austral Islands , France | Kerguelen Island| Indian Ocean).](#2013---implementation-of-commerson-dolphins-monitoring-protocol-via-photo-identification-national-nature-reserve-of-french-austral-islands--france--kerguelen-island-indian-ocean)
+- [2012 - Intership on bats and aquatic insect emergences (Limnological Institute Konstanz, BW, DE).](#2012---intership-on-bats-and-aquatic-insect-emergences-limnological-institute-konstanz-bw-de)
+- [2012 - Erasmus in Sweden (Gothenburg, SE).](#2012---erasmus-in-sweden-gothenburg-se)
+- [2011 - Intership on bats (Cholet, Maine-et-Loire, FR).](#2011---intership-on-bats-cholet-maine-et-loire-fr)
+- [2010 - Internship on the Little Owl (Chevreuse, Yvelines, FR).](#2010---internship-on-the-little-owl-chevreuse-yvelines-fr)
+- [2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).](#2009--internshiponlady-beetles-calais-nord-pas-de-calais-fr)
+- [2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).](#2007-2008---btsa-forestry-management-mirecourt-vosges-fr)
+- [Other - R graphics.](#other---r-graphics)
+<!-- TOC END -->
 
-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+# 2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).
+
+*In preparation*
+
+# 2017 - Importance of documentation and Standard Operational Procedures (HDC GmbH, Konstanz, BW, DE).
+
+*In preparation*
+
+# 2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).
 
 
 **Data processing and reporting**: Creation of several highly flexibel functions for HTS data. All what is exposed here was done with home made R functions on a Rserver.
@@ -76,8 +90,7 @@ Evolution of quality control parameters through a screen.
 
 Scatterplot of data from a screen. Colors are the controls. Horizontal line represent the variation of the compounds (C, 1 to 4x SD) data. Permit to decide of threshold for hit selection as well as have a feeling of the robustness of the assay.
 
-2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).
-------------------------------------------------------------------------
+# 2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).
 
 *   **Quality control**
     *   Analysis of log files from robotic lines to extract real schedule time, errors, barcodes, time needed per device or movements, Echo dispenser information (make then plot of the logfiles of this device)
@@ -112,9 +125,8 @@ Density graphic (histogram) from the intensity of each field (image) from a well
 
 Display flex files (tiff from the Opera). 1 row per well.
 
-2014 - Example of data analysis for quality control of Hight Throughtput Screening data (HDC GmbH, Konstanz, BW, DE).
+# 2014 - Example of data analysis for quality control of Hight Throughtput Screening data (HDC GmbH, Konstanz, BW, DE).
 
-------------------------------------------------------------------------------------------------------------------------
 
 Example of the characteristics of the scripts created in R :
 
@@ -144,11 +156,11 @@ Calculation of Dose response curves : 1 graph generated per plate and summary in
 
 Kinetic curves of wells , raw data function of the time. Red curves are non corrected values, black corrected.
 
-2013 - Charged of data analysis (CNRS Chizé, Deux-Sèvres, FR).
 
------------------------------------------------------------------
+# 2013 - Spatial and isotope analysis from the Commerson dolphins’ *(Cephalorhynchus commersonii kerguelenensis)* monitoring at Kerguelen island (CNRS Chizé, Deux-Sèvres, FR).
 
-**Datas** : Commerson dolphins observations and identifications (also done by me).
+
+**Data** : Commerson dolphins observations and identifications (also done by me).
 
 
 *   Work with .gpx files
@@ -158,17 +170,28 @@ Kinetic curves of wells , raw data function of the time. Red curves are non corr
 *   Capture Mark Release Recapture analysis with  the help of [Christophe Barbraud](http://www.cebc.cnrs.fr/Fidentite/barbraud/barbraud.htm).
 
 ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Cover_report_Commerson.jpg)
-    ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex01.jpg)
+    ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex02.jpg)
     ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex03.jpg)
     ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex04.jpg)
     ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex05.jpg)
     ![Photo](/files/picture/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex06.jpg)
 
- 
 
-2012 - Intership on bats and aquatic insect emergences (Limnological Institute Konstanz, BW, DE).
+# 2013 - Implementation of Commerson dolphins’ monitoring protocol via photo-identification (National Nature Reserve of French Austral Islands , France | Kerguelen Island| Indian Ocean).
 
-----------------------------------------------------------------------------------------------------
+Example of a catalog produce regarding photo-identification of the Commerson dolphins:
+
+![Photo](/files/picture/Portofolio/2013_RNN/2013_RNN_Catalog_cover.jpg)
+![Photo](/files/picture/Portofolio/2013_RNN/2013_RNN_Catalog_ex01.jpg)
+![Photo](/files/picture/Portofolio/2013_RNN/2013_RNN_Catalog_ex02.jpg)
+![Photo](/files/picture/Portofolio/2013_RNN/2013_RNN_Catalog_ex03.jpg)
+
+
+
+
+
+# 2012 - Intership on bats and aquatic insect emergences (Limnological Institute Konstanz, BW, DE).
+
 
 **Subject :** Seasonality and differences in **insect emergences** among 3 lakes around Constance (Germany) and their **influences on bat activity** between spring and early summer.
 
@@ -192,18 +215,16 @@ I learned alone how to use R to create nice and interesting graphs as well as pe
 
  ![Photo](/files/picture/8450187.jpg)
 
-2012 - Erasmus in Sweden (Gothenburg, SE).
+# 2012 - Erasmus in Sweden (Gothenburg, SE).
 
----------------------------------------------
 
 I had the opportunity to do an **Erasmus** in Sweden during winter 2011-12. There, I followed 2 courses :  Comparative Physiology of Marine Animals  and Primary Producers of the Sea.
 
 I did a project work during 2 weeks in the first one concerning leptin receptors in the Rainbow trout. 
 In the second one, I wrote a review concerning the **monitoring of green tides on the Brittany coast** (France). This one is available [here](/files/pdf/gravier_-_2012_-_monitoring_of_green_tides_on_the_brittany_coasts_france.pdf).
 
-2011 - Intership on bats (Cholet, Maine-et-Loire, FR).
+# 2011 - Intership on bats (Cholet, Maine-et-Loire, FR).
 
----------------------------------------------------------
 
 **Subject :** **Bats** roosts research and **protection** approaches
 
@@ -230,9 +251,8 @@ Explanations:
 
  ![Photo](/files/picture/9933958.jpg)
 
-2010 - Internship on the Little Owl (Chevreuse, Yvelines, FR).
+# 2010 - Internship on the Little Owl (Chevreuse, Yvelines, FR).
 
------------------------------------------------------------------
 
 **Subject :** Elaboration of a **conservative plan** for preserving 2 little area with couples of **Little owls** (_Athena noctua_). 
 
@@ -248,23 +268,23 @@ Example of map created for the conservative plan. Those are concerning the ideas
 
  ![Photo](/files/picture/2842060.jpg)
 
-2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).
 
-----------------------------------------------------------------------
+
+# 2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).
+
 
 **Subject **: Participation to a **lady-beetles atlas** of the Pas-de-Calais (France).
 
 This internship was quietly only field work. I had a certain area to prospect to find the maximum of lady-beetles species. First use of Arc gis by my own wishes. You can have a look to the [short results](/files/pdf/dorian-gravier_results_2009_atlas_ladybeetles.pdf).
 
-2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).
 
-----------------------------------------------------------------
+
+# 2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).
 
 Synthesis of the work done : [available here](/files/ppdf/btsa-gf_dorian-gravier_synthese_stage.pdf).
 
-Other - R graphics.
+# Other - R graphics.
 
-----------------------
 
 Some other examples of graphic done with R (essentialy with libraries ggplot2, plyr, scales, grid, reshape, lattice and ggmap).
 
