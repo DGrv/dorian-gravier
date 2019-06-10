@@ -14,7 +14,7 @@ You have an access to some final documents of what I have done (essentially from
 - [2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).](#2016---hts-data-processing-and-analysis-example-of-possibilities-with-open-source-softwares-r-hdc-gmbh-konstanz-bw-de)
 - [2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).](#2015---overview-of-tools-developed-with-rhdc-gmbh-konstanz-bw-de)
 - [2014 - Example of data analysis for quality control of Hight Throughtput Screening data (HDC GmbH, Konstanz, BW, DE).](#2014---example-of-data-analysis-for-quality-control-of-hight-throughtput-screening-data-hdc-gmbh-konstanz-bw-de)
-- [2013 - Spatial and isotope analysis from the Commerson dolphins’ (Cephalorhynchus commersonii kerguelenensis) monitoring at Kerguelen island (CNRS Chizé, Deux-Sèvres, FR).](#2013---spatial-and-isotope-analysis-from-the-commerson-dolphins-cephalorhynchus-commersonii-kerguelenensis-monitoring-at-kerguelen-island-cnrs-chizé-deux-sèvres-fr)
+- [2013 - Spatial and isotope analysis from the Commerson dolphins’ (Cephalorhynchus commersonii kerguelenensis) monitoring at Kerguelen island (CNRS Chize, Deux-Sevres, FR).](#2013---spatial-and-isotope-analysis-from-the-commerson-dolphins-cephalorhynchus-commersonii-kerguelenensis-monitoring-at-kerguelen-island-cnrs-chize-deux-sevres-fr)
 - [2013 - Implementation of Commerson dolphins’ monitoring protocol via photo-identification (National Nature Reserve of French Austral Islands (France, Kerguelen Island, Indian Ocean).](#2013---implementation-of-commerson-dolphins-monitoring-protocol-via-photo-identification-national-nature-reserve-of-french-austral-islands-france-kerguelen-island-indian-ocean)
 - [2012 - Intership on bats and aquatic insect emergences (Limnological Institute Konstanz, BW, DE).](#2012---intership-on-bats-and-aquatic-insect-emergences-limnological-institute-konstanz-bw-de)
 - [2012 - Erasmus in Sweden (Gothenburg, SE).](#2012---erasmus-in-sweden-gothenburg-se)
@@ -155,7 +155,7 @@ Calculation of Dose response curves : 1 graph generated per plate and summary in
 Kinetic curves of wells , raw data function of the time. Red curves are non corrected values, black corrected.
 
 
-# 2013 - Spatial and isotope analysis from the Commerson dolphins’ (Cephalorhynchus commersonii kerguelenensis) monitoring at Kerguelen island (CNRS Chizé, Deux-Sèvres, FR).
+# 2013 - Spatial and isotope analysis from the Commerson dolphins’ (Cephalorhynchus commersonii kerguelenensis) monitoring at Kerguelen island (CNRS Chize, Deux-Sevres, FR).
 
 
 **Data** : Commerson dolphins observations and identifications (also done by me).
