@@ -31,9 +31,12 @@ layout: page
 You can here have a look at a pretty detailed learning experience and knowledge obtained since I am studying ecology and working as a Robotic Engineer (only in English). 
 You will find this as a summary in my CV below.
 
-[![](files/icons/icon-pdf.png)](files/pdf/201906_CV_dgrv.pdf)
+<center><a href="files/pdf/201906_CV_dgrv.pdf"><img src="files/icon/icon-pdf.png" width="100"/></a></center>
 
-![Photo](files/picture/776374_orig.jpg)
+
+
+
+<center><img src="files/picture/776374_orig.jpg"/></center>
 
 # What am I actually doing ?
 
@@ -45,12 +48,7 @@ Without having studied this engineering and biotechnology field, the challenge h
 My experience acquired during my career is based on several skills that I consider valuable and that I am constantly trying to improve. High adaptation and autonomie capabilities, looking for organisational work  and responsibilities, focus on communication and team spirit, interest in problem solving and process optimisation are the one that speak me the most.
 ​
 
-
-
- ![Photo](files/picture/3098356_orig.jpg)
-
-
-
+<center><img src="files/picture/3098356_orig.jpg"/></center>
 
 # Languages
 
@@ -91,10 +89,7 @@ I love bringing the power of computer science in a team via communication. This 
 - Experience in dynamic presentation : [ImpressJS](https://github.com/impress/impress.js/)
 
  ![Photo](files/picture/1932032.jpg)
-
  ![Picture](files/picture/excel-ic502_orig.jpg)
-
-
 
 
 # Robotic
@@ -143,17 +138,10 @@ I love bringing the power of computer science in a team via communication. This 
     - ​Scintillation Proximity Assays (SPA) radioative assay (HTS)
     - ​Enzymatic assays
 
- ![Picture](files/picture/robocon.jpg?95)
 
- ![Picture](files/picture/presrobocon2.jpg?101)
-
- ![Picture](files/picture/robocon2.jpg?103)
-
- ![Picture](files/picture/cybio_orig.jpg)
-
- ![Picture](files/picture/thermo_orig.jpg)
-
-
+<center><img src="files/picture/robocon.jpg"/> <img src="files/picture/presrobocon2.jpg"/><img src="files/picture/robocon2.jpg"/></center>
+<center><img src="files/picture/cybio_orig.jpg"/></center>
+<center><img src="files/picture/thermo_orig.jpg"/></center>
 
 
 # Bats
@@ -187,12 +175,10 @@ I love bringing the power of computer science in a team via communication. This 
   - Radiotracking : during nights for feeding territories with _Myotis emarginatus_ and day for roosts.           
 - 2011 - January & February - Participation at approximatly 5 entire **winter prospection** week-end with the association [CPEPESC Lorraine](http://www.cpepesc-lorraine.fr/) in Lorraine (France).
 
- ![Photo](files/picture/2860214_orig.jpg)
 
- ![Photo](files/picture/9654167.jpg?204)
-
- ![Photo](files/picture/6102908_orig.jpg)
-
+ <center><img src="files/picture/2860214_orig.jpg"/></center>
+ <center><img src="files/picture/6102908_orig.jpg"/></center>
+ <center><img src="files/picture/9654167_orig.jpg"/></center>
 
 
 
@@ -210,7 +196,7 @@ I love bringing the power of computer science in a team via communication. This 
   - **Centre National de la Recherche Scientifique** of Chizé on biologic studies, **Data analysis** (R), Distribution, spatial usage, isotope analysis, Commerson dolphins (Cephalorhynchus commersonii) sociality from Kerguelen island. (Contact: christophe.guinet@cebc.cnrs.fr et paul.tixier@taaf.re)
   - **National Nature Reserve** of French Austral islands in Kerguelen. Charged of **Commerson dolphins' monitoring**. Help the CNRS of Chizé for setting-up on and off tags on elephant seals.
 
- ![Photo](files/picture/539720_orig.jpg)
+ <center><img src="files/picture/539720_orig.jpg"/></center>
 
 # Birds
 
@@ -231,10 +217,8 @@ I love bringing the power of computer science in a team via communication. This 
 
 
  ![Photo](files/picture/9481651_orig.jpg)
-
- ![Photo](files/picture/6180538.jpg?392)
-
- ![Photo](files/picture/3315922.jpg?273)
+ ![Photo](files/picture/3315922.jpg)
+ ![Photo](files/picture/6180538.jpg)
 
 
 
@@ -267,7 +251,9 @@ I love bringing the power of computer science in a team via communication. This 
 - **2011 - August** : Recherche et démarches de protection de colonies de chauves-souris dans les Mauges (49). M2 CRB. _Metz - France._
 - **2010 - June** : Elaboration d’une méthodologie descriptive des habitats potentiels pour la Chevêche d’Athéna (_Athene noctua)_ préalable à la mise en œuvre d’un plan d’actions pour la conservation d’un noyau de population. M1 CRB. _Metz - France._
 
- [![Photo](files/picture/7182505.jpg)]
- [![Photo](files/picture/6375922_orig.jpg)]
- [![Photo](files/picture/6121603_orig.jpg)]
- [![Photo](files/picture/6841579_orig.jpg)]
+
+
+ <center><img src="files/picture/7182505.jpg"/></center>
+ <center><img src="files/picture/6375922_orig.jpg"/></center>
+ <center><img src="files/picture/6121603_orig.jpg"/></center>
+ <center><img src="files/picture/6841579_orig.jpg"/></center>
