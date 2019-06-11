@@ -31,19 +31,9 @@ layout: page
 You can here have a look at a pretty detailed learning experience and knowledge obtained since I am studying ecology and working as a Robotic Engineer (only in English). 
 You will find this as a summary in my CV below.
 
-[![](http://www.weebly.com/weebly/images/file_icons/pdf.png)](files/pdf/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
+[![](files/icons/icon-pdf.png)](files/pdf/201906_CV_dgrv.pdf)
 
-**dorian\_gravier\_cv\_201803.pdf**
-
-[Download File](files/pdf/dorian_gravier_cv_201803.pdf "Download file: dorian_gravier_cv_201803.pdf")
-
-
-
- ![Photo](files/picture/776374_orig.jpg)
-
-
-
-
+![Photo](files/picture/776374_orig.jpg)
 
 # What am I actually doing ?
 
