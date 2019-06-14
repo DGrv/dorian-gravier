@@ -26,16 +26,72 @@ You have an access to some final documents of what I have done (essentially from
 <!-- TOC END -->
 
 
+# 2019 - Analyze data from HCS with OpenSource softwares
+
+HCS alias [High Content Screening](https://en.wikipedia.org/wiki/High-content_screening).
+
+From picture to numbers or how from tiff files from microscope to single point data with only OpenSource softwares.
+
+This following data workflow is composed of 3 major software and 1 OS:
+
+- [Slurm](https://slurm.schedmd.com/documentation.html) to distribute the work to several nodes (Linux)
+- [Linux](https://de.wikipedia.org/wiki/Linux) as OS
+- [CellProfiler](https://cellprofiler.org/) to analyze the Tiff files
+- [R](https://www.r-project.org/) to manipulate quantitative data and generate graphical user friendly output
+
+The workflow can be summarize this way
+
+<center><img src="files/picture/Portofolio/2019_HCS/HCS_Workflow_Github_v01.png"/></center><br>
+
+The output can be whatever you want, here what I dseigned (click to unlarge):
+
+<center><a href="files/picture/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg"><img src="files/picture/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg"/></a></center><br>
+
+One part of this is the PlateView, which is a matrix of jpeg files created from the CellProfiler. Those jpeg are representing the tiff files, the segmentation done by the CellProfiler and whatever you want from your pictures. This is a important graphical representation when you work with HCS data or in general with image analysis. You need this to understand the quantitative data.
+
+This PlateView is a just a html page linking to the jpeg picture with a java slider changing the contrast of all pictures in the page. In addition it is possible to get the quantitative data which are coming from those pictures permitting to make a direct comparison of image and numbers.
+
+Here an example about the PlateView coupled with quantitative data:
+
+<center><img src="files/picture/Portofolio/2019_HCS/HCS_Plateview_Example.gif"/></center>
+
+
 
 
 
 # 2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).
 
-*In preparation*
+We are getting at HDC GmbH Kinetic data. Let's imagine a kinetic curve:
 
-# 2017 - Importance of documentation and Standard Operational Procedures (HDC GmbH, Konstanz, BW, DE).
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine1.png"/></center>
+<br>
+The user wants to get the slope on different area of this curve. The width of this area (in time or number of measures) is called window size (how much data point this area should have). By calculating in a window the slope and by moving the position of this window on the x axis,
 
-*In preparation*
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine2.png"/></center>
+<br>
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine3.png"/></center>
+
+we get kinetic data of slope values.
+
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine4.png"/></center>
+<br>
+By changing the window size this kinetic data of the slope is logically modified:
+
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine5.png"/></center>
+<br>
+Here a real case example showing the matrix of wells from a microtiter plate. The kinetic data is the original data. The background color correspond to the max slope calculated with a unique window size.
+
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine7.png"/></center>
+<br>
+And here the kinetic slope data from the matrix above.
+
+<center><img src="files/picture/Portofolio/2017_Kinetic/Kine6.png"/></center>
+
+
+
+
+
+
 
 # 2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).
 
