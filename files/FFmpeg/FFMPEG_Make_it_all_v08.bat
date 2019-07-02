@@ -241,7 +241,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		:: audio replace
 		::ffmpeg -stats -loglevel error -i output.mp4 -i inputfinal.mp3 -c copy -map 0:0 -map 1:0 -shortest output2.mp4
 		:: audio mixen
-		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4
+		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.1[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4
 	) else (
 		rename output.mp4 output_high.mp4
 	)
