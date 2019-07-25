@@ -1189,11 +1189,11 @@ Best way I found is to install a context menu (right click) with .docx document.
 
 Here how to do:
 
-Create a macro in your 'Normal.dotm' file. Normally available under *C:\Users\**username**\AppData\Roaming\Microsoft\Templates*
+Create a macro in your 'Normal.dotm' file. Normally available under *C:\Users\\**username**\AppData\Roaming\Microsoft\Templates*
 
 Example :
 
-```vba
+```shell
 Sub export2pdf()
     Application.ActiveProtectedViewWindow.Edit ' Allow editing of the document wihtout this line the macro will not work
     ChangeFileOpenDirectory ThisDocument.Path
@@ -1249,6 +1249,37 @@ Windows Registry Editor Version 5.00
 @="\"C:\\Program Files\\Microsoft Office 15\\root\\Office15\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
 
 ```
+For Office 365 it will be :
+
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Word.Document.8\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.8\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document.12\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.12\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document.6\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document.6\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+[HKEY_CLASSES_ROOT\Word.Document\shell\Export2pdf]
+@="Export2pdf"
+
+[HKEY_CLASSES_ROOT\Word.Document\shell\Export2pdf\command]
+@="\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /mexport2pdf /q \"%1\""
+
+```
+
 
 
 Source:
