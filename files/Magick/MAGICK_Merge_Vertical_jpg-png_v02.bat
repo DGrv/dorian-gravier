@@ -24,18 +24,18 @@ del temp
 
 :: resize
 if NOT %per%==100 (
-	for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%p
+	for %%p in (*.%format%) do H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe convert %%p -resize %per%%% %%p
 )
 
 
 :: Merge
-magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
-magick convert Merge.%format% Merge.pdf
+H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
+H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe convert Merge.%format% Merge.pdf
 
 echo DEBUG --------------------------
 echo drive %drive%
 echo dir %dir% 
 echo which %which%
 echo format %format%
-echo magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
-echo magick convert Merge.%format% Merge.pdf
+echo H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
+echo H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe convert Merge.%format% Merge.pdf
