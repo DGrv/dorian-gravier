@@ -15,7 +15,7 @@ Create a macro in your 'Normal.dotm' file. Normally available under *C:\Users\**
 
 Example :
 
-```vba
+```shell
 Sub export2pdf()
     Application.ActiveProtectedViewWindow.Edit ' Allow editing of the document wihtout this line the macro will not work
     ChangeFileOpenDirectory ThisDocument.Path
