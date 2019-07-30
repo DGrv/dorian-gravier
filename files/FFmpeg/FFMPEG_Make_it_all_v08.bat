@@ -160,6 +160,19 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start tbs
 	echo.
 
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+	:: check this it seeams that it is converting even if the tbs you set is the same as the video
+
+
+
+
 	:: change tbs to have all the same - audio tbs
 	for %%i in (*.mp4) DO (
 		ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
