@@ -3,6 +3,7 @@
 
 echo Batch file for binding all video together from 1 folder.
 echo.
+set /p info=Take care of name of the files, should not contain strange characters !!!
 set /p input=Give me the path of the directory where your video are: 
  
 
@@ -31,4 +32,4 @@ echo ext : %ext%
 cd %input%
 (for %%i in (*%ext%) do @echo file '%%i') > list.txt
 ffmpeg -f concat -i list.txt -c copy output%ext%
-del list.txt
+::del list.txt
