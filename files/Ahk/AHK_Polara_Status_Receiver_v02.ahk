@@ -22,6 +22,7 @@ Loop {
 		; Maximize window
 		vline(50, 0, 2, 5000, 4, "42f5da")
 	} else {
+		Sleep, 15000
 		if FileExist(file1) {
 			;SoundBeep, 750, 500
 			;SoundPlay %sound%
