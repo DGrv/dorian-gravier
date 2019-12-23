@@ -64,6 +64,21 @@ Or maybe you wanna also update 'id' in addition:
 5: 13 h 61
 ```
 
+Here the function resulting from this:
+
+```r
+update.DT <- function(DATA1, DATA2, join.variable, overwrite.variable, overwrite.with.variable) {
+  
+  if( missing( overwrite.with.variable )) {
+    overwrite.with.variable <- overwrite.variable
+    cat("[INFO] - your 'overwrite.with.variable' will be 'overwrite.variable', since you did not defined it.\n\n")
+  }
+  
+  DATA1[DATA2, c(overwrite.variable) := mget(p0("i.", overwrite.with.variable)), on = join.variable][]
+  
+}
+```
+
 
 Sources:
 
