@@ -1,7 +1,7 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-set /p which="Do you want to merge jpg (type 1) or png (type 2) ? : "
+set /p which="Do you want to resize jpg (type 1) or png (type 2) ? : "
 
 if %which%==1 set format="jpg"
 if %which%==2 set format="png"
