@@ -127,11 +127,11 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start title
 	echo.
 
-	copy /V D:\DG-Papers\GitHub\Website\dorian.gravier.github.io\files\FFmpeg\ARIAL.TTF
+	copy /V C:\Users\gravier\Downloads\GitHub\dorian.gravier.github.io\files\FFmpeg\ARIAL.TTF
 	
 	
 	if NOT EXIST 00000_title.mp4 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='|%title%|'" -video_track_timescale %tbs% 000_temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='| %title% |'" -video_track_timescale %tbs% 000_temp.mp4
 		:: add audio
 		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		del 000_temp.mp4
@@ -273,7 +273,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	::ffmpeg -stats -loglevel error -i output.mp4 -i inputfinal.mp3 -c copy -map 0:0 -map 1:0 -shortest output2.mp4
 	:: audio mixen
 	if EXIST input.mp3 (
-		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4
+		::ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
+		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high.mp4
 	) else (
 		rename output.mp4 output_high.mp4
 	)
@@ -284,11 +285,13 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start convert low
 	echo.
 	
+	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
 	ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
 	del output_720_crf25_temp.mp4
+	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
 	rename output_720_crf25.mp4 %title2%_low.mp4
-	rename output_high.mp4 %title2%.mp4
+	rename output_high.mp4 %title2%_raw.mp4
 
 	pause
 	
