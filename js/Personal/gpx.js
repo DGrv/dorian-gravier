@@ -74,7 +74,8 @@ var SchitourProject = ['files/gpx/Schitour/Project/P_ST_moe-st-2t-carschinahuett
 'files/gpx/Schitour/Project/P_ST_moe-st_gerenspitze.gpx',
 'files/gpx/Schitour/Project/P_ST_moe-st_windeggerspitze.gpx',
 'files/gpx/Schitour/Project/P_ST_st-moematona.gpx',
-'files/gpx/Schitour/Project/P_ST_st-moemoerzelspitze.gpx']
+'files/gpx/Schitour/Project/P_ST_st-moemoerzelspitze.gpx',
+'files/gpx/Schitour/Project/P_ST_Vogelberg-Zapporthutte-SAC.gpx']
 
 var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_2016_ober_kamorschitour.gpx',
