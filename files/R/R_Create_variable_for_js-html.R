@@ -2,8 +2,8 @@
   
   library(data.table)
 
-  wd <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/files"
-  outjs <- "D:/DG-Papers/GitHub/Website/dorian.gravier.github.io/js/Personal/gpx.js"
+  wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/files"
+  outjs <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
   if( !dir.exists(wd) ) {
     wd <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/files"
     outjs <- "C:/Users/gravier/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
