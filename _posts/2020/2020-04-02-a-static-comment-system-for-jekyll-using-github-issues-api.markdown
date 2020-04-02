@@ -23,7 +23,7 @@ What you need to understand is that :
 
 # _includes/comments.html
 
-```html
+```
 
 <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script>
@@ -97,7 +97,7 @@ request.send();
 
 # _layouts/post.html
 
-```html
+```
 ---
 layout: default
 ---
@@ -133,7 +133,7 @@ layout: default
 
 I added this part.
 
-```css
+```
 
 #gh-comments-list {
     list-style: none;
