@@ -10,13 +10,15 @@ All the comment will stay on your website and you will still have access to it s
 
 All the information present here come from [aristaht blog post](https://aristath.github.io/blog/static-site-comments-using-github-issues-api). What I am describing here is only how I install it and modified few things to make it work how I wanted.
 
+So to be clear all what I explain here is what I did to make it work. However they may exist better solution for this. You may now use comments to share your point of view :)
+
 What you need to understand is that :
 - comments are coming from replies in an issue of your repository
 - a post is linked to an issue via a tag `comments_id: 3` in your [Jekyll Front matter](https://jekyllrb.com/docs/front-matter/). Here this is issue number 3 (#3)
 - you will have to modify or create few files
   - you will have to have a `_includes/comments.html` (code below)
   - insert the comments in your layout by creating `_layouts/post.html`  (code below)
-  - modify your scss if needed in `assets/main.scss`, or create a new on (I am actually not sure how this is working)
+  - create your scss if needed in `_sass/_includes/_comments.scss` 
 - [Github Issue API](https://developer.github.com/v3/issues/) will get the comments, information about the user, avatar and so on
 - [showdown.js](https://github.com/showdownjs/showdown) will render all of this by its own
 
