@@ -2,6 +2,7 @@
 layout: "post"
 title: "Update join data.table: How to update variable of a data.table base on another data.table"
 date: "2019-11-28 15:53"
+comments_id: 	33
 ---
 
 

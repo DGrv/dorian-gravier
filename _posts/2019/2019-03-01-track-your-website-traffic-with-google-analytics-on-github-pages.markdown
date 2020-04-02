@@ -2,6 +2,7 @@
 layout: "post"
 title: "Track your website traffic with Google Analytics on github pages"
 date: "2019-03-01 09:35"
+comments_id: 	16
 ---
 
 Simply go in Settings from your Google Analytics and create a new property.

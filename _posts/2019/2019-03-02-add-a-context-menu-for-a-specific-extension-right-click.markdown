@@ -2,6 +2,7 @@
 layout: "post"
 title: "Add a context menu for a specific extension (right-click)"
 date: "2019-03-02 00:32"
+comments_id: 	17
 ---
 
 The only good solution I found a really working is : https://superuser.com/questions/1097054/shell-context-menu-registry-extension-doesnt-work-when-default-program-is-other

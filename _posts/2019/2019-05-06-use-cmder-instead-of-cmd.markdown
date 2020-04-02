@@ -2,6 +2,7 @@
 layout: "post"
 title: "Cmder a fency terminal"
 date: "2019-05-06 15:11"
+comments_id: 	28
 ---
 
 I do a lot of easy coding with batch files. So you can imagine that I could have sometimes several cmd windows open here and there ... what a mess.

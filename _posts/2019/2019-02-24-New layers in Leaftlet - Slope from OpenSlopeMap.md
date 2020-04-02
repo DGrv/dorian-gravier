@@ -1,6 +1,7 @@
 ---
 lazout: post
 title: New layers in leaflet - Slope
+comments_id: 	12
 ---
 
 I was looking for such informations since a long time Slope.

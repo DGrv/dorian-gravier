@@ -2,6 +2,7 @@
 layout: "post"
 title: "npm and browserify"
 date: "2019-03-06 15:58"
+comments_id: 	22
 ---
 
 I faced a problem by continuing tp program on the leaflet page of the webpage.

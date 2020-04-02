@@ -2,6 +2,7 @@
 layout: "post"
 title: "New leaflet layers: Kompass map and refuge.info POI"
 date: "2019-03-01 21:25"
+comments_id: 	15
 ---
 
 A new tile layer is available in my [leaflet page](/leaflet.html).

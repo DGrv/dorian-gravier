@@ -2,6 +2,7 @@
 layout: "post"
 title: "Leaflet: load gpx"
 date: "2019-03-02 15:58"
+comments_id: 	20
 ---
 
 Again a new leaflet option to laod a gpx using [leaflet.FileLayer](https://github.com/makinacorpus/Leaflet.FileLayer).

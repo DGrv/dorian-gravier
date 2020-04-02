@@ -1,6 +1,7 @@
 ---
 lazout: post
 title: Test to manage my gpx
+comments_id: 	8
 ---
 
 I actually do not find a satisfaying online solution for the different adventure I have outside.

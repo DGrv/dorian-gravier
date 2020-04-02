@@ -1,6 +1,7 @@
 ---
 lazout: post
 title: How to roll back Acronis Backup from a HDD from your own computer
+comments_id: 7
 ---
 
 **Goal:**

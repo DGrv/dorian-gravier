@@ -2,6 +2,7 @@
 layout: "post"
 title: "R - Adapt plot area of several ggplot for grid.arrange, consistent width"
 date: "2019-08-21 17:14"
+comments_id: 	32
 ---
 
 Small function created with the help of the Stackoverflow community to have consistent width for ggplot and grid.arrange:

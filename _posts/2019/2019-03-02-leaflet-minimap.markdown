@@ -2,6 +2,7 @@
 layout: "post"
 title: "Leaflet: Minimap and bottom center"
 date: "2019-03-02 13:35"
+comments_id: 	21
 ---
 
 I added a [minimap](https://github.com/Norkart/Leaflet-MiniMap) on the [leaflet page](/leaflet.html).

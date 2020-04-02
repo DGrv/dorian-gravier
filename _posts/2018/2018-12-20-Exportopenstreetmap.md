@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Export vectors information from OSM, add elevation profiles with SRTM and convert to Adobe Illustrator
+comments_id: 6
 ---
 
 Source: http://UNSET/blog/export-vectors-information-from-osm-add-elevation-profiles-with-srtm-and-convert-to-adobe-illustrator

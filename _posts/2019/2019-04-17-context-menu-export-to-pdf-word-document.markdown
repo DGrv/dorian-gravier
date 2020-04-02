@@ -2,6 +2,7 @@
 layout: "post"
 title: "Context menu export to pdf word document"
 date: "2019-04-17 15:57"
+comments_id: 	25
 ---
 
 I prefer to read pdf than word document. Word is for me only if the document is unfinished but if I want to look for something, pdf are for me much better and safer (you can not change something there).
