@@ -2,6 +2,7 @@
 layout: "post"
 title: "Leaflet: Geocoding"
 date: "2019-03-02 14:52"
+comments_id: 	18
 ---
 
 I added the possibility to search a place a jump the map to the find location. I used the [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) plugin.

@@ -2,6 +2,7 @@
 layout: "post"
 title: "Leaflet: GraphHopper test"
 date: "2019-03-02 18:39"
+comments_id: 	19
 ---
 
 I am trying to build a code that could draw lines following roads. A lot of tools are existing for this but I wanna learn and do my own. Of course I am using other tools like [Leaflet-Routing-machine](http://www.liedman.net/leaflet-routing-machine/) and [GraphHopper](https://www.graphhopper.com/) via [lrm-graphhopper](https://github.com/perliedman/lrm-graphhopper).

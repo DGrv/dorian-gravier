@@ -1,6 +1,7 @@
 ---
 lazout: post
 title: Add variable to PATH (Windows)
+comments_id: 	11
 ---
 
 New batch file created in order to add variable to PATH fast, easily and wihtout creating duplicates :)

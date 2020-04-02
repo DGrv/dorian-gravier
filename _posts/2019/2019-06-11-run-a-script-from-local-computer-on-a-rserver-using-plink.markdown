@@ -2,6 +2,7 @@
 layout: "post"
 title: "Run a script from local computer on a Rserver using plink"
 date: "2019-06-11 16:55"
+comments_id: 	30
 ---
 
 You know Rstudio (Desktop) ? Do you Rstudio Server ?

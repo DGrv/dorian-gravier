@@ -2,6 +2,7 @@
 layout: "post"
 title: "New leaflet layers: DAV Huts"
 date: "2019-02-28 21:25"
+comments_id: 	13
 ---
 
 While I was planing a Ski tour I landed on a DAV website to reserve Hut. I realize that their URL is ending by an ID: `https://www.alpsonline.org/reservation/calendar?hut_id=`

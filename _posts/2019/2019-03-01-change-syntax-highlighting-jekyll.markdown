@@ -2,6 +2,7 @@
 layout: "post"
 title: "Change Syntax highlighting Jekyll"
 date: "2019-03-01 10:35"
+comments_id: 	14
 ---
 
 Jekyll use `.highlight` element in css to highlight syntax.

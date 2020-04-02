@@ -2,6 +2,7 @@
 layout: "post"
 title: "Share files between Linux (CentOS) and Windows (secured share)"
 date: "2019-04-26 16:58"
+comments_id: 	27
 ---
 
 I wanted to be able to share a folder between Linux and Windows. This was a nightmare regarding configuration and found everything possible on the net. I did not know really what to trust and did not want to read in detail the documentation since I would have to learn a lot of basic to get everything.
