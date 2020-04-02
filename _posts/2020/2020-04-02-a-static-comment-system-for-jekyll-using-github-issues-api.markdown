@@ -18,7 +18,8 @@ What you need to understand is that :
 - you will have to modify or create few files
   - you will have to have a `_includes/comments.html` (code below)
   - insert the comments in your layout by creating `_layouts/post.html`  (code below)
-  - create your scss if needed in `_sass/_includes/_comments.scss` 
+  - create your scss if needed in `_sass/_comments.scss` 
+	- load it in your `assets/main.scss` by adding the line `@import "comments";` ([for more info](https://jekyllrb.com/docs/step-by-step/07-assets/))
 - [Github Issue API](https://developer.github.com/v3/issues/) will get the comments, information about the user, avatar and so on
 - [showdown.js](https://github.com/showdownjs/showdown) will render all of this by its own
 
@@ -131,9 +132,8 @@ layout: default
 </section>
 ```
 
-# assets/main.scss
+# _sass/comments.scss
 
-I added this part.
 
 ```
 
