@@ -932,26 +932,26 @@ Sources:
 Command to dowload the audio from a video or playlist:
 
 ```shell
-ffmpeg -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i the-url-of-your-video
+youtube-dl -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i the-url-of-your-video
 ```
 
 Command to download a video (best quality):
 
 ```shell
-ffmpeg -f best the-url-of-your-video
+youtube-dl -f best the-url-of-your-video
 ```
 
 Command to download a video (with choosen quality):
 Get the list of possible format ...
 
 ```shell
-ffmpeg -F the-url-of-your-video
+youtube-dl -F the-url-of-your-video
 ```
 
 Choose one and run the following line
 
 ```shell
-ffmpeg -f format-choosen the-url-of-your-video
+youtube-dl -f format-choosen the-url-of-your-video
 ```
 
 ## Batch
@@ -973,6 +973,7 @@ _Use brackets "" if you have space in your path._
 For noobies.
 
 - Download [Youtube-dl](https://rg3.github.io/youtube-dl/download.html), if you have windows, download the Windows.exe. Move it to a safe folder where you know where it is. Note path of the file.
+- Download [ffmpeg](https://www.ffmpeg.org/download.html) as well for your system and place it as well in the same folder 
 - Copy the following lines of codes in a txt file (with notepad for example), change the 2 variables explained above and save it as a .bat file.
 - Run the bat file and enjoy.
 
@@ -1005,6 +1006,8 @@ if "%choice%"=="3" (
 	%pathexe% -f %format% %url%
 )
 ```
+
+The updated version is [here](/files/Batch/Youtube-dl/Dowload_Youtube-dl.bat)
 
 
 # Leaflet

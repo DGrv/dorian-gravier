@@ -2,9 +2,9 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 ::set ffmpegpath=H:\TEMP\Software\FFmpeg\ffmpeg-4.0.2-win32-static\bin\ffmpeg.exe
-
-set /p reso=Which resolution do you want ? (480, 640, 720, 1024 ... 1920 (full HD))) ?  
-set /p aud=Do you want to use mp3 codec (samsung TV e.g. ...)  [y/n] ?  
+echo.
+echo Script to convert all video from Youtube channel (e.g. Yoga) to reduce their size but still have them in a satisfying quality.
+echo.
 
 rem preparation command
 set listfiles=powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames"
@@ -23,11 +23,7 @@ cd %dir%
 set file=%dir%list.txt
 
 for /F "usebackq tokens=*" %%i in (%file%) do (
-	if %aud%==y (
-		ffmpeg -i %%i -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 -acodec mp3 %%~ni_low.mp4
-	) else (
-		ffmpeg -i %%i -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 %%~ni_low.mp4
-	)
+		ffmpeg -i %%i -vcodec libx264 -crf 30 -acodec mp3 %%~ni_low.mp4
 )
 
 del list.txt
