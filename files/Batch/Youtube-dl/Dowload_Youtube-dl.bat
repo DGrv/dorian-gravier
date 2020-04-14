@@ -37,7 +37,7 @@ if "%choice%"=="1" (
 if "%choice%"=="2" (
 	set /p choice2="Choose your format (1) and choose best (2): "
 	if "!choice2!"=="2" (
-		pathexe% -f best %url%
+		%pathexe% -f best %url%
 	)
 	if "!choice2!"=="1" (
 		set choice=3

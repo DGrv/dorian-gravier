@@ -24,9 +24,9 @@ set file=%dir%list.txt
 
 for /F "usebackq tokens=*" %%i in (%file%) do (
 	if %aud%==y (
-		ffmpeg -i %%i -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 -acodec mp3 %%~ni_low.mp4
+		ffmpeg -i "%%i" -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 -acodec mp3 "%%~ni_low.mp4"
 	) else (
-		ffmpeg -i %%i -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 %%~ni_low.mp4
+		ffmpeg -i "%%i" -vcodec libx264 -vbr 3 -vf "scale=%reso%:-2" -preset fast -crf 24 "%%~ni_low.mp4"
 	)
 )
 
