@@ -23,7 +23,7 @@ cd %dir%
 set file=%dir%list.txt
 
 for /F "usebackq tokens=*" %%i in (%file%) do (
-		ffmpeg -i %%i -vcodec libx264 -crf 30 -acodec mp3 %%~ni_low.mp4
+		ffmpeg -i "%%i" -vcodec libx264 -crf 30 -acodec mp3 "%%~ni_low.mp4"
 )
 
 del list.txt
