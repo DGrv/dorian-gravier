@@ -24,7 +24,7 @@ PS: You need to have ffmpeg in your PATH to use this.
 
 The code is available [here](https://github.com/DGrv/dorian.gravier.github.io/tree/master/files/Batch/FFmpeg/FFmpeg_convert_all_v03.bat).
 
-
+https://github.com/DGrv/dorian.gravier.github.io/blob/508d48f21174fe693c127a7821aab7a2793de2fa/files/Batch/FFmpeg/FFMPEG_Bind_All_inFolder_v01.bat#L1-L35
 
 ```shell
 @echo off
