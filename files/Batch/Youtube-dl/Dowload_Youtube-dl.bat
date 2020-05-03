@@ -1,6 +1,24 @@
 @echo off
 SETLOCAL EnableDelayedExpansion
 
+echo "--------------------------------------------------------------------------------"
+echo "   _____             _                _____                 _                   "
+echo "  |  __ \           (_)              / ____|               (_)                  "
+echo "  | |  | | ___  _ __ _  __ _ _ __   | |  __ _ __ __ ___   ___  ___ _ __         "
+echo "  | |  | |/ _ \| '__| |/ _` | '_ \  | | |_ | '__/ _` \ \ / / |/ _ \ '__|        "
+echo "  | |__| | (_) | |  | | (_| | | | | | |__| | | | (_| |\ V /| |  __/ |           "
+echo "  |_____/ \___/|_|  |_|\__,_|_| |_|  \_____|_|  \__,_| \_/ |_|\___|_|           "
+echo "                                                                                "
+echo "--------------------------------------------------------------------------------"
+REM http://www.network-science.de/ascii/
+echo.
+echo Code permitting users to choose rapidly how to download videos or audio using youtube-dl (http://ytdl-org.github.io/youtube-dl/). 
+echo.
+echo.
+echo.
+
+
+
 :: ------------- Variables
 set pathexe=C:\Users\gravier\Downloads\Software\Youtube-dl\youtube-dl.exe
 set wd=C:\Users\gravier\Downloads\Youtube_music
@@ -20,33 +38,95 @@ echo If you wanna download a playlist you have to be sure that you have a link w
 echo - list=PL-G7EJFoxFcfVIc4EzytG-UhFVBq9AEKs
 echo for example: https://www.youtube.com/list=PL-G7EJFoxFcfVIc4EzytG-UhFVBq9AEKs
 echo.
+echo.
+echo.
 
-
+echo --------------------------------------------------------
+echo UPDATE Check youtube-dl
+%pathexe% -U
+echo --------------------------------------------------------
+echo.
+echo.
+echo.
+echo.
 
 
 :: -------------- User choice
 set /p url="Enter the url: "
-echo.
-set /p choice="Do you want to download the audio or the video ? (Audio=1, Video=2)   "
-echo.
 
+echo.
+set /p newfolder="Do you want to dowload it in a new folder ? (No=1, Yes=2)  " 
+
+echo. 
+set /p choice="Do you want to download the audio or the video ? (Audio=1, Video=2)   "
+
+if "%choice%"=="2" (
+	echo. 
+	set /p choice2="Choose your format (1) and choose best (2): "
+	if "!choice2!"=="1" (
+		%pathexe% -F --playlist-items 1 %url%
+		set /p format="Which one do you want: "
+	)
+)
+
+echo.
+echo ----- START
+echo.
 cd %wd%
+if "%newfolder%"=="2" (
+
+	echo ------- Create folder
+	:: check if sed command exist (from gow), would extract name playlist, if not use timpestamp for folder
+	WHERE sed
+	IF %ERRORLEVEL% NEQ 0 (
+		echo --------- No sed cmd so create timestamp folder
+		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+		:: Create a new directory
+		mkdir !TIMESTAMP!
+		cd %wd%\!TIMESTAMP!
+	) else (
+		echo --------- Extract playlist name
+		:: get title of the playlist
+		%pathexe% -F --playlist-items 1 %url% > temp
+		:: check if if the string playlist is in the file
+		type temp | grep playlist | sed -n 1p > temp2
+		set /p boolplaylist=<temp2
+		if "!boolplaylist!" == "" (
+			set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+			:: Create a new directory
+			mkdir !TIMESTAMP!
+			rm temp
+			rm temp2
+			cd %wd%\!TIMESTAMP!
+		) else (
+			sed -n 2p temp | sed "s/\[download] Downloading playlist: //g" | sed "s/://g"> playlisttitle
+			set /p playlisttitle=<playlisttitle
+			md "!playlisttitle!"
+			rm temp
+			rm temp2
+			rm playlisttitle
+			cd "%wd%\!playlisttitle!"
+		)
+	)
+)
+
+
+
+echo ----------- Download Videos
+echo.
+echo.
 if "%choice%"=="1" (
 	%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i %url%
 )
 if "%choice%"=="2" (
-	set /p choice2="Choose your format (1) and choose best (2): "
 	if "!choice2!"=="2" (
 		%pathexe% -f best %url%
 	)
 	if "!choice2!"=="1" (
-		set choice=3
-		%pathexe% -F %url%
-		set /p format="Which one do you want: "
+		%pathexe% -f %format% %url%
 	)
 )
-if "%choice%"=="3" (
-	%pathexe% -f %format% %url%
-)
+
+
 paused
 
