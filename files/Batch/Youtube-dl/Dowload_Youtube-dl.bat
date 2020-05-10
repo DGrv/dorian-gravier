@@ -41,14 +41,7 @@ echo.
 echo.
 echo.
 
-echo --------------------------------------------------------
-echo UPDATE Check youtube-dl
-%pathexe% -U
-echo --------------------------------------------------------
-echo.
-echo.
-echo.
-echo.
+
 
 
 :: -------------- User choice
@@ -68,6 +61,18 @@ if "%choice%"=="2" (
 		set /p format="Which one do you want: "
 	)
 )
+
+
+echo --------------------------------------------------------
+echo UPDATE Check youtube-dl
+%pathexe% -U
+echo --------------------------------------------------------
+echo.
+echo.
+echo.
+echo.
+
+
 
 echo.
 echo ----- START
@@ -112,6 +117,8 @@ if "%newfolder%"=="2" (
 
 
 
+
+
 echo ----------- Download Videos
 echo.
 echo.
@@ -126,6 +133,9 @@ if "%choice%"=="2" (
 		%pathexe% -f %format% %url%
 	)
 )
+
+:: OTHER manual command
+REM C:\Users\gravier\Downloads\Software\Youtube-dl\youtube-dl.exe -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist --playlist-start 1 --playlist-end 50 -i https://www.youtube.com/playlist?list=UUpw2gh99XM6Mwsbksv0feEg
 
 
 paused

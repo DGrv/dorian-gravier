@@ -23,7 +23,8 @@ var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_20200424_Olima.gpx',
 'files/gpx/Bike/B_20200426_Olima.gpx',
 'files/gpx/Bike/B_20200428_Olima.gpx',
-'files/gpx/Bike/B_20200501_Olima.gpx']
+'files/gpx/Bike/B_20200501_Olima.gpx',
+'files/gpx/Bike/B_20200503_Olima.gpx']
 
 var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx',
