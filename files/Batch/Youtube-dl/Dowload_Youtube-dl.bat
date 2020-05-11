@@ -80,15 +80,24 @@ echo.
 cd %wd%
 if "%newfolder%"=="2" (
 
+:: create timestamp depending on timeformat (language time settings) English will print Mon 09/03/2020 and FR 03/09/2020
+set /a check=%DATE:~0,1%
+set check2=%DATE:~0,1%
+if "%check%"=="%check2%" (
+	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
+) else (
+	set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+)
+
+
 	echo ------- Create folder
 	:: check if sed command exist (from gow), would extract name playlist, if not use timpestamp for folder
 	WHERE sed
 	IF %ERRORLEVEL% NEQ 0 (
 		echo --------- No sed cmd so create timestamp folder
-		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
 		:: Create a new directory
-		mkdir !TIMESTAMP!
-		cd %wd%\!TIMESTAMP!
+		mkdir %TIMESTAMP%
+		cd %wd%\%TIMESTAMP%
 	) else (
 		echo --------- Extract playlist name
 		:: get title of the playlist
@@ -97,12 +106,11 @@ if "%newfolder%"=="2" (
 		type temp | grep playlist | sed -n 1p > temp2
 		set /p boolplaylist=<temp2
 		if "!boolplaylist!" == "" (
-			set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
 			:: Create a new directory
-			mkdir !TIMESTAMP!
+			mkdir %TIMESTAMP%
 			rm temp
 			rm temp2
-			cd %wd%\!TIMESTAMP!
+			cd %wd%\%TIMESTAMP%
 		) else (
 			sed -n 2p temp | sed "s/\[download] Downloading playlist: //g" | sed "s/://g"> playlisttitle
 			set /p playlisttitle=<playlisttitle
