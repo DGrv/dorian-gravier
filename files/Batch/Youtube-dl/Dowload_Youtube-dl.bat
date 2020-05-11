@@ -93,11 +93,11 @@ if "%check%"=="%check2%" (
 	echo ------- Create folder
 	:: check if sed command exist (from gow), would extract name playlist, if not use timpestamp for folder
 	WHERE sed
-	IF %ERRORLEVEL% NEQ 0 (
+	IF !ERRORLEVEL! NEQ 0 (
 		echo --------- No sed cmd so create timestamp folder
 		:: Create a new directory
-		mkdir %TIMESTAMP%
-		cd %wd%\%TIMESTAMP%
+		mkdir !TIMESTAMP!
+		cd %wd%\!TIMESTAMP!
 	) else (
 		echo --------- Extract playlist name
 		:: get title of the playlist
@@ -107,10 +107,10 @@ if "%check%"=="%check2%" (
 		set /p boolplaylist=<temp2
 		if "!boolplaylist!" == "" (
 			:: Create a new directory
-			mkdir %TIMESTAMP%
+			mkdir !TIMESTAMP!
 			rm temp
 			rm temp2
-			cd %wd%\%TIMESTAMP%
+			cd %wd%\!TIMESTAMP!
 		) else (
 			sed -n 2p temp | sed "s/\[download] Downloading playlist: //g" | sed "s/://g"> playlisttitle
 			set /p playlisttitle=<playlisttitle
