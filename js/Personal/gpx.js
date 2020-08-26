@@ -24,7 +24,12 @@ var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_20200426_Olima.gpx',
 'files/gpx/Bike/B_20200428_Olima.gpx',
 'files/gpx/Bike/B_20200501_Olima.gpx',
-'files/gpx/Bike/B_20200503_Olima.gpx']
+'files/gpx/Bike/B_20200503_Olima.gpx',
+'files/gpx/Bike/B_20200508_Olima.gpx',
+'files/gpx/Bike/B_20200510_Olima.gpx',
+'files/gpx/Bike/B_20200512_Olima.gpx',
+'files/gpx/Bike/B_202006_Ehrenschwangertal.gpx',
+'files/gpx/Bike/B_202006_Jugethoehe.gpx']
 
 var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/2017_KS_2TAllgauerHochalpen-NebelhornzuGrosserDaumen.gpx',
@@ -60,7 +65,16 @@ var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/W_2015_Rosteinpass.gpx',
 'files/gpx/Hike/W_2015_Saxer-luecke.gpx',
 'files/gpx/Hike/W_2016_Santis.gpx',
-'files/gpx/Hike/W_2017_Alpstein.gpx']
+'files/gpx/Hike/W_2017_Alpstein.gpx',
+'files/gpx/Hike/W_202006_BucheneggerWasserfaelle.gpx',
+'files/gpx/Hike/W_202006_Hochgrat.gpx',
+'files/gpx/Hike/W_202006_Rubihorn.gpx',
+'files/gpx/Hike/W_202007_Fohlenhaus_Baerenhoele.gpx',
+'files/gpx/Hike/W_202007_Jubilaumsgrat_01.gpx',
+'files/gpx/Hike/W_202007_Jubilaumsgrat_02.gpx',
+'files/gpx/Hike/W_202007_Kramerspitz.gpx',
+'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_01.gpx',
+'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_02.gpx']
 
 var HikeProject = ['files/gpx/Hike/Project/AKD_project.gpx',
 'files/gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',

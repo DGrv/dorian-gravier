@@ -144,6 +144,7 @@ if "%choice%"=="2" (
 
 :: OTHER manual command
 REM C:\Users\gravier\Downloads\Software\Youtube-dl\youtube-dl.exe -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist --playlist-start 1 --playlist-end 50 -i https://www.youtube.com/playlist?list=UUpw2gh99XM6Mwsbksv0feEg
+REM C:\Users\gravier\Downloads\Software\Youtube-dl\youtube-dl.exe -f 18 --yes-playlist --playlist-start 4 --playlist-end 8 -i https://www.youtube.com/playlist?list=PLVGRF5aTQl4GXNwtlYBSaP_8ErZ1RtaLR
 
 
 paused
