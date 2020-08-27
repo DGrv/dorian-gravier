@@ -10,6 +10,16 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 :: ---------- Setup ----------
 
+	echo.
+	echo Your ffmpeg is here:
+	WHERE ffmpeg
+	IF %ERRORLEVEL% NEQ 0 (
+		echo "[DEBUG] - ffmpeg command is unknown, please add it to the PATH
+	)
+	echo.
+
+
+
 	if EXIST music.txt (
 		del music.txt
 	)
@@ -127,7 +137,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start title
 	echo.
 
-	copy /V C:\Users\gravier\Downloads\GitHub\dorian.gravier.github.io\files\FFmpeg\ARIAL.TTF
+	copy /V C:\Users\gravier\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 	
 	
 	if NOT EXIST 00000_title.mp4 (
@@ -194,27 +204,35 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 
 	:: change tbs to have all the same - audio tbs
-	for %%i in (*.mp4) DO (
-		ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-		set /p tbna=<tempfile
-		:: check if no audio and add one, needed to bind all audio later, especially with music
-		for %%a in (tempfile) do (
-			:: check if filesize == 0 
-			if %%~za==0 (
+	WHERE ffmpeg
+	IF %ERRORLEVEL% NEQ 0 (
+		echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
+		pause
+	) else (
+		for %%i in (*.mp4) DO (
+			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+			set /p tbna=<tempfile
+			:: check if no audio and add one, needed to bind all audio later, especially with music
+			for %%a in (tempfile) do (
+				:: check if filesize == 0 
+				if %%~za==0 (
+					rename %%i %%~ni_temp.mp4
+					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y %%i
+					del %%~ni_temp.mp4
+					ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+					set /p tbna=<tempfile
+					del tempfile
+				) 
+			)
+			if NOT "!tbna!"=="%tbsa2%" (
 				rename %%i %%~ni_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y %%i
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% %%i
 				del %%~ni_temp.mp4
-				ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-				set /p tbna=<tempfile
-				del tempfile
-			) 
-		)
-		if NOT "!tbna!"=="%tbsa2%" (
-			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% %%i
-			del %%~ni_temp.mp4
+			)
 		)
 	)
+			
+
 	
 	echo.
 	echo -------------------------------------------------
@@ -222,15 +240,21 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 
 	:: change tbs to have all the same - video tbs
-	for %%i in (*.mp4) DO (
-		ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-		set /p tbn=<tempfile
-		del tempfile
-		if NOT "!tbn!"=="%tbs2%" (
-			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %tbs% %%i
-			:: change to recycle once reboot
-			del %%~ni_temp.mp4
+	WHERE ffmpeg
+	IF %ERRORLEVEL% NEQ 0 (
+		echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
+		pause
+	) else (
+		for %%i in (*.mp4) DO (
+			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+			set /p tbn=<tempfile
+			del tempfile
+			if NOT "!tbn!"=="%tbs2%" (
+				rename %%i %%~ni_temp.mp4
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %tbs% %%i
+				:: change to recycle once reboot
+				del %%~ni_temp.mp4
+			)
 		)
 	)
 
