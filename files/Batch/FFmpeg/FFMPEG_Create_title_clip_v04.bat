@@ -36,10 +36,17 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	)
 )
 
+
+
 ffmpeg -stats -loglevel error  -i %last% -f lavfi -i aevalsrc=0 -shortest -y 0000000b.mp4
 ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 30000 Title_new.mp4
 del %last%
 del 0000000b.mp4
+
+IF %lines%==1 (
+	rename 00000001.mp4 Title_new.mp4
+)
+
 ::  -f lavfi -i aevalsrc=0 -shortest 
 :: Generate the minimum silence required
 	:: https://superuser.com/questions/1096921/concatenating-videos-with-ffmpeg-produces-silent-video-when-the-first-video-has
