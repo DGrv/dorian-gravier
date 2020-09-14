@@ -15,6 +15,7 @@ pause
 :: get path and write file with replace ; as LF
 set path2=%path%;%pathwanted%
 echo %path% > BUpath.txt
+::echo %path2% > NEWath.txt
 for %%a in ("%path2:;=" "%") do echo %%~a >> temp2.txt
 
 
@@ -56,5 +57,5 @@ set all=%all:~1,20000%
 echo %all% > NEWpath.txt
 echo %all%
 
-setx path %all%
-del temp2.txt
+::setx path %all%
+::del temp2.txt

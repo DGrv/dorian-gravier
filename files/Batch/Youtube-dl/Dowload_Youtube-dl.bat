@@ -20,8 +20,8 @@ echo.
 
 
 :: ------------- Variables
-set pathexe=C:\Users\gravier\Downloads\Software\Youtube-dl\youtube-dl.exe
-set wd=C:\Users\gravier\Downloads\Youtube_music
+set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\youtube-dl.exe
+set wd=C:\Users\doria\Downloads\Youtube_music
 
 :: -------------- Info
 echo Batch written by Dorian Gravier, free of use and modification

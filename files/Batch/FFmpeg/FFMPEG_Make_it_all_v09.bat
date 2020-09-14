@@ -137,7 +137,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start title
 	echo.
 
-	copy /V C:\Users\gravier\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
+	copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 	
 	
 	if NOT EXIST 00000_title.mp4 (
