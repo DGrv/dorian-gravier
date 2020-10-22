@@ -1,0 +1,4 @@
+ffmpeg -v quiet -stats -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{494FE2DB-918E-47D1-A669-FEC9F1C81FC7}" ScreenCapture.mp4
+
+# Capture audio output (no micro)
+ffmpeg -v quiet -stats -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{EBF1D135-CB74-4520-B0BB-980AB67DA816}" ScreenCapture_Stereomix.mp4

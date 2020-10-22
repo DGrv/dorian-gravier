@@ -41,6 +41,7 @@ echo.
 echo.
 echo.
 
-if exist ffmpeg ffmpeg -f concat -safe 0 -i list.txt -c copy output%ext%
-if NOT exist ffmpeg H:\TEMP\Software\FFmpeg\ffmpeg-4.0.2-win32-static\bin\ffmpeg.exe -f concat -safe 0 -i list.txt -c copy output%ext%
+REM if exist ffmpeg ffmpeg -f concat -safe 0 -i list.txt -c copy output%ext%
+ffmpeg -f concat -safe 0 -i list.txt -c copy output%ext%
+REM if NOT exist ffmpeg H:\TEMP\Software\FFmpeg\ffmpeg-4.0.2-win32-static\bin\ffmpeg.exe -f concat -safe 0 -i list.txt -c copy output%ext%
 del list.txt

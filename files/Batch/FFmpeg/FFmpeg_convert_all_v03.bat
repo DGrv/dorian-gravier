@@ -106,7 +106,11 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 				if %compress%==y (
 					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% "%%~ni_crf%crf%.mp4"
 				) else (
-					echo I am doing nothing here with "%%i"
+					if NOT %%~xi==mp4 (
+						ffmpeg -i "%%i" -vcodec libx264 -preset slow "%%~ni.mp4"
+					) else (
+						echo I am doing nothing here with "%%i"
+					)
 				)			
 			)
 		)
