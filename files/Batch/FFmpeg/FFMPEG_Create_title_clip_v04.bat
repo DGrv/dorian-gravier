@@ -9,7 +9,7 @@ set /a lines=%lines%
 
 :: ---------- Title ----------
 
-copy /V C:\Users\gravier\Downloads\GitHub\dorian.gravier.github.io\files\FFmpeg\ARIAL.TTF
+	copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 
 if EXIST Title_new.mp4 (
 	set /p info=Title_new.mp4 exits !!!! I will delete it. Please rename or copy ...
@@ -28,7 +28,7 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a high=!high!*75
 	::echo high !high!
 	if %%x==1 (
-		ffmpeg -stats -loglevel error  -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='| !title%%x! |'" -video_track_timescale 30000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error  -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 30000 0000000%%x.mp4
 	) else (
 		ffmpeg -stats -loglevel error  -i 0000000!before!.mp4 -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 30000 0000000%%x.mp4
 		del 0000000!before!.mp4
