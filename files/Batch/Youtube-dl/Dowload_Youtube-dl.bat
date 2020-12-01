@@ -43,15 +43,32 @@ echo.
 
 
 
+REM echo --------------------------------------------------------
+REM echo UPDATE Check youtube-dl
+REM %pathexe% -U
+REM echo --------------------------------------------------------
+REM echo.
+REM echo.
+REM echo.
+REM echo.
+
 
 :: -------------- User choice
-set /p url="Enter the url: "
+set /p url="Enter the url or type 'list' if you wanna give a txt file: "
 
 echo.
 set /p newfolder="Do you want to dowload it in a new folder ? (No=1, Yes=2)  " 
 
 echo. 
 set /p choice="Do you want to download the audio or the video ? (Audio=1, Video=2)   "
+
+echo. 
+if "%url%"=="list" (
+	set /p listpath="WHERE is your txt file ?"
+	set /p url=<!listpath!
+)
+REM to get first line
+REM set /p url=<!listpath!
 
 if "%choice%"=="2" (
 	echo. 
@@ -63,14 +80,7 @@ if "%choice%"=="2" (
 )
 
 
-echo --------------------------------------------------------
-echo UPDATE Check youtube-dl
-%pathexe% -U
-echo --------------------------------------------------------
-echo.
-echo.
-echo.
-echo.
+
 
 
 
@@ -131,14 +141,27 @@ echo ----------- Download Videos
 echo.
 echo.
 if "%choice%"=="1" (
-	%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i %url%
+	if "%url%"=="list" (
+		for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i %%A
+	) else (
+		%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i %url%
+	)
 )
 if "%choice%"=="2" (
+echo choice=2
 	if "!choice2!"=="2" (
-		%pathexe% -f best %url%
+		if "%url%"=="list" (
+			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -f best %%A
+		) else (
+			%pathexe% --write-auto-sub -f best %url%
+		)
 	)
 	if "!choice2!"=="1" (
-		%pathexe% -f %format% %url%
+		if "%url%"=="list" (
+			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -f %format% %%A
+		) else (
+			%pathexe% --write-auto-sub -f %format% %url%
+		)
 	)
 )
 
