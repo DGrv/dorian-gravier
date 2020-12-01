@@ -1,7 +1,8 @@
 @echo off
 
-systeminfo | findstr /B /C:"OS Name" /C:"OS Version" | find /i "XP" > NUL && set ver=XP || set ver=other
+REM systeminfo | findstr /B /C:"OS Name" /C:"OS Version" | find /i "XP" > NUL && set ver=XP || set ver=other
 
+set ext=mp4
 
 :: ---------- User input ----------
 
@@ -83,8 +84,8 @@ if %gif%==1 (
 	ffmpeg -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -vf "fps=10,scale=1080:-1:flags=lanczos,palettegen" -y palette.png
 	ffmpeg -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -i palette.png -lavfi "fps=10,scale=1080:-1:flags=lanczos [x]; [x][1:v] paletteuse" -y %datetimef%_ScreenCapture.gif
 	del palette.png
-	::del %datetimef%_ScreenCapture.%ext%
 )
+	::del %datetimef%_ScreenCapture.%ext%
 
 
 

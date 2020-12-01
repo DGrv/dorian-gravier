@@ -73,7 +73,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 	) 
 	
 	echo.
-	set /p changeaud="Do you want to use mp3 codec (samsung TV e.g. ...)  [y/n] ?  "
+	set /p changeaud="Do you want to use mp3 codec (samsung TV e.g. ..., NO for Handy, it needs aac)  [y/n] ?  "
 
 
 :: ----------------- Code ------------------
