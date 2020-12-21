@@ -20,7 +20,21 @@ sed -i -E "s/(.+)S=2:C=4(.+)BAR CODE READ, NOCODE(.+)/\1S=2:C=4\2BAR CODE READ, 
 ```
 *_Explanation*_:
 
-sed -i `-E` *(for regular expression)* "s/`(.+)` *(All character, group 1)* S=2:C=4`(.+)` *(All character, group 2)* BAR CODE READ, NOCODE`(.+)` *(All character, group 3)* /`\1` *(Past group 1)* S=2:C=4`\2` *(Past group 2)* BAR CODE READ, AP0001`\3` *(Past group 3)* /g" *
+- sed -i 
+- `-E` *(for regular expression)* 
+- "s/
+- `(.+)` *(All character, group 1)* 
+- S=2:C=4
+- `(.+)` *(All character, group 2)* 
+- BAR CODE READ, NOCODE
+- `(.+)` *(All character, group 3)* 
+- /
+- `\1` *(Past group 1)* 
+- S=2:C=4
+- `\2` *(Past group 2)* 
+- BAR CODE READ, AP0001
+- `\3` *(Past group 3)* 
+- /g" *
 
 
 Was changing this
