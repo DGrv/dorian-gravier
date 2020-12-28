@@ -73,7 +73,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 	) 
 	
 	echo.
-	set /p changeaud="Do you want to use mp3 codec (samsung TV e.g. ..., NO for Handy, it needs aac)  [y/n] ?  "
+	set /p changeaud="Do you want to use mp3 codec (samsung TV e.g.) [1] or aac (normal, and for handy) [2] ?  "
 
 
 :: ----------------- Code ------------------
@@ -82,7 +82,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 	cd %dir%
 	for /F "usebackq tokens=*" %%i in (%file%) do (
 		if %changereso%==y (
-			if %changeaud%==y (
+			if %changeaud%==1 (
 				if %compress%==y (
 					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -acodec mp3 -crf %crf% "%%~ni_r%reso%_crf%crf%_mp3.mp4"
 				) else (
@@ -90,13 +90,13 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 				)
 			) else (                            
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -crf %crf% "%%~ni_r%reso%_crf%crf%.mp4"
+					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -crf %crf% -acodec aac "%%~ni_r%reso%_crf%crf%.mp4"
 				) else (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow "%%~ni_r%reso%.mp4"
+					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow  -acodec aac "%%~ni_r%reso%.mp4"
 				)
-			)                                   
+			)                                
 		) else (                                
-			if %changeaud%==y ( 
+			if %changeaud%==1 ( 
 				if %compress%==y (
 					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec mp3 "%%~ni_crf%crf%_mp3.mp4"
 				) else (
@@ -104,10 +104,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 				)			
 			) else (  
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% "%%~ni_crf%crf%.mp4"
+					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec aac "%%~ni_crf%crf%.mp4"
 				) else (
 					if NOT %%~xi==mp4 (
-						ffmpeg -i "%%i" -vcodec libx264 -preset slow "%%~ni.mp4"
+						ffmpeg -i "%%i" -vcodec libx264 -preset slow -acodec aac "%%~ni.mp4"
 					) else (
 						echo I am doing nothing here with "%%i"
 					)

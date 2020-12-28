@@ -40,7 +40,8 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     minZoom: 1,
     maxZoom: 18
   }),
-  Kompass = L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
+  // Kompass = L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
+  Kompass = L.tileLayer('https://map2.kompass.de/{z}/{x}/{y}/kompass_topo?key=2ba8c124-38b6-11e7-ade1-e0cb4e28e847', {
     attribution: 'Map tiles by &copy;<a href="https://www.kompass.de/wanderkarte/">Kompass</a>',
     subdomains: '0123',
     minZoom: 1,
