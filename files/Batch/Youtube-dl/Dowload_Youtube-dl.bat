@@ -148,7 +148,6 @@ if "%choice%"=="1" (
 	)
 )
 if "%choice%"=="2" (
-echo choice=2
 	if "!choice2!"=="2" (
 		if "%url%"=="list" (
 			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -f best %%A
