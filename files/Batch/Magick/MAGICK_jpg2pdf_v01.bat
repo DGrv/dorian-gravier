@@ -16,9 +16,11 @@ for %%a in ("%input%") do (
 %dir%
 cd %filepath%
 
-H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe convert "%input%" "%filepathnoext%.pdf"
+REM H:\TEMP\Software\Pictures\ImageMagick-7.0.8-28-portable-Q16-x86\magick.exe convert "%input%" "%filepathnoext%.pdf"
+magick convert "%input%" "%filepathnoext%.pdf"
 
 echo .
+echo [DEBUG] - Info
 echo filepathnoext: %filepathnoext%
 echo filepath: %filepath%
 echo drive %drive%
