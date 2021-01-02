@@ -109,7 +109,9 @@ var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_201902_Schneeglocke.gpx',
 'files/gpx/Schitour/ST_201903_Klostertaler-Egghorn.gpx',
 'files/gpx/Schitour/ST_201903_Sonntagspitze.gpx',
-'files/gpx/Schitour/ST_201911_Stotzigen_Firsten.gpx']
+'files/gpx/Schitour/ST_201911_Stotzigen_Firsten.gpx',
+'files/gpx/Schitour/ST_202101_Sylvester_001.gpx',
+'files/gpx/Schitour/ST_202101_Sylvester_002.gpx']
 
 var SchneeSProject = ['files/gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 'files/gpx/SchneeS/Project/P_SW_Mattner_first.gpx',

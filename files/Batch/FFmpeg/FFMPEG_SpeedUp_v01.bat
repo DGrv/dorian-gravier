@@ -8,12 +8,18 @@ set /p input=Give me the path of a file to speed up:
 
 :: extract filename no extension
 :: https://stackoverflow.com/questions/15567809/batch-extract-path-and-filename-from-a-variable/15568171
-for %%a in (%input%) do (
+for %%a in ("%input%") do (
     set filepathnoext=%%~dpna
     set filename=%%~nxa
 	set filenamenoext=%%~na
 	set ext=%%~xa
 )  
+
+REM echo %filepathnoext%
+REM echo %filename%
+REM echo %filenamenoext%
+REM echo %ext%
+REM pause
 
 :test
 set /p speed=How much do you wanna speed up: 
@@ -37,7 +43,7 @@ set /p speed=How much do you wanna speed up:
 
 ::ffplay -x 500 -y 400 %filepathnoext%_f%speed%%ext%
 if %ok%==y (
-	ffmpeg -i %input% -an -vf "setpts=PTS/%speed%" %filepathnoext%_f%speed%%ext%
+	ffmpeg -i "%input%" -an -vf "setpts=PTS/%speed%" "%filepathnoext%_f%speed%%ext%"
 ) else (
 	goto :test
 )
