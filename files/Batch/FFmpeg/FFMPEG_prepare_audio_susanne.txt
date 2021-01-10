@@ -1,0 +1,6 @@
+
+ffmpeg -i start.mp3 -af "afade=t=in:st=0:d=5,afade=t=out:st=0:d=5" start2.mp3
+
+
+ffmpeg -i end2.mp3 -af "afade=t=out:st=45:d=14,afade=t=in:st=0:d=20" end3.mp3
+ffmpeg -i end3.mp3 -filter:a "volume=0.3" end4.mp3
