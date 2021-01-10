@@ -11,7 +11,7 @@ echo.
 
 echo Batch file for changing for changing the volume of a mp3. 1 means 100%, if you wanna reduce by half use 0.5, increase by half, 1.5.
 echo.
-echo Choose your files to speed up:  
+echo Choose your files :  
  
  
 set listfiles=powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames"

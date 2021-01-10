@@ -56,9 +56,14 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 
 	:: Music
-	set /p temp="[INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames"
+	echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
+	set /p temp="If you wanna use a jiggle beginning and at the end use files named 'begin.mp3' and-or 'end.mp3'"
 	for %%i in (*.mp3) do (
-		if NOT %%~ni==input (
+		set Test=T
+		if "%%i"=="input.mp3" set Test=F
+		if "%%i"=="begin.mp3" set Test=F
+		if "%%i"=="end.mp3" set Test=F
+		IF "!Test!"=="T" (
 			@echo %%~ni >> music.txt
 		)
 	)
@@ -103,6 +108,10 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	)
 
 	echo.
+	set /p fadeinout="Do you want a fade IN and OUT on your video, first and last [y/n] ? :"
+
+
+	echo.
 	echo -------------------------------------------------
 	echo INFO - Start
 	echo.
@@ -117,7 +126,14 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	
 	if NOT EXIST input.mp3 (
-		(for %%i in (*.mp3) do @echo file '%%i') > listmp3.txt
+		for %%i in (*.mp3) do (
+			set Test=T
+			if "%%i"=="begin.mp3" set Test=F
+			if "%%i"=="end.mp3" set Test=F
+			IF "!Test!"=="T" (
+				@echo file '%%i' >> listmp3.txt
+			)
+		)
 		ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy input_temp.mp3
 		ffmpeg -stats -loglevel error -i input_temp.mp3 -ar %tbsa% input.mp3
 		del input_temp.mp3
@@ -127,6 +143,57 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	:: use - safe 0 before i to avoid problem with filename : https://stackoverflow.com/questions/38996925/ffmpeg-concat-unsafe-file-name
 	
+
+
+
+
+
+:: ---------- Fade in and out video ----------
+
+
+
+	if %fadeinout%==y (
+	
+		echo.
+		echo -------------------------------------------------
+		echo INFO - Start Fade in and out, need re-encoding
+		echo.
+		
+		(for %%i in (*.mp4) do @echo %%i) > tempfile
+		for /F "delims=" %%a in (tempfile) do (
+			set last=%%a
+		)
+		set /p first=<tempfile
+		REM echo last !last!
+		REM echo first !first!
+		del tempfile
+		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 !last! > tempfile2
+		set /p lengthvideo=<tempfile2
+		set /a lengthvideo2=!lengthvideo!
+		set /a lengthvideo3=!lengthvideo2!-3
+		REM echo lengthvideo !lengthvideo!
+		REM echo lengthvideo2 !lengthvideo2!
+		REM echo lengthvideo3 !lengthvideo3!
+		del tempfile2
+		rename !first! first.mp4
+		rename !last!	last.mp4
+		ffmpeg -stats -loglevel error -i first.mp4 -vf "fade=t=in:st=0:d=3" -c:a copy !first!
+		if !lengthvideo2! gtr 3 (
+			echo sup 3
+			ffmpeg -stats -loglevel error -i last.mp4 -vf "fade=t=out:st=!lengthvideo3!:d=3" -c:a copy !last!
+		)
+		if exist !first! (
+			del first.mp4
+		) else (
+			rename first.mp4 !first!
+		)
+		if exist !last! (
+			del last.mp4
+		) else (
+			rename last.mp4 !last!
+		)
+	)
+
 
 
 :: ---------- Create Title ----------
@@ -148,7 +215,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		:: change parameters audio
 		ffmpeg -stats -loglevel error -i 000_temp2.mp4 -ar %tbsa% -video_track_timescale %tbs% 000_temp3.mp4
 		del 000_temp2.mp4
-		ffmpeg -i 000_temp3.mp4 -vf "fade=t=in:st=0:d=3" -c:a copy 00000_title.mp4
+		ffmpeg -stats -loglevel error  -i 000_temp3.mp4 -vf "fade=t=in:st=1:d=4" -c:a copy 00000_title.mp4
 		del 000_temp3.mp4
 
 	)
@@ -162,6 +229,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start music title
 	echo.
 	
+	if not exist music.txt (
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -video_track_timescale %tbs% zzzzzz_music.mp4
+	)
 
 	if NOT EXIST zzzzzz_music.mp4 (
 		set /a x=1
@@ -288,8 +358,11 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
+	
+	
 	ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy output.mp4
 	::del listmp4.txt
+	
 	
 	echo.
 	echo -------------------------------------------------
@@ -301,11 +374,35 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	:: audio mixen
 	if EXIST input.mp3 (
 		::ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
-		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high.mp4
-	) else (
-		rename output.mp4 output_high.mp4
+		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high_temp.mp4
+	) 
+	if NOT EXIST output_high_temp.mp4 (
+		rename output.mp4 output_high_temp.mp4
 	)
 	del output.mp4
+	if EXIST begin.mp3 (
+		ffmpeg -stats -loglevel error -i output_high_temp.mp4 -i begin.mp3 -filter_complex amix=inputs=2:duration=longest -c:v copy -ac 2 output_high_jiggle_start.mp4
+	) 
+	if NOT EXIST output_high_jiggle_start.mp4 (
+		rename output_high_temp.mp4 output_high_jiggle_start.mp4
+	)
+	del output_high_temp.mp4
+	if EXIST end.mp3 (
+		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_high_jiggle_start.mp4 > tempfile
+		set /p dura=<tempfile
+		del tempfile
+		set /a dura2=!dura!
+		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 end.mp3 > tempfile
+		set /p duraend=<tempfile
+		del tempfile
+		set /a duraend2=!duraend!
+		SET /A mark = !dura2! - !duraend2!
+		ffmpeg -stats -loglevel error -i output_high_jiggle_start.mp4 -itsoffset !mark!s -i end.mp3  -filter_complex amix=inputs=2:duration=longest -c:v copy -ac 2 -async 1 output_high.mp4
+	) 
+	if NOT EXIST output_high.mp4 (
+		rename output_high_jiggle_start.mp4 output_high.mp4
+	)
+	del output_high_jiggle_start.mp4
 	
 	echo.
 	echo -------------------------------------------------
