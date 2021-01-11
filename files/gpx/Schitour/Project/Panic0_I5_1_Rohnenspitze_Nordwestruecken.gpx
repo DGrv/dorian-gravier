@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-19T18:20:22Z</time>
+    <bounds minlat="47.488877" minlon="10.462234" maxlat="47.505661" maxlon="10.474002"/>
+  </metadata>
+  <trk>
+    <name>I51 Rohnenspitez Nordwestrücken</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.505661" lon="10.474002">
+        <ele>1073.00</ele>
+      </trkpt>
+      <trkpt lat="47.505484" lon="10.473552">
+        <ele>1075.74</ele>
+      </trkpt>
+      <trkpt lat="47.504779" lon="10.472072">
+        <ele>1101.43</ele>
+      </trkpt>
+      <trkpt lat="47.501709" lon="10.467171">
+        <ele>1275.07</ele>
+      </trkpt>
+      <trkpt lat="47.501078" lon="10.466162">
+        <ele>1311.54</ele>
+      </trkpt>
+      <trkpt lat="47.498729" lon="10.464457">
+        <ele>1410.13</ele>
+      </trkpt>
+      <trkpt lat="47.497467" lon="10.464073">
+        <ele>1439.40</ele>
+      </trkpt>
+      <trkpt lat="47.497001" lon="10.462553">
+        <ele>1428.68</ele>
+      </trkpt>
+      <trkpt lat="47.496413" lon="10.462234">
+        <ele>1439.89</ele>
+      </trkpt>
+      <trkpt lat="47.496169" lon="10.462747">
+        <ele>1447.09</ele>
+      </trkpt>
+      <trkpt lat="47.496105" lon="10.463928">
+        <ele>1460.76</ele>
+      </trkpt>
+      <trkpt lat="47.496292" lon="10.465136">
+        <ele>1500.61</ele>
+      </trkpt>
+      <trkpt lat="47.496349" lon="10.465595">
+        <ele>1517.23</ele>
+      </trkpt>
+      <trkpt lat="47.496371" lon="10.466370">
+        <ele>1539.62</ele>
+      </trkpt>
+      <trkpt lat="47.496133" lon="10.466562">
+        <ele>1555.50</ele>
+      </trkpt>
+      <trkpt lat="47.495209" lon="10.466606">
+        <ele>1602.19</ele>
+      </trkpt>
+      <trkpt lat="47.494567" lon="10.466439">
+        <ele>1631.09</ele>
+      </trkpt>
+      <trkpt lat="47.494291" lon="10.466363">
+        <ele>1643.80</ele>
+      </trkpt>
+      <trkpt lat="47.493729" lon="10.466383">
+        <ele>1674.35</ele>
+      </trkpt>
+      <trkpt lat="47.492366" lon="10.466962">
+        <ele>1757.55</ele>
+      </trkpt>
+      <trkpt lat="47.491560" lon="10.467322">
+        <ele>1808.43</ele>
+      </trkpt>
+      <trkpt lat="47.491024" lon="10.467405">
+        <ele>1833.62</ele>
+      </trkpt>
+      <trkpt lat="47.490307" lon="10.467595">
+        <ele>1863.79</ele>
+      </trkpt>
+      <trkpt lat="47.489626" lon="10.467935">
+        <ele>1903.82</ele>
+      </trkpt>
+      <trkpt lat="47.489442" lon="10.467992">
+        <ele>1912.96</ele>
+      </trkpt>
+      <trkpt lat="47.489148" lon="10.468203">
+        <ele>1930.46</ele>
+      </trkpt>
+      <trkpt lat="47.488923" lon="10.468412">
+        <ele>1952.49</ele>
+      </trkpt>
+      <trkpt lat="47.488877" lon="10.468430">
+        <ele>1955.22</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-20T20:42:26Z</time>
+    <bounds minlat="47.487920" minlon="10.344624" maxlat="47.502528" maxlon="10.350747"/>
+  </metadata>
+  <trk>
+    <name>J8 Zwölferkopf</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.502528" lon="10.349948">
+        <ele>787.07</ele>
+      </trkpt>
+      <trkpt lat="47.502127" lon="10.350634">
+        <ele>786.82</ele>
+      </trkpt>
+      <trkpt lat="47.501763" lon="10.350747">
+        <ele>787.79</ele>
+      </trkpt>
+      <trkpt lat="47.501258" lon="10.350628">
+        <ele>788.11</ele>
+      </trkpt>
+      <trkpt lat="47.500651" lon="10.349703">
+        <ele>793.70</ele>
+      </trkpt>
+      <trkpt lat="47.500319" lon="10.348871">
+        <ele>800.81</ele>
+      </trkpt>
+      <trkpt lat="47.500093" lon="10.347428">
+        <ele>805.89</ele>
+      </trkpt>
+      <trkpt lat="47.499975" lon="10.347196">
+        <ele>810.09</ele>
+      </trkpt>
+      <trkpt lat="47.499828" lon="10.346492">
+        <ele>818.29</ele>
+      </trkpt>
+      <trkpt lat="47.499503" lon="10.346165">
+        <ele>829.72</ele>
+      </trkpt>
+      <trkpt lat="47.499588" lon="10.345724">
+        <ele>828.15</ele>
+      </trkpt>
+      <trkpt lat="47.499059" lon="10.345000">
+        <ele>843.82</ele>
+      </trkpt>
+      <trkpt lat="47.498140" lon="10.344624">
+        <ele>871.57</ele>
+      </trkpt>
+      <trkpt lat="47.497503" lon="10.344779">
+        <ele>895.42</ele>
+      </trkpt>
+      <trkpt lat="47.496799" lon="10.345105">
+        <ele>920.01</ele>
+      </trkpt>
+      <trkpt lat="47.496096" lon="10.345464">
+        <ele>941.13</ele>
+      </trkpt>
+      <trkpt lat="47.495621" lon="10.345782">
+        <ele>960.96</ele>
+      </trkpt>
+      <trkpt lat="47.495278" lon="10.345793">
+        <ele>976.32</ele>
+      </trkpt>
+      <trkpt lat="47.494666" lon="10.346082">
+        <ele>1009.96</ele>
+      </trkpt>
+      <trkpt lat="47.494052" lon="10.346303">
+        <ele>1035.02</ele>
+      </trkpt>
+      <trkpt lat="47.493670" lon="10.346787">
+        <ele>1057.16</ele>
+      </trkpt>
+      <trkpt lat="47.493307" lon="10.346900">
+        <ele>1077.64</ele>
+      </trkpt>
+      <trkpt lat="47.492713" lon="10.346952">
+        <ele>1110.32</ele>
+      </trkpt>
+      <trkpt lat="47.491685" lon="10.346917">
+        <ele>1156.26</ele>
+      </trkpt>
+      <trkpt lat="47.491376" lon="10.347766">
+        <ele>1166.14</ele>
+      </trkpt>
+      <trkpt lat="47.491092" lon="10.348718">
+        <ele>1177.92</ele>
+      </trkpt>
+      <trkpt lat="47.491086" lon="10.349831">
+        <ele>1181.40</ele>
+      </trkpt>
+      <trkpt lat="47.490130" lon="10.350130">
+        <ele>1230.17</ele>
+      </trkpt>
+      <trkpt lat="47.489121" lon="10.349859">
+        <ele>1285.71</ele>
+      </trkpt>
+      <trkpt lat="47.488316" lon="10.349479">
+        <ele>1321.43</ele>
+      </trkpt>
+      <trkpt lat="47.487920" lon="10.350503">
+        <ele>1340.20</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

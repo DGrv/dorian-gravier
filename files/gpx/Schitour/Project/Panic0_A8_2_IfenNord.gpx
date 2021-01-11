@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.qlandkarte.org/xmlschemas/v1.1 http://www.qlandkarte.org/xmlschemas/v1.1/ql-extensions.xsd http://www.cluetrust.com/XML/GPXDATA/1/0 http://www.cluetrust.com/Schemas/gpxdata10.xsd" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:tp1="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" creator="QMapShack 1.9.1 http://www.qlandkarte.org/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:rmc="urn:net:trekbuddy:1.0:nmea:rmc" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ql="http://www.qlandkarte.org/xmlschemas/v1.1" xmlns:gpxdata="http://www.cluetrust.com/XML/GPXDATA/1/0">
+ <metadata>
+  <name>A8_2_IfenNord</name>
+  <time>2018-02-12T21:26:28Z</time>
+ </metadata>
+ <trk>
+  <name>A8_2_IfenNord</name>
+  <extensions>
+   <ql:key>1aba0928e9f501160ed9b524668dbf62</ql:key>
+   <ql:flags>6</ql:flags>
+   <ql:history>
+    <ql:event>
+     <ql:icon>://icons/48x48/Start.png</ql:icon>
+     <ql:time>2018-02-12T21:26:41Z</ql:time>
+     <ql:comment>Erstversion.</ql:comment>
+    </ql:event>
+    <ql:event>
+     <ql:icon>://icons/48x48/LineMove.png</ql:icon>
+     <ql:time>2018-02-12T21:30:18Z</ql:time>
+     <ql:comment>Wegpunkte geändert, alle vorherigen Daten sind verloren.</ql:comment>
+    </ql:event>
+    <ql:event>
+     <ql:icon>://icons/48x48/LineMove.png</ql:icon>
+     <ql:time>2018-02-12T21:32:03Z</ql:time>
+     <ql:comment>Wegpunkte geändert, alle vorherigen Daten sind verloren.</ql:comment>
+    </ql:event>
+   </ql:history>
+   <gpxx:TrackExtension>
+    <gpxx:DisplayColor>Blue</gpxx:DisplayColor>
+   </gpxx:TrackExtension>
+  </extensions>
+  <trkseg>
+   <trkpt lat="47.35638586" lon="10.10547883">
+    <ele>2011</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35626866" lon="10.10501710">
+    <ele>2001</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35611849" lon="10.10500272">
+    <ele>1991</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35604646" lon="10.10458950">
+    <ele>1987</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35591094" lon="10.10386546">
+    <ele>1993</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35564601" lon="10.10347828">
+    <ele>2006</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35506487" lon="10.10347199">
+    <ele>2017</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35461191" lon="10.10365435">
+    <ele>2023</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35427433" lon="10.10403164">
+    <ele>2028</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35400085" lon="10.10425802">
+    <ele>2025</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35358207" lon="10.10447182">
+    <ele>2032</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35296244" lon="10.10471706">
+    <ele>2061</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35282569" lon="10.10474221">
+    <ele>2076</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35262057" lon="10.10472963">
+    <ele>2105</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35241545" lon="10.10481767">
+    <ele>2120</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35217400" lon="10.10495900">
+    <ele>2115</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35189400" lon="10.10487200">
+    <ele>2104</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35184700" lon="10.10465500">
+    <ele>2101</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35184400" lon="10.10461200">
+    <ele>2100</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35184400" lon="10.10461200">
+    <ele>2100</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35188616" lon="10.10446643">
+    <ele>2103</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35204489" lon="10.10383312">
+    <ele>2109</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35220667" lon="10.10362201">
+    <ele>2115</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35261569" lon="10.10254403">
+    <ele>2128</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35282936" lon="10.10209488">
+    <ele>2144</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35293314" lon="10.10182987">
+    <ele>2152</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35303387" lon="10.10169513">
+    <ele>2154</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35341236" lon="10.10130885">
+    <ele>2167</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35374500" lon="10.10091900">
+    <ele>2186</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35433415" lon="10.10046893">
+    <ele>2201</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+   <trkpt lat="47.35474316" lon="10.09992994">
+    <ele>2211</ele>
+    <extensions>
+     <ql:flags>0</ql:flags>
+    </extensions>
+   </trkpt>
+  </trkseg>
+ </trk>
+ <extensions>
+  <ql:key>2dd503708c0ced0a94304e792a603c2d</ql:key>
+  <ql:sortingRoadbook>0</ql:sortingRoadbook>
+  <ql:sortingFolder>0</ql:sortingFolder>
+  <ql:correlation>1</ql:correlation>
+ </extensions>
+</gpx>
