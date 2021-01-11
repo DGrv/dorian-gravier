@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-20T19:59:06Z</time>
+    <bounds minlat="47.437875" minlon="10.504655" maxlat="47.444173" maxlon="10.514765"/>
+  </metadata>
+  <trk>
+    <name>I122 Steinkarspitze</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.444173" lon="10.514765">
+        <ele>1786.26</ele>
+      </trkpt>
+      <trkpt lat="47.443759" lon="10.514574">
+        <ele>1795.79</ele>
+      </trkpt>
+      <trkpt lat="47.443158" lon="10.512234">
+        <ele>1800.84</ele>
+      </trkpt>
+      <trkpt lat="47.442783" lon="10.511504">
+        <ele>1802.98</ele>
+      </trkpt>
+      <trkpt lat="47.442223" lon="10.510610">
+        <ele>1811.14</ele>
+      </trkpt>
+      <trkpt lat="47.441594" lon="10.509651">
+        <ele>1822.63</ele>
+      </trkpt>
+      <trkpt lat="47.441432" lon="10.509521">
+        <ele>1824.16</ele>
+      </trkpt>
+      <trkpt lat="47.441133" lon="10.509327">
+        <ele>1828.45</ele>
+      </trkpt>
+      <trkpt lat="47.440237" lon="10.508982">
+        <ele>1844.99</ele>
+      </trkpt>
+      <trkpt lat="47.439368" lon="10.508906">
+        <ele>1880.26</ele>
+      </trkpt>
+      <trkpt lat="47.439025" lon="10.508916">
+        <ele>1900.62</ele>
+      </trkpt>
+      <trkpt lat="47.438276" lon="10.509240">
+        <ele>1947.81</ele>
+      </trkpt>
+      <trkpt lat="47.438093" lon="10.509279">
+        <ele>1950.91</ele>
+      </trkpt>
+      <trkpt lat="47.437905" lon="10.508846">
+        <ele>1947.48</ele>
+      </trkpt>
+      <trkpt lat="47.437875" lon="10.508308">
+        <ele>1953.58</ele>
+      </trkpt>
+      <trkpt lat="47.437911" lon="10.507533">
+        <ele>1965.29</ele>
+      </trkpt>
+      <trkpt lat="47.437924" lon="10.506825">
+        <ele>1978.11</ele>
+      </trkpt>
+      <trkpt lat="47.437913" lon="10.505984">
+        <ele>1993.77</ele>
+      </trkpt>
+      <trkpt lat="47.437949" lon="10.505208">
+        <ele>2018.18</ele>
+      </trkpt>
+      <trkpt lat="47.438241" lon="10.504863">
+        <ele>2037.64</ele>
+      </trkpt>
+      <trkpt lat="47.438444" lon="10.504655">
+        <ele>2037.52</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

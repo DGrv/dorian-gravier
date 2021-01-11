@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-20T20:00:13Z</time>
+    <bounds minlat="47.438071" minlon="10.508911" maxlat="47.444104" maxlon="10.517707"/>
+  </metadata>
+  <trk>
+    <name>I123 Lachenspitze</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.444104" lon="10.514699">
+        <ele>1790.05</ele>
+      </trkpt>
+      <trkpt lat="47.443710" lon="10.514273">
+        <ele>1796.04</ele>
+      </trkpt>
+      <trkpt lat="47.443158" lon="10.512234">
+        <ele>1800.84</ele>
+      </trkpt>
+      <trkpt lat="47.441570" lon="10.509618">
+        <ele>1823.11</ele>
+      </trkpt>
+      <trkpt lat="47.440812" lon="10.509269">
+        <ele>1833.31</ele>
+      </trkpt>
+      <trkpt lat="47.440329" lon="10.509013">
+        <ele>1843.09</ele>
+      </trkpt>
+      <trkpt lat="47.439185" lon="10.508911">
+        <ele>1890.72</ele>
+      </trkpt>
+      <trkpt lat="47.438525" lon="10.509098">
+        <ele>1933.82</ele>
+      </trkpt>
+      <trkpt lat="47.438071" lon="10.509347">
+        <ele>1949.22</ele>
+      </trkpt>
+      <trkpt lat="47.438087" lon="10.510525">
+        <ele>1948.97</ele>
+      </trkpt>
+      <trkpt lat="47.438149" lon="10.511803">
+        <ele>1944.37</ele>
+      </trkpt>
+      <trkpt lat="47.438403" lon="10.513782">
+        <ele>1947.64</ele>
+      </trkpt>
+      <trkpt lat="47.438463" lon="10.514858">
+        <ele>1947.01</ele>
+      </trkpt>
+      <trkpt lat="47.438248" lon="10.515908">
+        <ele>1945.54</ele>
+      </trkpt>
+      <trkpt lat="47.438371" lon="10.516578">
+        <ele>1967.78</ele>
+      </trkpt>
+      <trkpt lat="47.438831" lon="10.516834">
+        <ele>2003.96</ele>
+      </trkpt>
+      <trkpt lat="47.439154" lon="10.517061">
+        <ele>2033.63</ele>
+      </trkpt>
+      <trkpt lat="47.439522" lon="10.517286">
+        <ele>2065.96</ele>
+      </trkpt>
+      <trkpt lat="47.439935" lon="10.517410">
+        <ele>2088.13</ele>
+      </trkpt>
+      <trkpt lat="47.440145" lon="10.517707">
+        <ele>2103.29</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

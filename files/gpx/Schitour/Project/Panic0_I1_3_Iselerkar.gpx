@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-19T17:28:47Z</time>
+    <bounds minlat="47.499417" minlon="10.411441" maxlat="47.515067" maxlon="10.424384"/>
+  </metadata>
+  <trk>
+    <name>I 13 Iselerkar</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.499484" lon="10.419963">
+        <ele>1845.62</ele>
+      </trkpt>
+      <trkpt lat="47.499471" lon="10.420671">
+        <ele>1858.08</ele>
+      </trkpt>
+      <trkpt lat="47.499524" lon="10.421243">
+        <ele>1866.22</ele>
+      </trkpt>
+      <trkpt lat="47.499417" lon="10.421752">
+        <ele>1855.63</ele>
+      </trkpt>
+      <trkpt lat="47.499563" lon="10.422421">
+        <ele>1849.34</ele>
+      </trkpt>
+      <trkpt lat="47.499778" lon="10.423056">
+        <ele>1821.38</ele>
+      </trkpt>
+      <trkpt lat="47.500155" lon="10.423887">
+        <ele>1806.48</ele>
+      </trkpt>
+      <trkpt lat="47.500436" lon="10.424384">
+        <ele>1811.13</ele>
+      </trkpt>
+      <trkpt lat="47.500591" lon="10.424076">
+        <ele>1802.79</ele>
+      </trkpt>
+      <trkpt lat="47.500612" lon="10.423907">
+        <ele>1796.65</ele>
+      </trkpt>
+      <trkpt lat="47.500563" lon="10.423673">
+        <ele>1794.57</ele>
+      </trkpt>
+      <trkpt lat="47.500536" lon="10.423370">
+        <ele>1790.12</ele>
+      </trkpt>
+      <trkpt lat="47.500574" lon="10.422796">
+        <ele>1766.35</ele>
+      </trkpt>
+      <trkpt lat="47.500821" lon="10.422485">
+        <ele>1720.20</ele>
+      </trkpt>
+      <trkpt lat="47.504712" lon="10.421357">
+        <ele>1478.01</ele>
+      </trkpt>
+      <trkpt lat="47.506681" lon="10.419983">
+        <ele>1404.94</ele>
+      </trkpt>
+      <trkpt lat="47.506946" lon="10.417682">
+        <ele>1387.93</ele>
+      </trkpt>
+      <trkpt lat="47.507240" lon="10.415819">
+        <ele>1381.19</ele>
+      </trkpt>
+      <trkpt lat="47.512453" lon="10.412430">
+        <ele>1190.17</ele>
+      </trkpt>
+      <trkpt lat="47.515067" lon="10.411441">
+        <ele>1158.63</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

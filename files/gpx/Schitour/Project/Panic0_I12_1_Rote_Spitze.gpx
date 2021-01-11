@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-20T19:57:56Z</time>
+    <bounds minlat="47.441062" minlon="10.499651" maxlat="47.444121" maxlon="10.514712"/>
+  </metadata>
+  <trk>
+    <name>I121 Rote Spitze</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.444121" lon="10.514705">
+        <ele>1789.01</ele>
+      </trkpt>
+      <trkpt lat="47.443893" lon="10.514712">
+        <ele>1799.16</ele>
+      </trkpt>
+      <trkpt lat="47.443585" lon="10.513912">
+        <ele>1793.78</ele>
+      </trkpt>
+      <trkpt lat="47.443175" lon="10.512240">
+        <ele>1801.32</ele>
+      </trkpt>
+      <trkpt lat="47.442635" lon="10.511077">
+        <ele>1804.03</ele>
+      </trkpt>
+      <trkpt lat="47.442181" lon="10.509540">
+        <ele>1824.10</ele>
+      </trkpt>
+      <trkpt lat="47.441849" lon="10.508230">
+        <ele>1848.20</ele>
+      </trkpt>
+      <trkpt lat="47.441611" lon="10.507462">
+        <ele>1867.43</ele>
+      </trkpt>
+      <trkpt lat="47.441482" lon="10.506320">
+        <ele>1892.59</ele>
+      </trkpt>
+      <trkpt lat="47.441305" lon="10.505012">
+        <ele>1910.57</ele>
+      </trkpt>
+      <trkpt lat="47.441148" lon="10.503468">
+        <ele>1937.67</ele>
+      </trkpt>
+      <trkpt lat="47.441069" lon="10.502695">
+        <ele>1959.79</ele>
+      </trkpt>
+      <trkpt lat="47.441062" lon="10.502190">
+        <ele>1967.87</ele>
+      </trkpt>
+      <trkpt lat="47.441306" lon="10.501577">
+        <ele>1987.79</ele>
+      </trkpt>
+      <trkpt lat="47.441456" lon="10.500832">
+        <ele>2005.66</ele>
+      </trkpt>
+      <trkpt lat="47.441655" lon="10.500355">
+        <ele>2020.68</ele>
+      </trkpt>
+      <trkpt lat="47.441993" lon="10.500009">
+        <ele>2045.13</ele>
+      </trkpt>
+      <trkpt lat="47.442401" lon="10.499728">
+        <ele>2076.76</ele>
+      </trkpt>
+      <trkpt lat="47.442720" lon="10.499651">
+        <ele>2094.36</ele>
+      </trkpt>
+      <trkpt lat="47.443155" lon="10.499740">
+        <ele>2085.60</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Alpenvereinskarten Digital (USB Edition) Track</name>
+    <desc></desc>
+    <time>2017-11-17T17:04:11Z</time>
+    <bounds minlat="47.384241" minlon="10.419824" maxlat="47.392795" maxlon="10.427107"/>
+  </metadata>
+  <trk>
+    <name>G112 Weittalkopf</name>
+    <extensions>
+      <dkl:dkl>
+        <dkl:format_version>1.1</dkl:format_version>
+        <dkl:profile>
+          <dkl:mode>0</dkl:mode>
+          <dkl:h>0</dkl:h>
+        </dkl:profile>
+      </dkl:dkl>
+    </extensions>
+    <trkseg>
+      <trkpt lat="47.392795" lon="10.420315">
+        <ele>1817.09</ele>
+      </trkpt>
+      <trkpt lat="47.392659" lon="10.420211">
+        <ele>1826.21</ele>
+      </trkpt>
+      <trkpt lat="47.392047" lon="10.419824">
+        <ele>1856.50</ele>
+      </trkpt>
+      <trkpt lat="47.391506" lon="10.420146">
+        <ele>1865.66</ele>
+      </trkpt>
+      <trkpt lat="47.391330" lon="10.420511">
+        <ele>1862.34</ele>
+      </trkpt>
+      <trkpt lat="47.391025" lon="10.421126">
+        <ele>1860.30</ele>
+      </trkpt>
+      <trkpt lat="47.390996" lon="10.421596">
+        <ele>1847.34</ele>
+      </trkpt>
+      <trkpt lat="47.391036" lon="10.422085">
+        <ele>1839.14</ele>
+      </trkpt>
+      <trkpt lat="47.391110" lon="10.422592">
+        <ele>1838.19</ele>
+      </trkpt>
+      <trkpt lat="47.390645" lon="10.423185">
+        <ele>1871.22</ele>
+      </trkpt>
+      <trkpt lat="47.390182" lon="10.422735">
+        <ele>1903.98</ele>
+      </trkpt>
+      <trkpt lat="47.389760" lon="10.422690">
+        <ele>1926.07</ele>
+      </trkpt>
+      <trkpt lat="47.389393" lon="10.422798">
+        <ele>1939.73</ele>
+      </trkpt>
+      <trkpt lat="47.388986" lon="10.422356">
+        <ele>1970.55</ele>
+      </trkpt>
+      <trkpt lat="47.388636" lon="10.422919">
+        <ele>1973.32</ele>
+      </trkpt>
+      <trkpt lat="47.388379" lon="10.423434">
+        <ele>1979.18</ele>
+      </trkpt>
+      <trkpt lat="47.388091" lon="10.424486">
+        <ele>1998.53</ele>
+      </trkpt>
+      <trkpt lat="47.387888" lon="10.425221">
+        <ele>2019.95</ele>
+      </trkpt>
+      <trkpt lat="47.387730" lon="10.425957">
+        <ele>2052.23</ele>
+      </trkpt>
+      <trkpt lat="47.387584" lon="10.426677">
+        <ele>2088.43</ele>
+      </trkpt>
+      <trkpt lat="47.387304" lon="10.427107">
+        <ele>2096.10</ele>
+      </trkpt>
+      <trkpt lat="47.386757" lon="10.427025">
+        <ele>2108.72</ele>
+      </trkpt>
+      <trkpt lat="47.385686" lon="10.426756">
+        <ele>2180.18</ele>
+      </trkpt>
+      <trkpt lat="47.385519" lon="10.426381">
+        <ele>2201.48</ele>
+      </trkpt>
+      <trkpt lat="47.385159" lon="10.425951">
+        <ele>2232.12</ele>
+      </trkpt>
+      <trkpt lat="47.384760" lon="10.425856">
+        <ele>2261.00</ele>
+      </trkpt>
+      <trkpt lat="47.384476" lon="10.425731">
+        <ele>2263.43</ele>
+      </trkpt>
+      <trkpt lat="47.384272" lon="10.425590">
+        <ele>2260.68</ele>
+      </trkpt>
+      <trkpt lat="47.384241" lon="10.425320">
+        <ele>2257.44</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
