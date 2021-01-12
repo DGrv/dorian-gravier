@@ -16,7 +16,8 @@ show_in_nav: false
 
     	<!-- gpx.min -->
     	<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+    	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script> -->
+    	<script src="js/leaflet-gpx/gpx.js"></script>
 
 
 			<!-- hash -->
@@ -107,48 +108,62 @@ show_in_nav: false
     		for (var j = 0; j < loopinfo.what.length; j += 1) {
     			for (var i = 0; i < loopinfo.what[j].length; i += 1) {
 
-    				var g = new L.GPX(loopinfo.what[j][i], {async: true, parseElements: ['track'], polyline_options: { color: loopinfo.trackcolor[j]}});
+				var g = new L.GPX(loopinfo.what[j][i], {async: true,
+				parseElements: ['track'],
+				polyline_options: { color: loopinfo.trackcolor[j]},
+				marker_options: {
+					startIconUrl: '',
+					endIconUrl: '',
+					shadowUrl: '',
+					wptIconUrls : {
+						'wpt': '',
+					},
+					wptIconTypeUrls : {
+						'wpt': '',
+					},
+					clickable: true
+				  }});
 
 
-    				g.on('loaded', function(e) {
-    					var gpx = e.target,
-						link = "Not ready",
-						namegpx = gpx.get_name(),
-    						distM = gpx.get_distance(),
-    						distKm = distM / 1000,
-    						distKmRnd = distKm.toFixed(1),
-    						eleGain = gpx.get_elevation_gain().toFixed(0),
-    						eleLoss = gpx.get_elevation_loss().toFixed(0),
-    						cen = gpx.getBounds().getCenter();
-							
-					var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen.lat + '&lng=' + cen.lng;
+				g.on('loaded', function(e) {
+					var gpx = e.target,
+					namegpx = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0),
+						cen = gpx.getBounds().getCenter();
 						
-						//var link = loopinfo.what[j][i],
+					var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet.html?lat=' + cen.lat + '&lng=' + cen.lng;
+					
+					//var link = g;
+						
 
-    					var info = "Name: " + namegpx + "</br>" +
-    						"Distance: " + distKmRnd + " km </br>" +
-    						"Elevation Gain: " + eleGain + " m </br>" +
-						"Elevation Loss: " + eleLoss + " m </br>" +
-    						"<a href='" + link + "' target='_blank'>Link</a></br>" +
-    						"<a href='" + share + "' target='_blank'>Share location</a></br>";
-    						// register popup on click
-     					gpx.getLayers()[0].bindPopup(info);
+					var info = "Name: " + namegpx + "</br>" +
+						"Distance: " + distKmRnd + " km </br>" +
+						"Elevation Gain: " + eleGain + " m </br>" +
+					"Elevation Loss: " + eleLoss + " m </br>" +
+						"<a href='" + e + "' target='_blank'>Link</a></br>" +
+						"<a href='" + share + "' target='_blank'>Share location</a></br>";
+						// register popup on click
+					gpx.getLayers()[0].bindPopup(info);
 
-    					if ( loopinfo.project[j] == true ) {
-    						gpx.setStyle({opacity: 0.95, dashArray: '3 6'});
-    					};
-    				});
+					if ( loopinfo.project[j] == true ) {
+						gpx.setStyle({opacity: 0.95, dashArray: '3 6'});
+					};
+				});
 
-    				g.on('mouseover', function(e) {
-          		e.target.setStyle({opacity: 0.7, weight: 6});
-        		});
+				g.on('mouseover', function(e) {
+					e.target.setStyle({opacity: 0.7, weight: 6});
+				});
 
-    				g.on('mouseout', function(e) {
-          		e.target.setStyle({opacity: 1, weight: 3});
-        		});
+				g.on('mouseout', function(e) {
+					e.target.setStyle({opacity: 1, weight: 3});
+				});
 
-    				g.addTo(loopinfo.layer[j]);
-    			};
+				g.addTo(loopinfo.layer[j]);
+				};
     		};
 
 
