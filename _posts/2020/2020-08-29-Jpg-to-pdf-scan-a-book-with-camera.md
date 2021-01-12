@@ -2,7 +2,7 @@
 layout: "post"
 title: "Create a pdf from a batch of photos, batch convertion jpg to pdf, scan a book with a camera"
 date: "2020-08-29 09:00"
-comments_id: 41
+comments_id: 42
 ---
 
 This technique may be used for special occasion but I do not recommend to do it for scanning an entire book.
@@ -44,7 +44,7 @@ __*Steps:*__
 
 __*Source:*__
 
-- Info on Gow and other linux tools : https://tinyapps.org/blog/201606040700_tiny_unix_tools_windows.html
-- https://askubuntu.com/questions/303849/create-a-single-pdf-from-multiple-text-images-or-pdf-files/887953?newreg=46666755550348dfa59952b528b90745
-- https://stackoverflow.com/questions/43225925/windows-cmd-pass-output-of-one-command-as-parameter-to-another
+- Info on Gow and other linux tools : [https://tinyapps.org/blog/201606040700_tiny_unix_tools_windows.html]
+- [https://askubuntu.com/questions/303849/create-a-single-pdf-from-multiple-text-images-or-pdf-files/887953?newreg=46666755550348dfa59952b528b90745]
+- [https://stackoverflow.com/questions/43225925/windows-cmd-pass-output-of-one-command-as-parameter-to-another]
 
