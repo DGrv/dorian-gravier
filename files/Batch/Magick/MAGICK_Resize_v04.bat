@@ -41,7 +41,7 @@ set /p per=Percent to resize (numeric) ?:
 
 for /F "usebackq tokens=*" %%p in (%file%) do (
 	set ext=%%~xp
-	start %run% convert "%%p" -resize %per%%% "%%~np_%per%per!ext!"
+	start /wait %run% convert "%%p" -resize %per%%% "%%~np_%per%per!ext!"
 )
 
 del list.txt
