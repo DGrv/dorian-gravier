@@ -10,55 +10,70 @@ show_in_nav: false
     	<title>A Leaflet map!</title>
 
 
-			<!-- leaflet -->
-    	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
-    	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+	<!-- leaflet -->
+    	<link rel="stylesheet" href="js/node_modules/leaflet/dist/leaflet.css" />
+    	<script src="js/node_modules/leaflet/dist/leaflet.js"></script>
 
     	<!-- gpx.min -->
     	<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
     	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script> -->
-    	<script src="js/leaflet-gpx/gpx.js"></script>
+    	<script src="js/node_modules/leaflet-gpx/gpx.js"></script>
 
 
-			<!-- hash -->
-    	<!-- Copyright (c) 2013 Michael Lawrence Evans -->
-    	<script src="js/Hash/leaflet-hash.js"></script>
-    	<script src="js/Hash/togeojson.js"></script>
+	<!-- hash -->
+	<!-- A JavaScript library that keeps track of the history of changes to the hash part in the address bar. -->
+    	<script src="js/node_modules/leaflet-fullhash/leaflet-fullHash.js"></script>
 
     	<!-- fullscreen -->
-    	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-    	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+		<!-- Not in npm -->
+		<!-- Not in npm -->
+		<!-- Not in npm -->
+    	<script src='js/node_modules/leaflet.fullscreen/Control.FullScreen.js'></script>
+    	<link href='js/node_modules/leaflet.fullscreen/Control.FullScreen.css' rel='stylesheet' />
 
     	<!-- GeoJSON.Ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
+	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
     	<link  href="js/GeoJSON.Ajax/GeoJSON.Style.css" rel="stylesheet"/>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Style.js"></script>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.js"></script>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.WRI.js"></script>
 
-			<!-- Minimap -->
-			<!-- https://github.com/Norkart/Leaflet-MiniMap
-			Copyright (c) 2012, Norkart AS
-			All rights reserved. -->
-			<script src="js/Minimap/Control.MiniMap.js"></script>
-			<link  href="js/Minimap/Control.MiniMap.css" rel="stylesheet"/>
+	<!-- Minimap -->
+	<!-- https://github.com/Norkart/Leaflet-MiniMap
+	Copyright (c) 2012, Norkart AS
+	All rights reserved. -->
+	<script src="js/node_modules/leaflet-minimap/src/Control.MiniMap.js"></script>
+	<link  href="js/node_modules/leaflet-minimap/src/Control.MiniMap.css" rel="stylesheet"/>
 
-			<!-- topcenter -->
-			<link  href="js/topcenter/leaflet-control-topcenter.css" rel="stylesheet"/>
-			<script src="js/topcenter/leaflet-control-topcenter.js"></script>
+	<!-- topcenter -->
+	<!-- Not in npm -->
+	<!-- Not in npm -->
+	<!-- Not in npm -->
+	<!-- Not in npm -->
+	<link  href="js/topcenter/leaflet-control-topcenter.css" rel="stylesheet"/>
+	<script src="js/topcenter/leaflet-control-topcenter.js"></script>
 
-			<!-- geocoder -->
-			<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-			<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	<!-- geocoder -->
+	<link rel="stylesheet" href="js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	<script src="js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-			<!-- leaflet-routing-machine -->
-			<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-			<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+	<!-- leaflet-routing-machine -->
+	<script src="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+	<link rel="stylesheet" href="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 
-			<!-- lrm-graphhopper -->
-			<!-- <script src="js/lrm-graphhopper/lrm-graphhopper.js"></script>-->
+	<!-- lrm-graphhopper -->
+	<script src="js/node_modules/lrm-graphhopper/lrm-graphhopper.js"></script>
 
-			<!-- FileLayer -->
-			<script src="js/FileLayer/leaflet.filelayer.js"></script>
+	<!-- FileLayer -->
+	<script src="js/node_modules/leaflet-filelayer/src/leaflet.filelayer.js"></script>
 
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
@@ -197,13 +212,12 @@ show_in_nav: false
     			idAjaxStatus: 'ajax-status'
     		}).addTo(refugepoi);
 
-				// Minimap
-				var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
-					position: 'bottomleft'
-				}).addTo(map);
+		// Minimap
+		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
+			position: 'bottomleft'
+		}).addTo(map);
 
-    		// Copyright (c) 2013 Michael Lawrence Evans
-    		var hash = new L.Hash(map);
+    		var hash = new L.Hash(map, baseLayers);
 
 				// FileLayer
 				L.Control.fileLayerLoad({
@@ -216,22 +230,24 @@ show_in_nav: false
 
 
 
+		L.Routing.control({
+			router: new L.Routing.GraphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
+			waypoints: [
+				L.latLng(57.74, 11.94),
+				L.latLng(57.6792, 11.949)
+			],
+			routeWhileDragging: true
+		}).addTo(map);
+
+		var router = myRoutingControl.getRouter();
+		router.on('response',function(e){
+		  console.log('This routing request consumed ' + e.credits + ' credit(s)');
+		  console.log('You have ' + e.remaining + ' left');
+		});
+		
+		
 
 
-		//		L.Routing.control({
-		//	    waypoints: [
-		//	        L.latLng(47.58, 8.90),
-		//	        L.latLng(47.424, 9.37)
-		//	    ],
-		//			show: false, // do not show the itinerary
-		//	    router: L.Routing.graphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
-		//	    routeWhileDragging: true
-		//	}).addTo(map);
-		//	var router = routingControl.getRouter();
-		//	router.on('response',function(e){
-		//	  console.log('This request consumed ' + e.credits + ' credit(s)');
-		//	  console.log('You have ' + e.remaining + ' left');
-		//	});
 
     	</script>
     </body>

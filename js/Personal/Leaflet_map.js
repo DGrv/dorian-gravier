@@ -83,16 +83,16 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   var baseLayers = {
     "OpenTopo": topo,
     "OpenStreetMapFR": OpenStreetMap_France,
-    "IGN Geoportail": GeoportailFrance_ignMaps,
+    "IGN_Geoportail": GeoportailFrance_ignMaps,
     "OpenStreetMapCH": OpenStreetMap_CH,
     "OpenCycleMap": OpenCycleMap,
     "CyclOSM": CyclOSM	,
     "MtbMap": MtbMap,
     "StamenToner": Stamen_Toner,
     "StamenTerrain": Stamen_Terrain,
-    "Thunderforest Outdoors": outdoors,
+    "Thunderforest_Outdoors": outdoors,
     "GeoAdmin": GeoAdmin,
     "Kompass": Kompass,
-    "Austria topo": Austria_topo,
+    "Austria_Topo": Austria_topo,
 	"Esri_WorldImagery": Esri_WorldImagery
   };
