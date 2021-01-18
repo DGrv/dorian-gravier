@@ -110,30 +110,9 @@ show_in_nav: false
 
 				var url = loopinfo.what[j][i];
 				var trackcolor = loopinfo.trackcolor[j];
+				var project = loopinfo.project[j];
 				
-				// var g = new L.GPX(url,
-					// {async: true,
-					// parseElements: ['track'],
-					// polyline_options: { color: trackcolor},
-					// marker_options: {
-						// startIconUrl: '',
-						// endIconUrl: '',
-						// shadowUrl: '',
-						// wptIconUrls : {
-							// 'wpt': '',
-						// },
-						// wptIconTypeUrls : {
-							// 'wpt': '',
-						// },
-						// clickable: true
-					// }});
-				// g.on('loaded', function(e) {
-					// var _url = url;
-					// var gpx = e.target;
-					// var link = '<a href="' + _url + '">Link</a>';
-				// }());
-				
-				
+								
 				var g = new L.GPX(url,
 					{async: true,
 					parseElements: ['track'],
@@ -151,33 +130,45 @@ show_in_nav: false
 						clickable: true
 						}
 					});
-				g.on('loaded', function(e) {
-					var _url = url;
-					var gpx = e.target;
-					namegpx = gpx.get_name(),
-					distM = gpx.get_distance(),
-					distKm = distM / 1000,
-					distKmRnd = distKm.toFixed(1),
-					eleGain = gpx.get_elevation_gain().toFixed(0),
-					eleLoss = gpx.get_elevation_loss().toFixed(0),
-					cen = gpx.getBounds().getCenter();
 					
-					var share = 'https://dorian-gravier.com/leaflet.html#15/' + cen.lat + '/' + cen.lng;
+					
 				
+				// Important https://github.com/mpetazzoni/leaflet-gpx/issues/105
+				// I needed help from someone to understand how to retrieve (or not) the url of the gpx :
+				// The library doesn't have a way to get you back the URL of the GPX that was loaded, because it doesn't just take URLs as input (you can also directly pass GPX XML to the L.GPX(...) constructor). But since you already have that URL in your code, you don't need the library to give it back to you.
+				// Your problem here is a classic Javascript callback scope capture problem. You can read more about this here: https://www.pluralsight.com/guides/javascript-callbacks-variable-scope-problem
 
-					var info = "Name: " + namegpx + "</br>" +
-						"Distance: " + distKmRnd + " km </br>" +
-						"Elevation Gain: " + eleGain + " m </br>" +
-					"Elevation Loss: " + eleLoss + " m </br>" +
-						"<a href='" + _url + "' target='_blank'>Link (wrong for the moment)</a></br>" +
-						"<a href='" + share + "' target='_blank'>Share location</a></br>";
+
+				g.on('loaded', (function() {
+					var _url = url;
+					var _project = project;
+					return function(e) {
+						var gpx = e.target;
+						namegpx = gpx.get_name(),
+						distM = gpx.get_distance(),
+						distKm = distM / 1000,
+						distKmRnd = distKm.toFixed(1),
+						eleGain = gpx.get_elevation_gain().toFixed(0),
+						eleLoss = gpx.get_elevation_loss().toFixed(0),
+						cen = gpx.getBounds().getCenter();
+						
+						var share = 'https://dorian-gravier.com/leaflet.html#15/' + cen.lat + '/' + cen.lng;
+					
+
 						// register popup on click
-					gpx.getLayers()[0].bindPopup(info);
-
-					if ( loopinfo.project[j] == true ) {
-						gpx.setStyle({opacity: 0.95, dashArray: '3 6'});
-					};
-				});
+						var info = "<b>Name: " + namegpx + "</b></br>" +
+							"<b>Distance:</b> " + distKmRnd + " km </br>" +
+							"<b>Elevation Gain:</b> " + eleGain + " m </br>" +
+						"<b>Elevation Loss:</b> " + eleLoss + " m </br>" +
+							"<a href='" + _url + "' target='_blank'>Download gpx</a></br>" +
+							"<a href='" + share + "' target='_blank'>Share location</a></br>";
+							
+						gpx.getLayers()[0].bindPopup(info);
+						
+						if ( _project == true ) {
+							gpx.setStyle({opacity: 0.95, dashArray: '10 5'});
+						};
+						}})() ); // important to have this : )() )
 				
 
 				g.on('mouseover', function(e) {
@@ -191,7 +182,7 @@ show_in_nav: false
 				g.addTo(loopinfo.layer[j]);
 			};
     		};
-
+		
 
 
     		// DAV Hutten
