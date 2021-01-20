@@ -921,7 +921,244 @@ Sources:
 - [https://stackoverflow.com/questions/44433451/r-data-table-update-join/59091395#59091395](https://stackoverflow.com/questions/44433451/r-data-table-update-join/59091395#59091395)
 - [https://stackoverflow.com/questions/32371188/merge-and-replace-values-in-two-data-tables](https://stackoverflow.com/questions/32371188/merge-and-replace-values-in-two-data-tables)
 
+### Remove or keep first row or other rows from a filtered data.table
 
+Let's imagine a table mpg
+
+```r
+> mpg2 <- data.table(mpg)
+>           mpg2
+     manufacturer  model displ year cyl      trans drv cty hwy fl   class
+  1:         audi     a4   1.8 1999   4   auto(l5)   f  18  29  p compact
+  2:         audi     a4   1.8 1999   4 manual(m5)   f  21  29  p compact
+  3:         audi     a4   2.0 2008   4 manual(m6)   f  20  31  p compact
+  4:         audi     a4   2.0 2008   4   auto(av)   f  21  30  p compact
+  5:         audi     a4   2.8 1999   6   auto(l5)   f  16  26  p compact
+ ---                                                                     
+230:   volkswagen passat   2.0 2008   4   auto(s6)   f  19  28  p midsize
+231:   volkswagen passat   2.0 2008   4 manual(m6)   f  21  29  p midsize
+232:   volkswagen passat   2.8 1999   6   auto(l5)   f  16  26  p midsize
+233:   volkswagen passat   2.8 1999   6 manual(m5)   f  18  26  p midsize
+234:   volkswagen passat   3.6 2008   6   auto(s6)   f  17  26  p midsize
+>           # I wanna first filter the table with year is 1999 and that it is an manual
+>           mpg2[year == "1999" & grepl("manual", trans)]
+    manufacturer               model displ year cyl      trans drv cty hwy fl      class
+ 1:         audi                  a4   1.8 1999   4 manual(m5)   f  21  29  p    compact
+ 2:         audi                  a4   2.8 1999   6 manual(m5)   f  18  26  p    compact
+ 3:         audi          a4 quattro   1.8 1999   4 manual(m5)   4  18  26  p    compact
+ 4:         audi          a4 quattro   2.8 1999   6 manual(m5)   4  17  25  p    compact
+ 5:    chevrolet            corvette   5.7 1999   8 manual(m6)   r  16  26  p    2seater
+ 6:        dodge   dakota pickup 4wd   3.9 1999   6 manual(m5)   4  14  17  r     pickup
+ 7:        dodge   dakota pickup 4wd   5.2 1999   8 manual(m5)   4  11  17  r     pickup
+ 8:        dodge ram 1500 pickup 4wd   5.2 1999   8 manual(m5)   4  11  16  r     pickup
+ 9:         ford        explorer 4wd   4.0 1999   6 manual(m5)   4  15  19  r        suv
+10:         ford     f150 pickup 4wd   4.2 1999   6 manual(m5)   4  14  17  r     pickup
+11:         ford     f150 pickup 4wd   4.6 1999   8 manual(m5)   4  13  16  r     pickup
+12:         ford             mustang   3.8 1999   6 manual(m5)   r  18  26  r subcompact
+13:         ford             mustang   4.6 1999   8 manual(m5)   r  15  22  r subcompact
+14:        honda               civic   1.6 1999   4 manual(m5)   f  28  33  r subcompact
+15:        honda               civic   1.6 1999   4 manual(m5)   f  25  32  r subcompact
+16:        honda               civic   1.6 1999   4 manual(m5)   f  23  29  p subcompact
+17:      hyundai              sonata   2.4 1999   4 manual(m5)   f  18  27  r    midsize
+18:      hyundai              sonata   2.5 1999   6 manual(m5)   f  18  26  r    midsize
+19:      hyundai             tiburon   2.0 1999   4 manual(m5)   f  19  29  r subcompact
+20:       nissan              altima   2.4 1999   4 manual(m5)   f  21  29  r    compact
+21:       nissan              maxima   3.0 1999   6 manual(m5)   f  19  25  r    midsize
+22:       nissan      pathfinder 4wd   3.3 1999   6 manual(m5)   4  15  17  r        suv
+23:       subaru        forester awd   2.5 1999   4 manual(m5)   4  18  25  r        suv
+24:       subaru         impreza awd   2.2 1999   4 manual(m5)   4  19  26  r subcompact
+25:       subaru         impreza awd   2.5 1999   4 manual(m5)   4  19  26  r subcompact
+26:       toyota         4runner 4wd   2.7 1999   4 manual(m5)   4  15  20  r        suv
+27:       toyota         4runner 4wd   3.4 1999   6 manual(m5)   4  15  17  r        suv
+28:       toyota               camry   2.2 1999   4 manual(m5)   f  21  29  r    midsize
+29:       toyota               camry   3.0 1999   6 manual(m5)   f  18  26  r    midsize
+30:       toyota        camry solara   2.2 1999   4 manual(m5)   f  21  29  r    compact
+31:       toyota        camry solara   3.0 1999   6 manual(m5)   f  18  26  r    compact
+32:       toyota             corolla   1.8 1999   4 manual(m5)   f  26  35  r    compact
+33:       toyota   toyota tacoma 4wd   2.7 1999   4 manual(m5)   4  15  20  r     pickup
+34:       toyota   toyota tacoma 4wd   3.4 1999   6 manual(m5)   4  15  17  r     pickup
+35:   volkswagen                 gti   2.0 1999   4 manual(m5)   f  21  29  r    compact
+36:   volkswagen                 gti   2.8 1999   6 manual(m5)   f  17  24  r    compact
+37:   volkswagen               jetta   1.9 1999   4 manual(m5)   f  33  44  d    compact
+38:   volkswagen               jetta   2.0 1999   4 manual(m5)   f  21  29  r    compact
+39:   volkswagen               jetta   2.8 1999   6 manual(m5)   f  17  24  r    compact
+40:   volkswagen          new beetle   1.9 1999   4 manual(m5)   f  35  44  d subcompact
+41:   volkswagen          new beetle   2.0 1999   4 manual(m5)   f  21  29  r subcompact
+42:   volkswagen              passat   1.8 1999   4 manual(m5)   f  21  29  p    midsize
+43:   volkswagen              passat   2.8 1999   6 manual(m5)   f  18  26  p    midsize
+    manufacturer               model displ year cyl      trans drv cty hwy fl      class
+>           # maybe I wanna order it
+>           mpg2[year == "1999" & grepl("manual", trans)][order(model, -displ)]
+    manufacturer               model displ year cyl      trans drv cty hwy fl      class
+ 1:       toyota         4runner 4wd   3.4 1999   6 manual(m5)   4  15  17  r        suv
+ 2:       toyota         4runner 4wd   2.7 1999   4 manual(m5)   4  15  20  r        suv
+ 3:         audi                  a4   2.8 1999   6 manual(m5)   f  18  26  p    compact
+ 4:         audi                  a4   1.8 1999   4 manual(m5)   f  21  29  p    compact
+ 5:         audi          a4 quattro   2.8 1999   6 manual(m5)   4  17  25  p    compact
+ 6:         audi          a4 quattro   1.8 1999   4 manual(m5)   4  18  26  p    compact
+ 7:       nissan              altima   2.4 1999   4 manual(m5)   f  21  29  r    compact
+ 8:       toyota               camry   3.0 1999   6 manual(m5)   f  18  26  r    midsize
+ 9:       toyota               camry   2.2 1999   4 manual(m5)   f  21  29  r    midsize
+10:       toyota        camry solara   3.0 1999   6 manual(m5)   f  18  26  r    compact
+11:       toyota        camry solara   2.2 1999   4 manual(m5)   f  21  29  r    compact
+12:        honda               civic   1.6 1999   4 manual(m5)   f  28  33  r subcompact
+13:        honda               civic   1.6 1999   4 manual(m5)   f  25  32  r subcompact
+14:        honda               civic   1.6 1999   4 manual(m5)   f  23  29  p subcompact
+15:       toyota             corolla   1.8 1999   4 manual(m5)   f  26  35  r    compact
+16:    chevrolet            corvette   5.7 1999   8 manual(m6)   r  16  26  p    2seater
+17:        dodge   dakota pickup 4wd   5.2 1999   8 manual(m5)   4  11  17  r     pickup
+18:        dodge   dakota pickup 4wd   3.9 1999   6 manual(m5)   4  14  17  r     pickup
+19:         ford        explorer 4wd   4.0 1999   6 manual(m5)   4  15  19  r        suv
+20:         ford     f150 pickup 4wd   4.6 1999   8 manual(m5)   4  13  16  r     pickup
+21:         ford     f150 pickup 4wd   4.2 1999   6 manual(m5)   4  14  17  r     pickup
+22:       subaru        forester awd   2.5 1999   4 manual(m5)   4  18  25  r        suv
+23:   volkswagen                 gti   2.8 1999   6 manual(m5)   f  17  24  r    compact
+24:   volkswagen                 gti   2.0 1999   4 manual(m5)   f  21  29  r    compact
+25:       subaru         impreza awd   2.5 1999   4 manual(m5)   4  19  26  r subcompact
+26:       subaru         impreza awd   2.2 1999   4 manual(m5)   4  19  26  r subcompact
+27:   volkswagen               jetta   2.8 1999   6 manual(m5)   f  17  24  r    compact
+28:   volkswagen               jetta   2.0 1999   4 manual(m5)   f  21  29  r    compact
+29:   volkswagen               jetta   1.9 1999   4 manual(m5)   f  33  44  d    compact
+30:       nissan              maxima   3.0 1999   6 manual(m5)   f  19  25  r    midsize
+31:         ford             mustang   4.6 1999   8 manual(m5)   r  15  22  r subcompact
+32:         ford             mustang   3.8 1999   6 manual(m5)   r  18  26  r subcompact
+33:   volkswagen          new beetle   2.0 1999   4 manual(m5)   f  21  29  r subcompact
+34:   volkswagen          new beetle   1.9 1999   4 manual(m5)   f  35  44  d subcompact
+35:   volkswagen              passat   2.8 1999   6 manual(m5)   f  18  26  p    midsize
+36:   volkswagen              passat   1.8 1999   4 manual(m5)   f  21  29  p    midsize
+37:       nissan      pathfinder 4wd   3.3 1999   6 manual(m5)   4  15  17  r        suv
+38:        dodge ram 1500 pickup 4wd   5.2 1999   8 manual(m5)   4  11  16  r     pickup
+39:      hyundai              sonata   2.5 1999   6 manual(m5)   f  18  26  r    midsize
+40:      hyundai              sonata   2.4 1999   4 manual(m5)   f  18  27  r    midsize
+41:      hyundai             tiburon   2.0 1999   4 manual(m5)   f  19  29  r subcompact
+42:       toyota   toyota tacoma 4wd   3.4 1999   6 manual(m5)   4  15  17  r     pickup
+43:       toyota   toyota tacoma 4wd   2.7 1999   4 manual(m5)   4  15  20  r     pickup
+    manufacturer               model displ year cyl      trans drv cty hwy fl      class
+>           # My wish would be to extract the model from 1999 with the highest displ (I could use max, but I will extract the first row)
+>           mpg2[year == "1999" & grepl("manual", trans)][order(model, -displ), .SD[1], model]
+                  model manufacturer displ year cyl      trans drv cty hwy fl      class
+ 1:         4runner 4wd       toyota   3.4 1999   6 manual(m5)   4  15  17  r        suv
+ 2:                  a4         audi   2.8 1999   6 manual(m5)   f  18  26  p    compact
+ 3:          a4 quattro         audi   2.8 1999   6 manual(m5)   4  17  25  p    compact
+ 4:              altima       nissan   2.4 1999   4 manual(m5)   f  21  29  r    compact
+ 5:               camry       toyota   3.0 1999   6 manual(m5)   f  18  26  r    midsize
+ 6:        camry solara       toyota   3.0 1999   6 manual(m5)   f  18  26  r    compact
+ 7:               civic        honda   1.6 1999   4 manual(m5)   f  28  33  r subcompact
+ 8:             corolla       toyota   1.8 1999   4 manual(m5)   f  26  35  r    compact
+ 9:            corvette    chevrolet   5.7 1999   8 manual(m6)   r  16  26  p    2seater
+10:   dakota pickup 4wd        dodge   5.2 1999   8 manual(m5)   4  11  17  r     pickup
+11:        explorer 4wd         ford   4.0 1999   6 manual(m5)   4  15  19  r        suv
+12:     f150 pickup 4wd         ford   4.6 1999   8 manual(m5)   4  13  16  r     pickup
+13:        forester awd       subaru   2.5 1999   4 manual(m5)   4  18  25  r        suv
+14:                 gti   volkswagen   2.8 1999   6 manual(m5)   f  17  24  r    compact
+15:         impreza awd       subaru   2.5 1999   4 manual(m5)   4  19  26  r subcompact
+16:               jetta   volkswagen   2.8 1999   6 manual(m5)   f  17  24  r    compact
+17:              maxima       nissan   3.0 1999   6 manual(m5)   f  19  25  r    midsize
+18:             mustang         ford   4.6 1999   8 manual(m5)   r  15  22  r subcompact
+19:          new beetle   volkswagen   2.0 1999   4 manual(m5)   f  21  29  r subcompact
+20:              passat   volkswagen   2.8 1999   6 manual(m5)   f  18  26  p    midsize
+21:      pathfinder 4wd       nissan   3.3 1999   6 manual(m5)   4  15  17  r        suv
+22: ram 1500 pickup 4wd        dodge   5.2 1999   8 manual(m5)   4  11  16  r     pickup
+23:              sonata      hyundai   2.5 1999   6 manual(m5)   f  18  26  r    midsize
+24:             tiburon      hyundai   2.0 1999   4 manual(m5)   f  19  29  r subcompact
+25:   toyota tacoma 4wd       toyota   3.4 1999   6 manual(m5)   4  15  17  r     pickup
+                  model manufacturer displ year cyl      trans drv cty hwy fl      class
+>           # my goal now is actually from the orginal table to remove those rows, we will you then .I which will return the frow ID from those ones. However it should be a bit differently written. All of this in 1 line of code:
+>           mpg2[year == "1999" & grepl("manual", trans)] is same as mpg2[mpg2[, .I[year == "1999" & grepl("manual", trans)]]]
+Fehler: unerwartetes Symbol in "          mpg2[year == "1999" & grepl("manual", trans)] is"
+>           mpg2[year == "1999" & grepl("manual", trans)] is same as mpg2[mpg2[, .I[year == "1999" & grepl("manual", trans)], model]$V1]
+Fehler: unerwartetes Symbol in "          mpg2[year == "1999" & grepl("manual", trans)] is"
+>           # goal is to first get row ID (V1) of filtered data and keep our important variable for future steps
+>           mpg2[, .I[year == "1999" & grepl("manual", trans)], .(model, displ)]
+                  model displ  V1
+ 1:                  a4   1.8   2
+ 2:                  a4   2.8   6
+ 3:          a4 quattro   1.8   8
+ 4:          a4 quattro   2.8  13
+ 5:            corvette   5.7  24
+ 6:   dakota pickup 4wd   3.9  52
+ 7:   dakota pickup 4wd   5.2  56
+ 8: ram 1500 pickup 4wd   5.2  72
+ 9:        explorer 4wd   4.0  79
+10:     f150 pickup 4wd   4.2  85
+11:     f150 pickup 4wd   4.6  86
+12:             mustang   3.8  91
+13:             mustang   4.6  96
+14:               civic   1.6 100
+15:               civic   1.6 102
+16:               civic   1.6 103
+17:              sonata   2.4 110
+18:              sonata   2.5 114
+19:             tiburon   2.0 117
+20:              altima   2.4 142
+21:              maxima   3.0 149
+22:      pathfinder 4wd   3.3 152
+23:        forester awd   2.5 160
+24:         impreza awd   2.2 167
+25:         impreza awd   2.5 168
+26:         4runner 4wd   2.7 174
+27:         4runner 4wd   3.4 177
+28:               camry   2.2 180
+29:               camry   3.0 185
+30:        camry solara   2.2 188
+31:        camry solara   3.0 192
+32:             corolla   1.8 196
+33:   toyota tacoma 4wd   2.7 201
+34:   toyota tacoma 4wd   3.4 204
+35:                 gti   2.0 208
+36:                 gti   2.8 212
+37:               jetta   1.9 213
+38:               jetta   2.0 214
+39:               jetta   2.8 221
+40:          new beetle   1.9 222
+41:          new beetle   2.0 224
+42:              passat   1.8 228
+43:              passat   2.8 233
+                  model displ  V1
+>           # then order and get the first row
+>           mpg2[, .I[year == "1999" & grepl("manual", trans)], .(model, displ)][order(model, -displ), .SD[1], model]
+                  model displ  V1
+ 1:         4runner 4wd   3.4 177
+ 2:                  a4   2.8   6
+ 3:          a4 quattro   2.8  13
+ 4:              altima   2.4 142
+ 5:               camry   3.0 185
+ 6:        camry solara   3.0 192
+ 7:               civic   1.6 100
+ 8:             corolla   1.8 196
+ 9:            corvette   5.7  24
+10:   dakota pickup 4wd   5.2  56
+11:        explorer 4wd   4.0  79
+12:     f150 pickup 4wd   4.6  86
+13:        forester awd   2.5 160
+14:                 gti   2.8 212
+15:         impreza awd   2.5 168
+16:               jetta   2.8 221
+17:              maxima   3.0 149
+18:             mustang   4.6  96
+19:          new beetle   2.0 224
+20:              passat   2.8 233
+21:      pathfinder 4wd   3.3 152
+22: ram 1500 pickup 4wd   5.2  72
+23:              sonata   2.5 114
+24:             tiburon   2.0 117
+25:   toyota tacoma 4wd   3.4 204
+                  model displ  V1
+>           # V1 is the row ID from original table, we have then just to remove it from it 
+>           mpg2[!mpg2[, .I[year == "1999" & grepl("manual", trans)], .(model, displ)][order(model, -displ), .SD[1], model]$V1]
+     manufacturer  model displ year cyl      trans drv cty hwy fl   class
+  1:         audi     a4   1.8 1999   4   auto(l5)   f  18  29  p compact
+  2:         audi     a4   1.8 1999   4 manual(m5)   f  21  29  p compact
+  3:         audi     a4   2.0 2008   4 manual(m6)   f  20  31  p compact
+  4:         audi     a4   2.0 2008   4   auto(av)   f  21  30  p compact
+  5:         audi     a4   2.8 1999   6   auto(l5)   f  16  26  p compact
+ ---                                                                     
+205:   volkswagen passat   1.8 1999   4   auto(l5)   f  18  29  p midsize
+206:   volkswagen passat   2.0 2008   4   auto(s6)   f  19  28  p midsize
+207:   volkswagen passat   2.0 2008   4 manual(m6)   f  21  29  p midsize
+208:   volkswagen passat   2.8 1999   6   auto(l5)   f  16  26  p midsize
+209:   volkswagen passat   3.6 2008   6   auto(s6)   f  17  26  p midsize
+ ```
 
 ## Dose Response Curve
 
