@@ -111,7 +111,12 @@ The batch file is checking which OS you have:
 - 32 or 64bits, to know which .exe to install
 - XP or above, to adapt the way to write the 'promptx' variable
 
-The only things that you have to do is adapt where you exe is and if needed change the color and the output in the prompt : "$e[1;31m$p$s$e[1;34m$g$s$e[1;37m"
+The only things that you have to do is adapt where you exe is and if needed change the color and the output in the prompt :
+ "$e[1;31m$p$s$e[1;34m$g$s$e[1;37m"
+ 
+ 
+ 
+ ]
 
 
 ```shell
@@ -1174,6 +1179,18 @@ I created for example a small reg file to be able to convert rapidly my gpx. I g
 ```
 
 [Posted on Stackoverflow](https://stackoverflow.com/a/54953717/2444948)
+
+
+## Get event sleep hibernate active battery windows 10
+
+```shell
+powercfg /sleepstudy
+```
+
+Sleep Study report saved to file path C:\WINDOWS\system32\sleepstudy-report.html.
+
+Source: [https://superuser.com/questions/1258473/display-all-power-related-events-turn-on-off-sleep-hibernate](https://superuser.com/questions/1258473/display-all-power-related-events-turn-on-off-sleep-hibernate)
+
 
 # HTML
 

@@ -6,9 +6,11 @@ show_in_nav: false
 
 <html>
 	<head>
-
+	
     	<title>A Leaflet map!</title>
 
+	<!-- Browserify	 --> 
+    	<!-- <script src="js/node_modules/browserify/index.js"></script> -->
 
 	<!-- leaflet -->
     	<link rel="stylesheet" href="js/node_modules/leaflet/dist/leaflet.css" />
@@ -41,7 +43,7 @@ show_in_nav: false
 	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
 	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
 	<!-- to update with https://www.npmjs.com/package/leaflet-ajax -->
-    	<link  href="js/GeoJSON.Ajax/GeoJSON.Style.css" rel="stylesheet"/>
+    	<link  href="js/GeoJSON.Ajax/GeoJSON.Style.css" rel="stylesheet" />
     	<script src="js/GeoJSON.Ajax/GeoJSON.Style.js"></script>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.js"></script>
     	<script src="js/GeoJSON.Ajax/GeoJSON.Ajax.WRI.js"></script>
@@ -66,14 +68,20 @@ show_in_nav: false
 	<script src="js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 	<!-- leaflet-routing-machine -->
-	<script src="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+	<!-- browserify leaflet-routing-machine.js -o leaflet-routing-machine2.js -->
+	<script src="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine2.js"></script>
 	<link rel="stylesheet" href="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 
 	<!-- lrm-graphhopper -->
-	<script src="js/node_modules/lrm-graphhopper/lrm-graphhopper.js"></script>
+	<!-- Run in cmd: -->
+	<!-- C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\js\node_modules\lrm-graphhopper\src > browserify L.Routing.GraphHopper.js -o L.Routing.GraphHopper2.js -->
+	<script src="js/node_modules/lrm-graphhopper/src/L.Routing.GraphHopper2.js"></script>
 
 	<!-- FileLayer -->
 	<script src="js/node_modules/leaflet-filelayer/src/leaflet.filelayer.js"></script>
+	<!-- Need togeojson -->
+	<script src="js/node_modules/togeojson/togeojson.js"></script>
+	
 
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
@@ -82,7 +90,27 @@ show_in_nav: false
     	<script src="js/Personal/Leaflet_overlays.js"></script>
     	<script src="js/Personal/control.js"></script>
 
-    	<style>#map{ width: 100%; height: 500px; }</style>
+    	<style>
+		#map { 
+			width: 100%;
+			height: 500px;
+		}
+		.legend {
+			line-height: 13px;
+			color: #555;
+			padding: 4px 6px;
+			background: rgba(255, 255, 255, 0.85);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+		}
+		.legend i {
+			width: 12px;
+			height: 12px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.8;
+		}
+	</style>
 
     </head>
     <body>
@@ -93,7 +121,11 @@ show_in_nav: false
     	<br>
     	<br>
 
+
+
+
     	<script>
+
 
     			// initialize the map
     		// only add 1 layer here to avoid the 2 layers to load
@@ -107,15 +139,16 @@ show_in_nav: false
     		});
 
     		L.control.layers(baseLayers, overlays).addTo(map);
-				L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
+			
+		L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 
-				L.Control.geocoder({
-					position: 'topleft',
-					expand: 'click',
-					defaultMarkGeocode: false
-		    }).on('markgeocode', function(e) {
-	        map.setView(e.geocode.center, 11);
-		    }).addTo(map);
+		L.Control.geocoder({
+			position: 'topleft',
+			expand: 'click',
+			defaultMarkGeocode: false
+		}).on('markgeocode', function(e) {
+			map.setView(e.geocode.center, 11);
+		}).addTo(map);
 
 
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
@@ -196,54 +229,109 @@ show_in_nav: false
 
 				g.addTo(loopinfo.layer[j]);
 			};
-    		};
+		};
 		
 
 
-    		// DAV Hutten
-    		for (var i = 0; i < DAVhutten.length; i++) {
-    			var p = new L.marker([DAVhutten[i][2], DAVhutten[i][1]], {icon: hutteIcon}).bindPopup("Name: " + DAVhutten[i][0] + "</br>" +
-    			"<a href='" + DAVhutten[i][3] + "' target='_blank'>Check places</a> </br>");
-    			p.addTo(Hutten);
-    		};
+		// DAV Hutten
+		for (var i = 0; i < DAVhutten.length; i++) {
+			var p = new L.marker([DAVhutten[i][2], DAVhutten[i][1]], {icon: hutteIcon}).bindPopup("Name: " + DAVhutten[i][0] + "</br>" +
+			"<a href='" + DAVhutten[i][3] + "' target='_blank'>Check places</a> </br>");
+			p.addTo(Hutten);
+		};
 
 
-    		new L.GeoJSON.Ajax.WRIpoi({ // Europe mountain points of interest // GeoJSON.Ajax point from Refuge.info
-    			idAjaxStatus: 'ajax-status'
-    		}).addTo(refugepoi);
+		new L.GeoJSON.Ajax.WRIpoi({ // Europe mountain points of interest // GeoJSON.Ajax point from Refuge.info
+			idAjaxStatus: 'ajax-status'
+		}).addTo(refugepoi);
 
 		// Minimap
 		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
 			position: 'bottomleft'
 		}).addTo(map);
 
-    		var hash = new L.Hash(map, baseLayers);
-
-				// FileLayer
-				L.Control.fileLayerLoad({
-					layer: L.geoJson,
-					layerOptions: {style: {color:'red'}},
-					addToMap: true,
-					fileSizeLimit: 3000,
-				}).addTo(map);
+		var hash = new L.Hash(map, baseLayers);
 
 
 
+		// Legend from OpenSlopeMap : https://www.openslopemap.org/leaflet/js/map.js
+		var legend = L.control({position: 'bottomleft'});
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+			var labels = [
+				'Legend from',
+				'OpenSlopeMap',
+				'<i style="background:#FFFFFF"></i>0&deg;&ndash;9&deg;',
+				'<i style="background:#00FF00"></i>10&deg;&ndash;29&deg;',
+				'<i style="background:#F0E100"></i>30&deg;&ndash;34&deg;',
+				'<i style="background:#FF9B00"></i>35&deg;&ndash;39&deg;',
+				'<i style="background:#FF0000"></i>40&deg;&ndash;42&deg;',
+				'<i style="background:#FF26FF"></i>43&deg;&ndash;45&deg;',
+				'<i style="background:#A719FF"></i>46&deg;&ndash;49&deg;',
+				'<i style="background:#6E00FF"></i>50&deg;&ndash;54&deg;',
+				'<i style="background:#0000FF"></i>55&deg;&ndash;90&deg;'];
 
-		L.Routing.control({
-			router: new L.Routing.GraphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
-			waypoints: [
-				L.latLng(57.74, 11.94),
-				L.latLng(57.6792, 11.949)
-			],
-			routeWhileDragging: true
+			div.innerHTML = labels.join('<br>');
+			return div;
+		};
+		legend.addTo(map);
+		
+		
+
+
+
+
+		// FileLayer - add gpx
+		var style = {
+			color: 'red',
+			opacity: 1.0,
+			fillOpacity: 1.0,
+			weight: 3,
+			clickable: false
+		};
+		//L.Control.FileLayerLoad.LABEL = '<img class="icon" src="https://www.openslopemap.org/leaflet/images/folder.svg" alt="f"/>';
+		L.Control.FileLayerLoad({
+			fitBounds: true,
+			layerOptions: {
+				style: style,
+				pointToLayer: function (data, latlng) {
+					return L.circleMarker(
+					latlng,
+					{ style: style }
+					);
+				}
+			}
 		}).addTo(map);
+		
+		
+		
+		// L.Control.fileLayerLoad({
+			// layer: L.geoJson,
+			// layerOptions: {style: {color:'red'}},
+			// addToMap: true,
+			// fileSizeLimit: 3000,
+		// }).addTo(map);
 
-		var router = myRoutingControl.getRouter();
-		router.on('response',function(e){
-		  console.log('This routing request consumed ' + e.credits + ' credit(s)');
-		  console.log('You have ' + e.remaining + ' left');
-		});
+
+
+		// Functionniert :)
+		// Functionniert :)
+		// Functionniert :)
+		// Functionniert :)
+		// L.Routing.control({
+			// router: new L.Routing.GraphHopper('177389ec-e9ce-4c3e-bade-c44b22062ef1'),
+			// waypoints: [
+				// L.latLng(57.74, 11.94),
+				// L.latLng(57.6792, 11.949)
+			// ],
+			// routeWhileDragging: true
+		// }).addTo(map);
+
+		// var router = myRoutingControl.getRouter();
+		// router.on('response',function(e){
+		  // console.log('This routing request consumed ' + e.credits + ' credit(s)');
+		  // console.log('You have ' + e.remaining + ' left');
+		// });
 		
 		
 

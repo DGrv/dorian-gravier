@@ -76,12 +76,42 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
+var openslopemapLR = L.tileLayer('https://tileserver{s}.openslopemap.org/OSloMap_LR_AlpsEast_15/{z}/{x}/{y}.png', {
+	id: 'openslopemap.standard-lr',
+	maxZoom: 19,
+	maxNativeZoom: 15,
+	subdomains: ['1','2','3','4'], 
+	attribution: '&copy; <a href="https://www.openslopemap.org/projekt/lizenzen/" target="_blank">OpenSlopeMap</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC-BY-SA</a>'
+});
+
+var basemapATOrtho = L.tileLayer('https://maps{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg', {
+	id: 'basemapATOrtho', 
+	maxZoom: 19, 
+	subdomains: ['1','2','3','4'],
+	attribution: '&copy; <a href="https://www.basemap.at" target="_blank">basemap.at</a>, <a href="https://creativecommons.org/licenses/by/3.0/at/deed.de" target="_blank">CC BY 3.0 AT</a>'
+	});
+var basemapATSchummerungGelaende = L.tileLayer('https://maps{s}.wien.gv.at/basemap/bmapgelaende/grau/google3857/{z}/{y}/{x}.jpeg', {
+	id: 'basemapATSchummerungGelaende',
+	maxZoom: 22,
+	maxNativeZoom: 17, 
+	subdomains: ['1','2','3','4'], 
+	attribution: '&copy; <a href="https://www.basemap.at" target="_blank">basemap.at</a>, <a href="https://creativecommons.org/licenses/by/3.0/at/deed.de" target="_blank">CC BY 3.0 AT</a>'
+	});
+var basemapATSchummerungOberflaeche = L.tileLayer('https://maps{s}.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.jpeg', {
+	id: 'basemapATSchummerungOberflaeche',
+	maxZoom: 22,
+	maxNativeZoom: 17, 
+	subdomains: ['1','2','3','4'],
+	attribution: '&copy; <a href="https://www.basemap.at" target="_blank">basemap.at</a>, <a href="https://creativecommons.org/licenses/by/3.0/at/deed.de" target="_blank">CC BY 3.0 AT</a>'
+	});
+
 
 // Geoadmin info
 // http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml
 
   var baseLayers = {
     "OpenTopo": topo,
+	"OpenSlopeMap_classic_LR": openslopemapLR,
     "OpenStreetMapFR": OpenStreetMap_France,
     "IGN_Geoportail": GeoportailFrance_ignMaps,
     "OpenStreetMapCH": OpenStreetMap_CH,
@@ -94,5 +124,8 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     "GeoAdmin": GeoAdmin,
     "Kompass": Kompass,
     "Austria_Topo": Austria_topo,
+	"Austria_Schummerung_Gelaende": basemapATSchummerungGelaende,
+	"Austria_Schummerung_Oberflaeche": basemapATSchummerungOberflaeche,
+	"Austria_Orthofoto": basemapATOrtho,
 	"Esri_WorldImagery": Esri_WorldImagery
   };
