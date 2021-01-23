@@ -204,11 +204,11 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start title
 	echo.
 
-	copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
+	REM copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 	
 	
 	if NOT EXIST 00000_title.mp4 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=7 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='| %title% |'" -video_track_timescale %tbs% 000_temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='| %title% |'" -video_track_timescale %tbs% 000_temp.mp4
 		:: add audio
 		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		del 000_temp.mp4
@@ -230,7 +230,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 	
 	if not exist music.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -video_track_timescale %tbs% zzzzzz_music.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -video_track_timescale %tbs% zzzzzz_music.mp4
 	)
 
 	if NOT EXIST zzzzzz_music.mp4 (
@@ -246,11 +246,11 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			set /a high=!high!*75
 			if !x!==1 (	
 				set /a hightitle=!high!-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %tbs% zzz.mp4
-				ffmpeg -stats -loglevel error -i zzz.mp4 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %tbs% zzz.mp4
+				ffmpeg -stats -loglevel error -i zzz.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
 				del zzz.mp4
 			) else (
-				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile=arial.ttf:fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4
@@ -262,12 +262,16 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		del zzzb.mp4
 	)
 
-	del arial.ttf
+	REM del arial.ttf
 
 
 
 
 :: ---------- Modification ----------
+
+
+	powercfg /hibernate off
+
 
 	echo.
 	echo -------------------------------------------------
@@ -380,6 +384,14 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		rename output.mp4 output_high_temp.mp4
 	)
 	del output.mp4
+	
+	
+	echo.
+	echo -------------------------------------------------
+	echo INFO - Start bind jingle if exist
+	echo.
+	
+	
 	if EXIST begin.mp3 (
 		ffmpeg -stats -loglevel error -i output_high_temp.mp4 -i begin.mp3 -filter_complex amix=inputs=2:duration=longest -c:v copy -ac 2 output_high_jiggle_start.mp4
 	) 
@@ -387,6 +399,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		rename output_high_temp.mp4 output_high_jiggle_start.mp4
 	)
 	del output_high_temp.mp4
+	
+	
 	if EXIST end.mp3 (
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_high_jiggle_start.mp4 > tempfile
 		set /p dura=<tempfile
@@ -404,6 +418,25 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	)
 	del output_high_jiggle_start.mp4
 	
+	
+	
+	
+	WHERE ffmpeg-normalize
+	IF %ERRORLEVEL% EQU 0 (
+		rename output_high.mp4 output_high_temp_ffmpeg-normalize.mp4
+		echo.
+		echo [INFO] - use ffmpeg-normlize
+		echo [INFO] - use ffmpeg-normlize
+		echo [INFO] - use ffmpeg-normlize
+		echo [INFO] - use ffmpeg-normlize
+		echo [INFO] - use ffmpeg-normlize
+		echo.
+		ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
+	)	
+		::del output_high_temp_ffmpeg-normalize.mp4
+	
+	
+	
 	echo.
 	echo -------------------------------------------------
 	echo INFO - Start convert low
@@ -416,6 +449,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
 	rename output_720_crf25.mp4 %title2%_low.mp4
 	rename output_high.mp4 %title2%_raw.mp4
+
+	powercfg /hibernate on
 
 	pause
 	
