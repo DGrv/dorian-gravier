@@ -28,6 +28,9 @@ echo.
 echo.
 
 set /p url="Give me the path of one .ts segment, you segment should be named like this 'seg-%%p-v1-a1.ts' with %%p from 1 to 9 :   "
+set /p name="Which name to give: "
+set name=%name::=-%
+set name=%name:'=%
 
 echo.
 
@@ -57,19 +60,19 @@ FOR /L %%p IN (1, 1, 2000) DO (
 )
 
 :next
-:: create timestamp depending on timeformat (language time settings) English will print Mon 09/03/2020 and FR 03/09/2020
-set /a check=%DATE:~0,1%
-set check2=%DATE:~0,1%
-if "%check%"=="%check2%" (
-	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
-) else (
-	set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
-)
+REM :: create timestamp depending on timeformat (language time settings) English will print Mon 09/03/2020 and FR 03/09/2020
+REM set /a check=%DATE:~0,1%
+REM set check2=%DATE:~0,1%
+REM if "%check%"=="%check2%" (
+	REM set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
+REM ) else (
+	REM set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+REM )
 
 
 
 (for %%i in (*.ts) do @echo file '%%i') > list.txt
-ffmpeg -f concat -i list.txt -c copy C:\Users\doria\Downloads\%TIMESTAMP%.mp4
+ffmpeg -f concat -i list.txt -c copy "C:\Users\doria\Downloads\%name%.mp4"
 REM (for %i in (*.ts) do @echo file '%i') > list.txt
 REM ffmpeg -f concat -i list.txt -c copy C:\Users\doria\Downloads\new2.mp4
 
@@ -78,7 +81,7 @@ cd C:\Users\doria\Downloads\
 echo.
 echo [INFO] - 'temp' directory will be remove, quit if you do not want, type enter if ok
 REM pause 
-rmdir temp /s /q
+::rmdir temp /s /q
 
 
 
