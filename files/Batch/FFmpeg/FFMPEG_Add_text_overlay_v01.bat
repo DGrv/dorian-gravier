@@ -14,8 +14,8 @@ echo Will add text overlay where you want on your video
 	echo.
 
 
-set /p path="Give me the Video path: "
-set pathnew=%path:.mp4=%
+set /p pathfile="Give me the Video path: "
+set pathnew=%pathfile:.mp4=%
 
 echo pathnew : %pathnew%
 
@@ -26,11 +26,8 @@ set /p ypos="Give me your y position in fraction (1/10 will be on the top, 9/10 
 set /p text="Give me you text: "
 set /p fontsize="Give me your fontsize: "
 
-ffmpeg -f lavfi -i color=size=320x240:duration=10:rate=25:color=blue -vf "drawtext=fontfile=/path/to/font.ttf:fontsize=30:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='Stack Overflow'" output.mp4
 
-
-echo ffmpeg -i %path% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%" -codec:a copy %pathnew%_new.mp4
-ffmpeg -i %path% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%" -codec:a copy %pathnew%_new.mp4
+ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%" -codec:a copy %pathnew%_new.mp4
 
 
 :: source https://stackoverflow.com/questions/17623676/text-on-video-ffmpeg

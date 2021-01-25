@@ -296,6 +296,7 @@ var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_201903_Sonntagspitze.gpx',
 'files/gpx/Schitour/ST_201911_Stotzigen_Firsten.gpx',
 'files/gpx/Schitour/ST_202101_Rangiswangerhorn.gpx',
+'files/gpx/Schitour/ST_202101_Rindalphorn.gpx',
 'files/gpx/Schitour/ST_202101_Sylvester_001.gpx',
 'files/gpx/Schitour/ST_202101_Sylvester_002.gpx',
 'files/gpx/Schitour/ST_20210116_Rottachberg.gpx']

@@ -4,6 +4,24 @@ SetLocal EnableDelayedExpansion
 
 :: Edit the line below to match your path to the ffmpeg executable.
 
+
+@echo off
+SetLocal EnableDelayedExpansion
+
+
+echo "--------------------------------------------------------------------------------"
+echo "   _____             _                _____                 _                   "
+echo "  |  __ \           (_)              / ____|               (_)                  "
+echo "  | |  | | ___  _ __ _  __ _ _ __   | |  __ _ __ __ ___   ___  ___ _ __         "
+echo "  | |  | |/ _ \| '__| |/ _` | '_ \  | | |_ | '__/ _` \ \ / / |/ _ \ '__|        "
+echo "  | |__| | (_) | |  | | (_| | | | | | |__| | | | (_| |\ V /| |  __/ |           "
+echo "  |_____/ \___/|_|  |_|\__,_|_| |_|  \_____|_|  \__,_| \_/ |_|\___|_|           "
+echo "                                                                                "
+echo "--------------------------------------------------------------------------------"
+REM http://www.network-science.de/ascii/
+echo.
+
+
 echo Put your video in 1 folder, order with names, put your mp3 inside (not matter the name, also ordered if needed).
 
 
@@ -91,7 +109,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			set /p firstmp4=<listmp4.txt
 			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
 		)
-		set /p tbs="Which tbs (if 1/30000, choose 30000): "
+		set /p tbs="Which tbs (if 1/24000, choose 24000): "
 		set tbs2=1/%tbs%
 		
 		echo Time_base of your audios:
@@ -433,7 +451,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		echo.
 		ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
 	)	
-		::del output_high_temp_ffmpeg-normalize.mp4
+	del output_high_temp_ffmpeg-normalize.mp4
 	
 	
 	

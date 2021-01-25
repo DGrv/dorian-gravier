@@ -39,9 +39,9 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a high=!high!*75
 	::echo high !high!
 	if %%x==1 (
-		ffmpeg -stats -loglevel error  -f lavfi -i color=c=black:s=2704x1520:d=%sec% -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 30000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error  -f lavfi -i color=c=black:s=2704x1520:d=%sec% -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 24000 0000000%%x.mp4
 	) else (
-		ffmpeg -stats -loglevel error  -i 0000000!before!.mp4 -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 30000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error  -i 0000000!before!.mp4 -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 24000 0000000%%x.mp4
 		del 0000000!before!.mp4
 		set last=0000000%%x.mp4
 	)
@@ -50,7 +50,7 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 
 
 ffmpeg -stats -loglevel error  -i %last% -f lavfi -i aevalsrc=0 -shortest -y 0000000b.mp4
-ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 30000 Title_new.mp4
+ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 24000 Title_new.mp4
 del %last%
 del 0000000b.mp4
 
