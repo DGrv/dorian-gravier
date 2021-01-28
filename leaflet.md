@@ -9,6 +9,7 @@ show_in_nav: false
 	
     	<title>A Leaflet map!</title>
 
+
 	<!-- Browserify	 --> 
     	<!-- <script src="js/node_modules/browserify/index.js"></script> -->
 
@@ -55,6 +56,7 @@ show_in_nav: false
 	<script src="js/node_modules/leaflet-minimap/src/Control.MiniMap.js"></script>
 	<link  href="js/node_modules/leaflet-minimap/src/Control.MiniMap.css" rel="stylesheet"/>
 
+
 	<!-- topcenter -->
 	<!-- Not in npm -->
 	<!-- Not in npm -->
@@ -79,16 +81,19 @@ show_in_nav: false
 
 	<!-- FileLayer -->
 	<script src="js/node_modules/leaflet-filelayer/src/leaflet.filelayer.js"></script>
-	<!-- Need togeojson -->
-	<script src="js/node_modules/togeojson/togeojson.js"></script>
 	
+	<!-- Leaflet.PolylineMeasure -->
+	<link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
+	<script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+		<!-- need those to download track -->
+		<script src="https://unpkg.com/togeojson@0.16.0/togeojson.js"></script>
+		<script src="https://unpkg.com/togpx@0.5.4/index.js"></script>
 
     	<!-- Personal js -->
     	<script src="js/Personal/DAVHut.js"></script>
     	<script src="js/Personal/gpx.js"></script>
     	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Leaflet_overlays.js"></script>
-    	<script src="js/Personal/control.js"></script>
 
     	<style>
 		#map { 
@@ -110,6 +115,11 @@ show_in_nav: false
 			margin-right: 8px;
 			opacity: 0.8;
 		}
+		.leaflet-control {
+			float: left;
+			clear: none; /* normally 'both'  this is changing the position of the controls when they are situated on the same thin : bottomleft for exampl*/
+			}
+		<\style>
 	</style>
 
     </head>
@@ -130,8 +140,8 @@ show_in_nav: false
     			// initialize the map
     		// only add 1 layer here to avoid the 2 layers to load
     		var map = L.map('map', {
-    			center: [47.5, 9.6],
-    			zoom: 8,
+    			center: [47.4710, 10.2859],
+    			zoom: 10,
     			layers: Stamen_Toner,
     			fullscreenControl: {
     				pseudoFullscreen: true // if true, fullscreen to page width and height
@@ -141,14 +151,6 @@ show_in_nav: false
     		L.control.layers(baseLayers, overlays).addTo(map);
 			
 		L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
-
-		L.Control.geocoder({
-			position: 'topleft',
-			expand: 'click',
-			defaultMarkGeocode: false
-		}).on('markgeocode', function(e) {
-			map.setView(e.geocode.center, 11);
-		}).addTo(map);
 
 
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
@@ -245,15 +247,6 @@ show_in_nav: false
 			idAjaxStatus: 'ajax-status'
 		}).addTo(refugepoi);
 
-		// Minimap
-		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
-			position: 'bottomleft'
-		}).addTo(map);
-
-		var hash = new L.Hash(map, baseLayers);
-
-
-
 		// Legend from OpenSlopeMap : https://www.openslopemap.org/leaflet/js/map.js
 		var legend = L.control({position: 'bottomleft'});
 		legend.onAdd = function (map) {
@@ -276,32 +269,42 @@ show_in_nav: false
 		};
 		legend.addTo(map);
 		
+		// Minimap
+		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
+			position: 'bottomleft'
+		}).addTo(map);
+
+		var hash = new L.Hash(map, baseLayers);
+
+
+
+		
 		
 
 
 
 
-		// FileLayer - add gpx
-		var style = {
-			color: 'red',
-			opacity: 1.0,
-			fillOpacity: 1.0,
-			weight: 3,
-			clickable: false
-		};
-		//L.Control.FileLayerLoad.LABEL = '<img class="icon" src="https://www.openslopemap.org/leaflet/images/folder.svg" alt="f"/>';
-		L.Control.FileLayerLoad({
-			fitBounds: true,
-			layerOptions: {
-				style: style,
-				pointToLayer: function (data, latlng) {
-					return L.circleMarker(
-					latlng,
-					{ style: style }
-					);
-				}
-			}
-		}).addTo(map);
+		// // FileLayer - add gpx
+		// var style = {
+			// color: 'red',
+			// opacity: 1.0,
+			// fillOpacity: 1.0,
+			// weight: 3,
+			// clickable: false
+		// };
+		// //L.Control.FileLayerLoad.LABEL = '<img class="icon" src="https://www.openslopemap.org/leaflet/images/folder.svg" alt="f"/>';
+		// L.Control.FileLayerLoad({
+			// fitBounds: true,
+			// layerOptions: {
+				// style: style,
+				// pointToLayer: function (data, latlng) {
+					// return L.circleMarker(
+					// latlng,
+					// { style: style }
+					// );
+				// }
+			// }
+		// }).addTo(map);
 		
 		
 		
@@ -334,6 +337,127 @@ show_in_nav: false
 		// });
 		
 		
+		// ----------------------------- Polylinemeasure -----------------------------
+		
+		
+		var options = {
+			position: 'topleft',            // Position to show the control. Values: 'topright', 'topleft', 'bottomright', 'bottomleft'
+			unit: 'metres',                 // Show imperial or metric distances. Values: 'metres', 'landmiles', 'nauticalmiles'
+			clearMeasurementsOnStop: true,  // Clear all the measurements when the control is unselected
+			showBearings: false,            // Whether bearings are displayed within the tooltips
+			bearingTextIn: 'In',            // language dependend label for inbound bearings
+			bearingTextOut: 'Out',          // language dependend label for outbound bearings
+			tooltipTextFinish: 'Click to <b>finish line</b><br>',
+			tooltipTextDelete: 'Press SHIFT-key and click to <b>delete point</b>',
+			tooltipTextMove: 'Click and drag to <b>move point</b><br>',
+			tooltipTextResume: '<br>Press CTRL-key and click to <b>resume line</b>',
+			tooltipTextAdd: 'Press CTRL-key and click to <b>add point</b>',
+											// language dependend labels for point's tooltips
+			measureControlTitleOn: 'Turn on PolylineMeasure',   // Title for the control going to be switched on
+			measureControlTitleOff: 'Turn off PolylineMeasure', // Title for the control going to be switched off
+			measureControlLabel: '&#8614;', // Label of the Measure control (maybe a unicode symbol)
+			measureControlClasses: [],      // Classes to apply to the Measure control
+			showClearControl: true,        // Show a control to clear all the measurements
+			clearControlTitle: 'Clear Measurements', // Title text to show on the clear measurements control button
+			clearControlLabel: '&times',    // Label of the Clear control (maybe a unicode symbol)
+			clearControlClasses: [],        // Classes to apply to clear control button
+			showUnitControl: true,         // Show a control to change the units of measurements
+			distanceShowSameUnit: false,    // Keep same unit in tooltips in case of distance less then 1 km/mi/nm
+			unitControlTitle: {             // Title texts to show on the Unit Control button
+				text: 'Change Units',
+				metres: 'metres',
+				landmiles: 'land miles',
+				nauticalmiles: 'nautical miles'
+			},
+			unitControlLabel: {             // Unit symbols to show in the Unit Control button and measurement labels
+				metres: 'm',
+				kilometres: 'km',
+				feet: 'ft',
+				landmiles: 'mi',
+				nauticalmiles: 'nm'
+			},
+			tempLine: {                     // Styling settings for the temporary dashed line
+				color: '#00f',              // Dashed line color
+				weight: 2                   // Dashed line weight
+			},          
+			fixedLine: {                    // Styling for the solid line
+				color: '#006',              // Solid line color
+				weight: 2                   // Solid line weight
+			},
+			startCircle: {                  // Style settings for circle marker indicating the starting point of the polyline
+				color: '#000',              // Color of the border of the circle
+				weight: 1,                  // Weight of the circle
+				fillColor: '#0f0',          // Fill color of the circle
+				fillOpacity: 1,             // Fill opacity of the circle
+				radius: 3                   // Radius of the circle
+			},
+			intermedCircle: {               // Style settings for all circle markers between startCircle and endCircle
+				color: '#000',              // Color of the border of the circle
+				weight: 1,                  // Weight of the circle
+				fillColor: '#ff0',          // Fill color of the circle
+				fillOpacity: 1,             // Fill opacity of the circle
+				radius: 3                   // Radius of the circle
+			},
+			currentCircle: {                // Style settings for circle marker indicating the latest point of the polyline during drawing a line
+				color: '#000',              // Color of the border of the circle
+				weight: 1,                  // Weight of the circle
+				fillColor: '#f0f',          // Fill color of the circle
+				fillOpacity: 1,             // Fill opacity of the circle
+				radius: 3                   // Radius of the circle
+			},
+			endCircle: {                    // Style settings for circle marker indicating the last point of the polyline
+				color: '#000',              // Color of the border of the circle
+				weight: 1,                  // Weight of the circle
+				fillColor: '#f00',          // Fill color of the circle
+				fillOpacity: 1,             // Fill opacity of the circle
+				radius: 3                   // Radius of the circle
+			},
+		};
+		
+		
+		L.Control.PolylineMeasureOSM = L.Control.PolylineMeasure.extend({
+			onAdd: function(map) {
+				var container = L.Control.PolylineMeasure.prototype.onAdd.call(this, map);
+
+				this._createControl("&#10515;", "Download Track in gpx", this.options.measureControlClasses, container, this.exportGpx, this);
+
+				return container;
+			},
+
+			exportGpx: function(){
+				this.downloadFile(togpx(this._layerPaint.toGeoJSON()));
+			},
+
+			downloadFile: function(content){
+				var textToSave = content;
+				var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+				var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+				var fileNameToSaveAs = "Track.gpx"
+				
+				var downloadLink = document.createElement("a");
+				downloadLink.download = fileNameToSaveAs;
+				downloadLink.innerHTML = content;
+				downloadLink.href = textToSaveAsURL;
+				downloadLink.onclick = function(event){document.body.removeChild(event.target)};
+				downloadLink.style.display = "none";
+				document.body.appendChild(downloadLink);
+				
+				downloadLink.click();
+			}
+		});
+		
+		new L.Control.PolylineMeasureOSM(options).addTo(map);
+
+		// map.addControl( new L.Control.Gps({marker: new L.Marker([0,0])}) );
+		
+		
+		L.Control.geocoder({
+			position: 'topleft',
+			expand: 'click',
+			defaultMarkGeocode: false
+		}).on('markgeocode', function(e) {
+			map.setView(e.geocode.center, 11);
+		}).addTo(map);
 
 
 

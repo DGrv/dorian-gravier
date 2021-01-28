@@ -20,4 +20,4 @@ set /p input="Give me the path of your VIDEO file: "
 set output=%input:.mp4=%
 set /p inputa="Give me the path of your AUDIO file: "
 
-ffmpeg -stats -loglevel error -i %input% -i %inputa% -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 %output%_audio.mp4
+ffmpeg -stats -loglevel error -i %input% -i %inputa% -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %output%_audio.mp4

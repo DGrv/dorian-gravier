@@ -25,11 +25,13 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 )
 
 :: add the option to get them on the right
+	:: could use (w-wtext)/2 but the parenthesis makes problem in a batch
 if "%ali%" == "y" (
-	set xpos=("w-text_w)/2"
+	set xpos=w*0.5-text_w*0.5
 ) else (
-	set xpos="1/10*w"
+	set xpos=1/10*w
 )
+
 
 FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a before=%%x-1
@@ -37,7 +39,6 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a high=!high!/2
 	set /a high=%%x-!high!
 	set /a high=!high!*75
-	::echo high !high!
 	if %%x==1 (
 		ffmpeg -stats -loglevel error  -f lavfi -i color=c=black:s=2704x1520:d=%sec% -vf drawtext="fontfile=arial.ttf:fontsize=50:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:text='!title%%x!'" -video_track_timescale 24000 0000000%%x.mp4
 	) else (
@@ -48,9 +49,10 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 )
 
 
+ffmpeg -stats -loglevel error  -i %last% -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 24000 -shortest -y Title_new.mp4
 
-ffmpeg -stats -loglevel error  -i %last% -f lavfi -i aevalsrc=0 -shortest -y 0000000b.mp4
-ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 24000 Title_new.mp4
+REM ffmpeg -stats -loglevel error  -i %last% -f lavfi -i aevalsrc=0 -shortest -y 0000000b.mp4
+REM ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 24000 Title_new.mp4
 del %last%
 del 0000000b.mp4
 
