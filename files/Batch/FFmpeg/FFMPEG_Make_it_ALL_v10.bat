@@ -152,10 +152,14 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 				@echo file '%%i' >> listmp3.txt
 			)
 		)
-		ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy input_temp.mp3
-		ffmpeg -stats -loglevel error -i input_temp.mp3 -ar %tbsa% input.mp3
-		del input_temp.mp3
-		del listmp3.txt
+		if exist listmp3.txt (
+			ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy input_temp.mp3
+			ffmpeg -stats -loglevel error -i input_temp.mp3 -ar %tbsa% input.mp3
+			if exist input_temp.mp3 (
+				del input_temp.mp3
+			)
+				del listmp3.txt
+		)
 	)
 
 	
@@ -401,7 +405,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	if NOT EXIST output_high_temp.mp4 (
 		rename output.mp4 output_high_temp.mp4
 	)
-	del output.mp4
+	if exist output.mp4 (
+		del output.mp4
+	)
 	
 	
 	echo.
@@ -416,8 +422,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	if NOT EXIST output_high_jiggle_start.mp4 (
 		rename output_high_temp.mp4 output_high_jiggle_start.mp4
 	)
-	del output_high_temp.mp4
-	
+	if exist output_high_temp.mp4 (
+		del output_high_temp.mp4
+	)
 	
 	if EXIST end.mp3 (
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_high_jiggle_start.mp4 > tempfile
@@ -434,8 +441,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	if NOT EXIST output_high.mp4 (
 		rename output_high_jiggle_start.mp4 output_high.mp4
 	)
-	del output_high_jiggle_start.mp4
-	
+	if exist output_high_jiggle_start.mp4 (
+		del output_high_jiggle_start.mp4
+	)
 	
 	
 	
@@ -451,8 +459,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		echo.
 		ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
 	)	
-	del output_high_temp_ffmpeg-normalize.mp4
-	
+	if exist output_high_temp_ffmpeg-normalize.mp4 (
+		del output_high_temp_ffmpeg-normalize.mp4
+	)
 	
 	
 	echo.
@@ -461,11 +470,16 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 	
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
-	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
-	ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
-	del output_720_crf25_temp.mp4
+	ffmpeg -stats -loglevel error -i output_1920_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
+	REM Was use before for Handy because the format was not passing ...
+	REM ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
+	
+	REM if exist output_720_crf25_temp.mp4 (
+		REM del output_720_crf25_temp.mp4
+	REM )
 	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
-	rename output_720_crf25.mp4 %title2%_low.mp4
+	rename output_720_crf25_temp.mp4 %title2%_low.mp4
+	REM rename output_720_crf25.mp4 %title2%_low.mp4
 	rename output_high.mp4 %title2%_raw.mp4
 
 	powercfg /hibernate on

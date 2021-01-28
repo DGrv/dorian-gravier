@@ -37,9 +37,9 @@ REM ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vf "scale=1920:-1,format=yuv420p
 REM ffmpeg -f lavfi -i aevalsrc=0 -i temp.mp4 -c:v copy -c:a aac -map 0 -map 1:v -shortest -ar 48000 -video_track_timescale 24000 output_img_to_video_%fr%sec.mp4
 
 
-ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vcodec libx264 -vf "fps=24,format=yuv420p" temp.mp4
+ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vcodec libx264 -vf "fps=25,format=yuv420p" temp.mp4
 REM Add silence
-ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -shortest output_img_to_video_%fr%sec.mp4
+ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest output_img_to_video_%fr%sec.mp4
 
 
 
