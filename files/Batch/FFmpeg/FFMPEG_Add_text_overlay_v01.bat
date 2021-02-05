@@ -19,12 +19,12 @@ set pathnew=%pathfile:.mp4=%
 
 echo pathnew : %pathnew%
 
-set /p xpos="Give me your x position in fraction (1/10 will be on the right, 9/10 will be on the left): "
-set /p ypos="Give me your y position in fraction (1/10 will be on the top, 9/10 will be on the bottom): "
+set /p xpos="Give me your x position in fraction (0.1 will be on the left, 0.9 will be on the right): "
+set /p ypos="Give me your y position in fraction (0.1 will be on the top, 0.9 will be on the bottom): "
 
 
 set /p text="Give me you text: "
-set /p fontsize="Give me your fontsize: "
+set /p fontsize="Give me your fontsize (try big first, maybe 50): "
 
 
 ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%" -codec:a copy %pathnew%_new.mp4
