@@ -54,11 +54,14 @@ FOR /L %%p IN (1, 1, 2000) DO (
 	set p2=00000%%p
     set p2=!p2:~-5!
 	wget --user-agent Mozilla/4.0 "%dirname%/seg-%%p-v1-a1.ts" -O "!p2!.ts" -o log
+	FOR /F %%A IN ("!p2!.ts") DO set size=%%~zA
+	if !size! LSS 1 (
+		del "!p2!.ts"
+	) 
 	for /f "delims==" %%a in (log) do set lastline=%%a
 	if /I "!lastline:ERROR=!" neq "!lastline!" (
 		goto :next
 	)
-	
 )
 
 :next
@@ -83,7 +86,7 @@ cd C:\Users\doria\Downloads\
 echo.
 echo [INFO] - '%namenewdir%' directory will be remove, quit if you do not want, type enter if ok
 REM pause 
-::rmdir %namenewdir% /s /q
+rmdir %namenewdir% /s /q
 
 
 

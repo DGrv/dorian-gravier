@@ -65,6 +65,10 @@ FOR /L %%p IN (0, 1, 2000) DO (
 	set p2=00000%%p
     set p2=!p2:~-5!
 	wget --user-agent Mozilla/4.0 "%dirnameV%/segment-%%p.m4s" -O "!p2!.m4s" -o log
+		FOR /F %%A IN ("!p2!.m4s") DO set size=%%~zA
+	if !size! LSS 1 (
+		del "!p2!.m4s"
+	) 
 	for /f "delims==" %%a in (log) do set lastline=%%a
 	if /I "!lastline:ERROR=!" neq "!lastline!" (
 		goto :next

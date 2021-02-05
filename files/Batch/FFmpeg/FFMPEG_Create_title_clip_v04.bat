@@ -22,6 +22,8 @@ if EXIST Title_new.mp4 (
 
 FOR /l %%x IN (1, 1, %lines%) DO (
 	set /p title%%x="Line %%x which title: "
+	REM set title%%x=!title%%x::=\\\:!
+	REM To be able to print ::
 )
 
 :: add the option to get them on the right
