@@ -31,7 +31,7 @@ cd %dir%
 set file=%dir%list.txt
 echo file %file% 
 
-set /p per=How much do you wanna modify the volume (reduce is btw 0 and 1, increase more than 1): 
+set /p per=How much do you wanna modify the volume (reduce is btw 0 and 1, increase more than 1, to increase you can go high, try 10 or more): 
 
 
 for /F "usebackq tokens=*" %%p in (%file%) do (
@@ -39,8 +39,8 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
-	echo ffmpeg -i "%%p" -filter:a "volume=%per%" "%%~np_a%per%%%~xp"
-	start ffmpeg -i "%%p" -filter:a "volume=%per%" "%%~np_a%per%%%~xp"
+	echo ffmpeg -i "%%p" -filter:a "volume=%per%" -c:v copy "%%~np_a%per%%%~xp"
+	start ffmpeg -i "%%p" -filter:a "volume=%per%" -c:v copy "%%~np_a%per%%%~xp"
 )
 
 del list.txt
