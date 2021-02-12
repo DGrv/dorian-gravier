@@ -72,7 +72,7 @@ GEM
       listen (= 3.1.5)
       mercenary (~> 0.3)
       minima (= 2.5.0)
-      nokogiri (>= 1.11.0.rc4)
+      nokogiri (>= 1.11.0)
       rouge (= 3.11.0)
       terminal-table (~> 1.4)
     github-pages-health-check (1.16.1)
@@ -268,6 +268,7 @@ DEPENDENCIES
   minimal-mistakes-jekyll
   tzinfo-data
   wdm (~> 0.1.0)
+  minimist (>=1.2.3)
 
 BUNDLED WITH
    2.0.1
