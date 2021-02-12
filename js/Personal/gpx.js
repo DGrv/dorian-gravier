@@ -76,7 +76,8 @@ var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/W_202007_Jubilaumsgrat_02.gpx',
 'files/gpx/Hike/W_202007_Kramerspitz.gpx',
 'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_01.gpx',
-'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_02.gpx']
+'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_02.gpx',
+'files/gpx/Hike/W_202102_Hirschberg.gpx']
 
 var HikeProject = ['files/gpx/Hike/Project/AKD_project.gpx',
 'files/gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',
@@ -300,7 +301,8 @@ var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_202101_Sylvester_001.gpx',
 'files/gpx/Schitour/ST_202101_Sylvester_002.gpx',
 'files/gpx/Schitour/ST_202101_Wannenkopf.gpx',
-'files/gpx/Schitour/ST_20210116_Rottachberg.gpx']
+'files/gpx/Schitour/ST_20210116_Rottachberg.gpx',
+'files/gpx/Schitour/ST_202102_Heubatspitze.gpx']
 
 var SchneeSProject = ['files/gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 'files/gpx/SchneeS/Project/P_SW_Mattner_first.gpx',
