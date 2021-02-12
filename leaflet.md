@@ -142,7 +142,7 @@ show_in_nav: false
     		var map = L.map('map', {
     			center: [47.4710, 10.2859],
     			zoom: 10,
-    			layers: Stamen_Toner,
+    			layers: openslopemapLR,
     			fullscreenControl: {
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
