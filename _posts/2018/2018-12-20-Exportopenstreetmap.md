@@ -4,7 +4,7 @@ title: Export vectors information from OSM, add elevation profiles with SRTM and
 comments_id: 6
 ---
 
-Source: http://UNSET/blog/export-vectors-information-from-osm-add-elevation-profiles-with-srtm-and-convert-to-adobe-illustrator
+Source: [](http://UNSET/blog/export-vectors-information-from-osm-add-elevation-profiles-with-srtm-and-convert-to-adobe-illustrator)
 
 A friend was in the past preparing a master thesis in architecture. She is working on a foreign area and the language make the access to plans a bit more difficult than usually.  
   
@@ -21,9 +21,11 @@ So let's begin.
 
 
 Hmmm let's ask wikipedia :  
-_The **Shuttle Radar Topography Mission** (**SRTM**) is an international research effort that obtained [digital elevation models](https://en.wikipedia.org/wiki/Digital_elevation_model) on a near-global scale from 56° S to 60° N,[\[2\]](https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission#cite_note-NikP2-2) to generate the most complete high-resolution digital topographic database of Earth prior to the release of the [ASTER GDEM](https://en.wikipedia.org/wiki/ASTER_GDEM) in 2009. _  
+
+The **Shuttle Radar Topography Mission** (**SRTM**) is an international research effort that obtained [digital elevation models](https://en.wikipedia.org/wiki/Digital_elevation_model) on a near-global scale from 56° S to 60° N, to generate the most complete high-resolution digital topographic database of Earth prior to the release of the [ASTER GDEM](https://en.wikipedia.org/wiki/ASTER_GDEM) in 2009.
 ...  
-_The elevation models derived from the SRTM data are used in [Geographic Information Systems](https://en.wikipedia.org/wiki/Geographic_Information_Systems). They can be downloaded freely over the Internet, and their file format (.hgt) is supported by several software developments._  
+
+The elevation models derived from the SRTM data are used in [Geographic Information Systems](https://en.wikipedia.org/wiki/Geographic_Information_Systems). They can be downloaded freely over the Internet, and their file format (.hgt) is supported by several software developments._  
   
   
 OSM created a great tool to extract incredibly easily those information : [Srtm2Osm](http://wiki.openstreetmap.org/wiki/Srtm2Osm) (why making it complicated...).  
@@ -31,7 +33,7 @@ OSM created a great tool to extract incredibly easily those information : [Srtm
   
 Then :   
 
-- Download [Srtm2Osm](http://osm.michis-pla.net/code/Srtm2Osm-1.12.1.0.zip)  
+- Download [Srtm2Osm](https://github.com/mibe/Srtm2Osm/releases)  
 - Extract it  
 - Go in the folder where strm2osm.exe is, in the explorer   
 - Alt-D -> type in the adress bar "cmd" and click enter  
@@ -40,15 +42,17 @@ Then : 
   
   
 Whitout entering in detail, here the syntax to use :   
-_**Srtm2Osm.exe -bounds2 <latitude> <longitude> <area> -step <stepsize> -o output.osm**_  
+```shell
+Srtm2Osm.exe -bounds2 <latitude> <longitude> <area> -step <stepsize> -o output.osm
+```
   
 Latitude and longitude is the center of the area you wanna download, area the area in square km and stepsize in the detail you want. For example 1 will give you elevation lines every 1m.  
   
 Example :  
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/1094120_orig.jpg) 
+ ![Photo](/files/picture/1094120_orig.jpg) 
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/6888434_orig.jpg) 
+ ![Photo](/files/picture/6888434_orig.jpg) 
 
 This will create a .osm file with the name specified that you will open with [JOSM](https://josm.openstreetmap.de/)...
 
@@ -61,7 +65,7 @@ Let's first have a look to our elevation data : 
 
 - just open the osm file created via josm
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/905061_orig.jpg) 
+ ![Photo](/files/picture/905061_orig.jpg) 
 
 Then it is time to download the data from the area you are interested in :  
 
@@ -69,12 +73,12 @@ Then it is time to download the data from the area you are interested in :
 - Choose you area  
 - Download  
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/7874726_orig.jpg) 
+ ![Photo](/files/picture/7874726_orig.jpg) 
 
 You now have 2 layers that you can merge via the merge button :  
   
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/97958_orig.jpg) 
+ ![Photo](/files/picture/97958_orig.jpg) 
 
 Save the project osm.  
   
@@ -94,7 +98,7 @@ Run : **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai>**
 Done you have your .ai files with different layers:  
   
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/838468174_orig.png) 
+ ![Photo](/files/picture/838468174_orig.png) 
 
 # Elevation missing and not enough detailed
 
@@ -103,7 +107,7 @@ Mmmm you would like the elevation of course and maybe to have more divided layer
 Then first go back to JOSM. Identify the tag of the layers you are interested in :  
   
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/5900834_orig.jpg) 
+ ![Photo](/files/picture/5900834_orig.jpg) 
 
 Why not building, architects are interested in buildings right ?  
 We will now create a .txt file that will tell the osm2ai.pl script to differentiate the entity with the tag we want.  
@@ -146,7 +150,7 @@ two conditions.
 
 * * *
 
-Here an example, [file available here]({{site.url}}{{site.baseurl}}/assets/d_filters.txt) :   
+Here an example, [file available here](/files/picture/d_filters.txt) :   
 _railway: railway=\*  
 motorway: highway=motorway  
 trunk: highway=trunk  
@@ -174,11 +178,11 @@ Now you just have to put your .txt in the folder with your .osm data, the osm2ai
 **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai> ****\--filter D\_filters.txt**  
   
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/6634892_orig.jpg) 
+ ![Photo](/files/picture/6634892_orig.jpg) 
 
 Isn't that nice :)
 
- ![Photo]({{site.url}}{{site.baseurl}}/assets/7107445_orig.jpg) 
+ ![Photo](/files/picture/7107445_orig.jpg) 
 
 Save it in .dxf and work with ArchiCad :)  
 Have fun.

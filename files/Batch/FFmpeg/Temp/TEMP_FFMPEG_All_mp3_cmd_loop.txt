@@ -1,2 +1,0 @@
-for %i in (*mp3) do	ffmpeg -i "%i" "%~ni_124.mp3"
-	

@@ -31,6 +31,7 @@ set /p url="Give me the path of one .ts segment, you segment should be named lik
 set /p name="Which name to give: "
 set name=%name::=-%
 set name=%name:'=%
+set name=%name: – =___%
 
 echo.
 

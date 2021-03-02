@@ -54,55 +54,55 @@ echo xpos %xpos%
 if "%xpos%"=="TR" (
 	set xpos=0.05
 	set ypos=0.1
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -c:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -c:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="TC" (
 	set xpos=0.5
 	set ypos=0.1
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="TL" (
 	set xpos=0.95
 	set ypos=0.1
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="RC" (
 	set xpos=0.05
 	set ypos=0.5
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="C" (
 	set xpos=0.5
 	set ypos=0.5
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="LC" (
 	set xpos=0.95
 	set ypos=0.5
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="BR" (
 	set xpos=0.05
 	set ypos=0.9
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="BC" (
 	set xpos=0.5
 	set ypos=0.9
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 )
 if "%xpos%"=="BL" (
 	set xpos=0.95
 	set ypos=0.9
-	ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+	ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 	GOTO :EOF
 ) else (
 	set /p ypos="Give me your y position (0.1 will be on the top, 0.9 will be on the bottom): "
@@ -111,7 +111,7 @@ if "%xpos%"=="BL" (
 
 
 
-ffmpeg -i %pathfile% -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%:enable='between(t,%time%)'" -codec:a copy %pathnew%_new.mp4
+ffmpeg -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
 
 :end
 
