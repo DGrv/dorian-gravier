@@ -13,11 +13,11 @@ echo "--------------------------------------------------------------------------
 REM http://www.network-science.de/ascii/
 echo.
 
-
-echo Batch file for binding all video together from 1 folder.
+echo Batch file for binding all video together from 1 folder (.ts extension) and convert them in low resolution. 
 echo.
 echo Take care of name of the files, should not contain strange characters (no paranthesis e.g.) !!!
 echo.
+
 
 if "%~1"=="" (
 	set /p input=Give me the path of the directory where your video are: 
@@ -25,37 +25,70 @@ if "%~1"=="" (
 	set input=%~1
 )
 
-
-:: get the last file in the list to get the ext
-:: https://stackoverflow.com/questions/47450531/batch-write-output-of-dir-to-a-variable
-for /f "delims=" %%a in ('dir /a-d /b /s "%input%"') do set "last=%%a"
-
-
-:: extract filename no extension
-:: https://stackoverflow.com/questions/15567809/batch-extract-path-and-filename-from-a-variable/15568171
-for %%a in (%last%) do (
-	set pathh=%%~dpa
-    set filename=%%~nxa
-	set filenamenoext=%%~na
-    set filepathnoext=%%~dpna
-	set ext=%%~xa
-)  
-
 echo.
-echo.
-echo ------------------ [DEBUG] --------------------
-echo pathh : %pathh%
-echo filename : %filename%
-echo filenamenoext : %filenamenoext%
-echo filepathnoext : %filepathnoext%
-echo ext : %ext%
-echo.
+echo ------------- DEBUG ---------------
+echo input: %input%
 echo.
 
+
+for %%i in ("%input%") do (
+	set dir=%%~dpi
+	set drive=%%~di
+)
+%drive%
 cd "%input%"
-(for %%i in (*%ext%) do @echo file '%input%\%%i') > list.txt
-ffmpeg -f concat -safe 0 -i list.txt -c copy output%ext%
-::del list.txt
 
-REM (for %i in (*.mp3) do @echo file '%i') > list.txt
-REM ffmpeg -f concat -i list.txt -c copy output.mp3
+
+REM FOR /d /r %%G in ("*") DO Echo We found %%~nxG
+REM FOR /d /r %%G in ("*") DO Echo We found %%~nxG
+
+for /d /r %%i in ("*") do (
+	echo.
+	echo.
+	echo ----------------New item ------------
+	echo "%%i"
+	echo.
+	echo.
+	
+	cd "%%i"
+	for %%j in (*.ts) do (
+		echo file '%%i\%%j' >> list.txt
+		echo %%i\%%j >> list2rm.txt
+	)
+	
+	echo.
+	echo. 
+	echo Concat
+	echo. 
+	echo. 
+	ffmpeg -f concat -safe 0 -i list.txt -c copy output.ts
+	
+	echo.
+	echo. 
+	echo Conversion
+	echo. 
+	echo. 
+	
+	ffmpeg -i output.ts -vcodec libx264 -vf "scale=1024:-2" -preset slow -crf 30 -acodec aac "%%~nxi.mp4"
+	
+	for /F "usebackq tokens=*" %%A in ("list2rm.txt") do rm "%%A"
+	
+	rm list.txt list2rm.txt output.ts
+	
+)
+
+echo goodbye
+
+
+
+
+
+
+
+
+
+
+
+
+
+

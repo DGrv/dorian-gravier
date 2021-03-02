@@ -23,14 +23,29 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 :: ----------------- user choice files ------------------
 	del list.txt
 	rem preparation command
-	powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames" > list.txt
+	
+	if "%~1"=="" (
+		powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames" > list.txt
+	) else (
+		set firstfile=%~1
+	)
+
+	
+	
+	
+	
 	
 :: ----------------- extract all info needed ------------------
 	REM Get first file
-	head -1 list.txt > temp
-	set /p firstfile=<temp
-	del temp
+	head -1 list.txt > tempy
+	set /p firstfile=<tempy
+	del tempy
 			REM echo firstfile=%firstfile%
+	echo.
+	echo.
+	echo ----- DEBUG ------
+	echo firstfile: %firstfile%
+	echo.
 	
 	REM Extract path
 	for %%i in ("%firstfile%") do (
@@ -42,12 +57,21 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 	set file=%dir%list.txt
 			REM echo cd=%cd%
 			REM echo file=%file%
-	move list.txt %file%
+	
+	echo.
+	echo ----- DEBUG ------
+	echo file: %file%
+	echo dir: %dir%
+	echo drive: %drive%
+	echo.
+	echo.
 
+	move list.txt %file%
+	
 	REM Get reoslution fifile
-	ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "%firstfile%" > temp
-	set /p resofirst=<temp
-	del temp
+	ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "%firstfile%" > tempy
+	set /p resofirst=<tempy
+	del tempy
 			REM echo firstfile=%firstfile%
 			REM echo resofirst=%resofirst%
 

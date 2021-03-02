@@ -22,9 +22,17 @@ echo Move them in a folder with only those images.
 echo.
 echo.
 
-set /p pathfiles="Where are your images: "
-set/p reso="Which resolution do you want (e.g. 1920x1080): "
+set /p pathfiles="Where are your images (give me a folder - then check standard name or give me a jpg path): "
+set /p reso="Which resolution do you want (e.g. give 1920x1080 or type y to choose the default one (this one)): "
 set /p fr="How many seconds each image should be shown (e.g. 5): "
+
+if "%reso%"=="y" (
+	set reso=1920x1080
+)
+
+if "%pathfiles:~-3%"=="jpg" GOTO singlefile
+if "%pathfiles:~-3%"=="peg" GOTO singlefile
+
 
 
 cd "%pathfiles%"
@@ -41,6 +49,15 @@ ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vcodec libx264 -vf "fps=25,format=yu
 REM Add silence
 ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest output_img_to_video_%fr%sec.mp4
 
+GOTO end
+
+:singlefile
+
+mogrify -resize %reso% -extent %reso% -gravity Center -background black *.jpg
+ffmpeg -r 1/%fr% -f image2 -i "%pathfiles%" -vcodec libx264 -vf "fps=25,format=yuv420p" temp.mp4
+ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest output_img_to_video_%fr%sec.mp4
 
 
+
+:end
 del temp.mp4

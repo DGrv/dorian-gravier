@@ -45,7 +45,7 @@ for %%i in (*.html) do (
 
 
 	REM ------------- Change title of the file ---------------
-	grep panel__title output.html | grep -Eo ">.*\<" >temp
+	grep panel__body output.html | grep -Eo ">.*\<" >temp
 	set /p title=<temp
 	del temp
 	set title="!title:<=!"
@@ -53,24 +53,11 @@ for %%i in (*.html) do (
 	set title=!title:"=!
 	set title=!title:/=!
 	set title=!title::=-!
-	set title=!title: – =_-_!
-	
-	set st=!title:~0,4!
-	set en=!st:~-1!
-	if !en!==_ (
-	 set title=!title:~0,2!0!title:~2,100!
-	)
-	
-	
 
 	echo.
-	echo ------- DEBUG ------
-	echo st: !st!
-	echo en: !en!
-	echo title: !title!
+	echo !title!
 	REM echo !title!
 	REM sed -i "s/Geoff Lawton Permaculture Training – Permaculture, PDC, Online Courses/!title!/g" output.html
-	
 
 	C:\Users\doria\Downloads\Software_pcloud\PortableApps\LibreOfficePortable\App\libreoffice\program\soffice.exe --convert-to pdf --outdir . output.html
 	del output.html
@@ -107,15 +94,6 @@ for %%i in (*.html) do (
 	rename output.pdf "!title!.pdf"
 
 )
-
-set input2="%input:\html=%"
-for /f "delims=" %%A in (%input2%) do (
-	set foldername=%%~nxA
-)
-
-C:\Users\doria\Downloads\Software_pcloud\PortableApps\PDFTKBuilderPortable\App\pdftkbuilder\pdftk.exe *.pdf cat output "%input2:"=%\%foldername%.pdf"
-
-:end
 
 	REM https://stackoverflow.com/questions/1672580/get-number-of-pages-in-a-pdf-using-a-cmd-batch-file
 	REM https://stackoverflow.com/questions/12942486/insert-a-blank-page-between-each-existing-page-in-a-pdf-document
