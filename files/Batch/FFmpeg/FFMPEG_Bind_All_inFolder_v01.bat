@@ -25,10 +25,10 @@ if "%~1"=="" (
 	set input=%~1
 )
 
-
+rm %input%\list.txt
 :: get the last file in the list to get the ext
 :: https://stackoverflow.com/questions/47450531/batch-write-output-of-dir-to-a-variable
-for /f "delims=" %%a in ('dir /a-d /b /s "%input%"') do set "last=%%a"
+for /f "delims=" %%a in ('dir /a-d /b "%input%\*mp4" "%input%\*avi" "%input%\*mov" "%input%\*ts" ') do set "last=%%a"
 
 
 :: extract filename no extension
