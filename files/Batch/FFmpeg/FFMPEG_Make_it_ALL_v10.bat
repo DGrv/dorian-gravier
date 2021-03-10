@@ -128,6 +128,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 	set /p fadeinout="Do you want a fade IN and OUT on your video, first and last [y/n] ? :"
 
+	echo.
+	set /p audionorma="Do you want to normalize audio (can make problem sometimes) [y/n] ? :"
 
 	echo.
 	echo -------------------------------------------------
@@ -446,23 +448,23 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	)
 	
 	
-	
-	WHERE ffmpeg-normalize
-	IF %ERRORLEVEL% EQU 0 (
-		rename output_high.mp4 output_high_temp_ffmpeg-normalize.mp4
-		echo.
-		echo [INFO] - use ffmpeg-normlize
-		echo [INFO] - use ffmpeg-normlize
-		echo [INFO] - use ffmpeg-normlize
-		echo [INFO] - use ffmpeg-normlize
-		echo [INFO] - use ffmpeg-normlize
-		echo.
-		ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
-	)	
-	if exist output_high_temp_ffmpeg-normalize.mp4 (
-		del output_high_temp_ffmpeg-normalize.mp4
+	if %audionorma%==y (
+		WHERE ffmpeg-normalize
+		IF %ERRORLEVEL% EQU 0 (
+			rename output_high.mp4 output_high_temp_ffmpeg-normalize.mp4
+			echo.
+			echo [INFO] - use ffmpeg-normlize
+			echo [INFO] - use ffmpeg-normlize
+			echo [INFO] - use ffmpeg-normlize
+			echo [INFO] - use ffmpeg-normlize
+			echo [INFO] - use ffmpeg-normlize
+			echo.
+			ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
+		)	
+		if exist output_high_temp_ffmpeg-normalize.mp4 (
+			del output_high_temp_ffmpeg-normalize.mp4
+		)
 	)
-	
 	
 	echo.
 	echo -------------------------------------------------

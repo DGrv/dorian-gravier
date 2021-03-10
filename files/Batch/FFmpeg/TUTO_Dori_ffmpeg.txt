@@ -190,6 +190,9 @@ _________________________________________________________________
 			Preview
 				take 10% on the height (both side)
 				ffplay -i in.mp4 -vf "crop=in_w:in_h*0.8" -x 500 -y 600 
+			
+			Example
+				ffmpeg -i input.mp4 -filter:v "crop:1920:1080:100:50" output.mp4
 		
 		_________________________________________________________________
 		FIX TIME DURATION ERROR
@@ -302,8 +305,16 @@ ________________________________________________________________________________
 			ffmpeg -y -i input3.mp3 -i inlow3.mp4 -filter_complex "[0:a]showwaves=mode=point[vs]; [1:v][vs]overlay[out]" -map "[out]" -map 0:a -c:v libx264 -preset fast -crf 18 -c:a copy showwaves1.mp4
 			ffmpeg -y -i input3.mp3 -i inlow3.mp4 -filter_complex "[0:a]showwavespic[vs]; [1:v][vs]overlay[out]" -map "[out]" -map 0:a -c:v libx264 -preset fast -crf 18 -c:a copy showwavespic.mp4
 
-
-			
+	_________________________________________________________________
+	CREATE KEYFRAMES
+	Choose keyint depending on your fps, here 24 fps, so I want a keyframe every 2s.
+	```shell
+		ffmpeg -i <input> -vcodec libx264 -x264-params keyint=48:scenecut=0 -acodec copy <output>
+		or        
+		ffmpeg -i <input> -vcodec libx264 -x264opts no-scenecut -g 48 -acodec copy <output>
+	```
+	[Source](https://stackoverflow.com/questions/30979714/how-to-change-keyframe-interval)
+		
 
 		
 	_________________________________________________________________
@@ -422,8 +433,10 @@ Copy those code in a txt file and rename it .bat to use it as a batch file
 		_________________________________________________________________
 		DO NOT SHOW STAT INFO
 			-v quiet -stats
+			or
+			-stats -loglevel error 
 
-		
+
 
 ______________________________________________________________________________________________________________________________
 OTHER
