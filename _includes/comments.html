@@ -1,6 +1,8 @@
 <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
 <script>
-const GH_API_URL = 'https://api.github.com/repos/DGrv/dorian.gravier.github.io/issues/{{ page.comments_id }}/comments' //?client_id={{ site.data.settings.gh_api.ci }}&client_secret={{ site.data.settings.gh_api.cs }}';
+const GH_API_URL = 'https://api.github.com/repos/DGrv/dorian.gravier.github.io/issues/{{ page.comments_id }}/comments?per_page=100' 
+//?client_id={{ site.data.settings.gh_api.ci }}&client_secret={{ site.data.settings.gh_api.cs }}';
 // To use this follow instruction in https://aristath.github.io/blog/static-site-comments-using-github-issues-api
 // the gh_api key where place in the settings.yml of this website : https://github.com/aristath/aristath.github.com/blob/f1b80c1202ed9edd3d5b8b9ba7cf15f347d4bfc6/_data/settings.yml
 
@@ -24,7 +26,7 @@ request.onload = function() {
 
 function createCommentEl( response ) {
 	let user = document.createElement( 'a' );
-	user.setAttribute( 'href', response.user.url );
+	user.setAttribute( 'href', response.user.url.replace( 'api.github.com/users', 'github.com' ) );
 	user.classList.add( 'user' );
 
 	let userAvatar = document.createElement( 'img' );
@@ -41,6 +43,11 @@ function createCommentEl( response ) {
 	let commentContents = document.createElement( 'div' );
 	commentContents.classList.add( 'comment-content' );
 	commentContents.innerHTML = response.body;
+	// Progressive enhancement.
+	if ( window.showdown ) {
+		let converter = new showdown.Converter();
+		commentContents.innerHTML = converter.makeHtml( response.body );
+	}
 
 	let comment = document.createElement( 'li' );
 	comment.setAttribute( 'data-created', response.created_at );
