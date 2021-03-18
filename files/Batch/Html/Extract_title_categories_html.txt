@@ -1,0 +1,2 @@
+
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" test.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g"
