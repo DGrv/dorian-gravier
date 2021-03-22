@@ -108,30 +108,30 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 		if %changereso%==y (
 			if %changeaud%==1 (
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -acodec mp3 -crf %crf% "%%~ni_r%reso%_crf%crf%_mp3.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -acodec mp3 -crf %crf% "%%~ni_r%reso%_crf%crf%_mp3.mp4"
 				) else (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -acodec mp3 "%%~ni_r%reso%_mp3.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -acodec mp3 "%%~ni_r%reso%_mp3.mp4"
 				)
 			) else (                            
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -crf %crf% -acodec aac "%%~ni_r%reso%_crf%crf%.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow -crf %crf% -acodec aac "%%~ni_r%reso%_crf%crf%.mp4"
 				) else (
-					ffmpeg -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow  -acodec aac "%%~ni_r%reso%.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -vf "scale=%reso%:-2" -preset slow  -acodec aac "%%~ni_r%reso%.mp4"
 				)
 			)                                
 		) else (                                
 			if %changeaud%==1 ( 
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec mp3 "%%~ni_crf%crf%_mp3.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec mp3 "%%~ni_crf%crf%_mp3.mp4"
 				) else (
-					ffmpeg -i "%%i" -vcodec libx264 -preset slow -acodec mp3 "%%~ni_mp3.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -preset slow -acodec mp3 "%%~ni_mp3.mp4"
 				)			
 			) else (  
 				if %compress%==y (
-					ffmpeg -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec aac "%%~ni_crf%crf%.mp4"
+					ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -preset slow -crf %crf% -acodec aac "%%~ni_crf%crf%.mp4"
 				) else (
 					if NOT %%~xi==mp4 (
-						ffmpeg -i "%%i" -vcodec libx264 -preset slow -acodec aac "%%~ni.mp4"
+						ffmpeg -stats -loglevel error  -i "%%i" -vcodec libx264 -preset slow -acodec aac "%%~ni.mp4"
 					) else (
 						echo I am doing nothing here with "%%i"
 					)

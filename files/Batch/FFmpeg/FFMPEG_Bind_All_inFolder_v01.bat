@@ -25,10 +25,15 @@ if "%~1"=="" (
 	set input=%~1
 )
 
+set /p small="Do you wanna convert it also small for sharing and test [y/n]: "
+
+echo.
+echo.
+
 rm %input%\list.txt
 :: get the last file in the list to get the ext
 :: https://stackoverflow.com/questions/47450531/batch-write-output-of-dir-to-a-variable
-for /f "delims=" %%a in ('dir /a-d /b "%input%\*mp4" "%input%\*avi" "%input%\*mov" "%input%\*ts" ') do set "last=%%a"
+for /f "delims=" %%a in ('dir /a-d /b "%input%\*mp4" "%input%\*avi" "%input%\*mov" "%input%\*ts" ') do set "last=%input%\%%a"
 
 
 :: extract filename no extension
@@ -39,6 +44,7 @@ for %%a in (%last%) do (
 	set filenamenoext=%%~na
     set filepathnoext=%%~dpna
 	set ext=%%~xa
+	set drive=%%~da
 )  
 
 echo.
@@ -49,12 +55,21 @@ echo filename : %filename%
 echo filenamenoext : %filenamenoext%
 echo filepathnoext : %filepathnoext%
 echo ext : %ext%
+echo ------------------ end debug --------------------
 echo.
 echo.
 
+%drive%
 cd "%input%"
 (for %%i in (*%ext%) do @echo file '%input%\%%i') > list.txt
-ffmpeg -f concat -safe 0 -i list.txt -c copy output%ext%
+ffmpeg -stats -loglevel error -f concat -safe 0 -i list.txt -c copy output%ext%
+
+if %small%==y (
+	ffmpeg -stats -loglevel error  -i "output%ext%" -vcodec libx264 -vf "scale=480:-2" -preset slow -crf 30 -acodec aac "output_r480_crf30.mp4"
+) 
+
+
+
 ::del list.txt
 
 REM (for %i in (*.mp3) do @echo file '%i') > list.txt

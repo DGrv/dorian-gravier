@@ -303,7 +303,8 @@ var Schitour = ['files/gpx/Schitour/ST_2016_biet_weglosen.gpx',
 'files/gpx/Schitour/ST_202101_Wannenkopf.gpx',
 'files/gpx/Schitour/ST_20210116_Rottachberg.gpx',
 'files/gpx/Schitour/ST_202102_Heubatspitze.gpx',
-'files/gpx/Schitour/ST_202102_Toreck.gpx']
+'files/gpx/Schitour/ST_202102_Toreck.gpx',
+'files/gpx/Schitour/ST_20210320_Guentlespitze-Hochstarzel.gpx']
 
 var SchneeSProject = ['files/gpx/SchneeS/Project/P_SW_Malans-Tschugga.gpx',
 'files/gpx/SchneeS/Project/P_SW_Mattner_first.gpx',
