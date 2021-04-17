@@ -35,7 +35,7 @@ if !lengthvideo2! lss %sec2% (
 	del tempfile2
 
 	if "%what%"=="in" (
-		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=in:st=0:d=%sec%" -c:a copy %out%_fade.mp4
+		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=in:st=0:d=%sec%" -c:a copy %out%_fade%what%%sec%.mp4
 	)
 	if "%what%"=="out" (
 		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %out%_fade%what%%sec%.mp4
