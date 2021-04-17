@@ -24,10 +24,10 @@ set /p position="At which position (e.g. '25:25' meaning 25 pixel from each side
 
 echo.
 echo.
-echo ffmpeg -i "%input%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%time%)'" -c:a copy %output%
+echo ffmpeg -stats -loglevel error -i "%input%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%time%)'" -c:a copy "%output%_pic.mp4"
 echo.
 echo.
 
-ffmpeg -i "%input%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%time%)'" -c:a copy "%output%_pic.mp4"
+ffmpeg -stats -loglevel error -i "%input%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%time%)'" -c:a copy "%output%_pic.mp4"
 
 REM https://stackoverflow.com/questions/37144225/overlaying-alpha-images-on-a-video-using-ffmpeg
