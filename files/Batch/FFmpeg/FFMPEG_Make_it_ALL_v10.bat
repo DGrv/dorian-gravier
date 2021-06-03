@@ -21,6 +21,11 @@ echo "--------------------------------------------------------------------------
 REM http://www.network-science.de/ascii/
 echo.
 
+echo INFO development things to do:
+echo - Error message when music is shorter than video
+echo - log file about the different input from the user to avoid to right them again
+echo.
+echo.
 
 echo Put your video in 1 folder, order with names, put your mp3 inside (not matter the name, also ordered if needed).
 
