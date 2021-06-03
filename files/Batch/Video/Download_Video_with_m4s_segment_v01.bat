@@ -27,7 +27,7 @@ IF %ERRORLEVEL% NEQ 0 (
 echo.
 echo.
 
-set /p url="Give me the path of one .ts segment, you segment should be named like this 'seg-%%p-v1-a1.ts' with %%p from 1 to 9 :   "
+set /p url="Give me the path of one .ts segment, you segment should be named like this 'segment-%%p.m4s' :   "
 set /p name="Which name to give: "
 set name=%name::=-%
 set name=%name:'=%
