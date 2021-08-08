@@ -53,9 +53,13 @@ set name=%name:_[ANMTN]=%
 set name=%name:_[VIDEO]=%
 
 set st=!name:~0,4!
-set en=!st:~-1!
-if !en!==_ (
+set en1=!name:~3,1!
+set en2=!name:~4,1!
+if !en1!==_ (
  set name=!name:~0,2!0!name:~2,100!
+)
+if !en2!==_ (
+ set name=!name:~0,3!0!name:~3,100!
 )
 
 echo.
