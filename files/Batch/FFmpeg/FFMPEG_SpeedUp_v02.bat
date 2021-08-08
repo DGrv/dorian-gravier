@@ -40,7 +40,7 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 	set filenamenoext=%%~np
 	set ext=%%~xp
 	echo ffmpeg -i "%%p" -an -vf "setpts=PTS/%speed%" "%%~np_f%speed%%%~xp"
-	start ffmpeg -i "%%p" -an -vf "setpts=PTS/%speed%" "%%~np_f%speed%%%~xp"
+	start /wait ffmpeg -i "%%p" -an -vf "setpts=PTS/%speed%" "%%~np_f%speed%%%~xp"
 )
 
 

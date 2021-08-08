@@ -55,10 +55,15 @@ for %%i in (*.html) do (
 	set title=!title::=-!
 	set title=!title: – =_-_!
 	
+	
 	set st=!title:~0,4!
-	set en=!st:~-1!
-	if !en!==_ (
+	set en1=!title:~3,1!
+	set en2=!title:~4,1!
+	if !en1!==_ (
 	 set title=!title:~0,2!0!title:~2,100!
+	)
+	if !en2!==_ (
+	 set title=!title:~0,3!0!title:~3,100!
 	)
 	
 	
@@ -66,7 +71,8 @@ for %%i in (*.html) do (
 	echo.
 	echo ------- DEBUG ------
 	echo st: !st!
-	echo en: !en!
+	echo en1: !en1!
+	echo en2: !en2!
 	echo title: !title!
 	REM echo !title!
 	REM sed -i "s/Geoff Lawton Permaculture Training – Permaculture, PDC, Online Courses/!title!/g" output.html
