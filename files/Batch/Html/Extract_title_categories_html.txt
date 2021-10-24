@@ -1,2 +1,8 @@
-
-sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" test.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g"
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp1.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" > temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp2.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp3.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp4.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp5.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp6.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "s:.*<p class=\"syllabus__title\">\(.*\)</p>.*:\1:p" temp7.html | sed "s/\[ANMTN\]//g" | sed "s/\[VIDEO\]//g" >> temp_title.txt
+sed -n "/Practical/d" temp_title.txt > temp_title_mm.txt

@@ -61,14 +61,14 @@ var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
   }),
   // Kompass = L.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
-  Kompass = L.tileLayer('https://map2.kompass.de/{z}/{x}/{y}/kompass_topo?key=2ba8c124-38b6-11e7-ade1-e0cb4e28e847', {
-    attribution: 'Map tiles by &copy;<a href="https://www.kompass.de/wanderkarte/">Kompass</a>',
-    subdomains: '0123',
-    minZoom: 1,
-    maxZoom: 18
-  }),
+  // Kompass = L.tileLayer('https://map2.kompass.de/{z}/{x}/{y}/kompass_topo?key=2ba8c124-38b6-11e7-ade1-e0cb4e28e847', {
+    // attribution: 'Map tiles by &copy;<a href="https://www.kompass.de/wanderkarte/">Kompass</a>',
+    // subdomains: '0123',
+    // minZoom: 1,
+    // maxZoom: 18
+  // }),
   Austria_topo = L.tileLayer('https://w{s}.outdooractive.com/map/v1/raster/topo_bev/{z}/{x}/{y}/t.png?', {
-    attribution: 'Map tiles by &copy;<a href="https://www.kompass.de/wanderkarte/">Kompass</a>',
+    attribution: 'Map tiles by &copy;<a href="https://www.outdooractive.com">Outdooractive</a>',
     subdomains: '0123',
     minZoom: 1,
     maxZoom: 18
@@ -122,7 +122,7 @@ var basemapATSchummerungOberflaeche = L.tileLayer('https://maps{s}.wien.gv.at/ba
     "StamenTerrain": Stamen_Terrain,
     "Thunderforest_Outdoors": outdoors,
     "GeoAdmin": GeoAdmin,
-    "Kompass": Kompass,
+    // "Kompass": Kompass,
     "Austria_Topo": Austria_topo,
 	"Austria_Schummerung_Gelaende": basemapATSchummerungGelaende,
 	"Austria_Schummerung_Oberflaeche": basemapATSchummerungOberflaeche,

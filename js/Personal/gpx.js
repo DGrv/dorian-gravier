@@ -1,4 +1,10 @@
 // create file
+var Gpx = ['files/Batch/Gpx/GPSBabel_Bind_all_gpx_infolder.bat',
+'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v01.bat',
+'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v02.bat',
+'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v03.bat',
+'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v03_nodownload.bat']
+
 var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
 'files/gpx/Bike/B_201709_Bike_Travel.gpx',
@@ -29,7 +35,8 @@ var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_20200510_Olima.gpx',
 'files/gpx/Bike/B_20200512_Olima.gpx',
 'files/gpx/Bike/B_202006_Ehrenschwangertal.gpx',
-'files/gpx/Bike/B_202006_Jugethoehe.gpx']
+'files/gpx/Bike/B_202006_Jugethoehe.gpx',
+'files/gpx/Bike/B_202109_Fahrrad_Klettern_Jura.gpx']
 
 var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
