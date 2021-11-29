@@ -34,7 +34,7 @@ for /f "delims=" %%i in ('%listfiles%') do (
 	set drive=%%~di
 	!drive!
 	cd !dir!
-	echo %%i >> list.txt
+	echo %%i>>list.txt
 )
 
 %drive%
@@ -49,12 +49,12 @@ REM set filenamenoext=%%~np
 
 for /F "usebackq tokens=*" %%p in (%file%) do (
 	set ext=%%~xp
-	echo start %run% convert "%%p" "%newdir%%%~np.pdf"
-	start /wait %run% convert "%%p" "%newdir%%%~np.pdf"
+	echo call %run% convert "%%p" "%newdir%%%~np.pdf"
+	call %run% convert "%%p" "%newdir%%%~np.pdf"
 )
 
 
-start %runpdftk% "%newdir%*.pdf" cat output newfile.pdf
+call %runpdftk% "%newdir%*.pdf" cat output newfile.pdf
 
 :: Wait 5 second otherwise it is deleting the file before it is finished
 ping 127.0.0.1 -n 5 > nul
@@ -66,4 +66,3 @@ echo.
 echo All DONE :)
 echo.
 
-pause

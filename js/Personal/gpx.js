@@ -36,7 +36,9 @@ var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_20200512_Olima.gpx',
 'files/gpx/Bike/B_202006_Ehrenschwangertal.gpx',
 'files/gpx/Bike/B_202006_Jugethoehe.gpx',
-'files/gpx/Bike/B_202109_Fahrrad_Klettern_Jura.gpx']
+'files/gpx/Bike/B_202109_Fahrrad_Klettern_Jura.gpx',
+'files/gpx/Bike/B_202111_Chartreuse.gpx',
+'files/gpx/Bike/B_202111_Grenoble-LesForges.gpx']
 
 var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
@@ -84,7 +86,8 @@ var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/W_202007_Kramerspitz.gpx',
 'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_01.gpx',
 'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_02.gpx',
-'files/gpx/Hike/W_202102_Hirschberg.gpx']
+'files/gpx/Hike/W_202102_Hirschberg.gpx',
+'files/gpx/Hike/W_202111_Chartreuse_LaPinea.gpx']
 
 var HikeProject = ['files/gpx/Hike/Project/AKD_project.gpx',
 'files/gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',

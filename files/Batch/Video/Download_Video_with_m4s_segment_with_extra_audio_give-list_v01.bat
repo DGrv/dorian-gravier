@@ -84,7 +84,9 @@ FOR /L %%p IN (1, 3, %nlines%) DO (
 
 	:: INFO: do not use "call" if you have % in your parameters (like in url)
 	:: INFO: do not use without cmd /c because it will keep it open and will not close the new cmd and not continue
-	start /wait cmd /c C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Video\Download_Video_with_m4s_segment_with_extra_audio_v01.bat "!url!" "!aud!" "!name!"
+	echo call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Video\Download_Video_with_m4s_segment_with_extra_audio_v02.bat "!url!" "!aud!" "!name!"
+	REM call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Video\Download_Video_with_m4s_segment_with_extra_audio_v02.bat "!url!" "!aud!" "!name!"
+	start /wait cmd /c C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Video\Download_Video_with_m4s_segment_with_extra_audio_v02.bat "!url!" "!aud!" "!name!"
 )
 
 
