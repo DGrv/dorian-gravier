@@ -1,10 +1,4 @@
 // create file
-var Gpx = ['files/Batch/Gpx/GPSBabel_Bind_all_gpx_infolder.bat',
-'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v01.bat',
-'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v02.bat',
-'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v03.bat',
-'files/Batch/Gpx/GPX_Download_form_Country_gpx_theCrag_v03_nodownload.bat']
-
 var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
 'files/gpx/Bike/B_201709_Bike_Travel.gpx',

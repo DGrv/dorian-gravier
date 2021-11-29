@@ -13,7 +13,7 @@
 
 # get data ----------------------------------------------------------------
 
-  lis <- data.table(path = list.files(wd, pattern = ".gpx", full = T, recursive = T))
+  lis <- data.table(path = list.files(wd, pattern = "\\.gpx", full = T, recursive = T))
   lis <- lis[!path %like% "gpx.reg"]
   lis[, path2 := gsub(paste0(dirname(wd), "/"), "", path) ]
   lis[, dir := dirname(path2) ]
