@@ -433,6 +433,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		del output_high_temp.mp4
 	)
 	
+	REM https://ourcodeworld.com/articles/read/1484/how-to-get-the-information-and-metadata-of-a-media-file-audio-or-video-in-json-format-with-ffprobe
+	REM Get all info available ffprobe : ffprobe -hide_banner -loglevel fatal -show_error -show_format -show_streams -show_programs -show_chapters -show_private_data -print_format json file.mp4
+	
 	if EXIST end.mp3 (
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_high_jiggle_start.mp4 > tempfile
 		set /p dura=<tempfile
