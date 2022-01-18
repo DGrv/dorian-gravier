@@ -1,0 +1,68 @@
+###################################################
+# SED command file to convert
+# a basic ImageMagick Linux shell script
+# into the equivalent DOS (Windows) batch file.
+# Get SED at http://sed.sourceforge.net
+# 
+# USAGE: sed -f cim.txt linux.scr > windows.bat
+#        
+#   Input:  linux.scr   = Linux shell script
+#   Output: windows.bat = DOS (Windows) batch file
+#
+# You may place this file in SED's program folder and
+# invoke the conversion via drag & drop on a batch file:
+#   SET SP=%programfiles%\GnuWin32\bin
+#   %SP%\SED -f %SP%\cim.txt "%~1"> %~dpn1.bat"
+#
+# NOTE: This script will only convert basic ImageMagick
+#       shell scripts that invoke IM commands.
+#       (Like those presented on by Anthony Thyssen at
+#        the USAGE section of of www.imagemagick.org.)
+#       It will however NOT convert full shell scripts
+#       (like those found on Fred Weinhaus' website)
+#       into their batch file equivalents (as these do not exist).
+# 
+# Version 0.2 from 2009-05-11 
+# by Wolfgang Hugemann 
+# Please report any bugs to:
+# ImageMagick-at-Hugemann-dot-de
+###################################################
+
+# Replace "convert" -> "IMcomvert"
+# The option 'i' means "case Insensitive"
+# The option 'g' means "all occurences" (global)
+s/convert/IMconvert/ig
+
+# Replace all single quotes (') by double quotes (")
+s/'/\"/g
+
+# Double all percent signs
+s/%/%%/g
+
+# Un-escape paranthesis '(', ')' and exclamation marks '!'
+s/\\\([()!]\)/\1/g
+
+# Escape all shell characters, i.e.  & | < >
+# The caret '^' is only used in quotes, thus we can skip it
+s/\([&|<>]\)/^\1/g
+
+# Replace the UNIX comment sign '#' by two double colons '::'
+s/^[ ]*#/::/
+
+# Split lines with inline comments '#'
+# Ensure that there is a space just before the
+# comment such that color specifications like xc:#FF00FF
+# are spared.
+s/\(^.*\)\( #.*$\)/\2\n\1/
+
+# Bracket fully qualified filenames 
+# i.e. c:\fully qualified\finame.jpg
+# by double quotes
+s/\(.:.*\.[a-z,A-Z]*\)[ ]/\"\1\" /g
+
+# Replace the line continuation character, i.e. '\' -> '^'
+s/\\[ ]*$/^/
+
+# Just for Anthony Thyssen's excamples:
+# delete two spaces at the beginning of each line
+s/^[ ][ ]//

@@ -78,7 +78,7 @@ for %%i in (*.html) do (
 	REM sed -i "s/Geoff Lawton Permaculture Training – Permaculture, PDC, Online Courses/!title!/g" output.html
 	
 
-	C:\Users\doria\Downloads\Software_pcloud\PortableApps\LibreOfficePortable\App\libreoffice\program\soffice.exe --convert-to pdf --outdir . output.html
+	P:\Software\PortableApps\LibreOfficePortable\App\libreoffice\program\soffice.exe --convert-to pdf --outdir . output.html
 	del output.html
 
 	REM C:\Users\doria\Downloads\Software_pcloud\PortableApps\PDFTKBuilderPortable\App\pdftkbuilder\pdftk.exe output.pdf dump_data | grep NumberOfPages > test2
@@ -119,7 +119,7 @@ for /f "delims=" %%A in (%input2%) do (
 	set foldername=%%~nxA
 )
 
-C:\Users\doria\Downloads\Software_pcloud\PortableApps\PDFTKBuilderPortable\App\pdftkbuilder\pdftk.exe *.pdf cat output "%input2:"=%\%foldername%.pdf"
+P:\Software\PortableApps\PDFTKBuilderPortable\App\pdftkbuilder\pdftk.exe *.pdf cat output "%input2:"=%\%foldername%.pdf"
 
 :end
 
