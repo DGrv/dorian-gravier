@@ -142,24 +142,24 @@ echo.
 echo.
 if "%choice%"=="1" (
 	if "%url%"=="list" (
-		for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
+		for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
 	) else (
-		%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(uploader)s__-__%%(title)s.%%(ext)s" -i %url%
+		%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -i %url%
 	)
 )
 if "%choice%"=="2" (
 	if "!choice2!"=="2" (
 		if "%url%"=="list" (
-			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %%A
+			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %%A
 		) else (
-			%pathexe% --write-auto-sub -o "%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %url%
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %url%
 		)
 	)
 	if "!choice2!"=="1" (
 		if "%url%"=="list" (
-			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %%A
+			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %%A
 		) else (
-			%pathexe% --write-auto-sub -o "%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %url%
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %url%
 		)
 	)
 )
