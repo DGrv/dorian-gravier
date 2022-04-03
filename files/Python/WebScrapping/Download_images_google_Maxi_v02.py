@@ -8,8 +8,9 @@ import os
 from PIL import Image
 import io
 import hashlib
+import re
  
-from FUNCTION_Download_image_google_MAXI_v01 import downloadimages
+from FUNCTION_Download_image_google_MAXI_v02 import downloadimages
 
 
 # source 
@@ -18,8 +19,8 @@ from FUNCTION_Download_image_google_MAXI_v01 import downloadimages
 
 # What you enter here will be searched for in
 # Google Images
- 
-DRIVER_PATH = 'C:/Users/doria/Downloads/chromedriver_win32/chromedriver.exe'
+
+DRIVER_PATH = 'L:/Diverses/Software/chromedriver_win32/chromedriver.exe'
 service = Service(DRIVER_PATH)
 service.start()
 wd = webdriver.Remote(service.service_url)
@@ -37,9 +38,7 @@ box.send_keys(Keys.ENTER)
 
 
 
-downloadimages('DMM - Dragon Cam - Silver - 0', '5031290209960', 2, wd,  'c:/users/doria/downloads/maxi_bilder/DMM')
-downloadimages('DMM - 8mm Dynatec Sling - Gold - 60cm', '5031290215510', 2, wd,  'c:/users/doria/downloads/maxi_bilder/DMM')
-
+downloadimages('E9 - Mare2 - Deep.blue-670 - M', '5031290209960', 2, wd,  'C:/Users/buero.BSPM/Downloads/E9')
 
 
 
