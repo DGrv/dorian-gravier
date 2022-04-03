@@ -20,15 +20,23 @@ I just used the cmder-mini. To replace the cmd with the cmder :
 
 ![Picture](/files/posts/2019/2019-05-06/Cmder_default_term.jpg)
 
+# Integration with FreeCommander
+
 If you use [FreeCommander](https://freecommander.com/en/summary/) (an expolorer much better that the one from Windows), you know that you can open a cmd terminal where your explorer is by pressing `Ctrl+D`. In order to use Cmder as well with this:
 
-- Open cmder.exe
-- `Win+Alt+P` to open the settings
-- Startup / Task
-  - Create a new one by clicking `+`
-  - Give the 'cmd' name
-  - Task parameters :  `/icon "%CMDER_ROOT%\icons\cmder.ico"`
 - Go in Settings / View / DOS Prompt
-- Modify DOS box command specification : `<path-of-your-Cmder.exe> /task "cmd" /single`
+- Modify DOS box command specification : `<path-of-your-Cmder.exe> /single /x "/cmd cmd" %ActivDir%`
+	- Single permit to open a new tab and to have only one instance
 
-![Picture](/files/posts/2019/2019-05-06/2019-05-06_Gif_cmder.gif)
+# Batch files
+
+Create a reg file:
+
+```shell
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\batfile\shell\open\command]
+@="\"C:\\Program Files\\cmder\\Cmder.exe\" /single /x \"/cmd %1\" %*"
+```
+
+- Source ()[https://github.com/cmderdev/cmder/issues/2110#issuecomment-1041922115]
