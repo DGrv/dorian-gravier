@@ -13,7 +13,7 @@ GEM
       execjs
     coffee-script-source (1.11.1)
     colorator (1.1.0)
-    commonmarker (0.17.13)
+    commonmarker (0.17.6)
       ruby-enum (~> 0.5)
     concurrent-ruby (1.1.5)
     dnsruby (1.61.3)
@@ -67,7 +67,7 @@ GEM
       jekyll-theme-time-machine (= 0.1.1)
       jekyll-titles-from-headings (= 0.5.1)
       jemoji (= 0.10.2)
-      kramdown (>= 2.3.0)
+      kramdown (>= 2.3.1)
       liquid (= 4.0.0)
       listen (= 3.1.5)
       mercenary (~> 0.3)
@@ -269,7 +269,7 @@ DEPENDENCIES
   tzinfo-data
   wdm (~> 0.1.0)
   minimist (>= 1.2.6)
-  xmldom (>= 0.5.0)
+  xmldom (>= 0.7.0)
 
 BUNDLED WITH
    2.0.1
