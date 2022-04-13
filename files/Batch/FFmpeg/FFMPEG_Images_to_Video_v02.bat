@@ -73,7 +73,7 @@ if "%pathfiles:~-3%"=="peg" GOTO singlefile
 
 
 
-mogrify -resize %reso% -extent %reso% -gravity Center -background black *.jpg
+magick mogrify -resize %reso% -extent %reso% -gravity Center -background black *.jpg
 :: detect if landscape 
 :: BUT magick does not recognize the real width and height
 REM for %%A in (*.jpg) do (
@@ -104,7 +104,7 @@ GOTO end
 
 :singlefile
 
-mogrify -resize %reso% -extent %reso% -gravity Center -background black %pathfiles% 
+magick mogrify -resize %reso% -extent %reso% -gravity Center -background black "%pathfiles%"
 ffmpeg -r "1/%fr%" -f image2 -i "%pathfiles%" -vcodec libx264 -vf "fps=25,format=yuv420p" "%pathfiles%.mp4"
 echo dasfsdf
 
