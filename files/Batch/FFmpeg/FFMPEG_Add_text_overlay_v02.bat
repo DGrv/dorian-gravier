@@ -1,5 +1,5 @@
 @echo off
-SeTRocal EnableDelayedExpansion
+SetLocal EnableDelayedExpansion
 
 echo "--------------------------------------------------------------------------------"
 echo "   _____             _                _____                 _                   "
@@ -26,13 +26,28 @@ echo Will add text overlay where you want on your video
 
 
 set /p pathfile="Give me the Video path: "
-set pathnew=%pathfile:.mp4=%
+for %%a in (%pathfile%) do (
+	set pathh=%%~dpa
+	set filename=%%~nxa
+	set filenamenoext=%%~na
+	set filepathnoext=%%~dpna
+	set ext=%%~xa
+	set drive=%%~da
+)  
+echo pathh=%pathh%
+echo filename=%filename%
+echo filenamenoext=%filenamenoext%
+echo filepathnoext=%filepathnoext%
+echo drive=%drive%
+echo wd=%wd%
+%drive%
+cd "%pathh%"
 
 set /p time="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
 set /p text="Give me you text: "
 set /p fontsize="Give me your fontsize (TLy big first, maybe 50): "
 
-REM echo pathnew : %pathnew%
+REM echo filenamenoext : %filenamenoext%
 
 echo.
 echo "--------------------------------"
@@ -54,56 +69,57 @@ echo xpos %xpos%
 if "%xpos%"=="TL" (
 	set xpos=0.05
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -c:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -c:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="TC" (
 	set xpos=0.5
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	echo ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="TR" (
 	set xpos=0.95
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="LC" (
 	set xpos=0.05
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="C" (
 	set xpos=0.5
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="RC" (
 	set xpos=0.95
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="BL" (
 	set xpos=0.05
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="BC" (
 	set xpos=0.5
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 )
 if "%xpos%"=="BR" (
 	set xpos=0.95
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
-	GOTO :EOF
+	ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
+	GOTO :end
 ) else (
 	set /p ypos="Give me your y position (0.1 will be on the top, 0.9 will be on the bottom): "
 )
@@ -111,9 +127,12 @@ if "%xpos%"=="BR" (
 
 
 
-ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*%xpos%:y=h*%ypos%:enable='between(t,%time%)'" -codec:a copy "%pathnew%_new.mp4"
+ffmpeg -stats -loglevel error -i "%pathfile%" -vf drawtext="text='%text%': fontcolor=white: fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*0.5:y=h*0.5:enable='between(t,%time%)'" -codec:a copy "%filenamenoext%_new.mp4"
 
 :end
+rename "%filenamenoext%_new.mp4" "temp_overlay.mp4"
+ffmpeg -i "temp_overlay.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -acodec copy "%filenamenoext%_new.mp4"
+del "temp_overlay.mp4"
 
 
 :: souLCe https://stackoverflow.com/questions/17623676/text-on-video-ffmpeg
