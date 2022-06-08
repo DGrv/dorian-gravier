@@ -32,7 +32,14 @@ var Bike = ['files/gpx/Bike/B_201511_mtb.gpx',
 'files/gpx/Bike/B_202006_Jugethoehe.gpx',
 'files/gpx/Bike/B_202109_Fahrrad_Klettern_Jura.gpx',
 'files/gpx/Bike/B_202111_Chartreuse.gpx',
-'files/gpx/Bike/B_202111_Grenoble-LesForges.gpx']
+'files/gpx/Bike/B_202111_Grenoble-LesForges.gpx',
+'files/gpx/Bike/B_202205_Bike_01.gpx',
+'files/gpx/Bike/B_202205_Bike_02.gpx',
+'files/gpx/Bike/B_202205_Bike_03.gpx',
+'files/gpx/Bike/B_202205_Bike_04.gpx',
+'files/gpx/Bike/B_202205_Bike_05.gpx',
+'files/gpx/Bike/B_202205_Bike_06.gpx',
+'files/gpx/Bike/B_202205_Bike_07.gpx']
 
 var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
@@ -81,7 +88,8 @@ var Hike = ['files/gpx/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_01.gpx',
 'files/gpx/Hike/W_202008_Tannheim-Hinterhornbach_02.gpx',
 'files/gpx/Hike/W_202102_Hirschberg.gpx',
-'files/gpx/Hike/W_202111_Chartreuse_LaPinea.gpx']
+'files/gpx/Hike/W_202111_Chartreuse_LaPinea.gpx',
+'files/gpx/Hike/W_202205_Stockflue.gpx']
 
 var HikeProject = ['files/gpx/Hike/Project/AKD_project.gpx',
 'files/gpx/Hike/Project/moe_saladinspitze_rotewand_.gpx',

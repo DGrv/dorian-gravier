@@ -23,11 +23,29 @@ for /F %%i in ("%input%") do @set drive=%%~di
 cd "%input%"
 
 
-set /p rmdesc=Do you wanna remove all comments or description from gpx (save space) [y/n]   
+echo Do you wanna remove all :
+echo - comments <cmt> balise
+echo - description <desc> balise
+echo - links with thecrag
+set /p rmdesc=and empty latitude [y/n]   
 if %rmdesc%==y (
 	for %%f in (*.gpx) do (
-		echo %%f
+		echo %input% --- Remove comment and empty latitude --- %%f
+		:: remove empty lat and 3 lines afterward
+		REM change empty latitude
+		sed -i "/wpt lat=\"\"/,/wpt>/d" "%%f"
+		sed -i "/wpt lat=\"0.00.*\" lon=\"0.00.*\"/,/wpt>/d" "%%f"
+		REM sed -i "/<wpt lat=\"0.* lon=\"0.*>/{n;d}" "%%f"
+		REM sed -i "/<wpt lat=\"0.* lon=\"0.*>/{n;d}" "%%f"
+		REM sed -i "/<wpt lat=\"0.* lon=\"0.*>/{n;d}" "%%f"
+		REM sed -i "/<wpt lat=\"0.* lon=\"0.*>/{n;d}" "%%f"
+		REM sed -i "/<wpt lat=\"0.* lon=\"0.*>/{d}" "%%f"
+		REM sed -i "/\<link href=\"https\:\/\/www\.thecrag\.com.*/{n;d}" "%%f"
+		REM sed -i "/\<link href=\"https\:\/\/www\.thecrag\.com.*/{n;d}" "%%f"
+		REM sed -i "/\<link href=\"https\:\/\/www\.thecrag\.com.*/{d}" "%%f"
+		:: remove comment
 		sed -i "/\<desc\>\|\<\/desc\>/d" "%%f"
+		sed -i "/\<cmt\>\|\<\/cmt\>/d" "%%f"
 	)
 	ls | grep "^sed.*" | xargs rm
 )
@@ -41,8 +59,9 @@ for %%f in (*.gpx) do (
 
 :continue
 for %%f in (*.gpx) do (
+	echo %input% --- GPSBabel --- %%f
 	echo.
-	echo %%f
+	
 	"C:\Program Files (x86)\GPSBabel\gpsbabel.exe" -i gpx -f Merge.gpx -f "%%f" -x duplicate,location,shortname -o gpx -F Merge.gpx
 )
 
