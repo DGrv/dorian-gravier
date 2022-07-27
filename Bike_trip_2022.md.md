@@ -1,7 +1,7 @@
 ---
 title: Bike Trip 2022
 layout: page
-show_in_nav: true
+show_in_nav: false
 ---
 
 <html>
