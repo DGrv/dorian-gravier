@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-order: 10
+order: 4
 ---
 # Welcome
 

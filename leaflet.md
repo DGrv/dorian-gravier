@@ -140,9 +140,9 @@ show_in_nav: false
     			// initialize the map
     		// only add 1 layer here to avoid the 2 layers to load
     		var map = L.map('map', {
-    			center: [47.4710, 10.2859],
-    			zoom: 10,
-    			layers: openslopemapLR,
+    			center: [46.529, 9.009],
+    			zoom: 5,
+    			layers: CyclOSM,
     			fullscreenControl: {
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
