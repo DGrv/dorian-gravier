@@ -84,28 +84,7 @@ var waymarkedSkipisten = L.layerGroup();
 var opensnowmapPiste = L.layerGroup();
 
 var overlays = {
-	"POI - Refuge.info POI": refugepoi,
-	"POI - DAV-SAC-CAS Hutten": Hutten,
-	"Hillshading": hill,
-	"Slope - OpenSlopeMapHR": OpenSlopeMap_HR,
-	"Slope - OpenSlopeMapLR": OpenSlopeMap_LR,
-	"Stamen TonerHybrid": Stamen_TonerHybrid,
-	"Transport - Pt": OpenPtMap,
-	"Transport - Train": OpenRailwayMap,
-	"Ways - Hiking trails": hiketrails,
-	"Ways - Cycling routes": cycleroutes,
-	"Ways - Ski pistes": pistes,
-	"DG - Bike": lBike,
-	"DG - Hike": lHike,
-	"DG - SchiTour": lSchitour,
-	"DG - SchneeSchuhe": lSchneeS,
-	"DG - Project Bike": lBikeProject,
-	"DG - Project Hike": lHikeProject,
-	"DG - Project SchiTour": lSchitourProject,
-	"DG - Project SchneeSchuhe": lSchneeSProject,
-	"Wintersport (opensnowmap.org)": opensnowmapPiste,
-	"Wintersport (waymarkedtrails.org)": waymarkedSkipisten,
-	"Gipfel Alpen": openslopemapOverlayAlpsPeaks
+	"Bike Trip 2022": lBike,
 };
 
 var hutteIcon = L.icon({
@@ -114,8 +93,8 @@ var hutteIcon = L.icon({
 });
 
 var loopinfo = {
-	what: [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
-	layer: [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
-	trackcolor: ['green', 'red', 'red', 'blue', 'blue', 'purple'],
-	project: [false, false, true, false, true, true]
+	what: [Bike_trip_2022],
+	layer: [lBike],
+	trackcolor: ['green'],
+	project: [false]
 };

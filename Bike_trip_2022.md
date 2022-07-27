@@ -1,7 +1,8 @@
 ---
 title: Bike Trip 2022
 layout: page
-show_in_nav: false
+show_in_nav: true
+order: 5
 ---
 
 <html>
@@ -93,7 +94,7 @@ show_in_nav: false
     	<!-- <script src="js/Personal/DAVHut.js"></script> -->
     	<!-- <script src="js/Personal/gpx.js"></script> -->
     	<script src="js/Personal/Bike_trip_2022_gpx.js"></script>
-    	<script src="js/Personal/Bike_trip_2022_Leaflet_map.js"></script>
+    	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Bike_trip_2022_Leaflet_overlays.js"></script>
 
     	<style>
@@ -141,9 +142,9 @@ show_in_nav: false
     			// initialize the map
     		// only add 1 layer here to avoid the 2 layers to load
     		var map = L.map('map', {
-    			center: [47.4710, 10.2859],
-    			zoom: 10,
-    			layers: openslopemapLR,
+    			center: [46.529, 9.009],
+    			zoom: 5,
+    			layers: CyclOSM,
     			fullscreenControl: {
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
