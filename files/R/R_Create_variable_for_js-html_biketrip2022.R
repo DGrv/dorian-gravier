@@ -2,14 +2,13 @@
   
   library(data.table)
 
-  wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Leaflet"
-  outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
+  wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022"
+  outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/Bike_trip_2022_gpx.js"
   if( !dir.exists(wd) ) {
-    wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Leaflet"
-    outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
+    wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022"
+    outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/Bike_trip_2022_gpx.js"
   }
   setwd(wd)
-
 
 
 # get data ----------------------------------------------------------------
