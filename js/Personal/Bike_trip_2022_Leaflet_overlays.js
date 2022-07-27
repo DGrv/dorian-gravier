@@ -92,7 +92,7 @@ var hutteIcon = L.icon({
 	iconSize: [30] // size of the icon
 });
 
-var loopinfo = {
+var loopinfoBikeTrip2022 = {
 	what: [Bike_trip_2022],
 	layer: [lBike],
 	trackcolor: ['green'],

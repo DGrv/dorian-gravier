@@ -93,7 +93,7 @@ order: 5
     	<!-- Personal js -->
     	<!-- <script src="js/Personal/DAVHut.js"></script> -->
     	<!-- <script src="js/Personal/gpx.js"></script> -->
-    	<script src="js/Personal/Bike_trip_2022_gpx.js"></script>
+    	<script src="js/Personal/gpx_biketrip2022.js"></script>
     	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Bike_trip_2022_Leaflet_overlays.js"></script>
 
@@ -154,15 +154,14 @@ order: 5
 			
 		L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 
-
     		// popup info : https://meggsimum.de/webkarte-mit-gps-track-vom-sport/
 
-    		for (var j = 0; j < loopinfo.what.length; j += 1) {
-    			for (var i = 0; i < loopinfo.what[j].length; i += 1) {
+    		for (var j = 0; j < loopinfoBikeTrip2022.what.length; j += 1) {
+    			for (var i = 0; i < loopinfoBikeTrip2022.what[j].length; i += 1) {
 
-				var url = loopinfo.what[j][i];
-				var trackcolor = loopinfo.trackcolor[j];
-				var project = loopinfo.project[j];
+				var url = loopinfoBikeTrip2022.what[j][i];
+				var trackcolor = loopinfoBikeTrip2022.trackcolor[j];
+				var project = loopinfoBikeTrip2022.project[j];
 				
 								
 				var g = new L.GPX(url,
@@ -231,11 +230,11 @@ order: 5
 					e.target.setStyle({opacity: 1, weight: 3});
 				});
 
-				g.addTo(loopinfo.layer[j]);
+				g.addTo(loopinfoBikeTrip2022.layer[j]);
 			};
 		};
 		
-
+		map.addLayer(lBike); // add by default the bike gpx overlays
 
 	
 		// Minimap
