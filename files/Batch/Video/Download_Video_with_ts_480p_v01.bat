@@ -76,6 +76,7 @@ echo.
 echo [INFO] - dirname = %dirname%
 echo.
 
+C:
 cd C:\Users\doria\Downloads\
 
 set namenewdir=temp_ts

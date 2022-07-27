@@ -5,8 +5,6 @@ SetLocal EnableDelayedExpansion
 :: Edit the line below to match your path to the ffmpeg executable.
 
 
-@echo off
-SetLocal EnableDelayedExpansion
 
 
 echo "--------------------------------------------------------------------------------"
