@@ -2,10 +2,10 @@
   
   library(data.table)
 
-  wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Leaflet"
+  wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
   outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
   if( !dir.exists(wd) ) {
-    wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Leaflet"
+    wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
     outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx.js"
   }
   setwd(wd)
@@ -16,9 +16,12 @@
 
   lis <- data.table(path = list.files(wd, pattern = "\\.gpx", full = T, recursive = T))
   lis <- lis[!path %like% "gpx.reg"]
+  lis <- lis[!path %like% "_site"]
+  lis <- lis[!path %like% "Bike_trip_2022"]
   lis[, path2 := gsub(paste0(dirname(wd), "/"), "", path) ]
   lis[, dir := dirname(path2) ]
   lisdir <- unique(lis$dir)
+  lisdir
 
 # output ------------------------------------------------------------------
 
