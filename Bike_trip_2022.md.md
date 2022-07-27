@@ -93,8 +93,8 @@ show_in_nav: false
     	<!-- <script src="js/Personal/DAVHut.js"></script> -->
     	<!-- <script src="js/Personal/gpx.js"></script> -->
     	<script src="js/Personal/Bike_trip_2022_gpx.js"></script>
-    	<script src="js/Personal/Leaflet_map.js"></script>
-    	<script src="js/Personal/Leaflet_overlays.js"></script>
+    	<script src="js/Personal/Bike_trip_2022_Leaflet_map.js"></script>
+    	<script src="js/Personal/Bike_trip_2022_Leaflet_overlays.js"></script>
 
     	<style>
 		#map { 
