@@ -8,11 +8,13 @@ order: 1
 You have an access to some final documents of what I have done (essentially from interships) since 2008. This is only to give you an idea of what I am able to do so far. If you need more information, do not hesitate to ask me (_cf_ contact in the Home page).
 
 
-<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
-- [2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).](#2017---making-a-new-kinetic-data-variable-available-the-slopehdc-gmbh-konstanz-bw-de)
-- [2017 - Importance of documentation and Standard Operational Procedures (HDC GmbH, Konstanz, BW, DE).](#2017---importance-of-documentation-and-standard-operational-procedureshdc-gmbh-konstanz-bw-de)
+<!-- Use to create your TOC https://luciopaiva.com/markdown-toc/ -->
+# Table of contents
+
+- [2019 - Analyze data from HCS with OpenSource softwares](#2019---analyze-data-from-hcs-with-opensource-softwares)
+- [2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).](#2017---making-a-new-kinetic-data-variable-available-the-slope-hdc-gmbh-konstanz-bw-de)
 - [2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).](#2016---hts-data-processing-and-analysis-example-of-possibilities-with-open-source-softwares-r-hdc-gmbh-konstanz-bw-de)
-- [2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).](#2015---overview-of-tools-developed-with-rhdc-gmbh-konstanz-bw-de)
+- [2015 - Overview of tools developed with R ​(HDC GmbH, Konstanz, BW, DE).](#2015---overview-of-tools-developed-with-r-hdc-gmbh-konstanz-bw-de)
 - [2014 - Example of data analysis for quality control of Hight Throughtput Screening data (HDC GmbH, Konstanz, BW, DE).](#2014---example-of-data-analysis-for-quality-control-of-hight-throughtput-screening-data-hdc-gmbh-konstanz-bw-de)
 - [2013 - Spatial and isotope analysis from the Commerson dolphins’ (Cephalorhynchus commersonii kerguelenensis) monitoring at Kerguelen island (CNRS Chize, Deux-Sevres, FR).](#2013---spatial-and-isotope-analysis-from-the-commerson-dolphins-cephalorhynchus-commersonii-kerguelenensis-monitoring-at-kerguelen-island-cnrs-chize-deux-sevres-fr)
 - [2013 - Implementation of Commerson dolphins’ monitoring protocol via photo-identification (National Nature Reserve of French Austral Islands (France, Kerguelen Island, Indian Ocean).](#2013---implementation-of-commerson-dolphins-monitoring-protocol-via-photo-identification-national-nature-reserve-of-french-austral-islands-france-kerguelen-island-indian-ocean)
@@ -20,10 +22,10 @@ You have an access to some final documents of what I have done (essentially from
 - [2012 - Erasmus in Sweden (Gothenburg, SE).](#2012---erasmus-in-sweden-gothenburg-se)
 - [2011 - Intership on bats (Cholet, Maine-et-Loire, FR).](#2011---intership-on-bats-cholet-maine-et-loire-fr)
 - [2010 - Internship on the Little Owl (Chevreuse, Yvelines, FR).](#2010---internship-on-the-little-owl-chevreuse-yvelines-fr)
-- [2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).](#2009--internshiponlady-beetles-calais-nord-pas-de-calais-fr)
+- [2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).](#2009---internship-on-lady-beetles-calais-nord-pas-de-calais-fr)
 - [2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).](#2007-2008---btsa-forestry-management-mirecourt-vosges-fr)
 - [Other - R graphics.](#other---r-graphics)
-<!-- TOC END -->
+
 
 
 # 2019 - Analyze data from HCS with OpenSource softwares
