@@ -32,6 +32,11 @@ for %%a in (%wd%) do (
 %drive%
 cd %wd%
 
+:: rename extension
+for %%a in (*.MP4) do (
+	rename %%~nxa %%~na.mp4
+)  
+
 
 set tbs=24000
 set tbs2=1/!tbs!
@@ -91,7 +96,6 @@ echo INFO - Start tbsa
 echo.
 
 :: change tbs to have all the same - video tbs
-WHERE ffmpeg
 IF %ERRORLEVEL% NEQ 0 (
 	echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
 	pause
@@ -102,7 +106,7 @@ IF %ERRORLEVEL% NEQ 0 (
 		del tempfile
 		if NOT "!tbn!"=="%tbs2%" (
 			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %tbs% %%i
+			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4"-video_track_timescale %tbs% %%i
 			:: change to recycle once reboot
 			del %%~ni_temp.mp4
 		)
