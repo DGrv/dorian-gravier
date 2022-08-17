@@ -159,7 +159,15 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		)
 		if exist listmp3.txt (
 			ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy input_temp.mp3
-			ffmpeg -stats -loglevel error -i input_temp.mp3 -ar %tbsa% input.mp3
+			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 input_temp.mp3 > tempfile
+			set /p tbna=<tempfile
+			if NOT "!tbna!"=="%tbsa2%" (
+				rename %%i %%~ni_temp.mp4
+				ffmpeg -stats -loglevel error -i input_temp.mp3 -ar %tbsa% input.mp3
+				del %%~ni_temp.mp4
+			) ELSE (
+				rename input_temp.mp3 input.mp3
+			)
 			if exist input_temp.mp3 (
 				del input_temp.mp3
 			)
@@ -257,7 +265,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo.
 	
 	if not exist music.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -video_track_timescale %tbs% zzzzzz_music.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=15 -video_track_timescale %tbs% zzzzzz_music.mp4
 	)
 
 	if NOT EXIST zzzzzz_music.mp4 (
@@ -273,7 +281,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			set /a high=!high!*75
 			if !x!==1 (	
 				set /a hightitle=!high!-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=5 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %tbs% zzz.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=15 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %tbs% zzz.mp4
 				ffmpeg -stats -loglevel error -i zzz.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
 				del zzz.mp4
 			) else (
@@ -284,9 +292,14 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			set /a x=!x!+1
 		)
 		ffmpeg -stats -loglevel error -i !last! -f lavfi -i aevalsrc=0 -shortest -y zzzb.mp4
-		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %tbsa% -video_track_timescale %tbs% zzzzzz_music.mp4
+		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %tbsa% -video_track_timescale %tbs% zzzc.mp4
+		ffmpeg -stats -loglevel error -i zzzc.mp4 -vf "fade=t=in:st=1:d=3" -c:a copy zzzd.mp4
+		ffmpeg -stats -loglevel error -i zzzd.mp4 -vf "fade=t=out:st=1:d=5" -c:a copy zzzzzz_music.mp4
+
 		del !last!
 		del zzzb.mp4
+		del zzzc.mp4
+		del zzzd.mp4
 	)
 
 	REM del arial.ttf
@@ -302,7 +315,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 	echo.
 	echo -------------------------------------------------
-	echo INFO - Start tbs
+	echo INFO - Start tbsa
 	echo.
 
 
@@ -355,7 +368,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	echo.
 	echo -------------------------------------------------
-	echo INFO - Start tbsa
+	echo INFO - Start tbs
 	echo.
 
 	:: change tbs to have all the same - video tbs
@@ -408,6 +421,27 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy output.mp4
 	::del listmp4.txt
+	
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp3 > tempfile
+	set /p duraa=<tempfile
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp3 > tempfile
+	set /p durav=<tempfile
+	del tempfile
+	set /a duraa=%duraa%
+	set /a durav=%durav%
+	
+	IF %duraa% LSS %durav% (
+		echo.
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo.
+		pause 
+	)
 	
 	
 	echo.

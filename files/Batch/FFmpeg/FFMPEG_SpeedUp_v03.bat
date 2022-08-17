@@ -39,14 +39,13 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
-	echo ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
-	call ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
+	call ffmpeg -stats -loglevel error -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "%%~np_f%speed%%%~xp"
+	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
 )
 
-ffmpeg -y -i 105.mp4 -filter:v "setpts=(1.5-0.002*N)*PTS" new.mp4
-ffmpeg -y -i 105.mp4 -an  -filter:v "setpts=PTS/6" new.mp4
-ffmpeg -y -i 105.mp4 -af "atempo=6" -vf "setpts=PTS/6,fps=24" new.mp4
-ffmpeg -y -i 105.mp4 -vf "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=24*6'" new.mp4
+REM ffmpeg -y -i 105.mp4 -an  -filter:v "setpts=PTS/6" new.mp4
+REM ffmpeg -y -i 105.mp4 -af "atempo=6" -vf "setpts=PTS/6,fps=24" new.mp4
+REM ffmpeg -y -i 105.mp4 -vf "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=24*6'" new.mp4
 
 
 del list.txt
