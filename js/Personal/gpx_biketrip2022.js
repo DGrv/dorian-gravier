@@ -16,5 +16,6 @@ var Bike_trip_2022 = ['files/gpx/Bike_trip_2022/B_2022_Bike-travel_001.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_015.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_016.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_017.gpx',
-'files/gpx/Bike_trip_2022/B_2022_Bike-travel_018.gpx']
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_018.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_019.gpx']
 
