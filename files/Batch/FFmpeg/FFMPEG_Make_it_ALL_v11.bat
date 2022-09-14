@@ -528,6 +528,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
 	ffmpeg -stats -loglevel error -i output_1920_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
+	ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=480:-2" -preset slow -crf 25 output_480_crf25_temp.mp4
+	ffmpeg -stats -loglevel error -i output_480_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=360:-2" -preset slow -crf 25 output_360_crf25_temp.mp4
 	REM Was use before for Handy because the format was not passing ...
 	REM ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
 	
@@ -536,6 +538,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	REM )
 	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
 	rename output_720_crf25_temp.mp4 %title2%_low.mp4
+	rename output_480_crf25_temp.mp4 %title2%_low2.mp4
+	rename output_360_crf25_temp.mp4 %title2%_low3.mp4
 	REM rename output_720_crf25.mp4 %title2%_low.mp4
 	rename output_high.mp4 %title2%_raw.mp4
 

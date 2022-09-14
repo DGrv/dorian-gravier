@@ -34,7 +34,7 @@ cd %wd%
 
 :: rename extension
 for %%a in (*.MP4) do (
-	rename %%~nxa %%~na.mp4
+	rename "%%~nxa" "%%~na.mp4"
 )  
 
 
@@ -51,24 +51,24 @@ IF %ERRORLEVEL% NEQ 0 (
 	pause
 ) else (
 	for %%i in (*.mp4) DO (
-		ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+		ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
 		set /p tbna=<tempfile
 		:: check if no audio and add one, needed to bind all audio later, especially with music
 		for %%a in (tempfile) do (
 			:: check if filesize == 0 
 			if %%~za==0 (
-				rename %%i %%~ni_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y %%i
-				del %%~ni_temp.mp4
-				ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+				rename "%%i" "%%~ni_temp.mp4"
+				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+				del "%%~ni_temp.mp4"
+				ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
 				set /p tbna=<tempfile
 				del tempfile
 			) 
 		)
 		if NOT "!tbna!"=="%tbsa2%" (
 			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% %%i
-			del %%~ni_temp.mp4
+			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% "%%i"
+			del "%%~ni_temp.mp4"
 		)
 	)
 	REM :: fade in and out 1 to avoid to rash transition
@@ -101,14 +101,14 @@ IF %ERRORLEVEL% NEQ 0 (
 	pause
 ) else (
 	for %%i in (*.mp4) DO (
-		ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
+		ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
 		set /p tbn=<tempfile
 		del tempfile
 		if NOT "!tbn!"=="%tbs2%" (
-			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4"-video_track_timescale %tbs% %%i
+			rename "%%i" "%%~ni_temp.mp4"
+			ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %tbs% "%%i"
 			:: change to recycle once reboot
-			del %%~ni_temp.mp4
+			del "%%~ni_temp.mp4"
 		)
 	)
 )
