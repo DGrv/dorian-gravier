@@ -95,6 +95,6 @@ var hutteIcon = L.icon({
 var loopinfoBikeTrip2022 = {
 	what: [Bike_trip_2022],
 	layer: [lBike],
-	trackcolor: ['green'],
+	trackcolor: ['#2b88ff'],
 	project: [false]
 };

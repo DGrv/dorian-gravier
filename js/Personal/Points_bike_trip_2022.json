@@ -1,7 +1,10 @@
 
 var pointsbiketrip = [
-	{"type": "Feature", "properties": {"popupContent": "Gregoire" }, "geometry": {"type": "Point", "coordinates":  [4,47]} },
-	{"type": "Feature", "properties": {"popupContent": "test" }, "geometry": {"type": "Point", "coordinates":  [4,48]} }
+	{"type": "Feature", "properties": {"popupContent": "Chez Gregoire" }, "geometry": {"type": "Point", "coordinates":  [5.17215, 47.58821] }},
+	{"type": "Feature", "properties": {"popupContent": "Woofing au clos des Chevres" }, "geometry": {"type": "Point", "coordinates":  [4.15917, 47.19581] }},
+	{"type": "Feature", "properties": {"popupContent": "Chez Virginie" }, "geometry": {"type": "Point", "coordinates":  [3.49875, 46.02158] }},
+	{"type": "Feature", "properties": {"popupContent": "Woofing chez Kim" }, "geometry": {"type": "Point", "coordinates":  [3.73177, 46.08813] }},
+	{"type": "Feature", "properties": {"popupContent": "Vendanges au Domaine Miolanne" }, "geometry": {"type": "Point", "coordinates":  [3.15439, 45.59475] }}
 ];
 
   
