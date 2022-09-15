@@ -1,0 +1,7 @@
+
+var pointsbiketrip = [
+	{"type": "Feature", "properties": {"popupContent": "Gregoire" }, "geometry": {"type": "Point", "coordinates":  [4,47]} },
+	{"type": "Feature", "properties": {"popupContent": "test" }, "geometry": {"type": "Point", "coordinates":  [4,48]} }
+];
+
+  

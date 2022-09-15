@@ -96,6 +96,7 @@ order: 5
     	<script src="js/Personal/gpx_biketrip2022.js"></script>
     	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Bike_trip_2022_Leaflet_overlays.js"></script>
+    	<script src="js/Personal/Points_bike_trip_2022.json"></script>
 
     	<style>
 		#map { 
@@ -246,6 +247,21 @@ order: 5
 
 
 
+
+		
+		// POints
+		L.geoJSON(pointsbiketrip, {
+			// onEachFeature: onEachFeature, style: myStyle,
+			pointToLayer: function(feature, latlng) {
+				return new L.CircleMarker(latlng, {radius: 7, fillOpacity: 1, color : "#2a4dfe", stroke: true, weight: 3});
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindPopup(feature.properties.popupContent);
+			}
+		}).addTo(map);
+		
+		
+		
 		
 		L.Control.geocoder({
 			position: 'topleft',
