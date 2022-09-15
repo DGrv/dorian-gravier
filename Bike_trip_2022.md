@@ -253,7 +253,7 @@ order: 5
 		L.geoJSON(pointsbiketrip, {
 			// onEachFeature: onEachFeature, style: myStyle,
 			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {radius: 7, fillOpacity: 1, color : "#2a4dfe", stroke: true, weight: 3});
+				return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, color : "#ff2b56", stroke: true, weight: 2});
 			},
 			onEachFeature: function (feature, layer) {
 				layer.bindPopup(feature.properties.popupContent);
