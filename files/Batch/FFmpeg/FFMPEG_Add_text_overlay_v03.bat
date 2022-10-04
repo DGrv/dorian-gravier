@@ -64,10 +64,10 @@ echo "--------------------------------"
 echo.
 
 echo Give a x position (0.1 will be on the left, 0.9 will be on the right)
-set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TC): "
+set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TR): "
 
 if "%xpos%"=="" (
-	set xpos=TC
+	set xpos=TR
 )
 
 echo.

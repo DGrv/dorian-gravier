@@ -106,6 +106,8 @@ IF %lines%==1 (
 	rename 00000001.mp4 Title_new.mp4
 	set last=Title_new.mp4
 )
+
+
 :: fade in and out
 pause
 set /a sec2=1

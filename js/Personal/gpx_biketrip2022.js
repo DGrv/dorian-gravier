@@ -17,5 +17,10 @@ var Bike_trip_2022 = ['files/gpx/Bike_trip_2022/B_2022_Bike-travel_001.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_016.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_017.gpx',
 'files/gpx/Bike_trip_2022/B_2022_Bike-travel_018.gpx',
-'files/gpx/Bike_trip_2022/B_2022_Bike-travel_019.gpx']
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_019.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_020.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_021.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_022.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_023.gpx',
+'files/gpx/Bike_trip_2022/B_2022_Bike-travel_024.gpx']
 

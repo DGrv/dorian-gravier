@@ -20,20 +20,19 @@ echo Take care of name of the files, should not contain strange characters (no p
 echo.
 
 if "%~1"=="" (
-	set /p input=Give me the path of the directory where your video are: 
+	set /p input=Give me the path of the directory where your mp3 are: 
 ) else (
 	set input=%~1
 )
-
-set /p small="Do you wanna convert it also small for sharing and test [y/n]: "
 
 echo.
 echo.
 
 rm %input%\list.txt
+
 :: get the last file in the list to get the ext
 :: https://stackoverflow.com/questions/47450531/batch-write-output-of-dir-to-a-variable
-for /f "delims=" %%a in ('dir /a-d /b "%input%\*mp3" ') do set "last=%input%\%%a"
+for /f "delims=" %%a in ('dir /a-d /b "%input%\*mp3"') do set "last=%input%\%%a"
 
 
 :: extract filename no extension
@@ -58,6 +57,7 @@ echo ext : %ext%
 echo ------------------ end debug --------------------
 echo.
 echo.
+
 
 %drive%
 cd "%input%"

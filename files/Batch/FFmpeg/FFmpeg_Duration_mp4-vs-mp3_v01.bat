@@ -25,25 +25,14 @@ IF %ERRORLEVEL% NEQ 0 (
 	
 echo.
 echo -------------------------------------------------
-echo INFO - Start Fade in and out, need re-encoding
+echo INFO -
 echo.
 
 if "%~1"=="" (
-	set /p wd="Give me the path of your file: "
+	set /p wd="Give me the path of your files: "
 ) else (
 	set wd=%~1
 )
-
-if "%~1"=="" (
-	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24): "
-) else (
-	set kfi=%~2
-)
-
-if "%kfi%"=="" (
-	set kfi=24
-)
-
 
 for %%a in (%wd%) do (
 	set pathh=%%~dpa
@@ -53,17 +42,49 @@ for %%a in (%wd%) do (
 	set ext=%%~xa
 	set drive=%%~da
 )  
-echo pathh=%pathh%
-echo filename=%filename%
-echo filenamenoext=%filenamenoext%
-echo filepathnoext=%filepathnoext%
 echo drive=%drive%
 echo wd=%wd%
 %drive%
-cd %pathh%
+cd %wd%
 
 
 
-rename %wd% %filenamenoext%_temp
-ffmpeg -i %filenamenoext%_temp -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -acodec copy %wd%
-del %filenamenoext%_temp
+
+set /a TTmp4=0
+
+for %%i in (*.mp4) do (
+
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
+	set /p lengthvideo=<tempfile2
+	set /a lengthvideo2=!lengthvideo!
+	set /a TTmp4=!TTmp4!+!lengthvideo2!
+	del tempfile2
+	
+)
+
+
+
+set /a TTmp3=0
+
+for %%i in (*.mp3) do (
+
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %%i > tempfile2
+	set /p lengthvideo=<tempfile2
+	set /a lengthvideo2=!lengthvideo!
+	set /a TTmp3=!TTmp3!+!lengthvideo2!
+	del tempfile2
+	
+)
+
+
+
+echo.
+echo --------------------------------------------
+echo RESULTS:
+echo Mp4 : %TTmp4% s
+echo Mp3 : %TTmp3% s
+echo --------------------------------------------
+echo.
+
+pause
+
