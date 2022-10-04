@@ -241,9 +241,12 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 	REM copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 	
-	
+	echo|set /p="| ">temptitle
+	echo|set /p=%title%>>temptitle
+	echo|set /p=" |">>temptitle
+
 	if NOT EXIST 00000_title.mp4 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='| %title% |'" -video_track_timescale %tbs% 000_temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %tbs% 000_temp.mp4
 		:: add audio
 		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		del 000_temp.mp4
@@ -254,6 +257,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		del 000_temp3.mp4
 
 	)
+	del temptitle
 	::  -f lavfi -i aevalsrc=0 -shortest 
 	:: Generate the minimum silence required
 	:: https://superuser.com/questions/1096921/concatenating-videos-with-ffmpeg-produces-silent-video-when-the-first-video-has

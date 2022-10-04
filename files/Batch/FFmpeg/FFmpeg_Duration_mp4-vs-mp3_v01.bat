@@ -68,7 +68,7 @@ set /a TTmp3=0
 
 for %%i in (*.mp3) do (
 
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %%i > tempfile2
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
 	set /p lengthvideo=<tempfile2
 	set /a lengthvideo2=!lengthvideo!
 	set /a TTmp3=!TTmp3!+!lengthvideo2!
