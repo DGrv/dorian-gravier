@@ -298,7 +298,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		ffmpeg -stats -loglevel error -i !last! -f lavfi -i aevalsrc=0 -shortest -y zzzb.mp4
 		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %tbsa% -video_track_timescale %tbs% zzzc.mp4
 		ffmpeg -stats -loglevel error -i zzzc.mp4 -vf "fade=t=in:st=1:d=3" -c:a copy zzzd.mp4
-		ffmpeg -stats -loglevel error -i zzzd.mp4 -vf "fade=t=out:st=1:d=5" -c:a copy zzzzzz_music.mp4
+		ffmpeg -stats -loglevel error -i zzzd.mp4 -vf "fade=t=out:st=1:d=3" -c:a copy zzzzzz_music.mp4
 
 		del !last!
 		del zzzb.mp4
@@ -530,8 +530,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo INFO - Start convert low
 	echo.
 	
+	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
-	ffmpeg -stats -loglevel error -i output_1920_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
 	ffmpeg -stats -loglevel error -i output_1024_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
 	REM ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=480:-2" -preset slow -crf 25 output_480_crf25_temp.mp4
 	REM ffmpeg -stats -loglevel error -i output_480_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=360:-2" -preset slow -crf 25 output_360_crf25_temp.mp4
