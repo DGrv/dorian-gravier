@@ -5,7 +5,9 @@ var pointsbiketrip = [
 	{"type": "Feature", "properties": {"popupContent": "Chez Virginie" }, "geometry": {"type": "Point", "coordinates":  [3.4976, 46.0209] }},
 	{"type": "Feature", "properties": {"popupContent": "Woofing chez Kim" }, "geometry": {"type": "Point", "coordinates":  [3.72795, 46.09200] }},
 	{"type": "Feature", "properties": {"popupContent": "Vendanges au Domaine Miolanne" }, "geometry": {"type": "Point", "coordinates":  [3.15439, 45.59475] }},
-	{"type": "Feature", "properties": {"popupContent": "Buron de Jean-Marie" }, "geometry": {"type": "Point", "coordinates":  [2.94960, 45.23054] }}
+	{"type": "Feature", "properties": {"popupContent": "Buron de Jean-Marie" }, "geometry": {"type": "Point", "coordinates":  [2.94960, 45.23054] }},
+	{"type": "Feature", "properties": {"popupContent": "L'ami Paul" }, "geometry": {"type": "Point", "coordinates":  [3.4133, 43.6849] }},
+	{"type": "Feature", "properties": {"popupContent": "Chez Pacha" }, "geometry": {"type": "Point", "coordinates":  [3.0806, 44.0971] }}
 ];
 
   
