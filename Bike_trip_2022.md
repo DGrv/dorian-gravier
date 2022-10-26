@@ -260,6 +260,16 @@ order: 5
 			}
 		}).addTo(map);
 		
+		L.geoJSON(tosee, {
+			// onEachFeature: onEachFeature, style: myStyle,
+			pointToLayer: function(feature, latlng) {
+				return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, color : "#fff416", stroke: true, weight: 2});
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindPopup(feature.properties.popupContent);
+			}
+		}).addTo(map);
+		
 		
 		
 		

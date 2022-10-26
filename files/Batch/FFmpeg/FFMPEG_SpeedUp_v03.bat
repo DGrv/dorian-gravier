@@ -1,4 +1,19 @@
 @echo off
+SetLocal EnableDelayedExpansion
+
+
+echo "--------------------------------------------------------------------------------"
+echo "   _____             _                _____                 _                   "
+echo "  |  __ \           (_)              / ____|               (_)                  "
+echo "  | |  | | ___  _ __ _  __ _ _ __   | |  __ _ __ __ ___   ___  ___ _ __         "
+echo "  | |  | |/ _ \| '__| |/ _` | '_ \  | | |_ | '__/ _` \ \ / / |/ _ \ '__|        "
+echo "  | |__| | (_) | |  | | (_| | | | | | |__| | | | (_| |\ V /| |  __/ |           "
+echo "  |_____/ \___/|_|  |_|\__,_|_| |_|  \_____|_|  \__,_| \_/ |_|\___|_|           "
+echo "                                                                                "
+echo "--------------------------------------------------------------------------------"
+REM http://www.network-science.de/ascii/
+echo.
+
 
 echo.
 echo Your ffmpeg is here:
@@ -40,6 +55,7 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 	set filenamenoext=%%~np
 	set ext=%%~xp
 	call ffmpeg -stats -loglevel error -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "%%~np_f%speed%%%~xp"
+	rename "%%p" "!filenamenoext!__old!ext!"
 	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
 )
 
