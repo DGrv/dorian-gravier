@@ -270,6 +270,16 @@ order: 5
 			}
 		}).addTo(map);
 		
+		L.geoJSON(climb, {
+			// onEachFeature: onEachFeature, style: myStyle,
+			pointToLayer: function(feature, latlng) {
+				return new L.CircleMarker(latlng, {radius: 4, fillOpacity: 1, color : "#9646e3", stroke: true, weight: 2});
+			},
+			onEachFeature: function (feature, layer) {
+				layer.bindPopup(feature.properties.popupContent);
+			}
+		}).addTo(map);
+		
 		
 		
 		
@@ -285,6 +295,11 @@ order: 5
 
 
     	</script>
+		
+		
+		
+		
+		
     </body>
 
 </html>
