@@ -458,7 +458,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	:: audio mixen
 	if EXIST input.mp3 (
 		::ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
-		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=3[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high_temp.mp4
+		ffmpeg -stats -loglevel error -i output.mp4 -i input.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high_temp.mp4
 	) 
 	if NOT EXIST output_high_temp.mp4 (
 		rename output.mp4 output_high_temp.mp4
