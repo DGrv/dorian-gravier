@@ -1,4 +1,4 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.jpg\shell\Convert to pdf\command]
-@="\"C:\\users\\doria\\downloads\\software_pcloud\\imagemagick-7.0.9-10-portable-q16-x64\\magick.exe\" convert \"%1\" \"%1.pdf\""
+@="\"C:\\users\\doria\\downloads\\software_pcloud\\imagemagick-7.1.0-portable-q16-x64\\magick.exe\" convert \"%1\" \"%1.pdf\""
