@@ -311,8 +311,21 @@ order: 5
 <br>
 <center><img src="files/picture/BikeTrip2022/Distance.jpg"/></center>
 <br>
-
 <center><img src="files/picture/BikeTrip2022/Ascent.jpg"/></center>
+<br>
+<center>
+<iframe src="https://youtube.com/embed/DOAFBsOLxU8" title="Etape 1"></iframe>
 
+<iframe src="https://youtube.com/embed/8LHpj548vwQ" title="Etape 2"></iframe>
 
+<iframe src="https://youtube.com/embed/c3TYsR0lHm4" title="Etape 3"></iframe>
+
+<iframe src="https://youtube.com/embed/dGs5OAm9UjM" title="Etape 4"></iframe>
+
+<iframe src="https://youtube.com/embed/FazzpMo_XLw" title="Etape 5"></iframe>
+
+<iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6"></iframe>
+
+<iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7"></iframe>
+</center>
 
