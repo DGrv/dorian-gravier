@@ -303,3 +303,16 @@ order: 5
     </body>
 
 </html>
+
+
+<center><img src="files/picture/BikeTrip2022/Info.png"></center>
+<br>
+<center><img src="files/picture/BikeTrip2022/Elevation.jpg"></center>
+<br>
+<center><img src="files/picture/BikeTrip2022/Distance.jpg"/></center>
+<br>
+
+<center><img src="files/picture/BikeTrip2022/Ascent.jpg"/></center>
+
+
+
