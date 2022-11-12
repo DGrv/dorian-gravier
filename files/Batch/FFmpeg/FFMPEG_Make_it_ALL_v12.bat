@@ -517,6 +517,8 @@ echo.
 
 		for /F "delims=" %%a in (musictemp.txt) do (
 			set musicn=%%a
+			set musicn2=!musicn:~0,-5!
+			set musicn=Music: !musicn2!
 			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
 			set /p dura=<tempfile
 			set /a dura=!dura!
@@ -528,7 +530,7 @@ echo.
 				more +1 music.temp > musictemp.txt
 				del music.temp
 				rename %%b %%~nb_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~nb_temp.mp4 -vf "drawtext=text='Music: !musicn:~0,-5!': fontcolor=white: fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*%xpos%-text_w:y=h*%ypos%:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy %%b
+				ffmpeg -stats -loglevel error -i %%~nb_temp.mp4 -vf "drawtext=text='!musicn!': fontcolor=white: fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*%xpos%-text_w:y=h*%ypos%:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %tbs% %%b
 				del %%~nb_temp.mp4
 				set /a duraTT=!dura!+!duraTT!
 			)
@@ -536,6 +538,7 @@ echo.
 		set /a videoTTbefore=!videotime!+!videoTTbefore!
 	)
 	del musictemp.txt
+	del video.txt
 
 echo.
 echo -------------------------------------------------

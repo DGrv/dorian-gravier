@@ -10,6 +10,31 @@
   }
   setwd(wd)
 
+  printfast <- function(plot, name, height=400, width=500, ps=12, qualityprint=100, ext = "jpg", wdfunction = getwd()) {
+    
+    setwd(wdfunction)
+    
+    if(ext %in% c("jpg", ".jpg", "jpeg", ".jpeg")) {
+      jpeg(filename=name, quality=qualityprint, pointsize = ps, height=height, width=width)
+      print(
+        plot
+      )
+      dev.off()
+      graphics.off()
+    }
+    
+    if(ext %in% c("png", ".png")) {
+      png(filename=name, pointsize = ps, height=height, width=width)
+      print(
+        plot
+      )
+      dev.off()
+      graphics.off()
+    }
+    
+    
+  }
+  
 
 
 # get data ----------------------------------------------------------------
@@ -49,4 +74,65 @@
     }
   }
 
+  
+  library(plotKML)
+  library(ggplot2)
+  theme_set(theme_bw())
+  library(geosphere)
+  # GPX files downloaded from Runkeeper
+  files <- lis$path
+  
+  # Consolidate routes in one drata frame
+  all <- data.table()
+  for (i in 1:length(files)) {
+    route <- data.table(readGPX(files[i])$tracks[[1]][[1]])
+    route[, file := files[i]]
+    route[, dist := 0]
+    route[2:nrow(route), dist := distHaversine(route[,.(lon, lat)])/1000]
+    all <- rbind(all, route)
+  }
+  all[, ele := as.numeric(ele)]
+  all[, time2 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
+  all[, ele2 := ele-shift(ele)]
+  all[, ele2type := "Ascent"]
+  all[ele2<=0, ele2type := "Descent"]
+  all
+  all[, distfs := 0]
+  for(i in 2:nrow(all)) {
+    all[i, distfs := all$distfs[i-1]+all$dist[i]]
+  }
+  all
 
+  
+  distanceTT <- round(sum(all$dist, na.rm = T))
+  distanceTT  
+  daysTT <- as.numeric(round(max(all$time2)-min(all$time2)))
+  daysTT
+  daysBike <- length(unique(all$time2)) 
+  daysBike    
+  
+  b <- ggplot(all, aes(time2, dist))+stat_summary(fun = "sum", geom = "bar")+xlab("Date")+ylab("Distance (km)")+labs(title="Distance per day")+theme(text = element_text(size =15))
+  
+  c <- ggplot(all, aes(time2, ele2))+stat_summary(aes(fill=ele2type),fun = "sum", geom = "bar")+xlab("Date")+ylab("Elevation (m)")+labs(title="Ascent and descent per day")+theme(text = element_text(size =15))
+  
+  a <- ggplot(all, aes(distfs, ele))+geom_line()+ylab("Altitude (m)")+xlab("Distance (km)")+labs(title="Elevation profile for the bike trip")+theme(text = element_text(size =15))
+  printfast(a, "Elevation.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+  printfast(b, "Distance.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+  printfast(c, "Ascent.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+
+  library(gridExtra)
+  info <- data.table(What=c("Distance total (km)",
+                    "Days spent on the bike",
+                    "Days gone", 
+                    "Total ascent (m)", 
+                    "Total descent (m)"), value = c(distanceTT,
+                                                daysBike,
+                                                daysTT,
+                                                sum(all[ele2type == "Ascent"]$ele2, na.rm = T),
+                                                sum(all[ele2type == "Descent"]$ele2, na.rm = T)))
+  info[, value := round(value)]
+  info  
+  png("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022/Info.png", height = 200, width = 300)
+  grid.table(info)
+  dev.off()  
+  
