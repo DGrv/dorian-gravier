@@ -1,5 +1,12 @@
 # Setup ----------------------------------------------------------------
   
+  
+  library(plotKML)
+  library(ggplot2)
+  theme_set(theme_bw())
+  library(formattable)
+  library(geosphere)
+  library(gridExtra)
   library(data.table)
 
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
@@ -75,14 +82,13 @@
   }
 
   
-  library(plotKML)
-  library(ggplot2)
-  theme_set(theme_bw())
-  library(geosphere)
-  # GPX files downloaded from Runkeeper
+  
+
+# GPX ---------------------------------------------------------------------
+
+  
   files <- lis$path
   
-  # Consolidate routes in one drata frame
   all <- data.table()
   for (i in 1:length(files)) {
     route <- data.table(readGPX(files[i])$tracks[[1]][[1]])
@@ -110,17 +116,23 @@
   daysTT
   daysBike <- length(unique(all$time2)) 
   daysBike    
+  TTa <- sum(all[ele2type == "Ascent"]$ele2, na.rm = T)
+  TTa
+  TTb <- sum(all[ele2type == "Descent"]$ele2, na.rm = T)
+  TTb
+    
+    
+  # create plots  
+  b <- ggplot(all, aes(time2, dist))+stat_summary(fun = "sum", geom = "bar")+xlab("Date")+ylab("Distance (km)")+labs(title="Distance per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
   
-  b <- ggplot(all, aes(time2, dist))+stat_summary(fun = "sum", geom = "bar")+xlab("Date")+ylab("Distance (km)")+labs(title="Distance per day")+theme(text = element_text(size =15))
+  c <- ggplot(all, aes(time2, ele2))+stat_summary(aes(fill=ele2type),fun = "sum", geom = "bar")+xlab("Date")+ylab("Elevation (m)")+labs(title="Ascent and descent per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
   
-  c <- ggplot(all, aes(time2, ele2))+stat_summary(aes(fill=ele2type),fun = "sum", geom = "bar")+xlab("Date")+ylab("Elevation (m)")+labs(title="Ascent and descent per day")+theme(text = element_text(size =15))
-  
-  a <- ggplot(all, aes(distfs, ele))+geom_line()+ylab("Altitude (m)")+xlab("Distance (km)")+labs(title="Elevation profile for the bike trip")+theme(text = element_text(size =15))
-  printfast(a, "Elevation.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
-  printfast(b, "Distance.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
-  printfast(c, "Ascent.jpg", 300,800, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+  a <- ggplot(all, aes(distfs, ele))+geom_line()+ylab("Altitude (m)")+xlab("Distance (km)")+labs(title="Elevation profile for the bike trip")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
+  a
+  printfast(a, "Elevation.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+  printfast(b, "Distance.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
+  printfast(c, "Ascent.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
 
-  library(gridExtra)
   info <- data.table(What=c("Distance total (km)",
                     "Days spent on the bike",
                     "Days gone", 
@@ -128,11 +140,13 @@
                     "Total descent (m)"), value = c(distanceTT,
                                                 daysBike,
                                                 daysTT,
-                                                sum(all[ele2type == "Ascent"]$ele2, na.rm = T),
-                                                sum(all[ele2type == "Descent"]$ele2, na.rm = T)))
+                                                TTa,
+                                                TTb))
   info[, value := round(value)]
   info  
-  png("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022/Info.png", height = 200, width = 300)
-  grid.table(info)
+  png("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022/Info.png", height = 300, width = 500, bg = "#424242")
+  grid.table(info, theme=ttheme_minimal(base_colour="#f0e3cb", base_size = 20), rows=rep("", nrow(info)))
+  # formattable(info)
   dev.off()  
+  
   
