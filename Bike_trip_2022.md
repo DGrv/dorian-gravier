@@ -8,9 +8,26 @@ order: 5
 <html>
 	<head>
 	
-    	<title>A Leaflet map!</title>
-
-
+	<title>A Leaflet map!</title>
+	
+	<style>
+		#circle {
+			width: 30px;
+			height: 30px;
+			-webkit-border-radius: 25px;
+			-moz-border-radius: 25px;
+			border-radius: 25px;
+		}
+		table th {
+			background-color: #424242;
+			color: #ffffff;
+			border: 2px solid #E77728;
+			border-bottom-color: #e77728;
+		}
+		img {
+			max-width: 100%;
+		}
+	</style>
 	<!-- Browserify	 --> 
     	<!-- <script src="js/node_modules/browserify/index.js"></script> -->
 
@@ -150,6 +167,11 @@ order: 5
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
     		});
+			
+		// Create necessary panes in correct order (i.e. "bottom-most" first). to order line and points : https://stackoverflow.com/questions/38599280/leaflet-overlay-order-points-lines-and-polygons/
+		// and https://gis.stackexchange.com/questions/240738/control-custom-panes-for-leaflet-geojson-svg-icons
+		map.createPane("linesPane");
+		map.createPane("pointsPane");
 
     		L.control.layers(baseLayers, overlays).addTo(map);
 			
@@ -167,6 +189,7 @@ order: 5
 								
 				var g = new L.GPX(url,
 					{async: true,
+					pane: "linesPane" ,
 					parseElements: ['track'],
 					polyline_options: { color: trackcolor},
 					marker_options: {
@@ -191,36 +214,36 @@ order: 5
 				// Your problem here is a classic Javascript callback scope capture problem. You can read more about this here: https://www.pluralsight.com/guides/javascript-callbacks-variable-scope-problem
 
 
-				g.on('loaded', (function() {
-					var _url = url;
-					var _project = project;
-					return function(e) {
-						var gpx = e.target;
-						namegpx = gpx.get_name(),
-						distM = gpx.get_distance(),
-						distKm = distM / 1000,
-						distKmRnd = distKm.toFixed(1),
-						eleGain = gpx.get_elevation_gain().toFixed(0),
-						eleLoss = gpx.get_elevation_loss().toFixed(0),
-						cen = gpx.getBounds().getCenter();
+				// g.on('loaded', (function() {
+					// var _url = url;
+					// var _project = project;
+					// return function(e) {
+						// var gpx = e.target;
+						// namegpx = gpx.get_name(),
+						// distM = gpx.get_distance(),
+						// distKm = distM / 1000,
+						// distKmRnd = distKm.toFixed(1),
+						// eleGain = gpx.get_elevation_gain().toFixed(0),
+						// eleLoss = gpx.get_elevation_loss().toFixed(0),
+						// cen = gpx.getBounds().getCenter();
 						
-						var share = 'https://dorian-gravier.com/leaflet.html#15/' + cen.lat + '/' + cen.lng;
+						// var share = 'https://dorian-gravier.com/leaflet.html#15/' + cen.lat + '/' + cen.lng;
 					
 
-						// register popup on click
-						var info = "<b>Name: " + namegpx + "</b></br>" +
-							"<b>Distance:</b> " + distKmRnd + " km </br>" +
-							"<b>Elevation Gain:</b> " + eleGain + " m </br>" +
-						"<b>Elevation Loss:</b> " + eleLoss + " m </br>" +
-							"<a href='" + _url + "' target='_blank'>Download gpx</a></br>" +
-							"<a href='" + share + "' target='_blank'>Share location</a></br>";
+						// // register popup on click
+						// var info = "<b>Name: " + namegpx + "</b></br>" +
+							// "<b>Distance:</b> " + distKmRnd + " km </br>" +
+							// "<b>Elevation Gain:</b> " + eleGain + " m </br>" +
+						// "<b>Elevation Loss:</b> " + eleLoss + " m </br>" +
+							// "<a href='" + _url + "' target='_blank'>Download gpx</a></br>" +
+							// "<a href='" + share + "' target='_blank'>Share location</a></br>";
 							
-						gpx.getLayers()[0].bindPopup(info);
+						// gpx.getLayers()[0].bindPopup(info);
 						
-						if ( _project == true ) {
-							gpx.setStyle({opacity: 0.95, dashArray: '10 5'});
-						};
-						}})() ); // important to have this : )() )
+						// if ( _project == true ) {
+							// gpx.setStyle({opacity: 0.95, dashArray: '10 5'});
+						// };
+						// }})() ); // important to have this : )() )
 				
 
 				g.on('mouseover', function(e) {
@@ -253,7 +276,7 @@ order: 5
 		L.geoJSON(pointsbiketrip, {
 			// onEachFeature: onEachFeature, style: myStyle,
 			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, color : "#ff2b56", stroke: true, weight: 2});
+				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 5, fillOpacity: 1, color : "#ff2b56", stroke: true, weight: 2});
 			},
 			onEachFeature: function (feature, layer) {
 				layer.bindPopup(feature.properties.popupContent);
@@ -263,7 +286,7 @@ order: 5
 		L.geoJSON(tosee, {
 			// onEachFeature: onEachFeature, style: myStyle,
 			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {radius: 5, fillOpacity: 1, color : "#fff416", stroke: true, weight: 2});
+				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 5, fillOpacity: 1, color : "#fff416", stroke: true, weight: 2});
 			},
 			onEachFeature: function (feature, layer) {
 				layer.bindPopup(feature.properties.popupContent);
@@ -273,7 +296,7 @@ order: 5
 		L.geoJSON(climb, {
 			// onEachFeature: onEachFeature, style: myStyle,
 			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {radius: 4, fillOpacity: 1, color : "#9646e3", stroke: true, weight: 2});
+				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 4, fillOpacity: 1, color : "#9646e3", stroke: true, weight: 2});
 			},
 			onEachFeature: function (feature, layer) {
 				layer.bindPopup(feature.properties.popupContent);
@@ -296,8 +319,53 @@ order: 5
 
     	</script>
 		
-		
+	<table>
+		<tr style="background-color:#424242;">
+			<th><div id="circle" style="background:#ff2b56"></div></th>	
+			<th>People visited</th>	
+		</tr>
+		<tr>
+			<th><div id="circle" style="background:#fff416"></div></th>
+			<th>Nice areas</th>	
+		</tr>
+		<tr>
+			<th><div id="circle" style="background:#9646e3"></div></th>
+			<th>Climbing spot where I climbed</th>	
+		</tr>
+	</table>
+
+	<center><img src="files/picture/BikeTrip2022/Info.png"></center>
+	<br>
+	<center><img src="files/picture/BikeTrip2022/Elevation.jpg"></center>
+	<br>
+	<center><img src="files/picture/BikeTrip2022/Distance.jpg"/></center>
+	<br>
+	<center><img src="files/picture/BikeTrip2022/Ascent.jpg"/></center>
+	<br>
+	<br>
+	Those videos are not listed in Youtube. They only work via the link I use or share. Please be conscious if you share this.
+	<br>
+	<br>
 	
+	
+	
+	
+	
+	<center>
+	<iframe src="https://youtube.com/embed/DOAFBsOLxU8" title="Etape 1"></iframe>
+
+	<iframe src="https://youtube.com/embed/8LHpj548vwQ" title="Etape 2"></iframe>
+
+	<iframe src="https://youtube.com/embed/c3TYsR0lHm4" title="Etape 3"></iframe>
+
+	<iframe src="https://youtube.com/embed/dGs5OAm9UjM" title="Etape 4"></iframe>
+
+	<iframe src="https://youtube.com/embed/FazzpMo_XLw" title="Etape 5"></iframe>
+
+	<iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6"></iframe>
+
+	<iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7"></iframe>
+	</center>
 		
 		
     </body>
@@ -305,27 +373,7 @@ order: 5
 </html>
 
 
-<center><img src="files/picture/BikeTrip2022/Info.png"></center>
-<br>
-<center><img src="files/picture/BikeTrip2022/Elevation.jpg"></center>
-<br>
-<center><img src="files/picture/BikeTrip2022/Distance.jpg"/></center>
-<br>
-<center><img src="files/picture/BikeTrip2022/Ascent.jpg"/></center>
-<br>
-<center>
-<iframe src="https://youtube.com/embed/DOAFBsOLxU8" title="Etape 1"></iframe>
 
-<iframe src="https://youtube.com/embed/8LHpj548vwQ" title="Etape 2"></iframe>
 
-<iframe src="https://youtube.com/embed/c3TYsR0lHm4" title="Etape 3"></iframe>
 
-<iframe src="https://youtube.com/embed/dGs5OAm9UjM" title="Etape 4"></iframe>
-
-<iframe src="https://youtube.com/embed/FazzpMo_XLw" title="Etape 5"></iframe>
-
-<iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6"></iframe>
-
-<iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7"></iframe>
-</center>
 

@@ -32,6 +32,7 @@ var tosee = [
 ];
 
 var climb = [
+	{"type": "Feature", "properties": {"popupContent": "Saint Béat-Lez" }, "geometry": {"type": "Point", "coordinates":  [0.6988, 42.9117] }},
 	{"type": "Feature", "properties": {"popupContent": "Lordat" }, "geometry": {"type": "Point", "coordinates":  [1.746009, 42.775946] }},
 	{"type": "Feature", "properties": {"popupContent": "Cantobre" }, "geometry": {"type": "Point", "coordinates":  [3.3068, 44.0605] }},
 	{"type": "Feature", "properties": {"popupContent": "Hauteroche" }, "geometry": {"type": "Point", "coordinates":  [4.6082, 47.4800] }},
