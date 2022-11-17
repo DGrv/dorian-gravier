@@ -95,7 +95,11 @@ var Bike = ['files/gpx/Leaflet/Bike/B_201511_mtb.gpx',
 'files/gpx/Leaflet/Bike/B_202205_Bike_04.gpx',
 'files/gpx/Leaflet/Bike/B_202205_Bike_05.gpx',
 'files/gpx/Leaflet/Bike/B_202205_Bike_06.gpx',
-'files/gpx/Leaflet/Bike/B_202205_Bike_07.gpx']
+'files/gpx/Leaflet/Bike/B_202205_Bike_07.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-14.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-15.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-16.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-17.gpx']
 
 var Hike = ['files/gpx/Leaflet/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Leaflet/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',

@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.gpx\shell\Reduce points with gpx-reduce.py\command]
+@="\"C:\\Users\\doria\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\" \"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Gpx\\gpx_reduce_modified-Dorian.py\" -d 600 -m 600 -t 50 -4 \"%1\" -o \"%1\""
