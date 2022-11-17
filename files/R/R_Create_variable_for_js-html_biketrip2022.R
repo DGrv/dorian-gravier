@@ -91,9 +91,11 @@
   
   all <- data.table()
   for (i in 1:length(files)) {
+    print(files[i])
     route <- data.table(readGPX(files[i])$tracks[[1]][[1]])
     route[, file := files[i]]
     route[, dist := 0]
+    route[, extensions:=NULL]
     route[2:nrow(route), dist := distHaversine(route[,.(lon, lat)])/1000]
     all <- rbind(all, route)
   }

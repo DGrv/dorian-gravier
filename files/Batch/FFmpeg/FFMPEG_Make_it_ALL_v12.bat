@@ -353,6 +353,65 @@ echo.
 	REM del arial.ttf
 
 
+echo.
+echo -------------------------------------------------
+echo INFO - Gpx-animator
+echo.
+
+Ping www.google.com -n 1 -w 1000 > null
+if errorlevel 1 (
+	if not exist zzz_gpx,mp4 (
+		if not exist Merge.gpx (
+			set f=
+			for %%f in (*.gpx) do set f=!f! -f "%%f"
+			gpsbabel -i gpx %f% -x duplicate,location,shortname -o gpx -F Merge.gpx	
+		)
+
+		"C:\Program Files\gpx-animator\jre\bin\java.exe" -jar "C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar" --input "Merge.gpx" --output "%wd%\zzz_gpx.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FFFF0000" --flashback-duration 0 --background-map-visibility 1
+
+		del Merge.gpx
+	)
+)
+
+
+
+
+
+echo.
+echo -------------------------------------------------
+echo INFO - Start bind for checking duration
+echo.
+
+	(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
+	
+	
+	
+	ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy output.mp4
+	del listmp4.txt
+	
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp3 > tempfile
+	set /p duraa=<tempfile
+	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output.mp4 > tempfile
+	set /p durav=<tempfile
+	del tempfile
+	set /a duraa=%duraa%
+	set /a durav=%durav%
+	
+	IF %duraa% LSS %durav% (
+		echo.
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Your music is not long enough for your video ...
+		echo [DEBUG] - Length Video is %durav%
+		echo [DEBUG] - Length Audio is %duraa%
+		echo [DEBUG] - Input.mp3 and ouput.mp4 will be deleted, please check if necessary
+		pause
+		echo.
+		del input.mp3 output.mp4 music.txt
+		goto eof
+	) else (
+		del output.mp4
+	)
 
 
 :: ---------- Modification ----------
@@ -518,13 +577,13 @@ echo.
 		for /F "delims=" %%a in (musictemp.txt) do (
 			set musicn=%%a
 			set musicn2=!musicn:~0,-5!
-			set musicn=Music: !musicn2!
+			set musicn=Music - !musicn2!
 			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
 			set /p dura=<tempfile
 			set /a dura=!dura!
 			if !videoTT! GTR !duraTT! (
 				set /a posmusic=!duraTT!-!videoTTbefore!
-				set /a posmusic2=!posmusic!+5
+				set /a posmusic2=!posmusic!+7
 				echo OK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic!
 				rename musictemp.txt music.temp
 				more +1 music.temp > musictemp.txt
@@ -547,32 +606,9 @@ echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
 	
-	
-	
 	ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy output.mp4
 	del listmp4.txt
 	
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp3 > tempfile
-	set /p duraa=<tempfile
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output.mp4 > tempfile
-	set /p durav=<tempfile
-	del tempfile
-	set /a duraa=%duraa%
-	set /a durav=%durav%
-	
-	IF %duraa% LSS %durav% (
-		echo.
-		echo [DEBUG] - Your music is not long enough for your video ...
-		echo [DEBUG] - Your music is not long enough for your video ...
-		echo [DEBUG] - Your music is not long enough for your video ...
-		echo [DEBUG] - Length Video is %durav%
-		echo [DEBUG] - Length Audio is %duraa%
-		echo [DEBUG] - Input.mp3 and ouput.mp4 will be deleted, please check if necessary
-		pause
-		echo.
-		del input.mp3 output.mp4 music.txt
-		goto eof
-	)
 	
 echo.
 echo -------------------------------------------------

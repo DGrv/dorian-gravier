@@ -51,19 +51,23 @@ if %rmdesc%==y (
 )
 
 
-:: rename first file
-for %%f in (*.gpx) do (
-	copy "%%f" "Merge.gpx"
-	goto :continue
-)
+REM :: rename first file
+REM for %%f in (*.gpx) do (
+	REM copy "%%f" "Merge.gpx"
+	REM goto :continue
+REM )
 
-:continue
-for %%f in (*.gpx) do (
-	echo %input% --- GPSBabel --- %%f
-	echo.
+REM :continue
+REM for %%f in (*.gpx) do (
+	REM echo %input% --- GPSBabel --- %%f
+	REM echo.
 	
-	"C:\Program Files (x86)\GPSBabel\gpsbabel.exe" -i gpx -f Merge.gpx -f "%%f" -x duplicate,location,shortname -o gpx -F Merge.gpx
-)
+	REM "C:\Program Files (x86)\GPSBabel\gpsbabel.exe" -i gpx -f Merge.gpx -f "%%f" -x duplicate,location,shortname -o gpx -F Merge.gpx
+REM )
+
+set f=
+for %%f in (*.gpx) do set f=!f! -f "%%f"
+gpsbabel -i gpx %f% -x duplicate,location,shortname -o gpx -F Merge.gpx
 
 
 ::old method - but when too many files, reach too long cmd
