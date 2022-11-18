@@ -235,8 +235,8 @@ echo.
 			del tempfile
 			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 !last! > tempfile2
 			set /p lengthvideo=<tempfile2
-			set /a lengthvideo2=!lengthvideo!
-			set /a lengthvideo3=!lengthvideo2!-3
+			set /a lengthvideo2=lengthvideo
+			set /a lengthvideo3=lengthvideo2-3
 			REM echo lengthvideo !lengthvideo!
 			REM echo lengthvideo2 !lengthvideo2!
 			REM echo lengthvideo3 !lengthvideo3!
@@ -329,7 +329,7 @@ echo.
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4
-			set /a x=!x!+1
+			set /a x=x+1
 		)
 		
 		ffmpeg -stats -loglevel error -i !last! -f lavfi -i aevalsrc=0 -shortest -y zzzb.mp4
@@ -340,8 +340,8 @@ echo.
 	if exist zzzb.mp4 (
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 zzzb.mp4 > tempfile2
 		set /p lengthvideo=<tempfile2
-		set /a lengthvideo2=%lengthvideo%
-		set /a lengthvideo3=%lengthvideo2%-3
+		set /a lengthvideo2=lengthvideo
+		set /a lengthvideo3=lengthvideo2-3
 		del tempfile2
 		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %tbsa% -video_track_timescale %tbs% zzzc.mp4
 		ffmpeg -stats -loglevel error -i zzzc.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=%lengthvideo2%:d=3" -c:a copy zzzzzz_music.mp4
@@ -384,8 +384,6 @@ echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
 	
-	
-	
 	ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy output.mp4
 	del listmp4.txt
 	
@@ -394,8 +392,8 @@ echo.
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output.mp4 > tempfile
 	set /p durav=<tempfile
 	del tempfile
-	set /a duraa=%duraa%
-	set /a durav=%durav%
+	set /a duraa=duraa
+	set /a durav=durav
 	
 	IF %duraa% LSS %durav% (
 		echo.
@@ -450,22 +448,7 @@ echo.
 			del %%~ni_temp.mp4
 		)
 	)
-	REM :: fade in and out 1 to avoid to rash transition
-	REM for %%i in (*.mp4) do (
-		REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %%i > tempfile2
-		REM set /p lengthvideo=<tempfile2
-		REM set /a lengthvideo2=!lengthvideo!
-		REM set /a lengthvideo3=!lengthvideo2!-1
-		REM del tempfile2
-		REM rename %%i %%~ni_temp
-		REM if 1 LSS !lengthvideo2! (
-			REM ffmpeg -stats -loglevel error -i %%~ni_temp -af "afade=t=in:st=0:d=1,afade=t=out:st=!lengthvideo3!:d=1" -c:v copy %%i
-		REM ) else (
-			REM echo [DEBUG] - Your video is too short to have a fade of 1sec
-		REM )
-		REM del %%~ni_temp
-	REM )
-			
+
 
 	
 echo.
@@ -513,57 +496,11 @@ echo -------------------------------------------------
 echo INFO - Add music title overlay
 echo.
 
-	REM if not exist video_duration.txt (
-		REM set /a duraTT=0
-		REM for %%i in (*.mp4) do (
-			REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			REM set /p dura=<tempfile
-			REM set /a dura=!dura!
-			REM set /a duraTT=!dura!+!duraTT!
-			REM echo !duraTT! >> video_duration.txt
-		REM )
-	REM )
 	
 	if not exist video.txt (for %%i in (*.mp4) do @echo %%i >> video.txt)
 	
-	
 	set xpos=0.95
 	set ypos=0.95
-	Rem First file is read with FOR /F command
-	Rem Second file is read via standard handle 3
-	REM Source : https://stackoverflow.com/questions/14521799/combining-multiple-text-files-into-one/14523100#14523100
-	
-	REM for %%i in (*.mp3) do (
-		REM set Test=T
-		REM if "%%i"=="input.mp3" set Test=F
-		REM if "%%i"=="begin.mp3" set Test=F
-		REM if "%%i"=="end.mp3" set Test=F
-		REM IF "!Test!"=="T" (			
-			REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			REM set /p duraTT=<tempfile
-			REM set /a duraTT=!duraTT!
-			REM set /a duraTT=!duraTT!-5-!duraTT!
-			REM goto nextmusic
-		REM )
-	REM )
-	REM :nextmusic
-	
-	
-		REM for %%i in (*.mp3) do (
-			REM set Test=T
-			REM if "%%i"=="input.mp3" set Test=F
-			REM if "%%i"=="begin.mp3" set Test=F
-			REM if "%%i"=="end.mp3" set Test=F
-			REM IF "!Test!"=="T" (
-				REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-				REM set /p dura=<tempfile
-				REM set /a dura=!dura!
-				REM set /a duraTT=!dura!+!duraTT!
-				REM echo !duraTT! >> music_duration.txt
-			REM )
-		REM )
-	
-	
 	
 	set /a duraTT=5
 	set /a videoTT = 0
@@ -707,14 +644,7 @@ echo.
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
 	:convertion3
 	ffmpeg -stats -loglevel error -i output_1024_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
-	REM ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=480:-2" -preset slow -crf 25 output_480_crf25_temp.mp4
-	REM ffmpeg -stats -loglevel error -i output_480_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=360:-2" -preset slow -crf 25 output_360_crf25_temp.mp4
-	REM Was use before for Handy because the format was not passing ...
-	REM ffmpeg -stats -loglevel error -i output_720_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=iw*sar:ih" -preset slow -crf 25 output_720_crf25.mp4	
 	
-	REM if exist output_720_crf25_temp.mp4 (
-		REM del output_720_crf25_temp.mp4
-	REM )
 	rename output_1024_crf25_temp.mp4 %title2%_youtube.mp4
 	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
 	rename output_720_crf25_temp.mp4 %title2%_low.mp4

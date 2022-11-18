@@ -46,43 +46,63 @@ echo drive=%drive%
 echo wd=%wd%
 %drive%
 cd %wd%
+echo.
+
+REM # old -------------------
+REM set /a TTmp4=0
+REM for %%i in (*.mp4) do (
+	REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
+	REM set /p lengthvideo=<tempfile2
+	REM REM set /a lengthvideo2=!lengthvideo!
+	REM set /a TTmp4+=lengthvideo
+	REM del tempfile2
+REM )
+
+REM set /a TTmp3=0
+REM for %%i in (*.mp3) do (
+	REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
+	REM set /p lengthvideo=<tempfile2
+	REM REM set /a lengthvideo2=!lengthvideo!
+	REM set /a TTmp3+=lengthvideo
+	REM echo !lengthvideo! = %%i
+	REM del tempfile2
+REM )
 
 
-
-
-set /a TTmp4=0
-
-for %%i in (*.mp4) do (
-
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
-	set /p lengthvideo=<tempfile2
-	set /a lengthvideo2=!lengthvideo!
-	set /a TTmp4=!TTmp4!+!lengthvideo2!
-	del tempfile2
-	
-)
-
-
-
-set /a TTmp3=0
-
+REM # new 
+(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
+(for %%i in (*.mp3) do @echo file '%%i') > listmp3.txt
 for %%i in (*.mp3) do (
-
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
 	set /p lengthvideo=<tempfile2
-	set /a lengthvideo2=!lengthvideo!
-	set /a TTmp3=!TTmp3!+!lengthvideo2!
+	set /a lengthvideo=lengthvideo
+	echo !lengthvideo! = %%i
 	del tempfile2
-	
 )
+	
+	
+echo.
+echo.
 
+ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy allv.mp4
+ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy alla.mp3
+del listmp4.txt
+del listmp3.txt
+
+ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 alla.mp3 > tempfile
+set /p duraa=<tempfile
+ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 allv.mp4 > tempfile
+set /p durav=<tempfile
+del alla.mp3 allv.mp4 tempfile
+set /a duraa=duraa
+set /a durav=durav
 
 
 echo.
 echo --------------------------------------------
 echo RESULTS:
-echo Mp4 : %TTmp4% s
-echo Mp3 : %TTmp3% s
+echo Mp4 : %durav% s
+echo Mp3 : %duraa% s
 echo --------------------------------------------
 echo.
 
