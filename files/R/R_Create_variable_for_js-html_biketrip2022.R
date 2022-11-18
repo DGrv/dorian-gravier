@@ -105,10 +105,7 @@
   all[, ele2type := "Ascent"]
   all[ele2<=0, ele2type := "Descent"]
   all
-  all[, distfs := 0]
-  for(i in 2:nrow(all)) {
-    all[i, distfs := all$distfs[i-1]+all$dist[i]]
-  }
+  all[, distfs := cumsum(dist)]
   all
 
   

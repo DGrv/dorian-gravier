@@ -365,6 +365,8 @@ order: 5
 	<iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6"></iframe>
 
 	<iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7"></iframe>
+	
+	<iframe src="https://youtube.com/embed/ksFslKQCkNc" title="Etape 8"></iframe>
 	</center>
 		
 		
