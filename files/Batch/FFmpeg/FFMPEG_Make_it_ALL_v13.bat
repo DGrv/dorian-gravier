@@ -36,9 +36,17 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
 		pause
 	)
+	if exist "*.gpx" (
+		WHERE gpsbabel
+		IF %ERRORLEVEL% NEQ 0 (
+			echo "[DEBUG] - GPSBabel is missing, Take care you need also gpx-animator !!!!!!!!"
+			pause
+		)
+	)
 	echo.
 
-
+	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
+	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
 
 
 
@@ -100,10 +108,10 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	
 	if %tbdefault%==y (
-		set tbs=24000
-		set tbs2=1/!tbs!
-		set tbsa=48000
-		set tbsa2=1/!tbsa!
+		set RV=24000
+		set RVd=1/!RV!
+		set RA=48000
+		set RAd=1/!RA!
 	) else (
 		set /p tb=Do you wanna see the time base of your video/audio to be able to have a feeling and select only one or just select one [y/n] ? : 
 		:: get time_base
@@ -119,8 +127,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			set /p firstmp4=<Listmp4_temp.txt
 			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
 		)
-		set /p tbs="Which tbs (if 1/24000, choose 24000): "
-		set tbs2=1/%tbs%
+		set /p RV="Which RV (if 1/24000, choose 24000): "
+		set RVd=1/%RV%
 		
 		echo Time_base of your audios:
 		if !tb!==y (
@@ -131,8 +139,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
 			del Listmp4_temp.txt
 		)
-		set /p tbsa="Which tbs (if 1/48000, choose 48000): "
-		set tbsa2=1/%tbsa%
+		set /p RA="Which RV (if 1/48000, choose 48000): "
+		set RAd=1/%RA%
 	)
 
 	echo.
@@ -188,10 +196,10 @@ echo.
 				@echo file '%%i' >> Listmp3_temp.txt
 			)
 			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			set /p tbsa=<tempfile
-			if NOT "!tbsa!"=="%tbsa2%" (
+			set /p RA=<tempfile
+			if NOT "!RA!"=="%RAd%" (
 				rename "%%i" "%%~ni_temp.mp4"
-				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -ar %tbsa% "%%i"
+				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -ar %RA% "%%i"
 				del "%%~ni_temp.mp4"
 			)
 		)
@@ -270,14 +278,14 @@ echo.
 	echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %tbs% 000_temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		:: add audio
 		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		del 000_temp.mp4
 		:: change parameters audio
 		ffmpeg -stats -loglevel error  -i 000_temp2.mp4 -vf "fade=t=in:st=1:d=4" -c:a copy 000_temp3.mp4
 		del 000_temp2.mp4
-		ffmpeg -stats -loglevel error -i 000_temp3.mp4 -ar %tbsa% -video_track_timescale %tbs% 00000_title.mp4
+		ffmpeg -stats -loglevel error -i 000_temp3.mp4 -ar %RA% -video_track_timescale %RV% 00000_title.mp4
 		del 000_temp3.mp4
 
 	)
@@ -297,7 +305,7 @@ echo.
 	
 	
 	if not exist Music_list_temp.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -video_track_timescale %tbs% zzzb.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -video_track_timescale %RV% zzzb.mp4
 	)
 
 	if NOT EXIST zzz_music_temp.mp4 (
@@ -313,11 +321,11 @@ echo.
 			set /a high=!high!*75
 			if !x!==1 (	
 				set /a hightitle=!high!-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %tbs% zzz.mp4
-				ffmpeg -stats -loglevel error -i zzz.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
+				ffmpeg -stats -loglevel error -i zzz.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz.mp4
 			) else (
-				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %tbs% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4
@@ -335,7 +343,7 @@ echo.
 		set /a lengthvideo2=lengthvideo
 		set /a lengthvideo3=lengthvideo2-3
 		del tempfile
-		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %tbsa% -video_track_timescale %tbs% zzzc.mp4
+		ffmpeg -stats -loglevel error -i zzzb.mp4 -ar %RA% -video_track_timescale %RV% zzzc.mp4
 		ffmpeg -stats -loglevel error -i zzzc.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_music_temp.mp4
 
 		del zzzb.mp4
@@ -354,9 +362,9 @@ if not exist zzz_gpx_temp.mp4 (
 	if not exist Merge.gpx (
 		set f=
 		for %%f in (*.gpx) do set f=!f! -f "%%f"
-		"C:\Program Files (x86)\GPSBabel\gpsbabel.exe" -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
+		gpsbabel -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
 	)
-	"C:\Program Files\gpx-animator\jre\bin\java.exe" -jar "C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar" --input "Merge.gpx" --output "%wd%\zzz_gpx_temp1.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
+	%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "%wd%\zzz_gpx_temp1.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 zzz_gpx_temp1.mp4 > tempfile
 	set /p lengthvideo=<tempfile
 	set /a lengthvideo2=lengthvideo
@@ -418,15 +426,15 @@ echo.
 
 echo.
 echo -------------------------------------------------
-echo INFO - Start tbsa
+echo INFO - Start RA
 echo.
 
 
 
-	:: change tbs to have all the same - audio tbs
+	:: change RV to have all the same - audio RV
 	for %%i in (*.mp4) DO (
 		ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-		set /p tbna=<tempfile
+		set /p RAdt=<tempfile
 		:: check if no audio and add one, needed to bind all audio later, especially with music
 		for %%a in (tempfile) do (
 			:: check if filesize == 0 
@@ -435,13 +443,13 @@ echo.
 				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y %%i
 				del %%~ni_temp.mp4
 				ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-				set /p tbna=<tempfile
+				set /p RAdt=<tempfile
 			) 
 		)
-		if NOT "!tbna!"=="%tbsa2%" (
+		if NOT "!RAdt!"=="%RAd%" (
 			rename %%i %%~ni_temp.mp4
-			echo --- Reencode %%i, tbsa was !tbna! instead of %tbsa2%
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% %%i
+			echo --- Reencode %%i, RA was !RAdt! instead of %RAd%
+			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% %%i
 			del %%~ni_temp.mp4
 		)
 		echo OK -- %%i 
@@ -451,18 +459,18 @@ echo.
 	
 echo.
 echo -------------------------------------------------
-echo INFO - Start tbs
+echo INFO - Start RV
 echo.
 
-	:: change tbs to have all the same - video tbs
+	:: change RV to have all the same - video RV
 	for %%i in (*.mp4) DO (
 		ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
-		set /p tbn=<tempfile
+		set /p RVdt=<tempfile
 		del tempfile
-		if NOT "!tbn!"=="%tbs2%" (
+		if NOT "!RVdt!"=="%RVd%" (
 			rename %%i %%~ni_temp.mp4
-			echo --- Reencode %%i, tbsa was !tbn! instead of %tbs2%
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %tbs% %%i
+			echo --- Reencode %%i, RA was !RVdt! instead of %RVd%
+			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %RV% %%i
 			:: change to recycle once reboot
 			del %%~ni_temp.mp4
 		)
@@ -512,24 +520,26 @@ echo.
 			set /a videotime=videotime
 			set /a videoTT+=videotime
 
-			for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
-				set musicn=%%a
-				set musicn2=!musicn:~0,-5!
-				set musicn=Music - !musicn2!
-				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
-				set /p dura=<tempfile
-				set /a dura=dura
-				if !videoTT! GTR !duraTT! (
-					set /a posmusic=!duraTT!-!videoTTbefore!
-					set /a posmusic2=!posmusic!+7
-					echo OK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic!
-					rename Music_list_overlay_temp.txt music.temp
-					more +1 music.temp > Music_list_overlay_temp.txt
-					del music.temp
-					rename %%b %%~nb_temp.mp4
-					ffmpeg -stats -loglevel error -i %%~nb_temp.mp4 -vf "drawtext=text='!musicn!': fontcolor=white: fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*%xpos%-text_w:y=h*%ypos%:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %tbs% %%b
-					del %%~nb_temp.mp4
-					set /a duraTT+=dura
+			if not "%%b"=="00000_title.mp4" (
+				for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
+					set musicn=%%a
+					set musicn2=!musicn:~0,-5!
+					set musicn=Music - !musicn2!
+					ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
+					set /p dura=<tempfile
+					set /a dura=dura
+					if !videoTT! GTR !duraTT! (
+						set /a posmusic=!duraTT!-!videoTTbefore!
+						set /a posmusic2=!posmusic!+7
+						echo OK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic!
+						rename Music_list_overlay_temp.txt music.temp
+						more +1 music.temp > Music_list_overlay_temp.txt
+						del music.temp
+						rename %%b %%~nb_temp.mp4
+						ffmpeg -stats -loglevel error -i %%~nb_temp.mp4 -vf "drawtext=text='!musicn!': fontcolor=white: fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*%xpos%-text_w:y=h*%ypos%:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+						del %%~nb_temp.mp4
+						set /a duraTT+=dura
+					)
 				)
 			)
 			set /a videoTTbefore+=videotime

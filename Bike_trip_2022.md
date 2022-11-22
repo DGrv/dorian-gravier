@@ -353,27 +353,38 @@ order: 5
 	
 	<center>
 	<iframe src="https://youtube.com/embed/DOAFBsOLxU8" title="Etape 1"></iframe>
-
 	<iframe src="https://youtube.com/embed/8LHpj548vwQ" title="Etape 2"></iframe>
-
 	<iframe src="https://youtube.com/embed/c3TYsR0lHm4" title="Etape 3"></iframe>
-
 	<iframe src="https://youtube.com/embed/dGs5OAm9UjM" title="Etape 4"></iframe>
-
 	<iframe src="https://youtube.com/embed/FazzpMo_XLw" title="Etape 5"></iframe>
-
 	<iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6"></iframe>
-
 	<iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7"></iframe>
-	
 	<iframe src="https://youtube.com/embed/ksFslKQCkNc" title="Etape 8"></iframe>
+	<iframe src="https://youtube.com/embed/7nR4FiS1hNo" title="Etape 9"></iframe>
+	<iframe src="https://youtube.com/embed/kwDE4I5dKgw" title="Etape 10"></iframe>
 	</center>
+		
 		
 		
     </body>
 
 </html>
 
+Software used to create all of this:
+
+- Video
+	- [Losslesscut](https://mifi.github.io/lossless-cut/) to cut the video
+	- [FFmpeg](https://ffmpeg.org/)
+	- [Gpx-animator](https://gpx-animator.app/)
+	- [youtube-dl]() for the music
+	- [mpv](https://mpv.io/) as player and with some [lua scripts](../files/Batch/Lua) that I wrote to calling some batch files easily (see below)
+	- Batch files that I created ([here](..files/Batch/FFmpeg))
+- Map
+	- [GPSBabel](https://www.gpsbabel.org/) to work on the gpx
+	- [gpx_reduce](https://github.com/Alezy80/gpx_reduce) with the original author [here](https://wiki.openstreetmap.org/wiki/User:Travelling_salesman/gpx_reduce) to clean the gpx
+	- Batch files that I created ([here](..files/Batch/Gpx))
+- Graphics
+	- [R](https://www.r-project.org/)
 
 
 
