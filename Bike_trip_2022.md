@@ -318,6 +318,12 @@ order: 5
 
 
     	</script>
+	<br>	
+	<br>	
+	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Aide moi - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
+	<br>	
+	<br>	
+	<br>	
 		
 	<table>
 		<tr style="background-color:#424242;">
@@ -385,8 +391,9 @@ Software used to create all of this:
 	- Batch files that I created ([here](..files/Batch/Gpx))
 - Graphics
 	- [R](https://www.r-project.org/)
+- Planning
+	- [gpx.studio](https://gpx.studio/)
 
-
-
+<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Aide moi - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
 
 
