@@ -76,7 +76,8 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	set title2=%title: =_%
 	set title2=%title2:-=%
 	set title2=%title2:__=_%
-
+	
+	copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4"
 	
 
 	:: Music

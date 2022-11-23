@@ -20,6 +20,18 @@ set /p input="Give me the path of your VIDEO file: "
 set output=%input:.mp4=%
 set /p inputp="Give me the path of your picture file: "
 set /p time="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
+
+where ffmpeg
+if errorlevel 0 (
+	echo.
+	echo.
+	ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "%input%" > temp
+	set /p reso=<temp
+	del temp
+	echo Your video resolution is !reso!
+	echo.
+)
+
 set /p position="At which position (e.g. '25:25' meaning 25 pixel from each side, left top corner, if you need right bottom use 'W-w:H-h', with W width of video and w width of image, you can also use e.g. 1350-(w/2):300-(h/2) ): "
 
 echo.
