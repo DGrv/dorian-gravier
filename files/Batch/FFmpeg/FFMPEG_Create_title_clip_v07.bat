@@ -106,8 +106,8 @@ IF %lines%==1 (
 set /a sec2=1
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %last% > tempfile2
 set /p lengthvideo=<tempfile2
-set /a lengthvideo2=%lengthvideo%
-set /a lengthvideo3=%lengthvideo2%-%sec2%
+set /a lengthvideo2=lengthvideo
+set /a lengthvideo3=lengthvideo2-sec2
 del tempfile2
 ffmpeg -stats -loglevel error -i %last% -vf "fade=t=in:st=0:d=%sec2%,fade=t=out:st=!lengthvideo3!:d=%sec2%" -c:a copy temp.mp4
 del %last%

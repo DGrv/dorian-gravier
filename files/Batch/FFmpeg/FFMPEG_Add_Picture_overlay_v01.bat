@@ -25,9 +25,9 @@ where ffmpeg
 if errorlevel 0 (
 	echo.
 	echo.
-	ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "%input%" > temp
-	set /p reso=<temp
-	del temp
+	ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "%input%" > tempfile
+	set /p reso=<tempfile
+	del tempfile
 	echo Your video resolution is !reso!
 	echo.
 )

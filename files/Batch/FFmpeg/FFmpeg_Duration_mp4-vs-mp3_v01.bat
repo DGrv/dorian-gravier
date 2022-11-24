@@ -96,13 +96,14 @@ set /p durav=<tempfile
 del alla.mp3 allv.mp4 tempfile
 set /a duraa=duraa
 set /a durav=durav
-
+set /a duraaM=duraa/60
+set /a duravM=durav/60
 
 echo.
 echo --------------------------------------------
 echo RESULTS:
-echo Mp4 : %durav% s
-echo Mp3 : %duraa% s
+echo Mp4 : %durav% s  -  %duraaM%min
+echo Mp3 : %duraa% s  -  %duravM%min
 echo --------------------------------------------
 echo.
 
