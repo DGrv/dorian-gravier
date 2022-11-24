@@ -24,13 +24,14 @@ if "%1"=="" (
 		echo %%i >> list.txt
 	)
 ) else (
-	for /f %%i in (%1) do (
+	for %%i in (%1) do (
 		set dir=%%~dpi
 		set drive=%%~di
 		echo !drive!
 		echo !dir!
 		cd !dir!
-		echo %%i> list.txt
+		echo %%i > list.txt
+		echo Call with parameters: file=%%i
 	)
 )
 
@@ -45,17 +46,18 @@ if "%2"=="" (
 ) else (
 	set per=%2
 	set per=!per:"=!
+	echo Call with parameters: per=!per!
 )
 
-for /F "usebackq tokens=*" %%p in (%file%) do (
+for /F %%p in (%file%) do (
 	set filepathnoext=%%~dpnp
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
-	set newname=!filenamenoext!_old!ext!
+	set newname=!filenamenoext!_olds!ext!
 	rename "%%p" "!newname!"
 	echo ffmpeg -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
-	ffmpeg -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
+	ffmpeg -stats -loglevel error  -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
 )
 
 del list.txt
