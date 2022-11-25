@@ -5,12 +5,18 @@ on: [push]
 jobs:
   readme-test:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: embedding readme
         uses: tokusumi/markdown-embed-code@v1.0.0
         with:
           markdown: "Code.md"
           token: ${{ secrets.GITHUB_TOKEN }}
           message: "auto commit for embedding"
-          no_change: "No change on Vode."
+          no_change: "No change on Code."
           silent: false
