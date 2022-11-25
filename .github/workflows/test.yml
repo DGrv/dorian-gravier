@@ -21,7 +21,7 @@ jobs:
           python-version: 3.7
       - name: Install dependencies
         run: pip install pytest
-        run: pip install gcc
+      - run: pip install gcc
 
       - name: embedding readme
         uses: tokusumi/markdown-embed-code@v1.0.0
