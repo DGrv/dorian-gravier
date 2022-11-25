@@ -15,9 +15,4 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-<<<<<<< HEAD
       - run: echo "🍏 This job's status is"
-=======
-      - run: echo "🍏 This job's status is."
-	  
->>>>>>> 84713060b8e7417a5a1dd80eb11de28b7ca15f0e
