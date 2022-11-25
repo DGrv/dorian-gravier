@@ -10,4 +10,6 @@ url: "https://dorian.gravier.com"
 #  - jekyll-include-cache
 #  - jekyll-sitemap
 #  - jekyll-remote-theme
+- name: Markdown Embed Code From File
+  uses: tokusumi/markdown-embed-code@v1.0.0
 
