@@ -1,33 +1,33 @@
-name: Test code and embed into README
+# name: Embbed code into md files
 
-on: [push]
+# on: [push]
 
-jobs:
-  readme-test:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-          ref: refs/heads/${{ github.head_ref }}
+# jobs:
+  # readme-test:
+    # runs-on: ubuntu-latest
+    # env:
+      # GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    # steps:
+      # - name: Checkout repo
+        # uses: actions/checkout@v3
+        # with:
+          # persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          # fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+          # ref: refs/heads/${{ github.head_ref }}
           
-      - name: Set up Python
-        uses: actions/setup-python@v2.3.3
-        with:
-            python-version: '3.10'
-      - name: Install dependencies
-        run: pip install pytest
-      # - run: pip install gcc
+      # - name: Set up Python
+        # uses: actions/setup-python@v2.3.3
+        # with:
+            # python-version: '3.7'
+      # - name: Install dependencies
+        # run: pip install pytest
+      # # - run: pip install gcc
 
-      - name: embedding readme
-        uses: tokusumi/markdown-embed-code@v1.0.0
-        with:
-          markdown: "Code.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          message: "auto commit for embedding"
-          no_change: "No change on Code"
-          silent: false
+      # - name: embedding readme
+        # uses: tokusumi/markdown-embed-code@v1.0.0
+        # with:
+          # markdown: "Code.md"
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          # message: "auto commit for embedding"
+          # no_change: "No change on Code"
+          # silent: false

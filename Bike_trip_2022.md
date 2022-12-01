@@ -320,7 +320,7 @@ order: 5
     	</script>
 	<br>	
 	<br>	
-	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Aide moi - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
+	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Tu veux m'aider - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 	<br>	
 	<br>	
 	<br>	
@@ -349,8 +349,6 @@ order: 5
 	<center><img src="files/picture/BikeTrip2022/Ascent.jpg"/></center>
 	<br>
 	<br>
-	Those videos are not listed in Youtube. They only work via the link I use or share. Please be conscious if you share this.
-	<br>
 	<br>
 	
 	
@@ -377,6 +375,8 @@ order: 5
 
 </html>
 
+
+
 Software used to create all of this:
 
 - Video
@@ -395,6 +395,6 @@ Software used to create all of this:
 - Planning
 	- [gpx.studio](https://gpx.studio/)
 
-<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Aide moi - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
+<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Tu veux m'aider ? - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
 
 

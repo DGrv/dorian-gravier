@@ -39,4 +39,4 @@ Windows Registry Editor Version 5.00
 @="\"C:\\Program Files\\cmder\\Cmder.exe\" /single /x \"/cmd %1\" %*"
 ```
 
-- Source ()[https://github.com/cmderdev/cmder/issues/2110#issuecomment-1041922115]
+- [Source](https://github.com/cmderdev/cmder/issues/2110#issuecomment-1041922115)
