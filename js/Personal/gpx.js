@@ -99,7 +99,17 @@ var Bike = ['files/gpx/Leaflet/Bike/B_201511_mtb.gpx',
 'files/gpx/Leaflet/Bike/BT22_2022-11-14.gpx',
 'files/gpx/Leaflet/Bike/BT22_2022-11-15.gpx',
 'files/gpx/Leaflet/Bike/BT22_2022-11-16.gpx',
-'files/gpx/Leaflet/Bike/BT22_2022-11-17.gpx']
+'files/gpx/Leaflet/Bike/BT22_2022-11-17.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-19.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-20.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-26.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-27.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-11-30.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-12-01.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-12-02.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-12-03.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-12-04.gpx',
+'files/gpx/Leaflet/Bike/BT22_2022-12-05.gpx']
 
 var Hike = ['files/gpx/Leaflet/Hike/2017_Grosser_Mythen.gpx',
 'files/gpx/Leaflet/Hike/2017_KS1T_Hinterstein-Rotspitze.gpx',
@@ -388,5 +398,7 @@ var SchneeSProject = ['files/gpx/Leaflet/SchneeS/Project/P_SW_Malans-Tschugga.gp
 
 var gpx = ['files/R/gpx/202206_Warmshower.gpx',
 'files/R/gpx/202206_Wwoof_France.gpx',
-'files/R/gpx/202206_Wwoof_France_choice.gpx']
+'files/R/gpx/202206_Wwoof_France_choice.gpx',
+'files/R/gpx/202211_Wwoof_Portugal.gpx',
+'files/R/gpx/202211_Wwoof_Spain.gpx']
 
