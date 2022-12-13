@@ -40,15 +40,16 @@ order: 5
     	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script> -->
     	<script src="js/node_modules/leaflet-gpx/gpx.js"></script>
 
+	<!-- Legend -->
+	<link rel="stylesheet" href="js/node_modules/leaflet-legend/leaflet.legend.css" />
+    <script src="js/node_modules/leaflet-legend/leaflet.legend.js"></script>
 
 	<!-- hash -->
 	<!-- A JavaScript library that keeps track of the history of changes to the hash part in the address bar. -->
     	<script src="js/node_modules/leaflet-fullhash/leaflet-fullHash.js"></script>
 
     	<!-- fullscreen -->
-		<!-- Not in npm -->
-		<!-- Not in npm -->
-		<!-- Not in npm -->
+	<!-- Not in npm -->
     	<script src='js/node_modules/leaflet.fullscreen/Control.FullScreen.js'></script>
     	<link href='js/node_modules/leaflet.fullscreen/Control.FullScreen.css' rel='stylesheet' />
 
@@ -78,8 +79,6 @@ order: 5
 	<!-- topcenter -->
 	<!-- Not in npm -->
 	<!-- Not in npm -->
-	<!-- Not in npm -->
-	<!-- Not in npm -->
 	<link  href="js/topcenter/leaflet-control-topcenter.css" rel="stylesheet"/>
 	<script src="js/topcenter/leaflet-control-topcenter.js"></script>
 
@@ -89,13 +88,13 @@ order: 5
 
 	<!-- leaflet-routing-machine -->
 	<!-- browserify leaflet-routing-machine.js -o leaflet-routing-machine2.js -->
-	<script src="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine2.js"></script>
-	<link rel="stylesheet" href="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+	<!-- <script src="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine2.js"></script> -->
+	<!-- <link rel="stylesheet" href="js/node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css" /> -->
 
 	<!-- lrm-graphhopper -->
 	<!-- Run in cmd: -->
 	<!-- C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\js\node_modules\lrm-graphhopper\src > browserify L.Routing.GraphHopper.js -o L.Routing.GraphHopper2.js -->
-	<script src="js/node_modules/lrm-graphhopper/src/L.Routing.GraphHopper2.js"></script>
+	<!-- <script src="js/node_modules/lrm-graphhopper/src/L.Routing.GraphHopper2.js"></script> -->
 
 	<!-- FileLayer -->
 	<script src="js/node_modules/leaflet-filelayer/src/leaflet.filelayer.js"></script>
@@ -103,9 +102,9 @@ order: 5
 	<!-- Leaflet.PolylineMeasure -->
 	<link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
 	<script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
-		<!-- need those to download track -->
-		<script src="https://unpkg.com/togeojson@0.16.0/togeojson.js"></script>
-		<script src="https://unpkg.com/togpx@0.5.4/index.js"></script>
+	<!-- need those to download track -->
+	<script src="https://unpkg.com/togeojson@0.16.0/togeojson.js"></script>
+	<script src="https://unpkg.com/togpx@0.5.4/index.js"></script>
 
     	<!-- Personal js -->
     	<!-- <script src="js/Personal/DAVHut.js"></script> -->
@@ -113,7 +112,6 @@ order: 5
     	<script src="js/Personal/gpx_biketrip2022.js"></script>
     	<script src="js/Personal/Leaflet_map.js"></script>
     	<script src="js/Personal/Bike_trip_2022_Leaflet_overlays.js"></script>
-    	<script src="js/Personal/Points_bike_trip_2022.json"></script>
 
     	<style>
 		#map { 
@@ -160,13 +158,15 @@ order: 5
     			// initialize the map
     		// only add 1 layer here to avoid the 2 layers to load
     		var map = L.map('map', {
-    			center: [46.529, 9.009],
+    			center: [44.590, 2.153],
     			zoom: 5,
     			layers: CyclOSM,
     			fullscreenControl: {
     				pseudoFullscreen: true // if true, fullscreen to page width and height
     			}
     		});
+			
+		map.attributionControl.setPosition('topcenter');
 			
 		// Create necessary panes in correct order (i.e. "bottom-most" first). to order line and points : https://stackoverflow.com/questions/38599280/leaflet-overlay-order-points-lines-and-polygons/
 		// and https://gis.stackexchange.com/questions/240738/control-custom-panes-for-leaflet-geojson-svg-icons
@@ -259,49 +259,59 @@ order: 5
 		};
 		
 		map.addLayer(lBike); // add by default the bike gpx overlays
+		map.addLayer(lStop); // add by default the bike gpx overlays
 
 	
-		// Minimap
-		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
-			position: 'bottomleft'
-		}).addTo(map);
+
 
 		var hash = new L.Hash(map, baseLayers);
 
-
-
-
-		
-		// POints
-		L.geoJSON(pointsbiketrip, {
+		for (var j = 0; j < listpoint.what.length; j += 1) {
+			L.geoJSON(listpoint.what[j], {
 			// onEachFeature: onEachFeature, style: myStyle,
 			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 5, fillOpacity: 1, color : "#ff2b56", stroke: true, weight: 2});
+				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: listpoint.radius[j], fillOpacity: 1, color : listpoint.color[j], stroke: true, weight: 2});
 			},
 			onEachFeature: function (feature, layer) {
-				layer.bindPopup(feature.properties.popupContent);
+				// layer.bindPopup(feature.properties.popupContent); // to click on popup
+				layer.bindTooltip(feature.properties.popupContent); // to mouseover to popup
 			}
-		}).addTo(map);
+			}).addTo(map);
+		}
+
+		// // POints
+		// L.geoJSON(pointsbiketrip, {
+			// // onEachFeature: onEachFeature, style: myStyle,
+			// pointToLayer: function(feature, latlng) {
+				// return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 3, fillOpacity: 1, color : "#ff2b56", stroke: true, weight: 2});
+			// },
+			// onEachFeature: function (feature, layer) {
+				// // layer.bindPopup(feature.properties.popupContent); // to click on popup
+				// layer.bindTooltip(feature.properties.popupContent); // to mouseover to popup
+			// }
+		// }).addTo(map);
 		
-		L.geoJSON(tosee, {
-			// onEachFeature: onEachFeature, style: myStyle,
-			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 5, fillOpacity: 1, color : "#fff416", stroke: true, weight: 2});
-			},
-			onEachFeature: function (feature, layer) {
-				layer.bindPopup(feature.properties.popupContent);
-			}
-		}).addTo(map);
+		// L.geoJSON(tosee, {
+			// // onEachFeature: onEachFeature, style: myStyle,
+			// pointToLayer: function(feature, latlng) {
+				// return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 3, fillOpacity: 1, color : "#fff416", stroke: true, weight: 2});
+			// },
+			// onEachFeature: function (feature, layer) {
+				// // layer.bindPopup(feature.properties.popupContent); // to click on popup
+				// layer.bindTooltip(feature.properties.popupContent); // to mouseover to popup
+			// }
+		// }).addTo(map);
 		
-		L.geoJSON(climb, {
-			// onEachFeature: onEachFeature, style: myStyle,
-			pointToLayer: function(feature, latlng) {
-				return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 4, fillOpacity: 1, color : "#9646e3", stroke: true, weight: 2});
-			},
-			onEachFeature: function (feature, layer) {
-				layer.bindPopup(feature.properties.popupContent);
-			}
-		}).addTo(map);
+		// L.geoJSON(climb, {
+			// // onEachFeature: onEachFeature, style: myStyle,
+			// pointToLayer: function(feature, latlng) {
+				// return new L.CircleMarker(latlng, {pane: "pointsPane", radius: 3, fillOpacity: 1, color : "#9646e3", stroke: true, weight: 2});
+			// },
+			// onEachFeature: function (feature, layer) {
+				// // layer.bindPopup(feature.properties.popupContent); v
+				// layer.bindTooltip(feature.properties.popupContent); // to mouseover to popup
+			// }
+		// }).addTo(map);
 		
 		
 		
@@ -315,30 +325,79 @@ order: 5
 		}).addTo(map);
 
 
+		L.control.Legend({
+			position: "bottomright",
+			collapsed: false,
+			symbolWidth: 15,
+			symbolHeight: 15,
+			opacity: 1,
+			column: 1,
+			legends: [{
+				label: "Friend",
+				type: "circle",
+				radius: 3,
+				color: "#ff2b56",
+				fillColor: "#ff2b56",
+				// fillOpacity: 0.6,
+				weight: 1
+			}, {
+				label: "Nice area",
+				type: "circle",
+				radius: 3,
+				color: "#fff416",
+				fillColor: "#fff416",
+				// fillOpacity: 0.6,
+				weight: 1
+			}, {
+				label: "Spot where I climbed",
+				type: "circle",
+				radius: 3,
+				color: "#9646e3",
+				fillColor: "#9646e3",
+				// fillOpacity: 0.6,
+				weight: 1
+			}, {
+				label: "Biking",
+				type: "polyline",
+				color: "#2b88ff",
+				weight: 1
+			}, {
+				label: "Hitchiking",
+				type: "polyline",
+				color: "#929292",
+				weight: 1
+			}]
+		}).addTo(map);
+
+		// Minimap
+		var miniMap = new L.Control.MiniMap(OpenStreetMap_France_mini, {
+			position: 'bottomleft'
+		}).addTo(map);
+	
 
 
     	</script>
 	<br>	
 	<br>	
-	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Tu veux m'aider - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
+	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 	<br>	
 	<br>	
 	<br>	
 		
-	<table>
-		<tr style="background-color:#424242;">
-			<th><div id="circle" style="background:#ff2b56"></div></th>	
-			<th>People visited</th>	
-		</tr>
-		<tr>
-			<th><div id="circle" style="background:#fff416"></div></th>
-			<th>Nice areas</th>	
-		</tr>
-		<tr>
-			<th><div id="circle" style="background:#9646e3"></div></th>
-			<th>Climbing spot where I climbed</th>	
-		</tr>
-	</table>
+	<!-- <table> -->
+		<!-- <tr style="background-color:#424242;"> -->
+			<!-- <th><div id="circle" style="background:#ff2b56"></div></th>	 -->
+			<!-- <th>People visited</th>	 -->
+		<!-- </tr> -->
+		<!-- <tr> -->
+			<!-- <th><div id="circle" style="background:#fff416"></div></th> -->
+			<!-- <th>Nice areas</th>	 -->
+		<!-- </tr> -->
+		<!-- <tr> -->
+			<!-- <th><div id="circle" style="background:#9646e3"></div></th> -->
+			<!-- <th>Climbing spot where I climbed</th>	 -->
+		<!-- </tr> -->
+	<!-- </table> -->
 
 	<center><img src="files/picture/BikeTrip2022/Info.png"></center>
 	<br>
@@ -368,7 +427,10 @@ order: 5
 	<iframe src="https://youtube.com/embed/kwDE4I5dKgw" title="Etape 10"></iframe>
 	<iframe src="https://youtube.com/embed/BmbGM41uNcY" title="Etape 11"></iframe>
 	</center>
-		
+	
+	<br>
+	<br>
+	<br>
 		
 		
     </body>
@@ -395,6 +457,6 @@ Software used to create all of this:
 - Planning
 	- [gpx.studio](https://gpx.studio/)
 
-<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Tu veux m'aider ? - Support Me on Ko-fi', '#e028a0', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
+<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
 
 
