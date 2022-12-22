@@ -32,6 +32,15 @@ REM The first <time> is wro´ng so use the first one
 REM Use a ^to use a pipe
 for /f "tokens=*" %%i in ('sed -nr "s/.*<time>(.*)<\/time>/\1/p" %pathfile% ^| head -2 ^| tail -1') do set dayy=%%i
 set dayy=%dayy:~0,10%
+
+for /f "tokens=*" %%i in ('sed -nr "s/.*<name>(.*)<\/name>/\1/p" %pathfile% ^| tail -1') do set nametoreplace=%%i
+
+echo [DEBUG] ------------------
+echo day: %dayy%
+echo name: %nametoreplace%
+
+sed -i "s/%nametoreplace%/%dayy%/g" %pathfile%
+
 set newname=%name%_%dayy%.gpx
 
 rename %pathfile% "%newname%"

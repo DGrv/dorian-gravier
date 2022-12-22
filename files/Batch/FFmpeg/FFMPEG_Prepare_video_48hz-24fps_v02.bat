@@ -61,7 +61,7 @@ IF %ERRORLEVEL% NEQ 0 (
 		echo File %%i - Lines = !cline!
 		if !cline!==1 (
 			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 "%%i"
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -x264-params keyint=24:scenecut=0 -acodec copy "%%i"
 			if exist "%%i" ( del "%%~ni_temp.mp4" )
 		)
 	)

@@ -54,7 +54,7 @@ REM echo.
 
 
 :: -------------- User choice
-set /p url="Enter the url or type 'list' if you wanna give a txt file: "
+set /p url="Enter the url or the path of a txt file: "
 
 echo.
 set /p newfolder="Do you want to dowload it in a new folder ? (No=1, Yes=2)  " 
@@ -63,10 +63,6 @@ echo.
 set /p choice="Do you want to download the audio or the video ? (Audio=1, Video=2)   "
 
 echo. 
-if "%url%"=="list" (
-	set /p listpath="WHERE is your txt file ?"
-	set /p url=<!listpath!
-)
 REM to get first line
 REM set /p url=<!listpath!
 
@@ -89,14 +85,13 @@ echo ----- START
 echo.
 cd %wd%
 if "%newfolder%"=="2" (
-
-:: create timestamp depending on timeformat (language time settings) English will print Mon 09/03/2020 and FR 03/09/2020
-set /a check=%DATE:~0,1%
-set check2=%DATE:~0,1%
-if "%check%"=="%check2%" (
-	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
-) else (
-	set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+	:: create timestamp depending on timeformat (language time settings) English will print Mon 09/03/2020 and FR 03/09/2020
+	set /a check=%DATE:~0,1%
+	set check2=%DATE:~0,1%
+	if "%check%"=="%check2%" (
+		set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
+	) else (
+		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
 )
 
 
@@ -141,25 +136,31 @@ echo ----------- Download Videos
 echo.
 echo.
 if "%choice%"=="1" (
-	if "%url%"=="list" (
-		for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
+	if "%url:~-3%"=="txt" (
+		for /F "usebackq tokens=*" %%A in ("%url%") do (
+			%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
+		)
 	) else (
 		%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -i %url%
 	)
 )
 if "%choice%"=="2" (
 	if "!choice2!"=="2" (
-		if "%url%"=="list" (
-			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %%A
+		if "%url:~-3%"=="txt" (
+			for /F "usebackq tokens=*" %%A in ("%url%") do (
+				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f best %%A
+			)
 		) else (
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f best %url%
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f best %url%
 		)
 	)
 	if "!choice2!"=="1" (
-		if "%url%"=="list" (
-			for /F "usebackq tokens=*" %%A in ("%listpath%") do %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %%A
+		if "%url:~-3%"=="txt" (
+			for /F "usebackq tokens=*" %%A in ("%url%") do (
+				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %%A
+			)
 		) else (
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -f %format% %url%
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %url%
 		)
 	)
 )

@@ -54,7 +54,7 @@ for /F %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
-	set newname=!filenamenoext!_olds!ext!
+	set newname=!filenamenoext!_old!ext!
 	rename "%%p" "!newname!"
 	echo ffmpeg -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
 	ffmpeg -stats -loglevel error  -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"

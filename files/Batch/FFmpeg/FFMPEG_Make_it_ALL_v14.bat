@@ -290,16 +290,16 @@ echo.
 	echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
-		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		:: add audio
 		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
-		del 000_temp.mp4
 		:: change parameters audio
-		ffmpeg -stats -loglevel error  -i 000_temp2.mp4 -vf "fade=t=in:st=1:d=4" -c:a copy 000_temp3.mp4
-		del 000_temp2.mp4
-		ffmpeg -stats -loglevel error -i 000_temp3.mp4 -ar %RA% -video_track_timescale %RV% 00000_title.mp4
-		del 000_temp3.mp4
+		ffmpeg -stats -loglevel error -y -i 000_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_v01.gif" -filter_complex [0]overlay=x=0:y=0:shortest=1[out] -map [out] -map 0:a? 000_temp3.mp4
+		ffmpeg -stats -loglevel error  -i 000_temp3.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=7:d=3" -c:a copy 000_temp4.mp4
+		del 
+		ffmpeg -stats -loglevel error -i 000_temp4.mp4 -ar %RA% -video_track_timescale %RV% 00000_title.mp4
+		del 000_temp.mp4 000_temp2.mp4 000_temp3.mp4 000_temp4.mp4
 
 	)
 	del temptitle
@@ -318,7 +318,7 @@ echo.
 	
 	
 	if not exist Music_list_temp.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -video_track_timescale %RV% zzz.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -video_track_timescale %RV% zzz.mp4
 		ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
 		ffmpeg -stats -loglevel error -i zzza -ar %RA% zzzb.mp4
 		del zzz.mp4 zzza.mp4
@@ -337,7 +337,7 @@ echo.
 			set /a high=!high!*75
 			if !x!==1 (	
 				set /a hightitle=!high!-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=2704x1520:d=12 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=:d=12 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
 				ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
 				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz.mp4 zzza.mp4
@@ -436,6 +436,15 @@ echo.
 		REM touch dura_Done
 		echo Duration_done >> MakeItAll_temp.config 
 	)
+	
+	set /a durav=durav/2
+	:: add subscribe to support
+	REM rename output_temp.mp4 output_temp0.mp4
+	ffmpeg -stats -loglevel error -y -i output_temp.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav%/TB[1v1];[1v1]colorkey=black[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp.mp4
+	ffmpeg -stats -loglevel error -y -i output_temp.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex [0]overlay=enable='between(t,10)':x=0:y=0:shortest=1[out] -map [out] -map 0:a? output_temp.mp4
+
+	REM del output_temp0.mp4
+
 
 
 :: ---------- Modification ----------
@@ -708,6 +717,8 @@ echo -------------------------------------------------
 echo INFO - Start convert low
 echo.
 	
+	rename output_high.mp4 output_high_temp.mp4
+	ffmpeg -i output_high_temp.mp4 output_high.mp4
 	:convertion1
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
 	:convertion2
