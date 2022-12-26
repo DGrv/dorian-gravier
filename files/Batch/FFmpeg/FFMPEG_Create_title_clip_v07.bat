@@ -45,7 +45,7 @@ set /a lines=%lines%
 
 :: ---------- Title ----------
 
-copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
+copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\'Arial'
 copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIALBD.TTF
 
 
@@ -83,9 +83,9 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a high=%%x-!high!
 	set /a high=!high!*75
 	if %%x==1 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=%sec% -vf drawtext="fontfile=ARIAL.TTF:fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=%sec% -vf drawtext="fontfile='Arial':fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
 	) else (
-		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile=ARIAL.TTF:fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
 		del 0000000!before!.mp4
 		set last=0000000%%x.mp4
 	)
@@ -116,7 +116,7 @@ del temp.mp4
 
 
 if "%CD%" NEQ "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg" (
-	del ARIAL.TTF
+	del 'Arial'
 	del ARIALBD.TTF
 )
 

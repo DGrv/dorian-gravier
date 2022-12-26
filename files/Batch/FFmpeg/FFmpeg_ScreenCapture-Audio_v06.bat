@@ -6,8 +6,9 @@ set ext=mp4
 
 :: ---------- User input ----------
 
-set /p audio=Do you want to record audio ? (0: NO, 1: Yes) : 
-set /p gif=Do you want to convert it in gif ? (0: NO, 1: Yes) : 
+set /p audio=Do you want to record audio [y/n] ? 
+set /p mouse=Do you want to record mouse [y/n] ? 
+set /p gif=Do you want to convert it in gif [y/n] ? 
 
 :: ---------- Find Time ----------
 set hour=%time:~0,2%
@@ -46,7 +47,7 @@ echo Batch script to record screen and audio
 ::)
 
 
-if %audio%==1  (
+if "%audio%"=="y"  (
 	ffmpeg -list_devices true -f dshow -i dummy
 	echo.
 	echo.
@@ -74,13 +75,21 @@ set /p info=Type Enter to continue
 
 
 
-if %audio%==1  (
-	ffmpeg -v quiet -stats -f gdigrab -framerate %framer% -i desktop -f dshow -i audio="%micro%" %datetimef%_ScreenCapture.%ext%
+if "%audio%"=="y"  (
+	if "%mouse%"=="n" (
+		ffmpeg -v quiet -stats -f gdigrab -draw_mouse 0 -framerate %framer% -i desktop -f dshow -i audio="%micro%" %datetimef%_ScreenCapture.%ext%
+	) else (
+		ffmpeg -v quiet -stats -f gdigrab -framerate %framer% -i desktop -f dshow -i audio="%micro%" %datetimef%_ScreenCapture.%ext%
+	)
 ) else (
-	ffmpeg -v quiet -stats -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.%ext%
+	if "%mouse%"=="n" (
+		ffmpeg -v quiet -stats -f gdigrab -draw_mouse 0 -framerate %framer% -i desktop %datetimef%_ScreenCapture.%ext%
+	) else (
+		ffmpeg -v quiet -stats -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.%ext%
+	)
 )
 
-if %gif%==1 (
+if "%gif%"=="y" (
 	ffmpeg -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -vf "fps=10,scale=1080:-1:flags=lanczos,palettegen" -y palette.png
 	ffmpeg -v quiet -stats -y -i %datetimef%_ScreenCapture.%ext% -i palette.png -lavfi "fps=10,scale=1080:-1:flags=lanczos [x]; [x][1:v] paletteuse" -y %datetimef%_ScreenCapture.gif
 	del palette.png

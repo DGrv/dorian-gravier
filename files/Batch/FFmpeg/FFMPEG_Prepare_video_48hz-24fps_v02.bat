@@ -45,27 +45,31 @@ set tbsa2=1/!tbsa!
 
 
 
-echo.
-echo -----------------------------
-echo Size
-echo.
+REM USELESS you loose the key frames ------------
+REM USELESS you loose the key frames ------------
+REM USELESS you loose the key frames ------------
+REM USELESS you loose the key frames ------------
+REM echo.
+REM echo -----------------------------
+REM echo Size
+REM echo.
 
-WHERE ffmpeg
-IF %ERRORLEVEL% NEQ 0 (
-	echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
-	pause
-) else (
-	for %%i in (*.mp4) DO (
-		for /F %%j in ('ffprobe -v quiet -select_streams v:0 -show_entries stream_tags^=creation_time -of default^=noprint_wrappers^=1 "%%i" ^| wc -l') do set /a cline=%%j
-		:: check if no audio and add one, needed to bind all audio later, especially with music
-		echo File %%i - Lines = !cline!
-		if !cline!==1 (
-			rename %%i %%~ni_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -x264-params keyint=24:scenecut=0 -acodec copy "%%i"
-			if exist "%%i" ( del "%%~ni_temp.mp4" )
-		)
-	)
-)
+REM WHERE ffmpeg
+REM IF %ERRORLEVEL% NEQ 0 (
+	REM echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
+	REM pause
+REM ) else (
+	REM for %%i in (*.mp4) DO (
+		REM for /F %%j in ('ffprobe -v quiet -select_streams v:0 -show_entries stream_tags^=creation_time -of default^=noprint_wrappers^=1 "%%i" ^| wc -l') do set /a cline=%%j
+		REM :: check if no audio and add one, needed to bind all audio later, especially with music
+		REM echo --- File %%i - Lines = !cline!
+		REM if !cline!==1 (
+			REM rename %%i %%~ni_temp.mp4
+				REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -x264-params keyint=24:scenecut=0 -acodec copy "%%i"
+			REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+		REM )
+	REM )
+REM )
 
 
 echo.
@@ -82,8 +86,14 @@ IF %ERRORLEVEL% NEQ 0 (
 	for %%i in (*.mp4) DO (
 		for /f %%c in ('ffprobe -v error -select_streams a:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set tbna=%%c
 		:: check if no audio and add one, needed to bind all audio later, especially with music
-		echo File %%i - tbna = !tbna!
+		echo --- File %%i - tbna = !tbna!
 		if NOT "!tbna!"=="%tbsa2%" (
+			if "!tbna!"=="" (
+				echo --- Add sound null
+				rename %%i %%~ni_temp.mp4
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+				if exist "%%i" ( del "%%~ni_temp.mp4" )
+			)
 			rename %%i %%~ni_temp.mp4
 			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% "%%i"
 			if exist "%%i" ( del "%%~ni_temp.mp4" )
@@ -104,7 +114,7 @@ IF %ERRORLEVEL% NEQ 0 (
 ) else (
 	for %%i in (*.mp4) DO (
 		for /f %%c in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set tbn=%%c
-		echo File %%i - tbn = !tbn!
+		echo --- File %%i - tbn = !tbn!
 		if NOT "!tbn!"=="%tbs2%" (
 			rename "%%i" "%%~ni_temp.mp4"
 			ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %tbs% "%%i"

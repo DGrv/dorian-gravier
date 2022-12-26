@@ -29,12 +29,12 @@ echo INFO - Start Fade in and out, need re-encoding
 echo.
 
 if "%~1"=="" (
-	set /p wd="Give me the path of your file: "
+	set /p filepath="Give me the path of your file: "
 ) else (
-	set wd=%~1
+	set filepath=%~1
 )
 
-if "%~1"=="" (
+if "%~2"=="" (
 	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24): "
 ) else (
 	set kfi=%~2
@@ -45,7 +45,7 @@ if "%kfi%"=="" (
 )
 
 
-for %%a in (%wd%) do (
+for %%a in (%filepath%) do (
 	set pathh=%%~dpa
 	set filename=%%~nxa
 	set filenamenoext=%%~na
@@ -53,17 +53,24 @@ for %%a in (%wd%) do (
 	set ext=%%~xa
 	set drive=%%~da
 )  
-echo pathh=%pathh%
-echo filename=%filename%
-echo filenamenoext=%filenamenoext%
-echo filepathnoext=%filepathnoext%
-echo drive=%drive%
-echo wd=%wd%
+
+set renamefile=%filenamenoext%_temp%ext%
+set renamepathfile=%pathh%%renamefile%
+
+
+echo [95m[DEBUG] - pathh = %pathh%
+echo [DEBUG] - filename = %filename%
+echo [DEBUG] - filenamenoext = %filenamenoext%
+echo [DEBUG] - filepathnoext = %filepathnoext%
+echo [DEBUG] - drive = %drive%
+echo [DEBUG] - ext = %ext%
+echo. 
+echo [DEBUG] - filepath=%filepath%
+echo renamefile = %renamefile%
+echo renamepathfile = %renamepathfile% [0m
 %drive%
 cd %pathh%
 
-
-
-rename %wd% %filenamenoext%_temp
-ffmpeg -i %filenamenoext%_temp -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -acodec copy %wd%
-del %filenamenoext%_temp
+rename %filepath% %renamefile%
+ffmpeg -stats -loglevel error -i %renamepathfile% -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -acodec copy %filepath%
+del %renamepathfile%

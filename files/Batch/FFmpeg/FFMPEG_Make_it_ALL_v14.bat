@@ -33,13 +33,13 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	echo Your ffmpeg is here:
 	WHERE ffmpeg
 	IF %ERRORLEVEL% NEQ 0 (
-		echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
+		echo "[91m[DEBUG] - FFMPEG is missing !!!!!!!!" [37m
 		pause
 	)
 	if exist "*.gpx" (
 		WHERE gpsbabel
 		IF %ERRORLEVEL% NEQ 0 (
-			echo "[DEBUG] - GPSBabel is missing, Take care you need also gpx-animator !!!!!!!!"
+			echo "[91m[DEBUG] - GPSBabel is missing, Take care you need also gpx-animator !!!!!!!!" [37m
 			pause
 		)
 	)
@@ -105,7 +105,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
 	set tbdefault=y
-	
+	set biketrip=y
 	
 	if %tbdefault%==y (
 		set RV=24000
@@ -174,16 +174,16 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 
 echo.
-echo -------------------------------------------------
-echo INFO - Start
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start [37m
 echo.
 
 
 :: ---------- Music ----------
 
 echo.
-echo -------------------------------------------------
-echo INFO - Start Music input_temp.mp3
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start Music input_temp.mp3 [37m
 echo.
 	
 	
@@ -225,8 +225,8 @@ echo.
 	if %fadeinout%==y (
 	
 		echo.
-		echo -------------------------------------------------
-		echo INFO - Start Fade in and out, need re-encoding
+		echo [94m------------------------------------------------- [37m
+		echo [94mINFO - Start Fade in and out, need re-encoding [37m
 		echo.
 		
 		(for %%i in (*.mp4) do @echo %%i) > tempfile1
@@ -274,8 +274,8 @@ echo.
 
 	
 echo.
-echo -------------------------------------------------
-echo INFO - Start title
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start title [37m
 echo.
 
 
@@ -290,16 +290,19 @@ echo.
 	echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
-		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		if not %biketrip%==y (
+			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
+		) else (
+			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
+		)
 		:: add audio
-		ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		:: change parameters audio
-		ffmpeg -stats -loglevel error -y -i 000_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_v01.gif" -filter_complex [0]overlay=x=0:y=0:shortest=1[out] -map [out] -map 0:a? 000_temp3.mp4
-		ffmpeg -stats -loglevel error  -i 000_temp3.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=7:d=3" -c:a copy 000_temp4.mp4
-		del 
-		ffmpeg -stats -loglevel error -i 000_temp4.mp4 -ar %RA% -video_track_timescale %RV% 00000_title.mp4
-		del 000_temp.mp4 000_temp2.mp4 000_temp3.mp4 000_temp4.mp4
+		ffmpeg -stats -loglevel error  -i 000_temp2.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=7:d=3" -c:a copy 000_temp3.mp4
+		ffmpeg -stats -loglevel error -i 000_temp3.mp4 -ar %RA% -video_track_timescale %RV% 00000_title.mp4
+		del 000_temp.mp4 000_temp2.mp4 000_temp3.mp4
 
 	)
 	del temptitle
@@ -311,14 +314,14 @@ echo.
 	
 	
 echo.
-echo -------------------------------------------------
-echo INFO - Start music title
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start music title [37m
 echo.
 	
 	
 	
 	if not exist Music_list_temp.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -video_track_timescale %RV% zzz.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i "color=c=black:s=1920x1080:d=12" -video_track_timescale %RV% zzz.mp4
 		ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
 		ffmpeg -stats -loglevel error -i zzza -ar %RA% zzzb.mp4
 		del zzz.mp4 zzza.mp4
@@ -326,27 +329,28 @@ echo.
 
 	if NOT EXIST zzz_music_temp.mp4 (
 		set /a x=1
-		set /a lines=0
-		for /f %%a in ('type "Music_list_temp.txt"^|find "" /v /c') do set /a lines=%%a
+		REM for /f %%a in ('type "Music_list_temp.txt" ^| find "" /v /c') do set /a lines=%%a
+		for /f %%a in ('cat Music_list_temp.txt ^| wc -l') do set /a lines=%%a
 		for /F "usebackq tokens=*" %%a in ("Music_list_temp.txt") do (
 			set music=%%a
-			set /a before=!x!-1
-			set /a high=!lines!+1
-			set /a high=!high!/2
-			set /a high=!x!-!high!
-			set /a high=!high!*75
+			echo [93m!music! [37m
+			set /a before=x-1
+			set /a high=lines+1
+			set /a high/=2
+			set /a high=x-high
+			set /a high*=75
 			if !x!==1 (	
-				set /a hightitle=!high!-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=:d=12 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
+				set /a hightitle=high-150
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
 				ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
-				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz.mp4 zzza.mp4
 			) else (
-				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4
-			set /a x=x+1
+			set /a x+=1
 		)
 		ffmpeg -stats -loglevel error -i !last! -ar %RA% zzzb.mp4
 		del !last!
@@ -369,93 +373,40 @@ echo.
 
 
 echo.
-echo -------------------------------------------------
-echo INFO - Gpx-animator
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Gpx-animator [37m
 echo.
 
-if not exist zzz_gpx_temp.mp4 (
-	if not exist Merge.gpx (
-		set f=
-		for %%f in (*.gpx) do set f=!f! -f "%%f"
-		gpsbabel -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
-	)
-	%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "%wd%\zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 zzz_gpx_temp.mp4 > tempfile
-	set /p lengthvideo=<tempfile
-	set /a lengthvideo2=lengthvideo
-	set /a lengthvideo3=lengthvideo2-3
-	if !lengthvideo2! gtr 3 (
+for /f %%a in ('ls ^| grep gpx ^| wc -l') do set gpxhere=%%a
+if NOT %gpxhere%==0 (
+	if not exist zzz_gpx_temp.mp4 (
+		if not exist Merge.gpx (
+			set f=
+			for %%f in (*.gpx) do set f=!f! -f "%%f"
+			gpsbabel -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
+		)
+		%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "%wd%\zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
+		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 zzz_gpx_temp.mp4 > tempfile
+		set /p lengthvideo=<tempfile
+		set /a lengthvideo2=lengthvideo
+		set /a lengthvideo3=lengthvideo2-3
+		if !lengthvideo2! gtr 3 (
+			rename zzz_gpx_temp.mp4 zzz_gpx_temp_temp.mp4
+			ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_gpx_temp.mp4
+			del zzz_gpx_temp_temp.mp4
+		)
 		rename zzz_gpx_temp.mp4 zzz_gpx_temp_temp.mp4
-		ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_gpx_temp.mp4
+		ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -video_track_timescale %RV% -ar %RA% zzz_gpx_temp.mp4
 		del zzz_gpx_temp_temp.mp4
 	)
-	rename zzz_gpx_temp.mp4 zzz_gpx_temp_temp.mp4
-	ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -video_track_timescale %RV% -ar %RA% zzz_gpx_temp.mp4
-	del zzz_gpx_temp_temp.mp4
 )
 
 
 
 
 echo.
-echo -------------------------------------------------
-echo INFO - Start bind for checking duration
-echo.
-
-	
-	for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %check%==0 (
-	
-		(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
-		ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
-		del Listmp4_temp.txt
-		
-		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input_temp.mp3 > tempfile
-		set /p duraa=<tempfile
-		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_temp.mp4 > tempfile
-		set /p durav=<tempfile
-		del tempfile
-		set /a duraa=duraa
-		set /a durav=durav
-		
-		IF !duraa! LSS !durav! (
-			echo.
-			echo [DEBUG] - Your music is not long enough for your video ...
-			echo [DEBUG] - Your music is not long enough for your video ...
-			echo [DEBUG] - Your music is not long enough for your video ...
-			echo [DEBUG] - Length Video is !durav!
-			echo [DEBUG] - Length Audio is !duraa!
-			echo [DEBUG] - input_temp.mp3 and output_temp.mp4 will be deleted, please check if necessary
-			pause
-			echo.
-			del input_temp.mp3 output_temp.mp4 Music_list_temp.txt
-			goto eof
-		) else (
-			del output_temp.mp4
-		)
-		REM touch dura_Done
-		echo Duration_done >> MakeItAll_temp.config 
-	)
-	
-	set /a durav=durav/2
-	:: add subscribe to support
-	REM rename output_temp.mp4 output_temp0.mp4
-	ffmpeg -stats -loglevel error -y -i output_temp.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav%/TB[1v1];[1v1]colorkey=black[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp.mp4
-	ffmpeg -stats -loglevel error -y -i output_temp.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex [0]overlay=enable='between(t,10)':x=0:y=0:shortest=1[out] -map [out] -map 0:a? output_temp.mp4
-
-	REM del output_temp0.mp4
-
-
-
-:: ---------- Modification ----------
-
-
-	REM powercfg /hibernate off
-
-
-echo.
-echo -------------------------------------------------
-echo INFO - Start RA and RV
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start RA and RV [37m
 echo.
 
 
@@ -483,28 +434,33 @@ echo.
 			)
 			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i > tempfile
 			set /p RVdt=<tempfile
+			if "!RAdt!"=="" (
+				rename %%i %%~ni_temp.mp4
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+				del %%~ni_temp.mp4
+			)
 			if NOT "!RAdt!"=="%RAd%" (
 				if NOT "!RVdt!"=="%RVd%" (
 					rename %%i %%~ni_temp.mp4
-					echo --- Reencode %%i, RV was !RVdt! instead of %RVd% -  RA was !RAdt! instead of %RAd%
+					echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% -  RA was !RAdt! instead of %RAd% [37m
 					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %RV% -ar %RA% %%i
 					:: change to recycle once reboot
 					del %%~ni_temp.mp4
 				) else (
 					rename %%i %%~ni_temp.mp4
-					echo --- Reencode %%i, RA was !RAdt! instead of %RAd%
+					echo [93m--- Reencode %%i, RA was !RAdt! instead of %RAd% [37m
 					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% %%i
-					rename %%i %%~ni_temp.mp4
+					del %%~ni_temp.mp4
 				)
 			) else (
 				if NOT "!RVdt!"=="%RVd%" (
 					rename %%i %%~ni_temp.mp4
-					echo --- Reencode %%i, RV was !RVdt! instead of %RVd%
+					echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% [37m
 					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %RV% %%i
 					del %%~ni_temp.mp4
 				)
 			)
-			echo !n!/%all% -- RA and RV OK -- %%i 
+			echo [32m!n!/%all% -- RA and RV OK -- %%i  [37m
 		)
 		REM touch RA_RV_Done
 		echo Rate_done >> MakeItAll_temp.config
@@ -527,10 +483,78 @@ echo.
 		REM del %%~ni_temp.mp4
 	REM )
 	
+
+
+echo.
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start bind for checking duration [37m
+echo.
+
+	
+	for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	if %check%==0 (
+	
+		(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
+		ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
+		del Listmp4_temp.txt
+		
+		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 input_temp.mp3') do set duraa^=%%i
+		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set durav=%%i
+		del tempfile
+		set /a duraa=duraa
+		set /a durav=durav
+		
+		IF !duraa! LSS !durav! (
+			echo.
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Length Video is !durav! [37m
+			echo [91m[DEBUG] - Length Audio is !duraa! [37m
+			echo [91m[DEBUG] - Length Video is !durav! >> MakeItAll_temp.config  [37m
+			echo [91m[DEBUG] - Length Audio is !duraa! >> MakeItAll_temp.config  [37m
+			echo [91m[DEBUG] - input_temp.mp3 and output_temp.mp4 will be deleted, please check if necessary [37m
+			pause
+			echo.
+			del input_temp.mp3 output_temp.mp4 Music_list_temp.txt
+			goto eof
+		) else (
+			del output_temp.mp4
+		)
+		if not defined duraa (
+			echo [91m[ERROR] - could not check duration, variable duraa does not exist [37m
+			pause
+			goto eof
+		)
+		if not defined durav (
+			echo [91m[ERROR] - could not check duration, variable durav does not exist [37m
+			pause
+			goto eof
+		)
+		REM touch dura_Done
+		echo Duration_done >> MakeItAll_temp.config
+	)
+	
+	
+
+	REM del output_temp0.mp4
+
+
+
+:: ---------- Modification ----------
+
+
+	REM powercfg /hibernate off
+	
+	
+	
+	
+	
+	
 	
 echo.
-echo -------------------------------------------------
-echo INFO - Add music title overlay
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Add music title overlay [37m
 echo.
 
 	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
@@ -551,7 +575,7 @@ echo.
 		)
 	
 		
-		set xpos=0.95
+		set xpos=0.90
 		set ypos=0.95
 		
 		set /a duraTT=5
@@ -565,13 +589,13 @@ echo.
 			set /a videotime=videotime
 			set /a videoTT+=videotime
 			set rename=%%~nb_temp.mp4
-			echo !n! - Loop Video - %%b
+			echo [96m!n! - Loop Video - %%b [37m
 
 			if not "%%b"=="00000_title.mp4" (
 				set /a na=0
 				for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
 					set /a na+=1
-					echo !n! - !na! - Loop Audio - %%a
+					echo [95m!n! - !na! - Loop Audio - %%a [37m
 					REM echo !musicn! > tempfilemusic
 					REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
 					set /p dura=<Music_list_overlay_duration_temp.txt
@@ -580,13 +604,13 @@ echo.
 						set musicn=%%a
 						set musicn2=!musicn:~0,-5!
 						set musicn=Music - !musicn2!
-						set /a posmusic=!duraTT!-!videoTTbefore!
+						set /a posmusic=duraTT-videoTTbefore
 						if !posmusic! LSS 0 (
 							set /a posmusic= 1
 						)
 						set /a posmusic2=!posmusic!+7
 						
-						echo OK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic!
+						echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
 						
 						rename Music_list_overlay_duration_temp.txt musicduration.temp
 						more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
@@ -598,8 +622,8 @@ echo.
 						
 						
 						rename %%b !rename!
-						REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-						ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+						REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+						ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
 						del !rename!
 						set /a duraTT+=dura
 					)
@@ -616,8 +640,8 @@ echo.
 	)
 
 echo.
-echo -------------------------------------------------
-echo INFO - Start bind
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start bind [37m
 echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
@@ -626,9 +650,22 @@ echo.
 	del Listmp4_temp.txt
 	
 	
+	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set durav=%%i
+	set /a durav2=durav/3
+	set /a durav3=durav-45
+	if "%biketrip%"=="y" (
+		:: add subscribe to support
+		REM rename output_temp.mp4 output_temp0.mp4
+		rename output_temp.mp4 output_temp1.mp4
+		ffmpeg -stats -loglevel error -y -i output_temp1.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav2%/TB[1v1];[1v1]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp2.mp4
+		ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable='between(t,10,%durav2%,%durav3%)':x=0:y=0:shortest=1[out]" -map [out] -map 0:a output_temp.mp4
+		del output_temp1.mp4 output_temp2.mp4
+	)
+	
+	
 echo.
-echo -------------------------------------------------
-echo INFO - Start bind music
+echo [91m------------------------------------------------- [37m
+echo [91mINFO - Start bind music [37m
 echo.
 
 	:: audio replace
@@ -647,8 +684,8 @@ echo.
 	
 	
 echo.
-echo -------------------------------------------------
-echo INFO - Start bind jingle if exist
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start bind jingle if exist [37m
 echo.
 	
 	REM BECAREFUL superposition de jinge et music I think
@@ -658,7 +695,7 @@ echo.
 	REM BECAREFUL superposition de jinge et music I think
 	
 	if EXIST begin.mp3 (
-		ffmpeg -stats -loglevel error -i output_high_temp.mp4 -i begin.mp3 -filter_complex amix=inputs=2:duration=longest -c:v copy -ac 2 output_high_jiggle_start.mp4
+		ffmpeg -stats -loglevel error -i output_high_temp.mp4 -i begin.mp3 -filter_complex "amix=inputs=2:duration=longest" -c:v copy -ac 2 output_high_jiggle_start.mp4
 	) 
 	if NOT EXIST output_high_jiggle_start.mp4 (
 		rename output_high_temp.mp4 output_high_jiggle_start.mp4
@@ -674,13 +711,13 @@ echo.
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output_high_jiggle_start.mp4 > tempfile
 		set /p dura=<tempfile
 		del tempfile
-		set /a dura2=!dura!
+		set /a dura2=dura
 		ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 end.mp3 > tempfile
 		set /p duraend=<tempfile
 		del tempfile
-		set /a duraend2=!duraend!
-		SET /A mark = !dura2! - !duraend2!
-		ffmpeg -stats -loglevel error -i output_high_jiggle_start.mp4 -itsoffset !mark!s -i end.mp3  -filter_complex amix=inputs=2:duration=longest -c:v copy -ac 2 -async 1 output_high.mp4
+		set /a duraend2=duraend
+		SET /A mark = dura2 - duraend2
+		ffmpeg -stats -loglevel error -i output_high_jiggle_start.mp4 -itsoffset !mark!s -i end.mp3  -filter_complex "amix=inputs=2:duration=longest" -c:v copy -ac 2 -async 1 output_high.mp4
 	) 
 	if NOT EXIST output_high.mp4 (
 		rename output_high_jiggle_start.mp4 output_high.mp4
@@ -695,11 +732,11 @@ echo.
 		IF %ERRORLEVEL% EQU 0 (
 			rename output_high.mp4 output_high_temp_ffmpeg-normalize.mp4
 			echo.
-			echo [INFO] - use ffmpeg-normlize
-			echo [INFO] - use ffmpeg-normlize
-			echo [INFO] - use ffmpeg-normlize
-			echo [INFO] - use ffmpeg-normlize
-			echo [INFO] - use ffmpeg-normlize
+			echo [93m[INFO] - use ffmpeg-normlize [37m
+			echo [93m[INFO] - use ffmpeg-normlize [37m
+			echo [93m[INFO] - use ffmpeg-normlize [37m
+			echo [93m[INFO] - use ffmpeg-normlize [37m
+			echo [93m[INFO] - use ffmpeg-normlize [37m
 			echo.
 			ffmpeg-normalize output_high_temp_ffmpeg-normalize.mp4 -c:a aac -b:a 192k -o output_high.mp4
 		)	
@@ -713,12 +750,13 @@ echo.
 	
 	
 echo.
-echo -------------------------------------------------
-echo INFO - Start convert low
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start convert low [37m
 echo.
 	
 	rename output_high.mp4 output_high_temp.mp4
-	ffmpeg -i output_high_temp.mp4 output_high.mp4
+	ffmpeg -stats -loglevel error -i output_high_temp.mp4 output_high.mp4
+	del output_high_temp.mp4
 	:convertion1
 	ffmpeg -stats -loglevel error -i output_high.mp4 -vcodec libx264 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
 	:convertion2
@@ -735,7 +773,7 @@ echo.
 	
 	echo.
 	echo.
-	echo Finish :)
+	echo [32mFinish :) [37m
 	
 	echo move %title2%_youtube.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\Youtube > IF_OK_MOVE_READY_MP4.bat
 	echo move %title2%_TV.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\High >> IF_OK_MOVE_READY_MP4.bat

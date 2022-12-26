@@ -44,7 +44,7 @@ set name=%name::=-%
 set name=%name:'=%
 set name=%name: =_%
 set name=%name: – =___%
-set namefoler=%name%__temp
+set namefolder=%name%__temp
 
 echo.
 
@@ -72,15 +72,15 @@ echo.
 
 cd C:\Users\doria\Downloads\
 
-mkdir %namefoler%
-cd %namefoler%
+mkdir %namefolder%
+cd %namefolder%
 mkdir audio
 mkdir video
 
 
 :: --------------------- VIDEO ------------------------
 
-cd C:\Users\doria\Downloads\%namefoler%
+cd C:\Users\doria\Downloads\%namefolder%
 cd video
 
 REM https://www.linuxquestions.org/questions/programming-9/any-ideas-to-pass-the-error-400-bad-request-of-wget-720215/
@@ -141,9 +141,10 @@ REM ffmpeg -f concat -i list.txt -c copy "C:\Users\doria\Downloads\%name%.mp4"
 
 : --------------------- AUDIO ------------------------
 
-cd C:\Users\doria\Downloads\%namefoler%
+cd C:\Users\doria\Downloads\%namefolder%
 cd audio
 
+curl "%dirnameA%/segment-0.m4s" --output "0000.m4s"
 
 FOR /L %%p IN (0, 1, 2000) DO (
 	set p2=00000%%p
@@ -152,7 +153,7 @@ FOR /L %%p IN (0, 1, 2000) DO (
 		curl "%dirnameA%/segment-%%p.m4s" --output "!p2!.m4s"
 		echo.
 		echo [DEBUG] - curl "%dirnameV%/segment-%%p.m4s" --output "!p2!.m4s"
-		echo curl "%dirnameV%/segment-%%p.m4s" --output "!p2!.m4s" >> logfile_audio.txt
+		echo curl "%dirnameA%/segment-%%p.m4s" --output "!p2!.m4s" >> logfile_audio.txt
 		FOR /F %%A IN ("!p2!.m4s") DO set size=%%~zA
 		echo.
 		echo [DEBUG] - !p2!.m4s size: !size!
@@ -175,9 +176,8 @@ FOR /L %%p IN (0, 1, 2000) DO (
 del all_audio.m4s
 del output.aac
 echo [DEBUG] - Start the merging Audio
-for %%i in (*.m4s) do (
-	cat %%i >> all_audio.m4s
-)
+for %%i in (*.m4s) do (	cat %%i >> all_audio.m4s )
+
 echo [DEBUG] - Finish the merging Audio
 
 echo [DEBUG] - Start convert Audio
@@ -187,7 +187,7 @@ echo [DEBUG] - Start convert Audio
 :: --------------------- MERGE ------------------------
 
 cd C:\Users\doria\Downloads\
-ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefoler%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefoler%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
+ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
 
 echo.
 echo [INFO] - 'temp' directory will be remove, quit if you do not want, type enter if ok
