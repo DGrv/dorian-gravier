@@ -2,7 +2,7 @@
 layout: "post" 
 title: "Real time animation with krita" 
 date: "2022-12-26 18:50" 
-comments_id: 81
+comments_id: 58
 --- 
  
 I wanted to create an animation with krita which is pretty easy AND add some real time animation where I am drawing.

@@ -2,7 +2,7 @@
 layout: "post"
 title: "Use Lua script in windows"
 data: "2022-12-18 10:00"
-comments_id: 80
+comments_id: 57
 ---
 
 How to use lua in windows:
