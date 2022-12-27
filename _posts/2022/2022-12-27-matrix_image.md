@@ -1,3 +1,49 @@
+--- 
+layout: "post" 
+title: "How to create a matrix of image automatically with ImageMagick even from different sizes" 
+date: "2022-12-27 13:30" 
+comments_id: 60 
+--- 
+
+Goal is to create a matrix of image to have an overview or whatever you want with.
+
+You need in your `PATH`:
+
+- [ImageMagick](https://imagemagick.org/)
+- You need to install [git](https://git-scm.com/) and have it before the PATH of your system32 folder ([check info here](https://stackoverflow.com/a/74927930/2444948))
+	- when you run `where sort` you should have your `C:\Program Files\Git\usr\bin\sort.exe` before your `C:\Windows\System32\sort.exe`
+	
+Put all your files in a folder and run this batch script that you can find [here](/files/Batch/Magick/MAGICK_Stitch_photo_all_together.bat)
+It will ask you:
+
+- How many files you need in width
+- and a width to resize the final picture to have a low resolution as well (by keeping the final resolution).
+
+It will work as follow:
+
+- Copy the images in a new folder
+- get the minimum height
+- resize all picture to the minimum height
+- get minimum width
+- crop in the center the image with bigger width than the minimum one
+- create a random list of the files (take time and it was difficult to do)
+- repeat 5 times to give the user a choice
+
+It is not perfect because each row are not the same length but did not find a fast and easy solution to counter this.
+
+And here an example:
+
+![](/files/posts/2022/OUTPUT_STITCH_0_low.jpg){:width="200px"}
+![](/files/posts/2022/OUTPUT_STITCH_2_low.jpg){:width="200px"}
+![](/files/posts/2022/OUTPUT_STITCH_3_low.jpg){:width="200px"}
+![](/files/posts/2022/OUTPUT_STITCH_4_low.jpg){:width="200px"}
+![](/files/posts/2022/OUTPUT_STITCH_5_low.jpg){:width="200px"}
+
+
+
+
+
+```sh 
 @echo off
 setlocal EnableDelayedExpansion
 
@@ -160,3 +206,4 @@ cd ..
 rmdir /S /Q temp_stitch
 
 
+```
