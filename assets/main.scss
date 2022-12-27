@@ -32,6 +32,11 @@ body { font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 	}
 
 	/** Images */
+	/** Dgrv modif */
+	img[src*='#center'] {
+		display: block;
+		margin: auto;
+	}	
 	img {
 		max-width: 100%;
 		vertical-align: middle;
