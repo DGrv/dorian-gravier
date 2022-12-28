@@ -14,15 +14,15 @@ REM http://www.network-science.de/ascii/
 echo.
 
 echo Will add text overlay where you want on your video
+echo [91mYou can use \n in your string to create new line !!!![0m
 
-
-	echo.
-	echo Your ffmpeg is here:
-	WHERE ffmpeg
-	IF %ERRORLEVEL% NEQ 0 (
-		echo "[DEBUG] - ffmpeg command is unknown, please add it to the PATH
-	)
-	echo.
+echo.
+echo Your ffmpeg is here:
+WHERE ffmpeg
+IF %ERRORLEVEL% NEQ 0 (
+	echo "[DEBUG] - ffmpeg command is unknown, please add it to the PATH
+)
+echo.
 
 if "%1"=="" (
 	set /p pathfile="Give me the Video path: "
@@ -47,32 +47,61 @@ REM echo wd=%wd%
 %drive%
 cd "%pathh%"
 
-if %2=="" (
-	set /p time="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
+echo [95m[DEBUG] ---------------------
+echo 1 = %1
+echo 2 = %2
+echo 3 = %3
+echo 4 = %4
+echo 5 = %5
+echo ----------------------[0m
+
+
+
+if [%2]==[] (
+	set /p timeuser="At which time to start and stop in form of 'start,stop', e.g '0,20': "
 ) else (
-	set time=%2
-) 
-set time=%time:"=%
-echo %time%
+	set timeuser=%2
+	set timeuser=!timeuser:"=!
+)
+:: need this to remove the " from the lua script mpv
 
-if "%5"=="" (
-	set /p text="Give me you text: "
+
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+
+if "%~6"=="" (
+	echo [91m
+	set /p text=Give me you text: You can use \n in your string to create new line !!!! : 
+	echo [0m
 ) else (
-	set text=%5
+	set text=%~6
 ) 
+REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
+set "text=%text:(=^(%"
+set "text=%text:)=^)%"
+set "text=%text:\n= >> temp.txt & echo %"
+set "text=%text:"=%"
+if exist "temp.txt" rm temp.txt
+echo %text% >> temp.txt
+truncate -s -2 temp.txt
+
+:: Cols:\n- Port de Lers (1517m) avec le col d'Agnès (1570m)\n- Col de la Core (1395m)\n- Col de Menté (1349m)\n- Col de Peyresourde (1569m)\n- Col du Tourmalet (2115m)\n- Col d'Aubisque (1709m)\n- Col de Marie-Blanque (1035m)\n- Col de Labays (1354m)
 
 
-echo|set /p=%text%>temp.txt
 
 if "%3"=="" (
-	set /p fontfile='Arial': fontsize="Give me your fontfile='Arial': fontsize (Try big first, maybe 50, nothing will be 50): "
+	set /p fontsize="Give me your fontsize (Try big first, maybe 50, nothing will be 50): "
 ) else (
-	set fontfile='Arial': fontsize=%3
+	set fontsize=%3
 ) 
-
-if "%fontfile='Arial': fontsize%"=="" (
-	set fontfile='Arial': fontsize=50
+if [%fontsize%]==[] (
+	set fontsize=50
 )
+
+
+
 
 REM echo filenamenoext : %filenamenoext%
 
@@ -86,84 +115,119 @@ echo "| BL          BC            BR |"
 echo "--------------------------------"
 echo.
 
+
+
 echo Give a x position (0.1 will be on the left, 0.9 will be on the right)
 if "%4"=="" (
 	set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TR): "
 ) else (
 	set xpos=%4
 ) 
-
-if %xpos%=="" (
+if "%xpos%"=="" (
 	set xpos="TR"
 )
 
+
+
+
+set /a check=%DATE:~0,1%
+set check2=%DATE:~0,1%
+
+
+if "%check%"=="%check2%" (
+	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
+) else (
+	set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+)
+
+set filenamenew=%filenamenoext%_old_%TIMESTAMP%.mp4
+
 echo.
-echo xpos %xpos% 
+echo.
+echo [95m[DEBUG] ---------------------
+echo cd = %cd%
+echo pathfile = %pathfile%
+echo pathh = %pathh%
+echo timeuser = %timeuser%
+echo fontsize = %fontsize%
+echo xpos = %xpos% 
+echo ypos = %ypos% 
+echo check = %check%
+echo check2 = %check2%
+echo filename = %filename%
+echo filenamenew = %filenamenew%
+echo rename "%filename%" "%filenamenew%"
+echo.
+echo cat temp.txt
+cat temp.txt
+echo.
+echo ----------------------[0m
 
-rename "%filename%" "%filenamenoext%_old.mp4"
 
 
-if %xpos%=="TL" (
+rename "%filename%" "%filenamenew%"
+
+if "%xpos%"=="TL" (
 	set xpos=0.05
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="TC" (
+if "%xpos%"=="TC" (
 	set xpos=0.5
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="TR" (
+if "%xpos%"=="TR" (
 	set xpos=0.95
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="LC" (
+if "%xpos%"=="LC" (
 	set xpos=0.05
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="C" (
+if "%xpos%"=="C" (
 	set xpos=0.5
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="RC" (
+if "%xpos%"=="RC" (
 	set xpos=0.95
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="BL" (
+if "%xpos%"=="BL" (
 	set xpos=0.05
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="BC" (
+if "%xpos%"=="BC" (
 	set xpos=0.5
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
-if %xpos%=="BR" (
+if "%xpos%"=="BR" (
 	set xpos=0.95
 	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 ) else (
 	set /p ypos="Give me your y position (0.1 will be on the top, 0.9 will be on the bottom): "
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 )
 
 
 
 
-ffmpeg -stats -loglevel error -i "%filenamenoext%_old.mp4" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontfile='Arial': fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*0.5:y=h*0.5:enable='between(t,%time%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 
 
 :end

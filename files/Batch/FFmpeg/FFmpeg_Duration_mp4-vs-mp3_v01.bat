@@ -102,8 +102,8 @@ set /a duravM=durav/60
 echo.
 echo --------------------------------------------
 echo RESULTS:
-echo Mp4 : %durav% s  -  %duraaM%min
-echo Mp3 : %duraa% s  -  %duravM%min
+echo Mp4 : %durav% s  -  %duravM%min
+echo Mp3 : %duraa% s  -  %duraaM%min
 echo --------------------------------------------
 echo.
 

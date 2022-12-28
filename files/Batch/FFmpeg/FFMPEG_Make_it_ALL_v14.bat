@@ -290,12 +290,12 @@ echo.
 	echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
-		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		if not %biketrip%==y (
-			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
-			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		)
 		:: add audio
@@ -341,12 +341,12 @@ echo.
 			set /a high*=75
 			if !x!==1 (	
 				set /a hightitle=high-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
 				ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
-				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz.mp4 zzza.mp4
 			) else (
-				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile='Arial':fontfile='Arial':fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4

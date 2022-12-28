@@ -59,25 +59,25 @@ cd %pathfolder%
 
 REM Keyframes are Adjusted every 2 seconds
 if "%resize%"=="y" (
-	ffmpeg -stats -loglevel error -f image2 -i "%%04d.jpg" -r %fps% -vf "scale=%w%:-2" -vcodec libx264 -x264-params keyint=48:scenecut=0 -vprofile baseline -level 3.0 -pix_fmt yuv420poutput1.mp4
+	REM ffmpeg -stats -loglevel error -f image2 -i "%%04d.jpg" -r %fps% -vf "scale=%w%:-2" -vcodec libx264 -x264-params keyint=48:scenecut=0 -vprofile baseline -level 3.0 -pix_fmt yuv420p output1.mp4
+	cat *.jpg | ffmpeg -stats -loglevel error -framerate %fps% -i - -vf "scale=%w%:-2" -c:v libx264 output1.mp4
 	if "%crop%"=="y" (
 		ffmpeg -i output1.mp4 -filter:v "crop=%w%:%h%" output2.mp4
 	) else (
 		rename output1.mp4 output2.mp4
 	)
 ) else (
-	ffmpeg -stats -loglevel error -f image2 -i "%%04d.jpg" -r %fps% -vcodec libx264 -x264-params keyint=48:scenecut=0 -vprofile baseline -level 3.0 -pix_fmt yuv420p output2.mp4
+	REM ffmpeg -stats -loglevel error -f image2 -i "%%04d.jpg" -r %fps% -vcodec libx264 -x264-params keyint=48:scenecut=0 -vprofile baseline -level 3.0 -pix_fmt yuv420p output2.mp4
+	cat *.jpg | ffmpeg -stats -loglevel error -framerate %fps% -i - -c:v libx264 output2.mp4
 )
-echo.
-echo.
-echo You can check the first step !
-echo.
-echo.
+
+
 REM Add silence
-ffmpeg -stats -loglevel error -i output2.mp4 -f lavfi -i aevalsrc=0 -shortest -y -ar 48000 -vcodec libx264 -x264-params keyint=48:scenecut=0 -video_track_timescale 24000 output3.mp4
+ffmpeg -stats -loglevel error -i output2.mp4 -f lavfi -i aevalsrc=0 -shortest -y -ar 48000 -c:v libx264 -video_track_timescale 24000 output.mp4
 REM if not working remove this part -vcodec libx264 -x264-params keyint=48:scenecut=0 
 
+del output2.mp4 
 
-:end
+
 
 

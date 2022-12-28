@@ -47,7 +47,8 @@ if "%1"=="" (
 		%%~di
 		cd %%~dpi
 		echo %%i >> list.txt
-	))
+	)
+)
 
 if "%2"=="" (
 	set /p speed=How much do you wanna speed up: 

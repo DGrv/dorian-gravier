@@ -92,7 +92,7 @@ if "%newfolder%"=="2" (
 		set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
 	) else (
 		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
-)
+	)
 
 
 	echo ------- Create folder
