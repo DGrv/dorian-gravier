@@ -109,15 +109,19 @@ var loopinfoBikeTrip2022 = {
 
 
 var pointsbiketrip = [
-	{"type": "Feature", "properties": {"popupContent": "Chez Gregoire" }, "geometry": {"type": "Point", "coordinates":  [5.17031, 47.58763] }},
-	{"type": "Feature", "properties": {"popupContent": "Woofing au clos des Chevres" }, "geometry": {"type": "Point", "coordinates":  [4.15917, 47.19581] }},
-	{"type": "Feature", "properties": {"popupContent": "Chez Virginie" }, "geometry": {"type": "Point", "coordinates":  [3.4976, 46.0209] }},
+	{"type": "Feature", "properties": {"popupContent": "Gregoire et sa famille" }, "geometry": {"type": "Point", "coordinates":  [5.17031, 47.58763] }},
+	{"type": "Feature", "properties": {"popupContent": "Laurent et Michael, Woofing au clos des Chevres" }, "geometry": {"type": "Point", "coordinates":  [4.15917, 47.19581] }},
+	{"type": "Feature", "properties": {"popupContent": "Virginie" }, "geometry": {"type": "Point", "coordinates":  [3.4976, 46.0209] }},
 	{"type": "Feature", "properties": {"popupContent": "Woofing chez Kim" }, "geometry": {"type": "Point", "coordinates":  [3.72795, 46.09200] }},
 	{"type": "Feature", "properties": {"popupContent": "Vendanges au Domaine Miolanne" }, "geometry": {"type": "Point", "coordinates":  [3.15439, 45.59475] }},
 	{"type": "Feature", "properties": {"popupContent": "Buron de Jean-Marie" }, "geometry": {"type": "Point", "coordinates":  [2.94960, 45.23054] }},
 	{"type": "Feature", "properties": {"popupContent": "L'ami Paul" }, "geometry": {"type": "Point", "coordinates":  [3.4133, 43.6849] }},
-	{"type": "Feature", "properties": {"popupContent": "Chez Pacha" }, "geometry": {"type": "Point", "coordinates":  [3.0806, 44.0971] }},
-	{"type": "Feature", "properties": {"popupContent": "Chez Arthur "}, "geometry": {"type": "Point", "coordinates":  [2.2678, 43.5388] }}
+	{"type": "Feature", "properties": {"popupContent": "Pacha" }, "geometry": {"type": "Point", "coordinates":  [3.0806, 44.0971] }},
+	{"type": "Feature", "properties": {"popupContent": "Serge" }, "geometry": {"type": "Point", "coordinates":  [-0.2600, 42.9609] }},
+	{"type": "Feature", "properties": {"popupContent": "Alice, Andoni, Maya y Unai" }, "geometry": {"type": "Point", "coordinates":  [-2.1972, 43.1531] }},
+	{"type": "Feature", "properties": {"popupContent": "Un cher ami basque espagnol :)" }, "geometry": {"type": "Point", "coordinates":  [-1.9906, 43.2469] }},
+	{"type": "Feature", "properties": {"popupContent": "Aline, Maité et Célia" }, "geometry": {"type": "Point", "coordinates":  [-1.73840,43.37779] }},
+	{"type": "Feature", "properties": {"popupContent": "Arthur "}, "geometry": {"type": "Point", "coordinates":  [2.2678, 43.5388] }}
 ];
 
 var tosee = [

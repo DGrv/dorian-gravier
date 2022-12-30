@@ -64,6 +64,18 @@ if [%2]==[] (
 	set timeuser=!timeuser:"=!
 )
 :: need this to remove the " from the lua script mpv
+if "%timeuser:~1,1%"=="," (
+	set time1=%timeuser:~0,1%
+	set time2=%timeuser:~2,3%
+) else (
+	if "%timeuser:~2,1%"=="," (
+		set time1=%timeuser:~0,2%
+		set time2=%timeuser:~3,3%
+	) else (
+		set time1=%timeuser:~0,3%
+		set time2=%timeuser:~4,4%
+	)
+)
 
 
 :: use %~1 instead of %1 if you have space in the text
@@ -73,7 +85,7 @@ if [%2]==[] (
 
 if "%~6"=="" (
 	echo [91m
-	set /p text=Give me you text: You can use \n in your string to create new line !!!! : 
+	set /p text=Give me you text: You can use \n in your string to create new line !!!! :[0m 
 	echo [0m
 ) else (
 	set text=%~6
@@ -81,6 +93,7 @@ if "%~6"=="" (
 REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
 set "text=%text:(=^(%"
 set "text=%text:)=^)%"
+set "text=%text:\n\n= >> temp.txt & echo. >> temp.txt & echo %"
 set "text=%text:\n= >> temp.txt & echo %"
 set "text=%text:"=%"
 if exist "temp.txt" rm temp.txt
@@ -124,7 +137,7 @@ if "%4"=="" (
 	set xpos=%4
 ) 
 if "%xpos%"=="" (
-	set xpos="TR"
+	set xpos=TR
 )
 
 
@@ -132,8 +145,6 @@ if "%xpos%"=="" (
 
 set /a check=%DATE:~0,1%
 set check2=%DATE:~0,1%
-
-
 if "%check%"=="%check2%" (
 	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
 ) else (
@@ -164,65 +175,75 @@ echo.
 echo ----------------------[0m
 
 
+set posstay=3
+
 
 rename "%filename%" "%filenamenew%"
 
 if "%xpos%"=="TL" (
 	set xpos=0.05
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-w/10*(t-%time1%-%posstay%)\,if(gte(-w*0.2-tw+w/10*t\,w*%xpos%)\, w*%xpos%\, -w*0.2-tw+w/10*t)): y=h*%ypos%: enable='between(t,%timeuser%)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="TC" (
 	set xpos=0.5
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*%ypos%-h/10*(t-%time1%-%posstay%)\,if(gte(-h*0.2-th+h/10*t\,h*%ypos%)\, h*%ypos%\, -h*0.2-th+h/10*t)): x=w*%xpos%: enable='between(t,%timeuser%)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="TR" (
 	set xpos=0.95
 	set ypos=0.05
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-tw+w/10*(t-%time1%-%posstay%)\,if(lt(w+w*0.2-w/10*t\,w*%xpos%-tw)\, w*%xpos%-tw\, w+w*0.2-w/10*t)): y=h*%ypos%: enable='between(t,2,20)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="LC" (
 	set xpos=0.05
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-w/10*(t-%time1%-%posstay%)\,if(gte(-w*0.2-tw+w/10*t\,w*%xpos%)\, w*%xpos%\, -w*0.2-tw+w/10*t)): y=h*%ypos%: enable='between(t,%timeuser%)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="C" (
 	set xpos=0.5
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-tw+w/10*(t-%time1%-%posstay%)\,if(lt(w+w*0.2-w/10*t\,w*%xpos%-tw)\, w*%xpos%-tw\, w+w*0.2-w/10*t)): y=h*%ypos%: enable='between(t,2,20)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="RC" (
 	set xpos=0.95
 	set ypos=0.5
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-w/10*(t-%time1%-%posstay%)\,if(gte(-w*0.2-tw+w/10*t\,w*%xpos%)\, w*%xpos%\, -w*0.2-tw+w/10*t)): y=h*%ypos%: enable='between(t,%timeuser%)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="BL" (
 	set xpos=0.05
-	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	set ypos=0.90
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*%ypos%+h/10*(t-%time1%-%posstay%)\,if(lt(h+h*0.2-h/10*t\,h*%ypos%)\, h*%ypos%\, h+h*0.2-h/10*t)): x=w*%xpos%: enable='between(t,%timeuser%)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="BC" (
 	set xpos=0.5
-	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	set ypos=0.9
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 )
 if "%xpos%"=="BR" (
 	set xpos=0.95
-	set ypos=0.95
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	set ypos=0.90
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=text='youhou': fontcolor=white: fontfile='Arial': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*%xpos%-tw+w/10*(t-%time1%-%posstay%)\,if(lt(w+w*0.2-w/10*t\,w*%xpos%-tw)\, w*%xpos%-tw\, w+w*0.2-w/10*t)): y=h*%ypos%: enable='between(t,2,20)'" -"%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 	GOTO :end
 ) else (
 	set /p ypos="Give me your y position (0.1 will be on the top, 0.9 will be on the bottom): "
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=temp.txt: fontcolor=white: fontfile='Arial': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%timeuser%)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -codec:a copy "%filename%"
 )
 
 

@@ -99,7 +99,18 @@ h1 {color: #E77728;
 .wrapper { max-width: -webkit-calc(1200px - (30px * 2)); max-width: calc(1200px - (30px * 2)); margin-right: auto; margin-left: auto; padding-right: 30px; padding-left: 30px; }
 @media screen and (max-width: 800px) { .wrapper { max-width: -webkit-calc(800px - (30px)); max-width: calc(800px - (30px)); padding-right: 15px; padding-left: 15px; } }
 
-
+/* Dorian add from https://www.w3schools.com/howto/howto_js_sticky_header.asp */
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #424242
+}
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .wrapper {
+  padding-top: 102px;
+}
 
 
 

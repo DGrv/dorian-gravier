@@ -24,6 +24,9 @@ if "%1"=="" (
 ) else (
 	set sec=%1
 )
+set /a fadesec=3
+set /a sec=sec
+set /a sec+=(fadesec*2)
 
 if "%2"=="" (
 	set /p ali="Do you wanna align text in the center [y/n] : "
@@ -32,9 +35,18 @@ if "%2"=="" (
 )
 
 if "%3"=="" (
+	set /p fontsize="Give me your fontsize (Try big first, maybe 70, nothing will be 70): "
+) else (
+	set fontsize=%3
+) 
+if [%fontsize%]==[] (
+	set fontsize=70
+)
+
+if "%4"=="" (
 	set /p lines="How many lines do you want: "
 ) else (
-	set lines=%3
+	set lines=%4
 )
 
 REM echo sec %sec%
@@ -45,14 +57,7 @@ set /a lines=%lines%
 
 :: ---------- Title ----------
 
-copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\'Arial'
-copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIALBD.TTF
 
-
-if EXIST Title_new.mp4 (
-	set /p info=Title_new.mp4 exits !!!! I will delete it. Please rename or copy ...
-	del Title_new.mp4
-)
 
 if '%4'=='' (
 	FOR /l %%x IN (1, 1, %lines%) DO (
@@ -76,16 +81,40 @@ if "%ali%" == "y" (
 )
 
 
+set /a W=1920
+set /a H=1080
+set /a fontsize2=fontsize/5
+set /a fontsize3=fontsize2+fontsize
+set /a lines2=lines/2
+set /a H2=H-fontsize3
+set /a H2/=2
+
+echo.
+echo.
+echo [95m[DEBUG] ---------------------
+echo H = %H%
+echo H2 = %H2%
+echo W = %W%
+echo fontsize = %fontsize%
+echo fontsize2 = %fontsize2%
+echo fontsize3 = %fontsize3%
+echo lines = %lines%
+echo lines2 = %lines2%
+echo ----------------------[0m
+
 FOR /l %%x IN (1, 1, %lines%) DO (
 	set /a before=%%x-1
-	set /a high=%lines%+1
-	set /a high=!high!/2
-	set /a high=%%x-!high!
-	set /a high=!high!*75
+	set /a x2=%%x
+	set /a x2-=lines2
+	set /a high=H2+fontsize3*x2
+	echo [95m[DEBUG] ---------------------
+	echo x = %%x
+	echo high = !high!
+	echo ----------------------[0m
 	if %%x==1 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=%sec% -vf drawtext="fontfile='Arial':fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=%W%x%H%:d=%sec% -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
 	) else (
-		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=70:fontcolor=white:x=%xpos%:y=((h-text_h)/2)+!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
 		del 0000000!before!.mp4
 		set last=0000000%%x.mp4
 	)
@@ -93,8 +122,6 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 )
 
 
-REM ffmpeg -stats -loglevel error  -i %last% -f lavfi -i aevalsrc=0 -shortest -y 0000000b.mp4
-REM ffmpeg -stats -loglevel error  -i 0000000b.mp4 -ar 48000 -video_track_timescale 24000 Title_new.mp4
 
 IF %lines%==1 (
 	rename 00000001.mp4 Title_new.mp4
@@ -103,22 +130,18 @@ IF %lines%==1 (
 
 
 :: fade in and out
-set /a sec2=1
+set /a fadesec=1
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %last% > tempfile2
 set /p lengthvideo=<tempfile2
 set /a lengthvideo2=lengthvideo
-set /a lengthvideo3=lengthvideo2-sec2
+set /a lengthvideo3=lengthvideo2-fadesec
 del tempfile2
-ffmpeg -stats -loglevel error -i %last% -vf "fade=t=in:st=0:d=%sec2%,fade=t=out:st=!lengthvideo3!:d=%sec2%" -c:a copy temp.mp4
+ffmpeg -stats -loglevel error -i %last% -vf "fade=t=in:st=0:d=%fadesec%,fade=t=out:st=!lengthvideo3!:d=%fadesec%" -c:a copy temp.mp4
 del %last%
 ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 24000 -shortest -y "Title_clip.mp4"
 del temp.mp4
 
 
-if "%CD%" NEQ "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg" (
-	del 'Arial'
-	del ARIALBD.TTF
-)
 
 ::  -f lavfi -i aevalsrc=0 -shortest 
 :: Generate the minimum silence required

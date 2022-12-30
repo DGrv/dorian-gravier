@@ -29,6 +29,15 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 :: ---------- Setup ----------
 
+	:: get timestamp
+	set /a check=%DATE:~0,1%
+	set check2=%DATE:~0,1%
+	if "%check%"=="%check2%" (
+		set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
+	) else (
+		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
+	)
+
 	echo.
 	echo Your ffmpeg is here:
 	WHERE ffmpeg
@@ -72,6 +81,12 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	) else (
 		set /p title="Which title: "
 		echo !title! > MakeItAll_temp.config
+		if not exist BU ( 
+			mkdir BU
+			:: Avoid overwriting
+			echo N | copy /-Y * BU\
+		) 
+
 	)
 	set title2=%title: =_%
 	set title2=%title2:-=%
@@ -96,8 +111,9 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	)
 	
 	echo.
-	
-	
+	echo [91m
+	set /p temp="Did you add the date in your video ?"
+	echo [0m
 	
 	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
 	REM ---------------USE HERE DEFAULKT-------------------
@@ -232,7 +248,7 @@ echo.
 		(for %%i in (*.mp4) do @echo %%i) > tempfile1
 		grep -Ev "zzz_gpx_temp.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4" tempfile1 > tempfile
 		del tempfile1
-		if not exist fadeinout_BU ( mkdir fadeinout_BU ) 
+		if not exist BU_Fadeinout ( mkdir BU_Fadeinout ) 
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
@@ -352,8 +368,9 @@ echo.
 			set last=zzz!x!.mp4
 			set /a x+=1
 		)
-		ffmpeg -stats -loglevel error -i !last! -ar %RA% zzzb.mp4
-		del !last!
+		ffmpeg -stats -loglevel error -i !last! -ar %RA% zzzd.mp4
+		ffmpeg -stats -loglevel error -i zzzd.mp4 -video_track_timescale %RV% zzzb.mp4
+		del !last! zzzd.mp4
 	)
 	
 		
@@ -582,13 +599,14 @@ echo.
 		set /a videoTT = 0
 		set /a videoTTbefore = 0
 		set /a n=0
+		if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
 		for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
 			set /a n+=1
 			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
 			set /p videotime=<tempfile
 			set /a videotime=videotime
 			set /a videoTT+=videotime
-			set rename=%%~nb_temp.mp4
+			set rename=%%~nb_%timestamp%.mp4
 			echo [96m!n! - Loop Video - %%b [37m
 
 			if not "%%b"=="00000_title.mp4" (
@@ -621,10 +639,10 @@ echo.
 						del music.temp
 						
 						
-						rename %%b !rename!
+						move %%b !rename!
 						REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
 						ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-						del !rename!
+						move !rename! Music_overlay\!rename!
 						set /a duraTT+=dura
 					)
 				)
@@ -658,7 +676,7 @@ echo.
 		REM rename output_temp.mp4 output_temp0.mp4
 		rename output_temp.mp4 output_temp1.mp4
 		ffmpeg -stats -loglevel error -y -i output_temp1.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav2%/TB[1v1];[1v1]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp2.mp4
-		ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable='between(t,10,%durav2%,%durav3%)':x=0:y=0:shortest=1[out]" -map [out] -map 0:a output_temp.mp4
+		ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable='between(t,13,%durav3%)':x=0:y=0:shortest=1[out]" -map [out] -map 0:a output_temp.mp4
 		del output_temp1.mp4 output_temp2.mp4
 	)
 	
@@ -668,12 +686,20 @@ echo [91m------------------------------------------------- [37m
 echo [91mINFO - Start bind music [37m
 echo.
 
+	:: check this https://stackoverflow.com/a/11783474/2444948
+	:: check this https://stackoverflow.com/a/11783474/2444948
+	:: check this https://stackoverflow.com/a/11783474/2444948
+
+
 	:: audio replace
 	::ffmpeg -stats -loglevel error -i output_temp.mp4 -i inputfinal.mp3 -c copy -map 0:0 -map 1:0 -shortest output2.mp4
 	:: audio mixen
 	if EXIST input_temp.mp3 (
 		::ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
+		ffmpeg -stats -loglevel error -i output_temp.mp4 audio.mp3
 		ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest output_high_temp.mp4
+		REM ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2]" -map 0:v -map "[a1]" -map "[a2]" -c:v copy -ac 2 -shortest output_high_temp.mp4 :: does not work
+
 	) 
 	if NOT EXIST output_high_temp.mp4 (
 		rename output_temp.mp4 output_high_temp.mp4
@@ -767,6 +793,7 @@ echo.
 	rename output_1024_crf25_temp.mp4 %title2%_youtube.mp4
 	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
 	rename output_720_crf25_temp.mp4 %title2%_low.mp4
+	rename audio.mp3 %title2%_AUDIO.mp3
 	del output_high.mp4
 
 	REM powercfg /hibernate on
@@ -778,6 +805,7 @@ echo.
 	echo move %title2%_youtube.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\Youtube > IF_OK_MOVE_READY_MP4.bat
 	echo move %title2%_TV.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\High >> IF_OK_MOVE_READY_MP4.bat
 	echo move %title2%_low.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\Low >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_AUDIO.mp3 C:\Users\doria\Downloads\Pictures\2022\Video\Audio >> IF_OK_MOVE_READY_MP4.bat
 
 	:eof
 	pause

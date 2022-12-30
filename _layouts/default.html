@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
+
   {%- include head.html -%}
 
   <body>
@@ -14,6 +15,24 @@
     </main>
 
     {%- include footer.html -%}
+
+
+
+	<script>
+	window.onscroll = function() {myFunction()};
+
+	var header = document.getElementById("myHeader");
+	var sticky = header.offsetTop;
+
+	function myFunction() {
+	  if (window.pageYOffset > sticky) {
+		header.classList.add("sticky");
+	  } else {
+		header.classList.remove("sticky");
+	  }
+	}
+	</script>  
+
 
   </body>
 
