@@ -58,28 +58,36 @@ if "%file:~-3%"=="mp4" GOTO singlefile
 cd "%file%"
 
 for %%a in (*.mp4) do (
+	set pathh=%%~dpa
+	set filename=%%~nxa
+	set filenamenoext=%%~na
+	set filepathnoext=%%~dpna
+	set ext=%%~xa
+	
+	
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %%a> tempfile2
 	set /p lengthvideo=<tempfile2
 	set /a lengthvideo2=!lengthvideo!
-	set /a lengthvideo3=!lengthvideo2!-%sec2%
+	set /a lengthvideo3=lengthvideo2-sec2
 	::del tempfile2
 	echo lengthvideo2=!lengthvideo2!
 	echo lengthvideo3=!lengthvideo3!
 	
+	set newfilename=!pathh!_old_fade%what%%sec%!ext!
+	rename %%a !newfilename!
 
 	if %sec2% lss !lengthvideo2! (
 		if "%what%"=="in" (
-			ffmpeg -stats -loglevel error -i %%a -vf "fade=t=in:st=0:d=%sec%" -c:a copy %%~na_fade%what%%sec%.mp4
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%" -c:a copy %%a
 		)
 		if "%what%"=="out" (
-			ffmpeg -stats -loglevel error -i %%a -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%~na_fade%what%%sec%.mp4
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%a
 		)
 		if "%what%"=="both" (
-			echo ffmpeg -stats -loglevel error -i %%a -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%~na_fade%what%%sec%.mp4
-			ffmpeg -stats -loglevel error -i %%a -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%~na_fade%what%%sec%.mp4
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%a
 		)
 	) else (
-		echo [DEBUG] - Your video is too short to have a fade of %sec2%sec
+		echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[om
 		pause
 	)
 )
@@ -95,20 +103,57 @@ for %%a in (*.mp4) do (
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %file% > tempfile2
 set /p lengthvideo=<tempfile2
 set /a lengthvideo2=%lengthvideo%
-set /a lengthvideo3=%lengthvideo2%-%sec2%
+set /a lengthvideo3=lengthvideo2-sec2
 del tempfile2
+
+
+for %%a in (%file%) do (
+	set pathh=%%~dpa
+	set filename=%%~nxa
+	set filenamenoext=%%~na
+	set filepathnoext=%%~dpna
+	set ext=%%~xa
+	set drive=%%~da
+	echo [95m[DEBUG] ---------------------
+	echo pathh=%%~dpa
+	echo filename=%%~nxa
+	echo filenamenoext=%%~na
+	echo filepathnoext=%%~dpna
+	echo ----------------------[0m
+)  
+
+
+set newfilename=%filenamenoext%_old_fade%what%%sec%%ext%
+%drive%
+cd "%pathh%"
+
+echo [95m[DEBUG] ---------------------
+echo file = %file%
+echo set newfilename=%filenamenoext%_old_fade%what%%sec%%ext%
+echo rename %filename% %newfilename%
+echo cd = %cd%
+echo lengthvideo = %lengthvideo%
+echo lengthvideo2 = %lengthvideo2%
+echo lengthvideo3 = %lengthvideo3%
+echo sec2 = %sec2%
+echo ----------------------[0m
+
+
+rename "%filename%" "%newfilename%"
+
 
 if %sec2% lss %lengthvideo2% (
 	if "%what%"=="in" (
-		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=in:st=0:d=%sec%" -c:a copy %out%_fade%what%%sec%.mp4
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%" -c:a copy "%file%"
 	)
 	if "%what%"=="out" (
-		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %out%_fade%what%%sec%.mp4
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=out:st=%lengthvideo3%:d=%sec%" -c:a copy "%file%"
 	)
 	if "%what%"=="both" (
-		ffmpeg -stats -loglevel error -i %file% -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %out%_fade%what%%sec%.mp4
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=%lengthvideo3%:d=%sec%" -c:a copy "%file%"
 	)
 ) else (
-	echo [DEBUG] - Your video is too short to have a fade of %sec2%sec
+	echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[0m
+	rename "%newfilename%" "%filename%" 
 	pause
 )

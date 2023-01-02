@@ -1,23 +1,120 @@
 # importing the scrapy module
 import scrapy
-  
+from scrapy.http import HtmlResponse
+import json
+import time
+import requests
+import os
+from PIL import Image
+import io
+import hashlib
+import re
+
+# from scrapy.crawler import CrawlerProcess
+# from scrapy.utils.project import get_project_settings
+# from scrapy.settings import Settings
+
+# # scrapy-selenium
+# from shutil import which
+# from scrapy_selenium import SeleniumRequest
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support import expected_conditions as EC
+
+# # Splash
+# from scrapy_splash import SplashRequest 
+# from shutil import which
+
+# RUN CMD               docker run -p 8050:8050 scrapinghub/splash
+# check if running      http://localhost:8050/    
+
+# scrapy shell http://localhost:8050/render.html?url=https://www.dynafit.com/de-de/expedition-30-rucksack-08-0000048953?c=318560
+# fetch('http://localhost:8050/render.html?url=https://www.dynafit.com/de-de/expedition-30-rucksack-08-0000048953?c=318560')
+
+
+# # seleniumoptions = Options()
+# import selenium
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support.ui import WebDriverWait
+# DRIVER_PATH = 'L:/Diverses/Software/chromedriver_win32/chromedriver.exe'
+# options.add_argument("--headless")
+# driver = webdriver.Chrome(executable_path=DRIVER_PATH, options=options)
+
+
+def printsuccess():
+    print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
+    print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
+    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
+    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
+    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
+    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
+    print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
+    print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
+    print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
+
+
+
+
 class ExtractUrls(scrapy.Spider):
     name = "extract"
-    # custom_settings = {
-        # 'FEED_EXPORT_BATCH_ITEM_COUNT': 10
-    # }
+    custom_settings = {
+        'ROBOTSTXT_OBEY' : True,
+        'LOG_FORMAT' : '\x1b[0;0;34m%(asctime)s\x1b[0;0m \x1b[0;0;36m[%(name)s]\x1b[0;0m \x1b[0;0;31m%(levelname)s\x1b[0;0m: %(message)s',
+
+        # # # Splash
+        # 'SPLASH_URL' : 'http://localhost:8050/',
+        # 'DOWNLOADER_MIDDLEWARES' : { 
+        # 'scrapy_splash.SplashCookiesMiddleware': 723, 
+        # 'scrapy_splash.SplashMiddleware': 725, 
+        # 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810, 
+        # },
+        # 'SPIDER_MIDDLEWARES' : { 
+        # 'scrapy_splash.SplashDeduplicateArgsMiddleware': 100, 
+        # },
+        # 'DUPEFILTER_CLASS' : 'scrapy_splash.SplashAwareDupeFilter' ,
+        # 'HTTPCACHE_STORAGE' : 'scrapy_splash.SplashAwareFSCacheStorage',
+
+        # # scrapy-selenium
+        # 'SELENIUM_DRIVER_NAME' : 'chrome',
+        # 'SELENIUM_DRIVER_EXECUTABLE_PATH' : which('chromedriver'),
+        # 'SELENIUM_DRIVER_ARGUMENTS' : ['-headless'],  # '--headless' if using chrome instead of firefox
+        # 'SELENIUM_BROWSER_EXECUTABLE_PATH' : 'L:/Diverses/Software/chromedriver_win32/chromedriver.exe',
+        # 'DOWNLOADER_MIDDLEWARES' : {
+            # 'scrapy_selenium.SeleniumMiddleware': 800
+        # }
+    }
     
     # request function
     def start_requests(self):
         urls = [ 'https://www.thecrag.com/de/klettern/' + self.country]
-        
-        # scrapy shell https://www.thecrag.com/de/klettern/france/alsace-lorraine/area/881031801
-          
         for url in urls:
             yield scrapy.Request(url = url, callback = self.parse)
-  
+            # yield SeleniumRequest(url = url, callback = self.parse)
+            # yield SplashRequest(url, self.parse, 
+                # endpoint='render.html', 
+                # args={'wait': 0.5}, 
+            # ) 
+            
+            
     # Parse function
     def parse(self, response):
+        
+        current_url = response.request.url
+        
+        # options = Options()
+        # DRIVER_PATH = 'L:/Diverses/Software/chromedriver_win32/chromedriver.exe'
+        # options.add_argument("--headless")
+        # driver = webdriver.Chrome(executable_path=DRIVER_PATH, options=options)
+        # driver.get(current_url)
+        # time.sleep(2)
+        # # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        # # time.sleep(3)
+        # response = HtmlResponse(url="my HTML string", body=driver.page_source.encode('utf-8'), encoding='utf-8')
+        # driver.quit()
+        
         
         # Extra feature to get title
         title = response.css('title::text').extract_first() 
@@ -35,9 +132,16 @@ class ExtractUrls(scrapy.Spider):
             
             if all(x in link for x in ok):    
                     if 'gpx' in link:
+                    
+                        where = response.css('span[class="crumb__long"]::text').extract()
+                        where = '|'.join(where[2:len(where)])
+                        
+                        printsuccess()
+                    
                         yield {
                             'title': title,
-                            'links': link
+                            'links': link,
+                            'where': where
                         }
                     if all(x not in link for x in notok):
                         yield scrapy.Request(url = link, callback = self.parse)

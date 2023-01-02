@@ -48,7 +48,15 @@ echo title: "-----------------" >> %filename%
 echo date: "%datetimehour%" >> %filename%
 echo comments_id: --------------------- >> %filename%
 echo --- >> %filename%
-echo. >> %filename%
-echo. >> %filename%
+echo.>> %filename%
+echo.>> %filename%
+echo.>> %filename%
+echo **Create issue with:**>> %filename%
+echo cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io>> %filename%
+echo gh issue create --title "[Comment] xxxxxx" --body "" --label Comments>> %filename%
+echo.>> %filename%
+echo.>> %filename%
+
+
 
 %wd%\%filename%

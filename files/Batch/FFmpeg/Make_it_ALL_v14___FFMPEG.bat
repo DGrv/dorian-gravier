@@ -204,25 +204,10 @@ echo.
 	
 	
 	if NOT EXIST input_temp.mp3 (
-		for %%i in (*.mp3) do (
-			set Test=T
-			if "%%i"=="begin.mp3" set Test=F
-			if "%%i"=="end.mp3" set Test=F
-			IF "!Test!"=="T" (
-				@echo file '%%i' >> Listmp3_temp.txt
-			)
-			 REM This is useless does not work with 
-			REM ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			REM set /p RAdt=<tempfile
-			REM if NOT "!RAdt!"=="%RAd%" (
-				REM echo --- Reencode %%i, RA was !RAdt! instead of %RAd%
-				REM rename "%%i" "%%~ni_temp.mp4"
-				REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -ar %RA% "%%i"
-				REM del "%%~ni_temp.mp4"
-			REM )
-		)
+		if exist Listmp3_temp.txt (rm Listmp3_temp.txt)
+		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
-			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy input_temp.mp3
+			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
 			del Listmp3_temp.txt
 		)
 	)
@@ -231,12 +216,7 @@ echo.
 	:: use - safe 0 before i to avoid problem with filename : https://stackoverflow.com/questions/38996925/ffmpeg-concat-unsafe-file-name
 	
 
-
-
-
-
 :: ---------- Fade in and out video ----------
-
 
 	if %fadeinout%==y (
 	
@@ -245,39 +225,26 @@ echo.
 		echo [94mINFO - Start Fade in and out, need re-encoding [37m
 		echo.
 		
-		(for %%i in (*.mp4) do @echo %%i) > tempfile1
-		grep -Ev "zzz_gpx_temp.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4" tempfile1 > tempfile
-		del tempfile1
-		if not exist BU_Fadeinout ( mkdir BU_Fadeinout ) 
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4" ^| head -1') do set firstfile=%%p
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4" ^| tail -1') do set lastfile=%%p
+		
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
-			:: get first file
-			set /p file=<tempfile
-			move /Y !file! fadeinout_BU
-			REM for /d %%d in (!file!) do set fileori=%%~dpd
-			REM set fileori=!fileori!fadeinout_BU\!file!
-			ffmpeg -stats -loglevel error -i "fadeinout_BU\!file!" -vf "fade=t=in:st=0:d=3" -c:a copy "!file!"
+			echo --- Create fadein on !firstfile!
+			ffmpeg -stats -loglevel error -i "BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -c:a copy -y "!firstfile!"
 			echo fadein_done >> MakeItAll_temp.config
 		)
 		for /f %%i in ('grep fadeout_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
-			:: get last file
-			for /F %%a in (tempfile) do (
-				if NOT %%a==zzz_ko-fi.mp4 (
-					set file=%%a
-				)
-			)
-			move /Y !file! fadeinout_BU
-			REM for /d %%d in (!file!) do set fileori=%%~dpd
-			REM set fileori=!fileori!fadeinout_BU\!file!
-			echo --- Create fadeout on !file!
-			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "fadeinout_BU\!file!" > tempfile
+			echo --- Create fadeout on !lastfile!
+			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "BU\!lastfile!" > tempfile
 			set /p lengthvideo=<tempfile
+			del tempfile
 			set /a lengthvideo2=lengthvideo
 			set /a lengthvideo3=lengthvideo2-3
 			if !lengthvideo2! gtr 3 (
-				ffmpeg -stats -loglevel error -i "fadeinout_BU\!file!" -vf "fade=t=out:st=!lengthvideo3!:d=3" -c:a copy "!file!"
+				ffmpeg -stats -loglevel error -i "BU\!lastfile!" -vf "fade=t=out:st=!lengthvideo3!:d=3" -c:a copy -y "!lastfile!"
 			)
 			echo fadeout_done >> MakeItAll_temp.config
 		)
@@ -381,12 +348,9 @@ echo.
 		set /a lengthvideo3=lengthvideo2-3
 		del tempfile
 		ffmpeg -stats -loglevel error -i zzzb.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_music_temp.mp4
-
 		del zzzb.mp4
-		del zzzc.mp4
 	)
 
-	REM del arial.ttf
 
 
 echo.
@@ -642,7 +606,7 @@ echo.
 						move %%b !rename!
 						REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
 						ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-						move !rename! Music_overlay\!rename!
+						move !rename! BU_Music_overlay\!rename!
 						set /a duraTT+=dura
 					)
 				)
@@ -682,8 +646,8 @@ echo.
 	
 	
 echo.
-echo [91m------------------------------------------------- [37m
-echo [91mINFO - Start bind music [37m
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start bind music [37m
 echo.
 
 	:: check this https://stackoverflow.com/a/11783474/2444948
@@ -802,10 +766,10 @@ echo.
 	echo.
 	echo [32mFinish :) [37m
 	
-	echo move %title2%_youtube.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\Youtube > IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_TV.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\High >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_low.mp4 C:\Users\doria\Downloads\Pictures\2022\Video\Low >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_AUDIO.mp3 C:\Users\doria\Downloads\Pictures\2022\Video\Audio >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_youtube.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\Youtube > IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_TV.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\High >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_low.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\Low >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_AUDIO.mp3 C:\Users\doria\Downloads\Pictures\2023\Video\Audio >> IF_OK_MOVE_READY_MP4.bat
 
 	:eof
 	pause
