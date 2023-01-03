@@ -447,10 +447,16 @@ Software used to create all of this:
 	- [Losslesscut](https://mifi.github.io/lossless-cut/) to cut the video
 	- [FFmpeg](https://ffmpeg.org/)
 	- [Gpx-animator](https://gpx-animator.app/)
+		- I used once [gpxfaketimer](https://github.com/mikaello/gpxfaketimer) to add some fake timestamp to use in gpx-animator
 	- [youtube-dl]() for the music
 	- [mpv](https://mpv.io/) as player and with some [lua scripts](../files/Batch/Lua) that I wrote to calling some batch files easily (see below)
 	- Batch files that I created ([here](..files/Batch/FFmpeg))
+	- lua scripts that I created for mpv ([mpv-easyblur](https://github.com/DGrv/mpv-easyblur))
+	- for subtitles
+		- [whisper](https://github.com/openai/whisper) with [stable-ts](https://github.com/jianfch/stable-ts) with my [python script here](/files/Python/whisper_stable-ts_dorian.py)
 - Map
+	- [leaflet](https://github.com/Leaflet/Leaflet) and a lot other addon
+		- **to finish**
 	- [GPSBabel](https://www.gpsbabel.org/) to work on the gpx
 	- [gpx_reduce](https://github.com/Alezy80/gpx_reduce) with the original author [here](https://wiki.openstreetmap.org/wiki/User:Travelling_salesman/gpx_reduce) to clean the gpx
 	- Batch files that I created ([here](..files/Batch/Gpx))
