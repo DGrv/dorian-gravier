@@ -38,10 +38,8 @@ model1 = whisper.load_model(options.modelwhisper)
 modify_model(model1)
 # with stable-ts 
 # result2 = model1.transcribe(glob.iglob(args[0]), language=options.lan_in)
-result2 = model1.transcribe(args[0], language=options.lan_in, suppress_silence=True, ts_num=16, lower_quantile=0.05, lower_threshold=0.1)
-# result3 = model.transcribe('test.mp3', language='fr', suppress_silence=True, ts_num=16, lower_quantile=0.05, lower_threshold=0.1)
-# result4 = model.transcribe('test.mp3', language='fr',   task = "translate")
-
+result2 = model1.transcribe(args[0], language=options.lan_in, pbar=True, suppress_silence=True, ts_num=60, lower_threshold=0.5, no_speech_threshold=0.1)
+    
 # result2.keys()
 # result2['text']
 
@@ -50,8 +48,10 @@ result2 = model1.transcribe(args[0], language=options.lan_in, suppress_silence=T
 results_to_sentence_srt(result2, outputsrt)
 # below is from large model default settings
 
-result3 = model1.transcribe(args[0], language=options.lan_in, task = 'translate', suppress_silence=True, ts_num=16, lower_quantile=0.05, lower_threshold=0.1)
-results_to_sentence_srt(result3, outputsrt_en)
+# result3 = model1.transcribe(args[0], language=options.lan_in, task = 'translate', pbar=True, suppress_silence=True, ts_num=60, lower_threshold=0.5, no_speech_threshold=0.1)
+# results_to_sentence_srt(result3, outputsrt_en)
+
+print(args[0] + ' finished')
 
 
 
