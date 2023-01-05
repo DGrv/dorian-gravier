@@ -8,7 +8,10 @@ comments_id: 65
 Here an example on how to test several option from `whisper` and `stable-ts` and compare them easily.
 Here an audio file:
 
-https://github.com/DGrv/dorian.gravier.github.io/files/posts/2023/test-whisper.mp3
+
+
+https://user-images.githubusercontent.com/15691063/210810514-c2465d05-a676-40c2-8c1e-c8233e20de65.mp4
+
 
 
 I am using right now:
@@ -102,7 +105,7 @@ FOR /L %%x IN (0,1,%var%) DO (
 
 creating this video to compare each parameter:
 
-https://github.com/DGrv/dorian.gravier.github.io/files/posts/2023/all-whisper.mp4
+https://user-images.githubusercontent.com/15691063/210810385-9edfe6cc-67ee-41cd-a76b-2c147234c443.mp4
 
 
 
