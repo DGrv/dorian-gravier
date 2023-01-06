@@ -88,27 +88,6 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	cd %wd%
 
 
-
-
-
-	if exist MakeItAll_temp.config (
-		set /p title=<MakeItAll_temp.config
-	) else (
-		set /p title="Which title: "
-		echo !title! > MakeItAll_temp.config
-		if not exist BU ( 
-			mkdir BU
-			:: Avoid overwriting
-			echo N | copy /-Y * BU\
-		) 
-
-	)
-	set title2=%title: =_%
-	set title2=%title2:-=%
-	set title2=%title2:__=_%
-	
-	
-
 	:: Music
 	if not exist Music_list_temp.txt (
 		echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
@@ -130,6 +109,23 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	set /p temp="Did you add the date in your video ?"
 	echo [0m
 	
+	
+	if exist MakeItAll_temp.config (
+		set /p title=<MakeItAll_temp.config
+	) else (
+		set /p title="Which title: "
+		echo !title! > MakeItAll_temp.config
+		if not exist BU ( 
+			mkdir BU
+			:: Avoid overwriting
+			echo N | copy /-Y * BU\
+		) 
+
+	)
+	set title2=%title: =_%
+	set title2=%title2:-=%
+	set title2=%title2:__=_%
+
 
 	
 	if %tbdefault%==y (
@@ -227,13 +223,13 @@ echo.
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
 			echo --- Create fadein on !firstfile!
-			ffmpeg -stats -loglevel error -i "BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -c:a copy -y "!firstfile!"
+			ffmpeg -stats -loglevel error -i "%wd%\BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -c:a copy -y "!firstfile!"
 			echo fadein_done >> MakeItAll_temp.config
 		)
 		for /f %%i in ('grep fadeout_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
 			echo --- Create fadeout on !lastfile!
-			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "BU\!lastfile!" > tempfile
+			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%wd%\BU\!lastfile!" > tempfile
 			set /p lengthvideo=<tempfile
 			del tempfile
 			set /a lengthvideo2=lengthvideo
