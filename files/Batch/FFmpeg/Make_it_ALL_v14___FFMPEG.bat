@@ -29,6 +29,22 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 :: ---------- Setup ----------
 
+	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	set tbdefault=y
+	set biketrip=y
+	set fordorian=y
+	set pathout=C:\Users\doria\Downloads\Pictures\2023\Video
+	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
+	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
+	set fadeinout=y
+	set audionorma=n
+
+
+
 	:: get timestamp
 	set /a check=%DATE:~0,1%
 	set check2=%DATE:~0,1%
@@ -54,8 +70,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	)
 	echo.
 
-	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
-	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
+
 
 
 
@@ -115,13 +130,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	set /p temp="Did you add the date in your video ?"
 	echo [0m
 	
-	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	set tbdefault=y
-	set biketrip=y
+
 	
 	if %tbdefault%==y (
 		set RV=24000
@@ -159,21 +168,7 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 		set RAd=1/%RA%
 	)
 
-	echo.
-	REM set /p fadeinout="Do you want a fade IN and OUT on your video, first and last [y/n] ? :"
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	set fadeinout=y
 
-	echo.
-	REM set /p audionorma="Do you want to normalize audio (can make problem sometimes) [y/n] ? :"
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	set audionorma=n
 
 
 
@@ -263,7 +258,7 @@ echo.
 
 
 
-	copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4"
+	if %biketrip%==y ( copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
 	
 	
 	REM copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
@@ -274,11 +269,11 @@ echo.
 
 	if NOT EXIST 00000_title.mp4 (
 		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
-		if not %biketrip%==y (
-			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		if %biketrip%==y (
+			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
-			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		)
 		:: add audio
@@ -639,9 +634,11 @@ echo.
 		:: add subscribe to support
 		REM rename output_temp.mp4 output_temp0.mp4
 		rename output_temp.mp4 output_temp1.mp4
-		ffmpeg -stats -loglevel error -y -i output_temp1.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav2%/TB[1v1];[1v1]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp2.mp4
-		ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable='between(t,13,%durav3%)':x=0:y=0:shortest=1[out]" -map [out] -map 0:a output_temp.mp4
-		del output_temp1.mp4 output_temp2.mp4
+		if %biketrip%==y (
+			ffmpeg -stats -loglevel error -y -i output_temp1.mp4 -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]setpts=PTS-STARTPTS+%durav2%/TB[1v1];[1v1]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a output_temp2.mp4
+			ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable='between(t,13,%durav3%)':x=0:y=0:shortest=1[out]" -map [out] -map 0:a output_temp.mp4
+			del output_temp1.mp4 output_temp2.mp4
+		)
 	)
 	
 	
@@ -766,10 +763,10 @@ echo.
 	echo.
 	echo [32mFinish :) [37m
 	
-	echo move %title2%_youtube.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\Youtube > IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_TV.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\High >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_low.mp4 C:\Users\doria\Downloads\Pictures\2023\Video\Low >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_AUDIO.mp3 C:\Users\doria\Downloads\Pictures\2023\Video\Audio >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_youtube.mp4 %pathout%\Youtube > IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_TV.mp4 %pathout%\High >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_low.mp4 %pathout%\Low >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_AUDIO.mp3 %pathout%\Audio >> IF_OK_MOVE_READY_MP4.bat
 
 	:eof
 	pause
