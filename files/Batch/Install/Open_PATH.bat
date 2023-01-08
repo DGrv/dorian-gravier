@@ -1,1 +1,2 @@
-SystemPropertiesAdvanced.exe
+start SystemPropertiesAdvanced.exe
+exit

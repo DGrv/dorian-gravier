@@ -19,6 +19,9 @@ How to use [luarocks](https://luarocks.org/) package manager:
 ```sh
 luarocks install --lua-version=5.1 <package-name>
 
+:: verbose to see what is happening if you have an error
+luarocks install --verbose --lua-version=5.1 <package-name>
+
 :: Or check the code to install on luarocks.org but do not forget the --lua-version=5.1 since luaforwindows is for the moment only for this version
 ```
 
