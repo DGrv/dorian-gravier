@@ -42,7 +42,7 @@ scrapy[, ID := 1:.N, country]
 scrapy[, filename := p0(country, "_", ID, ".gpx")]
 scrapy[, code := paste0("curl -o ", wdgpx, filename, " ", links)]
 scrapy
-writeLines(scrapy$code, p0(wd, "Download_gpx.bat"))
+# writeLines(scrapy$code, p0(wd, "Download_gpx.bat"))
 
 
 
@@ -178,10 +178,17 @@ for(i in seq_along(lc)) {
   # all2 <- all2[, .SD[1], .(name, lat, lon, desc)]
   
   all2[,.N, .(name, lat, lon)][N > 1] # 0
+  all2[,.N, .(lat, lon)][N > 1] # 0
+  all2[lat == all2[,.N, .(lat, lon)][N > 1][1]$lat & lon == all2[,.N, .(lat, lon)][N > 1][1]$lon]
   
+  all2[, ndesc := nchar(desc)]
+  all3 <- all2[all2[, .I[ndesc == max(ndesc)], .(lat, lon)]$V1]
+  
+  # ggplot(all2, aes(lon, lat))+geom_point()
+  # ggplot(all3, aes(lon, lat))+geom_point()
   
 
-  latslongs <- SpatialPointsDataFrame(coords=all2[, .(lon, lat)], data=all2[, .(desc, name, url)], proj4string =CRS("+proj=longlat + ellps=WGS84")) 
+  latslongs <- SpatialPointsDataFrame(coords=all3[, .(lon, lat)], data=all3[, .(desc, name, url)], proj4string =CRS("+proj=longlat + ellps=WGS84")) 
   newfile <- p0(wd, str_to_title(lc[i]), ".gpx")
   writeOGR(latslongs, dsn=newfile,
            dataset_options="GPX_USE_EXTENSIONS=yes",layer="waypoints",driver="GPX", overwrite_layer = T)

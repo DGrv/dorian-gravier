@@ -45,7 +45,7 @@ if "%kfi%"=="" (
 )
 
 
-for %%a in (%filepath%) do (
+for %%a in ("%filepath%") do (
 	set pathh=%%~dpa
 	set filename=%%~nxa
 	set filenamenoext=%%~na
@@ -71,6 +71,6 @@ echo renamepathfile = %renamepathfile% [0m
 %drive%
 cd %pathh%
 
-rename %filepath% %renamefile%
-ffmpeg -stats -loglevel error -i %renamepathfile% -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -acodec copy %filepath%
-del %renamepathfile%
+rename "%filepath%" "%renamefile%"
+ffmpeg -stats -loglevel error -i "%renamepathfile%" -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -acodec copy "%filepath%"
+del "%renamepathfile%"

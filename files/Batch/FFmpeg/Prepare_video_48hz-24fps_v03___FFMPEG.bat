@@ -38,10 +38,10 @@ for %%a in (*.MP4) do (
 )  
 
 
-set tbs=24000
-set tbs2=1/!tbs!
-set tbsa=48000
-set tbsa2=1/!tbsa!
+		set RV=24000
+		set RVd=1/!RV!
+		set RA=48000
+		set RAd=1/!RA!
 
 
 
@@ -84,19 +84,20 @@ IF %ERRORLEVEL% NEQ 0 (
 	pause
 ) else (
 	for %%i in (*.mp4) DO (
-		for /f %%c in ('ffprobe -v error -select_streams a:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set tbna=%%c
-		:: check if no audio and add one, needed to bind all audio later, especially with music
-		echo [93m --- File %%i - tbna = !tbna! [37m
-		if NOT "!tbna!"=="%tbsa2%" (
-			if "!tbna!"=="" (
-				echo --- Add sound null
+		set "RAdt="
+		for /f %%c in ('ffprobe -v error -select_streams a:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RAdt=%%c
+		if NOT "!RAdt!"=="%RAd%" (
+			if not defined RAdt (
+				echo [91m--- File %%i	tbna = !RAdt!	Add sound[37m
 				rename %%i %%~ni_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "%%i"
 				if exist "%%i" ( del "%%~ni_temp.mp4" )
 			)
 			rename %%i %%~ni_temp.mp4
-			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %tbsa% "%%i"
+			ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% -c:v copy "%%i"
 			if exist "%%i" ( del "%%~ni_temp.mp4" )
+		) else (
+			echo [92m--- File %%i	tbna = !RAdt![37m
 		)
 	)
 )
@@ -109,48 +110,22 @@ echo Video
 echo.
 :: change tbs to have all the same - video tbs
 	for %%i in (*.mp4) DO (
-		for /f %%c in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set tbn=%%c
-		echo [93m--- File %%i - tbn = !tbn![37m
-		if NOT "!tbn!"=="%tbs2%" (
+		:: TBS
+		for /f %%c in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set RVdt=%%c
+		for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
+		for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
+		
+		set "TRUE="
+		if not !codec!==h264 set TRUE=1
+		if not !reso!==1920 set TRUE=1
+		if not "!RVdt!"=="%RVd%" set TRUE=1
+		IF defined TRUE (
+			echo [91m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
 			rename "%%i" "%%~ni_temp.mp4"
-			ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %tbs% "%%i"
-			:: change to recycle once reboot
+			ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
 			if exist "%%i" ( del "%%~ni_temp.mp4" )
+		) else (
+			echo [92m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
 		)
 	)
 
-
-echo.
-echo -----------------------------
-echo Codec
-echo.
-
-for %%i in (*.mp4) DO (
-	for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
-	if not !codec!==h264 (
-		echo [93m--- Reencode %%i, it was !codec! instead of h264[37m
-		rename %%i %%~ni_temp.mp4
-		ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %tbs% "%%i"
-		del %%~ni_temp.mp4
-	) else (
-		echo [93m--- OK %%i[37m
-	)
-)
-
-
-echo.
-echo -----------------------------
-echo Resolution
-echo.
-
-for %%i in (*.mp4) DO (
-	for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
-	if not !reso!==1920 (
-		echo [93m--- Reencode %%i, it was !reso! instead of 1920[37m
-		rename %%i %%~ni_temp.mp4
-		ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %tbs% "%%i"
-		del %%~ni_temp.mp4
-	) else (
-		echo [93m--- OK %%i[37m
-	)
-)

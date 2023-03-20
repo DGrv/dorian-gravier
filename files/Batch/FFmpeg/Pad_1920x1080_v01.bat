@@ -25,11 +25,6 @@ IF %ERRORLEVEL% NEQ 0 (
 echo.
 
 
-echo Batch file for changing the speed of a video (remove audio as well). Value range is 0 to n (btw 0 and 1 it will slow down your video). mpv will be used to check but you will not be able to go higher than 100 during checking (use [ or ] to increase speed during reading). Will create a new file where the video is with a extra 'f'.
-echo.
-echo Choose your files to speed up:  
-
-
 if "%1"=="" (
 	set listfiles=powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames"
 	rem exec commands powershell and get result in FileName variable
@@ -62,14 +57,11 @@ echo ----------------------[0m
 echo. 
 
 if "%2"=="" (
-	set /p speed=How much do you wanna speed up: 
+	set /p size=Which size [1 for 1920, 2 for 1920/2 and so on]:
 ) else (
-	set speed=%2
+	set size=%2
 ) 
  
-
-
-
 
 
 for /F "usebackq tokens=*" %%p in (%file%) do (
@@ -77,30 +69,12 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
-	:: check rate video
-	ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%p > tempfile
-	set /p RVdt=<tempfile
-	set RVfile=!RVdt:1/=!
-	del tempfile
 	rename "%%p" "!filenamenoext!__old!ext!"
-	ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
-	ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
-	del "!filenamenoext!__temp!ext!"
-	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
+	ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -vf "scale=1920/%size%:1080:force_original_aspect_ratio=decrease,pad=1920/%size%:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "%%p"
 )
-
-REM ffmpeg -y -i 105.mp4 -an  -filter:v "setpts=PTS/6" new.mp4
-REM ffmpeg -y -i 105.mp4 -af "atempo=6" -vf "setpts=PTS/6,fps=24" new.mp4
-REM ffmpeg -y -i 105.mp4 -vf "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=24*6'" new.mp4
-
 
 del list.txt
 
-REM echo.
-REM echo All DONE :)
-REM echo.
-
-REM pause
  
  
  

@@ -65,7 +65,7 @@ cd "%input%"
 ffmpeg -stats -loglevel error -f concat -safe 0 -i list.txt -c copy output%ext%
 
 if %small%==y (
-	ffmpeg -stats -loglevel error  -i "output%ext%" -vcodec libx264 -vf "scale=480:-2" -preset slow -crf 30 -acodec aac "output_r480_crf30.mp4"
+	ffmpeg -stats -loglevel error  -i "output%ext%" -vcodec libx265 -vf "scale=480:-2" -preset slow -crf 30 -acodec aac "output_r480_crf30.mp4"
 ) 
 
 

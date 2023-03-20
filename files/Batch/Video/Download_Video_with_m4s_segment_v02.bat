@@ -15,10 +15,6 @@ REM http://www.network-science.de/ascii/
 echo.
 
 
-where wget
-IF %ERRORLEVEL% NEQ 0 (
-	echo "[DEBUG] - wget is unknown, please add it to the PATH
-)
 
 WHERE ffmpeg
 IF %ERRORLEVEL% NEQ 0 (
@@ -143,7 +139,7 @@ REM ffmpeg -f concat -i list.txt -c copy "C:\Users\doria\Downloads\%name%.mp4"
 cd C:\Users\doria\Downloads\%namefolder%
 cd audio
 
-curl "%dirnameA%/segment-0.m4s" --output "0000.m4s"
+REM curl "%dirnameA%/segment-0.m4s" --output "0000.m4s"
 
 FOR /L %%p IN (0, 1, 2000) DO (
 	set p2=00000%%p
@@ -187,10 +183,9 @@ echo [DEBUG] - Start convert Audio
 :: --------------------- MERGE ------------------------
 
 cd C:\Users\doria\Downloads\
-ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy
- -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
-REM ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy
- -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
+REM ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\The_Dodos_Ep_2_Basecamp__temp\video\video.mp4" -i "C:\Users\doria\Downloads\The_Dodos_Ep_2_Basecamp__temp\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 the-dodos-episode-2.mp4
+ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
+REM ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
 
 echo.
 echo [INFO] - 'temp' directory will be remove, quit if you do not want, type enter if ok

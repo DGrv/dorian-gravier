@@ -76,7 +76,7 @@ for %%i in (*.mp3) do (
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
 	set /p lengthvideo=<tempfile2
 	set /a lengthvideo=lengthvideo
-	echo !lengthvideo! = %%i
+	echo [93m!lengthvideo! = %%i[37m
 	del tempfile2
 )
 	
@@ -98,12 +98,14 @@ set /a duraa=duraa
 set /a durav=durav
 set /a duraaM=duraa/60
 set /a duravM=durav/60
+set /a duradiff=durav-duraa
 
 echo.
 echo --------------------------------------------
-echo RESULTS:
+echo [93mRESULTS:
 echo Mp4 : %durav% s  -  %duravM%min
 echo Mp3 : %duraa% s  -  %duraaM%min
+echo diff = %duradiff%[37m
 echo --------------------------------------------
 echo.
 

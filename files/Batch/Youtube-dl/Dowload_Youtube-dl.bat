@@ -20,7 +20,8 @@ echo.
 
 
 :: ------------- Variables
-set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\youtube-dl.exe
+REM set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\youtube-dl.exe
+set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\yt-dlp.exe
 set wd=C:\Users\doria\Downloads\Youtube_music
 
 :: -------------- Info
@@ -148,10 +149,10 @@ if "%choice%"=="2" (
 	if "!choice2!"=="2" (
 		if "%url:~-3%"=="txt" (
 			for /F "usebackq tokens=*" %%A in ("%url%") do (
-				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f best %%A
+				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %%A
 			)
 		) else (
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f best %url%
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %url%
 		)
 	)
 	if "!choice2!"=="1" (

@@ -69,7 +69,7 @@ for /d /r %%i in ("*") do (
 	echo. 
 	echo. 
 	
-	ffmpeg -i output.ts -vcodec libx264 -vf "scale=1024:-2" -preset slow -crf 30 -acodec aac "%%~nxi.mp4"
+	ffmpeg -i output.ts -vcodec libx265 -vf "scale=1024:-2" -preset slow -crf 30 -acodec aac "%%~nxi.mp4"
 	
 	for /F "usebackq tokens=*" %%A in ("list2rm.txt") do rm "%%A"
 	

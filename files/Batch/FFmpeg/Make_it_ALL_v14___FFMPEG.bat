@@ -26,25 +26,11 @@ echo.
 :: to change the encoding utf8 is 65001 and ansi windows 1252, Maybe change it if problems
 REM chcp 1252 
 
-echo Put your video in 1 folder, order with names, put your mp3 inside (not matter the name, also ordered if needed).
+echo "Put your video in 1 folder, order with names, put your mp3 inside (not matter the name, also ordered if needed)."
 
 
 
 :: ---------- Setup ----------
-
-	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULKT-------------------
-	set tbdefault=y
-	set biketrip=y
-	set fordorian=y
-	set pathout=C:\Users\doria\Downloads\Pictures\2023\Video
-	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
-	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
-	set fadeinout=y
-	set audionorma=n
 
 
 
@@ -90,6 +76,37 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	%drive%
 	cd %wd%
 
+	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
+	set tbdefault=y
+	set biketrip=y
+	set fordorian=y
+	set pathout=C:\Users\doria\Downloads\Pictures\2023\Video
+	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
+	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
+	set fadeinout=y
+	set audionorma=n
+	set docodec=y
+	set doreso=y
+	set docheck=y
+	
+					REM ToDo
+					REM check if add songs empty in check seems not
+					REM ask for test batch mode to avoid overlay and filigrane
+	
+	echo.
+	echo.
+	set /p draft="Do you want to make the [94mdraft[37m version (no filigrane, no overlay) [y/n]: "
+	if %draft%==y (
+		set dooverlaymusic=n
+		set dofiligrane=n
+	) else (
+		set dooverlaymusic=y
+		set dofiligrane=y
+	)
 
 	
 	echo.
@@ -105,28 +122,45 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 	
 	
 	:: config file and BU
+	if not exist BU ( 
+		mkdir BU
+	) 
 	if exist MakeItAll_temp.config (
 		set /p title=<MakeItAll_temp.config
 	) else (
 		set /p title="Which title: "
 		echo !title! > MakeItAll_temp.config
-		if not exist BU ( 
-			mkdir BU
-			:: Avoid overwriting
-			echo N | copy /-Y * BU\
-		) 
-
+		REM Avoid overwriting
+		echo N | copy /-Y * BU\
 	)
-	set title2=%title: =_%
+	
+	if %dooverlaymusic%==n (echo Overlay_done >> MakeItAll_temp.config)
+	if %dofiligrane%==n (echo Filigrane_Done >> MakeItAll_temp.config)
+	REM if %docodec%==n (echo Codec_Done >> MakeItAll_temp.config)
+	REM if %doreso%==n (echo Reso_done >> MakeItAll_temp.config)
+	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
+
+	
+	
+	
+	
+	
+	
+	set title2=%title:\n= %
+	set title2=%title:'=%
+	set title2=%title2: =_%
 	set title2=%title2:-=%
 	set title2=%title2:__=_%
+	
+	echo %title2%
 
 	:: Music
-	if not exist Music_list_temp.txt (
+	REM if not exist Music_list_temp.txt (
 		echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
 		REM set /p temp="If you wanna use a jiggle beginning and at the end use files named 'begin.mp3' and-or 'end.mp3'"
-		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Music_list_temp.txt
-	)
+		REM ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Music_list_temp.txt
+		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/.mp3//" > Music_list_temp.txt
+	REM )
 	
 
 	
@@ -170,9 +204,10 @@ echo Put your video in 1 folder, order with names, put your mp3 inside (not matt
 
 
 
-	if EXIST output_720_crf25_temp.mp4 GOTO convertion3
-	if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
-	if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
+	REM if EXIST output_720_crf25_temp.mp4 GOTO convertion3
+	REM if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
+	REM if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
+	if EXIST output_BIND.mp4 GOTO convertion3
 
 
 
@@ -196,7 +231,9 @@ echo.
 	
 	
 	if NOT EXIST input_temp.mp3 (
-		if exist Listmp3_temp.txt (rm Listmp3_temp.txt)
+		if exist Listmp3_temp.txt (
+			rm Listmp3_temp.txt
+		)
 		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
 			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
@@ -217,20 +254,22 @@ echo.
 		echo [94mINFO - Start Fade in and out, need re-encoding [37m
 		echo.
 		
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| head -1') do set firstfile=%%p
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| tail -1') do set lastfile=%%p
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| head -1') do set firstfile=%%p
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| tail -1') do set lastfile=%%p
 		
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
+			copy "!firstfile!" "%wd%\BU\!firstfile!"
 			echo --- Create fadein on !firstfile!
 			ffmpeg -stats -loglevel error -i "%wd%\BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -c:a copy -y "!firstfile!"
 			echo fadein_done >> MakeItAll_temp.config
 		)
 		for /f %%i in ('grep fadeout_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
+			copy "!lastfile!" "%wd%\BU\!lastfile!"
 			echo --- Create fadeout on !lastfile!
-			for /f in %%i ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%wd%\BU\!lastfile!"') do set lengthvideo=%%i
+			for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%wd%\BU\!lastfile!"') do set lengthvideo=%%i
 			set /a lengthvideo2=lengthvideo
 			set /a lengthvideo3=lengthvideo2-3
 			if !lengthvideo2! gtr 3 (
@@ -253,14 +292,26 @@ echo.
 
 
 
-	if %biketrip%==y ( copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
+	if %biketrip%==y ( 
+		if not exist zzz_ko-fi.mp4 ( copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
+	)
 	
 	
 	REM copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\ARIAL.TTF
 	
-	echo|set /p="| ">temptitle
-	echo|set /p=%title%>>temptitle
-	echo|set /p=" |">>temptitle
+	set "title=%title:(=^(%"
+	set "title=%title:)=^)%"
+	set "title=%title:\n\n= >> temptitle & echo. >> temptitle & echo %"
+	set "title=%title:\n= >> temptitle & echo %"
+	set "title=%title:"=%"
+	if exist "temptitle" rm temptitle
+	echo ^| %title% ^| >> temptitle
+	truncate -s -2 temptitle
+	
+	
+	REM echo|set /p="| ">temptitle
+	REM echo|set /p=%title%>>temptitle
+	REM echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
 		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
@@ -294,9 +345,9 @@ echo.
 	
 	
 	if not exist Music_list_temp.txt (
-		ffmpeg -stats -loglevel error -f lavfi -i "color=c=black:s=1920x1080:d=12" -video_track_timescale %RV% zzz.mp4
-		ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
-		ffmpeg -stats -loglevel error -i zzza -ar %RA% zzzb.mp4
+		ffmpeg -y -stats -loglevel error -f lavfi -i "color=c=black:s=1920x1080:d=12" -video_track_timescale %RV% zzz.mp4
+		ffmpeg -y -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
+		ffmpeg -y -stats -loglevel error -i zzza -ar %RA% zzzb.mp4
 		del zzz.mp4 zzza.mp4
 	)
 
@@ -370,72 +421,172 @@ if NOT %gpxhere%==0 (
 )
 
 
-
-
 echo.
 echo [94m------------------------------------------------- [37m
-echo [94mINFO - Start RA and RV [37m
+echo [94mINFO - Start format check [37m
 echo.
 
-
-
-	:: change RV to have all the same - audio RV
-	set /a n=0
-	for /f %%i in ('ls ^| grep ".mp4" ^| wc -l') do set all=%%i
-	
-	for /f %%i in ('grep Rate_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	for /f %%i in ('grep Check_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 	if %check%==0 (
+	
+		:: audio 
 		for %%i in (*.mp4) DO (
-			set /a n+=1
-			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			set /p RAdt=<tempfile
-			:: check if no audio and add one, needed to bind all audio later, especially with music
-			for %%a in (tempfile) do (
-				:: check if filesize == 0 
-				if %%~za==0 (
-					rename %%i %%~ni_temp.mp4
-					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
-					del %%~ni_temp.mp4
-					ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-					set /p RAdt=<tempfile
-				) 
-			)
-			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
-			set /p RVdt=<tempfile
-			if "!RAdt!"=="" (
-				rename %%i %%~ni_temp.mp4
-				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
-				del %%~ni_temp.mp4
-			)
+			set "RAdt="
+			for /f %%c in ('ffprobe -v error -select_streams a:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RAdt=%%c
 			if NOT "!RAdt!"=="%RAd%" (
-				if NOT "!RVdt!"=="%RVd%" (
+				if not defined RAdt (
+					echo [91m--- File %%i	tbna = !RAdt!	Add sound[37m
 					rename %%i %%~ni_temp.mp4
-					echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% -  RA was !RAdt! instead of %RAd% [37m
-					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %RV% -ar %RA% %%i
-					:: change to recycle once reboot
-					del %%~ni_temp.mp4
-				) else (
-					rename %%i %%~ni_temp.mp4
-					echo [93m--- Reencode %%i, RA was !RAdt! instead of %RAd% [37m
-					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% %%i
-					del %%~ni_temp.mp4
+					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "%%i"
+					if exist "%%i" ( del "%%~ni_temp.mp4" )
 				)
+				rename %%i %%~ni_temp.mp4
+				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% -c:v copy "%%i"
+				if exist "%%i" ( del "%%~ni_temp.mp4" )
 			) else (
-				if NOT "!RVdt!"=="%RVd%" (
-					rename %%i %%~ni_temp.mp4
-					echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% [37m
-					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -video_track_timescale %RV% %%i
-					del %%~ni_temp.mp4
-				)
+				echo [92m--- File %%i	tbna = !RAdt![37m
 			)
-			echo [32m!n!/%all% -- RA and RV OK -- %%i  [37m
 		)
-		REM touch RA_RV_Done
-		echo Rate_done >> MakeItAll_temp.config
-		if exist tempfile del tempfile
+	
+		:: Video
+		for %%i in (*.mp4) DO (
+			:: TBS
+			for /f %%c in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set RVdt=%%c
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
+			
+			set "TRUE="
+			if not !codec!==h264 set TRUE=1
+			if not !reso!==1920 set TRUE=1
+			if not "!RVdt!"=="%RVd%" set TRUE=1
+			IF defined TRUE (
+				echo [91m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
+				rename "%%i" "%%~ni_temp.mp4"
+				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+				if exist "%%i" ( del "%%~ni_temp.mp4" )
+			) else (
+				echo [92m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
+			)
+		)
+	
+		echo Check_done >> MakeItAll_temp.config
 	)
 
 
+
+
+
+
+REM echo.
+REM echo [94m------------------------------------------------- [37m
+REM echo [94mINFO - Start Resolution [37m
+REM echo.
+
+	REM for /f %%i in ('grep Reso_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	REM if %check%==0 (
+		REM for %%i in (*.mp4) DO (
+			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
+			REM if not !reso!==1920 (
+				REM echo [93m--- Reencode %%i, it was !reso! instead of 1920[37m
+				REM rename %%i %%~ni_temp.mp4
+				REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+				REM del %%~ni_temp.mp4
+			REM ) else (
+				REM echo [93m--- OK %%i[37m
+			REM )
+		REM )
+		REM echo Reso_done >> MakeItAll_temp.config
+	REM )
+
+
+REM echo [94m------------------------------------------------- [37m
+REM echo [94mINFO - Start RA and RV [37m
+REM echo.
+
+
+
+	REM :: change RV to have all the same - audio RV
+	REM set /a n=0
+	REM for /f %%i in ('ls ^| grep ".mp4" ^| wc -l') do set all=%%i
+	
+	REM for /f %%i in ('grep Rate_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	REM if %check%==0 (
+		REM for %%i in (*.mp4) DO (
+			REM set /a n+=1
+			REM ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
+			REM set /p RAdt=<tempfile
+			REM :: check if no audio and add one, needed to bind all audio later, especially with music
+			REM for %%a in (tempfile) do (
+				REM :: check if filesize == 0 
+				REM if %%~za==0 (
+					REM rename %%i %%~ni_temp.mp4
+					REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+					REM del %%~ni_temp.mp4
+					REM ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
+					REM set /p RAdt=<tempfile
+				REM ) 
+			REM )
+			REM ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile
+			REM set /p RVdt=<tempfile
+			REM if "!RAdt!"=="" (
+				REM rename %%i %%~ni_temp.mp4
+				REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y "%%i"
+				REM del %%~ni_temp.mp4
+			REM )
+			REM if NOT "!RAdt!"=="%RAd%" (
+				REM if NOT "!RVdt!"=="%RVd%" (
+					REM rename %%i %%~ni_temp.mp4
+					REM echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% -  RA was !RAdt! instead of %RAd% [37m
+					REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% -ar %RA% %%i
+					REM :: change to recycle once reboot
+					REM del %%~ni_temp.mp4
+				REM ) else (
+					REM rename %%i %%~ni_temp.mp4
+					REM echo [93m--- Reencode %%i, RA was !RAdt! instead of %RAd% [37m
+					REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% -ar %RA% %%i
+					REM del %%~ni_temp.mp4
+				REM )
+			REM ) else (
+				REM if NOT "!RVdt!"=="%RVd%" (
+					REM rename %%i %%~ni_temp.mp4
+					REM echo [93m--- Reencode %%i, RV was !RVdt! instead of %RVd% [37m
+					REM ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -vcodec libx264 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% %%i
+					REM del %%~ni_temp.mp4
+				REM )
+			REM )
+			REM echo [32m!n!/%all% -- RA and RV OK -- %%i  [37m
+		REM )
+		REM REM touch RA_RV_Done
+		REM echo Rate_done >> MakeItAll_temp.config
+		REM if exist tempfile del tempfile
+	REM )
+
+REM echo.
+REM echo [94m------------------------------------------------- [37m
+REM echo [94mINFO - Start codec [37m
+REM echo.
+
+	REM for /f %%i in ('grep Codec_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	REM if %check%==0 (
+		REM for %%i in (*.mp4) DO (
+			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
+			REM if not !codec!==h264 (
+				REM echo [93m--- Reencode %%i, it was !codec! instead of h264[37m
+				REM rename %%i %%~ni_temp.mp4
+				REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+				REM del %%~ni_temp.mp4
+			REM ) else (
+				REM echo [93m--- OK %%i[37m
+			REM )
+		REM )
+		REM echo Codec_done >> MakeItAll_temp.config
+	REM )
+	
+	
+	
+	
+	
+	
 	
 :: ---------- End ----------
 
@@ -532,7 +683,7 @@ echo.
 			(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
 		)
 		if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Music_list_overlay_temp.txt
+		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
 		for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
 			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
 		)
@@ -566,7 +717,7 @@ echo.
 					set /a dura=dura
 					if !videoTT! GTR !duraTT! (
 						set musicn=%%a
-						set musicn2=!musicn:~0,-5!
+						set musicn2=!musicn:~0,-4!
 						set musicn=Music - !musicn2!
 						set /a posmusic=duraTT-videoTTbefore
 						if !posmusic! LSS 0 (
@@ -619,7 +770,9 @@ echo.
 				set name=!filenamenoext!_temp!ext!
 				rename %%p !name!
 				echo [93m--- Add filigrane to %%p[37m
-				ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
+				REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
+				:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
+				ffmpeg -stats -loglevel error -y -i "!name!" -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
 				del "!name!"
 			)
 			
@@ -627,18 +780,16 @@ echo.
 			ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
 			del Listmp4_temp.txt
 			
-			for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set durav=%%i
+			for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set /a durav=%%i
 			del output_temp.mp4
-			set /a durav=!durav!
 			set /a durav2=durav/3
 			
 			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4"') do set /a timesub=%%p
 			set /a tt=0
 			for %%b in ("*mp4") do (
-				for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set timev=%%h
-				set /a timev=!timev!
+				for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set /a timev=%%h
 				set /a tt+=timev
-				if !tt! GTR !dura2! (
+				if !tt! GTR !durav2! (
 					if !timev! GTR !timesub! (
 						set filenamenoext=%%~nb
 						set ext=%%~xb
@@ -665,7 +816,15 @@ echo.
 	
 	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
 	del Listmp4_temp.txt
-	ffmpeg -stats -loglevel error -i output_temp.mp4 audio.mp3
+	if %draft%==n ( 	ffmpeg -stats -loglevel error -y -i output_temp.mp4 audio.mp3 )
+
+	:: check youtube copyright
+	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "input_temp.mp3"') do set lengthaudio=%%i
+	ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% -video_track_timescale 24000 temp.mp4
+	ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy temp2.mp4
+	ffmpeg -stats -loglevel error -i temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest Test_youtube_copy.mp4
+	del temp.mp4 temp2.mp4
+
 
 	if %audionorma%==y (
 		WHERE ffmpeg-normalize
@@ -747,34 +906,33 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start convert low [37m
 echo.
 	
-	rename output_temp.mp4 output_temp2.mp4
-	ffmpeg -stats -loglevel error -i output_temp2.mp4 output_temp.mp4
-	del output_temp2.mp4
+	rename output_temp.mp4 output_BIND.mp4
+	:convertion0
+	REM ffmpeg -stats -loglevel error -i output_BIND.mp4 output_BIND_lowKF.mp4
+	REM del output_BIND.mp4
 	:convertion1
-	ffmpeg -stats -loglevel error -i output_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
+	REM ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=1024:-2" -preset slow -crf 25 output_1024_crf25_temp.mp4
 	:convertion2
-	ffmpeg -stats -loglevel error -i output_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
+	REM ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
 	:convertion3
-	ffmpeg -stats -loglevel error -i output_1024_crf25_temp.mp4 -vcodec libx264 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 output_720_crf25_temp.mp4
 	
-	rename output_1024_crf25_temp.mp4 %title2%_youtube.mp4
-	rename output_1920_crf25_temp.mp4 %title2%_TV.mp4
-	rename output_720_crf25_temp.mp4 %title2%_low.mp4
-	rename audio.mp3 %title2%_AUDIO.mp3
-	rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3
-	del output_temp.mp4
-
-	REM powercfg /hibernate on
-	
-	echo.
-	echo.
-	echo [32mFinish :) [37m
-	
-	echo move %title2%_youtube.mp4 %pathout%\Youtube\ > IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_TV.mp4 %pathout%\High\ >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_low.mp4 %pathout%\Low\ >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
-	echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
+	if %draft%==n (
+		ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy output_720_crf25_temp.mp4
+		rename output_BIND.mp4 %title2%_TV.mp4
+		rename output_720_crf25_temp.mp4 %title2%_low.mp4
+		rename audio.mp3 %title2%_AUDIO.mp3
+		if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
+		rename Music_list_temp.txt %title2%_MUSIC-TITLE.txt
+		echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat
+		echo move %title2%_low.mp4 %pathout%\Low\ >> IF_OK_MOVE_READY_MP4.bat
+		echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
+		echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
+		echo move %title2%_MUSIC-TITLE.txt %pathout%\Music_txt\ >> IF_OK_MOVE_READY_MP4.bat
+		del input_temp.mp3
+		xcopy /Y *.mp3 %pathout%\Music\
+		echo.
+		echo [32m-------------- Finish ------------- [37m
+	)
 
 	:eof
 	pause

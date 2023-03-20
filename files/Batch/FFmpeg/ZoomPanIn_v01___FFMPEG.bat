@@ -24,10 +24,9 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 echo.
 
-
-echo Batch file for changing the speed of a video (remove audio as well). Value range is 0 to n (btw 0 and 1 it will slow down your video). mpv will be used to check but you will not be able to go higher than 100 during checking (use [ or ] to increase speed during reading). Will create a new file where the video is with a extra 'f'.
+echo Batch to create a zoom in effect
 echo.
-echo Choose your files to speed up:  
+echo Choose your files to zoom in:  
 
 
 if "%1"=="" (
@@ -62,14 +61,13 @@ echo ----------------------[0m
 echo. 
 
 if "%2"=="" (
-	set /p speed=How much do you wanna speed up: 
+	set /p speed="How much do you  have the zoom (max zoom is here set to 1.5), try btw 0.0001 and 0.001: "
 ) else (
 	set speed=%2
 ) 
  
 
-
-
+set /p maxzoom=How much should be the maxzoom (1.5 e.g.): 
 
 
 for /F "usebackq tokens=*" %%p in (%file%) do (
@@ -78,29 +76,14 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 	set filenamenoext=%%~np
 	set ext=%%~xp
 	:: check rate video
-	ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%p > tempfile
-	set /p RVdt=<tempfile
+	for /f %%i in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%p"') do set RVdt=%%i
 	set RVfile=!RVdt:1/=!
-	del tempfile
 	rename "%%p" "!filenamenoext!__old!ext!"
-	ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
-	ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
-	del "!filenamenoext!__temp!ext!"
-	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
+	ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -vf "[0:v]scale=7680:4320,zoompan=z='min(max(zoom,pzoom)+%speed%,%maxzoom%)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=1920:1080"  -vcodec libx264  -video_track_timescale !RVfile! "!filenamenoext!_z%speed%!ext!"
 )
-
-REM ffmpeg -y -i 105.mp4 -an  -filter:v "setpts=PTS/6" new.mp4
-REM ffmpeg -y -i 105.mp4 -af "atempo=6" -vf "setpts=PTS/6,fps=24" new.mp4
-REM ffmpeg -y -i 105.mp4 -vf "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=24*6'" new.mp4
-
 
 del list.txt
 
-REM echo.
-REM echo All DONE :)
-REM echo.
-
-REM pause
  
  
  

@@ -54,7 +54,7 @@ echo .
 echo ----------------------------------------------------
 
 %ffmpegpath% -f gdigrab -framerate %framer% -i desktop %datetimef%_ScreenCapture.%ext%
-%ffmpegpath% -i %datetimef%_ScreenCapture.%ext% -vcodec libx264 -vbr 3 -vf "scale=640:-2" -preset fast -crf 23 %datetimef%_ScreenCapture640.%ext%
+%ffmpegpath% -i %datetimef%_ScreenCapture.%ext% -vcodec libx265 -vbr 3 -vf "scale=640:-2" -preset fast -crf 23 %datetimef%_ScreenCapture640.%ext%
 %ffmpegpath% -y -i %datetimef%_ScreenCapture640.%ext% -vf palettegen palette.png
 %ffmpegpath% -y -i %datetimef%_ScreenCapture640.%ext% -i palette.png -filter_complex paletteuse -r 20 %datetimef%_ScreenCapture640.gif
 del palette.png

@@ -15,9 +15,9 @@ echo.
  
 if "%1"=="" (
 	echo Choose your files :  
-	set listfiles=powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%mypath%';$OFD.ShowDialog()|out-null;$OFD.FileNames"
+	set listfiles=powershell -NoP -C "[System.Reflection.Assembly]::LoadWithPartialName('System.windows.forms')|Out-Null;$OFD = New-Object System.Windows.Forms.OpenFileDialog;$OFD.Multiselect = $True;$OFD.InitialDirectory = '%cd%';$OFD.ShowDialog()|out-null;$OFD.FileNames"
 	rem exec commands powershell and get result in FileName variable
-	for /f "delims=" %%i in ('%listfiles%') do (
+	for /f "delims=" %%i in ('!listfiles!') do (
 		set dir=%%~dpi
 		set drive=%%~di
 		cd %%~dpi
@@ -56,8 +56,11 @@ for /F %%p in (%file%) do (
 	set ext=%%~xp
 	set newname=!filenamenoext!_old!ext!
 	rename "%%p" "!newname!"
-	echo ffmpeg -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
-	ffmpeg -stats -loglevel error  -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
+	if !ext!==.mp3 (
+		ffmpeg -stats -loglevel error  -i "!newname!" -filter:a "volume=%per%" "%%p"
+	) else (
+		ffmpeg -stats -loglevel error  -i "!newname!" -filter:a "volume=%per%" -c:v copy "%%p"
+	)
 )
 
 del list.txt
