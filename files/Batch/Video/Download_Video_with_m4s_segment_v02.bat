@@ -66,7 +66,10 @@ echo.
 echo [INFO] - dirname = %dirname%
 echo.
 
-cd C:\Users\doria\Downloads\
+set out=D:\Download_video_script\
+
+D:
+cd %out%
 
 mkdir %namefolder%
 cd %namefolder%
@@ -76,7 +79,7 @@ mkdir video
 
 :: --------------------- VIDEO ------------------------
 
-cd C:\Users\doria\Downloads\%namefolder%
+cd %out%%namefolder%
 cd video
 
 REM https://www.linuxquestions.org/questions/programming-9/any-ideas-to-pass-the-error-400-bad-request-of-wget-720215/
@@ -136,7 +139,7 @@ REM ffmpeg -f concat -i list.txt -c copy "C:\Users\doria\Downloads\%name%.mp4"
 
 : --------------------- AUDIO ------------------------
 
-cd C:\Users\doria\Downloads\%namefolder%
+cd D:\Download_video_script\%namefolder%
 cd audio
 
 REM curl "%dirnameA%/segment-0.m4s" --output "0000.m4s"
@@ -182,9 +185,9 @@ echo [DEBUG] - Start convert Audio
 
 :: --------------------- MERGE ------------------------
 
-cd C:\Users\doria\Downloads\
+cd %out%
 REM ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\The_Dodos_Ep_2_Basecamp__temp\video\video.mp4" -i "C:\Users\doria\Downloads\The_Dodos_Ep_2_Basecamp__temp\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 the-dodos-episode-2.mp4
-ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
+ffmpeg -stats -loglevel error -i "%out%%namefolder%\video\video.mp4" -i "%out%%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
 REM ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\%namefolder%\video\video.mp4" -i "C:\Users\doria\Downloads\%namefolder%\audio\output.aac" -acodec copy -vcodec copy -map 0:v:0 -map 1:a:0 %name%.mp4
 
 echo.

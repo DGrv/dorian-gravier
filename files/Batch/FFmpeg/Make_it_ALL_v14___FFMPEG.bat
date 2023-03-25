@@ -84,7 +84,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	set tbdefault=y
 	set biketrip=y
 	set fordorian=y
-	set pathout=C:\Users\doria\Downloads\Pictures\2023\Video
+	set pathout=D:\Pictures\2023\Video
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
 	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
 	set fadeinout=y
@@ -293,7 +293,7 @@ echo.
 
 
 	if %biketrip%==y ( 
-		if not exist zzz_ko-fi.mp4 ( copy "C:\Users\doria\Downloads\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
+		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
 	)
 	
 	
@@ -316,7 +316,7 @@ echo.
 	if NOT EXIST 00000_title.mp4 (
 		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		if %biketrip%==y (
-			ffmpeg -stats -loglevel error -i "C:\Users\doria\Downloads\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i "D:\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
 			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
@@ -430,12 +430,14 @@ echo.
 	if %check%==0 (
 	
 		:: audio 
+		echo.
+		echo [95m Audio ----------------- [37m
 		for %%i in (*.mp4) DO (
 			set "RAdt="
 			for /f %%c in ('ffprobe -v error -select_streams a:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RAdt=%%c
 			if NOT "!RAdt!"=="%RAd%" (
 				if not defined RAdt (
-					echo [91m--- File %%i	tbna = !RAdt!	Add sound[37m
+					echo [93m--- File %%i	[91mtbna = !RAdt!	Add sound[37m
 					rename %%i %%~ni_temp.mp4
 					ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "%%i"
 					if exist "%%i" ( del "%%~ni_temp.mp4" )
@@ -444,29 +446,86 @@ echo.
 				ffmpeg -stats -loglevel error -i %%~ni_temp.mp4 -ar %RA% -c:v copy "%%i"
 				if exist "%%i" ( del "%%~ni_temp.mp4" )
 			) else (
-				echo [92m--- File %%i	tbna = !RAdt![37m
+				echo [93m--- File %%i	[92mtbna = !RAdt![37m
 			)
 		)
 	
 		:: Video
+		echo.
+		echo [95m Video ----------------- [37m
 		for %%i in (*.mp4) DO (
+		
+			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile=%%j
+		
 			:: TBS
-			for /f %%c in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 %%i') do set RVdt=%%c
-			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
-			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
-			
-			set "TRUE="
-			if not !codec!==h264 set TRUE=1
-			if not !reso!==1920 set TRUE=1
-			if not "!RVdt!"=="%RVd%" set TRUE=1
-			IF defined TRUE (
-				echo [91m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set rota=%%j
+			REM for /f %j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "00004.mp4"') do set rota=%j
+			if defined rota (
+				echo [96m--- File %%i rotated - Add padding[37m
 				rename "%%i" "%%~ni_temp.mp4"
-				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=24:scenecut=0 -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "%%i"
 				if exist "%%i" ( del "%%~ni_temp.mp4" )
-			) else (
-				echo [92m--- File %%i 	 RVdt = !RVdt! 	 reso = !reso! 	 codec = !codec![37m
 			)
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%j
+			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RVdt=%%j
+			REM ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 
+			REM ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=noprint_wrappers=1:nokey=1 
+				REM ffprobe -v error -select_streams v:0 -show_entries stream 00005.mp4 | grep -E "width|height"
+			REM ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 
+			for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
+			
+			if not !codec!==h264 (
+				if not !reso!==1920 (
+					if not "!RVdt!"=="%RVd%" (
+						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	RVdt = !RVdt![37m
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					) else (
+						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	[92mRVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					)
+				) else (
+					if not "!RVdt!"=="%RVd%" (
+						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %RV% "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					) else (
+						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	RVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					)
+				)
+			) else (
+				if not !reso!==1920 (
+					if not "!RVdt!"=="%RVd%" (
+						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	RVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					) else (
+						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	[92mRVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					)
+				) else (
+					if not "!RVdt!"=="%RVd%" (
+						echo [93m--- File %%i 	[92mcodec = !codec!	reso = !reso!	[91mRVdt = !RVdt![37m
+						rename "%%i" "%%~ni_temp.mp4"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% "%%i"
+						if exist "%%i" ( del "%%~ni_temp.mp4" )
+					) else (
+						echo [92m--- File %%i 	codec = !codec!	reso = !reso!	RVdt = !RVdt![37m
+					)
+				)
+			)
+			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile2=%%j
+			echo [90m--------- !sizefil2! to !sizefile2! bits[37m
 		)
 	
 		echo Check_done >> MakeItAll_temp.config
@@ -485,7 +544,7 @@ REM echo.
 	REM for /f %%i in ('grep Reso_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 	REM if %check%==0 (
 		REM for %%i in (*.mp4) DO (
-			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of csv^=s^=x:p^=0  "%%i"') do set reso=%%j
+			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1  "%%i"') do set reso=%%j
 			REM if not !reso!==1920 (
 				REM echo [93m--- Reencode %%i, it was !reso! instead of 1920[37m
 				REM rename %%i %%~ni_temp.mp4
@@ -770,9 +829,9 @@ echo.
 				set name=!filenamenoext!_temp!ext!
 				rename %%p !name!
 				echo [93m--- Add filigrane to %%p[37m
-				REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
+				REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
 				:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
-				ffmpeg -stats -loglevel error -y -i "!name!" -i "C:\Users\doria\Downloads\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
+				ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
 				del "!name!"
 			)
 			
@@ -784,7 +843,7 @@ echo.
 			del output_temp.mp4
 			set /a durav2=durav/3
 			
-			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4"') do set /a timesub=%%p
+			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "D:\Pictures\Subscribe_v02.mp4"') do set /a timesub=%%p
 			set /a tt=0
 			for %%b in ("*mp4") do (
 				for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set /a timev=%%h
@@ -796,7 +855,7 @@ echo.
 						set name=!filenamenoext!_temp!ext!
 						rename %%b !name!
 						echo [93m--- Add filigrane subscribe to %%b[37m
-						ffmpeg -stats -loglevel error -y -i !name! -i "C:\Users\doria\Downloads\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
+						ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
 						del "!name!"
 						goto endsub
 					)

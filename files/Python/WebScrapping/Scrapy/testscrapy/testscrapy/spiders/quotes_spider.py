@@ -10,9 +10,9 @@ import io
 import hashlib
 import re
 
-# from scrapy.crawler import CrawlerProcess
-# from scrapy.utils.project import get_project_settings
-# from scrapy.settings import Settings
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from scrapy.settings import Settings
 
 # # scrapy-selenium
 # from shutil import which
@@ -21,14 +21,15 @@ import re
 # from selenium.webdriver.support import expected_conditions as EC
 
 # # Splash
-# from scrapy_splash import SplashRequest 
-# from shutil import which
+from scrapy_splash import SplashRequest 
+from shutil import which
 
 # RUN CMD               docker run -p 8050:8050 scrapinghub/splash
 # check if running      http://localhost:8050/    
 
-# scrapy shell http://localhost:8050/render.html?url=https://www.dynafit.com/de-de/expedition-30-rucksack-08-0000048953?c=318560
+# scrapy shell http://localhost:8050/render.html?url=https://www.thecrag.com/de/klettern/spain/area/4679626191
 # fetch('http://localhost:8050/render.html?url=https://www.dynafit.com/de-de/expedition-30-rucksack-08-0000048953?c=318560')
+# fetch("https://www.thecrag.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
 
 
 # # seleniumoptions = Options()
@@ -43,14 +44,16 @@ import re
 # options.add_argument("--headless")
 # driver = webdriver.Chrome(executable_path=DRIVER_PATH, options=options)
 
-
+nsuccess = 0
 def printsuccess():
+    nsuccess = nsuccess + 1 
     print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
     print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
-    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
-    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
-    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
-    print("\x1b[1;0;32m-------------------------------------------------------------Found link: ----------------------------------------------------------------")
+    print("\x1b[1;0;32m------------------------------------------------------------- Found link ----------------------------------------------------------------")
+    print("\x1b[1;0;32m------------------------------------------------------------- Found link ----------------------------------------------------------------")
+    print("\x1b[1;0;32m------------------------------------------------------------- " + nsuccess + " ----------------------------------------------------------------")
+    print("\x1b[1;0;32m------------------------------------------------------------- Found link ----------------------------------------------------------------")
+    print("\x1b[1;0;32m------------------------------------------------------------- Found link ----------------------------------------------------------------")
     print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
     print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
     print("\x1b[1;0;32m-----------------------------------------------------------------------------------------------------------------------------------------")
@@ -60,22 +63,30 @@ def printsuccess():
 
 class ExtractUrls(scrapy.Spider):
     name = "extract"
+    max_retries = 2
     custom_settings = {
-        'ROBOTSTXT_OBEY' : True,
+        'ROBOTSTXT_OBEY' : False,
         'LOG_FORMAT' : '\x1b[0;0;34m%(asctime)s\x1b[0;0m \x1b[0;0;36m[%(name)s]\x1b[0;0m \x1b[0;0;31m%(levelname)s\x1b[0;0m: %(message)s',
 
-        # # # Splash
-        # 'SPLASH_URL' : 'http://localhost:8050/',
-        # 'DOWNLOADER_MIDDLEWARES' : { 
-        # 'scrapy_splash.SplashCookiesMiddleware': 723, 
-        # 'scrapy_splash.SplashMiddleware': 725, 
-        # 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810, 
-        # },
-        # 'SPIDER_MIDDLEWARES' : { 
-        # 'scrapy_splash.SplashDeduplicateArgsMiddleware': 100, 
-        # },
-        # 'DUPEFILTER_CLASS' : 'scrapy_splash.SplashAwareDupeFilter' ,
-        # 'HTTPCACHE_STORAGE' : 'scrapy_splash.SplashAwareFSCacheStorage',
+        # # test thecrag
+        # 'HTTPCACHE_IGNORE_HTTP_CODES': [301,302],
+        # 'HTTPCACHE_ENABLED': False,
+        # 'REDIRECT_ENABLED': False,
+        
+        
+        # # Splash
+        'SPLASH_URL' : 'http://localhost:8050/',
+        'DOWNLOADER_MIDDLEWARES' : { 
+        'scrapy_splash.SplashCookiesMiddleware': 723, 
+        'scrapy_splash.SplashMiddleware': 725, 
+        'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810, 
+        },
+        'SPIDER_MIDDLEWARES' : { 
+        'scrapy_splash.SplashDeduplicateArgsMiddleware': 100, 
+        },
+        'DUPEFILTER_CLASS' : 'scrapy_splash.SplashAwareDupeFilter' ,
+        'HTTPCACHE_STORAGE' : 'scrapy_splash.SplashAwareFSCacheStorage',
+
 
         # # scrapy-selenium
         # 'SELENIUM_DRIVER_NAME' : 'chrome',
@@ -86,21 +97,40 @@ class ExtractUrls(scrapy.Spider):
             # 'scrapy_selenium.SeleniumMiddleware': 800
         # }
     }
+    idloop = 0
+    
+    # from https://stackoverflow.com/questions/22795416/how-to-handle-302-redirect-in-scrapy
+    # def __init__(self, *args, **kwargs):
+        # super().__init__(*args, **kwargs)
+        # self.retries = {}
     
     # request function
     def start_requests(self):
         urls = [ 'https://www.thecrag.com/de/klettern/' + self.country]
         for url in urls:
-            yield scrapy.Request(url = url, callback = self.parse)
+            # yield scrapy.Request(url = url, callback = self.parse)
+            # yield scrapy.Request(url = url, meta = {'dont_redirect': True, 'handle_httpstatus_list': [302]}, callback = self.parse)
             # yield SeleniumRequest(url = url, callback = self.parse)
-            # yield SplashRequest(url, self.parse, 
-                # endpoint='render.html', 
-                # args={'wait': 0.5}, 
-            # ) 
+            yield SplashRequest(url, self.parse, 
+                endpoint='render.html',
+                args={'wait': 0.5}, 
+            ) 
             
             
     # Parse function
     def parse(self, response):
+        
+        # from https://stackoverflow.com/questions/22795416/how-to-handle-302-redirect-in-scrapy
+        if response.status == 302:
+            retries = self.retries.setdefault(response.url, 0)
+            if retries < self.max_retries:
+                self.retries[response.url] += 1
+                yield response.request.replace(dont_filter=True)
+            else:
+                self.logger.error('%s still returns 302 responses after %s retries',
+                                  response.url, retries)
+            return
+        
         
         current_url = response.request.url
         
@@ -125,27 +155,46 @@ class ExtractUrls(scrapy.Spider):
         links[:] = ['https://www.thecrag.com' + e for e in links if 'http' not in e]
         
         # use scrapy crawl extract -o youroutput.csv -a country=spain
+        notok = ['route', 'ascent', 'forum', 'guide', 'weather', 'accommodation', 'publication', 'contributors', 'discussions', 'nodes', 'climbers', 'photos', 'list', 'search', 'topos', 'favorites', 'map', 'webcover', 'sandpit', 'article', 'kml']
         ok = [self.country]
-        notok = ['route', 'ascent', 'forum', 'guide', 'weather', 'accomodation', 'publication', 'contributors', 'discussions', 'nodes', 'climbers', 'photos', 'list', 'search', 'topos', 'favorites', 'map', 'webcover']
         
-        for link in links:
             
+        for link in links:
+            # print("link: " + link)
             if all(x in link for x in ok):    
-                    if 'gpx' in link:
-                    
-                        where = response.css('span[class="crumb__long"]::text').extract()
-                        where = '|'.join(where[2:len(where)])
-                        
-                        printsuccess()
-                    
-                        yield {
-                            'title': title,
-                            'links': link,
-                            'where': where
-                        }
-                    if all(x not in link for x in notok):
-                        yield scrapy.Request(url = link, callback = self.parse)
-                    
-                    
+                if 'gpx' in link:
+                    print("\x1b[1;0;32m-------- found gpx ----------")
+                    where = response.css('span[class="crumb__long"]::text').extract()
+                    where = '|'.join(where[2:len(where)])
+                    printsuccess()
+                    yield {
+                        'title': title,
+                        'links': link,
+                        'where': where
+                    }
+                if all(x not in link for x in notok):
+                    # yield scrapy.Request(url = link, callback = self.parse)
+                    # # If you have redirect 302:
+                    # # 2023-03-21 18:10:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://sandpit.thecrag.com/e8a/redirect.py?redir=processmap/login?return=%2Fde%2Fklettern%2Fspain%2Farea%2F4679626191> from <GET https://www.thecrag.com/de/klettern/spain/area/4679626191>
+                    # # use this (from https://stackoverflow.com/questions/22795416/how-to-handle-302-redirect-in-scrapy)
+                    # yield scrapy.Request(url = link, meta = {'dont_redirect': True, 'handle_httpstatus_list': [302]}, callback=self.parse)
+                    # yield SeleniumRequest(url = link, callback = self.parse)
+                    yield SplashRequest(link, self.parse, 
+                        endpoint='render.html',
+                        args={'wait': 0.5}, 
+                    ) 
+
+
+
+# fetch("https://www.thecrag.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
+
+
+# test = ["spain"]
+# for link in links:
+    # if all(x in link for x in test):    
+        # if 'gpx' in link:
+            # print("gpx -----" + link)
+        # if all(x not in link for x in notok):
+            # print("continue -----" + link)
 
 

@@ -70,7 +70,7 @@ if %small%==y (
 
 
 
-::del list.txt
+del list.txt
 
 REM (for %i in (*.mp3) do @echo file '%i') > list.txt
 REM ffmpeg -f concat -i list.txt -c copy output.mp3
