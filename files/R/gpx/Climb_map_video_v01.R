@@ -19,7 +19,7 @@ library(rgdal)
 library(ggmap)
 library(plotKML)
 
-wd <- "C:/Users/doria/Downloads/Pictures/GoPro/Map_climb"
+wd <- "D://Pictures/GoPro/Map_climb"
 setwd(wd)
 
 
@@ -72,7 +72,7 @@ for (i in 1:nrow(data)) {
   a
   printfast(a, "tempmap.png", ext = "png", height = 1080, width = 1920)
   
-  system('ffmpeg -y -stats -loglevel error -r "1/8" -f image2 -i "tempmap.png" -vcodec libx265 -vf "fps=24,format=yuv420p" 0.mp4')
+  system('ffmpeg -y -stats -loglevel error -r "1/8" -f image2 -i "tempmap.png" -vf "fps=24,format=yuv420p" 0.mp4')
   system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest 1.mp4')
   system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf drawtext="fontfile=Arial:fontsize=70:fontcolor=white:x=w*0.05:y=h*0.1:text=', actual$name, '" -video_track_timescale 24000 2.mp4'))
   system(p0('ffmpeg -y -stats -loglevel error -i 2.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=5:d=2" -c:a copy ', leading0(i, 2), "_ClimbMo__", slugify(actual$name),'.mp4'))

@@ -1,0 +1,18 @@
+grep https://watch.reelrocktour.com reel_rock_list.html | perl -pe 's|.*"(https://watch.reelrocktour.com/.*?)".*|\1|' |uniq | grep -vE "help|tos|privacy|cookies|settings|logout|browse|close|page|films#|films$|url|domain|human"  > list_url.txt
+
+E:
+cd E:\ReelRock\ReelRock
+ls | grep mp4 > list_title_mp4.txt
+
+# not downloaded url
+cat list_url.txt | while read line; do title=$(echo $line | perl -pe "s|.*/(.*)|\1|"); grep -q "$title" list_title_mp4.txt || echo $line; done
+# not found title
+cat list_title_mp4.txt | while read line; do perl -pe "s|.*/(.*)|\1.mp4|" list_url.txt | grep -q "$line" || echo $line ; done
+
+# try to exchange url
+grep https://watch.reelrocktour.com reel_rock_list.html | perl -pe 's|.*"(https://watch.reelrocktour.com/.*?)".*|\1|' |uniq | grep -vE "help|tos|privacy|cookies|settings|logout|browse|close|page|films#|films$|url|domain|human" | perl -pe "s|.*/(.*)|.\\\ReelRock\\\\\1|"
+
+# replace in 2 steps path
+cat list_url.txt | while read line; do newpath=$(echo $line | perl -pe "s|.*/(.*)|DORIAN\1.mp4|"); perl -i -pe "s|$line|$newpath|g" reel_rock_list.html; done
+perl -i -pe "s|DORIAN|.\\\ReelRock\\\\|g" reel_rock_list.html
+

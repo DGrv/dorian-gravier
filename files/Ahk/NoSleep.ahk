@@ -20,5 +20,5 @@ MoveMouse:
     MouseMove, 1, 0, 1, R  ;Move the mouse one pixel to the right
     MouseMove, -1, 0, 1, R ;Move the mouse back one pixel
 	SendMessage 0x112, 0xF140, 0, , Program Manager  ; Start screensaver
-	;SendMessage 0x112, 0xF170, 2, , Program Manager  ;
+	; SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into standby (off) mode
 return

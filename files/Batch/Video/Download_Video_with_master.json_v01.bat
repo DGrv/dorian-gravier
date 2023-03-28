@@ -31,16 +31,17 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 if "%~1"=="" (
-	set /p url="Give me the path of the master.json :   "
+	set /p name="Which name to give: "
 ) else (
-	set url=%~1
+	set name=%~1
 )
 
 if "%~2"=="" (
-	set /p name="Which name to give: "
+	set /p url="Give me the path of the master.json :   "
 ) else (
-	set name=%~2
+	set url=%~2
 )
+
 
 echo.
 echo.
@@ -62,7 +63,10 @@ echo name: %name%
 echo urlnew: %urlnew%
 echo.
 
-youtube-dl --write-auto-sub -o %name% %urlnew%
+D:
+cd D:\Download_video_script
+
+C:\Users\doria\Downloads\Software\Youtube-dl\yt-dlp.exe --write-auto-sub -o %name% %urlnew%
 
 
 

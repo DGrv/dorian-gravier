@@ -14,7 +14,7 @@ if "%1"=="" (
 
 
 
-set /p rotation=How much do you wanna rotate (to left, 90, 180, 270): 
+set /p rotation=How much do you wanna rotate (0 - flat, 90, 180, 270): 
 
 :: extract filename no extension
 :: https://stackoverflow.com/questions/15567809/batch-extract-path-and-filename-from-a-variable/15568171
