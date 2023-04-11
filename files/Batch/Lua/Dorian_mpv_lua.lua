@@ -101,3 +101,28 @@ function rotate()
 end
 
 mp.add_key_binding("R", "rotate", rotate)
+
+
+function cut()
+
+	video_path = mp.get_property("path")
+	video_path_noext = string.sub(video_path, 1, -5)
+	video_ext = string.sub(video_path, string.len(video_path) - 3, string.len(video_path))
+	video_in = video_path_noext..'_old'..video_ext
+	video_out1 = video_path_noext..'_seg1'..video_ext
+	video_out2 = video_path_noext..'_seg2'..video_ext
+	local t1 = mp.get_property_number("time-pos")
+	os.rename(video_path, video_in)
+	
+	strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..t1..'" -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
+	strCmd2 = 'ffmpeg -hide_banner -ss "'..t1..'" -i "'..video_in..'" -avoid_negative_ts make_zero -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out2..'"'
+	io.write(strCmd1)
+	os.execute(strCmd1)
+	io.write(strCmd2)
+	os.execute(strCmd2)
+end
+
+mp.add_key_binding("c", "cut", cut)
+
+
+

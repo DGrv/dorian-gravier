@@ -1,7 +1,8 @@
 local msg = require('mp.msg')
 local assdraw = require('mp.assdraw')
 
-local script_name = "easyblur"
+local script_name = "cropeasy"
+ratio = 9/16
 
 -- Number of crop points currently chosen (0 to 2)
 local points = {}
@@ -161,6 +162,8 @@ local draw_cropper = function ()
         local p1 = screen_space_from_video_space(points[1])
         local p2 = {}
         p2.x, p2.y = mp.get_mouse_pos()
+		-- Remove this do avoid to used ration
+		p2.y = (p2.x-p1.x)*(ratio)
         draw_rect(p1, p2)
     end
 end
@@ -172,8 +175,16 @@ end
 local crop = function(p1, p2)
     swizzle_points(p1, p2)
 
-    local w = p2.x - p1.x
-    local h = p2.y - p1.y
+	-- This is the ratio ratio
+	-- Remove this do avoid to used ration
+	p2.y = (p2.x-p1.x)*(ratio)
+
+	-- Multiple by 4 because ffmpeg will scale 4 times to have better quality after croping, to put it back to 1920:1080
+	w = (p2.x - p1.x)*4
+	h = (p2.y	- p1.y)*4
+	p1.x = p1.x*4
+	p1.y = p1.y*4
+	
     -- local ok, err = mp.command(string.format("no-osd vf add @%s:crop=%s:%s:%s:%s", script_name, w, h, p1.x, p1.y))
 	video_path = mp.get_property("path")
 	video_path_noext = string.sub(video_path, 1, -5)
@@ -182,7 +193,8 @@ local crop = function(p1, p2)
 	os.rename(video_path, video_in)
 	
 	local t1 = mp.get_property_number("time-pos")
-	strCmd = 'ffmpeg -i "'..video_in..'" -filter_complex "[0:v]crop='..w..':'..h..':'..p1.x..':'..p1.y..',boxblur=10[fg]; [0:v][fg]overlay='..p1.x..':'..p1.y..'[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
+	-- strCmd = 'ffmpeg -i "'..video_in..'" -filter_complex "[0:v]crop='..w..':'..h..':'..p1.x..':'..p1.y..',boxblur=10[fg]; [0:v][fg]overlay='..p1.x..':'..p1.y..'[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
+	strCmd = 'ffmpeg -i "'..video_in..'" -vf "[0:v]scale=in_w*4:in_h*4,crop='..w..':'..h..':'..p1.x..':'..p1.y..':keep_aspect=1,scale=1920:1080" -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
 	print(strCmd)
 	io.write(strCmd)
 	os.execute(strCmd)
@@ -193,10 +205,10 @@ local crop = function(p1, p2)
     end
 end
 
-local easyblur_stop = function ()
+local cropeasy_stop = function ()
     mp.set_property("osc", osc_prop)
     cropping = false
-    mp.remove_key_binding("easyblur_mouse_btn0")
+    mp.remove_key_binding("cropeasy_mouse_btn0")
     draw_clear()
 end
 
@@ -210,11 +222,11 @@ local mouse_btn0_cb = function ()
 
     if #points == 2 then
         crop(points[1], points[2])
-        easyblur_stop()
+        cropeasy_stop()
     end
 end
 
-local easyblur_start = function ()
+local cropeasy_start = function ()
 	-- step 2
 
     -- Cropping requires swdec or hwdec with copy-back
@@ -248,16 +260,16 @@ local easyblur_start = function ()
     mp.set_property("osc", "no")
 
     cropping = true
-    mp.add_forced_key_binding("mouse_btn0", "easyblur_mouse_btn0", mouse_btn0_cb)
+    mp.add_forced_key_binding("mouse_btn0", "cropeasy_mouse_btn0", mouse_btn0_cb)
     draw_fill()
 end
 
-local easyblur_activate = function ()
+local cropeasy_activate = function ()
 	-- step 1
     if cropping then
-        easyblur_stop()
+        cropeasy_stop()
     else
-        easyblur_start()
+        cropeasy_start()
     end
 end
 
@@ -265,5 +277,5 @@ mp.add_key_binding("mouse_move", draw_cropper)
 mp.observe_property("osd-width", "native", draw_cropper)
 mp.observe_property("osd-height", "native", draw_cropper)
 
-mp.add_key_binding("B", "easyblur", easyblur_activate)
+mp.add_key_binding("C", "cropeasy", cropeasy_activate)
 

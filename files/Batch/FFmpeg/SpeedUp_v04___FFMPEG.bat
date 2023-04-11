@@ -14,7 +14,7 @@ echo "--------------------------------------------------------------------------
 REM http://www.network-science.de/ascii/
 echo.
 
-if exist List.txt del List.txt
+if exist list.txt del list.txt
 
 echo.
 echo Your ffmpeg is here:
@@ -67,6 +67,10 @@ if "%2"=="" (
 	set speed=%2
 ) 
  
+set speed1=%speed:~0,1%
+set speed2=%speed:~2,1%
+set /a speed2=speed2
+
 
 
 
@@ -83,9 +87,20 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 	set RVfile=!RVdt:1/=!
 	del tempfile
 	rename "%%p" "!filenamenoext!__old!ext!"
-	ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
-	ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
-	del "!filenamenoext!__temp!ext!"
+	REM ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
+	REM ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+	if %speed1%==0 (
+		if %speed2% LSS 5 (
+			echo.
+			echo [91mRemove audio because speed less than 0.5, does not work with audio[37m
+			echo.
+			REM ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -f lavfi -i aevalsrc=0 -ac 2 -shortest -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+			ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -an -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+		) 
+	) else (
+		 ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+	)
+	REM del "!filenamenoext!__temp!ext!"
 	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"
 )
 

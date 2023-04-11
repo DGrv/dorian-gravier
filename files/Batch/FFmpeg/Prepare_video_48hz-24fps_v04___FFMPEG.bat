@@ -104,12 +104,9 @@ IF %ERRORLEVEL% NEQ 0 (
 		echo.
 		echo [95m Video ----------------- [37m
 		for %%i in (*.mp4) DO (
-			:: TBS
 			
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile=%%j
-			
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set rota=%%j
-			REM for /f %j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "00004.mp4"') do set rota=%j
 			if defined rota (
 				echo [96m--- File %%i rotated - Add padding[37m
 				rename "%%i" "%%~ni_temp.mp4"
