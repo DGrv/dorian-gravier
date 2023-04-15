@@ -146,8 +146,9 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	
 	
 	
-	set title2=%title:\n= %
-	set title2=%title:'=%
+	set title2=%title:\n\n= %
+	set title2=%title2:\n= %
+	set title2=%title2:'=%
 	set title2=%title2: =_%
 	set title2=%title2:-=%
 	set title2=%title2:__=_%
@@ -207,7 +208,11 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM if EXIST output_720_crf25_temp.mp4 GOTO convertion3
 	REM if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
 	REM if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
-	if EXIST output_BIND.mp4 GOTO convertion3
+	if EXIST output_BIND.mp4 (
+		echo.
+		echo Going to convertion3 because output_bind.mp4 exist
+		GOTO convertion3
+	)
 
 
 
@@ -293,7 +298,7 @@ echo.
 
 
 	if %biketrip%==y ( 
-		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Ko-fi.mp4" "zzz_ko-fi.mp4" )
+		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v03.mp4" "zzz_ko-fi.mp4" )
 	)
 	
 	
@@ -316,7 +321,7 @@ echo.
 	if NOT EXIST 00000_title.mp4 (
 		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		if %biketrip%==y (
-			ffmpeg -stats -loglevel error -i "D:\Pictures\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i "D:\Pictures\Youtube\Tatoo\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
 			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
@@ -724,7 +729,7 @@ echo.
 				echo [93m--- Add filigrane to %%p[37m
 				REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
 				:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
-				ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
+				ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
 				del "!name!"
 			)
 			
@@ -736,7 +741,7 @@ echo.
 			del output_temp.mp4
 			set /a durav2=durav/3
 			
-			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "D:\Pictures\Subscribe_v02.mp4"') do set /a timesub=%%p
+			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4"') do set /a timesub=%%p
 			set /a tt=0
 			for %%b in ("*mp4") do (
 				for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set /a timev=%%h
@@ -748,7 +753,7 @@ echo.
 						set name=!filenamenoext!_temp!ext!
 						rename %%b !name!
 						echo [93m--- Add filigrane subscribe to %%b[37m
-						ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
+						ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
 						del "!name!"
 						goto endsub
 					)
@@ -873,7 +878,9 @@ echo.
 	:convertion3
 	
 	if %draft%==n (
-		ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy output_720_crf25_temp.mp4
+		if not exist output_720_crf25_temp.mp4 (
+			ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy output_720_crf25_temp.mp4
+		)
 		rename output_BIND.mp4 %title2%_TV.mp4
 		rename output_720_crf25_temp.mp4 %title2%_low.mp4
 		rename audio.mp3 %title2%_AUDIO.mp3

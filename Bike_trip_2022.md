@@ -428,7 +428,26 @@ order: 5
 	<iframe src="https://youtube.com/embed/BmbGM41uNcY" title="Etape 11"></iframe>
 	<iframe src="https://youtube.com/embed/JS52zwIo1zk" title="Etape 12"></iframe>
 	<iframe src="https://youtube.com/embed/ESeAAZaEh6s" title="Etape 13"></iframe>
+	<iframe src="https://youtube.com/embed/ASbxHk5y7Sk" title="Etape 14"></iframe>
+	<iframe src="https://youtube.com/embed/Wsgf4cFsz8E" title="Etape 15"></iframe>
+	<iframe src="https://youtube.com/embed/6aklMJwuhXM" title="Etape 16"></iframe>
+	<iframe src="https://youtube.com/embed/l5bSThVfUrE" title="Etape 17"></iframe>
+	<iframe src="https://youtube.com/embed/lc6aaPxg-co" title="Etape 18"></iframe>
+	<iframe src="https://youtube.com/embed/Ksb0oPK83xs" title="Etape 19"></iframe>
+	<iframe src="https://youtube.com/embed/WsYZRUzEDBk" title="Etape 20"></iframe>
+	<iframe src="https://youtube.com/embed/wwSsN-z-Qdc" title="Etape 21"></iframe>
 	</center>
+	
+	<br>
+	<br>
+	
+	<center>
+	<iframe src="https://youtube.com/embed/9dKSMHjOrRA" title="Bonus 1"></iframe>
+	<iframe src="https://youtube.com/embed/eNUIlNILcvs" title="Bonus2"></iframe>
+	</center>
+	
+	
+	
 	
 	<br>
 	<br>

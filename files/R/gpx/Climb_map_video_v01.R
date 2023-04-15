@@ -158,7 +158,11 @@ for (i in 1:nrow(data)) {
   # system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf drawtext="fontfile=Arial:fontsize=70:fontcolor=white:x=w*0.05:y=h*0.1:text=', actual$name, '" -video_track_timescale 24000 2.mp4'))
   # system(p0('ffmpeg -y -stats -loglevel error -i 2.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=5:d=2" -c:a copy ', leading0(i, 2), "_ClimbMo__", slugify(actual$name),'.mp4'))
   
-  system('ffmpeg -y -stats -loglevel error -r "1/2" -f image2 -i "tempmap2.png" -vf "fps=24,format=yuv420p" 0.mp4')
+  if( i == nrow(data)) {
+    system('ffmpeg -y -stats -loglevel error -r "1/6" -f image2 -i "tempmap2.png" -vf "fps=24,format=yuv420p" 0.mp4')
+  } else  {
+    system('ffmpeg -y -stats -loglevel error -r "1/2" -f image2 -i "tempmap2.png" -vf "fps=24,format=yuv420p" 0.mp4')
+  }
   system(p0('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest ', wd2, leading0(i, 2), "_ClimbMo__", slugify(actual$name),'_SUMMARY.mp4'))
   
   file.remove("0.mp4", "1.mp4", "2.mp4", "3.mp4", "tempmap.png", "tempmap2.png")
@@ -171,6 +175,30 @@ writeLines(p0("file '", list.files(wd2, "mp4"), "'"), "list.txt")
 system("ffmpeg -stats -loglevel error -y -f concat -safe 0 -i list.txt -c copy output.mp4")
 system('ffmpeg -stats -loglevel error -y -i output.mp4 -af "atempo=2" -vf "setpts=PTS/2" -video_track_timescale 24000 output_fast.mp4')
 
+
+
+# Errezil map
+
+i <- nrow(data)
+actual <- data[i]
+rest <- data[1:i]
+allrest <- data[-i]
+
+a <- ggplot(data, aes(lon, lat))+
+  # geom_map(data = world2, map = world, aes(long, lat, map_id = region), size = 0.1, fill = "white")+
+  geom_polygon(data=world2, aes(long, lat, group = group), colour='white', fill=NA)+
+  geom_point(data = rest, color = "white", size = 4)+
+  geom_point(data = actual, color = "red", size = 8)+
+  geom_point(data = data.table(lat=43.165095, lon=-2.1757474), color = "yellow", size = 8)+
+  geom_text(data = data.table(lat=43.165095, lon=-2.1757474), label = "Errezil", color = "yellow", size = 14, hjust = 1.1, vjust = -1.3)+
+  coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))
+# geom_label(aes(label = you))
+a
+printfast(a, "tempmap.png", ext = "png", height = 1080, width = 1920)
+
+system('ffmpeg -y -stats -loglevel error -r "1/3" -f image2 -i "tempmap.png" -vf "fps=24,format=yuv420p" 0.mp4')
+system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest E22_Errezil_location.mp4')
+file.remove("0.mp4", "1.mp4", "2.mp4", "3.mp4", "tempmap.png", "tempmap2.png")
 
 
 
