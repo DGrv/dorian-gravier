@@ -22,6 +22,7 @@ for /F %%i in ("%input%") do @set drive=%%~di
 %drive%
 cd "%input%"
 
+set /p seg=Do you wanna merge the track in segments or keep individual tracks (will usually import multiples tracks in your map) [y/n] - [seg/trk]: 
 
 echo Do you wanna remove all :
 echo - comments <cmt> balise
@@ -67,7 +68,12 @@ REM )
 
 set f=
 for %%f in (*.gpx) do set f=!f! -f "%%f"
-gpsbabel -i gpx %f% -x duplicate,location,shortname -o gpx -F Merge.gpx
+if %seg%==y (
+	gpsbabel -i gpx %f% -x duplicate,location,shortname -x track,trk2seg -o gpx -F Merge.gpx
+) else (
+	gpsbabel -i gpx %f% -x duplicate,location,shortname -o gpx -F Merge.gpx
+)
+
 
 
 ::old method - but when too many files, reach too long cmd

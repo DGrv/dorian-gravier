@@ -53,7 +53,6 @@ echo 2 = %2
 echo 3 = %3
 echo 4 = %4
 echo 5 = %5
-echo 6 = %6
 echo ----------------------[37m
 
 
@@ -81,27 +80,17 @@ REM ) else (
 	REM )
 REM )
 
-if [%3]==[] (
-	set /p posstay="How long do you want it to appear in seconds: "
-) else (
-	set posstay=%3
-)
-set /a posstay+=5
-
-
-
-
 :: use %~1 instead of %1 if you have space in the text
 :: use %~1 instead of %1 if you have space in the text
 :: use %~1 instead of %1 if you have space in the text
 :: use %~1 instead of %1 if you have space in the text
 
-if "%~6"=="" (
+if "%~5"=="" (
 	echo [91m
 	set /p text=Give me you text: You can use \n in your string to create new line !!!! :[37m 
 	echo [37m
 ) else (
-	set text=%~6
+	set text=%~5
 ) 
 REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
 set "text=%text:(=^(%"
@@ -117,10 +106,10 @@ truncate -s -2 temp.txt
 
 
 
-if "%4"=="" (
+if "%3"=="" (
 	set /p fontsize="Give me your fontsize (Try big first, maybe 50, nothing will be 50): "
 ) else (
-	set fontsize=%4
+	set fontsize=%3
 ) 
 if [%fontsize%]==[] (
 	set fontsize=50
@@ -144,10 +133,10 @@ echo.
 
 
 echo Give a x position (0.1 will be on the left, 0.9 will be on the right)
-if "%5"=="" (
+if "%4"=="" (
 	set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TR): "
 ) else (
-	set xpos=%5
+	set xpos=%4
 ) 
 if "%xpos%"=="" (
 	set xpos=TR
@@ -188,7 +177,6 @@ echo cat temp.txt
 cat temp.txt
 echo.
 echo ----------------------[37m
-
 
 
 

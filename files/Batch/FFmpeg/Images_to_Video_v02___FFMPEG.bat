@@ -62,6 +62,10 @@ if "%~3"=="" (
 if "%reso%"=="y" (
 	set reso=1920x1080
 )
+if "%reso%"=="" (
+	set reso=1920x1080
+)
+
 
 
 cd "%pathfiles%"
@@ -104,12 +108,11 @@ GOTO end
 
 :singlefile
 
+
 magick mogrify -resize %reso% -extent %reso% -gravity Center -background black "%pathfiles%"
 ffmpeg -r "1/%fr%" -f image2 -i "%pathfiles%" -vcodec libx265 -vf "fps=25,format=yuv420p" "%pathfiles%.mp4"
-echo dasfsdf
 
 ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i "%pathfiles%.mp4" -c:v copy -c:a aac -video_track_timescale 24000 -shortest "%pathfiles%_new.mp4"
-
 del "%pathfiles%.mp4"
 
 

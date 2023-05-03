@@ -892,7 +892,8 @@ echo.
 		echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
 		echo move %title2%_MUSIC-TITLE.txt %pathout%\Music_txt\ >> IF_OK_MOVE_READY_MP4.bat
 		del input_temp.mp3
-		xcopy /Y *.mp3 %pathout%\Music\
+		REM xcopy /Y *.mp3 %pathout%\Music\
+		ls | grep mp3 | grep -vE "AUDIO|input_temp|audio.mp3" | xargs -I # cp "#" %pathout%\Music
 		echo.
 		echo [32m-------------- Finish ------------- [37m
 	)
