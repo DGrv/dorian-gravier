@@ -182,7 +182,7 @@ local crop = function(p1, p2)
 	os.rename(video_path, video_in)
 	
 	local t1 = mp.get_property_number("time-pos")
-	strCmd = 'ffmpeg -i "'..video_in..'" -filter_complex "[0:v]crop='..w..':'..h..':'..p1.x..':'..p1.y..',boxblur=10[fg]; [0:v][fg]overlay='..p1.x..':'..p1.y..'[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
+	strCmd = 'ffmpeg -stats -loglevel error -i "'..video_in..'" -filter_complex "[0:v]crop='..w..':'..h..':'..p1.x..':'..p1.y..',boxblur=10[fg]; [0:v][fg]overlay='..p1.x..':'..p1.y..'[v]" -map "[v]" -map 0:a -c:a copy -movflags +faststart "'..video_path..'"'
 	print(strCmd)
 	io.write(strCmd)
 	os.execute(strCmd)

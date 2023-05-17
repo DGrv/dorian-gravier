@@ -30,10 +30,10 @@ set name=BT22
 echo %pathfile%
 REM The first <time> is wro´ng so use the first one
 REM Use a ^to use a pipe
-for /f "tokens=*" %%i in ('sed -nr "s/.*<time>(.*)<\/time>/\1/p" %pathfile% ^| head -2 ^| tail -1') do set dayy=%%i
+for /f %%i in ('sed -nr "s/.*<time>(.*)<\/time>/\1/p" %pathfile% ^| head -2 ^| tail -1') do set dayy=%%i
 set dayy=%dayy:~0,10%
 
-for /f "tokens=*" %%i in ('sed -nr "s/.*<name>(.*)<\/name>/\1/p" %pathfile% ^| tail -1') do set nametoreplace=%%i
+for /f %%i in ('sed -nr "s/.*<name>(.*)<\/name>/\1/p" %pathfile% ^| tail -1') do set nametoreplace=%%i
 
 echo [DEBUG] ------------------
 echo day: %dayy%
@@ -43,7 +43,24 @@ sed -i "s/%nametoreplace%/%dayy%/g" %pathfile%
 
 set newname=%name%_%dayy%.gpx
 
-rename %pathfile% "%newname%"
+if not exist "%pathfile%\%newname%" do (
+	rename %pathfile% "%newname%"
+) else (
+	set newname=%name%_%dayy%b.gpx
+)
+if not exist "%pathfile%\%newname%" do (
+	rename %pathfile% "%newname%"
+) else (
+	set newname=%name%_%dayy%c.gpx
+)
+if not exist "%pathfile%\%newname%" do (
+	rename %pathfile% "%newname%"
+) else (
+	set newname=%name%_%dayy%d.gpx
+)
+if not exist "%pathfile%\%newname%" do (
+	rename %pathfile% "%newname%"
+) 
 
 
 

@@ -175,7 +175,7 @@ IF %ERRORLEVEL% NEQ 0 (
 				REM )
 			)
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile2=%%j
-			echo [90m--------- !sizefil2! to !sizefile2! bits[37m
+			echo [90m--------- !sizefile! to !sizefile2! bits[37m
 		)
 	
 pause

@@ -172,8 +172,7 @@ IF %ERRORLEVEL% NEQ 0 (
 				)
 			)
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile2=%%j
-			set /a diff=sizefile2/sizefile
-			echo [90m--------- !diff!% of before[37m
+			echo [90m--------- !sizefile! to !sizefile2! bits[37m
 		)
 	
 pause

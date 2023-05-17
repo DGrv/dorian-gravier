@@ -20,11 +20,11 @@ echo.
 
 
 if "%1"=="" (
-	set /p sec="How many seconds should be the clip: "
+	set /p sec="How many seconds should be the clip (usually 2 seconds are sufficient): "
 ) else (
 	set sec=%1
 )
-set /a fadesec=3
+set /a fadesec=2
 set /a sec=sec
 set /a sec+=(fadesec*2)
 

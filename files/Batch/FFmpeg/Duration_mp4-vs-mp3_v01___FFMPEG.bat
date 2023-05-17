@@ -96,14 +96,17 @@ set /p durav=<tempfile
 del alla.mp3 allv.mp4 tempfile
 set /a duraa=duraa
 set /a durav=durav
+set /a durav2=durav+12+12+12
 set /a duraaM=duraa/60
 set /a duravM=durav/60
+set /a durav2M=durav2/60
 set /a duradiff=durav-duraa
 
 echo.
 echo --------------------------------------------
 echo [93mRESULTS:
 echo Mp4 : %durav% s  -  %duravM%min
+echo Mp4 : %durav2% s  -  %durav2M%min with extra title and end
 echo Mp3 : %duraa% s  -  %duraaM%min
 echo diff = %duradiff%[37m
 echo --------------------------------------------

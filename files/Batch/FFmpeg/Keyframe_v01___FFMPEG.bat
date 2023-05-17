@@ -22,11 +22,9 @@ WHERE ffprobe
 IF %ERRORLEVEL% NEQ 0 (
 	echo "[DEBUG] - ffprobe command is unknown, please add it to the PATH
 )
+echo.
+echo.
 	
-echo.
-echo -------------------------------------------------
-echo INFO - Start Fade in and out, need re-encoding
-echo.
 
 if "%~1"=="" (
 	set /p filepath="Give me the path of your file: "
@@ -34,8 +32,11 @@ if "%~1"=="" (
 	set filepath=%~1
 )
 
+for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%filepath%"') do set RVdt=%%j
+
+
 if "%~2"=="" (
-	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24): "
+	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24) your video is %RVdt%: "
 ) else (
 	set kfi=%~2
 )

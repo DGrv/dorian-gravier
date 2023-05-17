@@ -82,7 +82,20 @@ var Bike_trip_2022 = ['files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-04-29.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-04-30.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-01.gpx',
-'files/gpx/Bike_trip_2022/BT22_2023-05-02.gpx']
+'files/gpx/Bike_trip_2022/BT22_2023-05-02.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-03.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-04.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-06.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-07.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-08.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-09.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-10.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-10b.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-11.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-11b.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-12.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-13.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-15.gpx']
 
 var Bike = ['files/gpx/Leaflet/Bike/B_201511_mtb.gpx',
 'files/gpx/Leaflet/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
@@ -412,10 +425,4 @@ var SchneeSProject = ['files/gpx/Leaflet/SchneeS/Project/P_SW_Malans-Tschugga.gp
 'files/gpx/Leaflet/SchneeS/Project/P_SW_Silberen.gpx',
 'files/gpx/Leaflet/SchneeS/Project/P_SW_Wilhaus_1.gpx']
 
-var gpx = ['files/R/gpx/202206_Warmshower.gpx',
-'files/R/gpx/202206_Wwoof_France.gpx',
-'files/R/gpx/202206_Wwoof_France_choice.gpx',
-'files/R/gpx/202211_Wwoof_Portugal.gpx',
-'files/R/gpx/202211_Wwoof_Spain.gpx',
-'files/R/gpx/Climbing_Morris.gpx']
-
+var gpx = ['files/R/gpx/Climbing_Morris.gpx',
