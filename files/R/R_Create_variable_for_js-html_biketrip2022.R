@@ -99,9 +99,9 @@
     route[2:nrow(route), dist := distHaversine(route[,.(lon, lat)])/1000]
     all <- rbind(all, route)
   }
-  all[, ele := as.numeric(ele)]
   all[, time2 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
-  all[, ele2 := ele-shift(ele)]
+  all[, ele := as.numeric(ele)]
+  all[, ele2 := ele-data.table::shift(ele)]
   all[, ele2type := "Ascent"]
   all[ele2<=0, ele2type := "Descent"]
   all

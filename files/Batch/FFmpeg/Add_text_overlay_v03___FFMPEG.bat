@@ -145,13 +145,8 @@ if "%xpos%"=="" (
 
 
 
-set /a check=%DATE:~0,1%
-set check2=%DATE:~0,1%
-if "%check%"=="%check2%" (
-	set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
-) else (
-	set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
-)
+FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+set TIMESTAMP=%time:~0,8%-%time:~8,6%
 
 set filenamenew=%filenamenoext%_old_%TIMESTAMP%.mp4
 

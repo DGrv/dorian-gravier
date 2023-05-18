@@ -25,6 +25,7 @@ library(raster)
 library(sf)
 library(ggspatial) 
 library(gifski)
+library(geosphere)
 
 source("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/Function_srtm.R")
 
@@ -63,13 +64,49 @@ data[, time1 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
 
 
 temp <- data[, .N, time1]$time1
-nlast <- 5
-temp <- temp[(length(temp)-nlast):length(temp)]
-datafirst <- data[!time1 %in% temp]
-datalast <- data[time1 %in% temp]
+temp
+nremove <- 9
+nlast <- 6
+length(temp)
+past <- temp[1:(length(temp)-nremove-nlast)]
+last <- temp[(length(temp)-nremove-nlast+1):(length(temp)-nremove)]
+past
+last
+
+datafirst <- data[time1 %in% past]
+datalast <- data[time1 %in% last]
+datafirst[, time1b := p0(min(time1), " - ", max(time1))]
 datalast[, time1b := p0(min(time1), " - ", max(time1))]
 datalast[, n := as.numeric(1:.N)]
-datafirst[, time1 := NULL]
+# datafirst[, time1 := NULL]
+
+get.info.bike <- function(DATA) {
+  
+  DATA[, dist:=0]
+  DATA[2:nrow(DATA), dist := distHaversine(DATA[,.(lon, lat)])/1000]
+  DATA[, ele := as.numeric(ele)]
+  DATA[, ele2 := ele-data.table::shift(ele)]
+  DATA[, ele2type := "Ascent"]
+  DATA[ele2<=0, ele2type := "Descent"]
+  
+  distanceTT <- round(sum(DATA$dist, na.rm = T))
+  daysTT <- as.numeric(round(max(DATA$time1)-min(DATA$time1)))+1
+  daysBike <- length(unique(DATA$time1)) 
+  TTa <- sum(DATA[ele2type == "Ascent"]$ele2, na.rm = T)
+  TTb <- sum(DATA[ele2type == "Descent"]$ele2, na.rm = T)
+  
+  info <- p0(distanceTT, "km\n",
+             daysTT, " days, ", daysBike, " on the bike\n",
+             "+", round(TTa,0), "m\n",
+             round(TTb,0), "m")
+  return(info)
+}
+
+
+info.last <- get.info.bike(datalast)
+info.first <- get.info.bike(datafirst)
+
+
 
 
 # data cities and pop -----------------------------------------------------
@@ -153,9 +190,10 @@ rr3 <- get.contour('C:/Users/doria/Downloads/Outdoor/SRTM/MOSAIC.tif', 100)
 
 # # get center point for zoom
 # https://www.r-bloggers.com/2019/04/zooming-in-on-maps-with-sf-and-ggplot2/
-loc <- c((max(datalast$lon) - min(datalast$lon))/2 + min(datalast$lon), (max(datalast$lat) - min(datalast$lat))/2 + min(datalast$lat))  # Berlin
+loc <- c((max(datalast$lon) - min(datalast$lon))/2 + min(datalast$lon), (max(datalast$lat) - min(datalast$lat))/2 + min(datalast$lat))
+loc
 locbig <- c(2, 31)
-zlast <- zoomman(loc, 8)
+zlast <- zoomman(loc, 7)
 
 
 
@@ -177,10 +215,6 @@ zlast <- zoomman(loc, 8)
 
 # theme --------------------------------------------------------------------
 
-
-# ggplot(all, aes(lon, lat))+
-#   geom_map(data = world[region %like% "France|Spain|Portuga"], map = world, aes(long, lat, map_id = region), color = "white", fill = "lightgray", size = 0.1)+
-#   geom_point()
 
 theme_set(theme_void())
 theme_set(theme(plot.background = element_rect(fill = "black"),
@@ -207,18 +241,24 @@ a <- ggplot()+
   geom_path(data=datafirst, aes(lon, lat), color = cc[2], size = 1.2)+
   geom_point(data = city, aes(lon, lat), color = "white")+
   geom_text(data = city, aes(lon, lat, label = name), color = "white", size = 3, hjust = 1.1, vjust = -0.2)+
-  geom_text(data=datalast, aes(x=-33, y=51, label = time1b), color = cc[1], size = 25, hjust = 0)
+  geom_text(data=datafirst, aes(x=-33, y=51, label = time1b), color = cc[2], size = 20, hjust = 0)+
+  geom_text(data=datalast, aes(x=-33, y=45, label = time1b), color = cc[1], size = 20, hjust = 0)+
+  geom_text(data=datalast, aes(x=-33, y=43, label = info.last), color = cc[1], size = 10, hjust = 0)+
+  geom_text(data=datalast, aes(x=-33, y=49, label = info.first), color = cc[2], size = 10, hjust = 0)
+
+
+
 
 # coord_map()
 b <- a+  coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))
-# c <- a+  coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)
-# printfast(b, "tempmap.png", ext = "png", height = 1080, width = 1920)
 printfast(b, "tempmap.png", ext = "png", height = 1080, width = 1920)
+
+# c <- a+  coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)
 # printfast(c, "tempmapb.png", ext = "png", height = 1080, width = 1920)
 
 system('ffmpeg -y -stats -loglevel error -r "1/10" -f image2 -i "tempmap.png" -vcodec libx264 -vf "fps=24,format=yuv420p" 0.mp4')
 system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest 1.mp4')
-system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=8:d=2" -c:a copy Last_5_days.mp4'))
+system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=8:d=2" -c:a copy 0000000.mp4'))
 
 file.remove("0.mp4", "1.mp4")
 
@@ -228,115 +268,68 @@ file.remove("0.mp4", "1.mp4")
 
 # Animate -----------------------------------------------------------------
 
-# #test
-# a <- ggplot(datalast, aes(lon, lat))+
-#   geom_point(color = "red", size =3)+
-#   geom_path(color = "red")+
-#   coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)+
-#   transition_reveal(n)+
+
+# 
+# 
+# a <- ggplot(data, aes(lon, lat))+
+#   # geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
+#   geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
+#   geom_point(color = "#fb5607", size = 3)+
+#   geom_point(color = "#fb5607", alpha = 0.8, size = 1)+
+#   coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))+
+#   transition_states(n)+
 #   shadow_mark()
-# a
-
-
-a <- ggplot(data, aes(lon, lat))+
-  geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
-  geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
-  geom_point(color = "#fb5607", size = 3)+
-  geom_point(color = "#fb5607", alpha = 0.8, size = 1)+
-  coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))+
-  transition_states(n)+
-  shadow_mark()
-b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080,  start_pause = 4, end_pause = 4, duration = 20)
-anim_save("Complete_trip.mp4", b)
-gganimate::animate(a, duration = 10, renderer = gifski_renderer())
-anim_save("Complete_trip.gif")
-
-
-
-
-a <- ggplot(datalast, aes(lon, lat))+
-  geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
-  geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
-  geom_point(data = datalast, color = "#fb5607")+
-  geom_path(data = datafirst, color = "white")+
-  coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)+
-  transition_state(n)+
-  shadow_mark()
-b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080, start_pause = 4, end_pause = 4)
-anim_save("Last_trip.mp4", b)
-
-
-
-
-a <- ggplot(datalast, aes(lon, lat))+
-  geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
-  geom_point(data = datalast, color = "red")+
-  # geom_path(data = datafirst, color = "white")+
-  # coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))+
-  coord_cartesian(xlim = c(median(datalast$lon) - 5,median(datalast$lon) + 7),
-                  ylim = c(median(datalast$lat) - 3, median(datalast$lat)+2))+
-  transition_states(n)+
-  shadow_mark()
-a
-printfast(a, "tempmap.png", ext = "png", height = 1080, width = 1920)
-
-
-
-
-b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080)
-anim_save("test.mp4", b)
-
-
-
-databbox <- get_bbox_from_gpx_table(datalast)
-bbox <- get_bbox_from_gpx_table(datalast)
-map <- get_stamenmap(databbox, zoom = 11, maptype = "watercolor")
-ggmap(map)+
-  geom_point(data = datalast, color = "red", size = 2)+
-  transition_states(n)+
-  shadow_mark()
+# b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080,  start_pause = 4, end_pause = 4, duration = 20)
+# anim_save("Complete_trip.mp4", b)
+# gganimate::animate(a, duration = 10, renderer = gifski_renderer())
+# anim_save("Complete_trip.gif")
+# 
+# 
+# 
+# 
+# a <- ggplot(datalast, aes(lon, lat))+
+#   geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
+#   geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
+#   geom_point(data = datalast, color = "#fb5607")+
+#   geom_path(data = datafirst, color = "white")+
+#   coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)+
+#   transition_state(n)+
+#   shadow_mark()
+# b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080, start_pause = 4, end_pause = 4)
+# anim_save("Last_trip.mp4", b)
+# 
+# 
+# zlast <- zoomman(loc, 7)
+# 
+# a <- ggplot(datalast, aes(lon, lat))+
+#   geom_polygon(data=world, aes(long, lat, group = group), colour='grey', fill=NA)+
+#   geom_point(data = datalast, color = "red")+
+#   geom_path(data = datafirst, color = "white")+
+#   coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)+
+#   transition_states(n)+
+#   shadow_mark()
+# # a
+# printfast(a, "tempmap.png", ext = "png", height = 1080, width = 1920)
+# b <- gganimate::animate(a, renderer = ffmpeg_renderer(), width = 1920, height = 1080)
+# anim_save("test.mp4", b)
+# 
+# 
+# 
+# databbox <- get_bbox_from_gpx_table(datalast)
+# bbox <- get_bbox_from_gpx_table(datalast)
+# map <- get_stamenmap(databbox, zoom = 11, maptype = "watercolor")
+# ggmap(map)+
+#   geom_point(data = datalast, color = "red", size = 2)+
+#   transition_states(n)+
+#   shadow_mark()
+# 
+# 
 
 
 
 
 
 
-
-
-
-
-
-
-ll2 <- u(data$file)
-for (i in seq_along(ll2)) {
-  actual <- data[file == ll2[i]]
-  rest <- data[file %in% ll2[1:(i-1)]]
-  a <- ggplot(data, aes(lon, lat))+
-    # geom_map(data = world2, map = world, aes(long, lat, map_id = region), size = 0.1, fill = "white")+
-    geom_polygon(data=world2, aes(long, lat, group = group), colour='grey', fill=NA)+
-    geom_point(data = rest[rest[, .I[1], file]$V1], color = "yellow", size = 2)+
-    geom_path(data=actual, color = "red", size = 1)+
-    geom_path(data=rest, color = "white")+
-    transition_time(time)+
-    # geom_point(data = actual, color = "red", size = 8)+
-    coord_cartesian(xlim = c(median(actual$lon) - 5,median(actual$lon) + 7),
-              ylim = c(median(actual$lat) - 3, median(actual$lat)+2))
-    # xlim(c(median(actual$lon) - 5,median(actual$lon) + 7))+
-    # xlim(c(-32,10))+
-    # ylim(c(median(actual$lat) - 3, median(actual$lat)+2))
-    # ylim(c(36, 52))
-    # geom_label(aes(label = you))
-  a
-  printfast(a, "tempmap.png", ext = "png", height = 1080, width = 1920)
-  
-  system('ffmpeg -y -stats -loglevel error -r "1/8" -f image2 -i "tempmap.png" -vcodec libx265 -vf "fps=24,format=yuv420p" 0.mp4')
-  system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest 1.mp4')
-  system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf drawtext="fontfile=Arial:fontsize=70:fontcolor=white:x=w*0.05:y=h*0.1:text=', actual$name, '" -video_track_timescale 24000 2.mp4'))
-  system(p0('ffmpeg -y -stats -loglevel error -i 2.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=5:d=2" -c:a copy ', leading0(i, 2), "_ClimbMo__", slugify(actual$name),'.mp4'))
-  
-  file.remove("0.mp4", "1.mp4", "2.mp4", "tempmap.png")
-}
-        
 
 
 

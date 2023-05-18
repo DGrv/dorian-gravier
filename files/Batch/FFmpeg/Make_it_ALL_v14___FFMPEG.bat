@@ -35,13 +35,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 
 
 	:: get timestamp
-	set /a check=%DATE:~0,1%
-	set check2=%DATE:~0,1%
-	if "%check%"=="%check2%" (
-		set TIMESTAMP=%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%-%TIME:~0,2%%TIME:~3,2%
-	) else (
-		set TIMESTAMP=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%-%TIME:~0,2%%TIME:~3,2%
-	)
+	FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+	set TIMESTAMP=%time:~0,8%-%time:~8,6%
 
 	echo.
 	echo Your ffmpeg is here:
@@ -134,9 +129,9 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 		echo N | copy /-Y * BU\
 	)
 	
-	if %dooverlaymusic%==n (echo Overlay_done >> MakeItAll_temp.config)
-	if %dofiligrane%==n (echo Filigrane_Done >> MakeItAll_temp.config)
-	REM if %docodec%==n (echo Codec_Done >> MakeItAll_temp.config)
+	REM if %dooverlaymusic%==n (echo Overlay_done >> MakeItAll_temp.config)
+	REM if %dofiligrane%==n (echo Filigrane_done >> MakeItAll_temp.config)
+	REM if %docodec%==n (echo Codec_done >> MakeItAll_temp.config)
 	REM if %doreso%==n (echo Reso_done >> MakeItAll_temp.config)
 	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
 
@@ -211,6 +206,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	if EXIST output_BIND.mp4 (
 		echo.
 		echo Going to convertion3 because output_bind.mp4 exist
+		echo.
 		GOTO convertion3
 	)
 
@@ -259,8 +255,8 @@ echo.
 		echo [94mINFO - Start Fade in and out, need re-encoding [37m
 		echo.
 		
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| head -1') do set firstfile=%%p
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| tail -1') do set lastfile=%%p
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_lsub_v01.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| head -1') do set firstfile=%%p
+		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_lsub_v01.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| tail -1') do set lastfile=%%p
 		
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
@@ -297,8 +293,10 @@ echo.
 
 
 
+	if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
 	if %biketrip%==y ( 
 		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v03.mp4" "zzz_ko-fi.mp4" )
+		if not exist zzz_lsub_v01.mp4 ( copy "D:\Pictures\Youtube\Subscribe\zzz_lsub_v01.mp4" "zzz_lsub_v01.mp4" )
 	)
 	
 	
@@ -410,7 +408,7 @@ if NOT %gpxhere%==0 (
 			for %%f in (*.gpx) do set f=!f! -f "%%f"
 			gpsbabel -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
 		)
-		%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "%wd%\zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
+		%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
 		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 zzz_gpx_temp.mp4') do set lengthvideo=%%i
 		set /a lengthvideo2=lengthvideo
 		set /a lengthvideo3=lengthvideo2-3
@@ -607,7 +605,7 @@ echo.
 			pause
 			goto eof
 		)
-		REM touch dura_Done
+		REM touch dura_done
 		echo Duration_done >> MakeItAll_temp.config
 	)
 	
@@ -634,82 +632,85 @@ echo [94mINFO - Add music title overlay [37m
 echo.
 
 	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %check%==0 (
-		if not exist Video_list_overlay_temp.txt (
-			(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
-		)
-		if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
-		for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
-			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
-		)
-	
+	if %dooverlaymusic%==y (
+		if %check%==0 (
+			if not exist Video_list_overlay_temp.txt (
+				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
+			)
+			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
+			ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
+			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
+				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
+			)
 		
-		set xpos=0.90
-		set ypos=0.95
-		
-		set /a duraTT=5
-		set /a videoTT = 0
-		set /a videoTTbefore = 0
-		set /a n=0
-		if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
-		for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
-			set /a n+=1
-			ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
-			set /p videotime=<tempfile
-			set /a videotime=videotime
-			set /a videoTT+=videotime
-			set rename=%%~nb_%timestamp%.mp4
-			echo [96m!n! - Loop Video - %%b [37m
+			
+			set xpos=0.90
+			set ypos=0.95
+			
+			set /a duraTT=5
+			set /a videoTT = 0
+			set /a videoTTbefore = 0
+			set /a n=0
+			if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
+			for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
+				set /a n+=1
+				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
+				set /p videotime=<tempfile
+				set /a videotime=videotime
+				set /a videoTT+=videotime
+				set rename=%%~nb_%timestamp%.mp4
+				echo [96m!n! - Loop Video - %%b [37m
 
-			if not "%%b"=="00000_title.mp4" (
-				set /a na=0
-				for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
-					set /a na+=1
-					echo [95m!n! - !na! - Loop Audio - %%a [37m
-					REM echo !musicn! > tempfilemusic
-					REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
-					set /p dura=<Music_list_overlay_duration_temp.txt
-					set /a dura=dura
-					if !videoTT! GTR !duraTT! (
-						set musicn=%%a
-						set musicn2=!musicn:~0,-4!
-						set musicn=Music - !musicn2!
-						set /a posmusic=duraTT-videoTTbefore
-						if !posmusic! LSS 0 (
-							set /a posmusic= 1
+				if not "%%b"=="00000_title.mp4" (
+					set /a na=0
+					for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
+						set /a na+=1
+						echo [95m!n! - !na! - Loop Audio - %%a [37m
+						REM echo !musicn! > tempfilemusic
+						REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
+						set /p dura=<Music_list_overlay_duration_temp.txt
+						set /a dura=dura
+						if !videoTT! GTR !duraTT! (
+							set musicn=%%a
+							set musicn2=!musicn:~0,-4!
+							set musicn=Music - !musicn2!
+							set /a posmusic=duraTT-videoTTbefore
+							if !posmusic! LSS 0 (
+								set /a posmusic= 1
+							)
+							set /a posmusic2=!posmusic!+7
+							
+							echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
+							
+							rename Music_list_overlay_duration_temp.txt musicduration.temp
+							more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
+							del musicduration.temp
+							
+							rename Music_list_overlay_temp.txt music.temp
+							more +1 music.temp > Music_list_overlay_temp.txt
+							del music.temp
+							
+							
+							move %%b !rename!
+							REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+							move !rename! BU_Music_overlay\!rename!
+							set /a duraTT+=dura
 						)
-						set /a posmusic2=!posmusic!+7
-						
-						echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
-						
-						rename Music_list_overlay_duration_temp.txt musicduration.temp
-						more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
-						del musicduration.temp
-						
-						rename Music_list_overlay_temp.txt music.temp
-						more +1 music.temp > Music_list_overlay_temp.txt
-						del music.temp
-						
-						
-						move %%b !rename!
-						REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-						ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-						move !rename! BU_Music_overlay\!rename!
-						set /a duraTT+=dura
 					)
 				)
+				set /a videoTTbefore+=videotime
 			)
-			set /a videoTTbefore+=videotime
+			REM del tempfilemusic
+			del Music_list_overlay_temp.txt
+			del Video_list_overlay_temp.txt
+			del tempfile
+			REM touch Overlay_done.txt
+			echo Overlay_done >> MakeItAll_temp.config
+			sed -i /Check2_done/d MakeItAll_temp.config
+			if exist tempfile del tempfile
+			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
 		)
-		REM del tempfilemusic
-		del Music_list_overlay_temp.txt
-		del Video_list_overlay_temp.txt
-		del tempfile
-		REM touch Overlay_done.txt
-		echo Overlay_done >> MakeItAll_temp.config
-		if exist tempfile del tempfile
-		if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
 	)
 	
 	
@@ -719,52 +720,55 @@ echo [94mINFO - Add filigrane [37m
 echo.
 
 	if %biketrip%==y (
-		for /f %%i in ('grep Filigrane_Done MakeItAll_temp.config ^| wc -l') do set check=%%i
-		if !check!==0 (
-			for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz|title"') do (
-				set filenamenoext=%%~np
-				set ext=%%~xp
-				set name=!filenamenoext!_temp!ext!
-				rename %%p !name!
-				echo [93m--- Add filigrane to %%p[37m
-				REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
-				:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
-				ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
-				del "!name!"
-			)
-			
-			(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
-			ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
-			del Listmp4_temp.txt
-			
-			for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set /a durav=%%i
-			del output_temp.mp4
-			set /a durav2=durav/3
-			
-			for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4"') do set /a timesub=%%p
-			set /a tt=0
-			for %%b in ("*mp4") do (
-				for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set /a timev=%%h
-				set /a tt+=timev
-				if !tt! GTR !durav2! (
-					if !timev! GTR !timesub! (
-						set filenamenoext=%%~nb
-						set ext=%%~xb
-						set name=!filenamenoext!_temp!ext!
-						rename %%b !name!
-						echo [93m--- Add filigrane subscribe to %%b[37m
-						ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
-						del "!name!"
-						goto endsub
+		if %dofiligrane%==y (
+			for /f %%i in ('grep Filigrane_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+			if !check!==0 (
+				for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz|title"') do (
+					set filenamenoext=%%~np
+					set ext=%%~xp
+					set name=!filenamenoext!_temp!ext!
+					rename %%p !name!
+					echo [93m--- Add filigrane to %%p[37m
+					REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
+					:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
+					ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% -c:a copy "%%p"
+					del "!name!"
+				)
+				
+				(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
+				ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
+				del Listmp4_temp.txt
+				
+				for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set /a durav=%%i
+				del output_temp.mp4
+				set /a durav2=durav/3
+				
+				for /f %%p in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4"') do set /a timesub=%%p
+				set /a tt=0
+				for %%b in ("*mp4") do (
+					for /f %%h in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%b"') do set /a timev=%%h
+					set /a tt+=timev
+					if !tt! GTR !durav2! (
+						if !timev! GTR !timesub! (
+							set filenamenoext=%%~nb
+							set ext=%%~xb
+							set name=!filenamenoext!_temp!ext!
+							rename %%b !name!
+							echo [93m--- Add filigrane subscribe to %%b[37m
+							ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -video_track_timescale %RV% -map 0:a "%%b"
+							del "!name!"
+							goto endsub
+						)
 					)
 				)
+				:endsub
+				echo Filigrane_done >> MakeItAll_temp.config
+				sed -i /Check2_done/d MakeItAll_temp.config
 			)
-			:endsub
-			echo Filigrane_Done >> MakeItAll_temp.config
 		)
 	)
 	
-	for /f %%i in ('grep Check2_Done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	for /f %%i in ('grep Check2_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 	if !check!==0 ( goto check2 )
 	:check2end
 

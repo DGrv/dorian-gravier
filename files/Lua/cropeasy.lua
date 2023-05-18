@@ -163,7 +163,7 @@ local draw_cropper = function ()
         local p2 = {}
         p2.x, p2.y = mp.get_mouse_pos()
 		-- Remove this do avoid to used ration
-		p2.y = (p2.x-p1.x)*(ratio)
+		p2.y = (p2.x-p1.x)*(ratio)+p1.y
         draw_rect(p1, p2)
     end
 end
@@ -177,7 +177,7 @@ local crop = function(p1, p2)
 
 	-- This is the ratio ratio
 	-- Remove this do avoid to used ration
-	p2.y = (p2.x-p1.x)*(ratio)
+	p2.y = (p2.x-p1.x)*(ratio)+p1.y
 
 	-- Multiple by 4 because ffmpeg will scale 4 times to have better quality after croping, to put it back to 1920:1080
 	w = (p2.x - p1.x)*4

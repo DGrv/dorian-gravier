@@ -72,6 +72,11 @@ set speed2=%speed:~2,1%
 set /a speed2=speed2
 
 
+FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+set TIMESTAMP=%time:~0,8%-%time:~8,6%
+
+
+
 
 
 
@@ -81,24 +86,25 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
+	set filenamenew=!filenamenoext!_old_%TIMESTAMP%!ext!
 	:: check rate video
 	ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%p > tempfile
 	set /p RVdt=<tempfile
 	set RVfile=!RVdt:1/=!
 	del tempfile
-	rename "%%p" "!filenamenoext!__old!ext!"
-	REM ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
+	rename "%%p" "!filenamenew!"
+	REM ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
 	REM ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
 	if %speed1%==0 (
 		if %speed2% LSS 5 (
 			echo.
 			echo [91mRemove audio because speed less than 0.5, does not work with audio[37m
 			echo.
-			REM ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -f lavfi -i aevalsrc=0 -ac 2 -shortest -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
-			ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -an -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+			REM ffmpeg -stats -loglevel error -y -i "!filenamenew!" -f lavfi -i aevalsrc=0 -ac 2 -shortest -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+			ffmpeg -stats -loglevel error -y -i "!filenamenew!" -an -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
 		) 
 	) else (
-		 ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+		 ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
 	)
 	REM del "!filenamenoext!__temp!ext!"
 	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"

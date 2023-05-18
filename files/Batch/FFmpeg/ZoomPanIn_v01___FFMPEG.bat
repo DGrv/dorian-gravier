@@ -50,6 +50,10 @@ if "%1"=="" (
 	)
 )
 
+
+FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+set TIMESTAMP=%time:~0,8%-%time:~8,6%
+
 echo. 
 echo [95m[DEBUG] ---------------------
 %drive%
@@ -75,13 +79,23 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
     set filename=%%~nxp
 	set filenamenoext=%%~np
 	set ext=%%~xp
+	set filenamenew=!filenamenoext!_old_%TIMESTAMP%.mp4
 	:: check rate video
 	for /f %%i in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%p"') do set RVdt=%%i
 	set RVfile=!RVdt:1/=!
 	for /f %%i in ('ffprobe -v error -select_streams v:0 -show_entries stream^=r_frame_rate -of default^=noprint_wrappers^=1:nokey^=1 "%%p"') do set frd=%%i
-	set fr=!frd:/1=!
-	rename "%%p" "!filenamenoext!__old!ext!"
-	echo ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -vf "[0:v]scale=7680:4320,zoompan=z='min(max(zoom,pzoom)+%speed%,%maxzoom%)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=1920:1080" -vcodec libx264 -r !fr! -video_track_timescale !RVfile! "!filenamenoext!_z%speed%!ext!"
+	for /f %%i in ('echo !frd! ^| perl -pe "s/(.*)\/.*/\1/g"') do set fr=%%i
+	rename "%%p" "!filenamenew!"
+	echo [95m[DEBUG] ---------------------
+	echo.
+	echo filenamenew = !filenamenew!
+	echo RVfile = !RVfile!
+	echo frd = !frd!
+	echo fr = !fr!
+	echo ffmpeg -stats -loglevel error -y -i "!filenamenew!" -vf "[0:v]scale=7680:4320,zoompan=z='min(max(zoom,pzoom)+%speed%,%maxzoom%)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=1920:1080" -vcodec libx264 -r !fr! -video_track_timescale !RVfile! "!filenamenoext!_z%speed%!ext!"
+	echo.
+	echo ----------------------[0m
+	ffmpeg -stats -loglevel error -y -i "!filenamenew!" -vf "[0:v]scale=7680:4320,zoompan=z='min(max(zoom,pzoom)+%speed%,%maxzoom%)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=1920:1080" -vcodec libx264 -r !fr! -video_track_timescale !RVfile! "!filenamenoext!_z%speed%!ext!"
 	REM echo ffmpeg -stats -loglevel error -y -i "!filenamenoext!__old!ext!" -vf "[0:v]scale=7680:4320,zoompan=z='min(max(zoom,pzoom)+%speed%,%maxzoom%)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=1920:1080" "!filenamenoext!_z%speed%!ext!"
 )
 

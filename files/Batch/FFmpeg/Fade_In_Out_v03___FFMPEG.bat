@@ -67,7 +67,7 @@ for %%a in (*.mp4) do (
 	
 	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %%a> tempfile2
 	set /p lengthvideo=<tempfile2
-	set /a lengthvideo2=!lengthvideo!
+	set /a lengthvideo2=lengthvideo
 	set /a lengthvideo3=lengthvideo2-sec2
 	::del tempfile2
 	echo lengthvideo2=!lengthvideo2!
@@ -86,6 +86,7 @@ for %%a in (*.mp4) do (
 		if "%what%"=="both" (
 			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%a
 		)
+
 	) else (
 		echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[om
 		pause
@@ -152,6 +153,7 @@ if %sec2% lss %lengthvideo2% (
 	if "%what%"=="both" (
 		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=%lengthvideo3%:d=%sec%" -c:a copy "%file%"
 	)
+	rename temp.mp4 "%file%"
 ) else (
 	echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[0m
 	rename "%newfilename%" "%filename%" 

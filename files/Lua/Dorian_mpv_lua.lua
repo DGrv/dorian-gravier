@@ -1,10 +1,30 @@
 -- local lanes = require('lanes')
  
- function shortcuts()
-	mp.osd_message(" k - Text overlay right      K - Text overlay left \n n - Open Losslesscut      b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file", 5)
-end
  
-mp.add_key_binding("i", "shortcuts", shortcuts)
+ 
+ 
+ mp.add_key_binding('i', function ()
+	mp.osd_message(" k - Text overlay right      K - Text overlay left \n n - Open Losslesscut      b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate       N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file", 5)
+end)
+
+
+------------------------------
+ 
+mp.add_key_binding('N', function ()
+	video_path = mp.get_property("path")
+	video_path_noext = string.sub(video_path, 1, -5)
+	video_ext = string.sub(video_path, string.len(video_path) - 3, string.len(video_path))
+	timestamp = os.date("%Y%d%m_%H%M%S")
+	video_in = video_path_noext..'_'..timestamp..'_old'..video_ext
+	os.rename(video_path, video_in)
+	strCmd = 'ffmpeg -stats -loglevel error  -i "' ..video_in.. '" -af arnndn=m="C\\\\:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg/filters/rnnoise-models/conjoined-burgers-2018-08-28/cb.rnnn" ' ..video_path..'"'
+	print(strCmd)
+	mp.osd_message("Remove noise")
+	os.execute(strCmd)
+end)
+
+
+
 
 ------------------------------
 

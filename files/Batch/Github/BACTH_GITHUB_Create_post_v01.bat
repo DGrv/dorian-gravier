@@ -44,7 +44,7 @@ set filename=%datetimef%-%title%.md
 
 echo --- >> %filename%
 echo layout: "post" >> %filename%
-echo title: "-----------------" >> %filename%
+echo title: "%title%" >> %filename%
 echo date: "%datetimehour%" >> %filename%
 echo comments_id: --------------------- >> %filename%
 echo --- >> %filename%
@@ -53,7 +53,7 @@ echo.>> %filename%
 echo.>> %filename%
 echo **Create issue with:**>> %filename%
 echo cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io>> %filename%
-echo gh issue create --title "[Comment] xxxxxx" --body "" --label Comments>> %filename%
+echo gh issue create --title "[Comment] %title%" --body "" --label Comments>> %filename%
 echo.>> %filename%
 echo.>> %filename%
 
