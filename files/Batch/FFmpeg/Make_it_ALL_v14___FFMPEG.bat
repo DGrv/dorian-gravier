@@ -145,8 +145,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	set title2=%title2:\n= %
 	set title2=%title2:'=%
 	set title2=%title2: =_%
-	set title2=%title2:-=%
-	set title2=%title2:__=_%
+	set title2=%title2: - =___%
+	set title2=%title2:,=%
 	
 	echo %title2%
 
@@ -203,11 +203,20 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM if EXIST output_720_crf25_temp.mp4 GOTO convertion3
 	REM if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
 	REM if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
-	if EXIST output_BIND.mp4 (
-		echo.
-		echo Going to convertion3 because output_bind.mp4 exist
-		echo.
-		GOTO convertion3
+	if EXIST output_720_crf25_temp.mp4 (
+		if %draft%==y (
+			del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Test_youtube_copy.mp4 Music_list_temp.txt zzz_music_temp.mp4
+		) else (
+			for /f %%i in ('grep Filigrane_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+			if !check!==0 (
+				del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Test_youtube_copy.mp4 Music_list_temp.txt zzz_music_temp.mp4
+			) else (
+				echo.
+				echo Going to convertion3 because output_bind.mp4 exist
+				echo.
+				GOTO convertion3
+			)
+		)
 	)
 
 
@@ -731,7 +740,7 @@ echo.
 					echo [93m--- Add filigrane to %%p[37m
 					REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
 					:: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
-					ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% -c:a copy "%%p"
+					ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% -c:a copy "%%p"
 					del "!name!"
 				)
 				
@@ -882,9 +891,7 @@ echo.
 	:convertion3
 	
 	if %draft%==n (
-		if not exist output_720_crf25_temp.mp4 (
-			ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy output_720_crf25_temp.mp4
-		)
+		ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y output_720_crf25_temp.mp4
 		rename output_BIND.mp4 %title2%_TV.mp4
 		rename output_720_crf25_temp.mp4 %title2%_low.mp4
 		rename audio.mp3 %title2%_AUDIO.mp3

@@ -8,6 +8,8 @@
   library(geosphere)
   library(gridExtra)
   library(data.table)
+  library(jsonlite)
+  library(rayshaderanimate)
 
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
   outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
@@ -16,6 +18,34 @@
     outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
   }
   setwd(wd)
+  
+  
+  
+  
+  
+  readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints
+  tent <- data.table(readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints)
+  tent[, sym := NULL]
+  tent[, time := NULL]
+  
+  # tent[, coordinates := strsplit(paste0(lon, ",", lat), ",")]
+  tent[, coordinates := as.list(data.table(t(tent[, .(lon, lat)])))]
+  list
+  temp <- list(geometry = list(type = "point", coordinates = as.list(data.table(t(tent[, .(coordinates)])))))
+  temp
+  all <- list()
+  for(i in 1:nrow(tent)){
+    
+    temp <- list(type = "Feature",
+                 properties = list(popupContent = tent[i]$name),
+                 geometry = list(type = "Point", coordinates = c(tent[i]$lon, tent[i]$lat)))
+    temp
+    unlist(temp)
+    all <- c(all, list(temp))
+  }
+  all
+  sleepjson <- paste0("var sleep =", toJSON(all, auto_unbox = T))
+  sleepjson
 
   printfast <- function(plot, name, height=400, width=500, ps=12, qualityprint=100, ext = "jpg", wdfunction = getwd()) {
     
@@ -80,6 +110,8 @@
       }
     }
   }
+  
+  write(sleepjson, file = outjs, append = T)
 
   
   

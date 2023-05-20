@@ -70,13 +70,9 @@ var openslopemapOverlayAlpsPeaks = L.tileLayer('https://peaks.openslopemap.org/{
 
 
 var lBike = L.layerGroup();
-var lBikeProject = L.layerGroup();
 var lHike = L.layerGroup();
-var lSchneeS = L.layerGroup();
-var lHikeProject = L.layerGroup();
 var lSchitour = L.layerGroup();
 var lSchitourProject = L.layerGroup();
-var lSchneeSProject = L.layerGroup();
 var Hutten = L.layerGroup();
 var refugepoi = L.layerGroup();
 var openslopemapOverlayAlpsPeaks = L.layerGroup();
@@ -98,11 +94,7 @@ var overlays = {
 	"DG - Bike": lBike,
 	"DG - Hike": lHike,
 	"DG - SchiTour": lSchitour,
-	"DG - SchneeSchuhe": lSchneeS,
-	"DG - Project Bike": lBikeProject,
-	"DG - Project Hike": lHikeProject,
 	"DG - Project SchiTour": lSchitourProject,
-	"DG - Project SchneeSchuhe": lSchneeSProject,
 	"Wintersport (opensnowmap.org)": opensnowmapPiste,
 	"Wintersport (waymarkedtrails.org)": waymarkedSkipisten,
 	"Gipfel Alpen": openslopemapOverlayAlpsPeaks
@@ -114,8 +106,8 @@ var hutteIcon = L.icon({
 });
 
 var loopinfo = {
-	what: [Bike, Hike, HikeProject, Schitour, SchitourProject, SchneeSProject],
-	layer: [lBike, lHike, lHikeProject, lSchitour, lSchitourProject, lSchneeSProject],
+	what: [Bike.concat(Bike_trip_2022), Hike,  Schitour, SchitourProject],
+	layer: [lBike, lHike, lSchitour, lSchitourProject],
 	trackcolor: ['green', 'red', 'red', 'blue', 'blue', 'purple'],
 	project: [false, false, true, false, true, true]
 };

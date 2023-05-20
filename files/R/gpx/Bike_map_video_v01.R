@@ -65,8 +65,8 @@ data[, time1 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
 
 temp <- data[, .N, time1]$time1
 temp
-nremove <- 9
-nlast <- 6
+nremove <- 6
+nlast <- 3
 length(temp)
 past <- temp[1:(length(temp)-nremove-nlast)]
 last <- temp[(length(temp)-nremove-nlast+1):(length(temp)-nremove)]
@@ -258,7 +258,7 @@ printfast(b, "tempmap.png", ext = "png", height = 1080, width = 1920)
 
 system('ffmpeg -y -stats -loglevel error -r "1/10" -f image2 -i "tempmap.png" -vcodec libx264 -vf "fps=24,format=yuv420p" 0.mp4')
 system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest 1.mp4')
-system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=8:d=2" -c:a copy 0000000.mp4'))
+system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=8:d=2" -c:a copy 00000_wmap.mp4'))
 
 file.remove("0.mp4", "1.mp4")
 

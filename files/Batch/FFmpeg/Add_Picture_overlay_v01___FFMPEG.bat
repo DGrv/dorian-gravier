@@ -37,6 +37,7 @@ if q%3q==qq (
 ) else (
 	set times=%3
 ) 
+
 set times=%times:"=%
 
 
@@ -59,6 +60,8 @@ if q%5q==qq (
 ) else (
 	set choicesound=%5
 ) 
+
+
 
 for /f %%i in ('echo %times% ^| perl -pe "s/(.*),.*/\1/p"') do set delaysound=%%i
 for /f %%i in ('wsl  echo "%delaysound%*1000/1" ^^^| bc') do set delaysound2=%%i

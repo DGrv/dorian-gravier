@@ -41,8 +41,8 @@ order: 5
     	<script src="js/node_modules/leaflet-gpx/gpx.js"></script>
 
 	<!-- Legend -->
-	<link rel="stylesheet" href="js/node_modules/leaflet-legend/leaflet.legend.css" />
-    <script src="js/node_modules/leaflet-legend/leaflet.legend.js"></script>
+	<link rel="stylesheet" href="js/Personal/leaflet.legend.css" />
+    <script src="js/Personal/leaflet.legend.js"></script>
 
 	<!-- hash -->
 	<!-- A JavaScript library that keeps track of the history of changes to the hash part in the address bar. -->
@@ -357,6 +357,14 @@ order: 5
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
+				label: "Wildcamping",
+				type: "circle",
+				radius: 3,
+				color: "#c6cb2e",
+				fillColor: "#c6cb2e",
+				// fillOpacity: 0.6,
+				weight: 1
+			},{
 				label: "Biking",
 				type: "polyline",
 				color: "#2b88ff",
