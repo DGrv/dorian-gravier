@@ -73,7 +73,7 @@ if "%resize%"=="y" (
 
 
 REM Add silence
-ffmpeg -stats -loglevel error -i output2.mp4 -f lavfi -i aevalsrc=0 -shortest -y -ar 48000 -c:v libx264 -video_track_timescale 24000 output.mp4
+ffmpeg -stats -loglevel error -i output2.mp4 -f lavfi -i aevalsrc=0 -shortest -y -ar 48000 -c:v libx264 -video_track_timescale 30000 output.mp4
 REM if not working remove this part -vcodec libx264 -x264-params keyint=48:scenecut=0 
 
 del output2.mp4 

@@ -81,7 +81,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	set fordorian=y
 	set pathout=D:\Pictures\2023\Video
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
-	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.7.0-all.jar"
+	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.8.2-all.jar"
 	set fadeinout=y
 	set audionorma=n
 	set docodec=y
@@ -145,7 +145,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	set title2=%title2:\n= %
 	set title2=%title2:'=%
 	set title2=%title2: =_%
-	set title2=%title2: - =___%
+	set title2=%title2:-=_%
 	set title2=%title2:,=%
 	
 	echo %title2%
@@ -161,7 +161,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 
 	
 	if %tbdefault%==y (
-		set RV=24000
+		set RV=30000
 		set RVd=1/!RV!
 		set RA=48000
 		set RAd=1/!RA!
@@ -180,7 +180,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 			set /p firstmp4=<Listmp4_temp.txt
 			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
 		)
-		set /p RV="Which RV (if 1/24000, choose 24000): "
+		set /p RV="Which RV (if 1/30000, choose 30000): "
 		set RVd=1/%RV%
 		
 		echo Time_base of your audios:
@@ -203,13 +203,16 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM if EXIST output_720_crf25_temp.mp4 GOTO convertion3
 	REM if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
 	REM if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
+	if exist Test_youtube_copy.mp4 del Test_youtube_copy.mp4
+	if exist output_temp.mp4 del output_temp.mp4
+	
 	if EXIST output_720_crf25_temp.mp4 (
 		if %draft%==y (
-			del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Test_youtube_copy.mp4 Music_list_temp.txt zzz_music_temp.mp4
+			del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Music_list_temp.txt zzz_music_temp.mp4
 		) else (
 			for /f %%i in ('grep Filigrane_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 			if !check!==0 (
-				del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Test_youtube_copy.mp4 Music_list_temp.txt zzz_music_temp.mp4
+				del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Music_list_temp.txt zzz_music_temp.mp4
 			) else (
 				echo.
 				echo Going to convertion3 because output_bind.mp4 exist
@@ -243,6 +246,11 @@ echo.
 	if NOT EXIST input_temp.mp3 (
 		if exist Listmp3_temp.txt (
 			rm Listmp3_temp.txt
+		)
+		for %%i in (*mp3) do (
+			set filename=%%~ni
+			set filenamenew=!filename:'=!
+			if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
 		)
 		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
@@ -304,7 +312,7 @@ echo.
 
 	if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
 	if %biketrip%==y ( 
-		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v03.mp4" "zzz_ko-fi.mp4" )
+		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
 		if not exist zzz_lsub_v01.mp4 ( copy "D:\Pictures\Youtube\Subscribe\zzz_lsub_v01.mp4" "zzz_lsub_v01.mp4" )
 	)
 	
@@ -398,7 +406,7 @@ echo.
 		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 zzzb.mp4') do set lengthvideo=%%i
 		set /a lengthvideo2=lengthvideo
 		set /a lengthvideo3=lengthvideo2-3
-		ffmpeg -stats -loglevel error -i zzzb.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_music_temp.mp4
+		ffmpeg -stats -loglevel error -i zzzb.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy -video_track_timescale %RV% zzz_music_temp.mp4
 		del zzzb.mp4
 	)
 
@@ -417,7 +425,8 @@ if NOT %gpxhere%==0 (
 			for %%f in (*.gpx) do set f=!f! -f "%%f"
 			gpsbabel -i gpx !f! -x duplicate,location,shortname -o gpx -F Merge.gpx	
 		)
-		%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
+		%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --keep-first-frame 3000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1
+		
 		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 zzz_gpx_temp.mp4') do set lengthvideo=%%i
 		set /a lengthvideo2=lengthvideo
 		set /a lengthvideo3=lengthvideo2-3
@@ -568,72 +577,6 @@ echo.
 	
 
 
-echo.
-echo [94m------------------------------------------------- [37m
-echo [94mINFO - Start bind for checking duration [37m
-echo.
-
-	
-	for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %check%==0 (
-	
-		(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
-		ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
-		del Listmp4_temp.txt
-		
-		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 input_temp.mp3') do set /a duraa=%%i
-		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 output_temp.mp4') do set /a durav=%%i
-		:: to avoid missing operator
-		set /a duraa=!duraa!
-		set /a durav=!durav!
-		
-		IF !duraa! LSS !durav! (
-			echo.
-			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
-			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
-			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
-			echo [91m[DEBUG] - Length Video is !durav! [37m
-			echo [91m[DEBUG] - Length Audio is !duraa! [37m
-			echo [91m[DEBUG] - Length Video is !durav! >> MakeItAll_temp.config  [37m
-			echo [91m[DEBUG] - Length Audio is !duraa! >> MakeItAll_temp.config  [37m
-			echo [91m[DEBUG] - input_temp.mp3 and output_temp.mp4 will be deleted, please check if necessary [37m
-			pause
-			echo.
-			del input_temp.mp3 output_temp.mp4 Music_list_temp.txt
-			goto eof
-		) else (
-			del output_temp.mp4
-		)
-		if not defined duraa (
-			echo [91m[ERROR] - could not check duration, variable duraa does not exist [37m
-			pause
-			goto eof
-		)
-		if not defined durav (
-			echo [91m[ERROR] - could not check duration, variable durav does not exist [37m
-			pause
-			goto eof
-		)
-		REM touch dura_done
-		echo Duration_done >> MakeItAll_temp.config
-	)
-	
-	
-
-	REM del output_temp0.mp4
-
-
-
-:: ---------- Modification ----------
-
-
-	REM powercfg /hibernate off
-	
-	
-	
-	
-	
-	
 	
 echo.
 echo [94m------------------------------------------------- [37m
@@ -723,6 +666,80 @@ echo.
 	)
 	
 	
+	
+	
+	
+	
+	
+	
+	
+echo.
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start duration [37m
+echo.
+
+	
+	for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	if %check%==0 (
+	
+		set /a da=0
+		for %%i in (*mp3) do (
+			if NOT %%i==input_temp.mp3 (
+				for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
+			)
+			echo [93m!dd! = %%i[37m
+			set /a da+=dd
+		)
+
+		echo.
+		echo Processing the videos ...
+		echo.
+
+		set /a dv=0
+		for %%i in (*.mp4) do (
+			for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
+			REM echo [93m!dd! = %%i[37m
+			set /a dv+=dd
+		)
+			
+		set /a dv2=dv+12+12+12
+		set /a daM=da/60
+		set /a dvM=dv/60
+		set /a dv2M=dv2/60
+		set /a ddiff=dv-da
+			
+		echo.
+		echo --------------------------------------------
+		echo [93mRESULTS:
+		echo Mp4 : !dv! s  -  !dvM!min
+		echo Mp4 : !dv2! s  -  !dv2M!min with extra title and end
+		echo Mp3 : !da! s  -  !daM!min
+		echo diff = !ddiff![37m
+		echo --------------------------------------------
+		echo.
+		
+		echo [DEBUG] - Length Video is !dv! >> MakeItAll_temp.config
+		echo [DEBUG] - Length Audio is !da! >> MakeItAll_temp.config
+		
+		IF !da! LSS !dv! (
+			echo.
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Your music is not long enough for your video ... [37m
+			echo [91m[DEBUG] - Length Video is !dv! [37m
+			echo [91m[DEBUG] - Length Audio is !da! [37m
+			echo [91m[DEBUG] - input_temp.mp3 and output_temp.mp4 will be deleted, please check if necessary [37m
+			pause
+			echo.
+			del input_temp.mp3 output_temp.mp4 Music_list_temp.txt
+			goto eof
+		) 
+		
+		echo Duration_done >> MakeItAll_temp.config
+	)
+	
+	
+	
 echo.
 echo [94m------------------------------------------------- [37m
 echo [94mINFO - Add filigrane [37m
@@ -790,7 +807,8 @@ echo.
 	
 	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_temp.mp4
 	del Listmp4_temp.txt
-	if %draft%==n ( 	ffmpeg -stats -loglevel error -y -i output_temp.mp4 audio.mp3 )
+	if %draft%==n ( 	ffmpeg -stats -loglevel error -y -i output_temp.mp4 -async 1 audio.mp3 )
+	
 
 	:: check youtube copyright
 	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "input_temp.mp3"') do set lengthaudio=%%i

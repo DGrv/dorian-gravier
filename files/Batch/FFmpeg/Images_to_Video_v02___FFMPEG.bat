@@ -94,14 +94,14 @@ REM for %%A in (*.jpg) do (
 REM )
 
 REM DO NOT USE :
-REM ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vf "scale=2*trunc(iw/2*3):-2,format=yuv420p" -video_track_timescale 24000 -vcodec libx265 -crf 25  temp.mp4
-REM ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vf "scale=1920:-1,format=yuv420p" -video_track_timescale 24000 -vcodec libx265 -crf 25 temp.mp4
-REM ffmpeg -f lavfi -i aevalsrc=0 -i temp.mp4 -c:v copy -c:a aac -map 0 -map 1:v -shortest -ar 48000 -video_track_timescale 24000 output_img_to_video_%fr%sec.mp4
+REM ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vf "scale=2*trunc(iw/2*3):-2,format=yuv420p" -video_track_timescale 30000 -vcodec libx265 -crf 25  temp.mp4
+REM ffmpeg -r 1/%fr% -f image2 -i pic%%03d.jpg -vf "scale=1920:-1,format=yuv420p" -video_track_timescale 30000 -vcodec libx265 -crf 25 temp.mp4
+REM ffmpeg -f lavfi -i aevalsrc=0 -i temp.mp4 -c:v copy -c:a aac -map 0 -map 1:v -shortest -ar 48000 -video_track_timescale 30000 output_img_to_video_%fr%sec.mp4
 
 
-ffmpeg -r 1/%fr% -f image2 -i pic%%3d.jpg -vcodec libx265 -vf "fps=25,format=yuv420p" temp.mp4
+ffmpeg -r 1/%fr% -f image2 -i pic%%3d.jpg -vcodec libx264 -vf "fps=24,format=yuv420p" temp.mp4
 REM Add silence
-ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest output_img_to_video_%fr%sec.mp4
+ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i temp.mp4 -c:v copy -c:a aac -video_track_timescale 30000 -shortest output_img_to_video_%fr%sec.mp4
 del temp.mp4
 
 GOTO end
@@ -110,9 +110,9 @@ GOTO end
 
 
 magick mogrify -resize %reso% -extent %reso% -gravity Center -background black "%pathfiles%"
-ffmpeg -r "1/%fr%" -f image2 -i "%pathfiles%" -vcodec libx265 -vf "fps=25,format=yuv420p" "%pathfiles%.mp4"
+ffmpeg -r "1/%fr%" -f image2 -i "%pathfiles%" -vcodec libx264 -vf "fps=24,format=yuv420p" "%pathfiles%.mp4"
 
-ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i "%pathfiles%.mp4" -c:v copy -c:a aac -video_track_timescale 24000 -shortest "%pathfiles%_new.mp4"
+ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i "%pathfiles%.mp4" -c:v copy -c:a aac -video_track_timescale 30000 -shortest "%pathfiles%_new.mp4"
 del "%pathfiles%.mp4"
 
 

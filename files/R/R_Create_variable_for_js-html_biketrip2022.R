@@ -18,35 +18,23 @@
     outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
   }
   setwd(wd)
-  
-  
-  
-  
-  
+
+  # wildcamping position  
   readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints
-  tent <- data.table(readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints)
-  tent[, sym := NULL]
-  tent[, time := NULL]
-  
-  # tent[, coordinates := strsplit(paste0(lon, ",", lat), ",")]
-  tent[, coordinates := as.list(data.table(t(tent[, .(lon, lat)])))]
-  list
-  temp <- list(geometry = list(type = "point", coordinates = as.list(data.table(t(tent[, .(coordinates)])))))
-  temp
+  tent <- data.table(readGPX("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx")$waypoints)
   all <- list()
   for(i in 1:nrow(tent)){
-    
     temp <- list(type = "Feature",
                  properties = list(popupContent = tent[i]$name),
                  geometry = list(type = "Point", coordinates = c(tent[i]$lon, tent[i]$lat)))
-    temp
-    unlist(temp)
     all <- c(all, list(temp))
   }
-  all
   sleepjson <- paste0("var sleep =", toJSON(all, auto_unbox = T))
   sleepjson
 
+  
+  
+  # functions
   printfast <- function(plot, name, height=400, width=500, ps=12, qualityprint=100, ext = "jpg", wdfunction = getwd()) {
     
     setwd(wdfunction)

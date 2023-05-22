@@ -7,5 +7,5 @@ echo %folder%
 cd "%folder%"
 
 for %%i in (*.mp4) do (
-	ffmpeg -stats -loglevel error -i "%%i" -vcodec libx264 -vf "scale=480:-2" -preset slow -crf 30 -acodec aac -ar 48000 -video_track_timescale 24000 "%%~ni_Handy.mp4"
+	ffmpeg -stats -loglevel error -i "%%i" -vcodec libx264 -vf "scale=480:-2" -preset slow -crf 30 -acodec aac -ar 48000 -video_track_timescale 30000 "%%~ni_Handy.mp4"
 )

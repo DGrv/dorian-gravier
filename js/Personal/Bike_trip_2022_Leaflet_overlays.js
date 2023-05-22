@@ -156,7 +156,7 @@ var climb = [
 
 var listpoint = {
 	what: [pointsbiketrip, tosee, climb, sleep],
-	color: ['#ff2b56', '#fff416', '#9646e3', '#c6cb2e'],
+	color: ['#ff2b56', '#fff416', '#9646e3', '#f87e6a'],
 	radius: [2, 2, 2, 2]
 };
 

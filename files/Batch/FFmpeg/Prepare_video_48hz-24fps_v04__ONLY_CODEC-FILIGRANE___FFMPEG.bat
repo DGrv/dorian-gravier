@@ -1,6 +1,6 @@
 @echo off
 SetLocal EnableDelayedExpansion
-
+setlocal enableextensions
 
 :: Edit the line below to match your path to the ffmpeg executable.
 
@@ -104,15 +104,18 @@ IF %ERRORLEVEL% NEQ 0 (
 		echo.
 		echo [95m Video ----------------- [37m
 		for %%i in (*.mp4) DO (
-			
+			:: TBS
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile=%%j
+			
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set rota=%%j
-			if defined rota (
-				echo [96m--- File %%i rotated - Add padding[37m
-				rename "%%i" "%%~ni_temp.mp4"
-				ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "%%i"
-				if exist "%%i" ( del "%%~ni_temp.mp4" )
-			)
+			REM for /f %j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "00004.mp4"') do set rota=%j
+			
+			REM if defined rota (
+				REM echo [96m--- File %%i rotated - Add padding[37m
+				REM rename "%%i" "%%~ni_temp.mp4"
+				REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "%%i"
+				REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+			REM )
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%j
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RVdt=%%j
@@ -123,53 +126,56 @@ IF %ERRORLEVEL% NEQ 0 (
 			for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
 			
 			if not !codec!==h264 (
-				if not !reso!==1920 (
-					if not "!RVdt!"=="%RVd%" (
-						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	RVdt = !RVdt![37m
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
-						if exist "%%i" ( del "%%~ni_temp.mp4" )
-					) else (
-						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	[92mRVdt = !RVdt![37m
-						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
-						if exist "%%i" ( del "%%~ni_temp.mp4" )
-					)
-				) else (
+				REM if not !reso!==1920 (
+					REM if not "!RVdt!"=="%RVd%" (
+						REM echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	RVdt = !RVdt![37m
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+					REM ) else (
+						REM echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	[92mRVdt = !RVdt![37m
+						REM rename "%%i" "%%~ni_temp.mp4"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+					REM )
+				REM ) else (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %RV% "%%i"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	RVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" "%%i"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4"  -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					)
-				)
+				REM )
 			) else (
-				if not !reso!==1920 (
-					if not "!RVdt!"=="%RVd%" (
-						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	RVdt = !RVdt![37m
-						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
-						if exist "%%i" ( del "%%~ni_temp.mp4" )
-					) else (
-						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	[92mRVdt = !RVdt![37m
-						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
-						if exist "%%i" ( del "%%~ni_temp.mp4" )
-					)
-				) else (
+				REM if not !reso!==1920 (
+					REM if not "!RVdt!"=="%RVd%" (
+						REM echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	RVdt = !RVdt![37m
+						REM rename "%%i" "%%~ni_temp.mp4"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+					REM ) else (
+						REM echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	[92mRVdt = !RVdt![37m
+						REM rename "%%i" "%%~ni_temp.mp4"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						REM if exist "%%i" ( del "%%~ni_temp.mp4" )
+					REM )
+				REM ) else (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[92mcodec = !codec!	reso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% "%%i"
+						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [92m--- File %%i 	codec = !codec!	reso = !reso!	RVdt = !RVdt![37m
 					)
-				)
+				REM )
 			)
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile2=%%j
 			echo [90m--------- !sizefile! to !sizefile2! bits[37m

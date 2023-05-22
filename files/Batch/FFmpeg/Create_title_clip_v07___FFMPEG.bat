@@ -112,9 +112,9 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	echo high = !high!
 	echo ----------------------[0m
 	if %%x==1 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=%W%x%H%:d=%sec% -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=%W%x%H%:d=%sec% -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
 	) else (
-		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 24000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
 		del 0000000!before!.mp4
 		set last=0000000%%x.mp4
 	)
@@ -138,7 +138,7 @@ set /a lengthvideo3=lengthvideo2-fadesec
 del tempfile2
 ffmpeg -stats -loglevel error -i %last% -vf "fade=t=in:st=0:d=%fadesec%,fade=t=out:st=!lengthvideo3!:d=%fadesec%" -c:a copy temp.mp4
 del %last%
-ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 24000 -shortest -y "Title_clip.mp4"
+ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 30000 -shortest -y "Title_clip.mp4"
 del temp.mp4
 
 

@@ -48,69 +48,43 @@ echo wd=%wd%
 cd %wd%
 echo.
 
-REM # old -------------------
-REM set /a TTmp4=0
-REM for %%i in (*.mp4) do (
-	REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
-	REM set /p lengthvideo=<tempfile2
-	REM REM set /a lengthvideo2=!lengthvideo!
-	REM set /a TTmp4+=lengthvideo
-	REM del tempfile2
-REM )
+set /a da=0
+for %%i in (*mp3) do (
+	if NOT %%i==input_temp.mp3 (
+		for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
+	)
+	echo [93m!dd! = %%i[37m
+	set /a da+=dd
+)
 
-REM set /a TTmp3=0
-REM for %%i in (*.mp3) do (
-	REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
-	REM set /p lengthvideo=<tempfile2
-	REM REM set /a lengthvideo2=!lengthvideo!
-	REM set /a TTmp3+=lengthvideo
-	REM echo !lengthvideo! = %%i
-	REM del tempfile2
-REM )
+echo.
+echo Processing the videos ...
+echo.
 
 
-REM # new 
-(for %%i in (*.mp4) do @echo file '%%i') > listmp4.txt
-(for %%i in (*.mp3) do @echo file '%%i') > listmp3.txt
-for %%i in (*.mp3) do (
-	ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%i" > tempfile2
-	set /p lengthvideo=<tempfile2
-	set /a lengthvideo=lengthvideo
-	echo [93m!lengthvideo! = %%i[37m
-	del tempfile2
+set /a dv=0
+for %%i in (*.mp4) do (
+	for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
+	REM echo [93m!dd! = %%i[37m
+	set /a dv+=dd
 )
 	
 	
-echo.
-echo.
-
-ffmpeg -stats -loglevel error -f concat -i listmp4.txt -c copy allv.mp4
-ffmpeg -stats -loglevel error -safe 0 -f concat -i listmp3.txt -c copy alla.mp3
-del listmp4.txt
-del listmp3.txt
-
-ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 alla.mp3 > tempfile
-set /p duraa=<tempfile
-ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 allv.mp4 > tempfile
-set /p durav=<tempfile
-del alla.mp3 allv.mp4 tempfile
-set /a duraa=duraa
-set /a durav=durav
-set /a durav2=durav+12+12+12
-set /a duraaM=duraa/60
-set /a duravM=durav/60
-set /a durav2M=durav2/60
-set /a duradiff=durav-duraa
-
+set /a dv2=dv+12+12+12
+set /a daM=da/60
+set /a dvM=dv/60
+set /a dv2M=dv2/60
+set /a ddiff=dv-da
+	
 echo.
 echo --------------------------------------------
 echo [93mRESULTS:
-echo Mp4 : %durav% s  -  %duravM%min
-echo Mp4 : %durav2% s  -  %durav2M%min with extra title and end
-echo Mp3 : %duraa% s  -  %duraaM%min
-echo diff = %duradiff%[37m
+echo Mp4 : %dv% s  -  %dvM%min
+echo Mp4 : %dv2% s  -  %dv2M%min with extra title and end
+echo Mp3 : %da% s  -  %daM%min
+echo diff = %ddiff%[37m
 echo --------------------------------------------
 echo.
+	
 
 pause
-

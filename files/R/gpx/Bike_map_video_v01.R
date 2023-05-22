@@ -65,7 +65,7 @@ data[, time1 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
 
 temp <- data[, .N, time1]$time1
 temp
-nremove <- 6
+nremove <- 3
 nlast <- 3
 length(temp)
 past <- temp[1:(length(temp)-nremove-nlast)]

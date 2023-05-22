@@ -38,7 +38,7 @@ for %%a in (*.MP4) do (
 )  
 
 
-		set RV=24000
+		set RV=30000
 		set RVd=1/!RV!
 		set RA=48000
 		set RAd=1/!RA!

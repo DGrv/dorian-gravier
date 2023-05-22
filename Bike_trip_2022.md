@@ -1,7 +1,7 @@
 ---
 title: Bike Trip 2022
 layout: page
-show_in_nav: true
+show_in_nav: false
 order: 5
 ---
 
@@ -336,32 +336,32 @@ order: 5
 				label: "Friend",
 				type: "circle",
 				radius: 3,
-				color: "#ff2b56",
-				fillColor: "#ff2b56",
+				color: listpoint.color[0],
+				fillColor: listpoint.color[0],
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
 				label: "Nice area",
 				type: "circle",
 				radius: 3,
-				color: "#fff416",
-				fillColor: "#fff416",
+				color: listpoint.color[1],
+				fillColor: listpoint.color[1],
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
 				label: "Spot where I climbed",
 				type: "circle",
 				radius: 3,
-				color: "#9646e3",
-				fillColor: "#9646e3",
+				color: listpoint.color[2],
+				fillColor: listpoint.color[2],
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
 				label: "Wildcamping",
 				type: "circle",
 				radius: 3,
-				color: "#c6cb2e",
-				fillColor: "#c6cb2e",
+				color: listpoint.color[3],
+				fillColor: listpoint.color[3],
 				// fillOpacity: 0.6,
 				weight: 1
 			},{

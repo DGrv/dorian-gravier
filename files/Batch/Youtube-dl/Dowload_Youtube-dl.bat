@@ -152,7 +152,10 @@ if "%choice%"=="2" (
 				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %%A
 			)
 		) else (
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %url%
+			REM Old best quality not needed
+			REM %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %url%
+			REM 248 should mean 1920x1080 and it is enough
+			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f 248 %url%
 		)
 	)
 	if "!choice2!"=="1" (
