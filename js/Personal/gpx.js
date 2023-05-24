@@ -415,4 +415,3 @@ var SchitourProject = ['files/gpx/Leaflet/Schitour/Project/P_ST_moe-st-2t-carsch
 'files/gpx/Leaflet/Schitour/Project/Panic0_L8_Steinberg.gpx',
 'files/gpx/Leaflet/Schitour/Project/Panic0_L9_Buraltalkopf.gpx']
 
-var gpx = ['files/gpx/Zelt.gpx',

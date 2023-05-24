@@ -78,7 +78,7 @@
 
   write("// create file", file = outjs)
   for(i in seq_along(lisdir)) {
-    if( lisdir[i] != "gpx" ) {
+    if( lisdir[i] != "files/gpx" ) {
       if( basename(lisdir[i]) == "Project" ) {
         varname <- paste0(basename(dirname(lisdir[i])), basename(lisdir[i]))
       } else {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata>
     <name>Alpenvereinskarten Digital (USB Edition) Track</name>
     <desc></desc>
-    <time>2017-11-17T17:04:11Z</time>
-    <bounds minlat="47.384241" minlon="10.419824" maxlat="47.392795" maxlon="10.427107"/>
+    <time>2023-05-24T14:05:46.347Z</time>
+    <bounds minlat="47.384241000" minlon="10.419824000" maxlat="47.392795000" maxlon="10.427107000"/>
   </metadata>
   <trk>
     <name>G112 Weittalkopf</name>
@@ -18,92 +18,92 @@
       </dkl:dkl>
     </extensions>
     <trkseg>
-      <trkpt lat="47.392795" lon="10.420315">
-        <ele>1817.09</ele>
+      <trkpt lat="47.392795000" lon="10.420315000">
+        <ele>1817.090</ele>
       </trkpt>
-      <trkpt lat="47.392659" lon="10.420211">
-        <ele>1826.21</ele>
+      <trkpt lat="47.392659000" lon="10.420211000">
+        <ele>1826.210</ele>
       </trkpt>
-      <trkpt lat="47.392047" lon="10.419824">
-        <ele>1856.50</ele>
+      <trkpt lat="47.392047000" lon="10.419824000">
+        <ele>1856.500</ele>
       </trkpt>
-      <trkpt lat="47.391506" lon="10.420146">
-        <ele>1865.66</ele>
+      <trkpt lat="47.391506000" lon="10.420146000">
+        <ele>1865.660</ele>
       </trkpt>
-      <trkpt lat="47.391330" lon="10.420511">
-        <ele>1862.34</ele>
+      <trkpt lat="47.391330000" lon="10.420511000">
+        <ele>1862.340</ele>
       </trkpt>
-      <trkpt lat="47.391025" lon="10.421126">
-        <ele>1860.30</ele>
+      <trkpt lat="47.391025000" lon="10.421126000">
+        <ele>1860.300</ele>
       </trkpt>
-      <trkpt lat="47.390996" lon="10.421596">
-        <ele>1847.34</ele>
+      <trkpt lat="47.390996000" lon="10.421596000">
+        <ele>1847.340</ele>
       </trkpt>
-      <trkpt lat="47.391036" lon="10.422085">
-        <ele>1839.14</ele>
+      <trkpt lat="47.391036000" lon="10.422085000">
+        <ele>1839.140</ele>
       </trkpt>
-      <trkpt lat="47.391110" lon="10.422592">
-        <ele>1838.19</ele>
+      <trkpt lat="47.391110000" lon="10.422592000">
+        <ele>1838.190</ele>
       </trkpt>
-      <trkpt lat="47.390645" lon="10.423185">
-        <ele>1871.22</ele>
+      <trkpt lat="47.390645000" lon="10.423185000">
+        <ele>1871.220</ele>
       </trkpt>
-      <trkpt lat="47.390182" lon="10.422735">
-        <ele>1903.98</ele>
+      <trkpt lat="47.390182000" lon="10.422735000">
+        <ele>1903.980</ele>
       </trkpt>
-      <trkpt lat="47.389760" lon="10.422690">
-        <ele>1926.07</ele>
+      <trkpt lat="47.389760000" lon="10.422690000">
+        <ele>1926.070</ele>
       </trkpt>
-      <trkpt lat="47.389393" lon="10.422798">
-        <ele>1939.73</ele>
+      <trkpt lat="47.389393000" lon="10.422798000">
+        <ele>1939.730</ele>
       </trkpt>
-      <trkpt lat="47.388986" lon="10.422356">
-        <ele>1970.55</ele>
+      <trkpt lat="47.388986000" lon="10.422356000">
+        <ele>1970.550</ele>
       </trkpt>
-      <trkpt lat="47.388636" lon="10.422919">
-        <ele>1973.32</ele>
+      <trkpt lat="47.388636000" lon="10.422919000">
+        <ele>1973.320</ele>
       </trkpt>
-      <trkpt lat="47.388379" lon="10.423434">
-        <ele>1979.18</ele>
+      <trkpt lat="47.388379000" lon="10.423434000">
+        <ele>1979.180</ele>
       </trkpt>
-      <trkpt lat="47.388091" lon="10.424486">
-        <ele>1998.53</ele>
+      <trkpt lat="47.388091000" lon="10.424486000">
+        <ele>1998.530</ele>
       </trkpt>
-      <trkpt lat="47.387888" lon="10.425221">
-        <ele>2019.95</ele>
+      <trkpt lat="47.387888000" lon="10.425221000">
+        <ele>2019.950</ele>
       </trkpt>
-      <trkpt lat="47.387730" lon="10.425957">
-        <ele>2052.23</ele>
+      <trkpt lat="47.387730000" lon="10.425957000">
+        <ele>2052.230</ele>
       </trkpt>
-      <trkpt lat="47.387584" lon="10.426677">
-        <ele>2088.43</ele>
+      <trkpt lat="47.387584000" lon="10.426677000">
+        <ele>2088.430</ele>
       </trkpt>
-      <trkpt lat="47.387304" lon="10.427107">
-        <ele>2096.10</ele>
+      <trkpt lat="47.387304000" lon="10.427107000">
+        <ele>2096.100</ele>
       </trkpt>
-      <trkpt lat="47.386757" lon="10.427025">
-        <ele>2108.72</ele>
+      <trkpt lat="47.386757000" lon="10.427025000">
+        <ele>2108.720</ele>
       </trkpt>
-      <trkpt lat="47.385686" lon="10.426756">
-        <ele>2180.18</ele>
+      <trkpt lat="47.385686000" lon="10.426756000">
+        <ele>2180.180</ele>
       </trkpt>
-      <trkpt lat="47.385519" lon="10.426381">
-        <ele>2201.48</ele>
+      <trkpt lat="47.385519000" lon="10.426381000">
+        <ele>2201.480</ele>
       </trkpt>
-      <trkpt lat="47.385159" lon="10.425951">
-        <ele>2232.12</ele>
+      <trkpt lat="47.385159000" lon="10.425951000">
+        <ele>2232.120</ele>
       </trkpt>
-      <trkpt lat="47.384760" lon="10.425856">
-        <ele>2261.00</ele>
+      <trkpt lat="47.384760000" lon="10.425856000">
+        <ele>2261.000</ele>
       </trkpt>
-      <trkpt lat="47.384476" lon="10.425731">
-        <ele>2263.43</ele>
+      <trkpt lat="47.384476000" lon="10.425731000">
+        <ele>2263.430</ele>
       </trkpt>
-      <trkpt lat="47.384272" lon="10.425590">
-        <ele>2260.68</ele>
+      <trkpt lat="47.384272000" lon="10.425590000">
+        <ele>2260.680</ele>
       </trkpt>
-      <trkpt lat="47.384241" lon="10.425320">
-        <ele>2257.44</ele>
+      <trkpt lat="47.384241000" lon="10.425320000">
+        <ele>2257.440</ele>
       </trkpt>
     </trkseg>
   </trk>

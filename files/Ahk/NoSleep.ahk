@@ -7,7 +7,7 @@
 ; Script Function:
 ;	Template script (you can customize this template by editing "ShellNew\Template.ahk" in your Windows folder)
 ;
-Esc::ExitApp
+
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
@@ -23,3 +23,5 @@ MoveMouse:
 	SendMessage 0x112, 0xF140, 0, , Program Manager  ; Start screensaver
 	; SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into standby (off) mode
 return
+
+Esc::ExitApp

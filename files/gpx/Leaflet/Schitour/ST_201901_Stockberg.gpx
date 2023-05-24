@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
   <metadata>
-    <time>2019-03-01T23:52:01.120Z</time>
+    <time>2023-05-24T14:05:35.353Z</time>
     <bounds minlat="47.201784640" minlon="9.223141650" maxlat="47.228826840" maxlon="9.243191330"/>
   </metadata>
   <trk>
@@ -14,7 +14,7 @@
     </extensions>
     <trkseg>
       <trkpt lat="47.221426540" lon="9.234882430">
-        <ele>1453.200000</ele>
+        <ele>1453.200</ele>
         <time>2019-02-02T10:35:27Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -24,7 +24,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.221661410" lon="9.235434890">
-        <ele>1468.200000</ele>
+        <ele>1468.200</ele>
         <time>2019-02-02T10:37:12Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -34,7 +34,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223107200" lon="9.236017510">
-        <ele>1510.400000</ele>
+        <ele>1510.400</ele>
         <time>2019-02-02T10:42:01Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -44,7 +44,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223470220" lon="9.237894220">
-        <ele>1545.400000</ele>
+        <ele>1545.400</ele>
         <time>2019-02-02T10:53:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -54,7 +54,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223690410" lon="9.237829430">
-        <ele>1556.000000</ele>
+        <ele>1556.000</ele>
         <time>2019-02-02T10:54:15Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -64,7 +64,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.224576300" lon="9.238666860">
-        <ele>1596.800000</ele>
+        <ele>1596.800</ele>
         <time>2019-02-02T11:02:26Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -74,7 +74,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225337370" lon="9.239800100">
-        <ele>1634.400000</ele>
+        <ele>1634.400</ele>
         <time>2019-02-02T11:06:06Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -84,7 +84,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225336120" lon="9.239622320">
-        <ele>1639.800000</ele>
+        <ele>1639.800</ele>
         <time>2019-02-02T11:06:31Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -94,7 +94,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225661590" lon="9.240030010">
-        <ele>1649.800000</ele>
+        <ele>1649.800</ele>
         <time>2019-02-02T11:07:47Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -104,7 +104,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225739200" lon="9.239905460">
-        <ele>1653.600000</ele>
+        <ele>1653.600</ele>
         <time>2019-02-02T11:09:26Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -114,7 +114,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225713050" lon="9.240060190">
-        <ele>1653.000000</ele>
+        <ele>1653.000</ele>
         <time>2019-02-02T11:11:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -124,7 +124,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225718750" lon="9.239866230">
-        <ele>1653.000000</ele>
+        <ele>1653.000</ele>
         <time>2019-02-02T11:11:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -134,7 +134,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225740370" lon="9.240029260">
-        <ele>1653.200000</ele>
+        <ele>1653.200</ele>
         <time>2019-02-02T11:12:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -144,7 +144,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225784300" lon="9.239894310">
-        <ele>1653.400000</ele>
+        <ele>1653.400</ele>
         <time>2019-02-02T11:14:13Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -154,7 +154,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225693180" lon="9.239973440">
-        <ele>1653.600000</ele>
+        <ele>1653.600</ele>
         <time>2019-02-02T11:15:15Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -164,7 +164,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225860150" lon="9.239966480">
-        <ele>1660.800000</ele>
+        <ele>1660.800</ele>
         <time>2019-02-02T11:17:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -174,7 +174,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226281340" lon="9.240673070">
-        <ele>1688.600000</ele>
+        <ele>1688.600</ele>
         <time>2019-02-02T11:20:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -184,7 +184,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226375300" lon="9.240417930">
-        <ele>1694.200000</ele>
+        <ele>1694.200</ele>
         <time>2019-02-02T11:21:33Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -194,7 +194,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226595580" lon="9.240519940">
-        <ele>1705.800000</ele>
+        <ele>1705.800</ele>
         <time>2019-02-02T11:22:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -204,7 +204,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226595160" lon="9.240712550">
-        <ele>1708.400000</ele>
+        <ele>1708.400</ele>
         <time>2019-02-02T11:22:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -214,7 +214,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226902360" lon="9.240541640">
-        <ele>1717.200000</ele>
+        <ele>1717.200</ele>
         <time>2019-02-02T11:23:41Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -224,7 +224,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.227251380" lon="9.240821180">
-        <ele>1733.000000</ele>
+        <ele>1733.000</ele>
         <time>2019-02-02T11:25:07Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -234,7 +234,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.227588920" lon="9.241847880">
-        <ele>1759.600000</ele>
+        <ele>1759.600</ele>
         <time>2019-02-02T11:27:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -244,7 +244,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228826590" lon="9.242875080">
-        <ele>1816.000000</ele>
+        <ele>1816.000</ele>
         <time>2019-02-02T11:32:48Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -254,7 +254,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228741010" lon="9.243113040">
-        <ele>1816.800000</ele>
+        <ele>1816.800</ele>
         <time>2019-02-02T11:36:41Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -264,7 +264,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228826840" lon="9.243009860">
-        <ele>1816.200000</ele>
+        <ele>1816.200</ele>
         <time>2019-02-02T11:41:08Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -274,7 +274,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228702290" lon="9.243106340">
-        <ele>1816.600000</ele>
+        <ele>1816.600</ele>
         <time>2019-02-02T12:29:20Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -284,7 +284,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228809660" lon="9.243078760">
-        <ele>1813.200000</ele>
+        <ele>1813.200</ele>
         <time>2019-02-02T12:44:11Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -294,7 +294,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.228739760" lon="9.243191330">
-        <ele>1815.200000</ele>
+        <ele>1815.200</ele>
         <time>2019-02-02T12:50:02Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -304,7 +304,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.227360090" lon="9.241688540">
-        <ele>1754.400000</ele>
+        <ele>1754.400</ele>
         <time>2019-02-02T12:55:17Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -314,7 +314,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226779310" lon="9.241344130">
-        <ele>1722.400000</ele>
+        <ele>1722.400</ele>
         <time>2019-02-02T12:55:36Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -324,7 +324,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226645290" lon="9.241521240">
-        <ele>1716.400000</ele>
+        <ele>1716.400</ele>
         <time>2019-02-02T12:55:51Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -334,7 +334,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226475890" lon="9.241168780">
-        <ele>1702.200000</ele>
+        <ele>1702.200</ele>
         <time>2019-02-02T12:56:00Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -344,7 +344,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.226236750" lon="9.241154280">
-        <ele>1690.400000</ele>
+        <ele>1690.400</ele>
         <time>2019-02-02T12:57:04Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -354,7 +354,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225866770" lon="9.240387420">
-        <ele>1671.400000</ele>
+        <ele>1671.400</ele>
         <time>2019-02-02T13:02:55Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -364,7 +364,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225268980" lon="9.239913670">
-        <ele>1645.000000</ele>
+        <ele>1645.000</ele>
         <time>2019-02-02T13:03:10Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -374,7 +374,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.225192280" lon="9.239437660">
-        <ele>1632.200000</ele>
+        <ele>1632.200</ele>
         <time>2019-02-02T13:03:22Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -384,7 +384,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.224082180" lon="9.238336370">
-        <ele>1591.400000</ele>
+        <ele>1591.400</ele>
         <time>2019-02-02T13:04:10Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -394,7 +394,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223757550" lon="9.237788520">
-        <ele>1561.600000</ele>
+        <ele>1561.600</ele>
         <time>2019-02-02T13:04:58Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -404,7 +404,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223970030" lon="9.237939900">
-        <ele>1564.600000</ele>
+        <ele>1564.600</ele>
         <time>2019-02-02T13:06:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -414,7 +414,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.223199990" lon="9.237184780">
-        <ele>1542.800000</ele>
+        <ele>1542.800</ele>
         <time>2019-02-02T13:07:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -424,7 +424,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222732530" lon="9.236207780">
-        <ele>1518.200000</ele>
+        <ele>1518.200</ele>
         <time>2019-02-02T13:08:27Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -434,7 +434,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222998070" lon="9.236554460">
-        <ele>1523.600000</ele>
+        <ele>1523.600</ele>
         <time>2019-02-02T13:10:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -444,7 +444,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222933280" lon="9.236663590">
-        <ele>1524.600000</ele>
+        <ele>1524.600</ele>
         <time>2019-02-02T13:14:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -454,7 +454,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222725490" lon="9.235947020">
-        <ele>1517.600000</ele>
+        <ele>1517.600</ele>
         <time>2019-02-02T13:15:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -464,7 +464,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222864960" lon="9.235744090">
-        <ele>1507.400000</ele>
+        <ele>1507.400</ele>
         <time>2019-02-02T13:15:47Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -474,7 +474,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.222724570" lon="9.235937550">
-        <ele>1504.400000</ele>
+        <ele>1504.400</ele>
         <time>2019-02-02T13:19:36Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -484,7 +484,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.221707930" lon="9.235542260">
-        <ele>1480.400000</ele>
+        <ele>1480.400</ele>
         <time>2019-02-02T13:21:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -494,7 +494,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.221710610" lon="9.235118130">
-        <ele>1469.800000</ele>
+        <ele>1469.800</ele>
         <time>2019-02-02T13:21:36Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -504,7 +504,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.221183970" lon="9.234533240">
-        <ele>1451.400000</ele>
+        <ele>1451.400</ele>
         <time>2019-02-02T13:21:49Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -514,7 +514,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.221401650" lon="9.233790520">
-        <ele>1434.400000</ele>
+        <ele>1434.400</ele>
         <time>2019-02-02T13:22:34Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -524,7 +524,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.220773850" lon="9.233285600">
-        <ele>1404.000000</ele>
+        <ele>1404.000</ele>
         <time>2019-02-02T13:23:33Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -534,7 +534,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.219587810" lon="9.233661440">
-        <ele>1367.000000</ele>
+        <ele>1367.000</ele>
         <time>2019-02-02T13:24:45Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -544,7 +544,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.219541540" lon="9.234435010">
-        <ele>1359.600000</ele>
+        <ele>1359.600</ele>
         <time>2019-02-02T13:25:51Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -554,7 +554,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.219332580" lon="9.234409360">
-        <ele>1353.600000</ele>
+        <ele>1353.600</ele>
         <time>2019-02-02T13:25:55Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -564,7 +564,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.218896380" lon="9.233253080">
-        <ele>1333.200000</ele>
+        <ele>1333.200</ele>
         <time>2019-02-02T13:26:11Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -574,7 +574,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.218553140" lon="9.233051160">
-        <ele>1316.800000</ele>
+        <ele>1316.800</ele>
         <time>2019-02-02T13:37:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -584,7 +584,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.218338650" lon="9.233269840">
-        <ele>1308.600000</ele>
+        <ele>1308.600</ele>
         <time>2019-02-02T13:38:07Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -594,7 +594,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217924500" lon="9.232641700">
-        <ele>1289.600000</ele>
+        <ele>1289.600</ele>
         <time>2019-02-02T13:39:49Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -604,7 +604,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217776480" lon="9.232733570">
-        <ele>1289.600000</ele>
+        <ele>1289.600</ele>
         <time>2019-02-02T13:40:10Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -614,7 +614,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.218076470" lon="9.232842870">
-        <ele>1289.400000</ele>
+        <ele>1289.400</ele>
         <time>2019-02-02T13:40:53Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -624,7 +624,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217953340" lon="9.232639940">
-        <ele>1283.200000</ele>
+        <ele>1283.200</ele>
         <time>2019-02-02T13:41:10Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -634,7 +634,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217916200" lon="9.232775220">
-        <ele>1278.000000</ele>
+        <ele>1278.000</ele>
         <time>2019-02-02T13:42:04Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -644,7 +644,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217497360" lon="9.232565510">
-        <ele>1261.800000</ele>
+        <ele>1261.800</ele>
         <time>2019-02-02T13:42:19Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -654,7 +654,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.217395180" lon="9.232687380">
-        <ele>1257.000000</ele>
+        <ele>1257.000</ele>
         <time>2019-02-02T13:42:30Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -664,7 +664,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.215714450" lon="9.232222190">
-        <ele>1221.000000</ele>
+        <ele>1221.000</ele>
         <time>2019-02-02T13:43:17Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -674,7 +674,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.214262700" lon="9.231527660">
-        <ele>1195.600000</ele>
+        <ele>1195.600</ele>
         <time>2019-02-02T13:43:44Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -684,7 +684,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.213665410" lon="9.231689260">
-        <ele>1188.800000</ele>
+        <ele>1188.800</ele>
         <time>2019-02-02T13:49:29Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -694,7 +694,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.213442950" lon="9.231367990">
-        <ele>1185.000000</ele>
+        <ele>1185.000</ele>
         <time>2019-02-02T13:57:07Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -704,7 +704,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212868540" lon="9.231165400">
-        <ele>1157.000000</ele>
+        <ele>1157.000</ele>
         <time>2019-02-02T13:57:40Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -714,7 +714,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212841970" lon="9.230285380">
-        <ele>1137.600000</ele>
+        <ele>1137.600</ele>
         <time>2019-02-02T13:57:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -724,7 +724,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212322960" lon="9.230422840">
-        <ele>1123.200000</ele>
+        <ele>1123.200</ele>
         <time>2019-02-02T13:58:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -734,7 +734,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211574790" lon="9.230206170">
-        <ele>1099.600000</ele>
+        <ele>1099.600</ele>
         <time>2019-02-02T13:58:42Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -744,7 +744,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211329120" lon="9.229731840">
-        <ele>1090.200000</ele>
+        <ele>1090.200</ele>
         <time>2019-02-02T13:58:48Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -754,7 +754,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210956370" lon="9.229758330">
-        <ele>1081.000000</ele>
+        <ele>1081.000</ele>
         <time>2019-02-02T13:59:25Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -764,7 +764,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211013870" lon="9.229034130">
-        <ele>1072.800000</ele>
+        <ele>1072.800</ele>
         <time>2019-02-02T13:59:42Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -774,7 +774,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210794770" lon="9.228279930">
-        <ele>1063.600000</ele>
+        <ele>1063.600</ele>
         <time>2019-02-02T13:59:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -784,7 +784,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210317920" lon="9.228116980">
-        <ele>1052.800000</ele>
+        <ele>1052.800</ele>
         <time>2019-02-02T13:59:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -794,7 +794,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209965630" lon="9.228488720">
-        <ele>1041.600000</ele>
+        <ele>1041.600</ele>
         <time>2019-02-02T14:02:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -804,7 +804,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210095970" lon="9.228441780">
-        <ele>1040.000000</ele>
+        <ele>1040.000</ele>
         <time>2019-02-02T14:05:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -814,7 +814,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209507060" lon="9.228075580">
-        <ele>1038.000000</ele>
+        <ele>1038.000</ele>
         <time>2019-02-02T14:07:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -824,7 +824,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209096430" lon="9.228795500">
-        <ele>1036.200000</ele>
+        <ele>1036.200</ele>
         <time>2019-02-02T14:08:29Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -834,7 +834,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208640120" lon="9.228607410">
-        <ele>1033.200000</ele>
+        <ele>1033.200</ele>
         <time>2019-02-02T14:09:01Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -844,7 +844,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208078530" lon="9.228750490">
-        <ele>1029.600000</ele>
+        <ele>1029.600</ele>
         <time>2019-02-02T14:09:44Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -854,7 +854,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207549800" lon="9.228505230">
-        <ele>1025.800000</ele>
+        <ele>1025.800</ele>
         <time>2019-02-02T14:10:55Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -864,7 +864,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207550560" lon="9.228310440">
-        <ele>1022.600000</ele>
+        <ele>1022.600</ele>
         <time>2019-02-02T14:14:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -874,7 +874,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207263980" lon="9.228390400">
-        <ele>1014.200000</ele>
+        <ele>1014.200</ele>
         <time>2019-02-02T14:15:27Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -884,7 +884,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207023000" lon="9.227895360">
-        <ele>1005.800000</ele>
+        <ele>1005.800</ele>
         <time>2019-02-02T14:15:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -894,7 +894,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206493180" lon="9.227517090">
-        <ele>994.600000</ele>
+        <ele>994.600</ele>
         <time>2019-02-02T14:16:19Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -904,7 +904,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206173240" lon="9.226851230">
-        <ele>981.400000</ele>
+        <ele>981.400</ele>
         <time>2019-02-02T14:16:27Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -914,7 +914,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206266360" lon="9.226845780">
-        <ele>978.200000</ele>
+        <ele>978.200</ele>
         <time>2019-02-02T14:17:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -924,7 +924,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205841990" lon="9.226425680">
-        <ele>965.400000</ele>
+        <ele>965.400</ele>
         <time>2019-02-02T14:18:06Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -934,7 +934,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205872580" lon="9.225785050">
-        <ele>951.400000</ele>
+        <ele>951.400</ele>
         <time>2019-02-02T14:18:11Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -944,7 +944,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205596820" lon="9.224819540">
-        <ele>933.600000</ele>
+        <ele>933.600</ele>
         <time>2019-02-02T14:18:19Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -954,7 +954,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205082590" lon="9.224241860">
-        <ele>919.800000</ele>
+        <ele>919.800</ele>
         <time>2019-02-02T14:18:26Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -964,7 +964,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204429970" lon="9.223949580">
-        <ele>894.600000</ele>
+        <ele>894.600</ele>
         <time>2019-02-02T14:18:34Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -974,7 +974,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204157230" lon="9.223185820">
-        <ele>869.200000</ele>
+        <ele>869.200</ele>
         <time>2019-02-02T14:18:47Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -984,7 +984,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.203887920" lon="9.223141650">
-        <ele>862.800000</ele>
+        <ele>862.800</ele>
         <time>2019-02-02T14:23:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -994,7 +994,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.202332990" lon="9.225573330">
-        <ele>861.600000</ele>
+        <ele>861.600</ele>
         <time>2019-02-02T14:26:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1004,7 +1004,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.201784640" lon="9.226060060">
-        <ele>861.800000</ele>
+        <ele>861.800</ele>
         <time>2019-02-02T14:27:48Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1025,7 +1025,7 @@
     </extensions>
     <trkseg>
       <trkpt lat="47.202798100" lon="9.225393870">
-        <ele>869.000000</ele>
+        <ele>869.000</ele>
         <time>2019-02-02T08:18:34Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1035,7 +1035,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.202783850" lon="9.225350950">
-        <ele>869.000000</ele>
+        <ele>869.000</ele>
         <time>2019-02-02T08:18:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1045,7 +1045,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.202768930" lon="9.225412980">
-        <ele>870.600000</ele>
+        <ele>870.600</ele>
         <time>2019-02-02T08:18:37Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1055,7 +1055,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.203171180" lon="9.225419180">
-        <ele>876.400000</ele>
+        <ele>876.400</ele>
         <time>2019-02-02T08:19:19Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1065,7 +1065,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.203538810" lon="9.225347350">
-        <ele>882.800000</ele>
+        <ele>882.800</ele>
         <time>2019-02-02T08:20:06Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1075,7 +1075,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.203775010" lon="9.225480200">
-        <ele>884.800000</ele>
+        <ele>884.800</ele>
         <time>2019-02-02T08:20:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1085,7 +1085,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204022110" lon="9.225334530">
-        <ele>889.400000</ele>
+        <ele>889.400</ele>
         <time>2019-02-02T08:21:23Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1095,7 +1095,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204086400" lon="9.225219360">
-        <ele>891.600000</ele>
+        <ele>891.600</ele>
         <time>2019-02-02T08:21:47Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1105,7 +1105,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204031580" lon="9.225217680">
-        <ele>891.400000</ele>
+        <ele>891.400</ele>
         <time>2019-02-02T08:22:11Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1115,7 +1115,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204101650" lon="9.225209970">
-        <ele>892.200000</ele>
+        <ele>892.200</ele>
         <time>2019-02-02T08:23:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1125,7 +1125,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204329640" lon="9.224973010">
-        <ele>896.200000</ele>
+        <ele>896.200</ele>
         <time>2019-02-02T08:24:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1135,7 +1135,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204462580" lon="9.224755170">
-        <ele>901.400000</ele>
+        <ele>901.400</ele>
         <time>2019-02-02T08:24:58Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1145,7 +1145,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204606330" lon="9.224702950">
-        <ele>905.600000</ele>
+        <ele>905.600</ele>
         <time>2019-02-02T08:25:16Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1155,7 +1155,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204919730" lon="9.224443860">
-        <ele>912.600000</ele>
+        <ele>912.600</ele>
         <time>2019-02-02T08:25:58Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1165,7 +1165,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.204955600" lon="9.224373040">
-        <ele>913.800000</ele>
+        <ele>913.800</ele>
         <time>2019-02-02T08:26:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1175,7 +1175,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205192730" lon="9.224335070">
-        <ele>920.400000</ele>
+        <ele>920.400</ele>
         <time>2019-02-02T08:26:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1185,7 +1185,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205215110" lon="9.224422240">
-        <ele>922.600000</ele>
+        <ele>922.600</ele>
         <time>2019-02-02T08:26:53Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1195,7 +1195,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205260450" lon="9.224397600">
-        <ele>922.200000</ele>
+        <ele>922.200</ele>
         <time>2019-02-02T08:27:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1205,7 +1205,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205225670" lon="9.224433890">
-        <ele>922.600000</ele>
+        <ele>922.600</ele>
         <time>2019-02-02T08:28:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1215,7 +1215,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205250230" lon="9.224376730">
-        <ele>921.400000</ele>
+        <ele>921.400</ele>
         <time>2019-02-02T08:29:10Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1225,7 +1225,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205494980" lon="9.224730780">
-        <ele>928.000000</ele>
+        <ele>928.000</ele>
         <time>2019-02-02T08:29:54Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1235,7 +1235,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205514590" lon="9.224832030">
-        <ele>929.200000</ele>
+        <ele>929.200</ele>
         <time>2019-02-02T08:30:02Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1245,7 +1245,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.205733020" lon="9.225210560">
-        <ele>936.600000</ele>
+        <ele>936.600</ele>
         <time>2019-02-02T08:30:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1255,7 +1255,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206214400" lon="9.225674330">
-        <ele>954.200000</ele>
+        <ele>954.200</ele>
         <time>2019-02-02T08:32:41Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1265,7 +1265,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206206270" lon="9.225717660">
-        <ele>954.600000</ele>
+        <ele>954.600</ele>
         <time>2019-02-02T08:32:48Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1275,7 +1275,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206255550" lon="9.225796120">
-        <ele>956.600000</ele>
+        <ele>956.600</ele>
         <time>2019-02-02T08:32:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1285,7 +1285,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206235430" lon="9.225922350">
-        <ele>959.000000</ele>
+        <ele>959.000</ele>
         <time>2019-02-02T08:33:08Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1295,7 +1295,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206270390" lon="9.226082610">
-        <ele>963.000000</ele>
+        <ele>963.000</ele>
         <time>2019-02-02T08:33:25Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1305,7 +1305,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206225380" lon="9.226254440">
-        <ele>966.600000</ele>
+        <ele>966.600</ele>
         <time>2019-02-02T08:33:44Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1315,7 +1315,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206275000" lon="9.226383520">
-        <ele>969.200000</ele>
+        <ele>969.200</ele>
         <time>2019-02-02T08:33:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1325,7 +1325,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206424110" lon="9.226526430">
-        <ele>974.200000</ele>
+        <ele>974.200</ele>
         <time>2019-02-02T08:34:21Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1335,7 +1335,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206422020" lon="9.226599440">
-        <ele>975.400000</ele>
+        <ele>975.400</ele>
         <time>2019-02-02T08:34:27Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1345,7 +1345,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206363760" lon="9.226704040">
-        <ele>977.200000</ele>
+        <ele>977.200</ele>
         <time>2019-02-02T08:34:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1355,7 +1355,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206434000" lon="9.226699430">
-        <ele>978.600000</ele>
+        <ele>978.600</ele>
         <time>2019-02-02T08:35:06Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1365,7 +1365,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206413470" lon="9.226709320">
-        <ele>978.800000</ele>
+        <ele>978.800</ele>
         <time>2019-02-02T08:35:19Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1375,7 +1375,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206442720" lon="9.226715020">
-        <ele>978.600000</ele>
+        <ele>978.600</ele>
         <time>2019-02-02T08:36:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1385,7 +1385,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206399890" lon="9.226688960">
-        <ele>979.200000</ele>
+        <ele>979.200</ele>
         <time>2019-02-02T08:37:33Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1395,7 +1395,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206489070" lon="9.226817120">
-        <ele>979.200000</ele>
+        <ele>979.200</ele>
         <time>2019-02-02T08:38:00Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1405,7 +1405,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206691330" lon="9.226853490">
-        <ele>989.200000</ele>
+        <ele>989.200</ele>
         <time>2019-02-02T08:38:31Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1415,7 +1415,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.206865670" lon="9.226998840">
-        <ele>993.800000</ele>
+        <ele>993.800</ele>
         <time>2019-02-02T08:39:20Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1425,7 +1425,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207147470" lon="9.227131690">
-        <ele>998.600000</ele>
+        <ele>998.600</ele>
         <time>2019-02-02T08:39:58Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1435,7 +1435,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207530100" lon="9.227447020">
-        <ele>1003.000000</ele>
+        <ele>1003.000</ele>
         <time>2019-02-02T08:40:47Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1445,7 +1445,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207793210" lon="9.227525300">
-        <ele>1004.800000</ele>
+        <ele>1004.800</ele>
         <time>2019-02-02T08:41:18Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1455,7 +1455,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208024800" lon="9.227736690">
-        <ele>1010.400000</ele>
+        <ele>1010.400</ele>
         <time>2019-02-02T08:42:02Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1465,7 +1465,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208013570" lon="9.227847420">
-        <ele>1012.600000</ele>
+        <ele>1012.600</ele>
         <time>2019-02-02T08:42:13Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1475,7 +1475,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208052210" lon="9.227911880">
-        <ele>1015.200000</ele>
+        <ele>1015.200</ele>
         <time>2019-02-02T08:42:25Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1485,7 +1485,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207897820" lon="9.228146910">
-        <ele>1020.200000</ele>
+        <ele>1020.200</ele>
         <time>2019-02-02T08:42:54Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1495,7 +1495,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207971580" lon="9.228139190">
-        <ele>1020.600000</ele>
+        <ele>1020.600</ele>
         <time>2019-02-02T08:43:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1505,7 +1505,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207926650" lon="9.228116060">
-        <ele>1019.200000</ele>
+        <ele>1019.200</ele>
         <time>2019-02-02T08:44:11Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1515,7 +1515,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207965880" lon="9.228138190">
-        <ele>1020.400000</ele>
+        <ele>1020.400</ele>
         <time>2019-02-02T08:44:46Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1525,7 +1525,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207921620" lon="9.228137010">
-        <ele>1020.600000</ele>
+        <ele>1020.600</ele>
         <time>2019-02-02T08:45:04Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1535,7 +1535,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.207938720" lon="9.228116980">
-        <ele>1019.800000</ele>
+        <ele>1019.800</ele>
         <time>2019-02-02T08:45:12Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1545,7 +1545,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208136450" lon="9.228289230">
-        <ele>1025.000000</ele>
+        <ele>1025.000</ele>
         <time>2019-02-02T08:45:45Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1555,7 +1555,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208467450" lon="9.228473970">
-        <ele>1033.200000</ele>
+        <ele>1033.200</ele>
         <time>2019-02-02T08:46:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1565,7 +1565,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208421020" lon="9.228440190">
-        <ele>1034.200000</ele>
+        <ele>1034.200</ele>
         <time>2019-02-02T08:47:05Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1575,7 +1575,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208653780" lon="9.228405400">
-        <ele>1036.000000</ele>
+        <ele>1036.000</ele>
         <time>2019-02-02T08:47:41Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1585,7 +1585,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208820410" lon="9.228459380">
-        <ele>1036.400000</ele>
+        <ele>1036.400</ele>
         <time>2019-02-02T08:47:59Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1595,7 +1595,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209046050" lon="9.228682170">
-        <ele>1038.200000</ele>
+        <ele>1038.200</ele>
         <time>2019-02-02T08:48:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1605,7 +1605,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.208899870" lon="9.228807320">
-        <ele>1040.000000</ele>
+        <ele>1040.000</ele>
         <time>2019-02-02T08:48:56Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1615,7 +1615,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209020830" lon="9.228679490">
-        <ele>1039.000000</ele>
+        <ele>1039.000</ele>
         <time>2019-02-02T08:49:25Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1625,7 +1625,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209015800" lon="9.228604470">
-        <ele>1038.600000</ele>
+        <ele>1038.600</ele>
         <time>2019-02-02T08:49:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1635,7 +1635,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209023930" lon="9.228653930">
-        <ele>1038.200000</ele>
+        <ele>1038.200</ele>
         <time>2019-02-02T08:50:02Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1645,7 +1645,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209283350" lon="9.228442450">
-        <ele>1038.800000</ele>
+        <ele>1038.800</ele>
         <time>2019-02-02T08:50:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1655,7 +1655,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209457100" lon="9.228094850">
-        <ele>1039.200000</ele>
+        <ele>1039.200</ele>
         <time>2019-02-02T08:51:32Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1665,7 +1665,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.209567240" lon="9.228024280">
-        <ele>1039.600000</ele>
+        <ele>1039.600</ele>
         <time>2019-02-02T08:51:49Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1675,7 +1675,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210015420" lon="9.228371540">
-        <ele>1041.200000</ele>
+        <ele>1041.200</ele>
         <time>2019-02-02T08:52:52Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1685,7 +1685,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210058840" lon="9.228295100">
-        <ele>1041.200000</ele>
+        <ele>1041.200</ele>
         <time>2019-02-02T08:53:04Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1695,7 +1695,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210078870" lon="9.228390400">
-        <ele>1041.400000</ele>
+        <ele>1041.400</ele>
         <time>2019-02-02T08:53:59Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1705,7 +1705,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210176520" lon="9.228306580">
-        <ele>1041.400000</ele>
+        <ele>1041.400</ele>
         <time>2019-02-02T08:54:20Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1715,7 +1715,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210164120" lon="9.228371370">
-        <ele>1043.000000</ele>
+        <ele>1043.000</ele>
         <time>2019-02-02T08:54:31Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1725,7 +1725,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210133360" lon="9.228352850">
-        <ele>1043.200000</ele>
+        <ele>1043.200</ele>
         <time>2019-02-02T08:54:55Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1735,7 +1735,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210160090" lon="9.228134840">
-        <ele>1043.000000</ele>
+        <ele>1043.000</ele>
         <time>2019-02-02T08:55:21Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1745,7 +1745,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210165960" lon="9.228283870">
-        <ele>1042.600000</ele>
+        <ele>1042.600</ele>
         <time>2019-02-02T08:55:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1755,7 +1755,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210128070" lon="9.228379170">
-        <ele>1042.800000</ele>
+        <ele>1042.800</ele>
         <time>2019-02-02T08:55:36Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1765,7 +1765,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210101840" lon="9.228372880">
-        <ele>1042.200000</ele>
+        <ele>1042.200</ele>
         <time>2019-02-02T08:55:39Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1775,7 +1775,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210157830" lon="9.228243550">
-        <ele>1041.800000</ele>
+        <ele>1041.800</ele>
         <time>2019-02-02T08:56:14Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1785,7 +1785,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210179960" lon="9.228276410">
-        <ele>1042.600000</ele>
+        <ele>1042.600</ele>
         <time>2019-02-02T08:56:28Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1795,7 +1795,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210149700" lon="9.228350000">
-        <ele>1042.600000</ele>
+        <ele>1042.600</ele>
         <time>2019-02-02T08:56:35Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1805,7 +1805,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210179040" lon="9.228337170">
-        <ele>1042.400000</ele>
+        <ele>1042.400</ele>
         <time>2019-02-02T08:56:41Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1815,7 +1815,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210161270" lon="9.228295100">
-        <ele>1042.600000</ele>
+        <ele>1042.600</ele>
         <time>2019-02-02T08:57:26Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1825,7 +1825,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210289510" lon="9.228332230">
-        <ele>1044.200000</ele>
+        <ele>1044.200</ele>
         <time>2019-02-02T08:57:48Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1835,7 +1835,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210370810" lon="9.228464830">
-        <ele>1047.400000</ele>
+        <ele>1047.400</ele>
         <time>2019-02-02T08:58:00Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1845,7 +1845,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210713300" lon="9.228809080">
-        <ele>1056.800000</ele>
+        <ele>1056.800</ele>
         <time>2019-02-02T08:58:57Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1855,7 +1855,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.210831820" lon="9.228984840">
-        <ele>1061.400000</ele>
+        <ele>1061.400</ele>
         <time>2019-02-02T08:59:21Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1865,7 +1865,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211058210" lon="9.229140910">
-        <ele>1068.200000</ele>
+        <ele>1068.200</ele>
         <time>2019-02-02T08:59:55Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1875,7 +1875,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211376730" lon="9.229126750">
-        <ele>1077.600000</ele>
+        <ele>1077.600</ele>
         <time>2019-02-02T09:00:43Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1885,7 +1885,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211407910" lon="9.229301090">
-        <ele>1080.200000</ele>
+        <ele>1080.200</ele>
         <time>2019-02-02T09:01:16Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1895,7 +1895,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211443950" lon="9.229287180">
-        <ele>1080.800000</ele>
+        <ele>1080.800</ele>
         <time>2019-02-02T09:01:25Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1905,7 +1905,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211481920" lon="9.229388100">
-        <ele>1082.800000</ele>
+        <ele>1082.800</ele>
         <time>2019-02-02T09:01:37Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1915,7 +1915,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211779730" lon="9.229711640">
-        <ele>1092.800000</ele>
+        <ele>1092.800</ele>
         <time>2019-02-02T09:02:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1925,7 +1925,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.211857600" lon="9.229740980">
-        <ele>1095.600000</ele>
+        <ele>1095.600</ele>
         <time>2019-02-02T09:02:52Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1935,7 +1935,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212168820" lon="9.230083290">
-        <ele>1106.200000</ele>
+        <ele>1106.200</ele>
         <time>2019-02-02T09:04:16Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1945,7 +1945,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212341900" lon="9.230144560">
-        <ele>1113.400000</ele>
+        <ele>1113.400</ele>
         <time>2019-02-02T09:05:01Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1955,7 +1955,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212434690" lon="9.230339610">
-        <ele>1119.600000</ele>
+        <ele>1119.600</ele>
         <time>2019-02-02T09:05:40Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1965,7 +1965,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212592690" lon="9.230358390">
-        <ele>1123.600000</ele>
+        <ele>1123.600</ele>
         <time>2019-02-02T09:06:14Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1975,7 +1975,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212566030" lon="9.230387220">
-        <ele>1124.000000</ele>
+        <ele>1124.000</ele>
         <time>2019-02-02T09:06:42Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1985,7 +1985,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212780280" lon="9.230256210">
-        <ele>1129.000000</ele>
+        <ele>1129.000</ele>
         <time>2019-02-02T09:07:21Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -1995,7 +1995,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212850430" lon="9.230283200">
-        <ele>1131.200000</ele>
+        <ele>1131.200</ele>
         <time>2019-02-02T09:07:38Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -2005,7 +2005,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212841380" lon="9.230327540">
-        <ele>1130.800000</ele>
+        <ele>1130.800</ele>
         <time>2019-02-02T09:08:08Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
@@ -2015,7 +2015,7 @@
         </extensions>
       </trkpt>
       <trkpt lat="47.212826290" lon="9.230256130">
-        <ele>1130.400000</ele>
+        <ele>1130.400</ele>
         <time>2019-02-02T09:09:50Z</time>
         <extensions>
           <TrackPointExtension xmlns="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">

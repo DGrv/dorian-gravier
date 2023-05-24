@@ -36,7 +36,7 @@ Create a reg file:
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\batfile\shell\open\command]
-@="\"C:\\Program Files\\cmder\\Cmder.exe\" /single /x \"/cmd %1\" %*"
+@="\"C:\\Users\\doria\\scoop\\apps\\cmder\\current\\Cmder.exe" /single /x \"/cmd %1\""
 ```
 
 - [Source](https://github.com/cmderdev/cmder/issues/2110#issuecomment-1041922115)

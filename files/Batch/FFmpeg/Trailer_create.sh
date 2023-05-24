@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh
 
 cecho y "You need for this:"
 cecho p "- a beginning picture"
@@ -25,6 +25,8 @@ cd $input
 pic=$(ls -1 | grep -E "jpg|png" | head -1)
 vid=$(ls -1 | grep mp4 | head -1)
 aud=$(ls -1 | grep mp3 | head -1)
+nname=$(basename $vid)
+nname=${nname:0:3}_trailer.mp4
 
 # mp40=${pic%.*}_temp0.mp4
 # mp41=${pic%.*}_temp1.mp4
@@ -63,8 +65,10 @@ ffmpeg -v error -stats -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48
 ffmpeg -v error -stats -i v1.mp4 -i v2.mp4 -i v3.mp4 -filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] concat=n=3:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" -y temp1.mp4
 
 mv temp1.mp4 temp0.mp4
-ffmpeg -v error -stats -i temp0.mp4 -i "$aud" -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -vcodec copy -ac 2 -shortest trailer.mp4
+ffmpeg -v error -stats -i temp0.mp4 -i "$aud" -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -vcodec copy -ac 2 -shortest temp0.mp4
 
+mv temp1.mp4 temp0.mp4
+ffmpeg -v error -stats  -i temp0.mp4 -vcodec libx264 -vf "scale=720:-2" -preset slow $nname
 
 #clean
 rm temp0.mp4 temp1.mp4 v1.mp4 v2.mp4 v3.mp4  2> /dev/null # keep it silent

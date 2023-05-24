@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" version="1.1" creator="Alpenvereinskarten Digital (USB Edition)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:dkl="http://www.gpsware.de/DKL/1/1" xmlns:rtx="http://www.bike-gps.de/RTX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata>
     <name>Alpenvereinskarten Digital (USB Edition) Track</name>
     <desc></desc>
-    <time>2017-11-20T20:49:26Z</time>
-    <bounds minlat="47.443083" minlon="10.159078" maxlat="47.451532" maxlon="10.176481"/>
+    <time>2023-05-24T14:05:53.204Z</time>
+    <bounds minlat="47.443083000" minlon="10.159078000" maxlat="47.451532000" maxlon="10.176481000"/>
   </metadata>
   <trk>
     <name>K2 Riedbergerhorn von Südost</name>
@@ -18,92 +18,92 @@
       </dkl:dkl>
     </extensions>
     <trkseg>
-      <trkpt lat="47.443083" lon="10.176481">
-        <ele>1441.22</ele>
+      <trkpt lat="47.443083000" lon="10.176481000">
+        <ele>1441.220</ele>
       </trkpt>
-      <trkpt lat="47.443763" lon="10.176154">
-        <ele>1444.35</ele>
+      <trkpt lat="47.443763000" lon="10.176154000">
+        <ele>1444.350</ele>
       </trkpt>
-      <trkpt lat="47.444196" lon="10.176072">
-        <ele>1451.21</ele>
+      <trkpt lat="47.444196000" lon="10.176072000">
+        <ele>1451.210</ele>
       </trkpt>
-      <trkpt lat="47.444516" lon="10.176061">
-        <ele>1457.70</ele>
+      <trkpt lat="47.444516000" lon="10.176061000">
+        <ele>1457.700</ele>
       </trkpt>
-      <trkpt lat="47.444903" lon="10.176014">
-        <ele>1467.60</ele>
+      <trkpt lat="47.444903000" lon="10.176014000">
+        <ele>1467.600</ele>
       </trkpt>
-      <trkpt lat="47.445446" lon="10.175658">
-        <ele>1477.76</ele>
+      <trkpt lat="47.445446000" lon="10.175658000">
+        <ele>1477.760</ele>
       </trkpt>
-      <trkpt lat="47.446581" lon="10.175181">
-        <ele>1487.93</ele>
+      <trkpt lat="47.446581000" lon="10.175181000">
+        <ele>1487.930</ele>
       </trkpt>
-      <trkpt lat="47.447604" lon="10.174877">
-        <ele>1500.84</ele>
+      <trkpt lat="47.447604000" lon="10.174877000">
+        <ele>1500.840</ele>
       </trkpt>
-      <trkpt lat="47.448173" lon="10.174756">
-        <ele>1512.43</ele>
+      <trkpt lat="47.448173000" lon="10.174756000">
+        <ele>1512.430</ele>
       </trkpt>
-      <trkpt lat="47.448799" lon="10.173892">
-        <ele>1533.87</ele>
+      <trkpt lat="47.448799000" lon="10.173892000">
+        <ele>1533.870</ele>
       </trkpt>
-      <trkpt lat="47.448960" lon="10.172506">
-        <ele>1548.56</ele>
+      <trkpt lat="47.448960000" lon="10.172506000">
+        <ele>1548.560</ele>
       </trkpt>
-      <trkpt lat="47.449314" lon="10.171820">
-        <ele>1564.72</ele>
+      <trkpt lat="47.449314000" lon="10.171820000">
+        <ele>1564.720</ele>
       </trkpt>
-      <trkpt lat="47.449554" lon="10.171104">
-        <ele>1570.87</ele>
+      <trkpt lat="47.449554000" lon="10.171104000">
+        <ele>1570.870</ele>
       </trkpt>
-      <trkpt lat="47.449593" lon="10.170665">
-        <ele>1570.94</ele>
+      <trkpt lat="47.449593000" lon="10.170665000">
+        <ele>1570.940</ele>
       </trkpt>
-      <trkpt lat="47.449949" lon="10.170080">
-        <ele>1589.56</ele>
+      <trkpt lat="47.449949000" lon="10.170080000">
+        <ele>1589.560</ele>
       </trkpt>
-      <trkpt lat="47.450470" lon="10.169792">
-        <ele>1614.70</ele>
+      <trkpt lat="47.450470000" lon="10.169792000">
+        <ele>1614.700</ele>
       </trkpt>
-      <trkpt lat="47.450941" lon="10.169237">
-        <ele>1623.48</ele>
+      <trkpt lat="47.450941000" lon="10.169237000">
+        <ele>1623.480</ele>
       </trkpt>
-      <trkpt lat="47.451103" lon="10.167918">
-        <ele>1643.52</ele>
+      <trkpt lat="47.451103000" lon="10.167918000">
+        <ele>1643.520</ele>
       </trkpt>
-      <trkpt lat="47.451042" lon="10.167011">
-        <ele>1658.13</ele>
+      <trkpt lat="47.451042000" lon="10.167011000">
+        <ele>1658.130</ele>
       </trkpt>
-      <trkpt lat="47.450934" lon="10.165937">
-        <ele>1671.40</ele>
+      <trkpt lat="47.450934000" lon="10.165937000">
+        <ele>1671.400</ele>
       </trkpt>
-      <trkpt lat="47.450799" lon="10.164661">
-        <ele>1692.94</ele>
+      <trkpt lat="47.450799000" lon="10.164661000">
+        <ele>1692.940</ele>
       </trkpt>
-      <trkpt lat="47.450991" lon="10.163779">
-        <ele>1696.08</ele>
+      <trkpt lat="47.450991000" lon="10.163779000">
+        <ele>1696.080</ele>
       </trkpt>
-      <trkpt lat="47.451206" lon="10.162963">
-        <ele>1706.24</ele>
+      <trkpt lat="47.451206000" lon="10.162963000">
+        <ele>1706.240</ele>
       </trkpt>
-      <trkpt lat="47.451106" lon="10.162428">
-        <ele>1709.79</ele>
+      <trkpt lat="47.451106000" lon="10.162428000">
+        <ele>1709.790</ele>
       </trkpt>
-      <trkpt lat="47.451095" lon="10.161754">
-        <ele>1718.25</ele>
+      <trkpt lat="47.451095000" lon="10.161754000">
+        <ele>1718.250</ele>
       </trkpt>
-      <trkpt lat="47.451149" lon="10.160809">
-        <ele>1741.52</ele>
+      <trkpt lat="47.451149000" lon="10.160809000">
+        <ele>1741.520</ele>
       </trkpt>
-      <trkpt lat="47.451296" lon="10.160030">
-        <ele>1765.46</ele>
+      <trkpt lat="47.451296000" lon="10.160030000">
+        <ele>1765.460</ele>
       </trkpt>
-      <trkpt lat="47.451288" lon="10.159525">
-        <ele>1772.35</ele>
+      <trkpt lat="47.451288000" lon="10.159525000">
+        <ele>1772.350</ele>
       </trkpt>
-      <trkpt lat="47.451532" lon="10.159078">
-        <ele>1768.36</ele>
+      <trkpt lat="47.451532000" lon="10.159078000">
+        <ele>1768.360</ele>
       </trkpt>
     </trkseg>
   </trk>

@@ -20,7 +20,7 @@ if (state = "run") {
 }
 Return
 
-; Esc::ExitApp
+^W::ExitApp
 
 Esc::
 if (state = "run") {

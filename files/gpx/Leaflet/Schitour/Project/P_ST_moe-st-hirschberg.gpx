@@ -1,56 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="outdooractive - http://www.outdooractive.com">
-    <metadata>
-        <name>Mö-ST-Hirschberg</name>
-        <author>
-            <name>Gravier Dorian - Community</name>
-        </author>
-        <link href="http://www.outdooractive.com/r/109414864"/>
-        <time>2018-05-23T17:39:21.956+02:00</time>
-    </metadata>
-    <trk>
-        <name>Mö-ST-Hirschberg</name>
-        <desc>Einfach</desc>
-        <trkseg>
-            <trkpt lat="47.368478" lon="9.948721">
-                <ele>793.42987</ele>
-            </trkpt>
-            <trkpt lat="47.370019" lon="9.952583">
-                <ele>849.89505</ele>
-            </trkpt>
-            <trkpt lat="47.369147" lon="9.957604">
-                <ele>912.47857</ele>
-            </trkpt>
-            <trkpt lat="47.367606" lon="9.959192">
-                <ele>979.05259</ele>
-            </trkpt>
-            <trkpt lat="47.36624" lon="9.961123">
-                <ele>1047.88872</ele>
-            </trkpt>
-            <trkpt lat="47.365135" lon="9.963398">
-                <ele>1128.28304</ele>
-            </trkpt>
-            <trkpt lat="47.363566" lon="9.9646">
-                <ele>1221.77945</ele>
-            </trkpt>
-            <trkpt lat="47.363362" lon="9.966702">
-                <ele>1297.71796</ele>
-            </trkpt>
-            <trkpt lat="47.36188" lon="9.966574">
-                <ele>1354.75727</ele>
-            </trkpt>
-            <trkpt lat="47.36092" lon="9.969192">
-                <ele>1429.09443</ele>
-            </trkpt>
-            <trkpt lat="47.360804" lon="9.971423">
-                <ele>1462.49787</ele>
-            </trkpt>
-            <trkpt lat="47.360194" lon="9.975672">
-                <ele>1513.80875</ele>
-            </trkpt>
-            <trkpt lat="47.360048" lon="9.980221">
-                <ele>1570.53192</ele>
-            </trkpt>
-        </trkseg>
-    </trk>
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Mö-ST-Hirschberg</name>
+    <link href="http://www.outdooractive.com/r/109414864"/>
+    <time>2023-05-24T14:05:57.359Z</time>
+    <bounds minlat="47.360048000" minlon="9.948721000" maxlat="47.370019000" maxlon="9.980221000"/>
+  </metadata>
+  <trk>
+    <name>Mö-ST-Hirschberg</name>
+    <desc>Einfach</desc>
+    <trkseg>
+      <trkpt lat="47.368478000" lon="9.948721000">
+        <ele>793.430</ele>
+      </trkpt>
+      <trkpt lat="47.370019000" lon="9.952583000">
+        <ele>849.895</ele>
+      </trkpt>
+      <trkpt lat="47.369147000" lon="9.957604000">
+        <ele>912.479</ele>
+      </trkpt>
+      <trkpt lat="47.367606000" lon="9.959192000">
+        <ele>979.053</ele>
+      </trkpt>
+      <trkpt lat="47.366240000" lon="9.961123000">
+        <ele>1047.889</ele>
+      </trkpt>
+      <trkpt lat="47.365135000" lon="9.963398000">
+        <ele>1128.283</ele>
+      </trkpt>
+      <trkpt lat="47.363566000" lon="9.964600000">
+        <ele>1221.779</ele>
+      </trkpt>
+      <trkpt lat="47.363362000" lon="9.966702000">
+        <ele>1297.718</ele>
+      </trkpt>
+      <trkpt lat="47.361880000" lon="9.966574000">
+        <ele>1354.757</ele>
+      </trkpt>
+      <trkpt lat="47.360920000" lon="9.969192000">
+        <ele>1429.094</ele>
+      </trkpt>
+      <trkpt lat="47.360804000" lon="9.971423000">
+        <ele>1462.498</ele>
+      </trkpt>
+      <trkpt lat="47.360194000" lon="9.975672000">
+        <ele>1513.809</ele>
+      </trkpt>
+      <trkpt lat="47.360048000" lon="9.980221000">
+        <ele>1570.532</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
 </gpx>

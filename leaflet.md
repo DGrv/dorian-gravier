@@ -459,7 +459,7 @@ show_in_nav: false
 			map.setView(e.geocode.center, 11);
 		}).addTo(map);
 
-
+		map.addLayer(lBike);
 
 
     	</script>

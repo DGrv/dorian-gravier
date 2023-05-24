@@ -142,13 +142,13 @@ IF %ERRORLEVEL% NEQ 0 (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
 						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% "%%i"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	RVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
 						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 "%%i"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4"  -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4"  -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -vcodec libx264 -x264-params keyint=12:scenecut=0 -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					)
 				REM )
@@ -170,7 +170,7 @@ IF %ERRORLEVEL% NEQ 0 (
 						echo [93m--- File %%i 	[92mcodec = !codec!	reso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
 						REM ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% "%%i"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [92m--- File %%i 	codec = !codec!	reso = !reso!	RVdt = !RVdt![37m

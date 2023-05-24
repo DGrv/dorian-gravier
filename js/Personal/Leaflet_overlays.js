@@ -80,9 +80,13 @@ var waymarkedSkipisten = L.layerGroup();
 var opensnowmapPiste = L.layerGroup();
 
 var overlays = {
+	"DG - Bike": lBike,
+	"DG - Hike": lHike,
+	"DG - SchiTour": lSchitour,
+	"DG - Project SchiTour": lSchitourProject,
+	"Hillshading": hill,
 	"POI - Refuge.info POI": refugepoi,
 	"POI - DAV-SAC-CAS Hutten": Hutten,
-	"Hillshading": hill,
 	"Slope - OpenSlopeMapHR": OpenSlopeMap_HR,
 	"Slope - OpenSlopeMapLR": OpenSlopeMap_LR,
 	"Stamen TonerHybrid": Stamen_TonerHybrid,
@@ -91,10 +95,6 @@ var overlays = {
 	"Ways - Hiking trails": hiketrails,
 	"Ways - Cycling routes": cycleroutes,
 	"Ways - Ski pistes": pistes,
-	"DG - Bike": lBike,
-	"DG - Hike": lHike,
-	"DG - SchiTour": lSchitour,
-	"DG - Project SchiTour": lSchitourProject,
 	"Wintersport (opensnowmap.org)": opensnowmapPiste,
 	"Wintersport (waymarkedtrails.org)": waymarkedSkipisten,
 	"Gipfel Alpen": openslopemapOverlayAlpsPeaks

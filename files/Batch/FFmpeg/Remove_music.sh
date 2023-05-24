@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source ~/.bashrc
+
+source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh
+
 
 # read input user and write to history to get it avalaible with arrow, and allow arrow in read
 echo "Give your TV video : " 

@@ -126,24 +126,24 @@ IF %ERRORLEVEL% NEQ 0 (
 				if not !reso!==1920 (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	RVdt = !RVdt![37m
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [93m--- File %%i 	[91mcodec = !codec!	reso = !reso!	[92mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					)
 				) else (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	RVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					)
 				)
@@ -152,19 +152,19 @@ IF %ERRORLEVEL% NEQ 0 (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	RVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [93m--- File %%i 	[92mcodec = !codec!	[91mreso = !reso!	[92mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vf "scale=1920:-2" -preset slow -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					)
 				) else (
 					if not "!RVdt!"=="%RVd%" (
 						echo [93m--- File %%i 	[92mcodec = !codec!	reso = !reso!	[91mRVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% "%%i"
+						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -c:v copy -video_track_timescale %RV% -movflags faststart "%%i"
 						if exist "%%i" ( del "%%~ni_temp.mp4" )
 					) else (
 						echo [92m--- File %%i 	codec = !codec!	reso = !reso!	RVdt = !RVdt![37m
