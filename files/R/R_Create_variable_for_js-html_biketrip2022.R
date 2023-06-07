@@ -9,8 +9,9 @@
   library(gridExtra)
   library(data.table)
   library(jsonlite)
-  library(rayshaderanimate)
-
+  #library(rayshaderanimate)
+  library(RJSONIO)
+  
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
   outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
   if( !dir.exists(wd) ) {
@@ -20,7 +21,7 @@
   setwd(wd)
 
   # wildcamping position  
-  readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints
+  # readGPX("C:/Users/doria/Downloads/Zelt.gpx")$waypoints
   tent <- data.table(readGPX("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx")$waypoints)
   all <- list()
   for(i in 1:nrow(tent)){
