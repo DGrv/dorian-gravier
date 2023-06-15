@@ -94,6 +94,7 @@ var Bike_trip_2022 = ['files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-12.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-13.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-15.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-05-15b.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-25.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-26.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-05-27.gpx',
@@ -106,7 +107,13 @@ var Bike_trip_2022 = ['files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-06-03.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-06-04.gpx',
 'files/gpx/Bike_trip_2022/BT22_2023-06-05.gpx',
-'files/gpx/Bike_trip_2022/BT22_2023-06-06.gpx']
+'files/gpx/Bike_trip_2022/BT22_2023-06-06.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-10.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-11.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-12.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-13.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-14.gpx',
+'files/gpx/Bike_trip_2022/BT22_2023-06-15.gpx']
 
 var Stop = ['files/gpx/Bike_trip_2022/Stop/01.gpx',
 'files/gpx/Bike_trip_2022/Stop/02.gpx',
@@ -1369,6 +1376,186 @@ var sleep =[
 "geometry": {
  "type": "Point",
 "coordinates": [ -4.300375, 42.78516 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 124." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -3.869035, 42.34687 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 125." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -3.383149, 42.09014 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 126." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -2.725577, 41.81097 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 127." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -1.928732, 41.60676 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 128." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -1.193532, 41.49962 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 129." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ -0.5367841, 41.48257 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 130." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 0.3426028, 41.52829 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 131." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 1.046561, 41.60528 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 132." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 1.712685, 41.73145 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 133." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [  2.25628, 41.98485 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 134." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 2.663246, 42.47407 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 135." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 3.028008, 43.08239 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 136." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 3.692813, 43.45228 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 137." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 4.450891, 43.66211 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 138." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [  4.91839, 44.09768 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 139." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 5.222188, 44.38484 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 140." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 5.386008, 44.68154 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 141." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 5.459503, 45.06789 ] 
 } 
 } 
 ]

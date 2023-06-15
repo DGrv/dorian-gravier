@@ -8,8 +8,8 @@
  xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
  xmlns:locus="http://www.locusmap.eu">
 	<metadata>
-		<desc>File with points/tracks from Locus Map/4.15.2</desc>
-		<time>2023-05-18T08:47:48.420Z</time>
+		<desc>File with points/tracks from Locus Map/4.17.0</desc>
+		<time>2023-06-15T15:03:30.131Z</time>
 	</metadata>
 <wpt lat="48.14672262" lon="6.49913546">
 	<time>2021-08-28T09:21:44.447Z</time>
@@ -503,5 +503,77 @@
 <wpt lat="42.78516186" lon="-4.30037500">
 	<time>2023-05-16T09:12:31.825Z</time>
 	<name>Point 123.</name>
+</wpt>
+<wpt lat="42.34687411" lon="-3.86903460">
+	<time>2023-05-25T17:26:26.148Z</time>
+	<name>Point 124.</name>
+</wpt>
+<wpt lat="42.09013566" lon="-3.38314915">
+	<time>2023-05-26T16:23:59.549Z</time>
+	<name>Point 125.</name>
+</wpt>
+<wpt lat="41.81097383" lon="-2.72557720">
+	<time>2023-05-27T16:47:24.865Z</time>
+	<name>Point 126.</name>
+</wpt>
+<wpt lat="41.60676321" lon="-1.92873187">
+	<time>2023-05-28T17:56:23.990Z</time>
+	<name>Point 127.</name>
+</wpt>
+<wpt lat="41.49962061" lon="-1.19353152">
+	<time>2023-05-29T17:42:28.298Z</time>
+	<name>Point 128.</name>
+</wpt>
+<wpt lat="41.48257405" lon="-0.53678408">
+	<time>2023-05-30T20:03:36.117Z</time>
+	<name>Point 129.</name>
+</wpt>
+<wpt lat="41.52829029" lon="0.34260276">
+	<time>2023-05-31T17:09:45.615Z</time>
+	<name>Point 130.</name>
+</wpt>
+<wpt lat="41.60527873" lon="1.04656116">
+	<time>2023-06-01T17:39:49.799Z</time>
+	<name>Point 131.</name>
+</wpt>
+<wpt lat="41.73145313" lon="1.71268533">
+	<time>2023-06-02T17:12:02.845Z</time>
+	<name>Point 132.</name>
+</wpt>
+<wpt lat="41.98485037" lon="2.25628041">
+	<time>2023-06-03T16:38:39.776Z</time>
+	<name>Point 133.</name>
+</wpt>
+<wpt lat="42.47407105" lon="2.66324598">
+	<time>2023-06-04T19:31:45.660Z</time>
+	<name>Point 134.</name>
+</wpt>
+<wpt lat="43.08238890" lon="3.02800781">
+	<time>2023-06-05T17:05:14.027Z</time>
+	<name>Point 135.</name>
+</wpt>
+<wpt lat="43.45227506" lon="3.69281260">
+	<time>2023-06-06T20:36:35.171Z</time>
+	<name>Point 136.</name>
+</wpt>
+<wpt lat="43.66211331" lon="4.45089097">
+	<time>2023-06-10T16:52:47.414Z</time>
+	<name>Point 137.</name>
+</wpt>
+<wpt lat="44.09768456" lon="4.91838952">
+	<time>2023-06-11T19:36:24.090Z</time>
+	<name>Point 138.</name>
+</wpt>
+<wpt lat="44.38484207" lon="5.22218778">
+	<time>2023-06-12T15:50:21.891Z</time>
+	<name>Point 139.</name>
+</wpt>
+<wpt lat="44.68154453" lon="5.38600764">
+	<time>2023-06-13T17:24:17.880Z</time>
+	<name>Point 140.</name>
+</wpt>
+<wpt lat="45.06789391" lon="5.45950340">
+	<time>2023-06-14T15:55:56.010Z</time>
+	<name>Point 141.</name>
 </wpt>
 </gpx>
