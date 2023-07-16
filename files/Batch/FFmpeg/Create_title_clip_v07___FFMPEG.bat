@@ -112,9 +112,9 @@ FOR /l %%x IN (1, 1, %lines%) DO (
 	echo high = !high!
 	echo ----------------------[0m
 	if %%x==1 (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=%W%x%H%:d=%sec% -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=%W%x%H%:d=%sec% -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
 	) else (
-		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
+		ffmpeg -stats -loglevel error -i 0000000!before!.mp4 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=%fontsize%:fontcolor=white:x=%xpos%:y=!high!:textfile=temp%%x.txt" -video_track_timescale 30000 0000000%%x.mp4
 		del 0000000!before!.mp4
 		set last=0000000%%x.mp4
 	)

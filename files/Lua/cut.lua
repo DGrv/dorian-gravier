@@ -67,8 +67,10 @@ function cut()
   
 
 
-	strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..caf..'" -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
-	strCmd2 = 'ffmpeg -hide_banner -ss "'..ckf..'" -i "'..video_in..'" -avoid_negative_ts make_zero -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out2..'"'
+	-- strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..caf..'" -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
+	strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..caf..'" -map "0:0" "-c:0" libx264 -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
+	-- strCmd2 = 'ffmpeg -hide_banner -ss "'..ckf..'" -i "'..video_in..'" -avoid_negative_ts make_zero -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out2..'"'
+	strCmd2 = 'ffmpeg -hide_banner -ss "'..ckf..'" -i "'..video_in..'" -avoid_negative_ts make_zero -map "0:0" "-c:0" libx264 -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out2..'"'
 
 	
 	debug1 = "(echo file '"..vpath.."in_seg1.mp4' & echo file '"..vpath.."in_seg2.mp4' ) > "..vpath..'list.txt'
@@ -88,4 +90,4 @@ function cut()
 	
 end
 
-mp.add_key_binding("c", "cut", cut)
+mp.add_key_binding("a", "cut", cut)

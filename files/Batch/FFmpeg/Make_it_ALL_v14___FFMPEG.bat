@@ -77,7 +77,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
 	set tbdefault=y
-	set biketrip=y
+	set biketrip=n
 	set fordorian=y
 	set pathout=D:\Pictures\2023\Video
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
@@ -334,12 +334,12 @@ echo.
 	REM echo|set /p=" |">>temptitle
 
 	if NOT EXIST 00000_title.mp4 (
-		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 		if %biketrip%==y (
-			ffmpeg -stats -loglevel error -i "D:\Pictures\Youtube\Tatoo\Tatoo_v02.mp4" -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -i "D:\Pictures\Youtube\Tatoo\Tatoo_v02.mp4" -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
-			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
+			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		)
 		:: add audio
@@ -385,12 +385,12 @@ echo.
 			set /a high*=75
 			if !x!==1 (	
 				set /a hightitle=high-150
-				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
+				ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=12 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!hightitle!:text='| Music |'" -video_track_timescale %RV% zzz.mp4
 				ffmpeg -stats -loglevel error -i zzz.mp4 -f lavfi -i aevalsrc=0 -shortest -y zzza.mp4
-				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzza.mp4 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz.mp4 zzza.mp4
 			) else (
-				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile='Arial':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
+				ffmpeg -stats -loglevel error -i zzz!before!.mp4 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=((h-text_h)/2)+!high!:text='%%a'" -video_track_timescale %RV% zzz!x!.mp4
 				del zzz!before!.mp4
 			)
 			set last=zzz!x!.mp4
@@ -577,97 +577,7 @@ echo.
 	
 
 
-	
-echo.
-echo [94m------------------------------------------------- [37m
-echo [94mINFO - Add music title overlay [37m
-echo.
 
-	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %dooverlaymusic%==y (
-		if %check%==0 (
-			if not exist Video_list_overlay_temp.txt (
-				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
-			)
-			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-			ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
-			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
-				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
-			)
-		
-			
-			set xpos=0.90
-			set ypos=0.95
-			
-			set /a duraTT=5
-			set /a videoTT = 0
-			set /a videoTTbefore = 0
-			set /a n=0
-			if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
-			for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
-				set /a n+=1
-				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
-				set /p videotime=<tempfile
-				set /a videotime=videotime
-				set /a videoTT+=videotime
-				set rename=%%~nb_%timestamp%.mp4
-				echo [96m!n! - Loop Video - %%b [37m
-
-				if not "%%b"=="00000_title.mp4" (
-					set /a na=0
-					for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
-						set /a na+=1
-						echo [95m!n! - !na! - Loop Audio - %%a [37m
-						REM echo !musicn! > tempfilemusic
-						REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
-						set /p dura=<Music_list_overlay_duration_temp.txt
-						set /a dura=dura
-						if !videoTT! GTR !duraTT! (
-							set musicn=%%a
-							set musicn2=!musicn:~0,-4!
-							set musicn=Music - !musicn2!
-							set /a posmusic=duraTT-videoTTbefore
-							if !posmusic! LSS 0 (
-								set /a posmusic= 1
-							)
-							set /a posmusic2=!posmusic!+7
-							
-							echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
-							
-							rename Music_list_overlay_duration_temp.txt musicduration.temp
-							more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
-							del musicduration.temp
-							
-							rename Music_list_overlay_temp.txt music.temp
-							more +1 music.temp > Music_list_overlay_temp.txt
-							del music.temp
-							
-							
-							move %%b !rename!
-							REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='Arial':fontfile='Arial':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-							move !rename! BU_Music_overlay\!rename!
-							set /a duraTT+=dura
-						)
-					)
-				)
-				set /a videoTTbefore+=videotime
-			)
-			REM del tempfilemusic
-			del Music_list_overlay_temp.txt
-			del Video_list_overlay_temp.txt
-			del tempfile
-			REM touch Overlay_done.txt
-			echo Overlay_done >> MakeItAll_temp.config
-			sed -i /Check2_done/d MakeItAll_temp.config
-			if exist tempfile del tempfile
-			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-		)
-	)
-	
-	
-	
-	
 	
 	
 	
@@ -737,6 +647,96 @@ echo.
 		
 		echo Duration_done >> MakeItAll_temp.config
 	)
+	
+		
+echo.
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Add music title overlay [37m
+echo.
+
+	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+	if %dooverlaymusic%==y (
+		if %check%==0 (
+			if not exist Video_list_overlay_temp.txt (
+				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
+			)
+			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
+			ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
+			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
+				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
+			)
+		
+			
+			set xpos=0.90
+			set ypos=0.95
+			
+			set /a duraTT=5
+			set /a videoTT = 0
+			set /a videoTTbefore = 0
+			set /a n=0
+			if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
+			for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
+				set /a n+=1
+				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
+				set /p videotime=<tempfile
+				set /a videotime=videotime
+				set /a videoTT+=videotime
+				set rename=%%~nb_%timestamp%.mp4
+				echo [96m!n! - Loop Video - %%b [37m
+
+				if not "%%b"=="00000_title.mp4" (
+					set /a na=0
+					for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
+						set /a na+=1
+						echo [95m!n! - !na! - Loop Audio - %%a [37m
+						REM echo !musicn! > tempfilemusic
+						REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
+						set /p dura=<Music_list_overlay_duration_temp.txt
+						set /a dura=dura
+						if !videoTT! GTR !duraTT! (
+							set musicn=%%a
+							set musicn2=!musicn:~0,-4!
+							set musicn=Music - !musicn2!
+							set /a posmusic=duraTT-videoTTbefore
+							if !posmusic! LSS 0 (
+								set /a posmusic= 1
+							)
+							set /a posmusic2=!posmusic!+7
+							
+							echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
+							
+							rename Music_list_overlay_duration_temp.txt musicduration.temp
+							more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
+							del musicduration.temp
+							
+							rename Music_list_overlay_temp.txt music.temp
+							more +1 music.temp > Music_list_overlay_temp.txt
+							del music.temp
+							
+							
+							move %%b !rename!
+							REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+							move !rename! BU_Music_overlay\!rename!
+							set /a duraTT+=dura
+						)
+					)
+				)
+				set /a videoTTbefore+=videotime
+			)
+			REM del tempfilemusic
+			del Music_list_overlay_temp.txt
+			del Video_list_overlay_temp.txt
+			del tempfile
+			REM touch Overlay_done.txt
+			echo Overlay_done >> MakeItAll_temp.config
+			sed -i /Check2_done/d MakeItAll_temp.config
+			if exist tempfile del tempfile
+			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
+		)
+	)
+	
+	
 	
 	
 	
@@ -850,7 +850,7 @@ echo.
 	if EXIST input_temp.mp3 (
 		::ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
 		rename output_temp.mp4 output_temp2.mp4
-		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -c:v copy -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
+		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
 		REM ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2]" -map 0:v -map "[a1]" -map "[a2]" -c:v copy -ac 2 -shortest output_high_temp.mp4 :: does not work
 		del output_temp2.mp4
 

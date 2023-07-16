@@ -1,11 +1,27 @@
+print("[INFO] - LUA_CPATH = "..package.path)
+print("[INFO] - LUA_PATH = "..package.cpath)
+print("[INFO] - Lua Version ".._VERSION)
+function _86or64()
+    if(0xfffffffff==0xffffffff) then return 32 else return 64 end
+end
+print("[INFO] - Lua bit version = ".._86or64());
+
+
+
+
+
 -- local lanes = require('lanes')
- 
- 
- 
+ -- local luacom = require('luacom')
+ -- local winapi = require("C:\\Program Files (x86)\\Lua\\5.1\\clibs\\winapi.dll")
  
  mp.add_key_binding('i', function ()
-	mp.osd_message(" k - Text overlay right      K - Text overlay left \n n - Open Losslesscut      b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate       N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file", 5)
+	mp.osd_message(" k - Text overlay right \n K - Text overlay left \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound \n a - cut in 2", 10)
 end)
+
+-- mp.add_key_binding('W', function ()
+	-- Shell = luacom.CreateObject("WScript.Shell")
+	-- Shell:Run ("echo test", 0)
+-- end)
 
 
 ------------------------------
@@ -17,13 +33,22 @@ mp.add_key_binding('N', function ()
 	timestamp = os.date("%Y%d%m_%H%M%S")
 	video_in = video_path_noext..'_'..timestamp..'_old'..video_ext
 	os.rename(video_path, video_in)
-	strCmd = 'ffmpeg -stats -loglevel error  -i "' ..video_in.. '" -af arnndn=m="C\\\\:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg/filters/rnnoise-models/conjoined-burgers-2018-08-28/cb.rnnn" ' ..video_path..'"'
+	strCmd = 'ffmpeg -stats -loglevel error  -i "' ..video_in.. '" -af arnndn=m="C\\\\:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg/filters/rnnoise-models/conjoined-burgers-2018-08-28/cb.rnnn" -c:v copy ' ..video_path..'"'
 	print(strCmd)
 	mp.osd_message("Remove noise")
 	os.execute(strCmd)
 end)
 
-
+------------------------------
+ 
+mp.add_key_binding('S', function ()
+	video_path = mp.get_property("path")
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_Picture-sound_overlay_v01___FFMPEG.bat"'
+	strCmd = 'call '..strProgram..' '..video_path
+	print(strCmd)
+	mp.osd_message("Add picture or/and sound")
+	os.execute(strCmd)
+end)
 
 
 ------------------------------
@@ -42,7 +67,7 @@ function losslesscut()
 	strProgram = '"C:\\Users\\doria\\Downloads\\Software\\LosslessCut-win-x64\\LosslessCut.exe"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
-	strCmd = strProgram..' '..video_path
+	strCmd = 'call '..strProgram..' "'..video_path..'" && echo test'
 	print(strCmd)
 	mp.osd_message("Open Losslesscut")
 	-- io.write(strCmd)

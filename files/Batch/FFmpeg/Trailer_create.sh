@@ -47,7 +47,7 @@ du=$(echo "$du-2" | bc )
 ffmpeg -v error -stats -i "$vid" -vf "fade=t=in:st=0:d=2,fade=t=out:st=$du:d=2" -acodec copy -y v2.mp4
 
 # create end 
-ffmpeg -v error -stats -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='Arial':fontsize=50:fontcolor=white:x=W/2-text_w/2:y=H/2:text='Full video in YouTube - Link in Bio" -video_track_timescale 30000 -y temp1.mp4
+ffmpeg -v error -stats -f lavfi -i color=c=black:s=1920x1080:d=10 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\Arial.ttf':fontsize=50:fontcolor=white:x=W/2-text_w/2:y=H/2:text='Full video in YouTube - Link in Bio" -video_track_timescale 30000 -y temp1.mp4
 
 mv temp1.mp4 temp0.mp4
 ffmpeg -v error -stats -i temp0.mp4 -i "/mnt/d/Pictures/Youtube/icon/youtube.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=(W/2-w/2):300:enable='between(t,0.0,20)'" -acodec copy -y temp1.mp4

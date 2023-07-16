@@ -1,13 +1,12 @@
 #Persistent
-Clipboard := 
-
-
 MyLabel:
+
 state := "run"
 ShowOnOff("info", "Append_Copy ON", "Green")
 
 
-; Clipboard =
+Clipboard =
+
 OnClipboardChange:
 if (state = "run") {
 	If A_EventInfo = 1
@@ -20,20 +19,20 @@ if (state = "run") {
 }
 Return
 
-^W::ExitApp
+Esc::ExitApp
 
-Esc::
-if (state = "run") {
-	state := "pause"
-	ShowOnOff("info", "Append_Copy OFF", "Red")
-	bu := Clipboard
-	KeyWait, Esc
-} else {
-	Clipboard := bu
-	Goto, MyLabel
-}
-; pause
-return
+; Esc::
+; if (state = "run") {
+	; state := "pause"
+	; ShowOnOff("info", "Append_Copy OFF", "Red")
+	; bu := Clipboard
+	; KeyWait, Esc
+; } else {
+	; Clipboard := bu
+	; Goto, MyLabel
+; }
+; ; pause
+; return
 
 ; source: https://autohotkey.com/board/topic/96876-can-i-append-the-current-clipboard-to-the-clipboard-with-onclipboardchange/
 

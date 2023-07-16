@@ -102,9 +102,11 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 			echo.
 			REM ffmpeg -stats -loglevel error -y -i "!filenamenew!" -f lavfi -i aevalsrc=0 -ac 2 -shortest -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
 			ffmpeg -stats -loglevel error -y -i "!filenamenew!" -an -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
-		) 
+		) else (
+			ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+		)
 	) else (
-		 ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
+		ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"
 	)
 	REM del "!filenamenoext!__temp!ext!"
 	REM ffmpeg -i "%%p" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" -r 24 "%%~np_f%speed%%%~xp"

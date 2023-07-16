@@ -21,7 +21,7 @@ echo.
 
 :: ------------- Variables
 REM set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\youtube-dl.exe
-set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\yt-dlp.exe
+REM set pathexe=C:\Users\doria\Downloads\Software\Youtube-dl\yt-dlp.exe
 set wd=C:\Users\doria\Downloads\Youtube_music
 
 :: -------------- Info
@@ -46,7 +46,7 @@ echo.
 
 REM echo --------------------------------------------------------
 REM echo UPDATE Check youtube-dl
-REM %pathexe% -U
+REM yt-dlp -U
 REM echo --------------------------------------------------------
 REM echo.
 REM echo.
@@ -71,7 +71,7 @@ if "%choice%"=="2" (
 	echo. 
 	set /p choice2="Choose your format (1) and choose best (2): "
 	if "!choice2!"=="1" (
-		%pathexe% -F --playlist-items 1 %url%
+		yt-dlp -F --playlist-items 1 %url%
 		set /p format="Which one do you want: "
 	)
 )
@@ -107,7 +107,7 @@ if "%newfolder%"=="2" (
 	) else (
 		echo --------- Extract playlist name
 		:: get title of the playlist
-		%pathexe% -F --playlist-items 1 %url% > temp
+		yt-dlp -F --playlist-items 1 %url% > temp
 		:: check if if the string playlist is in the file
 		type temp | grep playlist | sed -n 1p > temp2
 		set /p boolplaylist=<temp2
@@ -139,32 +139,34 @@ echo.
 if "%choice%"=="1" (
 	if "%url:~-3%"=="txt" (
 		for /F "usebackq tokens=*" %%A in ("%url%") do (
-			%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
+			yt-dlp -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s"  -i %%A
 		)
 	) else (
-		%pathexe% -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -i %url%
+		yt-dlp -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -i %url%
 	)
 )
 if "%choice%"=="2" (
 	if "!choice2!"=="2" (
 		if "%url:~-3%"=="txt" (
 			for /F "usebackq tokens=*" %%A in ("%url%") do (
-				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %%A
+				REM yt-dlp --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %%A
+				yt-dlp -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %%A
 			)
 		) else (
 			REM Old best quality not needed
-			REM %pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %url%
+			REM yt-dlp --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" %url%
 			REM 248 should mean 1920x1080 and it is enough
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f 248 %url%
+			REM yt-dlp --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f 248 %url%
+			yt-dlp -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f 248 %url%
 		)
 	)
 	if "!choice2!"=="1" (
 		if "%url:~-3%"=="txt" (
 			for /F "usebackq tokens=*" %%A in ("%url%") do (
-				%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %%A
+				yt-dlp -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %%A
 			)
 		) else (
-			%pathexe% --write-auto-sub -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %url%
+			yt-dlp -o "%%(playlist_index)s___%%(uploader)s__-__%%(title)s.%%(ext)s" -f %format% %url%
 		)
 	)
 )
