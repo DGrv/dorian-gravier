@@ -22,9 +22,24 @@ library(rgdal)
 # download gpx ------------------------------------------------------------
 
 
-wd <- "C:/Users/doria/Downloads/Outdoor/Topo/thecrag/v02/"
+wd <- "C:/Users/doria/Downloads/Outdoor/Topo/thecrag/v03"
 create.dir(wd, "gpx", "wdgpx")
 wdgpx
+country <- "CH"
+create.dir(wdgpx, country, "wdgpx2")
+
+# download ----------------------------------------------------------------
+
+data <- data.table(read.csv(p0(wd, "/thecrag_v03/CH.csv")))
+data <- u(data)
+data <- data[gpx != "gpx"]
+data[, row := 1:.N]
+data[, file := p0(country, "_", row, ".gpx")]
+data[, code := p0("curl -o ", wdgpx2, file, " ", gpx)]
+data
+writeLines(data$code, p0("C:/Users/doria/Downloads/Outdoor/Topo/thecrag/v03/Download_", country, ".bat"))
+
+
 
 
 lf <- list.files(wd, full.names = T, pattern = "csv")
