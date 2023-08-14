@@ -55,7 +55,8 @@ if NOT "%inputp%"=="" (
 	) else (
 		set position=%4
 	) 
-	set position=%position:"=%
+	echo position = !position!
+	set position=!position:"=!
 ) else (
 	set position="none"
 )
