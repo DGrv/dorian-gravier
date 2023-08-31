@@ -15,7 +15,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #Persistent
 
-SetTimer, MoveMouse, 120000 ; Run MoveMouse every 2 minute
+SetTimer, MoveMouse, 60000 ; Run MoveMouse every 1 minute
 
 MoveMouse:
     MouseMove, 1, 0, 1, R  ;Move the mouse one pixel to the right

@@ -15,7 +15,7 @@ print("[INFO] - Lua bit version = ".._86or64());
  -- local winapi = require("C:\\Program Files (x86)\\Lua\\5.1\\clibs\\winapi.dll")
  
  mp.add_key_binding('i', function ()
-	mp.osd_message("\n\n` - show console\n\n k - Text overlay right \n K - Text overlay left \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound \n U - Add video overlay \n a - cut in 2", 10)
+	mp.osd_message("\n\n` - show console\n\n k - Text overlay right \n K - Text overlay left \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n R - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound \n U - Add video overlay \n a - cut in 2", 10)
 end)
 
 -- mp.add_key_binding('W', function ()

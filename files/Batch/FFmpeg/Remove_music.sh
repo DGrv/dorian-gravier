@@ -9,6 +9,8 @@ echo "Give your TV video : "
 read -e -i "" filev
 echo $filev >> ~/.bash_history
 history -a
+echo "Do you wanna add keyframes (for making the trailer) [y / n]: " 
+read -e -i "" kf
 
 
 echo    # (optional) move to a new line
@@ -24,24 +26,29 @@ if [[ -f "$filev" ]]; then
 	nfile=$patho/$nfile
 	filea=${patha}/$audio
 	
-	cecho p "[DEBUG] ---------------"
-	cecho p "filev = $filev"
-	cecho p "pathf = $pathf"
-	cecho p "patha = $patha"
-	cecho p "patho = $patho"
-	cecho p "temp = $temp"
-	cecho p "audio = $audio"
-	cecho p "filea = $filea"
-	cecho p "nfile = $nfile"
-	cecho p "---------------"
+	cecho -p "[DEBUG] ---------------"
+	cecho -p "filev = $filev"
+	cecho -p "pathf = $pathf"
+	cecho -p "patha = $patha"
+	cecho -p "patho = $patho"
+	cecho -p "temp = $temp"
+	cecho -p "audio = $audio"
+	cecho -p "filea = $filea"
+	cecho -p "nfile = $nfile"
+	cecho -p "---------------"
 	echo
 	
+    cecho -g "Switch audio\nwill be written in " $patho
 	ffmpeg -v error -stats -i $filev -i $filea -map 0:v -map 1:a -c:v copy -ac 2 -shortest -y $temp
 	# this step to permit smart cut with losslesscut
-	ffmpeg -v error -stats -i $temp -vcodec libx264 -x264-params keyint=15:scenecut=0 -video_track_timescale 30000 -acodec copy -y $nfile
+    if [[ $kf == "y" ]]; then
+        cecho -g "Add Keyframes\n"
+        ffmpeg -v error -stats -i $temp -vcodec libx264 -x264-params keyint=15:scenecut=0 -video_track_timescale 30000 -acodec copy -y $nfile
+        rm $temp
+    else 
+        mv $temp $nfile
+    fi
 
-
-	rm $temp
 	
 else
     echo "Your file '$file' does not exists."

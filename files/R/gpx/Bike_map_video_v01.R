@@ -35,14 +35,22 @@ wd <- "D://Pictures/GoPro//Map_bike"
 setwd(wd)
 
 
+
+
+nremove <- 5
+nlast <- 8
+
+
+
+
 # Data --------------------------------------------------------------------
 
 
 world <- data.table(map_data("world"))
 world
 world[,.N, subregion]
-world[region %like% "France|Spain|Portuga"]
-world2 <- world[region %like% "France|Spain|Portuga|Ando"]
+world[region %like% "France|Spain|Portuga|Switzerland|Italy|Germany"]
+world2 <- world[region %like% "France|Spain|Portuga|Ando|Switzerland|Italy|Germany"]
 
 
 ll <- list.files.only("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022")
@@ -64,9 +72,7 @@ data[, time1 := strptime(substr(time, 1, 10), format = "%Y-%m-%d")]
 
 
 temp <- data[, .N, time1]$time1
-temp
-nremove <- 3
-nlast <- 3
+
 length(temp)
 past <- temp[1:(length(temp)-nremove-nlast)]
 last <- temp[(length(temp)-nremove-nlast+1):(length(temp)-nremove)]
@@ -135,7 +141,7 @@ info.first <- get.info.bike(datafirst)
         # write.csv(city, "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/gpx/Cities_EU.csv")
 
 city <- data.table(read.csv("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/gpx/Cities_EU.csv"))
-city <- city[Country %in% c("ES", "FR", "PT") & !is.na(pop)]
+city <- city[Country %in% c("ES", "FR", "PT", "CH", "IT", "DE") & !is.na(pop)]
 city <- city[lat > min(world2$lat) & lon > min(world2$long) & lat < max(world2$lat) & lon < max(world2$long)]
         
         # # test data
@@ -251,16 +257,16 @@ a <- ggplot()+
 
 # coord_map()
 b <- a+  coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))
-printfast(b, "tempmap.png", ext = "png", height = 1080, width = 1920)
+printfast(b, "00000_wmap.png", ext = "png", height = 1080, width = 1920)
+
+
 
 # c <- a+  coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)
 # printfast(c, "tempmapb.png", ext = "png", height = 1080, width = 1920)
 
-system('ffmpeg -y -stats -loglevel error -r "1/10" -f image2 -i "tempmap.png" -vcodec libx264 -vf "fps=24,format=yuv420p" 0.mp4')
-system('ffmpeg -y -stats -loglevel error -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -i 0.mp4 -c:v copy -c:a aac -video_track_timescale 24000 -shortest 1.mp4')
-system(p0('ffmpeg -y -stats -loglevel error -i 1.mp4 -vf "fade=t=in:st=0:d=2,fade=t=out:st=8:d=2" -c:a copy 00000_wmap.mp4'))
+png2mp4("00000_wmap.png", 8)
 
-file.remove("0.mp4", "1.mp4")
+
 
 
 

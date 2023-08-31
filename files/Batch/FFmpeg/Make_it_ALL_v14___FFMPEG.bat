@@ -77,7 +77,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
 	set tbdefault=y
-	set biketrip=n
+	set biketrip=y
 	set fordorian=y
 	set pathout=D:\Pictures\2023\Video
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
@@ -313,7 +313,7 @@ echo.
 	if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
 	if %biketrip%==y ( 
 		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
-		if not exist zzz_lsub_v01.mp4 ( copy "D:\Pictures\Youtube\Subscribe\zzz_lsub_v01.mp4" "zzz_lsub_v01.mp4" )
+		REM if not exist zzz_lsub_v01.mp4 ( copy "D:\Pictures\Youtube\Subscribe\zzz_lsub_v01.mp4" "zzz_lsub_v01.mp4" )
 	)
 	
 	
@@ -492,7 +492,7 @@ echo.
 			REM ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=noprint_wrappers=1:nokey=1 
 				REM ffprobe -v error -select_streams v:0 -show_entries stream 00005.mp4 | grep -E "width|height"
 			REM ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 
-			for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
+			REM for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
 			
 			if not !codec!==h264 (
 				if not !reso!==1920 (
@@ -593,24 +593,15 @@ echo.
 	if %check%==0 (
 	
 		set /a da=0
-		for %%i in (*mp3) do (
-			if NOT %%i==input_temp.mp3 (
-				for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
-			)
-			echo [93m!dd! = %%i[37m
-			set /a da+=dd
-		)
+		for /f %%j in ('exiftool -n -duration *mp3 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
 
 		echo.
 		echo Processing the videos ...
 		echo.
 
+
 		set /a dv=0
-		for %%i in (*.mp4) do (
-			for /f %%j in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set dd=%%j && set /a dd=dd
-			REM echo [93m!dd! = %%i[37m
-			set /a dv+=dd
-		)
+		for /f %%j in ('exiftool -n -duration *mp4 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
 			
 		set /a dv2=dv+12+12+12
 		set /a daM=da/60
@@ -915,6 +906,18 @@ echo.
 		rename audio.mp3 %title2%_AUDIO.mp3
 		if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
 		rename Music_list_temp.txt %title2%_MUSIC-TITLE.txt
+		
+		echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
+		echo del %title2%_low.mp4  >> DEL_end_files_MP4.bat
+		echo del %title2%_AUDIO.mp3 >> DEL_end_files_MP4.bat
+		echo del %title2%_AUDIO-NORMA.mp3 >> DEL_end_files_MP4.bat
+		echo del %title2%_MUSIC-TITLE.txt >> DEL_end_files_MP4.bat
+		echo del Test_youtube_copy.mp4 >> DEL_end_files_MP4.bat
+		echo sed -i /Duration/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+		echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+		echo sed -i /Check/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+
+		
 		echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat
 		echo move %title2%_low.mp4 %pathout%\Low\ >> IF_OK_MOVE_READY_MP4.bat
 		echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat

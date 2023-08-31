@@ -79,5 +79,5 @@ echo ----------------------[37m
 
 rename %filename% %filenamenew%
 
-ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%input2%" -filter_complex "[1]setpts=PTS-STARTPTS+14/TB[top];[0][top]overlay=enable='between(t,%times%,%dd%+%times%)'" -c:a copy "%filename%"
+ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%input2%" -filter_complex "[1]setpts=PTS-STARTPTS+%times%/TB[top];[0][top]overlay=enable='between(t,%times%,%dd%+%times%)'" -c:a copy "%filename%"
 

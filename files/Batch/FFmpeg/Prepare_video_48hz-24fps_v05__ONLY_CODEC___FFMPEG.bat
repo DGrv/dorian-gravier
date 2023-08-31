@@ -39,7 +39,8 @@ for %%a in (*.MP4) do (
 
 
 		set RV=30000
-		set RVd=1/!RV!
+		set RVd=29.97
+		set RVd2=30
 		set RA=48000
 		set RAd=1/!RA!
 
@@ -78,6 +79,12 @@ IF %ERRORLEVEL% NEQ 0 (
 	echo "[DEBUG] - FFMPEG is missing !!!!!!!!"
 	pause
 ) 
+
+WHERE exiftool
+IF %ERRORLEVEL% NEQ 0 (
+	echo "[DEBUG] - exiftool is missing !!!!!!!!"
+	pause
+) 
 :: audio 
 	:: audio 
 		echo.
@@ -108,6 +115,7 @@ IF %ERRORLEVEL% NEQ 0 (
 			for /f %%j in ('du "%%i" ^| cut -f -1') do set /a sizefile=%%j
 			
 			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set rota=%%j
+			REM for /f %j in ('ffprobe -v error -select_streams v:0 -show_entries stream_tags^=rotate -of default^=noprint_wrappers^=1:nokey^=1 "00004.mp4"') do set rota=%j
 			
 			REM if defined rota (
 				REM echo [96m--- File %%i rotated - Add padding[37m
@@ -117,12 +125,12 @@ IF %ERRORLEVEL% NEQ 0 (
 			REM )
 			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=codec_name -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set codec=%%j
 			REM for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%j
-			for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set RVdt=%%j
+			for /f %%j in ('exiftool "%%i" ^| grep "Video Frame Rate" ^| perl -pe "s|.*\: (.*)|\1|g"') do set RVdt=%%j
 			REM ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 
 			REM ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=noprint_wrappers=1:nokey=1 
 				REM ffprobe -v error -select_streams v:0 -show_entries stream 00005.mp4 | grep -E "width|height"
 			REM ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 
-			for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
+			REM for /f %%k in ('ffprobe -v error -select_streams v:0 -show_entries stream^=width -of default^=noprint_wrappers^=1:nokey^=1 "%%i"') do set reso=%%k
 			
 			if not !codec!==h264 (
 				REM if not !reso!==1920 (
@@ -138,10 +146,12 @@ IF %ERRORLEVEL% NEQ 0 (
 					REM )
 				REM ) else (
 					if not "!RVdt!"=="%RVd%" (
-						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
-						rename "%%i" "%%~ni_temp.mp4"
-						ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% -movflags faststart "%%i"
-						if exist "%%i" ( del "%%~ni_temp.mp4" )
+						if not "!RVdt!"=="%RVd2%" (
+							echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	[91mRVdt = !RVdt![37m
+							rename "%%i" "%%~ni_temp.mp4"
+							ffmpeg -stats -loglevel error -i "%%~ni_temp.mp4" -vcodec libx264 -x264-params keyint=12:scenecut=0 -video_track_timescale %RV% -movflags faststart "%%i"
+							if exist "%%i" ( del "%%~ni_temp.mp4" )
+						)
 					) else (
 						echo [93m--- File %%i 	[91mcodec = !codec!	[92mreso = !reso!	RVdt = !RVdt![37m
 						rename "%%i" "%%~ni_temp.mp4"

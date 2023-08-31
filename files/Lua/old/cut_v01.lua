@@ -36,7 +36,6 @@ function cut()
 
 	-- get time cursor
 	t1 = mp.get_property_number("time-pos")
-	os.rename(video_path, video_in)
 	-- t1 = 2.402
 
 	-- get closest kf 
@@ -63,9 +62,14 @@ function cut()
 		 selectedkey = key
 	  end
 	end
+	
+	print("[Debug] - selectedkey="..selectedkey)
+	print("[Debug] - af="..af[selectedkey-2])
 	caf=af[selectedkey-2]
+	print("[Debug] - caf="..caf)
   
 
+	os.rename(video_path, video_in)
 
 	-- strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..caf..'" -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
 	strCmd1 = 'ffmpeg -hide_banner -i "'..video_in..'" -t "'..caf..'" -map "0:0" "-c:0" libx264 -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
