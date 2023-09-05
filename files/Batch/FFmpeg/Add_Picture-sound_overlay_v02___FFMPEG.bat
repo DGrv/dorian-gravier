@@ -26,19 +26,23 @@ if "%1"=="" (
 ) 
 set output=%input:.mp4=%
 
-if "%2"=="" (
-	set /p inputp="Give me the path of your picture file (if only sound type enter): "
-) else (
-	set inputp=%2
-) 
 
-if q%3q==qq (
+if q%2q==qq (
 	set /p times="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
 ) else (
-	set times=%3
+	set times=%2
 )
-
 set times=%times:"=%
+
+
+
+if "%3"=="" (
+	set /p inputp="Give me the path of your picture file (if only sound type enter): "
+) else (
+	set inputp=%3
+) 
+
+
 
 echo inputp = %inputp%
 if NOT "%inputp%"=="" (
@@ -119,12 +123,14 @@ echo ----------------------[37m
 
 if NOT "%inputp%"=="" (
 	ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times%)'" -c:a copy "%filename%"
-) else (
-	copy "%filenamenew%" temp.mp4
 )
 
 if NOT q%choicesound%q==qq (
-	rename "%filename%" temp.mp4
+	if NOT "%inputp%"=="" (
+		rename "%filename%" temp.mp4
+	) else (
+		copy "%filenamenew%" temp.mp4
+	)
 	ffmpeg -stats -loglevel error -y -i temp.mp4 -i "%choicesound%" -filter_complex "[0:a]volume=2[a1];[1:0]volume=0.7[a2];[a2]adelay=%delaysound2%:all=1[a3];[a1][a3]amix=inputs=2[a]" -map "[a]" -map 0:v -c:v copy "%filename%"
 	del temp.mp4
 )

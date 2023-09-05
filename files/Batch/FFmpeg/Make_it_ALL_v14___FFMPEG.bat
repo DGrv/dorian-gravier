@@ -78,7 +78,6 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 	REM ---------------USE HERE DEFAULKT-------------------
 	set tbdefault=y
 	set biketrip=y
-	set fordorian=y
 	set pathout=D:\Pictures\2023\Video
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
 	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.8.2-all.jar"
@@ -312,7 +311,7 @@ echo.
 
 	if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
 	if %biketrip%==y ( 
-		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v03\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
+		if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v02\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
 		REM if not exist zzz_lsub_v01.mp4 ( copy "D:\Pictures\Youtube\Subscribe\zzz_lsub_v01.mp4" "zzz_lsub_v01.mp4" )
 	)
 	
@@ -593,7 +592,7 @@ echo.
 	if %check%==0 (
 	
 		set /a da=0
-		for /f %%j in ('exiftool -n -duration *mp3 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
+		for /f %%j in ('exiftool -n -T -duration -s3 *mp3 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
 
 		echo.
 		echo Processing the videos ...
@@ -601,7 +600,7 @@ echo.
 
 
 		set /a dv=0
-		for /f %%j in ('exiftool -n -duration *mp4 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
+		for /f %%j in ('exiftool -n -T -duration -s3 *mp4 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
 			
 		set /a dv2=dv+12+12+12
 		set /a daM=da/60

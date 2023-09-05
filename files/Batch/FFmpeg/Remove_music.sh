@@ -13,10 +13,10 @@ echo "Do you wanna add keyframes (for making the trailer) [y / n]: "
 read -e -i "" kf
 
 
-echo    # (optional) move to a new line
+echo	# (optional) move to a new line
 if [[ -f "$filev" ]]; then
-    pathf=$(dirname $filev)
-    pathf=$(dirname $pathf)
+	pathf=$(dirname $filev)
+	pathf=$(dirname $pathf)
 	video=$(basename $filev)
 	patha=${pathf}/Audio
 	patho=${pathf}/trailer
@@ -38,18 +38,18 @@ if [[ -f "$filev" ]]; then
 	cecho -p "---------------"
 	echo
 	
-    cecho -g "Switch audio\nwill be written in " $patho
+	cecho -g "Switch audio --- will be written in " $patho
 	ffmpeg -v error -stats -i $filev -i $filea -map 0:v -map 1:a -c:v copy -ac 2 -shortest -y $temp
 	# this step to permit smart cut with losslesscut
-    if [[ $kf == "y" ]]; then
-        cecho -g "Add Keyframes\n"
-        ffmpeg -v error -stats -i $temp -vcodec libx264 -x264-params keyint=15:scenecut=0 -video_track_timescale 30000 -acodec copy -y $nfile
-        rm $temp
-    else 
-        mv $temp $nfile
-    fi
-
+	if [[ $kf == "y" ]]; then
+		cecho -g "\nAdd Keyframes"
+		ffmpeg -v error -stats -i $temp -vcodec libx264 -x264-params keyint=15:scenecut=0 -video_track_timescale 30000 -acodec copy -y $nfile
+		rm $temp
+	else 
+		mv $temp $nfile
+	fi
+	
 	
 else
-    echo "Your file '$file' does not exists."
+	echo "Your file '$file' does not exists."
 fi

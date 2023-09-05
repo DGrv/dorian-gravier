@@ -12,7 +12,7 @@ history -a
 
 # -d for directory
 if [[ ! -d "$input" ]]; then
-    cecho -r "$input does not exists."
+	cecho -r "$input does not exists."
 fi
 
 oldpath=$(pwd)
@@ -20,10 +20,12 @@ cd $input
 
 for file in *mp4
 do
-    reso=$(exiftool -ImageSize -s3 $file)
-    if [[ "$reso" = "1080x1920" ]];then
-        mv $file temp.mp4
-        ffmpeg -stats -loglevel error -y -i temp.mp4 -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "$file"
-        rm temp.mp4
-    fi
+	cecho -g $file
+	reso=$(exiftool -ImageSize -s3 $file)
+	if [[ "$reso" = "1080x1920" ]];then
+		cecho -r "Need to be padded"
+		mv $file temp.mp4
+		ffmpeg -stats -loglevel error -y -i temp.mp4 -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "$file"
+		rm temp.mp4
+	fi
 done

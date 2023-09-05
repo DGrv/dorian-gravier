@@ -18,13 +18,13 @@ args <- commandArgs(trailingOnly=TRUE)
 
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  lookfor <- "Broglio"
+  lookfor <- "Sidelenhütte"
 } else if (length(args)==1) {
   # default output file
   lookfor <- args[1]
 }
 
-
+lookfor <- str_conv(lookfor, "utf-8")
 
 library(ggh4x)
 library(ggmap)
@@ -50,7 +50,7 @@ source("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/Functio
 wd <- "D:/Pictures/GoPro/Map_bike/"
 setwd(wd)
 
-file.remove("Location_choose_white.png")
+file.remove("Location_choose_white_nobike.png")
 
 
 
@@ -104,17 +104,6 @@ cc <- cc[sample(1:length(cc), 2)]
 
 # gpx ---------------------------------------------------------------------
 
-cat(green("\nReading gpx :\n"))
-if( !exists("data0") ) {
-  ll <- list.files.only("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022")
-  data0 <- data.table()
-  for (i in seq_along(ll)) {
-    temp <- data.table(get_table_from_gpx(ll[i]))
-    # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
-    temp[, file := basename(ll[i])]
-    data0 <- rbind(data0, temp, fill = T)
-  }
-}
 
 # city <- city[tolower(name) != tolower(lookfor)]
 loc <- geocode(lookfor)
@@ -130,12 +119,6 @@ loc3 <- st_bbox(c(xmin = loc2[[1]], xmax = loc2[[3]], ymin = loc2[[2]]+t, ymax =
 loc3
 st_crs(loc3) <- 4326
 
-# gpx
-data1 <- st_as_sf(data0, coords = c("lon","lat"), crs = st_crs(4326))
-data2 <- st_crop(data1, loc3)
-data2 <- st_transform(data2, 3857)
-
-data3 <- data0[1:which(data0$time == data0[st_nearest_feature(locp, data1)]$time)]
 
 
 # ggplot ------------------------------------------------------------------
@@ -151,32 +134,19 @@ theme_set(theme(plot.background = element_rect(fill = "black"),
 
   
 
-# a <- ggplot()+
-#   geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
-#   geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill=NA)+
-#   # geom_point(data = city, aes(lon, lat), color = "white")+
-#   # geom_text(data = city, aes(lon, lat, label = name), color = "white", size = 2, hjust = 1.1, vjust = -0.2)+
-#   geom_path(data=data3, aes(lon, lat), color = cc2[1], linewidth = 1.2)+
-#   coord_cartesian(xlim = c(-32,10), ylim = c(36, 52))+
-#   geom_point(data = loc, aes(x = lon, y = lat), color = cc, size = 7) + 
-#   geom_text(data = loc, aes(lon, lat, label = lookfor), color = cc, size = 12, hjust = -0.1, vjust = 1.2)
-# # a
-# printfast(a, "Location_choose.png", ext = "png", height = 1080, width = 1920)
-# png2mp4("Location_choose.png")
 
 a <- ggplot()+
   geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill="gray80", linewidth=1.25)+
-  geom_path(data=data3, aes(lon, lat), color = cc[1], linewidth = 1.2)+
   coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
   geom_point(data = loc, aes(x = lon, y = lat), color = cc[2], size = 7) + 
   # geom_label(data = loc, aes(lon, lat, label = lookfor), fill = cc, size = 14, hjust = -0.1, vjust = 1.2)
   geom_label_repel(data = loc, aes(lon, lat, label = lookfor), fill = cc[2], color = "white", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)
 # a
-printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
-# png2mp4("Location_choose_white.png", 10)
-system("magick Location_choose_white.png -background black -alpha background -alpha off -bordercolor black -border 1 -transparent black Location_choose_white.png")
-system('magick Location_choose_white.png -fill "rgba(204,204,204,0.4)" -opaque rgba(204,204,204)  Location_choose_white.png')
-# system("qimgv Location_choose_white.png")
+printfast(a, "Location_choose_white_nobike.png", ext = "png", height = 1080, width = 1920)
+# png2mp4("Location_choose_white_nobike.png", 10)
+system("magick Location_choose_white_nobike.png -background black -alpha background -alpha off -bordercolor black -border 1 -transparent black Location_choose_white_nobike.png")
+system('magick Location_choose_white_nobike.png -fill "rgba(204,204,204,0.4)" -opaque rgba(204,204,204)  Location_choose_white_nobike.png')
+# system("qimgv Location_choose_white_nobike.png")
 
 # 
 # # osm ---------------------------------------------------------------------

@@ -38,73 +38,19 @@ for %%a in (%pathfile%) do (
 	set ext=%%~xa
 	set drive=%%~da
 )  
-REM echo pathh=%pathh%
-REM echo filename=%filename%
-REM echo filenamenoext=%filenamenoext%
-REM echo filepathnoext=%filepathnoext%
-REM echo drive=%drive%
-REM echo wd=%wd%
 %drive%
 cd "%pathh%"
 
-echo [95m[DEBUG] ---------------------
-echo 1 = %1
-echo 2 = %2
-echo 3 = %3
-echo 4 = %4
-echo 5 = %5
-echo ----------------------[37m
 
 
 
-if [%2]==[] (
-	set /p timeuser="At which time to start in second: "
+if q%2q==qq (
+	set /p times="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
 ) else (
-	set timeuser=%2
-	set timeuser=!timeuser:"=!
-)
-:: need this to remove the " from the lua script mpv
-set /a time1=%timeuser%
-REM set /a time1-=1
-set /a time2=time1+5
-REM if "%timeuser:~1,1%"=="," (
-	REM set time1=%timeuser:~0,1%
-	REM set time2=%timeuser:~2,3%
-REM ) else (
-	REM if "%timeuser:~2,1%"=="," (
-		REM set time1=%timeuser:~0,2%
-		REM set time2=%timeuser:~3,3%
-	REM ) else (
-		REM set time1=%timeuser:~0,3%
-		REM set time2=%timeuser:~4,4%
-	REM )
-REM )
-
-:: use %~1 instead of %1 if you have space in the text
-:: use %~1 instead of %1 if you have space in the text
-:: use %~1 instead of %1 if you have space in the text
-:: use %~1 instead of %1 if you have space in the text
-
-if "%~5"=="" (
-	echo [91m
-	set /p text=Give me you text: You can use \n in your string to create new line !!!! :[37m 
-	echo [37m
-) else (
-	set text=%~5
+	set times=%2
 ) 
 
-set ft1=%filenamenoext%_old_temp.txt
-REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
-set "text=%text:(=^(%"
-set "text=%text:)=^)%"
-REM set "text=%text:\n\n= >> %ft1% & echo. >> %ft1% & echo %"
-REM set "text=%text:\n= >> %ft1% & echo %"
-set "text=%text:"=%"
-if exist "%ft1%" rm %ft1%
-echo %text% >> %ft1%
-truncate -s -2 %ft1%
-
-:: Cols:\n- Port de Lers (1517m) avec le col d'Agnès (15737m)\n- Col de la Core (1395m)\n- Col de Menté (1349m)\n- Col de Peyresourde (1569m)\n- Col du Tourmalet (2115m)\n- Col d'Aubisque (1709m)\n- Col de Marie-Blanque (1035m)\n- Col de Labays (1354m)
+set times=%times:"=%
 
 
 
@@ -116,11 +62,39 @@ if "%3"=="" (
 if [%fontsize%]==[] (
 	set fontsize=50
 )
-set /a fontsize2=fontsize/2
+set /a fontsize2=fontsize/3*2
+
+
+if "%~5"=="" (
+	echo [91m
+	set /p text="Give me you text: You can use \n in your string to create new line:  [37m"
+	echo [37m
+) else (
+	set text=%~5
+) 
 
 
 
-REM echo filenamenoext : %filenamenoext%
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+:: use %~1 instead of %1 if you have space in the text
+
+set ft1=%filenamenoext%_old_temp.txt
+if "%text%"=="" (
+	touch %ft1%
+) else (
+	REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
+	set "text=%text:!=^!%"
+	set "text=%text:(=^(%"
+	set "text=%text:)=^)%"
+	REM set "text=%text:\n\n= >> %ft1% & echo. >> %ft1% & echo %"
+	REM set "text=%text:\n= >> %ft1% & echo %"
+	set "text=%text:"=%"
+	if exist "%ft1%" rm %ft1%
+	echo %text% > %ft1%
+	truncate -s -2 %ft1%
+)
 
 echo.
 echo "--------------------------------"
@@ -135,36 +109,44 @@ echo.
 
 
 echo Give a x position (0.1 will be on the left, 0.9 will be on the right)
+
 if "%4"=="" (
-	set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TR): "
+	set /p xpos="Or give BL (bottom right), TR (top left) ... (nothing will be TR):  [37m"
 ) else (
 	set xpos=%4
 ) 
+
+
+
 if "%xpos%"=="" (
 	set xpos=TR
 )
-
 if "%xpos%"=="TR" (
 	echo [91m
-	set /p text2=Give me you TRANSLATED text (write nothing if you want nothing):[37m 
+	set /p text2="Give me you TRANSLATED text (write nothing if you want nothing):  [37m" 
 	echo [37m
 )
 if "%xpos%"=="TL" (
 	echo [91m
-	set /p text2=Give me you TRANSLATED text (write nothing if you want nothing):[37m 
+	set /p text2="Give me you TRANSLATED text (write nothing if you want nothing):  [37m"
 	echo [37m
 )
+
+
+
+
 set ft2=%filenamenoext%_old_temp2.txt
 if "%text2%"=="" (
 	touch %ft2%
 ) else (
+	set "text2=%text2:!=^!%"
 	set "text2=%text2:(=^(%"
 	set "text2=%text2:)=^)%"
 	REM set "text2=%text2:\n\n= >> %ft2% & echo. >> %ft2% & echo %"
 	REM set "text2=%text2:\n= >> %ft2% & echo %"
 	set "text2=%text2:"=%"
 	if exist "%ft2%" rm %ft2%
-	echo %text2% >> %ft2%
+	echo %text2% > %ft2%
 	truncate -s -2 %ft2%
 )
 
@@ -176,18 +158,19 @@ set filenamenew=%filenamenoext%_old_%TIMESTAMP%.mp4
 
 echo.
 echo.
+
 echo [95m[DEBUG] ---------------------
+echo 1 = %1
+echo 2 = %2
+echo 3 = %3
+echo 4 = %4
+echo 5 = %5
 echo set cd=%cd%
 echo set pathfile=%pathfile%
 echo set pathh=%pathh%
-echo set time1=%time1%
-echo set time2=%time2%
-echo set posstay=%posstay%
+echo set times=%times%
 echo set fontsize=%fontsize%
 echo set xpos=%xpos% 
-echo set ypos=%ypos% 
-echo set check=%check%
-echo set check2=%check2%
 echo set filename=%filename%
 echo set filenamenew=%filenamenew%
 echo set rename "%filename%" "%filenamenew%"
@@ -207,67 +190,67 @@ rename "%filename%" "%filenamenew%"
 if "%xpos%"=="TL" (
 	set xpos=0.05
 	set ypos=0.05
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time1%,%time2%)',drawtext=textfile=%ft2%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Ariali.ttf': fontsize=%fontsize2%: box=1: boxcolor=Black@0.5 : boxborderw=10 : x=w*!xpos!:y=h*(!ypos!+0.07) : enable='between(t,%time1%,%time2%)'" -c:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%times%)',drawtext=textfile=%ft2%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Ariali.ttf': fontsize=%fontsize2%: box=1: boxcolor=Black@0.5 : boxborderw=10 : x=w*!xpos!:y=h*(!ypos!+0.07) : enable='between(t,%times%)'" -c:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="TC" (
 	set xpos=0.5
 	set ypos=0.05
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*!ypos!-h/8*(t-%time1%-%posstay%)\,if(gte(-h*0.1-th+h/8*t\,h*!ypos!)\, h*!ypos!\, -h*0.1-th+h/8*t)): x=w*!xpos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*!ypos!-h/8*(t-%time1%-%posstay%)\,if(gte(-h*0.1-th+h/8*t\,h*!ypos!)\, h*!ypos!\, -h*0.1-th+h/8*t)): x=w*!xpos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="TR" (
 	set xpos=0.95
 	set ypos=0.05
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time1%,%time2%)',drawtext=textfile=%ft2%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Ariali.ttf': fontsize=%fontsize2%: box=1: boxcolor=Black@0.5 : boxborderw=10 : x=w*!xpos!-text_w:y=h*(!ypos!+0.07) : enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%times%)',drawtext=textfile=%ft2%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Ariali.ttf': fontsize=%fontsize2%: box=1: boxcolor=Black@0.5 : boxborderw=10 : x=w*!xpos!-text_w:y=h*(!ypos!+0.07) : enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="LC" (
 	set xpos=0.05
 	set ypos=0.5
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="C" (
 	set xpos=0.5
 	set ypos=0.5
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="RC" (
 	set xpos=0.95
 	set ypos=0.5
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-w/8*(t-%time1%-%posstay%)\,if(gte(-w*0.1-tw+w/8*t\,w*!xpos!)\, w*!xpos!\, -w*0.1-tw+w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="BL" (
 	set xpos=0.05
 	set ypos=0.90
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*!ypos!+h/8*(t-%time1%-%posstay%)\,if(lt(h+h*0.1-h/8*t\,h*!ypos!)\, h*!ypos!\, h+h*0.1-h/8*t)): x=w*!xpos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=10: y=if(gte(t\,%time1%+%posstay%)\, h*!ypos!+h/8*(t-%time1%-%posstay%)\,if(lt(h+h*0.1-h/8*t\,h*!ypos!)\, h*!ypos!\, h+h*0.1-h/8*t)): x=w*!xpos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="BC" (
 	set xpos=0.5
 	set ypos=0.9
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=((w-text_w)/2):y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 )
 if "!xpos!"=="BR" (
 	set xpos=0.95
 	set ypos=0.90
-	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%time1%,%time2%)'" "%filename%"
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	REM ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=50: box=1: boxcolor=Black@0.5:boxborderw=5: x=if(gte(t\,%time1%+%posstay%)\, w*!xpos!-tw+w/8*(t-%time1%-%posstay%)\,if(lt(w+w*0.1-w/8*t\,w*!xpos!-tw)\, w*!xpos!-tw\, w+w*0.1-w/8*t)): y=h*!ypos!: enable='between(t,%times%)'" "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 	GOTO :end
 ) else (
 	set /p ypos="Give me your y position (0.1 will be on the top, 0.9 will be on the bottom): "
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%time1%,%time2%)'" -codec:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -vf "drawtext=textfile=%ft1%: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\Arial.ttf': fontsize=%fontsize%: box=1: boxcolor=Black@0.5:boxborderw=10: x=w*!xpos!:y=h*!ypos!:enable='between(t,%times%)'" -codec:a copy "%filename%"
 )
 
 

@@ -37,8 +37,8 @@ setwd(wd)
 
 
 
-nremove <- 5
-nlast <- 8
+nremove <- 0
+nlast <- 5
 
 
 
@@ -243,8 +243,8 @@ cc <- cc[sample(1:length(cc), 2)]
 a <- ggplot()+
   geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
   geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill=NA)+
-  geom_path(data=datalast, aes(lon, lat), color = cc[1], size = 1.2)+
-  geom_path(data=datafirst, aes(lon, lat), color = cc[2], size = 1.2)+
+  geom_path(data=datalast, aes(lon, lat), color = cc[1], linewidth = 1.2)+
+  geom_path(data=datafirst, aes(lon, lat), color = cc[2], linewidth = 1.2)+
   geom_point(data = city, aes(lon, lat), color = "white")+
   geom_text(data = city, aes(lon, lat, label = name), color = "white", size = 3, hjust = 1.1, vjust = -0.2)+
   geom_text(data=datafirst, aes(x=-33, y=51, label = time1b), color = cc[2], size = 20, hjust = 0)+

@@ -1,4 +1,8 @@
 function cut()
+	
+	t1 = mp.get_property_number("time-pos")
+	mp.osd_message("Cut in 2 at "..t1)
+
 
 	-- lfs = require "lfs"
 	video_path = mp.get_property("path")
@@ -13,11 +17,10 @@ function cut()
 	video_out2 = video_path_noext..'_seg2'..video_ext
 
 	-- get time cursor
-	t1 = mp.get_property_number("time-pos")
 
 	os.rename(video_path, video_in)
 	
-	strCmd0 = 'ffmpeg -stats -loglevel error -i "'..video_in..'" -vcodec libx264 -x264-params keyint=10:scenecut=0 -video_track_timescale 30000 -acodec copy "'..video_in2..'"'
+	strCmd0 = 'ffmpeg -stats -loglevel error -i "'..video_in..'" -vcodec libx264 -x264-params keyint='..t1..':scenecut=0 -video_track_timescale 30000 -acodec copy "'..video_in2..'"'
 
 	strCmd1 = 'ffmpeg -hide_banner -i "'..video_in2..'" -t "'..t1..'" -map "0:0" "-c:0" copy -map "0:1" "-c:1" copy -map_metadata 0 -movflags use_metadata_tags -movflags "+faststart" -default_mode infer_no_subs -ignore_unknown -f mp4 -y "'..video_out1..'"'
 	
@@ -27,9 +30,9 @@ function cut()
 	print("[DEBUG] - strCmd1 = "..strCmd1)
 	print("[DEBUG] - strCmd2 = "..strCmd2)
 	
-	os.execute('echo '..strCmd0..' > '..vpath..'debugMPV')
-	os.execute('echo '..strCmd1..' >Y '..vpath..'debugMPV')
-	os.execute('echo '..strCmd2..' >> '..vpath..'debugMPV')
+	-- os.execute('echo '..strCmd0..' > '..vpath..'debugMPV')
+	-- os.execute('echo '..strCmd1..' >Y '..vpath..'debugMPV')
+	-- os.execute('echo '..strCmd2..' >> '..vpath..'debugMPV')
 
 	os.execute(strCmd0)
 	os.execute(strCmd1)

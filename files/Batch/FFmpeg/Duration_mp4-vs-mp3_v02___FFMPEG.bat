@@ -61,7 +61,7 @@ cd %wd%
 echo.
 
 set /a da=0
-for /f %%j in ('exiftool -n -duration *mp3 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
+for /f %%j in ('exiftool -n -T -duration -s3 *mp3 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
 
 echo.
 echo Processing the videos ...
@@ -69,7 +69,7 @@ echo.
 
 
 set /a dv=0
-for /f %%j in ('exiftool -n -duration *mp4 ^| grep Duration ^| perl -pe "s|.*\: (.*)|\1|g" ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
+for /f %%j in ('exiftool -n -T -duration -s3 *mp4 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
 
 	
 	
