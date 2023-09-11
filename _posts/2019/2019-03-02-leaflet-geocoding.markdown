@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Leaflet: Geocoding"
 date: "2019-03-02 14:52"
 comments_id: 	18

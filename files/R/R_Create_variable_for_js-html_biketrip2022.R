@@ -13,10 +13,10 @@
   library(RJSONIO)
   
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
-  outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
+  outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/js/Personal/gpx_biketrip2022.js"
   if( !dir.exists(wd) ) {
     wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
-    outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/js/Personal/gpx_biketrip2022.js"
+    outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/js/Personal/gpx_biketrip2022.js"
   }
   setwd(wd)
 
@@ -69,7 +69,7 @@
   lis <- lis[!path %like% "gpx.reg"]
   lis <- lis[!path %like% "_site"]
   lis <- lis[path %like% "Bike_trip_2022|Stop"]
-  lis[, path2 := gsub(paste0(dirname(wd), "/"), "", path) ]
+  lis[, path2 := paste0("../", gsub(paste0(dirname(wd), "/"), "", path)) ]
   lis[, dir := dirname(path2) ]
   lisdir <- unique(lis$dir)
   lisdir

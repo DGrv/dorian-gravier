@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Share files between Linux (CentOS) and Windows (secured share)"
 date: "2019-04-26 16:58"
 comments_id: 	27

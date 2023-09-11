@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Use sed to replace string in several files or several strings in a file"
 date: "2019-08-08 14:20"
 comments_id: 	31

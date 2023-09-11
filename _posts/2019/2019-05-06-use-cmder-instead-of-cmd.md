@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Cmder a fency terminal"
 date: "2019-05-06 15:11"
 comments_id: 	28

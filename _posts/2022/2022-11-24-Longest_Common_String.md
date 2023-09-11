@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "How to find the longest common string in a vector in R" 
 date: "2022-11-24 15:36" 
 comments_id: 55

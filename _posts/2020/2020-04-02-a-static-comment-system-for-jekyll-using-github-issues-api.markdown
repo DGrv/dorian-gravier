@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "A static comment system for Jekyll using Github Issues API"
 date: "2020-04-02 16:44"
 comments_id: 35

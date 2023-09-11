@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "How to fix git error 'this exceeds GitHub's file size limit of 100.00 MB' or 'this is larger than GitHub's recommended maximum file size of 50.00 MB'" 
 date: "2022-12-26 23:40" 
 comments_id: 59

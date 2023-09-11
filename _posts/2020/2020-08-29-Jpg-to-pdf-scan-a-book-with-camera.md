@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Create a pdf from a batch of photos, batch convertion jpg to pdf, scan a book with a camera"
 date: "2020-08-29 09:00"
 comments_id: 42

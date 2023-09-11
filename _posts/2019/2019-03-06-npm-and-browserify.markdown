@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "npm and browserify"
 date: "2019-03-06 15:58"
 comments_id: 	22

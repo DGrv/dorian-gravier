@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Change Syntax highlighting Jekyll"
 date: "2019-03-01 10:35"
 comments_id: 	14
@@ -101,7 +100,7 @@ It should look like approximately like this:
 
 I am using here a background color. I add few troubles to find out how to solve this :
 
-![Picture](/files/picture/20190301_css_code.jpg)
+![Picture](/assets/images/20190301_css_code.jpg)
 
 I add to overwrite few styles from the `code` and `pre` element. I also wanted to wrap the code (`white-space: pre-wrap; `)
 

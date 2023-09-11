@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Real time animation with krita" 
 date: "2022-12-26 18:50" 
 comments_id: 58

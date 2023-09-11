@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Create a simple world map with the borders of countries with R"
 date: "2022-11-22 09:00"
 comments_id: 53

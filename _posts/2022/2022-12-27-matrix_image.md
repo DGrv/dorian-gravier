@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "How to create a matrix of image automatically with ImageMagick even from different sizes" 
 date: "2022-12-27 13:30" 
 comments_id: 60 

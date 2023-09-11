@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "New leaflet layers: DAV Huts"
 date: "2019-02-28 21:25"
 comments_id: 	13

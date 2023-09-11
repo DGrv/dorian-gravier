@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Create overlay text with ffmpeg moving in and out" 
 date: "2022-12-30 17:38" 
 comments_id: 62

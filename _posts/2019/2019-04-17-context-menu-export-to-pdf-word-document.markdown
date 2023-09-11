@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Context menu export to pdf word document"
 date: "2019-04-17 15:57"
 comments_id: 	25

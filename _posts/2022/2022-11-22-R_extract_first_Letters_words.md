@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Extract the first letter of each word in string via R"
 date: "2022-11-22 09:00"
 comments_id: 54

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Got it work
 comments_id: 5
 ---

@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "New leaflet layers: Kompass map and refuge.info POI"
 date: "2019-03-01 21:25"
 comments_id: 	15

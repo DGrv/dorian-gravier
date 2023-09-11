@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "How to normalize audio easily from a video via ffmpeg and ffmpeg-normalize"
 date: "2021-01-12 09:00"
 comments_id: 43

@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Install_optimzeVideo_in_WSL2" 
 date: "2023-05-22 15:27" 
 comments_id: 71

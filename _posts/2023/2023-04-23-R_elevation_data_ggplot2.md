@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Plot elevation data (GDEM -SRTM) as contours in ggplot2" 
 date: "2023-04-23 12:12" 
 comments_id: 69

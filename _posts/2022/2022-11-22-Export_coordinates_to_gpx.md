@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Export coordinates to gpx via R"
 date: "2022-11-22 09:00"
 comments_id: 54

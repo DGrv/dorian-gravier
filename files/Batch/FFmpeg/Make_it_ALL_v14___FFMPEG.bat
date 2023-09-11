@@ -251,7 +251,7 @@ echo.
 			set filenamenew=!filename:'=!
 			if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
 		)
-		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
+		ls -1 | grep mp3 | grep -Ev "begin.mp3|end.mp3|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
 			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
 			del Listmp3_temp.txt
@@ -651,7 +651,7 @@ echo.
 				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
 			)
 			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-			ls -1 | grep mp3 | grep -Ev "begin|end|input|List" > Music_list_overlay_temp.txt
+			ls -1 | grep mp3 | grep -Ev "begin.mp3|end.mp3|input|List" > Music_list_overlay_temp.txt
 			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
 				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
 			)

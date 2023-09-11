@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "R - Adapt plot area of several ggplot for grid.arrange, consistent width"
 date: "2019-08-21 17:14"
 comments_id: 	32

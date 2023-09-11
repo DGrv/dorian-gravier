@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Add a context menu for a specific extension (right-click)"
 date: "2019-03-02 00:32"
 comments_id: 	17

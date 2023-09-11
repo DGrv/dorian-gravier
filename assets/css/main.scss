@@ -1,0 +1,32 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+search: false
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+// Dorian
+.page__content p,.page__content li,.page__content dl {
+    font-size: 0.8em
+}
+
+
+// seems that the 1em default is not taking in account the bullet of list so needed to increase
+.align-right {
+	margin-left: 2em;
+}
+
+.align-left {
+	margin-right: 2em;
+}
+
+
+// default is max-width: 100%. meaning that it is overwritting what I want in kramdown
+img {
+	max-width: auto;
+}
+
+

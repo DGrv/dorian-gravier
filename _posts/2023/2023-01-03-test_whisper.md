@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Test your parameters (different option) from whisper (openai) and stable-ts" 
 date: "2023-01-03 17:26" 
 comments_id: 65 

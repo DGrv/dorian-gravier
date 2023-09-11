@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Leaflet: GraphHopper test"
 date: "2019-03-02 18:39"
 comments_id: 	19

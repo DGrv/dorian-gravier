@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Use Lua script in windows"
 data: "2022-12-18 10:00"
 comments_id: 57

@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Batch file using FFmpeg to reduce video quality depending on user choice"
 date: "2020-04-16 09:00"
 comments_id: 40

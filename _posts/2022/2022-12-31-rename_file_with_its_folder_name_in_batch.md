@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Rename files with its folder name" 
 date: "2022-12-31 22:20" 
 comments_id: 63

@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Add a context menu to reduce quality of a scanned pdf (or pdf)"
 date: "2020-04-01 21:09"
 comments_id: 34
@@ -15,7 +14,7 @@ And the idea came for the little freeware [freepdfcompressort](http://www.freepd
 
 I decided to create only 3 context menus (next step will be to use a cascade menu :)). Only the first 3:
 
-![Picture](/assets/blog/20200401_picture_1.jpg)
+![Picture](../assets/20200401_picture_1.jpg)
 
 
 
@@ -34,7 +33,7 @@ Windows Registry Editor Version 5.00
 ```
 
 Here the result.
-![Picture2](/assets/blog/20200401_picture_2.jpg)
+![Picture2](../assets/20200401_picture_2.jpg)
 
 
 

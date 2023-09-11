@@ -1,5 +1,4 @@
 ---
-layout: "post"
 title: "Magick tricks"
 date: "2019-04-16 16:00"
 comments_id: 	26
