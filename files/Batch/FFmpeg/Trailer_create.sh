@@ -72,7 +72,7 @@ rm temp
 
 
 mv temp1.mp4 temp0.mp4
-ffmpeg -v error -stats -i temp0.mp4 -i "$aud" -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -vcodec copy -ac 2 -shortest -y temp1.mp4
+ffmpeg -v error -stats -i temp0.mp4 -i "$aud" -filter_complex "[0:a]volume=1[a1];[1:a]volume=0.75[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -vcodec copy -ac 2 -shortest -y temp1.mp4
 
 mv temp1.mp4 temp0.mp4
 ffmpeg -v error -stats  -i temp0.mp4 -vcodec libx264 -vf "scale=720:-2" -preset slow $nname

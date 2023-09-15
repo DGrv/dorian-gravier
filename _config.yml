@@ -140,6 +140,18 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - README
   - tmp
       
+# # Collections
+# collections:
+  # code:
+    # output: true
+    # permalink: /:collection/:path/
+
+
+
+# # Outputting
+# permalink: /:categories/:title/
+
+
 defaults:
   # _posts
   - scope:
@@ -159,6 +171,18 @@ defaults:
     values:
       layout: single
       author_profile: true
+  # _code
+  - scope:
+      path: ""
+      type: code
+    values:
+      layout: single
+      read_time: false
+      author_profile: true
+      share: false
+      comments: false
+      sidebar:
+        nav: code
       
       
       

@@ -5,10 +5,28 @@ main:
   - title: "Portofolio"
     url: /portofolio/
   - title: "Code"
-    url: /code/
-  - title: <img src="../files/icon/loca.png" />
+    url: /code/code2/
+  - title: <img src="/files/icon/loca.png" />
     url: /leaflet/
-  - title: <img src="../files/icon/Tatoo_v02_icon.png" />
+  - title: <img src="/files/icon/Tatoo_v02_icon.png" />
     url: /bt/
   - title: "About"
     url: "/about/"
+    
+code:
+  - title: bonjour
+    children:
+      - title: "Code"
+        url: /code/code2/
+      - title: "Batch"
+        url: /code/batch/
+      - title: "R"
+        url: /code/r/
+      - title: "FFmpeg"
+        url: /code/ffmpeg/"
+      - title: "Youtube-dl"
+        url: /code/youtube-dl/
+      - title: "Python"
+        url: /code/python/
+      - title: "Other"
+        url: /code/other/
