@@ -3,6 +3,7 @@ permalink: /portofolio/
 layout: single
 title: Portofolio
 toc: true
+author_profile: false
 ---
 
 
@@ -46,6 +47,8 @@ Here an example about the PlateView coupled with quantitative data:
 <center>
 <img src="../assets/images/Portofolio/2019_HCS/HCS_Plateview_Example.gif"/>
 </center>
+
+
 
 # 2017 - Making a new kinetic data variable available: the slope (HDC GmbH, Konstanz, BW, DE).
 

@@ -1,8 +1,7 @@
 ---
 permalink: /leaflet/
-layout: single
-classes: wide
-nosidebar: true
+author_profile: false
+layout: code
 ---
 
 <html>
@@ -119,7 +118,11 @@ nosidebar: true
 		.leaflet-control {
 			float: left;
 			clear: none; /* normally 'both'  this is changing the position of the controls when they are situated on the same thin : bottomleft for exampl*/
-			}
+		}
+		.page {
+			width: 100%; /* Overwrite default page css to get map on all the width */
+			padding-right: 0px;
+		}
 		<\style>
 	</style>
 

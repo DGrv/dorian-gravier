@@ -13,6 +13,14 @@ search: false
     font-size: 0.8em
 }
 
+code {
+	font-size: 0.8em;
+}
+
+div.highlighter-rouge {
+	line-height: 1;
+}
+
 
 // seems that the 1em default is not taking in account the bullet of list so needed to increase
 .align-right {

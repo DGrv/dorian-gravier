@@ -5,7 +5,7 @@ main:
   - title: "Portofolio"
     url: /portofolio/
   - title: "Code"
-    url: /code/code2/
+    url: /Title_code/
   - title: <img src="/files/icon/loca.png" />
     url: /leaflet/
   - title: <img src="/files/icon/Tatoo_v02_icon.png" />
@@ -14,19 +14,19 @@ main:
     url: "/about/"
     
 code:
-  - title: bonjour
+  - title: "Code"
     children:
-      - title: "Code"
-        url: /code/code2/
-      - title: "Batch"
-        url: /code/batch/
-      - title: "R"
-        url: /code/r/
-      - title: "FFmpeg"
-        url: /code/ffmpeg/"
-      - title: "Youtube-dl"
-        url: /code/youtube-dl/
-      - title: "Python"
-        url: /code/python/
-      - title: "Other"
-        url: /code/other/
+    - title: "Batch"
+      url: /code/batch/
+    - title: "Ffmpeg"
+      url: /code/ffmpeg/
+    - title: "Batch"
+      url: /code/leaflet/
+    - title: "Python"
+      url: /code/python/
+    - title: "R"
+      url: /code/r/
+    - title: "Youtube-dl"
+      url: /code/youtube-dl/
+    - title: "Other"
+      url: /code/other/

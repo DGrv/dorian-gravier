@@ -1,9 +1,9 @@
 ---
 permalink: /skills/
-layout: single
 title: Skills
 toc: true
 toc_sticky: true
+author_profile: true
 ---
 
 
@@ -12,9 +12,9 @@ toc_sticky: true
 You can here have a look at a pretty detailed learning experience and knowledge obtained since I am studying ecology and working as a Robotic Engineer (only in English).  You will find this as a summary in my CV below.
 
 
-[![](../files/icon/icon-pdf.png){: .align-center width="10%"}](../files/pdf/201906_CV_dgrv.pdf)
+[![](/files/icon/icon-pdf.png){: .align-center width="10%"}](../files/pdf/201906_CV_dgrv.pdf)
 
-![](../assets/images/776374_orig.jpg){: .align-center}
+![](/assets/images/776374_orig.jpg){: .align-center}
 
 
 # What am I actually doing ?
