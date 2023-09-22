@@ -16,6 +16,8 @@ main:
 code:
   - title: "Code"
     children:
+    - title: "Bash"
+      url: /code/bash/ 
     - title: "Batch"
       url: /code/batch/
     - title: "Ffmpeg"
@@ -28,5 +30,9 @@ code:
       url: /code/r/
     - title: "Youtube-dl"
       url: /code/youtube-dl/
+    - title: "Javascript"
+      url: /code/java/
+    - title: "Magick"
+      url: /code/magick/
     - title: "Other"
       url: /code/other/

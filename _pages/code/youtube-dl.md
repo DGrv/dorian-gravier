@@ -11,25 +11,25 @@ layout: code
 
 Command to dowload the audio from a video or playlist:
 
-``` shell
+```batchfile
 youtube-dl -x --audio-format "mp3" --audio-quality 0 -c --yes-playlist -i the-url-of-your-video
 ```
 
 Command to download a video (best quality):
 
-``` shell
+```batchfile
 youtube-dl -f best the-url-of-your-video
 ```
 
 Command to download a video (with choosen quality): Get the list of possible format …
 
-``` shell
+```batchfile
 youtube-dl -F the-url-of-your-video
 ```
 
 Choose one and run the following line
 
-``` shell
+```batchfile
 youtube-dl -f format-choosen the-url-of-your-video
 ```
 
@@ -58,7 +58,7 @@ For noobies.
 
 **Example of easy batch:**
 
-``` shell
+```batchfile
 @echo off
 echo Will download the audio of a youtube video in C:Users\DGrv\Downloads\Software\Youtube-dl
 set pathexe=C:\path-of-your\youtube-dl.exe

@@ -1,3 +1,14 @@
+---
+title: "Javascript"
+permalink: /code/java/
+toc: true
+author_profile: false
+layout: code
+---
+
+
+
+
 # Structure
 
 ```java
@@ -56,6 +67,7 @@ Use additional parameters to see errors : `gradlew distZip --debug` or `gradlew 
 In your main function
 
 nrow -----------------------------------------------
+
 ```java
 	public static int nrow(ResultSet rs) {
         // number rows

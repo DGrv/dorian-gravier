@@ -9,7 +9,7 @@ author_profile: false
 
 # Record screen and audio
 
-``` shell
+```batchfile
 ffmpeg -list_devices true -f dshow -i dummy
 ```
 
@@ -26,7 +26,7 @@ You will get information on your micro e.g.:
 
 Copy the \*\*@device_cm\_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\_{282C5434-3354-4349-88E3-F7A5AD9ABD8B}\*\*
 
-``` shell
+```batchfile
 ffmpeg -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{282C5434-3354-4349-88E3-F7A5AD9ABD8B}" output.mp4
 ```
 
@@ -34,7 +34,7 @@ Stop with ctrl-c.
 
 Batch file to automate it : *v02*
 
-``` shell
+```batchfile
 @echo off
 
 
@@ -118,7 +118,7 @@ if %audio%==1  (
 
 Here a small example of how to record your screen, resize the video and create from it a gif.
 
-``` shell
+```batchfile
     ffmpeg -f gdigrab -framerate 24 -i desktop screen.mp4
     ffmpeg -i screen.mp4 -vcodec libx264 -vbr 3 -vf "scale=640:-2" -preset fast -crf 23 screen640.mp4
     ffmpeg -y -i screen640.mp4 -vf palettegen palette.png
@@ -127,7 +127,7 @@ Here a small example of how to record your screen, resize the video and create f
 
 Via a batch file (you will have to modify it depending on your needs): *v02*
 
-``` shell
+```batchfile
     @echo off
 
     :: ---------- Find Time ----------
@@ -171,7 +171,7 @@ The problem is that I realized that it was creating duplicates, and rapidly your
 
 Version: *v04*
 
-``` shell
+```batchfile
 :: Code ----------------------------------------------------------------------------
 @echo off
 setlocal enableDelayedExpansion

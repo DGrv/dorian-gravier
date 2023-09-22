@@ -37,7 +37,7 @@ I created for example a small reg file to be able to convert rapidly my gpx. I g
 
 # Get event sleep hibernate active battery windows 10
 
-``` shell
+```batchfile
 powercfg /sleepstudy
 ```
 
@@ -160,7 +160,7 @@ Create a macro in your ‘Normal.dotm’ file. Normally available under \*C:\\**
 
 Example :
 
-``` shell
+```batchfile
 Sub export2pdf()
     Application.ActiveProtectedViewWindow.Edit ' Allow editing of the document wihtout this line the macro will not work
     ChangeFileOpenDirectory ThisDocument.Path

@@ -15,7 +15,7 @@ print("[INFO] - Lua bit version = ".._86or64());
  -- local winapi = require("C:\\Program Files (x86)\\Lua\\5.1\\clibs\\winapi.dll")
  
  mp.add_key_binding('i', function ()
-	mp.osd_message(" k - Text overlay right \n K - Text overlay left \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n r - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound", 10)
+	mp.osd_message("\n\n` - show console\n\n k - Text overlay right \n K - Text overlay left \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n R - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n c - cut (not finished) \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound \n U - Add video overlay \n a - cut in 2 \n - - add bike trip location\n - _ add location nobike\n\nShift+T Always on Top", 10)
 end)
 
 -- mp.add_key_binding('W', function ()
@@ -43,8 +43,10 @@ end)
  
 mp.add_key_binding('S', function ()
 	video_path = mp.get_property("path")
-	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_Picture-sound_overlay_v01___FFMPEG.bat"'
-	strCmd = 'call '..strProgram..' '..video_path
+	local t1 = mp.get_property_number("time-pos")
+	t2 = t1 + 6
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_Picture-sound_overlay_v02___FFMPEG.bat"'
+	strCmd = 'call '..strProgram..' '..video_path..' "'..t1..","..t2..'"'
 	print(strCmd)
 	mp.osd_message("Add picture or/and sound")
 	os.execute(strCmd)
@@ -53,18 +55,18 @@ end)
 
 ------------------------------
 
-function deletefile()
+
+mp.add_key_binding('D', function ()
 	video_path = mp.get_property("path")
 	mp.osd_message("Delete file")
 	os.remove(video_path)
-end
+end)
 
-mp.add_key_binding("D", "deletefile", deletefile)
 
 ------------------------------
 
-function losslesscut()
-	strProgram = '"C:\\Users\\doria\\Downloads\\Software\\LosslessCut-win-x64\\LosslessCut.exe"'
+mp.add_key_binding('n', function ()
+	strProgram = '"C:\\Users\\doria\\scoop\\apps\\losslesscut\\current\\LosslessCut.exe"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
 	strCmd = 'call '..strProgram..' "'..video_path..'" && echo test'
@@ -72,48 +74,67 @@ function losslesscut()
 	mp.osd_message("Open Losslesscut")
 	-- io.write(strCmd)
 	os.execute(strCmd)
-end
-
-mp.add_key_binding("n", "losslesscut", losslesscut)
+end)
 
 
 ------------------------------
 
-------------------------------
 
-function add_text_overlay_TR()
+mp.add_key_binding('k', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_text_overlay_v03___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
+	vpath = video_path:match("(.*[/\\])")
+
 	local t1 = mp.get_property_number("time-pos")
+	t2 = t1 + 6
 	-- keep "'..t1..','..t2..'" with " otherwise it is not working the , i making them separate
-	strCmd = 'call '..strProgram..' '..video_path..' '..t1..' 50 TR'
+	strCmd = 'call '..strProgram..' "'..video_path..'" "'..t1..','..t2..'" 40 TR'
 	print(strCmd)
 	mp.osd_message("Text overlay right")
+	-- os.execute('echo '..strCmd..' > '..vpath..'debugMPV')
 	os.execute(strCmd)
-end
-
-mp.add_key_binding("k", "add_text_overlay_TR", add_text_overlay_TR)
+end)
 
 ------------------------------
 
-function add_text_overlay_TL()
+
+mp.add_key_binding('U', function ()
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_video_overlay_v01___FFMPEG.bat"'
+	video_path = mp.get_property("path")
+	local t1 = mp.get_property_number("time-pos")
+	strCmd = 'call '..strProgram..' '..video_path..' '..t1
+	print(strCmd)
+	mp.osd_message("Add overlay video")
+	os.execute(strCmd)
+end)
+
+
+------------------------------
+
+
+mp.add_key_binding('K', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_text_overlay_v03___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
+	vpath = video_path:match("(.*[/\\])")
+
 	local t1 = mp.get_property_number("time-pos")
+	t2 = t1 + 6
 	-- keep "'..t1..','..t2..'" with " otherwise it is not working the , i making them separate
-	strCmd = 'call '..strProgram..' '..video_path..' '..t1..' 50 TL'
+	strCmd = 'call '..strProgram..' '..video_path..' "'..t1..','..t2..'" 40 TL'
 	print(strCmd)
 	mp.osd_message("Text overlay left")
+	
+	-- os.execute('echo '..strCmd..' > '..vpath..'debugMPV')
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("K", "add_text_overlay_TL", add_text_overlay_TL)
 
 ------------------------------
 
-function speed()
+
+mp.add_key_binding('b', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\SpeedUp_v04___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -121,15 +142,15 @@ function speed()
 	print(strCmd)
 	mp.osd_message("Speed")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("b", "speed", speed)
 
 
 
 ------------------------------
 
-function reduce_sound_noise()
+
+mp.add_key_binding('h', function ()
 	-- strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\FFMPEG_Volume_v01.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -142,13 +163,12 @@ function reduce_sound_noise()
 	print(strCmd)
 	mp.osd_message("Sound reduce")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("h", "reduce_sound_noise", reduce_sound_noise)	
 
 ------------------------------
 
-function triple_sound()
+mp.add_key_binding('g', function ()
 	-- strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\FFMPEG_Volume_v01.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -161,9 +181,8 @@ function triple_sound()
 	print(strCmd)
 	mp.osd_message("Sound increase")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("g", "triple_sound", triple_sound)
 
 
 
@@ -171,7 +190,7 @@ mp.add_key_binding("g", "triple_sound", triple_sound)
 
 ------------------------------
 
-function zoom()
+mp.add_key_binding('Z', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\ZoomPanIn_v01___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -179,13 +198,13 @@ function zoom()
 	print(strCmd)
 	mp.osd_message("Zoom")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("Z", "zoom", zoom)
 
 ------------------------------
 
-function rotate()
+
+mp.add_key_binding('R', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Rotate_v01___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -193,13 +212,13 @@ function rotate()
 	print(strCmd)
 	mp.osd_message("Rotate")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("R", "rotate", rotate)
 
 ------------------------------
 
-function keyframes()
+
+mp.add_key_binding('y', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Keyframe_v01___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
@@ -207,9 +226,58 @@ function keyframes()
 	print(strCmd)
 	mp.osd_message("Keyframes")
 	os.execute(strCmd)
-end
+end)
 
-mp.add_key_binding("y", "keyframes", keyframes)
+
+------------------------------
+
+
+mp.add_key_binding('-', function ()
+	mp.osd_message("Add location bike trip")
+	video_path = mp.get_property("path")
+	vpath = video_path:match("(.*[/\\])")
+	-- video_path_noext = string.sub(video_path, 1, -5)
+	-- video_ext = string.sub(video_path, string.len(video_path) - 3, string.len(video_path))
+	-- timestamp = os.date("%Y%d%m_%H%M%S")
+	-- video_in = video_path_noext..'_'..timestamp..'_old'..video_ext
+	-- os.rename(video_path, video_in)
+	t1 = mp.get_property_number("time-pos")
+	t2 = t1 + 6
+	
+	strCmd = 'call C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_Picture-location_overlay_v01___FFMPEG.bat "'..video_path..'" "'..t1..','..t2..'"'
+
+	-- strCmd = 'ffmpeg -stats -loglevel error -i "'..video_in..'" -i "D:\\Pictures\\GoPro\\Map_bike\\Location_choose_white.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=0:0:enable='.."'".."between(t,"..t1..","..t2..")'"..'"'..' -c:a copy "'..video_path..'"'
+	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
+	print(strCmd)
+	-- os.execute('echo '..strCmd..' > '..vpath..'debugMPV')
+
+	os.execute(strCmd)
+end)
+
+------------------------------
+
+mp.add_key_binding('_', function ()
+	mp.osd_message("Add location nobike")
+	video_path = mp.get_property("path")
+	vpath = video_path:match("(.*[/\\])")
+	-- video_path_noext = string.sub(video_path, 1, -5)
+	-- video_ext = string.sub(video_path, string.len(video_path) - 3, string.len(video_path))
+	-- timestamp = os.date("%Y%d%m_%H%M%S")
+	-- video_in = video_path_noext..'_'..timestamp..'_old'..video_ext
+	-- os.rename(video_path, video_in)
+	t1 = mp.get_property_number("time-pos")
+	t2 = t1 + 6
+	
+	strCmd = 'call C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_Picture-location_overlay_nobike_v01___FFMPEG.bat "'..video_path..'" "'..t1..','..t2..'"'
+
+	-- strCmd = 'ffmpeg -stats -loglevel error -i "'..video_in..'" -i "D:\\Pictures\\GoPro\\Map_bike\\Location_choose_white.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=0:0:enable='.."'".."between(t,"..t1..","..t2..")'"..'"'..' -c:a copy "'..video_path..'"'
+	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
+	print(strCmd)
+	-- os.execute('echo '..strCmd..' > '..vpath..'debugMPV')
+
+	os.execute(strCmd)
+end)
+
 
 
 
