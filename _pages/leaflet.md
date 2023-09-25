@@ -14,18 +14,18 @@ layout: code
     	<!-- <script src="../assets/js/node_modules/browserify/index.js"></script> -->
 
 	<!-- leaflet -->
-    	<link rel="stylesheet" href="../assets/js/node_modules/leaflet/dist/leaflet.css" />
-    	<script src="../assets/js/node_modules/leaflet/dist/leaflet.js"></script>
+    	<link rel="stylesheet" href="/assets/js/node_modules/leaflet/dist/leaflet.css" />
+    	<script src="/assets/js/node_modules/leaflet/dist/leaflet.js"></script>
 
     	<!-- gpx.min -->
     	<!-- Copyright (C) 2013 Maxime Petazzoni <maxime.petazzoni@bulix.org> -->
     	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script> -->
-    	<script src="../assets/js/node_modules/leaflet-gpx/gpx.js"></script>
+    	<script src="/assets/js/node_modules/leaflet-gpx/gpx.js"></script>
 
 
 	<!-- hash -->
 	<!-- A JavaScript library that keeps track of the history of changes to the hash part in the address bar. -->
-    	<script src="../assets/js/node_modules/leaflet-fullhash/leaflet-fullHash.js"></script>
+    	<script src="/assets/js/node_modules/leaflet-fullhash/leaflet-fullHash.js"></script>
 
     	<!-- fullscreen -->
 		<!-- Not in npm -->

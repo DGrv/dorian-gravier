@@ -175,7 +175,7 @@ layout: single
 		map.createPane("linesPane");
 		map.createPane("pointsPane");
 
-    		L.control.layers(baseLayers, overlays).addTo(map);
+		L.control.layers(baseLayers, overlays).addTo(map);
 			
 		L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 
@@ -260,8 +260,6 @@ layout: single
 			};
 		};
 		
-		map.addLayer(lBike); // add by default the bike gpx overlays
-		map.addLayer(lStop); // add by default the bike gpx overlays
 
 	
 
@@ -281,6 +279,12 @@ layout: single
 			}).addTo(map);
 		}
 
+		map.addLayer(lBike); // add by default the bike gpx overlays
+		map.addLayer(lStop); // add by default the bike gpx overlays
+		
+		
+		
+		
 		// // POints
 		// L.geoJSON(pointsbiketrip, {
 			// // onEachFeature: onEachFeature, style: myStyle,
@@ -335,7 +339,7 @@ layout: single
 			opacity: 1,
 			column: 1,
 			legends: [{
-				label: "Friend",
+				label: " Friend",
 				type: "circle",
 				radius: 3,
 				color: listpoint.color[0],
@@ -343,7 +347,7 @@ layout: single
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
-				label: "Nice area",
+				label: " Nice area",
 				type: "circle",
 				radius: 3,
 				color: listpoint.color[1],
@@ -351,7 +355,7 @@ layout: single
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
-				label: "Spot where I climbed",
+				label: " Spot where I climbed",
 				type: "circle",
 				radius: 3,
 				color: listpoint.color[2],
@@ -359,7 +363,7 @@ layout: single
 				// fillOpacity: 0.6,
 				weight: 1
 			}, {
-				label: "Wildcamping",
+				label: " Wildcamping",
 				type: "circle",
 				radius: 3,
 				color: listpoint.color[3],
@@ -367,12 +371,12 @@ layout: single
 				// fillOpacity: 0.6,
 				weight: 1
 			},{
-				label: "Biking",
+				label: " Biking",
 				type: "polyline",
 				color: "#2b88ff",
 				weight: 1
 			}, {
-				label: "Hitchiking",
+				label: " Hitchiking",
 				type: "polyline",
 				color: "#929292",
 				weight: 1

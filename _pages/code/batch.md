@@ -255,6 +255,20 @@ if %OS%==32BIT echo "YESSS" if %OS%==64BIT echo "NOOO"
 
 ## Rename
 
+### brename
+
+Can be installed via [scoop]().
+
+```batchfile
+:: to see what will be done
+brename -d -p "(.+).mp4" -r "{nr}.mp4" --nr-width 3
+:: to run it
+brename -p "(.+).mp4" -r "{nr}.mp4" --nr-width 3
+```
+
+
+### jren batch file
+
 Using jren.bat : https://www.dostips.com/forum/viewtopic.php?t=6081
 
     jren "(\d+)_(\d+).tif$" "$1+'___'+$n+'.tif'" /npad 1 /j /i /t
@@ -269,6 +283,8 @@ ls | grep " " | sed -e "p;s/ /_/g" | xargs -d "\n" -t -n2 mv
 :: sed -e "p;s/ /_/g" ---> -e is for regex, it will print the line and exchange the space and print it again, the g means replace all occurences
 :: xargs -d "\n" -t -n2 mv ---> this is the only way I found. Use mv insteand of rename which does not work because of single quotes. -d is the delimter, otherwise xargs take spaces, -t is too print as well the cmd to check, -n2 is telling 2 arguments to use
 ```
+
+
 
 ## Count number of lines in file
 
