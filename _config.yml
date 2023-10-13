@@ -133,7 +133,7 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - log
   - package.json
   - Rakefile
-  - README
+  - README*
   - tmp
       
 # # Collections

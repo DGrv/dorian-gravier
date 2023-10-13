@@ -1,6 +1,6 @@
 # Setup ----------------------------------------------------------------
   
-  library(data.table)
+  library(data.table)   
 
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
   outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/js/Personal/gpx.js"
@@ -12,10 +12,11 @@
 
 
 
+
 # get data ----------------------------------------------------------------
 
   lis <- data.table(path = list.files(wd, pattern = "\\.gpx", full = T, recursive = T))
-  lis <- lis[!path %like% "gpx.reg|_site|Stop|R\\/gpx"]
+  lis <- lis[!path %like% "gpx.reg|_site|Stop|Zelt|R\\/gpx"]
   # lis <- lis[!path %like% "Bike_trip_2022"]
   lis[, path2 := paste0("../", gsub(paste0(dirname(wd), "/"), "", path)) ]
   lis[, dir := dirname(path2) ]

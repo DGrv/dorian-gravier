@@ -108,6 +108,6 @@ var hutteIcon = L.icon({
 var loopinfo = {
 	what: [Bike.concat(Bike_trip_2022), Hike,  Schitour, SchitourProject],
 	layer: [lBike, lHike, lSchitour, lSchitourProject],
-	trackcolor: ['green', 'red', 'red', 'blue', 'blue', 'purple'],
-	project: [false, false, true, false, true, true]
+	trackcolor: ['green', 'red', 'blue', 'purple'],
+	project: [false, false, false, true]
 };
