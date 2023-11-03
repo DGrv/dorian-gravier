@@ -868,4 +868,10 @@ check the password
 `netsh wlan show profile name=LinkTest key=clear`
 now check in :  Key Content
 
+show all networks available [(source)](https://superuser.com/questions/991457/how-do-i-display-a-list-of-wi-fi-connections-using-netsh)
+`netsh wlan show networks`
 
+show all possibilities from your chipset
+`netsh wlan show all`
+`netsh wlan show wirelesscapabilities`
+`netsh wlan show drivers`
