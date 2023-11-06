@@ -28,25 +28,32 @@ set output=%input:.mp4=%
 
 
 if q%2q==qq (
-	set /p times="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
+	set /p times1="At which time to start: "
 ) else (
-	set times=%2
-)
-set times=%times:"=%
+	set times1=%2
+) 
+set times1=%times1:"=%
+
+if q%3q==qq (
+	set /p times2="At which time to stop: "
+) else (
+	set times2=%3
+) 
+set times2=%times2:"=%
 
 
 
-if "%3"=="" (
+if "%4"=="" (
 	set /p inputp="Give me the path of your picture file (if only sound type enter): "
 ) else (
-	set inputp=%3
+	set inputp=%4
 ) 
 
 
 
 echo inputp = %inputp%
 if NOT "%inputp%"=="" (
-	if q%4q==qq (
+	if q%5q==qq (
 		where ffmpeg
 		if errorlevel 0 (
 			echo.
@@ -57,7 +64,7 @@ if NOT "%inputp%"=="" (
 		)
 		set /p position="At which position (e.g. '25:25' meaning 25 pixel from each side, left top corner, if you need right bottom use 'W-w:H-h', with W width of video and w width of image, you can also use e.g. 1350-(w/2):300-(h/2) ): "
 	) else (
-		set position=%4
+		set position=%5
 	) 
 	echo position = !position!
 	set position=!position:"=!
@@ -65,18 +72,18 @@ if NOT "%inputp%"=="" (
 	set position="none"
 )
 
-if q%5q==qq (
+if q%6q==qq (
 	set /p choicesound="If you wanna add a sound add it here (path - otherwise type enter): "
 ) else (
-	set choicesound=%5
+	set choicesound=%6
 ) 
 
 
 
-for /f %%i in ('echo %times% ^| perl -pe "s/(.*),.*/\1/p"') do set delaysound=%%i
+REM for /f %%i in ('echo %times% ^| perl -pe "s/(.*),.*/\1/p"') do set delaysound=%%i
+set delaysound=%times1%
 for /f %%i in ('wsl  echo "%delaysound%*1000/1" ^^^| bc') do set delaysound2=%%i
 
-set times=%times:"=%
 
 
 
@@ -104,7 +111,10 @@ echo 1 = %1
 echo 2 = %2
 echo 3 = %3
 echo 4 = %4
-echo times = %times%
+echo 5 = %5
+echo 6 = %6
+echo times1 = %times1%
+echo times2 = %times2%
 echo position = %position%
 echo filenamenew = %filenamenew%
 echo filename = %filename%
@@ -122,7 +132,7 @@ echo ----------------------[37m
 
 
 if NOT "%inputp%"=="" (
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times%)'" -c:a copy "%filename%"
+	ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
 )
 
 if NOT q%choicesound%q==qq (
@@ -131,7 +141,7 @@ if NOT q%choicesound%q==qq (
 	) else (
 		copy "%filenamenew%" temp.mp4
 	)
-	ffmpeg -stats -loglevel error -y -i temp.mp4 -i "%choicesound%" -filter_complex "[0:a]volume=2[a1];[1:0]volume=0.7[a2];[a2]adelay=%delaysound2%:all=1[a3];[a1][a3]amix=inputs=2[a]" -map "[a]" -map 0:v -c:v copy "%filename%"
+	ffmpeg -stats -loglevel error -y -i temp.mp4 -i "%choicesound%" -filter_complex "[0:a]volume=1[a1];[1:0]volume=1[a2];[a2]adelay=%delaysound2%:all=1[a3];[a1][a3]amix=inputs=2[a]" -map "[a]" -map 0:v -c:v copy "%filename%"
 	del temp.mp4
 )
 

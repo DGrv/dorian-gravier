@@ -60,7 +60,16 @@ example:
 # Alias Dorian
 alias rename.video='ls | grep mp4 | cat -n | while read n f; do mv "$f" `printf "temp_%04d.mp4" $n` ; done ; ls | grep mp4 | cat -n | while read n f; do mv "$f" `printf "%04d.mp4" $n` ; done'
 alias move.old="mkdir old & mv *old*.mp4 old/"
+alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx $ff -x duplicate,location,shortname -o gpx -F "Merge.gpx"'
 ```
+
+BU bashrc
+
+```sh
+cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh
+```
+
+
 
 # Bash file
 

@@ -27,17 +27,23 @@ if "%1"=="" (
 set output=%input:.mp4=%
 
 if q%2q==qq (
-	set /p times="At which time to start and stop (in form of 'start,stop', e.g '0,20'): "
+	set /p times1="At which time to start: "
 ) else (
-	set times=%2
+	set times1=%2
 ) 
+set times1=%times1:"=%
 
-set times=%times:"=%
+if q%3q==qq (
+	set /p times2="At which time to stop: "
+) else (
+	set times2=%3
+) 
+set times2=%times2:"=%
 
-if "%3"=="" (
+if "%4"=="" (
 	set /p place2look="Which location to look for : "
 ) else (
-	set place2look=%3
+	set place2look=%4
 ) 
 echo.
 echo.
@@ -70,7 +76,9 @@ echo [95m[DEBUG] ---------------------
 echo 1 = %1
 echo 2 = %2
 echo 3 = %3
-echo times = %times%
+echo 4 = %4
+echo times1 = %times1%
+echo times2 = %times2%
 echo place2look = %place2look%
 echo position = %position%
 echo filenamenew = %filenamenew%
@@ -79,7 +87,7 @@ echo cd = %cd%
 echo ----------------------[37m
 
 
-ffmpeg -stats -loglevel error -i "%filenamenew%" -i "D:\Pictures\GoPro\Map_bike\Location_choose_white_nobike.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times%)'" -c:a copy "%filename%"
+ffmpeg -stats -loglevel error -i "%filenamenew%" -i "D:\Pictures\GoPro\Map_bike\Location_choose_white_nobike.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
 
 
 

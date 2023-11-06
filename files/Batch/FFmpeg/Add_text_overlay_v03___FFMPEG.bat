@@ -83,18 +83,22 @@ if "%~5"=="" (
 set ft1=%filenamenoext%_old_temp.txt
 if "%text%"=="" (
 	touch %ft1%
-) else (
-	REM echo|set /p=%text%>temp.txt :: this was to avoid \n in the file
-	set "text=%text:!=^!%"
-	set "text=%text:(=^(%"
-	set "text=%text:)=^)%"
-	REM set "text=%text:\n\n= >> %ft1% & echo. >> %ft1% & echo %"
-	REM set "text=%text:\n= >> %ft1% & echo %"
-	set "text=%text:"=%"
-	if exist "%ft1%" rm %ft1%
-	echo %text% > %ft1%
-	truncate -s -2 %ft1%
+	GOTO continue1
 )
+
+:: do not know why but I can not put this in a if so I used GOTO
+set "text=%text:!=^!%"
+set "text=%text:(=^(%"
+set "text=%text:)=^)%"
+set "text=%text:\n\n= & echo. & echo %"
+set "text=%text:\n= & echo %"
+set "text=%text:"=%"
+REM if exist "%ft1%" rm %ft1%
+(echo %text%) > %ft1%
+truncate -s -2 %ft1%
+
+:continue1
+
 
 echo.
 echo "--------------------------------"
@@ -138,18 +142,17 @@ if "%xpos%"=="TL" (
 set ft2=%filenamenoext%_old_temp2.txt
 if "%text2%"=="" (
 	touch %ft2%
-) else (
-	set "text2=%text2:!=^!%"
-	set "text2=%text2:(=^(%"
-	set "text2=%text2:)=^)%"
-	REM set "text2=%text2:\n\n= >> %ft2% & echo. >> %ft2% & echo %"
-	REM set "text2=%text2:\n= >> %ft2% & echo %"
-	set "text2=%text2:"=%"
-	if exist "%ft2%" rm %ft2%
-	echo %text2% > %ft2%
-	truncate -s -2 %ft2%
+	goto continue2
 )
 
+set "text2=%text2:!=^!%"
+set "text2=%text2:(=^(%"
+set "text2=%text2:)=^)%"
+set "text2=%text2:"=%"
+(echo %text2%) > %ft2%
+truncate -s -2 %ft2%
+
+:continue2
 
 FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
 set TIMESTAMP=%time:~0,8%-%time:~8,6%

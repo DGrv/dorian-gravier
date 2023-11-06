@@ -804,7 +804,7 @@ echo.
 	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "input_temp.mp3"') do set lengthaudio=%%i
 	ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% -video_track_timescale %RV% temp.mp4
 	ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy temp2.mp4
-	ffmpeg -stats -loglevel error -i temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest -movflags faststart Test_youtube_copy.mp4
+	ffmpeg -stats -loglevel error -i temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=1[a1];[1:a]volume=1[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest -movflags faststart Test_youtube_copy.mp4
 	del temp.mp4 temp2.mp4
 
 
@@ -840,8 +840,10 @@ echo.
 	if EXIST input_temp.mp3 (
 		::ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
 		rename output_temp.mp4 output_temp2.mp4
-		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
+		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
 		REM ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2]" -map 0:v -map "[a1]" -map "[a2]" -c:v copy -ac 2 -shortest output_high_temp.mp4 :: does not work
+		echo debug pause
+		pause
 		del output_temp2.mp4
 
 	) 

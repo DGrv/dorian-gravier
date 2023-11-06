@@ -143,7 +143,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*jpg"') DO (
 )
 ```
 
-#flex files to tiff
+# Flex files to tiff
 
 ```batchfile
 @echo off
@@ -205,6 +205,14 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*flex"') DO (
 
 
 # Convert
+
+## Image to matrice - cut the image in pieces
+
+[Source](https://unix.stackexchange.com/a/239169/374250)
+
+```batchfile
+convert image.jpg -crop 50%x50% +repage piece_%d.jpg
+```
 
 ## flex to single tif with regex
 

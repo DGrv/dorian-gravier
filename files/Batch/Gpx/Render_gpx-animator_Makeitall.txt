@@ -1,0 +1,3 @@
+set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
+set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.8.2-all.jar"
+%javapath% -jar %gpxanimatorpath% --input "Merge.gpx" --output "zzz_gpx_temp.mp4" --tms-url-template "https://{switch:a,b,c}.tile-cyclosm.openstreetmap.fr/cyclosm/{zoom}/{x}/{y}.png" --width 1920 --height 1080 --speedup 10000 --fps 24 --keep-last-frame 7000 --keep-first-frame 3000 --font Monospaced-BOLD-22 --margin 0 --tail-duration 0 --color "#FF0000" --flashback-duration 0 --background-map-visibility 1

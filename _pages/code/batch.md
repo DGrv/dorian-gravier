@@ -718,6 +718,16 @@ Inside a loop
     set /a howmany=!howmany!
     set /a loopch=howmany/channel
     set /a loopfi=howmany/field
+    
+    
+### Carriage return \n in variable
+
+```sh
+set text=hello\nworld
+set "text=%text:\n= & echo %"
+(echo %text%) > file.txt
+cat file.txt
+```
 
 ## If
 

@@ -8,8 +8,8 @@
  xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
  xmlns:locus="http://www.locusmap.eu">
 	<metadata>
-		<desc>File with points/tracks from Locus Map/4.17.0</desc>
-		<time>2023-06-15T15:03:30.131Z</time>
+		<desc>File with points/tracks from Locus Map/4.19.0</desc>
+		<time>2023-11-05T16:35:24.970Z</time>
 	</metadata>
 <wpt lat="48.14672262" lon="6.49913546">
 	<time>2021-08-28T09:21:44.447Z</time>
@@ -575,5 +575,187 @@
 <wpt lat="45.06789391" lon="5.45950340">
 	<time>2023-06-14T15:55:56.010Z</time>
 	<name>Point 141.</name>
+</wpt>
+<wpt lat="45.02856778" lon="5.85790395">
+	<time>2023-07-01T20:35:50.342Z</time>
+	<name>Point 142.</name>
+</wpt>
+<wpt lat="46.56341762" lon="6.44305216">
+	<time>2023-07-20T19:43:13.830Z</time>
+	<name>Point 143.</name>
+</wpt>
+<wpt lat="46.96323512" lon="7.09616292">
+	<time>2023-07-21T17:24:59.408Z</time>
+	<name>Point 144.</name>
+</wpt>
+<wpt lat="47.31705229" lon="7.85889131">
+	<time>2023-07-22T11:33:48.794Z</time>
+	<name>Point 145.</name>
+</wpt>
+<wpt lat="47.31825721" lon="7.86354496">
+	<time>2023-07-22T17:33:46.461Z</time>
+	<name>Point 146.</name>
+</wpt>
+<wpt lat="47.52859183" lon="8.56364393">
+	<time>2023-07-23T17:55:14.073Z</time>
+	<name>Point 147.</name>
+</wpt>
+<wpt lat="46.35548361" lon="8.68758397">
+	<time>2023-07-28T07:25:00.525Z</time>
+	<name>Point 148.</name>
+</wpt>
+<wpt lat="46.36747148" lon="8.68911093">
+	<time>2023-07-28T07:25:09.405Z</time>
+	<name>Point 149.</name>
+</wpt>
+<wpt lat="46.59971336" lon="8.42789822">
+	<time>2023-08-23T20:23:23.403Z</time>
+	<name>Point 150.</name>
+</wpt>
+<wpt lat="47.46791913" lon="9.60786171">
+	<time>2023-09-25T19:15:06.867Z</time>
+	<name>Point 151.</name>
+</wpt>
+<wpt lat="47.02352324" lon="9.52362036">
+	<time>2023-09-26T16:42:53.196Z</time>
+	<name>Point 152.</name>
+</wpt>
+<wpt lat="46.85164005" lon="9.49138295">
+	<time>2023-09-28T08:14:07.516Z</time>
+	<name>Point 153.</name>
+</wpt>
+<wpt lat="46.62390471" lon="9.43414722">
+	<time>2023-09-28T18:15:55.665Z</time>
+	<name>Point 154.</name>
+</wpt>
+<wpt lat="46.40421595" lon="9.34803568">
+	<time>2023-09-29T18:06:43.996Z</time>
+	<name>Point 155.</name>
+</wpt>
+<wpt lat="46.11808486" lon="9.31910228">
+	<time>2023-09-30T16:58:25.716Z</time>
+	<name>Point 156.</name>
+</wpt>
+<wpt lat="45.87993434" lon="9.36939628">
+	<time>2023-10-01T16:53:45.067Z</time>
+	<name>Point 157.</name>
+</wpt>
+<wpt lat="45.68175560" lon="9.45539615">
+	<time>2023-10-02T15:44:19.263Z</time>
+	<name>Point 158.</name>
+</wpt>
+<wpt lat="45.45596714" lon="9.48730048">
+	<time>2023-10-03T18:51:21.924Z</time>
+	<name>Point 159.</name>
+</wpt>
+<wpt lat="45.02842116" lon="9.78924212">
+	<time>2023-10-04T17:08:07.314Z</time>
+	<name>Point 160.</name>
+</wpt>
+<wpt lat="44.70976258" lon="10.10909873">
+	<time>2023-10-05T16:58:28.071Z</time>
+	<name>Point 161.</name>
+</wpt>
+<wpt lat="44.58072995" lon="10.02870533">
+	<time>2023-10-06T16:18:26.688Z</time>
+	<name>Point 162.</name>
+</wpt>
+<wpt lat="44.33836795" lon="9.90645552">
+	<time>2023-10-07T17:40:53.202Z</time>
+	<name>Point 163.</name>
+</wpt>
+<wpt lat="43.83945522" lon="10.25377113">
+	<time>2023-10-08T17:51:04.548Z</time>
+	<name>Point 164.</name>
+</wpt>
+<wpt lat="43.59244210" lon="10.30476684">
+	<time>2023-10-09T15:49:46.265Z</time>
+	<name>Point 165.</name>
+</wpt>
+<wpt lat="42.72005374" lon="9.33297507">
+	<ele>7.00</ele>
+	<time>2023-10-10T18:04:24.119Z</time>
+	<name>Point 166.</name>
+</wpt>
+<wpt lat="42.71503216" lon="9.33285264">
+	<time>2023-10-12T12:01:52.687Z</time>
+	<name>Point 167.</name>
+</wpt>
+<wpt lat="42.67472495" lon="9.31143130">
+	<time>2023-10-12T17:54:02.857Z</time>
+	<name>Point 168.</name>
+</wpt>
+<wpt lat="42.65909057" lon="9.05777248">
+	<time>2023-10-14T18:57:39.910Z</time>
+	<name>Point 169.</name>
+</wpt>
+<wpt lat="42.55667569" lon="8.78535209">
+	<time>2023-10-15T17:26:57.331Z</time>
+	<name>Point 170.</name>
+</wpt>
+<wpt lat="42.36372555" lon="8.64856548">
+	<time>2023-10-16T19:01:28.200Z</time>
+	<name>Point 171.</name>
+</wpt>
+<wpt lat="42.26391057" lon="8.69101670">
+	<time>2023-10-17T17:29:57.537Z</time>
+	<name>Point 172.</name>
+</wpt>
+<wpt lat="42.34131225" lon="9.04159253">
+	<time>2023-10-18T19:29:24.211Z</time>
+	<name>Point 173.</name>
+</wpt>
+<wpt lat="42.39361747" lon="9.18396470">
+	<time>2023-10-19T16:49:35.965Z</time>
+	<name>Point 174.</name>
+</wpt>
+<wpt lat="42.30110717" lon="9.14764814">
+	<time>2023-10-20T13:36:47.269Z</time>
+	<name>Point 175.</name>
+</wpt>
+<wpt lat="42.09548584" lon="9.28117999">
+	<time>2023-10-21T16:12:34.418Z</time>
+	<name>Point 176.</name>
+</wpt>
+<wpt lat="41.85330732" lon="9.09606517">
+	<time>2023-10-22T17:03:39.021Z</time>
+	<name>Point 177.</name>
+</wpt>
+<wpt lat="41.64272101" lon="9.15021264">
+	<time>2023-10-23T16:41:17.871Z</time>
+	<name>Point 178.</name>
+</wpt>
+<wpt lat="41.49767845" lon="9.19097796">
+	<time>2023-10-25T15:46:07.291Z</time>
+	<name>Point 179.</name>
+</wpt>
+<wpt lat="41.38409615" lon="9.17914373">
+	<time>2023-10-27T20:53:23.873Z</time>
+	<name>Point 180.</name>
+</wpt>
+<wpt lat="41.23987348" lon="9.14767536">
+	<ele>69.00</ele>
+	<time>2023-10-28T13:38:39.275Z</time>
+	<name>Point 181.</name>
+</wpt>
+<wpt lat="41.07522913" lon="9.11640349">
+	<time>2023-10-29T15:57:38.845Z</time>
+	<name>Point 182.</name>
+</wpt>
+<wpt lat="40.90872602" lon="8.88677277">
+	<time>2023-10-30T16:31:20.801Z</time>
+	<name>Point 183.</name>
+</wpt>
+<wpt lat="40.73728721" lon="8.63275285">
+	<time>2023-10-31T18:15:44.617Z</time>
+	<name>Point 184.</name>
+</wpt>
+<wpt lat="40.72198660" lon="8.55156972">
+	<time>2023-11-02T14:41:13.685Z</time>
+	<name>Point 185.</name>
+</wpt>
+<wpt lat="39.18974350" lon="9.15373572">
+	<time>2023-11-03T17:23:28.597Z</time>
+	<name>Point 186.</name>
 </wpt>
 </gpx>
