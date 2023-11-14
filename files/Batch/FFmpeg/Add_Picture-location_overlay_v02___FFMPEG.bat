@@ -40,15 +40,32 @@ if q%3q==qq (
 ) 
 set times2=%times2:"=%
 
+
 if "%4"=="" (
 	set /p place2look="Which location to look for : "
 ) else (
 	set place2look=%4
 ) 
+
+
+if "%5"=="" (
+	set /p zoomcloser="Wanna zoom in 'exception area' [y / n] ? "
+) else (
+	set zoomcloser=%5
+) 
+
+if "%6"=="" (
+	set /p addbike="Add bike gpx  [y / n] ? "
+) else (
+	set addbike=%6
+) 
+
+
 echo.
 echo.
 
-Rscript --vanilla C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\gpx\Location_choose_v01.R "%place2look%"
+Rscript --vanilla C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\gpx\Bike_map_location_choose_v02.R "%place2look%" "%zoomcloser%" "%addbike%"
+
 
 
 
@@ -77,6 +94,8 @@ echo 1 = %1
 echo 2 = %2
 echo 3 = %3
 echo 4 = %4
+echo 5 = %5
+echo 6 = %6
 echo times1 = %times1%
 echo times2 = %times2%
 echo place2look = %place2look%
@@ -87,7 +106,7 @@ echo cd = %cd%
 echo ----------------------[37m
 
 
-ffmpeg -stats -loglevel error -i "%filenamenew%" -i "D:\Pictures\GoPro\Map_bike\Location_choose_white_nobike.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
+ffmpeg -stats -loglevel error -i "%filenamenew%" -i "D:\Pictures\GoPro\Map_bike\Location_choose_white.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
 
 
 

@@ -18,10 +18,18 @@ args <- commandArgs(trailingOnly=TRUE)
 
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  lookfor <- "Broglio"
+  lookfor <- "Nureci"
+  corsica <- F
 } else if (length(args)==1) {
   # default output file
   lookfor <- args[1]
+  corsica <- F
+} else if (length(args)==2) {
+  # default output file
+  lookfor <- args[1]
+  if( args[2] == "y" ) {
+    corsica <- T
+  }
 }
 
 
@@ -164,10 +172,17 @@ theme_set(theme(plot.background = element_rect(fill = "black"),
 # printfast(a, "Location_choose.png", ext = "png", height = 1080, width = 1920)
 # png2mp4("Location_choose.png")
 
+if( corsica ) {
+  (ex <- zoomman(loc, 5.2, side = T))
+} else {
+  ex <- data.table(lon= c(-22,20), lat = c(36,52))
+}
+
 a <- ggplot()+
   geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill="gray80", linewidth=1.25)+
   geom_path(data=data3, aes(lon, lat), color = cc[1], linewidth = 1.2)+
-  coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
+  # coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
+  coord_cartesian(xlim = ex$lon, ylim = ex$lat)+
   geom_point(data = loc, aes(x = lon, y = lat), color = cc[2], size = 7) + 
   # geom_label(data = loc, aes(lon, lat, label = lookfor), fill = cc, size = 14, hjust = -0.1, vjust = 1.2)
   geom_label_repel(data = loc, aes(lon, lat, label = lookfor), fill = cc[2], color = "white", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)

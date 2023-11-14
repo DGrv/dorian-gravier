@@ -840,10 +840,8 @@ echo.
 	if EXIST input_temp.mp3 (
 		::ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a libvorbis -ac 2 -shortest output_high.mp4 :: 20191224 was not working on the samsung TV because of the vorbis codec
 		rename output_temp.mp4 output_temp2.mp4
-		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.5[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
+		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=2[a1];[1:a]volume=0.4[a2];[a1][a2]amerge=inputs=2[a];[0:v]fps=fps=30[v]" -map "[v]" -map "[a]" -ac 2 -shortest -video_track_timescale 30000 -movflags faststart output_temp.mp4
 		REM ffmpeg -stats -loglevel error -i output_temp.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=4[a1];[1:a]volume=0.3[a2]" -map 0:v -map "[a1]" -map "[a2]" -c:v copy -ac 2 -shortest output_high_temp.mp4 :: does not work
-		echo debug pause
-		pause
 		del output_temp2.mp4
 
 	) 
@@ -906,7 +904,19 @@ echo.
 		rename output_720_crf25_temp.mp4 %title2%_low.mp4
 		rename audio.mp3 %title2%_AUDIO.mp3
 		if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
-		rename Music_list_temp.txt %title2%_MUSIC-TITLE.txt
+		
+		echo Sous-titres français disponibles. > Music_list_temp2.txt
+		echo. >> Music_list_temp2.txt
+		cat Music_list_temp.txt >> Music_list_temp2.txt
+		echo. >> Music_list_temp2.txt
+		echo You can find all other video here : https://www.youtube.com/playlist?list=PLWaLsaDTITnN2taIj2q8KIhdulM1xcveL
+		echo. >> Music_list_temp2.txt
+		echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1
+		echo. >> Music_list_temp2.txt
+		echo 🚲 *The track* : https://dorian-gravier.com/bt
+		
+		del Music_list_temp.txt
+		rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
 		
 		echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
 		echo del %title2%_low.mp4  >> DEL_end_files_MP4.bat
