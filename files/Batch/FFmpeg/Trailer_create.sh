@@ -5,6 +5,7 @@ source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/s
 cecho -y "You need for this:"
 cecho -p "- a beginning picture"
 cecho -p "- a mp4 (losslesscut, smartcut and merge)"
+cecho -p "- a mp3"
 echo 
 rm temp0.mp4 temp1.mp4 v1.mp4 v2.mp4 v3.mp4 trailer.mp4  2> /dev/null # keep it silent
 

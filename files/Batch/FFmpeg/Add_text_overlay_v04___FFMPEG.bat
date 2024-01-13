@@ -270,7 +270,6 @@ if "!xpos!"=="BR" (
 
 
 
-
 :end
 
 del %ft1% %ft2%

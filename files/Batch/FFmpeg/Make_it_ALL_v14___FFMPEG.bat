@@ -178,7 +178,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (not mat
 			(for %%i in (*.mp4) do @echo %%i) > Listmp4_temp.txt
 			set /p firstmp4=<Listmp4_temp.txt
 			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
-		)
+)
 		set /p RV="Which RV (if 1/30000, choose 30000): "
 		set RVd=1/%RV%
 		
@@ -590,15 +590,15 @@ echo.
 	
 	for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 	if %check%==0 (
-	
+		
 		set /a da=0
-		for /f %%j in ('exiftool -n -T -duration -s3 *mp3 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
-
+		for /f %%j in ('ls -1 *mp3 ^| grep -v "input_temp" ^| xargs -I # exiftool -n -T -duration -s3 # ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set da=%%j
+		
 		echo.
 		echo Processing the videos ...
 		echo.
-
-
+		
+		
 		set /a dv=0
 		for /f %%j in ('exiftool -n -T -duration -s3 *mp4 ^| awk "{s+=$1}END{print s}" ^| perl -pe "s|(.*)\..*|\1|g"') do set dv=%%j
 			
@@ -637,8 +637,8 @@ echo.
 		
 		echo Duration_done >> MakeItAll_temp.config
 	)
-	
-		
+
+
 echo.
 echo [94m------------------------------------------------- [37m
 echo [94mINFO - Add music title overlay [37m
@@ -655,9 +655,10 @@ echo.
 			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
 				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
 			)
-		
+			echo here
 			
-			set xpos=0.90
+			
+			set xpos=0.95
 			set ypos=0.95
 			
 			set /a duraTT=5
@@ -673,7 +674,7 @@ echo.
 				set /a videoTT+=videotime
 				set rename=%%~nb_%timestamp%.mp4
 				echo [96m!n! - Loop Video - %%b [37m
-
+				
 				if not "%%b"=="00000_title.mp4" (
 					set /a na=0
 					for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
@@ -907,13 +908,14 @@ echo.
 		
 		echo Sous-titres français disponibles. > Music_list_temp2.txt
 		echo. >> Music_list_temp2.txt
+		echo **Music:** >> Music_list_temp2.txt
 		cat Music_list_temp.txt >> Music_list_temp2.txt
 		echo. >> Music_list_temp2.txt
-		echo You can find all other video here : https://www.youtube.com/playlist?list=PLWaLsaDTITnN2taIj2q8KIhdulM1xcveL
+		echo You can find all other video here : https://www.youtube.com/playlist?list=PLWaLsaDTITnN2taIj2q8KIhdulM1xcveL >> Music_list_temp2.txt
 		echo. >> Music_list_temp2.txt
-		echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1
+		echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1 >> Music_list_temp2.txt
 		echo. >> Music_list_temp2.txt
-		echo 🚲 *The track* : https://dorian-gravier.com/bt
+		echo 🚲 *The track* : https://dorian-gravier.com/bt >> Music_list_temp2.txt
 		
 		del Music_list_temp.txt
 		rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
