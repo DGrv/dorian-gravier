@@ -101,3 +101,13 @@ Source: https://stackoverflow.com/questions/25082410/apply-function-to-each-elem
 ```
 
 Source: https://stackoverflow.com/questions/2050637/appending-the-same-string-to-a-list-of-strings-in-python
+
+# Tips
+
+## No module named pip
+
+```sh
+py -m ensurepip --upgrade
+py -m pip install -U pip
+```
+Source [stackoverfow](https://stackoverflow.com/a/61562956/2444948)

@@ -21,7 +21,7 @@ ffmpeg -f lavfi -i color=c=black:s=640x480:d=8 -vf "subtitles=typewriter.ass" -v
 Then let's create a minimal ASS:
 [All Tags info are here](https://aegi.vmoe.info/docs/3.0/ASS_Tags/.)
 
-```ass
+```txt
 [Script Info]
 ; Comment with ";"
 ScriptType: v4.00+
@@ -57,7 +57,7 @@ You just have to put it in your file :)
 
 ## ASS
 
-```ass
+```txt
 [Script Info]
 ; Comment with ";"
 ScriptType: v4.00+
@@ -75,8 +75,8 @@ Dialogue: 0, 0:00:01.0, 0:02:00.0, style2, , 0, 0, 0, , {\k9}H{\k7}o{\k7}l{\k3}a
 
 
 ; example to create random time, will be copied to the clipboard
-;echo "Hola muchacha(o), I have a small service to ask you. One of my goal was to try to get some financial support from Youtube via the subscribers to continue my trip and to share some nice experiences, dreams and sceneries to empower people to follow what they wish. Unfortunately I do not have enough subscribers (I can not even be part of this) since I need at least 400. As you see I am far from it. IF you enjoy whatching those videos, maybe can you share it that the channel could try to grow a bit. Let's try together :) Merci. Gros bisous." | sed 's/./&\n/g' | while read p; do r=$(seq 1 2 10| shuf | head -1); echo {\\k$r}$p; done | tr -d '\n' | sed 's/}{/} {/g' | clip.exe
-;echo "Hola muchacha(o), J'ai un petit service à te demander. Un de mes objectifs était de pouvoir générer un peu d'argent avec le canal Youtube pour m'aider à continuer mon voyage et partager, ces expériences, ces rêves et ces paysages. Je pense que cela pourrait motiver les gens à suivre leurs envies. Malheureusement je n'ai pas assez de subscribers pour adhérer au programme de fincancement (il en faut minimum 400). Si les vidéos vous plaisent vous pourriez peut-être les partager d'une certaine facon. Essayons ensemble. Merci et  gros bisous." | sed 's/./&\n/g' | while read p; do r=$(seq 1 2 10| shuf | head -1); echo {\\k$r}$p; done | tr -d '\n' | sed 's/}{/} {/g' | clip.exe
+;echo "Hola muchacha(o), I have a small service to ask you. One of my goal was to try to get some financial support from Youtube via the subscribers to continue my trip and to share some nice experiences, dreams and sceneries to empower people to follow what they wish. Unfortunately I do not have enough subscribers (I can not even be part of this) since I need at least 400. As you see I am far from it. IF you enjoy whatching those videos, maybe can you share it that the channel could try to grow a bit. Let's try together :) Merci. Gros bisous." | sed 's/./&\n/g' | while read p; do r=$(seq 1 2 10| shuf | head -1); echo {\\k$r}$p; done | tr -d '\n' | sed 's/}{/} {/g'
+;echo "Hola muchacha(o), J'ai un petit service à te demander. Un de mes objectifs était de pouvoir générer un peu d'argent avec le canal Youtube pour m'aider à continuer mon voyage et partager, ces expériences, ces rêves et ces paysages. Je pense que cela pourrait motiver les gens à suivre leurs envies. Malheureusement je n'ai pas assez de subscribers pour adhérer au programme de fincancement (il en faut minimum 400). Si les vidéos vous plaisent vous pourriez peut-être les partager d'une certaine facon. Essayons ensemble. Merci et  gros bisous." | sed 's/./&\n/g' | while read p; do r=$(seq 1 2 10| shuf | head -1); echo {\\k$r}$p; done | tr -d '\n' | sed 's/}{/} {/g'
 
 ; can also use {\pos(109,187.5)} for position, do not know exactly yet
 ; \N to return
@@ -98,5 +98,5 @@ ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=60 -vf "su
 
 ## Output
 
-![Gif to show the result](/file/posts/2023/typewritter2.gif)
+![Gif to show the result](/files/posts/2023/typewritter2.gif)
 

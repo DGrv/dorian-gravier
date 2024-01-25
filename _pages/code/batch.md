@@ -885,3 +885,9 @@ show all possibilities from your chipset
 `netsh wlan show all`
 `netsh wlan show wirelesscapabilities`
 `netsh wlan show drivers`
+
+# compare
+
+```sh
+exiftool out.mp4 > out.txt && exiftool in.mp4 > in.txt && diff --color in.txt out.txt
+```

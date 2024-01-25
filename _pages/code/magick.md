@@ -236,3 +236,61 @@ in 1 folder, 1 jpg for 1 page in a pdf
 :: Will convert all jpg from a folder in a page in a pdf
 for /F "usebackq delims=" %A in (`ls ^|grep -s jpg ^| tr "\n" " "`) do convert -quality 85 %A output.pdf
 ```
+
+# Gif
+
+## crop
+
+```sh
+magick convert input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
+magick convert giphy.gif -coalesce -repage 0x0 -crop 84x139+100+149 +repage output.gif
+```
+
+You can use *qimgv* to get the dimension of the crop easily
+
+[Source](https://stackoverflow.com/a/14036766/2444948)
+
+## remove background
+
+```sh
+magick convert input.gif -transparent black g%01d.png
+magick convert -dispose background g*.png output.gif
+```
+
+Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
+
+
+or even better, adapt fuzz
+
+```sh 
+magick convert charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
+```
+
+![](/assets/images/charlie_small.png)
+![](/assets/images/charlie2_small.png)
+
+Other example with this Gif
+
+![](/assets/images/magick_gif_01.gif)
+
+```sh
+magick convert in.gif -resize 50% in2.gif # resize 
+magick convert in2.gif g%01d.png # export each frame
+del g00.png # remove first one that was the background
+magick convert -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
+```
+
+creating this:
+
+![](/assets/images/magick_gif_01.gif)
+
+# png
+
+## Trim empty pixels
+
+```sh
+magick img.png -define trim:edges=north,south -trim +repage img2.png
+magick mogrify -define trim:edges=north,south -trim +repage -path edited\images\dir *.png
+```
+
+[Source](https://github.com/ImageMagick/ImageMagick/discussions/6982#discussioncomment-7969996)

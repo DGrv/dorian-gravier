@@ -14,10 +14,6 @@ echo "--------------------------------------------------------------------------
 REM http://www.network-science.de/ascii/
 echo.
 
-echo [91mIf call in batchfile please use the time in quotes "1,4"[37m
-echo [91mIf call in batchfile please use the time in quotes "1,4"[37m
-echo [91mIf call in batchfile please use the time in quotes "1,4"[37m
-echo.
 
 if "%1"=="" (
 	set /p input="Give me the path of your VIDEO file: "
@@ -25,6 +21,7 @@ if "%1"=="" (
 	set input=%1
 ) 
 set output=%input:.mp4=%
+
 
 if q%2q==qq (
 	set /p times1="At which time to start: "
@@ -42,37 +39,18 @@ set times2=%times2:"=%
 
 
 if "%4"=="" (
-	set /p place2look="Which location to look for (no the text on video): "
+	set /p xpos="xpos in pixel  [37m"
 ) else (
-	set place2look=%4
+	set xpos=%4
 ) 
-
-if "%7"=="" (
-	set /p place2looktext="Text location on video : "
-) else (
-	set place2looktext=%7
-) 
-
 
 if "%5"=="" (
-	set /p zoomcloser="Wanna zoom in 'exception area' [y / n] ? "
+	set /p ypos="ypos in pixel  [37m"
 ) else (
-	set zoomcloser=%5
-) 
-
-if "%6"=="" (
-	set /p addbike="Add bike gpx  [y / n] ? "
-) else (
-	set addbike=%6
-) 
+	set ypos=%5
+)
 
 
-echo.
-echo.
-
-Rscript --vanilla C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\gpx\Bike_map_location_choose_v02.R "%place2look%" "%zoomcloser%" "%addbike%" "%place2looktext%"
-
-if not exist D:\Pictures\GoPro\Map_bike\Location_choose_white.png goto error
 
 
 for %%a in (%input%) do (
@@ -86,7 +64,6 @@ for %%a in (%input%) do (
 %drive%
 cd "%pathh%"
 
-set position=0:0
 
 FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
 set TIMESTAMP=%time:~0,8%-%time:~8,6%
@@ -101,35 +78,20 @@ echo 2 = %2
 echo 3 = %3
 echo 4 = %4
 echo 5 = %5
-echo 6 = %6
-echo 7 = %7
 echo times1 = %times1%
 echo times2 = %times2%
-echo place2look = %place2look%
-echo position = %position%
+echo set xpos=%xpos% 
+echo set ypos=%ypos% 
 echo filenamenew = %filenamenew%
 echo filename = %filename%
 echo cd = %cd%
 echo ----------------------[37m
 
 
-ffmpeg -stats -loglevel error -i "%filenamenew%" -i "D:\Pictures\GoPro\Map_bike\Location_choose_white.png" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
-
-goto end
 
 
-:error
-
-echo.
-echo [40m---------------------------------------------
-echo [ERROR] - your location was not found by R
-echo ---------------------------------------------[37m
-
-pause
+ffmpeg -stats -loglevel error -i "%filenamenew%" -ignore_loop 0 -i "D:\Pictures\Youtube\icon\Arrow\Circle.gif" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%xpos%-(w/2):%ypos%-(h/2):enable='between(t,%times1%,%times2%)':shortest=1" -c:a copy "%filename%"
 
 
 
 
-:end
-
-REM https://stackoverflow.com/questions/37144225/overlaying-alpha-images-on-a-video-using-ffmpeg

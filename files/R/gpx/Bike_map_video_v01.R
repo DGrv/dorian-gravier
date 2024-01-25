@@ -38,7 +38,7 @@ setwd(wd)
 
 
 nremove <- 0
-nlast <- 5
+nlast <- 0
 
 
 
@@ -185,7 +185,7 @@ city <- city[lat > min(world2$lat) & lon > min(world2$long) & lat < max(world2$l
 # plot(rr)
 # writeRaster(r, filename='C:/Users/doria/Downloads/Outdoor/GDEM/nasa_test_02.tif', overwrite=TRUE)
 # rr3 <- get.contour('C:/Users/doria/Downloads/GDEM/MOSAIC.tif', 100)
-rr3 <- get.contour('C:/Users/doria/Downloads/Outdoor/SRTM/MOSAIC.tif', 100)
+# rr3 <- get.contour('C:/Users/doria/Downloads/Outdoor/SRTM/MOSAIC.tif', 100)
 
 
 # plot(raster("C:/Users/doria/Downloads/Outdoor/SRTM/N30W030/cut_n30w030.tif"))
@@ -241,15 +241,15 @@ cc <- c("#ffbe0b","#fb5607","#ff006e","#8338ec","#3a86ff")
 cc <- cc[sample(1:length(cc), 2)]
 
 a <- ggplot()+
-  geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
+  # geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")+
   geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill=NA)+
-  geom_path(data=datalast, aes(lon, lat), color = cc[1], linewidth = 1.2)+
+  # geom_path(data=datalast, aes(lon, lat), color = cc[1], linewidth = 1.2)+
   geom_path(data=datafirst, aes(lon, lat), color = cc[2], linewidth = 1.2)+
   geom_point(data = city, aes(lon, lat), color = "white")+
   geom_text(data = city, aes(lon, lat, label = name), color = "white", size = 3, hjust = 1.1, vjust = -0.2)+
   geom_text(data=datafirst, aes(x=-33, y=51, label = time1b), color = cc[2], size = 20, hjust = 0)+
-  geom_text(data=datalast, aes(x=-33, y=45, label = time1b), color = cc[1], size = 20, hjust = 0)+
-  geom_text(data=datalast, aes(x=-33, y=43, label = info.last), color = cc[1], size = 10, hjust = 0)+
+  # geom_text(data=datalast, aes(x=-33, y=45, label = time1b), color = cc[1], size = 20, hjust = 0)+
+  # geom_text(data=datalast, aes(x=-33, y=43, label = info.last), color = cc[1], size = 10, hjust = 0)+
   geom_text(data=datalast, aes(x=-33, y=49, label = info.first), color = cc[2], size = 10, hjust = 0)
 
 
@@ -264,7 +264,7 @@ printfast(b, "00000_wmap.png", ext = "png", height = 1080, width = 1920)
 # c <- a+  coord_cartesian(xlim = zlast$lon, ylim = zlast$lat)
 # printfast(c, "tempmapb.png", ext = "png", height = 1080, width = 1920)
 
-png2mp4("00000_wmap.png", 8)
+png2mp4("00000_wmap.png", 12)
 
 
 

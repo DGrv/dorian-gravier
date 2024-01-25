@@ -18,13 +18,15 @@ args <- commandArgs(trailingOnly = T) # to have arguments like windows batch
 
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  lookfor <- "Nureci"
+  lookfor <- "Posada"
+  lookfortext <- lookfor
   zoom.closer <- F
   add.bike <- F
 } else if (length(args)!=0) {
   # default output file
-  cat(red("ARGUMENTS: \n 1 -", args[1], "2 -", args[2], "3- ", args[3], "\n\n"))
+  cat(red("ARGUMENTS: \n 1 -", args[1], "2 -", args[2], "3- ", args[3], "4- ", args[4], "\n\n"))
   lookfor <- args[1]
+  lookfortext <- args[4]
   zoom.closer <- F
   add.bike <- F
   if( args[2] == "y" ) {
@@ -123,7 +125,13 @@ if( add.bike ) {
 
 # city <- city[tolower(name) != tolower(lookfor)]
 loc <- geocode(lookfor)
-debug.easy(is.na(loc$lon), "Your location was not found !!!!")
+
+if(is.na(loc$lon)) {
+  debug.easy(is.na(loc$lon), "Your location was not found !!!!")
+  file.remove("Location_choose_white.png")
+  stop()
+}
+
 
 locp <- st_as_sf(loc, coords = c("lon","lat"), crs = st_crs(4326))
 
@@ -148,12 +156,14 @@ if( add.bike ) {
 
 # theme -------------------------------------------------------------------
 
+# theme_set(theme_bw())
+theme_set(theme(panel.background = element_rect(fill="black")))
 theme_set(theme_void())
-theme_set(theme(plot.background = element_rect(fill = "black"),
-                panel.background = element_rect(fill="black"),
-                panel.grid.major = element_line(color = 'black'),
-                panel.grid.minor = element_line(color = 'black'),
-                axis.text=element_text(color="black")))
+                # plot.background = element_rect(fill = "black"),
+                # panel.grid.major = element_line(color = 'black'),
+                # panel.grid.minor = element_line(color = 'black'),
+                # axis.text=element_text(color="black")))
+
 
   
 
@@ -180,12 +190,13 @@ if( zoom.closer ) {
 }
 
 a <- ggplot()+
-  geom_polygon(data=world, aes(long, lat, group = group), colour='white', fill="gray80", linewidth=1.25)+
+  geom_polygon(data=world, aes(long, lat, group = group), colour='black', fill="gray80", linewidth=1.25)+
   # coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
   coord_cartesian(xlim = ex$lon, ylim = ex$lat)+
   geom_point(data = loc, aes(x = lon, y = lat), color = cc[2], size = 7) + 
   # geom_label(data = loc, aes(lon, lat, label = lookfor), fill = cc, size = 14, hjust = -0.1, vjust = 1.2)
-  geom_label_repel(data = loc, aes(lon, lat, label = lookfor), fill = cc[2], color = "white", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)
+  geom_label_repel(data = loc, aes(lon, lat, label = lookfortext), fill = cc[2], color = "black", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)
+a
 
 if( add.bike ) {
   
@@ -196,7 +207,8 @@ if( add.bike ) {
   printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
 }
 
-system("magick Location_choose_white.png -background black -alpha background -alpha off -bordercolor black -border 1 -transparent black Location_choose_white.png")
+system("magick Location_choose_white.png -background white -alpha background -alpha off -bordercolor white -border 1 -transparent white Location_choose_white.png")
+# system("magick Location_choose_white.png -background black -alpha background -alpha off -bordercolor black -border 1 -transparent black Location_choose_white.png")
 system('magick Location_choose_white.png -fill "rgba(204,204,204,0.4)" -opaque rgba(204,204,204)  Location_choose_white.png')
 
 

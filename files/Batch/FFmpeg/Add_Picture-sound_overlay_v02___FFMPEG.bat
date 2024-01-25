@@ -40,6 +40,8 @@ if q%3q==qq (
 	set times2=%3
 ) 
 set times2=%times2:"=%
+:: if gif using times3 and will be only 2 seconds (for arrow)
+set /a times3=times1+2
 
 
 
@@ -48,7 +50,7 @@ if "%4"=="" (
 ) else (
 	set inputp=%4
 ) 
-
+set inputpext=%inputp:~-3%
 
 
 echo inputp = %inputp%
@@ -115,6 +117,7 @@ echo 5 = %5
 echo 6 = %6
 echo times1 = %times1%
 echo times2 = %times2%
+echo times3 = %times3%
 echo position = %position%
 echo filenamenew = %filenamenew%
 echo filename = %filename%
@@ -130,9 +133,14 @@ echo ----------------------[37m
 
 
 
-
 if NOT "%inputp%"=="" (
-	ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
+	if "%inputpext%"=="gif" (
+		echo ffmpeg -stats -loglevel error -i "%filenamenew%" -stream_loop -1 -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times3%)':shortest=1" -c:a copy "%filename%"
+		REM pause
+		ffmpeg -stats -loglevel error -i "%filenamenew%" -stream_loop -1 -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times3%)':shortest=1" -c:a copy "%filename%"
+	) else (
+		ffmpeg -stats -loglevel error -i "%filenamenew%" -i "%inputp%" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%position%:enable='between(t,%times1%,%times2%)'" -c:a copy "%filename%"
+	)
 )
 
 if NOT q%choicesound%q==qq (

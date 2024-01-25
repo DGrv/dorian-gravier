@@ -29,8 +29,5 @@ sed -i -E "/libvpx|opus/d" ./info/dependencies.txt
 ./install-uninstall.sh 
 ```
 
-**Create issue with:**
-cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io
-gh issue create --title "[Comment] Install_optimzeVideo_in_WSL2" --body "" --label Comments
 
 
