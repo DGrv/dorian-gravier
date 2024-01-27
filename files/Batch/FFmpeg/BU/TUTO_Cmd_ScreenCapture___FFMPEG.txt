@@ -1,9 +1,0 @@
-ffmpeg -v quiet -stats -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{3C8B719B-0B3F-410B-A2C8-17875239B424}" ScreenCapture.mp4
-
-# Capture audio output (no micro)
-ffmpeg -v quiet -stats -f gdigrab -framerate 24 -i desktop -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{EBF1D135-CB74-4520-B0BB-980AB67DA816}" ScreenCapture_Stereomix.mp4
-
-# Record audio system 
-	Activate the sound card recording in the config and then list the devices
-	ffmpeg -list_devices true -f dshow -i dummy
-ffmpeg -f dshow -i audio="Stereo Mix (2- Realtek(R) Audio)" output.mp3
