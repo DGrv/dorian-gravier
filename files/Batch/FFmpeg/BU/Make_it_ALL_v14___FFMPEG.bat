@@ -7,15 +7,15 @@ SetLocal EnableDelayedExpansion
 
 
 
-echo "[37m--------------------------------------------------------------------------------"
-echo "[91m   _____             _                _____                 _                   "
+echo "--------------------------------------------------------------------------------"
+echo "   _____             _                _____                 _                   "
 echo "  |  __ \           (_)              / ____|               (_)                  "
-echo "[92m  | |  | | ___  _ __ _  __ _ _ __   | |  __ _ __ __ ___   ___  ___ _ __         "
-echo "[93m  | |  | |/ _ \| '__| |/ _` | '_ \  | | |_ | '__/ _` \ \ / / |/ _ \ '__|        "
-echo "[94m  | |__| | (_) | |  | | (_| | | | | | |__| | | | (_| |\ V /| |  __/ |           "
-echo "[95m  |_____/ \___/|_|  |_|\__,_|_| |_|  \_____|_|  \__,_| \_/ |_|\___|_|           "
+echo "  | |  | | ___  _ __ _  __ _ _ __   | |  __ _ __ __ ___   ___  ___ _ __         "
+echo "  | |  | |/ _ \| '__| |/ _` | '_ \  | | |_ | '__/ _` \ \ / / |/ _ \ '__|        "
+echo "  | |__| | (_) | |  | | (_| | | | | | |__| | | | (_| |\ V /| |  __/ |           "
+echo "  |_____/ \___/|_|  |_|\__,_|_| |_|  \_____|_|  \__,_| \_/ |_|\___|_|           "
 echo "                                                                                "
-echo "[37m--------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
 REM http://www.network-science.de/ascii/
 echo.
 
@@ -26,7 +26,7 @@ echo.
 :: to change the encoding utf8 is 65001 and ansi windows 1252, Maybe change it if problems
 REM chcp 1252 
 
-echo "Put your video in 1 folder, order with names, put your mp3 inside (no matter the name, also ordered if needed)."
+echo "Put your video in 1 folder, order with names, put your mp3 inside (not matter the name, also ordered if needed)."
 
 
 
@@ -38,7 +38,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
 	set TIMESTAMP=%time:~0,8%-%time:~8,6%
 
-	echo. [90m
+	echo.
 	WHERE ffmpeg
 	IF %ERRORLEVEL% NEQ 0 (
 		echo "[91m[DEBUG] - FFMPEG is missing !!!!!!!!" [37m
@@ -66,14 +66,10 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 			pause
 		)
 	)
-	echo. [37m
-	
-	echo [93mExplanation: ---------------------------------------------------------------------------------------------------
-	echo You will find a file created after your first run MakeItAll_temp.config
-	echo This one will keep all parameters you setted during the first run in order to redo it rapidly without typing them.
-	echo Meaning that if you wanna start from scratch you need either to modify or delete this file
-	echo --------------------------------------------------------------------------------------------------------------------[37m
 	echo.
+
+
+
 
 
 
@@ -94,7 +90,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULsimplemodeKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
-	set simplemode=n
+	set simplemode=y
 	set tbdefault=y
 	set biketrip=y
 	set pathout=D:\Pictures\2023\Video
@@ -107,22 +103,26 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	set javapath="C:\Program Files\gpx-animator\jre\bin\java.exe"
 	set gpxanimatorpath="C:\Program Files\gpx-animator\gpx-animator-1.8.2-all.jar"
 	
+	
+	
+	
+	
 					REM ToDo
 					REM check if add songs empty in check seems not
 					
 					
-	if %simplemode%==y (
+					
+					
+	
+	echo.
+	if "%simplemode%" NEQ "y" (
 		set draft=n
-		set dooverlaymusic=n
-		set dofiligrane=n
-		goto next1
 	)
 	
 	
-	if %simplemode%==n (
-		echo.
+	if "%simplemode%" NEQ "y" (
 		set /p draft="Do you want to make the [94mdraft[37m version (no filigrane, no overlay) [y/n]: "
-		if !draft!==y (
+		if %draft%=="y" (
 			set dooverlaymusic=n
 			set dofiligrane=n
 		) else (
@@ -130,13 +130,14 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 			set dofiligrane=y
 		)
 	)
+	
 
 	echo.
-	echo [91m
-	set /p temp="Did you add the date in your video ?"
-	echo [37m
-	
-	:next1
+	if "%simplemode%" NEQ "y" (
+		echo [91m
+		set /p temp="Did you add the date in your video ?"
+		echo [0m
+	)
 	
 	:: rename MP$ to mp4
 	for %%a in (*MP4) do (
@@ -287,16 +288,14 @@ echo.
 			del Listmp3_temp.txt
 		)
 	)
-	
-	
+
 	
 	:: use - safe 0 before i to avoid problem with filename : https://stackoverflow.com/questions/38996925/ffmpeg-concat-unsafe-file-name
 	
-	
+
 :: ---------- Fade in and out video ----------
-	
-	
-	if %fadeinout%==y (
+
+	if %fadeinout%=="y" (
 	
 		echo.
 		echo [94m------------------------------------------------- [37m
@@ -308,7 +307,6 @@ echo.
 		
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-		echo check=!check!
 		if !check!==0 (
 			copy "!firstfile!" "%wd%\BU\!firstfile!"
 			echo --- Create fadein on !firstfile!
@@ -341,7 +339,7 @@ echo [94mINFO - Start title [37m
 echo.
 
 
-	if %simplemode%==n (
+	if "%simplemode%" NEQ "y" (
 		if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
 		if %biketrip%==y ( 
 			if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v02\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
@@ -368,7 +366,7 @@ echo.
 
 	if NOT EXIST 00000_title.mp4 (
 		REM ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=8 -vf drawtext="fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
-		if %biketrip%==y (
+		if %biketrip%=="y" (
 			ffmpeg -stats -loglevel error -i "D:\Pictures\Youtube\Tatoo\Tatoo_v02.mp4" -vf drawtext="fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=60:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:textfile=temptitle" -video_track_timescale %RV% 000_temp.mp4
 			ffmpeg -stats -loglevel error -i 000_temp.mp4 -f lavfi -i aevalsrc=0 -shortest -y 000_temp2.mp4
 		) else (
@@ -444,7 +442,7 @@ echo.
 	)
 
 
-if %simplemode%==n goto gpxanipass
+if "%simplemode%" NEQ "y" goto gpxanipass
 
 echo.
 echo [94m------------------------------------------------- [37m
@@ -674,6 +672,7 @@ echo.
 	)
 
 
+if "%simplemode%" NEQ "y" goto overlaypass
 
 
 echo.
@@ -682,7 +681,7 @@ echo [94mINFO - Add music title overlay [37m
 echo.
 
 	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %dooverlaymusic%==y (
+	if %dooverlaymusic%=="y" (
 		if %check%==0 (
 			if not exist Video_list_overlay_temp.txt (
 				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
@@ -773,8 +772,8 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Add filigrane [37m
 echo.
 
-	if %biketrip%==y (
-		if %dofiligrane%==y (
+	if %biketrip%=="y" (
+		if %dofiligrane%=="y" (
 			for /f %%i in ('grep Filigrane_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 			if !check!==0 (
 				for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz|title"') do (
@@ -828,6 +827,7 @@ echo.
 
 
 
+:overlaypass
 
 echo.
 echo [94m------------------------------------------------- [37m
@@ -845,14 +845,12 @@ echo.
 	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "input_temp.mp3"') do set lengthaudio=%%i
 	ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% -video_track_timescale %RV% temp.mp4
 	ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy temp2.mp4
-	if %simplemode%==n (
-		ffmpeg -stats -loglevel error -i temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=1[a1];[1:a]volume=1[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest -movflags faststart Test_youtube_copy.mp4
-	)
+	ffmpeg -stats -loglevel error -i temp2.mp4 -i input_temp.mp3 -filter_complex "[0:a]volume=1[a1];[1:a]volume=1[a2];[a1][a2]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -ac 2 -shortest -movflags faststart Test_youtube_copy.mp4
 	del temp.mp4 temp2.mp4
 
-if %simplemode%==n goto audionormapass
+if "%simplemode%" NEQ "y" goto audionormapass
 
-	if %audionorma%==y (
+	if %audionorma%=="y" (
 		WHERE ffmpeg-normalize
 		IF %ERRORLEVEL% EQU 0 (
 			echo.
@@ -942,14 +940,14 @@ echo.
 	REM ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=1920:-2" -preset slow -crf 25 output_1920_crf25_temp.mp4
 	:convertion3
 	
-	if %draft%==n (
+	if %draft%=="n" (
 		ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y -movflags faststart output_720_crf25_temp.mp4
 		rename output_BIND.mp4 %title2%_TV.mp4
 		rename output_720_crf25_temp.mp4 %title2%_low.mp4
 		rename audio.mp3 %title2%_AUDIO.mp3
 		if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
 		
-		if %simplemode%==n (
+		if "%simplemode%" NEQ "y" (
 			echo Sous-titres français disponibles. > Music_list_temp2.txt
 			echo. >> Music_list_temp2.txt
 			echo **Music:** >> Music_list_temp2.txt
@@ -985,9 +983,9 @@ echo.
 		REM xcopy /Y *.mp3 %pathout%\Music\
 		ls | grep mp3 | grep -vE "AUDIO|input_temp|audio.mp3" | xargs -I # cp "#" %pathout%\Music
 		echo.
+		echo [32m-------------- Finish ------------- [37m
 	)
 
-	echo [32m-------------- Finish ------------- [37m
 	:eof
 	pause
 	
