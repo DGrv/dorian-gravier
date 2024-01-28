@@ -350,7 +350,6 @@ echo.
 	)
 	
 	
-	REM copy /V C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\calibri.ttf
 	
 	set "title=%title:(=^(%"
 	set "title=%title:)=^)%"

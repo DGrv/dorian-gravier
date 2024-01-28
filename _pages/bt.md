@@ -229,7 +229,7 @@ layout: single
 						// eleLoss = gpx.get_elevation_loss().toFixed(0),
 						// cen = gpx.getBounds().getCenter();
 						
-						// var share = 'https://dorian-gravier.com/leaflet.html#15/' + cen.lat + '/' + cen.lng;
+						// var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet/#15/' + cen.lat + '/' + cen.lng;
 					
 
 						// // register popup on click
