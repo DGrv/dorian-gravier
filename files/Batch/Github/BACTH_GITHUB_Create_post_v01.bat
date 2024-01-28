@@ -43,7 +43,6 @@ set filename=%datetimef%-%title%.md
 
 
 echo --- >> %filename%
-echo layout: "post" >> %filename%
 echo title: "%title%" >> %filename%
 echo date: "%datetimehour%" >> %filename%
 echo comments_id: --------------------- >> %filename%

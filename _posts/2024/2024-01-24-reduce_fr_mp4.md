@@ -1,5 +1,4 @@
 --- 
-layout: "post" 
 title: "Create an alias to reduce the frame rate of video if above a certain valie in bash" 
 date: "2024-01-24 16:13" 
 comments_id: 76
