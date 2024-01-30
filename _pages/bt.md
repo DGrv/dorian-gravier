@@ -391,29 +391,10 @@ layout: single
 
 
     	</script>
-	<br>	
-	<br>	
 	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
-	<br>	
-	<br>	
-	<br>	
-		
-	<!-- <table> -->
-		<!-- <tr style="background-color:#424242;"> -->
-			<!-- <th><div id="circle" style="background:#ff2b56"></div></th>	 -->
-			<!-- <th>People visited</th>	 -->
-		<!-- </tr> -->
-		<!-- <tr> -->
-			<!-- <th><div id="circle" style="background:#fff416"></div></th> -->
-			<!-- <th>Nice areas</th>	 -->
-		<!-- </tr> -->
-		<!-- <tr> -->
-			<!-- <th><div id="circle" style="background:#9646e3"></div></th> -->
-			<!-- <th>Climbing spot where I climbed</th>	 -->
-		<!-- </tr> -->
-	<!-- </table> -->
 
-	<center><img src="../assets/images/BikeTrip2022/Info.png"></center>
+	<br>
+	<center><iframe src="../assets/images/BikeTrip2022/text.txt" frameBorder="0"></iframe></center>
 	<br>
 	<center><img src="../assets/images/BikeTrip2022/Elevation.png"></center>
 	<br>
@@ -421,53 +402,15 @@ layout: single
 	<br>
 	<center><img src="../assets/images/BikeTrip2022/Ascent.png"/></center>
 	<br>
-	<br>
-	<br>
-	
-	
-	
-	
-	
-	<!-- <center> -->
-	<!-- <iframe src="https://youtube.com/embed/DOAFBsOLxU8" title="Etape 1" height="25%" width="50%"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/8LHpj548vwQ" title="Etape 2" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/c3TYsR0lHm4" title="Etape 3" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/dGs5OAm9UjM" title="Etape 4" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/FazzpMo_XLw" title="Etape 5" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/Dhl7j1CuSw8" title="Etape 6" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/1sCZ6ZP0oUE" title="Etape 7" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/ksFslKQCkNc" title="Etape 8" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/7nR4FiS1hNo" title="Etape 9" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/kwDE4I5dKgw" title="Etape 10" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/BmbGM41uNcY" title="Etape 11" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/JS52zwIo1zk" title="Etape 12" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/ESeAAZaEh6s" title="Etape 13" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/ASbxHk5y7Sk" title="Etape 14" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/Wsgf4cFsz8E" title="Etape 15" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/6aklMJwuhXM" title="Etape 16" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/l5bSThVfUrE" title="Etape 17" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/lc6aaPxg-co" title="Etape 18" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/Ksb0oPK83xs" title="Etape 19" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/WsYZRUzEDBk" title="Etape 20" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/wwSsN-z-Qdc" title="Etape 21" height="25" width="50"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/jCzTWYt0XpQ" title="Etape 22" height="25" width="50"></iframe> -->
-	<!-- </center> -->
-	
-	
-	<!-- <center> -->
-	<!-- <iframe src="https://youtube.com/embed/9dKSMHjOrRA" title="Bonus 1"></iframe> -->
-	<!-- <iframe src="https://youtube.com/embed/eNUIlNILcvs" title="Bonus2"></iframe> -->
-	<!-- </center> -->
-	
-			
+
 
     </body>
 
 </html>
 
-![youtube_icon](../assets/images/BikeTrip2022/Info.png){: .align-center}
+[![youtube_icon](../assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
 
-[All the youtube videos here](https://www.youtube.com/@oYoLibro){: .align-center}
+<center><a href="https://www.youtube.com/@oYoLibro">All the youtube videos here</a></center>
 
 
 Software used to create all of this:

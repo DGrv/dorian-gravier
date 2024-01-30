@@ -9,8 +9,10 @@
   library(gridExtra)
   library(data.table)
   library(jsonlite)
+  library(knitr)
   #library(rayshaderanimate)
   library(RJSONIO)
+  library(extrafont)
   
   wd <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
   outjs <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/js/Personal/gpx_biketrip2022.js"
@@ -143,29 +145,33 @@
     
   out <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/images/BikeTrip2022/"
   # theme_set(theme_classic())
-  theme_set(theme(
-    panel.background = element_rect(fill = "transparent",
-                                    colour = NA_character_), # necessary to avoid drawing panel outline
-    panel.grid.major = element_blank(), # get rid of major grid
-    panel.grid.minor = element_blank(), # get rid of minor grid
-    plot.background = element_rect(fill = "transparent",
-                                   colour = NA_character_), # necessary to avoid drawing plot outline
-    legend.background = element_rect(fill = "transparent"),
-    legend.box.background = element_rect(fill = "transparent"),
-    legend.key = element_rect(fill = "transparent")
-  ))
+  theme_set(theme_bw())
+  # theme_set(theme(
+  #   panel.background = element_rect(fill = "transparent"),
+  #   # ,
+  #                                   # colour = NA_character_), # necessary to avoid drawing panel outline
+  #   # panel.grid.major = element_blank(), # get rid of major grid
+  #   # panel.grid.minor = element_blank(), # get rid of minor grid
+  #   # plot.background = element_rect(fill = "transparent",
+  #                                  # colour = NA_character_), # necessary to avoid drawing plot outline
+  #   legend.background = element_rect(fill = "transparent"),
+  #   legend.box.background = element_rect(fill = "transparent"),
+  #   legend.key = element_rect(fill = "transparent"),
+  #   text = element_text(size=10,  family="Segoe UI")
+  # ))
     
   # create plots  
-  b <- ggplot(all, aes(time2, dist))+stat_summary(fun = "sum", geom = "bar")+xlab("Date")+ylab("Distance (km)")+labs(title="Distance per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
+  b <- ggplot(all, aes(time2, dist))+stat_summary(fun = "sum", geom = "bar")+xlab("Date")+ylab("Distance (km)")+labs(title="Distance per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())+ theme(text = element_text(size=8,  family="Segoe UI"))
 
-  c <- ggplot(all, aes(time2, ele2))+stat_summary(aes(fill=ele2type),fun = "sum", geom = "bar")+xlab("Date")+ylab("Elevation (m)")+labs(title="Ascent and descent per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
-  
-  a <- ggplot(all, aes(distfs, ele))+geom_line()+ylab("Altitude (m)")+xlab("Distance (km)")+labs(title="Elevation profile for the bike trip")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())
+  c <- ggplot(all, aes(time2, ele2))+stat_summary(aes(fill=ele2type),fun = "sum", geom = "bar")+xlab("Date")+ylab("Elevation (m)")+labs(title="Ascent and descent per day")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())+ theme(text = element_text(size=8,  family="Segoe UI"))
 
   
-  ggsave(plot = a, filename = paste0(out, "Elevation.png"), bg = "transparent", width = 1200/100, height = 300/100)
-  ggsave(plot = b, filename = paste0(out, "Distance.png"), bg = "transparent", width = 1200/100, height = 300/100)
-  ggsave(plot = c, filename = paste0(out, "Ascent.png"), bg = "transparent", width = 1200/100, height = 300/100)
+  a <- ggplot(all, aes(distfs, ele))+geom_line()+ylab("Altitude (m)")+xlab("Distance (km)")+labs(title="Elevation profile for the bike trip")+theme(text = element_text(size =15))+scale_y_continuous(sec.axis=dup_axis())+ theme(text = element_text(size=8,  family="Segoe UI"))
+
+  
+  ggsave(plot = a, filename = paste0(out, "Elevation.png"), bg = "transparent", width = 1200/120, height = 300/120)
+  ggsave(plot = b, filename = paste0(out, "Distance.png"), bg = "transparent", width = 1200/120, height = 300/120)
+  ggsave(plot = c, filename = paste0(out, "Ascent.png"), bg = "transparent", width = 1200/120, height = 300/120)
   # printfast(a, "Elevation.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
   # printfast(b, "Distance.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
   # printfast(c, "Ascent.jpg", 300,1200, wdfunction = "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/picture/BikeTrip2022")
@@ -181,9 +187,12 @@
                                                 TTb))
   info[, value := round(value)]
   info  
-  png("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/images/BikeTrip2022/Info.png", height = 300, width = 500, bg = NA)
-  grid.table(info, theme=ttheme_minimal(base_colour="#f0e3cb", base_size = 20), rows=rep("", nrow(info)))
-  # formattable(info)
-  dev.off()  
+  # png("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/images/BikeTrip2022/Info.png", height = 300*3, width = 500*3, bg = NA)
+  # grid.table(info, theme=ttheme_minimal(base_colour="#f0e3cb", base_size = 20), rows=rep("", nrow(info)))
+  # # formattable(info)
+  # dev.off()  
+  
+  
+  write(kable(info), "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/assets/images/BikeTrip2022/text.txt")
   
   

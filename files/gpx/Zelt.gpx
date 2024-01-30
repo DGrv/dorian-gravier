@@ -8,8 +8,8 @@
  xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
  xmlns:locus="http://www.locusmap.eu">
 	<metadata>
-		<desc>File with points/tracks from Locus Map/4.19.0</desc>
-		<time>2023-11-05T16:35:24.970Z</time>
+		<desc>File with points/tracks from Locus Map/4.21.1</desc>
+		<time>2024-01-30T16:47:04.741Z</time>
 	</metadata>
 <wpt lat="48.14672262" lon="6.49913546">
 	<time>2021-08-28T09:21:44.447Z</time>
@@ -757,5 +757,53 @@
 <wpt lat="39.18974350" lon="9.15373572">
 	<time>2023-11-03T17:23:28.597Z</time>
 	<name>Point 186.</name>
+</wpt>
+<wpt lat="39.33596337" lon="8.63002249">
+	<time>2023-11-08T13:17:15.957Z</time>
+	<name>Point 187.</name>
+</wpt>
+<wpt lat="39.57941306" lon="8.91336365">
+	<time>2023-11-12T20:13:58.025Z</time>
+	<name>Point 188.</name>
+</wpt>
+<wpt lat="39.82385581" lon="8.97938837">
+	<time>2023-11-13T16:08:18.506Z</time>
+	<name>Point 189.</name>
+</wpt>
+<wpt lat="39.90345740" lon="8.95187635">
+	<time>2023-11-14T22:45:00.946Z</time>
+	<name>Point 190.</name>
+</wpt>
+<wpt lat="39.81383168" lon="9.49234250">
+	<time>2023-12-27T15:49:54.915Z</time>
+	<name>Point 191.</name>
+</wpt>
+<wpt lat="39.99744062" lon="8.80907280">
+	<time>2023-12-27T15:51:21.274Z</time>
+	<name>Point 192.</name>
+</wpt>
+<wpt lat="39.75299265" lon="9.67367557">
+	<time>2023-12-29T19:41:32.127Z</time>
+	<name>Point 193.</name>
+</wpt>
+<wpt lat="39.79088809" lon="9.50937205">
+	<time>2023-12-29T19:41:51.544Z</time>
+	<name>Point 194.</name>
+</wpt>
+<wpt lat="40.90114550" lon="8.89798769">
+	<time>2024-01-03T15:08:27.738Z</time>
+	<name>Point 195.</name>
+</wpt>
+<wpt lat="41.24623264" lon="9.21262274">
+	<time>2024-01-03T16:36:52.563Z</time>
+	<name>Point 196.</name>
+</wpt>
+<wpt lat="40.65188511" lon="9.74257952">
+	<time>2024-01-06T07:20:12.989Z</time>
+	<name>Point 198.</name>
+</wpt>
+<wpt lat="40.65867865" lon="9.74890595">
+	<time>2024-01-07T18:38:08.691Z</time>
+	<name>Point 198.</name>
 </wpt>
 </gpx>
