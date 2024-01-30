@@ -6,9 +6,9 @@ main:
     url: /portofolio/
   - title: "Code"
     url: /Title_code/
-  - title: <img src="files/icon/loca.png" />
+  - title: <img src="./files/icon/loca.png" />
     url: /leaflet/
-  - title: <img src="files/icon/Tatoo_v02_icon.png" />
+  - title: <img src="./files/icon/Tatoo_v02_icon.png" />
     url: /bt/
   - title: "About"
     url: "/about/"
