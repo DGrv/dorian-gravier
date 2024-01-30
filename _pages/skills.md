@@ -19,11 +19,11 @@ You can here have a look at a pretty detailed learning experience and knowledge 
 
 # What am I actually doing ?
 
-Actually working as an Data Analyst & HTS Robotic Specialist in a private pharmaceutical company ([HDC GmbH](http://hit-discovery.de/index.php?id=2) in Konstanz, Germany). We are providing services regarding High-Throughput Screening ([HTS](http://en.wikipedia.org/wiki/High-throughput_screening)), High-Content Screening ([HCS](https://en.wikipedia.org/wiki/High-content_screening)) and compound management.
+Actually working as a programer for [Bergsport Maxi](https://bergsport-maxi.de/) in Kempten (Germany)​ and for *Race Result Swiss*.
 
-As responsible of 4 robotic lines, my tasks are relatively diverse, from programming robots, complete data processing and analysis (with [R](https://www.r-project.org/) mainly) of the company (complete data analysis workflows and solution build from the scratch), optimising robotic and working workflows, assay development regarding automation, quality control of results and troubleshooting, maintenance of all the devices (liquid handling, robots, incubators …).
+At [Bergsport Maxi](https://bergsport-maxi.de/), I am responsible of the articles data meaning that I have to actualise them during the year while new season are coming to get the updated prices and the actual data from the brands we are selling. Moreover I am taking care of our store window which permit the client to see what we have in stock, including the pictures of the articles.
 
-Without having studied this engineering and biotechnology field, the challenge has been to start from 0 and this in different areas in a new created company without having expert to support me. My experience acquired during my career is based on several skills that I consider valuable and that I am constantly trying to improve. High adaptation and autonomie capabilities, looking for organisational work  and responsibilities, focus on communication and team spirit, interest in problem solving and process optimisation are the one that speak me the most. ​
+At *Race Result Swiss* I working in sport timing technology to permit the events organiser to have accurate and trustful timing data. Preparing the events regarding the needs and whishes of our clients and being present during the day of the events to make the timing smooth and precise.
 
 ![](../assets/images/3098356_orig.jpg){: .align-center}
 
@@ -35,6 +35,8 @@ Without having studied this engineering and biotechnology field, the challenge h
   - Daily use since 2011, Erasmus in Sweden, Master Thesis in Germany, work in Germany).
 - German (fluent in speaking and writing).
   - Daily use since 2015, B2 Diplome, used at work and in private life.
+- Spanish
+  - Basic knowledge for travelling
 
 # Computer science
 

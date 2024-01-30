@@ -415,11 +415,11 @@ layout: single
 
 	<center><img src="../assets/images/BikeTrip2022/Info.png"></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Elevation.jpg"></center>
+	<center><img src="../assets/images/BikeTrip2022/Elevation.png"></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Distance.jpg"/></center>
+	<center><img src="../assets/images/BikeTrip2022/Distance.png"/></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Ascent.jpg"/></center>
+	<center><img src="../assets/images/BikeTrip2022/Ascent.png"/></center>
 	<br>
 	<br>
 	<br>
@@ -453,26 +453,21 @@ layout: single
 	<!-- <iframe src="https://youtube.com/embed/jCzTWYt0XpQ" title="Etape 22" height="25" width="50"></iframe> -->
 	<!-- </center> -->
 	
-	<br>
-	<br>
 	
 	<!-- <center> -->
 	<!-- <iframe src="https://youtube.com/embed/9dKSMHjOrRA" title="Bonus 1"></iframe> -->
 	<!-- <iframe src="https://youtube.com/embed/eNUIlNILcvs" title="Bonus2"></iframe> -->
 	<!-- </center> -->
 	
-	
-	
-	
-	<br>
-	<br>
-	<br>
-		
-		
+			
+
     </body>
 
 </html>
 
+![youtube_icon](../assets/images/BikeTrip2022/Info.png){: .align-center}
+
+[All the youtube videos here](https://www.youtube.com/@oYoLibro){: .align-center}
 
 
 Software used to create all of this:
@@ -487,7 +482,7 @@ Software used to create all of this:
 	- Batch files that I created ([here](..files/Batch/FFmpeg))
 	- lua scripts that I created for mpv ([mpv-easyblur](https://github.com/DGrv/mpv-easyblur))
 	- for subtitles
-		- [whisper](https://github.com/openai/whisper) with [stable-ts](https://github.com/jianfch/stable-ts) with my [python script here](/files/Python/whisper_stable-ts_dorian.py)
+		- [whisper-faster](https://github.com/Purfview/whisper-standalone-win)
 - Map
 	- [leaflet](https://github.com/Leaflet/Leaflet) and a lot other addon
 		- **to finish**
@@ -498,6 +493,7 @@ Software used to create all of this:
 	- [R](https://www.r-project.org/)
 - Planning
 	- [gpx.studio](https://gpx.studio/)
+	- [Locus Android app](https://www.locusmap.app/) with the incredible [OpenAndroMaps](https://www.openandromaps.org/en)
 
 <html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center></html>
 
