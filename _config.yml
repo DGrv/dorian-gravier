@@ -22,9 +22,9 @@ name                     : &name "Dorian Gravier" # &name is a YAML anchor which
 github_name              : "DGrv"
 subtitle                 : "Dorian Gravier"
 # description              : &description "A flexible Jekyll theme for your blog or site with a minimalist aesthetic."
-url                      : "https://dgrv.github.io/dorian.gravier.github.io/"
+url                      : "https://dgrv.github.io/dorian-gravier/"
 # baseurl                  : "/minimal-mistakes" # the subpath of your site, e.g. "/blog"
-repository               : "DGrv/dorian.gravier.github.io"
+repository               : "DGrv/dorian-gravier"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
@@ -171,7 +171,7 @@ defaults:
 # Site Author
 author:
   name             : *name # *name is a YAML reference pointing to the &anchor earlier
-  avatar           : "./assets/images/dori-head.jpg"
+  avatar           : "assets/images/dori-head.jpg"
   bio              : "Just another *boring*, *autodidact*, *climber*, *biker*, *time traveler*, and *french dude*."
   location         : "Konstanz, DE"
   links:
