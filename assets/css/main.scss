@@ -38,3 +38,35 @@ img {
 }
 
 
+// color dorian
+a {
+    color: #ffd670;
+}
+
+a:focus,button:focus {
+    outline: thin dotted #ab955e;
+    outline: 5px auto #ab955e;
+}
+
+html {
+    background-color: #35302b;
+}
+
+.greedy-nav {
+    background: #35302b;
+}
+
+.page__footer {
+    background-color: #35302b;
+}
+
+.toc .nav__title {
+    background: #ae6317;
+}
+
+.toc {
+    background-color: #211a01;
+}
+
+
+
