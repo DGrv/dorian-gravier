@@ -46,7 +46,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	)
 	WHERE Perl
 	IF %ERRORLEVEL% NEQ 0 (
-		echo "[91m[DEBUG] - FFMPEG is missing !!!!!!!!" [37m
+		echo "[91m[DEBUG] - perl is missing !!!!!!!!" [37m
 		pause
 	)
 	WHERE git

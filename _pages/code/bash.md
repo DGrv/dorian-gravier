@@ -467,4 +467,27 @@ sudo apt install ncdu
 sudo ncdu / --exclude /mnt
 ```
 
+# Compare files
+
+```sh
+diff -y Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
+diff --color Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
+```
+
+# csv
+
+Print readable
+
+```sh
+csvtool readable "Google_Calendar_Dori (1).csv"
+```
+
+Print near each other
+
+```sh
+pr -m -t Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
+pr -m -t -w 200 Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
+```
+
+
 
