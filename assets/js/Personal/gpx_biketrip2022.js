@@ -2172,5 +2172,35 @@ var sleep =[
  "type": "Point",
 "coordinates": [ 9.748906, 40.65868 ] 
 } 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 199." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 6.875728,  47.6102 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 200." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 7.477482, 47.41666 ] 
+} 
+},
+{
+ "type": "Feature",
+"properties": {
+ "popupContent": "Point 201." 
+},
+"geometry": {
+ "type": "Point",
+"coordinates": [ 8.558801, 47.61937 ] 
+} 
 } 
 ]
