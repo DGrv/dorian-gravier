@@ -160,7 +160,8 @@ var Bike_trip_2022 = ['../files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2023-11-13.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2023-11-14.gpx']
 
-var Bike = ['../files/gpx/Leaflet/Bike/B_201511_mtb.gpx',
+var Bike = ['../files/gpx/Leaflet/Bike/B_2013_Epinal-KN.gpx',
+'../files/gpx/Leaflet/Bike/B_201511_mtb.gpx',
 '../files/gpx/Leaflet/Bike/B_2017_Stockach_DonauTalRadoflzell-Konstanz.gpx',
 '../files/gpx/Leaflet/Bike/B_201709_Bike_Travel.gpx',
 '../files/gpx/Leaflet/Bike/B_201808_Schwarzwald.gpx',

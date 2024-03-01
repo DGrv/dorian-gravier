@@ -4,7 +4,7 @@ MyLabel:
 state := "run"
 ShowOnOff("info", "Append_Copy ON", "Green")
 
-
+n = 0
 Clipboard =
 
 OnClipboardChange:
@@ -13,8 +13,13 @@ if (state = "run") {
 	{
 		If Clipboard = %Current%
 		Return
-		Current := Current "`n" Clipboard
-		Clipboard := Current
+		If (n = 0) {
+			Current := Clipboard
+			n += 1
+		} Else {
+			Current := Current "`n" Clipboard
+			Clipboard := Current
+		}
 	}
 }
 Return
@@ -46,7 +51,7 @@ ShowOnOff(n, message, colorwanted) {
 	Gui %n%:Color, White
 	Gui %n%:-caption +toolwindow +AlwaysOnTop
 	Gui %n%:font, s20 bold, Arial
-	Gui %n%:add, text, c%colorwanted% TransColor, %message%.
+	Gui %n%:add, text, c%colorwanted% TransColor, %message%
 	;Gui Show, % "x" A_ScreenWidth*0.55 " y" A_ScreenHeight*0.85, TRANS-WIN
 	Gui %n%:Show, % "x" A_ScreenWidth*0.15 " y" A_ScreenHeight*0.0001, TRANS-WIN
 	WinSet TransColor, White, TRANS-WIN
