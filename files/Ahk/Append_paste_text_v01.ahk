@@ -27,6 +27,7 @@ lineNumber = 0
 	ClipWait
 	; Sendinput %content%`r`n
 	Sendinput %content%`n
+	Sleep 500
 	If (lineNumber = total_lines) {
 		MsgBox Take will loop to line 1 again !
 		lineNumber = 0

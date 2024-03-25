@@ -364,7 +364,7 @@ Ignore some extension
 
 `ag --ignore *gpx garmin`
 
-# Replace string in multiples files
+# sed or perl - Replace string in multiples files
 
 use sed : https://stackoverflow.com/questions/11392478/how-to-replace-a-string-in-multiple-files-in-linux-command-line
 
@@ -374,6 +374,35 @@ Example to replace BC in logfiles : H:\Data\Thermo\Echo\ARP_3079\Barcode_exchang
 H:\Data\Thermo\Echo\ARP_3079\Barcode_exchange\PS85\TUTO_Exchange_BC_multiple-plates_Polara-log.md
 
 `sed -i -E "s/(.+)S=1:C(.+)BAR CODE READ, NOCODE(.+)/\1S=1:C\2BAR CODE READ, AxxEXP210mM_028\3/g" "H:\Data\Thermo\Echo\ARP_3079\Barcode_exchange\PS85\3079_CP_01.log"`
+
+## Examples
+
+```sh
+perl -i -pe "s|\<Placemark id\=.pea.*?\<\/Placemark\>||g" Gipfelbuch_huts.kml
+
+```
+
+### Loop
+
+Use in and out from 2 different files
+
+```sh 
+j=1
+echo "echo test" > Change_names.sh
+for i in {001..554}
+do 
+in="WPT$i"
+out=$(sed "${j}q;d" kmlnames.txt)
+echo "perl -i -pe 's|${in}|${out}|g' Gipfelbuch_huts.gpx" >> Change_names.sh
+((j++))
+done
+```
+
+Leading zero (leading 0)
+
+```sh
+for i in {001..554}; do; echo $id; done
+```
 
 # count 
 
