@@ -30,13 +30,15 @@ perl -i -pe "s|<Placemark|\r\n<Placemark|g" Gipfelbuch_huts.kml
 perl -pe "s|.*(Hütte.*?)<.*|\1|p" Gipfelbuch_huts.kml | grep Hütte > kmlnames.txt
 
 # remove soe shitty characters
-perl -i -pe "s|'| |g" kmlnames.txt
-perl -i -pe "s|„| |g" kmlnames.txt
+perl -i -pe "s|\'| |g" kmlnames.txt
+
+perl -i -pe "s|\„| |g" kmlnames.txt
 
 # prepare a bash file to replace name in gpx by the real name
+nrow=$(cat kmlnames.txt | wc -l)
 j=1
-echo "echo test" > Change_names.sh
-for i in {001..554}
+echo "echo Script running" > Change_names.sh
+for i in $( eval echo {001..$nrow} )
 do 
 in="WPT$i"
 out=$(sed "${j}q;d" kmlnames.txt)

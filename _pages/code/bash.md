@@ -401,7 +401,10 @@ done
 Leading zero (leading 0)
 
 ```sh
-for i in {001..554}; do; echo $id; done
+for i in {001..554}; do; echo $i; done
+
+nrow=$(cat kmlnames.txt | wc -l)
+for i in for i in $( eval echo {001..$nrow} ); do; echo $i; done
 ```
 
 # count 
@@ -518,5 +521,31 @@ pr -m -t Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
 pr -m -t -w 200 Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
 ```
 
+# line by line 2 files
 
+Or let's say: How to Read Corresponding Lines From Two Input Files.
 
+I found the solution [here](https://www.baeldung.com/linux/read-lines-two-input-files) and would expose only by favorite one.
+
+```sh
+grep "LC20lb MBeuO DKV0Md" "site_https___www.climbers-paradise.com_ filetype_pdf - Google Search.html" | perl -pe "s|.*>(.*?)<.*|\1|g" > Name.txt
+grep "jsname=.UWckNb." "site_https___www.climbers-paradise.com_ filetype_pdf - Google Search.html" | perl -pe "s|.*href=.(.*?). .*|\1|g" > pdf_link_climbingpara.txt
+
+while read -r -u 3 lineA && read -r -u 4 lineB
+do
+    echo curl -o "$lineA" "$lineB" >> Download.sh
+done 3<"Name.txt" 4<"pdf_link_climbingpara.txt"
+
+```
+
+# Rename files with perl or sed for loop
+
+```sh 
+
+for i in *pdf;do
+	new=$(echo $i | perl -pe 's/(.*?)_(.*?)(_\d*.pdf|.pdf)/\2__\1__\3/g')
+	mv "$i" "$new"
+done
+```
+
+[Source in SuperUser](https://superuser.com/a/31466/860920)
