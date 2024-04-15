@@ -23,7 +23,7 @@ alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx 
 # reduce the frame rate of all mp4 in folder
 alias reduce.fr.60='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "60" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 60 "$i"; echo;  fi; done'
 # export RR ses
-alias RRextract='tablewanted=( customFields ranks teamscores contests results );for file in *.ses; do mdb-tables -1 "$file";for value in "${tablewanted[@]}"; do mdb-export -d \\t "$file" $value > "${value}.csv"; done;done'
+alias RRextract='tablewanted=( settings customFields ranks teamscores contests results );for file in *.ses; do pathfile=$(echo $file | perl -pe "s|.ses||g" | perl -pe "s| ||g" ); mkdir "$pathfile"; mdb-tables -1 "$file"; for value in "${tablewanted[@]}"; do mdb-export -Q -d \\t "$file" $value > "$pathfile/${value}.csv"; done;done;grep -s UserFields "$pathfile/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '"'"'.[] | join("\t\t")'"'"' > "$pathfile/UDF.csv"'
 
 # source cecho for color echo
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh

@@ -15,13 +15,13 @@ ggplot(world)+
   geom_map(map = world, aes(long, lat, map_id = region), color = "white", fill = "lightgray", size = 0.1)
 ```
  
-![Picture](/files/posts/2022/world_map.jpg)
+![Picture](/assests/images/posts/2022/world_map.jpg)
   
 ```r
 ggplot(world[region %like% "France|Spain|Portuga"])+
   geom_map(map = world, aes(long, lat, map_id = region), color = "white", fill = "lightgray", size = 0.1)
 ```
 
-![Picture](/files/posts/2022/world_map2.jpg)
+![Picture](/assests/images/posts/2022/world_map2.jpg)
 
 

@@ -549,3 +549,42 @@ done
 ```
 
 [Source in SuperUser](https://superuser.com/a/31466/860920)
+
+# quotes in double quotes in quotes
+
+Tricks with quotes and double quotes from [here](https://stackoverflow.com/a/28786747/2444948):
+
+```sh 
+$ echo 'abc'"'"'abc'
+abc'abc
+$ echo "abc"'"'"abc"
+abc"abc
+```
+
+# read mdb files or ses
+
+Source found [here](https://www.kali.org/tools/mdbtools/).
+
+Working with mdb and ses file extensions.
+
+```sh
+file="filename.ses"
+mdb-tables -1 "$file"
+tablewanted=( customFields settings ranks teamscores contests results )
+for value in "${tablewanted[@]}"; do mdb-export -d \\t "$file" $value > "${value}.csv"; done
+```
+
+# unicode to utf-8
+
+```sh
+ascii2uni -a U -q
+```
+
+# read json and export csv
+
+[Source](https://www.cyberciti.biz/faq/how-to-convert-json-to-csv-using-linux-unix-shell/)
+
+```sh 
+cat yourjson | jq -r '.[] | join("\t\t")' > "UDF.csv"
+```
+

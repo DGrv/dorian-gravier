@@ -9,7 +9,7 @@ To compare text files you have a lot of options:
 - Notepad++ with the Plugin compare
 - `diff` and other cmd tool
 
-But the best I found until now is (icdiff)[https://www.jefftk.com/icdiff] 
+But the best I found until now is [icdiff](https://www.jefftk.com/icdiff)
 For Windows you will have to use the WSL (bash).
 
 

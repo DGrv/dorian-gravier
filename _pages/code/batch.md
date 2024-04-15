@@ -404,6 +404,8 @@ sed "/Practical/d" temp_title.txt
 sed -i "/Practical/d" temp_title.txt 
 :: for all files recursively
 grep -rl "layout" | xargs sed -i "/layout: post/d"
+::or with silver-searcher
+ag -l "layout" | xargs sed -i "/layout: post/d"
 ```
 
 ## Reverse Lines order
