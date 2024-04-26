@@ -583,8 +583,81 @@ ascii2uni -a U -q
 # read json and export csv
 
 [Source](https://www.cyberciti.biz/faq/how-to-convert-json-to-csv-using-linux-unix-shell/)
+[Manual](https://jqlang.github.io/jq/manual/#invoking-jq)
 
 ```sh 
 cat yourjson | jq -r '.[] | join("\t\t")' > "UDF.csv"
+# or even better
+cat yourjson | jq -r '.[] | jq -r @csv > test.csv
 ```
 
+```sh 
+# depending on your json- will extract headers and use it -- really goog
+cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
+```
+
+[Source here](https://stackoverflow.com/a/30032247/2444948)
+
+You can try everything here : [](https://jqplay.org/)
+
+jq command:
+
+
+```sh
+# prettify
+cat test.txt | jq '.'
+# with arrays
+cat test.txt | jq '.[]'
+# access with index
+cat test.txt | jq '.[1]'
+# with Name
+cat test.txt | jq '.[].name'
+# select certain rows
+cat test.txt | jq '.[]' | jq 'select(.id == 65061)'
+# use select with regex
+cat test.txt | jq '.[]' | jq 'select(.title_short | test("111"))'
+# export in csv big example
+curl "https://park4night.com/api/places/around?lat=46.25977500237305&lng=8.776788825087465&radius=200" | jq '.[]' | jq '[.id, .lat, .lng, .rating, .type.label, .url, .title_short, .description]' | jq -r @csv > test.csv
+
+```
+
+# csv to json
+
+For RR:
+
+save csv with comma separators
+
+```sh
+yq Contest_new.csv -p=csv -o=json | perl -pe 's|\{\}|"{}"|g' > Contest_new.lvs
+```
+
+here the json to csv that comes before
+
+```sh 
+# depending on your json- will extract headers and use it -- really goog
+cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
+```
+
+
+# P4N matrix coordinate
+
+```sh
+mkdir P4N_csv
+cd P4N_csv
+
+lat1=45.7
+lon1=6
+id=0
+
+for ((i=1;i<=20;i++)) do
+for ((j=1;j<=40;j++)) do
+id=$((id+1))
+# echo $lat1*$i*0.1
+lat=$(echo $lat1+$i*0.1 | bc)
+lon=$(echo $lon1+$j*0.2 | bc)
+url=$(echo "https://park4night.com/api/places/around?lat="${lat}"&lng="${lon}"&radius=200")
+curl "${url}" | jq '.[]' | jq '[.id, .lat, .lng, .rating, .type.label, .url, .title_short, .description]' | jq -r @csv > P4N_$id.csv
+done
+done
+
+```

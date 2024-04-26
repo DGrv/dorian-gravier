@@ -18,7 +18,7 @@ args <- commandArgs(trailingOnly = T) # to have arguments like windows batch
 
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  lookfor <- "Posada"
+  lookfor <- "Konstanz"
   lookfortext <- lookfor
   zoom.closer <- F
   add.bike <- F

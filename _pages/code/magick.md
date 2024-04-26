@@ -6,101 +6,164 @@ author_profile: false
 layout: code
 ---
 
+# Resize
 
+## Keep aspect ration
 
-# Merge in batch
-
-MAGICK_Merge_Vertical_jpg-png_v02.bat
-
-```batchfile
-@echo off
-SETLOCAL ENABLEDELAYEDEXPANSION
-
-set /p which="Do you want to merge jpg (type 1) or png (type 2) ? : "
-
-if %which%==1 set format="jpg"
-if %which%==2 set format="png"
-
-set /p per=percent to resize (numeric) (make a copy it will overwrite your files)?:
-
-echo Choose where your jpg are (choose 1 file):
-
-
-:: file choose and get dir
-set dialog="about:<input type=file id=FILE><script>FILE.click();new ActiveXObject
-set dialog=%dialog%('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);
-set dialog=%dialog%close();resizeTo(0,0);</script>"
-
-for /f "tokens=* delims=" %%p in ('mshta.exe %dialog%') do set "input=%%p"
-for /F %%i in ("%input%") do @set dir=%%~dpi
-for /F %%i in ("%input%") do @set drive=%%~di
-
-%drive%
-cd "%dir%"
-
-:: give info on what will be done
-dir /a-d /b "*%format%" | find /c %format% > temp
-set /p nfiles= < temp
-::set /a nfiles=nfiles
-del temp
-
-:: resize
-for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%p
-
-
-:: Merge
-magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
-magick convert Merge.%format% Merge.pdf
-
-echo DEBUG --------------------------
-echo drive %drive%
-echo dir %dir%
-echo which %which%
-echo format %format%
-echo magick montage *.%format% -tile 1x%nfiles% -geometry +0+0 Merge.%format%
-echo magick convert Merge.%format% Merge.pdf
-```
-
-# Resize in batch
-
-MAGICK_Resize_v01.bat
-
-```batchfile
-@echo off
-SETLOCAL ENABLEDELAYEDEXPANSION
-
-set /p which="Do you want to merge jpg (type 1) or png (type 2) ? : "
-
-if %which%==1 set format="jpg"
-if %which%==2 set format="png"
-
-set /p per=percent to resize (numeric) ?:
-
-echo Choose where your files are (choose 1 file):
-
-:: file choose and get dir
-set dialog="about:<input type=file id=FILE><script>FILE.click();new ActiveXObject
-set dialog=%dialog%('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);
-set dialog=%dialog%close();resizeTo(0,0);</script>"
-
-for /f "tokens=* delims=" %%p in ('mshta.exe %dialog%') do set "input=%%p"
-for /F %%i in ("%input%") do @set dir=%%~dpi
-for /F %%i in ("%input%") do @set drive=%%~di
-
-%drive%
-cd "%dir%"
-
-:: give info on what will be done
-dir /a-d /b "*%format%" | find /c %format% > temp
-set /p nfiles= < temp
-::set /a nfiles=nfiles
-del temp
-
-for %%p in (*.%format%) do magick convert %%p -resize %per%%% %%~np_low.%format%
+```sh
+# resize all if height > 100
+magick mogrify -resize x100^> *png
+# resize all if width < 100
+magick mogrify -resize 100^< *png
 
 ```
 
-# Level brightness
+# Montage
+
+```sh
+# center, take care of the number of pictures (here horizontal 12 pictures), need to be resize with height before with this examples
+magick montage *.png -tile 12x1 -gravity center Merge.png
+```
+
+# Sharpen
+
+[Source](https://imagemagick.org/Usage/blur/#sharpen)
+
+```sh
+magick Bild_1.jpg -sharpen 0x5 Bild_1.png
+```
+
+
+
+
+# Convert
+
+## Image to matrice - cut the image in pieces
+
+[Source](https://unix.stackexchange.com/a/239169/374250)
+
+```batchfile
+convert image.jpg -crop 50%x50% +repage piece_%d.jpg
+```
+
+## flex to single tif with regex
+
+```batchfile
+magick.exe convert %input% -set filename:f "%%t_%%s" +adjoin "%%[filename:f].tif"
+```
+
+## From to (jpg, pdf ...), rotate ...
+
+```batchfile
+magick mogrify -format jpg *.ppm
+mogrify -format pdf *jpg
+mogrify -rotate "270" *jpg
+```
+
+## jpg to pdf
+
+in 1 folder, 1 jpg for 1 page in a pdf
+
+```batchfile
+:: Will convert all jpg from a folder in a page in a pdf
+for /F "usebackq delims=" %A in (`ls ^|grep -s jpg ^| tr "\n" " "`) do convert -quality 85 %A output.pdf
+```
+
+## pdf to png/jpg
+
+[Source Stackoverflow](https://stackoverflow.com/a/13784772/2444948)
+
+```sh
+magick convert -density 300 -trim in.pdf -quality 100 out.png
+```
+
+-density 300 sets the dpi that the PDF is rendered at.
+-trim removes any edge pixels that are the same color as the corner pixels.
+-quality 100 sets the JPEG compression quality to the highest quality.
+
+# Gif
+
+## crop
+
+```sh
+magick convert input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
+magick convert giphy.gif -coalesce -repage 0x0 -crop 84x139+100+149 +repage output.gif
+```
+
+You can use *qimgv* to get the dimension of the crop easily
+
+[Source](https://stackoverflow.com/a/14036766/2444948)
+
+## remove background
+
+### Option 1
+
+```sh
+magick convert input.gif -transparent black g%01d.png
+magick convert -dispose background g*.png output.gif
+```
+
+Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
+
+
+### Option 2
+
+or even better, adapt fuzz
+
+```sh 
+magick convert charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
+```
+
+![](/assets/images/charlie_small.png)
+![](/assets/images/charlie2_small.png)
+
+Other example with this Gif
+
+![](/assets/images/magick_gif_01.gif)
+
+```sh
+magick convert in.gif -resize 50% in2.gif # resize 
+magick convert in2.gif g%01d.png # export each frame
+del g00.png # remove first one that was the background
+magick convert -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
+```
+
+creating this:
+
+![](/assets/images/magick_gif_01.gif)
+
+### Option 3
+
+Really good results
+
+```sh
+ magick convert Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
+```
+
+Combine with Resize, sharpen
+
+```sh
+magick convert Bild_1.jpg -resize 500x Bild_1b.png 
+magick Bild_1b.png -sharpen 0x20 Bild_1c.png 
+magick convert Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
+
+```
+
+
+# png
+
+## Trim empty pixels
+
+```sh
+magick img.png -define trim:edges=north,south -trim +repage img2.png
+magick mogrify -define trim:edges=north,south -trim +repage -path edited\images\dir *.png
+```
+
+[Source](https://github.com/ImageMagick/ImageMagick/discussions/6982#discussioncomment-7969996)
+
+# Batch examples
+
+## Level brightness
 
 ```batchfile
 @echo off
@@ -143,7 +206,7 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*jpg"') DO (
 )
 ```
 
-# Flex files to tiff
+## Flex files to tiff
 
 ```batchfile
 @echo off
@@ -204,93 +267,3 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*flex"') DO (
 ```
 
 
-# Convert
-
-## Image to matrice - cut the image in pieces
-
-[Source](https://unix.stackexchange.com/a/239169/374250)
-
-```batchfile
-convert image.jpg -crop 50%x50% +repage piece_%d.jpg
-```
-
-## flex to single tif with regex
-
-```batchfile
-magick.exe convert %input% -set filename:f "%%t_%%s" +adjoin "%%[filename:f].tif"
-```
-
-## From to (jpg, pdf ...), rotate ...
-
-```batchfile
-magick mogrify -format jpg *.ppm
-mogrify -format pdf *jpg
-mogrify -rotate "270" *jpg
-```
-
-## jpg to pdf
-
-in 1 folder, 1 jpg for 1 page in a pdf
-
-```batchfile
-:: Will convert all jpg from a folder in a page in a pdf
-for /F "usebackq delims=" %A in (`ls ^|grep -s jpg ^| tr "\n" " "`) do convert -quality 85 %A output.pdf
-```
-
-# Gif
-
-## crop
-
-```sh
-magick convert input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
-magick convert giphy.gif -coalesce -repage 0x0 -crop 84x139+100+149 +repage output.gif
-```
-
-You can use *qimgv* to get the dimension of the crop easily
-
-[Source](https://stackoverflow.com/a/14036766/2444948)
-
-## remove background
-
-```sh
-magick convert input.gif -transparent black g%01d.png
-magick convert -dispose background g*.png output.gif
-```
-
-Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
-
-
-or even better, adapt fuzz
-
-```sh 
-magick convert charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
-```
-
-![](/assets/images/charlie_small.png)
-![](/assets/images/charlie2_small.png)
-
-Other example with this Gif
-
-![](/assets/images/magick_gif_01.gif)
-
-```sh
-magick convert in.gif -resize 50% in2.gif # resize 
-magick convert in2.gif g%01d.png # export each frame
-del g00.png # remove first one that was the background
-magick convert -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
-```
-
-creating this:
-
-![](/assets/images/magick_gif_01.gif)
-
-# png
-
-## Trim empty pixels
-
-```sh
-magick img.png -define trim:edges=north,south -trim +repage img2.png
-magick mogrify -define trim:edges=north,south -trim +repage -path edited\images\dir *.png
-```
-
-[Source](https://github.com/ImageMagick/ImageMagick/discussions/6982#discussioncomment-7969996)
