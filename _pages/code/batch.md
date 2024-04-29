@@ -893,3 +893,16 @@ show all possibilities from your chipset
 ```sh
 exiftool out.mp4 > out.txt && exiftool in.mp4 > in.txt && diff --color in.txt out.txt
 ```
+
+# Alias in cmd
+
+```sh
+doskey scann=nmap -sn $1 $B grep "scan report" $B perl -pe "s|Nmap scan report for ||"
+```
+
+- $1 as parameter
+- $B is pipe
+
+
+
+

@@ -1,0 +1,2 @@
+doskey scann=nmap -sn $1 $B grep "scan report" $B perl -pe "s|Nmap scan report for ||"
+doskey lcom=reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM

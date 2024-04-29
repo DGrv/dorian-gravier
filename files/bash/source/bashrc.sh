@@ -25,18 +25,19 @@ alias reduce.fr.60='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $
 
 # function
 ses_extract () {
+if [ -f "$1" ]; then
 tablewanted=( settings customFields ranks teamscores contests results timingpoints splits )
 fdir=$(echo $1 | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
 mkdir -p $fdir
 # mdb-tables -1 "$1"
 for value in "${tablewanted[@]}"; do mdb-export -Q -d "\\t" "$1" $value > "$fdir/${value}.csv"; done
-grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '"'"'.[] | join("\t\t")'"'"' > "$fdir/UDF.csv"
+grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
 
 mkdir -p $fdir/gpx
 # extract gpx daten
-grep -s "GPXFile" "backup_OCHSNER_SPORT_Zurich_Marathon_2024830_20240422-002750/settings.csv" | grep -v GPXFileName | perl -pe "s|.*\<\?xml(.*?)\<\/gpx\>.*|<?xml\1</gpx>|g" > $fdir/gpx/gpx
+grep -s "GPXFile" "$fdir/settings.csv" | grep -v GPXFileName | perl -pe "s|.*\<\?xml(.*?)\<\/gpx\>.*|<?xml\1</gpx>|g" > $fdir/gpx/gpx
 # extract name gpx
-grep -s "GPXFileName" "backup_OCHSNER_SPORT_Zurich_Marathon_2024830_20240422-002750/settings.csv" | perl -pe "s|.*GPXFileName\t.*?\t.*?\t.*?\t(.*?).gpx.*|\1.gpx|g" > $fdir/gpx/namegpx
+grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s|.*GPXFileName\t.*?\t.*?\t.*?\t(.*?).gpx.*|\1.gpx|g" > $fdir/gpx/namegpx
 # export gpx
 while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
 rm $fdir/gpx/namegpx $fdir/gpx/gpx
@@ -44,6 +45,9 @@ rm $fdir/gpx/namegpx $fdir/gpx/gpx
 cd $fdir
 /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
 cd ..
+else
+echo File not found
+fi
 }
 
 # source cecho for color echo

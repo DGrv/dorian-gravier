@@ -49,9 +49,9 @@ Latitude and longitude is the center of the area you wanna download, area the ar
   
 Example :  
 
- ![Photo](/assets/images/1094120_orig.jpg) 
+ ![Photo](../assets/images/1094120_orig.jpg) 
 
- ![Photo](/assets/images/6888434_orig.jpg) 
+ ![Photo](../assets/images/6888434_orig.jpg) 
 
 This will create a .osm file with the name specified that you will open with [JOSM](https://josm.openstreetmap.de/)...
 
@@ -64,7 +64,7 @@ Let's first have a look to our elevation data : 
 
 - just open the osm file created via josm
 
- ![Photo](/assets/images/905061_orig.jpg) 
+ ![Photo](../assets/images/905061_orig.jpg) 
 
 Then it is time to download the data from the area you are interested in :  
 
@@ -72,12 +72,12 @@ Then it is time to download the data from the area you are interested in :
 - Choose you area  
 - Download  
 
- ![Photo](/assets/images/7874726_orig.jpg) 
+ ![Photo](../assets/images/7874726_orig.jpg) 
 
 You now have 2 layers that you can merge via the merge button :  
   
 
- ![Photo](/assets/images/97958_orig.jpg) 
+ ![Photo](../assets/images/97958_orig.jpg) 
 
 Save the project osm.  
   
@@ -97,7 +97,7 @@ Run : **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai>**
 Done you have your .ai files with different layers:  
   
 
- ![Photo](/assets/images/838468174_orig.png) 
+ ![Photo](../assets/images/838468174_orig.png) 
 
 # Elevation missing and not enough detailed
 
@@ -106,7 +106,7 @@ Mmmm you would like the elevation of course and maybe to have more divided layer
 Then first go back to JOSM. Identify the tag of the layers you are interested in :  
   
 
- ![Photo](/assets/images/5900834_orig.jpg) 
+ ![Photo](../assets/images/5900834_orig.jpg) 
 
 Why not building, architects are interested in buildings right ?  
 We will now create a .txt file that will tell the osm2ai.pl script to differentiate the entity with the tag we want.  
@@ -149,7 +149,7 @@ two conditions.
 
 * * *
 
-Here an example, [file available here](/assets/images/d_filters.txt) :   
+Here an example, [file available here](../assets/images/d_filters.txt) :   
 _railway: railway=\*  
 motorway: highway=motorway  
 trunk: highway=trunk  
@@ -177,11 +177,11 @@ Now you just have to put your .txt in the folder with your .osm data, the osm2ai
 **perl osm2ai.pl --input <inputfile.osm> --output <illustrator-file.ai> ****\--filter D\_filters.txt**  
   
 
- ![Photo](/assets/images/6634892_orig.jpg) 
+ ![Photo](../assets/images/6634892_orig.jpg) 
 
 Isn't that nice :)
 
- ![Photo](/assets/images/7107445_orig.jpg) 
+ ![Photo](../assets/images/7107445_orig.jpg) 
 
 Save it in .dxf and work with ArchiCad :)  
 Have fun.
