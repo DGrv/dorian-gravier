@@ -15,6 +15,7 @@ if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
 suppressWarnings(suppressMessages(source(paste0(rootpath, "Dorian/BM_Function_v01.r"), encoding="utf-8")))
 
 suppressWarnings(suppressMessages(library(leaflet)))
+suppressWarnings(suppressMessages(library(leaflet.extras)))
 suppressWarnings(suppressMessages(library(rayshaderanimate)))
 suppressWarnings(suppressMessages(library(htmlwidgets)))
 suppressWarnings(suppressMessages(library(RColorBrewer)))
@@ -129,6 +130,13 @@ m <-  m %>%
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) %>% 
       hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
+m <-  m %>%  addFullscreenControl() %>%
+  addHash() %>%
+  addSearchOSM() %>%
+  addDrawToolbar() %>%
+  addStyleEditor() 
+
+
 cat("\nLeaflet ready")
 
 saveWidget(m, file="OverviewMap.html")
