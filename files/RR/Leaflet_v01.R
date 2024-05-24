@@ -19,21 +19,20 @@ suppressWarnings(suppressMessages(library(leaflet.extras)))
 suppressWarnings(suppressMessages(library(rayshaderanimate)))
 suppressWarnings(suppressMessages(library(htmlwidgets)))
 suppressWarnings(suppressMessages(library(RColorBrewer)))
-suppressWarnings(suppressMessages(library(sf)))
 # display.brewer.all()
+suppressWarnings(suppressMessages(library(sf)))
+suppressWarnings(suppressMessages(library(lubridate)))
 
 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240421__Zurick_Marathon/BU/backup_OCHSNER_SPORT_Zurich_Marathon_2024830_20240422-002750/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240526_CyclotourDuLeman/BU/backup_Cyclotour_du_Leman_20240523-214652/")
 } else{
-  wd <- gsub("/mnt", "C:/", args[1])
+  wd <- gsub("/mnt/c", "C:", args[1])
 }
+cat(yellow("\n[INFO] - wd:   ", wd, "\n"))
 setwd(wd)
-
-cat("\nwd = ", wd)
-
 
 
 # Splits ------------------------------------------------------------------
@@ -49,7 +48,6 @@ setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
 
 
-
 # splits ------------------------------------------------------------------
 
 splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
@@ -57,19 +55,46 @@ splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
 splits <- splits[TimingPoint != ""]
 
 
+
+# Contest -----------------------------------------------------------------
+
+contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+contest <- contest[ContestName != ""]
+contest[, Name := ifelse(is.na(ContestNameShort), ContestName, ContestNameShort)]
+contest[, Start := seconds_to_period(ContestStart)]
+contest[, Start := sprintf('%02d:%02d:%02d', Start@hour, minute(Start), second(Start))]
+contest[, Dist := round(ContestLength, 2)]
+setnames(contest, "ID", "Contest")
+
 # read gpx ----------------------------------------------------------------
 
-ll <- data.table(filepath=list.files.only(p0(wd, "gpx")))
+ll <- data.table(filepath=list.files.only(p0(wd, "/gpx")))
+
+if(nrow(ll)==0){
+  cat(red("\nFound", nrow(ll), "gpx :(\n"))
+} else {
+  cat(green("\nFound", nrow(ll), "gpx :)\n"))
+}
+
 ll[, file := basename(filepath)]
 ll <- ll[!filepath %like% "ContestID_|All_Splits"][file %like% "gpx$"]
 ll[, color := brewer.pal(n = nrow(ll), name = "Set1")]
-ll[, Contest := gsub("(\\d*)__.*", "\\1", file)]
+ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
+
+# colorDF(contest)
+# colorDF(splits)
+# colorDF(tp)
+# colorDF(ll)
+
+ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
+ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
+
 
 data0 <- data.table()
 for (i in seq_along(ll$filepath)) {
   temp <- data.table(get_table_from_gpx(ll$filepath[i]))
   # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
-  temp[, file := ll$file[i]]
+  temp[, Name := ll$Name[i]]
   data0 <- rbind(data0, temp, fill = T)
   cat("\n", i, "- Read done:", ll$file[i])
 }
@@ -87,7 +112,7 @@ m <- leaflet() %>%
 
 
 for (i in seq_along(ll$filepath)) {
-  data1 <- st_as_sf(x = data0[file == ll$file[i]],                         
+  data1 <- st_as_sf(x = data0[Name == ll$Name[i]],                         
                     coords = c("lon", "lat"))
   data2 <- data1 %>%
     st_combine() %>%
@@ -97,7 +122,7 @@ for (i in seq_along(ll$filepath)) {
   
   m <- m %>%
     addPolylines(data = data2,
-                 group = gsub(".gpx", "", ll$file[i]),
+                 group = ll$Name[i],
                  color = ll$color[i],
                  opacity = 0.8)
   tp2 <- tp[TimingPoint %in% splits[Contest == ll$Contest[i]]$TimingPoint]
@@ -105,7 +130,7 @@ for (i in seq_along(ll$filepath)) {
   if( nrow(tp2) > 0 ) {
     m <- m %>%
       addCircleMarkers(data = tp2, lng = ~lon, lat = ~lat, 
-                 group = gsub(".gpx", "", ll$file[i]),
+                 group = ll$Name[i],
                  color = ll$color[i],
                  opacity = 0.8,
                  radius = 15,
@@ -119,7 +144,7 @@ for (i in seq_along(ll$filepath)) {
 
 # output ------------------------------------------------------------------
 
-groupslayer <- c("Splits", gsub(".gpx", "", ll$file))
+groupslayer <- c("Splits", ll$Name)
 
 m <-  m %>% 
   addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "Splits") %>% 
@@ -137,9 +162,9 @@ m <-  m %>%  addFullscreenControl() %>%
   addStyleEditor() 
 
 
-cat("\nLeaflet ready")
+cat(green("\n\nLeaflet ready"))
 
 saveWidget(m, file="OverviewMap.html")
 
-cat("\nLeaflet DONE :)\n")
+cat(green("\nLeaflet DONE :)\n"))
 
