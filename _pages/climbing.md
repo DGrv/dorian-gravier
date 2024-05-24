@@ -61,7 +61,7 @@ layout: single
     </head>
     <body>
 
-		<iframe width="100%" height="500px" src="https://dgrv.github.io/dorian-gravier/files/gpx/Pause_Touren.html"> </iframe>
+		<iframe width="100%" height="500px" src="https://dgrv.github.io/dorian-gravier/files/gpx/Climbing/Pause_Touren.html"> </iframe>
 
     </body>
 
