@@ -38,8 +38,8 @@ if "%day:~0,1%" == " " set day=0%day:~1,1%
 set datetimef=%year%-%month%-%day%
 set datetimehour=%year%-%month%-%day% %hour%:%min%
 
-set title=%title: =_%
-set filename=%datetimef%-%title%.md
+set title2=%title: =_%
+set filename=%datetimef%-%title2%.md
 
 
 echo --- >> %filename%

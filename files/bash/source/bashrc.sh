@@ -24,31 +24,68 @@ alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx 
 alias reduce.fr.60='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "60" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 60 "$i"; echo;  fi; done'
 
 # function
-ses_extract () {
-if [ -f "$1" ]; then
-tablewanted=( settings customFields ranks teamscores contests results timingpoints splits )
-fdir=$(echo $1 | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
-mkdir -p $fdir
-# mdb-tables -1 "$1"
-for value in "${tablewanted[@]}"; do mdb-export -Q -d "\\t" "$1" $value > "$fdir/${value}.csv"; done
-grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
+sesExtract () {
+   if [ -f "$1" ]; then
+      tablewanted=( settings customFields ranks teamscores contests results timingpoints splits )
+      fdir=$(echo $1 | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
+      mkdir -p $fdir
+      # mdb-tables -1 "$1"
+      for value in "${tablewanted[@]}"; do mdb-export -Q -d "\\t" "$1" $value > "$fdir/${value}.csv"; done
+      grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
+      
+      # Export gpx ------------------------------------
+      mkdir -p $fdir/gpx
+      rm $fdir/gpx/*
+      # extract gpx daten
+      cat "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
+      # extract name gpx
+      grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s|.*GPXFileName\t.*?\t(.*?)\t.*?\t(.*?).gpx.*|\1__\2.gpx|g" > "$fdir/gpx/namegpx"
+      # export gpx
+      while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
+      rm $fdir/gpx/namegpx $fdir/gpx/gpx
+      ls -1 $fdir/gpx/*gpx | cat -n | while read n i; do gpsbabel -i gpx -f "$i" -x simplify,crosstrack,error=0.01k -o gpx -F "$i"; done
+      
+      # Export Contest infos --------------------------
+      mdb-export "$1" contests > "$fdir/temp.csv"
+      paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/temp.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/temp.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > "$fdir/Info_Contest.txt"
+      rm "$fdir/temp.csv"
 
-mkdir -p $fdir/gpx
-# extract gpx daten
-grep -s "GPXFile" "$fdir/settings.csv" | grep -v GPXFileName | perl -pe "s|.*\<\?xml(.*?)\<\/gpx\>.*|<?xml\1</gpx>|g" > $fdir/gpx/gpx
-# extract name gpx
-grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s|.*GPXFileName\t.*?\t.*?\t.*?\t(.*?).gpx.*|\1.gpx|g" > $fdir/gpx/namegpx
-# export gpx
-while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
-rm $fdir/gpx/namegpx $fdir/gpx/gpx
-
-cd $fdir
-/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
-cd ..
-else
-echo File not found
-fi
+      #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
+      /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Leaflet_v01.R" "$PWD/$fdir"
+   else
+      echo File not found
+   fi
 }
+
+timestamp () {
+date +"%Y%m%d-%H%M%S"
+}
+
+
+splitgpxtrack() {
+    basename="${1%.*}"
+    grep name "$1" | perl -pe "s|.*<name>(.*)</name>|\1|g" \
+    | cat -n | while read n f; do
+        f2=$(slugify "$f")
+        fout=${basename}-${f2}.gpx
+        gpsbabel -i gpx -f "$1" -x track,name="$f" -o gpx -F "$fout"
+    done
+}
+
+rents () {
+dirname=$(dirname "$1")
+filename=$(basename "$1")
+ext=$(echo "$filename" | cut -f 2 -d '.')
+filename=$(echo "$filename" | cut -f 1 -d '.')
+ts=$(timestamp)
+mv "$1"  "${dirname}/${filename}_${ts}.${ext}"
+}
+
+
+
+
+
+
 
 # source cecho for color echo
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh

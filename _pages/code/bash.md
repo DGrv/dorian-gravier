@@ -71,6 +71,7 @@ cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/fil
 
 
 
+
 # Bash file
 
 Extension is `sh` but it is not important. To make it executable:
@@ -511,7 +512,8 @@ diff --color Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
 Print readable
 
 ```sh
-csvtool readable "Google_Calendar_Dori (1).csv"
+pip install csvkit
+csvlook"Google_Calendar_Dori (1).csv"
 ```
 
 Print near each other
@@ -520,6 +522,14 @@ Print near each other
 pr -m -t Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
 pr -m -t -w 200 Google_Calendar_Dori.csv Google_Calendar_Dori2.csv
 ```
+
+merge columns
+
+```sh
+paste -d , file1.csv file2.csv
+paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/temp.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/temp.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > Info_Contest.txt
+```
+
 
 # line by line 2 files
 
@@ -572,6 +582,10 @@ file="filename.ses"
 mdb-tables -1 "$file"
 tablewanted=( customFields settings ranks teamscores contests results )
 for value in "${tablewanted[@]}"; do mdb-export -d \\t "$file" $value > "${value}.csv"; done
+
+# export in normal csv
+mdb-export "backup_Lenzburger Lauf 2024_20240523-164107.ses" contests > "$fdir/temp.csv"
+
 ```
 
 # unicode to utf-8
@@ -639,6 +653,8 @@ cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv
 ```
 
 
+
+
 # P4N matrix coordinate
 
 ```sh
@@ -660,4 +676,35 @@ curl "${url}" | jq '.[]' | jq '[.id, .lat, .lng, .rating, .type.label, .url, .ti
 done
 done
 
+```
+
+# gpx
+
+## split segment or tracks
+
+[check this out]()
+
+```sh
+splitgpxtrack() {
+    basename="${1%.*}"
+    grep name "$1" | perl -pe "s|.*<name>(.*)</name>|\1|g" \
+    | cat -n | while read n f; do 
+        f2=$(slugify "$f")
+        fout=${basename}-${f2}.gpx
+        gpsbabel -i gpx -f "$1" -x track,name="$f" -o gpx -F "$fout"
+    done
+}
+```
+
+## export gpx in csv 
+
+```sh 
+gpsbabel -i kml -f "in.kml" -t -o unicsv -F "out.csv"
+gpsbabel -i kml -f "in.kml" -t -o csv -F "out.csv"
+```
+
+## remove gpx points
+
+```sh
+gpsbabel -i kml -f "in.kml" -x nuketypes,waypoints -o gpx -F "out.gpx"
 ```

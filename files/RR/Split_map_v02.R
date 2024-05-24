@@ -3,7 +3,7 @@
 rm(list = ls())
 if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
   rootpath <- 'C:/Users/doria/Dropbox/Shared_Dorian/'
-  Sys.setlocale('LC_ALL', 'German')
+  suppressWarnings(suppressMessages(Sys.setlocale('LC_ALL', 'German')))
 } else {
   if( paste0(Sys.info()[4]) == 'DORIANSRECHNER' ) {
     rootpath <- 'C:/Users/dorian.BSPM/Dropbox/Shared_Dorian/'
@@ -11,18 +11,18 @@ if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
     rootpath <- 'C:/Users/buero.BSPM/Dropbox/Shared_Dorian/'
   }
 }
-source(paste0(rootpath, "Dorian/BM_Function_v01.r"), encoding="utf-8")
+suppressWarnings(suppressMessages(source(paste0(rootpath, "Dorian/BM_Function_v01.r"), encoding="utf-8")))
 
 
 
-library(jsonlite)
+suppressWarnings(suppressMessages(library(jsonlite)))
 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/Zurick_Marathon/BU/backup_OCHSNER_SPORT_Zurich_Marathon_2024830_20240422-002750/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240525__Lenzburger%20Lauf%202024/BU/backup_Lenzburger_Lauf_2024_20240523-164107/")
 } else{
-  wd <- args[1]
+  wd <- gsub("/mnt", "C:/", args[1])
 }
 setwd(wd)
 
@@ -45,7 +45,7 @@ if( nrow(tp) > 0 )  {
   splits <- splits[TimingPoint != ""]
   
   
-  data <- dtjoin(tp, splits)
+  suppressWarnings(suppressMessages(data <- dtjoin(tp, splits)))
   data <- data[order(Contest, OrderPos)]
   data[, ID := 1:.N, .(Contest)]
   data[, Name0 := Name]
@@ -65,6 +65,7 @@ if( nrow(tp) > 0 )  {
   
   all <- data[, .N, .(lon, lat, name = TimingPoint)]
   export.gpx(all, "gpx/All_Splits.gpx", add.desc = F, add.url = F, layer.type = "waypoints")
+  cat("Export Split DONE :)\n")
 
 }
 

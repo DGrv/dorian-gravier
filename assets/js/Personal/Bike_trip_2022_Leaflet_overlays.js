@@ -71,13 +71,6 @@ var openslopemapOverlayAlpsPeaks = L.tileLayer('https://peaks.openslopemap.org/{
 
 var lBike = L.layerGroup();
 var lStop = L.layerGroup();
-var lBikeProject = L.layerGroup();
-var lHike = L.layerGroup();
-var lSchneeS = L.layerGroup();
-var lHikeProject = L.layerGroup();
-var lSchitour = L.layerGroup();
-var lSchitourProject = L.layerGroup();
-var lSchneeSProject = L.layerGroup();
 var Hutten = L.layerGroup();
 var refugepoi = L.layerGroup();
 var openslopemapOverlayAlpsPeaks = L.layerGroup();
@@ -108,57 +101,21 @@ var loopinfoBikeTrip2022 = {
 // json value for pointsbiketrip
 
 
-var pointsbiketrip = [
-	{"type": "Feature", "properties": {"popupContent": "Gregoire et sa famille" }, "geometry": {"type": "Point", "coordinates":  [5.17031, 47.58763] }},
-	{"type": "Feature", "properties": {"popupContent": "Laurent et Michael, Woofing au clos des Chevres" }, "geometry": {"type": "Point", "coordinates":  [4.15917, 47.19581] }},
-	{"type": "Feature", "properties": {"popupContent": "Virginie" }, "geometry": {"type": "Point", "coordinates":  [3.4976, 46.0209] }},
-	{"type": "Feature", "properties": {"popupContent": "Woofing chez Kim" }, "geometry": {"type": "Point", "coordinates":  [3.72795, 46.09200] }},
-	{"type": "Feature", "properties": {"popupContent": "Vendanges au Domaine Miolanne" }, "geometry": {"type": "Point", "coordinates":  [3.15439, 45.59475] }},
-	{"type": "Feature", "properties": {"popupContent": "Buron de Jean-Marie" }, "geometry": {"type": "Point", "coordinates":  [2.94960, 45.23054] }},
-	{"type": "Feature", "properties": {"popupContent": "L'ami Paul" }, "geometry": {"type": "Point", "coordinates":  [3.4133, 43.6849] }},
-	{"type": "Feature", "properties": {"popupContent": "Pacha" }, "geometry": {"type": "Point", "coordinates":  [3.0806, 44.0971] }},
-	{"type": "Feature", "properties": {"popupContent": "Serge" }, "geometry": {"type": "Point", "coordinates":  [-0.2600, 42.9609] }},
-	{"type": "Feature", "properties": {"popupContent": "Alice, Andoni, Maya y Unai" }, "geometry": {"type": "Point", "coordinates":  [-2.1972, 43.1531] }},
-	{"type": "Feature", "properties": {"popupContent": "Un cher ami basque espagnol :)" }, "geometry": {"type": "Point", "coordinates":  [-1.9906, 43.2469] }},
-	{"type": "Feature", "properties": {"popupContent": "Aline, Maité et Célia" }, "geometry": {"type": "Point", "coordinates":  [-1.73840,43.37779] }},
-	{"type": "Feature", "properties": {"popupContent": "Arthur "}, "geometry": {"type": "Point", "coordinates":  [2.2678, 43.5388] }}
-];
 
-var tosee = [
-	{"type": "Feature", "properties": {"popupContent": "Gorges d'Héric" }, "geometry": {"type": "Point", "coordinates":  [2.95624, 43.59989] }},
-	{"type": "Feature", "properties": {"popupContent": "Causse ?" }, "geometry": {"type": "Point", "coordinates":  [3.5055, 43.8023] }},
-	{"type": "Feature", "properties": {"popupContent": "Cirque de Navacelles" }, "geometry": {"type": "Point", "coordinates":  [3.5122, 43.8940] }},
-	{"type": "Feature", "properties": {"popupContent": "Près du Mont Aigoual" }, "geometry": {"type": "Point", "coordinates":  [3.4845, 44.1154] }},
-	{"type": "Feature", "properties": {"popupContent": "Gorges de la Dourbie" }, "geometry": {"type": "Point", "coordinates":  [3.2754, 44.0845] }},
-	{"type": "Feature", "properties": {"popupContent": "Gorges de la Jonte" }, "geometry": {"type": "Point", "coordinates":  [3.3276, 44.2037] }},
-	{"type": "Feature", "properties": {"popupContent": "Causse Méjéan" }, "geometry": {"type": "Point", "coordinates":  [3.5431, 44.2357] }},
-	{"type": "Feature", "properties": {"popupContent": "Gorges du Tarn" }, "geometry": {"type": "Point", "coordinates":  [3.2461, 44.3053] }},
-	{"type": "Feature", "properties": {"popupContent": "Causse ?" }, "geometry": {"type": "Point", "coordinates":  [3.2219, 44.3821] }},
-	{"type": "Feature", "properties": {"popupContent": "L'Aubrac" }, "geometry": {"type": "Point", "coordinates":  [3.1010, 44.6241] }},
-	{"type": "Feature", "properties": {"popupContent": "Le Cantal" }, "geometry": {"type": "Point", "coordinates":  [2.6965, 45.1042] }},
-	{"type": "Feature", "properties": {"popupContent": "? " }, "geometry": {"type": "Point", "coordinates":  [2.9351, 45.3519] }},
-	{"type": "Feature", "properties": {"popupContent": "Lac Pavin" }, "geometry": {"type": "Point", "coordinates":  [2.8914, 45.4944] }},
-	{"type": "Feature", "properties": {"popupContent": "Murol" }, "geometry": {"type": "Point", "coordinates":  [2.9304, 45.5811] }},
-	{"type": "Feature", "properties": {"popupContent": "La montagne Bourbonnaise" }, "geometry": {"type": "Point", "coordinates":  [3.6336, 45.8862] }},
-	{"type": "Feature", "properties": {"popupContent": "Le mont Beuvray et Biberacte" }, "geometry": {"type": "Point", "coordinates":  [4.0387, 46.9214] }},
-	{"type": "Feature", "properties": {"popupContent": "?" }, "geometry": {"type": "Point", "coordinates":  [5.0672, 47.6196] }}
-];
-
-var climb = [
-	{"type": "Feature", "properties": {"popupContent": "Saint Béat-Lez" }, "geometry": {"type": "Point", "coordinates":  [0.6988, 42.9117] }},
-	{"type": "Feature", "properties": {"popupContent": "Lordat" }, "geometry": {"type": "Point", "coordinates":  [1.746009, 42.775946] }},
-	{"type": "Feature", "properties": {"popupContent": "Cantobre" }, "geometry": {"type": "Point", "coordinates":  [3.3068, 44.0605] }},
-	{"type": "Feature", "properties": {"popupContent": "Hauteroche" }, "geometry": {"type": "Point", "coordinates":  [4.6082, 47.4800] }},
-	{"type": "Feature", "properties": {"popupContent": "Cohons" }, "geometry": {"type": "Point", "coordinates":  [5.35665, 47.79054] }}
-];
+// var tosee = [
+	// {"type": "Feature", "properties": {"popupContent": "Gorges d'Héric" }, "geometry": {"type": "Point", "coordinates":  [2.95624, 43.59989] }},
+	// {"type": "Feature", "properties": {"popupContent": "Le mont Beuvray et Biberacte" }, "geometry": {"type": "Point", "coordinates":  [4.0387, 46.9214] }},
+	// {"type": "Feature", "properties": {"popupContent": "?" }, "geometry": {"type": "Point", "coordinates":  [5.0672, 47.6196] }}
+// ];
 
 
 
-var listpoint = {
-	what: [pointsbiketrip, tosee, climb, sleep],
-	color: ['#f87e6a', '#fff416', '#9646e3', '#ff2b56'],
-	radius: [2, 2, 2, 2]
-};
+
+// var listpoint = {
+	// what: [pointsbiketrip, tosee, climb, sleep],
+	// color: ['#f87e6a', '#fff416', '#9646e3', '#ff2b56'],
+	// radius: [2, 2, 2, 2]
+// };
 
 
 
