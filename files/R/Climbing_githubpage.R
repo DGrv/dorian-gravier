@@ -79,8 +79,7 @@ m <-  m %>%
   addFullscreenControl() %>%
   addHash() %>%
   addSearchOSM() %>%
-  addDrawToolbar() %>%
-  addStyleEditor() 
+  addControlGPS()
 
 
 # %>% 

@@ -26,6 +26,7 @@ sudo apt update        # Fetches the list of available updates
 sudo apt upgrade       # Installs some updates; does not remove packages
 sudo apt full-upgrade  # Installs updates; may also remove some packages, if needed
 sudo apt autoremove    # Removes any old packages that are no longer needed
+sudo apt-get purge --auto-remove packagename # purges/removes a package
 ```
 
 # create shortcut
@@ -587,6 +588,24 @@ for value in "${tablewanted[@]}"; do mdb-export -d \\t "$file" $value > "${value
 mdb-export "backup_Lenzburger Lauf 2024_20240523-164107.ses" contests > "$fdir/temp.csv"
 
 ```
+
+## Size
+
+# Size folders
+
+```sh
+sudo apt-get install ncdu
+ncdu
+```
+
+# list packages size
+
+```sh
+dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n
+
+```
+
+[Source](https://unix.stackexchange.com/a/107039/374250)
 
 # unicode to utf-8
 

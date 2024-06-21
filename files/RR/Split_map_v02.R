@@ -20,7 +20,7 @@ suppressWarnings(suppressMessages(library(jsonlite)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240525__Lenzburger%20Lauf%202024/BU/backup_Lenzburger_Lauf_2024_20240523-164107/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240525__Lenzburger%20Lauf/BU/backup_Lenzburger_Lauf_2024_20240523-164107/")
 } else{
   wd <- gsub("/mnt/c", "C:/", args[1])
 }

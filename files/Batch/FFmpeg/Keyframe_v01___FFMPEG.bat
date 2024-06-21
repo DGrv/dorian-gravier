@@ -32,20 +32,6 @@ if "%~1"=="" (
 	set filepath=%~1
 )
 
-for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%filepath%"') do set RVdt=%%j
-set RV=%RVdt:1/=%
-
-if "%~2"=="" (
-	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24) your video is %RVdt%: "
-) else (
-	set kfi=%~2
-)
-
-if "%kfi%"=="" (
-	set kfi=24
-)
-
-
 for %%a in ("%filepath%") do (
 	set pathh=%%~dpa
 	set filename=%%~nxa
@@ -71,6 +57,23 @@ echo renamefile = %renamefile%
 echo renamepathfile = %renamepathfile% [0m
 %drive%
 cd %pathh%
+
+for /f %%j in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%filepath%"') do set RVdt=%%j
+set RV=%RVdt:1/=%
+
+if "%~2"=="" (
+	set /p kfi="Keyframe interval in frame (24 for 1s if 24fps) (if nothing it will be 24) your video is %RVdt%: "
+) else (
+	set kfi=%~2
+)
+
+if "%kfi%"=="" (
+	set kfi=24
+)
+
+
+
+
 
 rename "%filepath%" "%renamefile%"
 ffmpeg -stats -loglevel error -i "%renamepathfile%" -vcodec libx264 -x264-params keyint=%kfi%:scenecut=0 -video_track_timescale %RV% -acodec copy "%filepath%"

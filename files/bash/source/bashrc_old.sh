@@ -2,15 +2,16 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # START Dorian ----------------------------------------------		
 # Alias Dorian
-alias rvid='nold=$(ls |grep -i mp4 |grep old| wc -l); if [[ $nold != 0 ]];then mkdir -p old ; mv *old*.mp4 old/ ; fi ; ls | grep -i mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "temp_%04d.mp4" $n` ; done ; ls | grep mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "%04d.mp4" $n` ; done'
+alias rvid='nold=$(ls |grep mp4 |grep old| wc -l); if [[ $nold != 0 ]];then mkdir -p old ; mv *old*.mp4 old/ ; fi ; ls | grep mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "temp_%04d.mp4" $n` ; done ; ls | grep mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "%04d.mp4" $n` ; done'
 # escape the $ with \ (\$)
-
-# csv
-alias csvv='column -t -s,'
 
 # Get duration
 alias mp4d='tts=$(exiftool -n -T -duration -s3 *mp4 | jq -s add);tts=$(calc -d "round($tts)"); ttm=$(calc -d "round($tts / 60, 2)"); echo $tts s - $ttm min'
@@ -23,57 +24,6 @@ alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx 
 alias reduce.fr.60='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "60" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 60 "$i"; echo;  fi; done'
 
 # function
-
-addpad () {
-# add padding if vertical video - right now video should be 1920x1080 or 1080 x1920
-cecho -y "Will add a padding if video is 1080x1920 to get it 1920x1080"
-for i in *mp4; do
-	cecho -g $i
-	reso=$(exiftool -ImageSize -s3 $i)
-	if [[ "$reso" = "1080x1920" ]]; then
-		cecho -r "Need to be padded"
-        nname="$(basename $i .mp4)___old_pad.mp4"
-        mv "$i" "$nname"
-		ffmpeg -stats -loglevel error -y -i "$nname" -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" "$i"
-	fi
-done
-}
-
-keyframe () {
-# add keyframe to get 1 per second to all files in folder
-for i in *mp4; do
-   fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
-   fr=$(calc -d "round($fr)")
-   fr=$(echo $fr)
-   nname="$(basename $i .mp4)___old_KF.mp4"
-   mv "$i" "$nname"
-   cecho -g "Add keyframes $i:"
-   ffmpeg -stats -loglevel error -i "$nname" -vcodec libx264 -x264-params keyint=$fr:scenecut=0 -acodec copy "$i"
-done
-}
-
-
-
-spareRR () {
-   # keep as info 
-   for i in *.csv ; do 
-   ll=$(grep -n "$1" "$i" | cut -d : -f 1)
-   if [[  $ll ]]; then
-   cecho -g "$i"
-   ll2="1p;${ll}p"
-   sed -n "${ll2}" "$i" | csvv | grep --color -E "$1|$"
-   echo
-   fi
-   done
-}
-
-
-
-
-
-
-
-
 sesExtract () {
    if [ -f "$1" ]; then
       tablewanted=( settings customFields ranks teamscores contests results timingpoints splits )
@@ -108,9 +58,6 @@ sesExtract () {
 }
 
 jpg2mp4 () {
-    # convert picture to video
-    # $1 is video path
-    # $2 how many seconds
     cecho -r "Arg1 is the image, arg2 is duration of the mp4"
     mogrify -resize 1920x1080 -extent 1920x1080 -gravity Center -background black "$1"
     ffmpeg -stats -loglevel error -r "1/$2" -f image2 -i "$1" -vcodec libx264 -vf "fps=30,format=yuv420p" -y temp.mp4
@@ -157,20 +104,6 @@ source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/s
 ffm=/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg
 
 # END DORIAN --------------------------------------------
-
-
-
-
-
-
-
-
-
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -279,3 +212,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+

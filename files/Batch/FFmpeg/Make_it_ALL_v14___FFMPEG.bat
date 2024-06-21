@@ -96,8 +96,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	REM ---------------USE HERE DEFAULKT-------------------
 	set simplemode=n
 	set tbdefault=y
-	set biketrip=y
-	set pathout=D:\Pictures\2023\Video
+	set biketrip=n
+	set pathout=D:\Pictures\2024\Video
 	set fadeinout=y
 	set audionorma=n
 	set docodec=y
@@ -176,15 +176,18 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	set title2=%title2: =_%
 	set title2=%title2:-=_%
 	set title2=%title2:,=%
+	set title2=%title2:(=%
+	set title2=%title2:)=%
 	
 	echo %title2%
+	echo title2=%title2% >> MakeItAll_temp.config
 
 	:: Music
 	REM if not exist Music_list_temp.txt (
 		echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
 		REM set /p temp="If you wanna use a jiggle beginning and at the end use files named 'begin.mp3' and-or 'end.mp3'"
 		REM ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Music_list_temp.txt
-		ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/.mp3//" > Music_list_temp.txt
+		ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" > Music_list_temp.txt
 	REM )
 	
 
@@ -281,7 +284,7 @@ echo.
 			set filenamenew=!filename:'=!
 			if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
 		)
-		ls -1 | grep mp3 | grep -Ev "begin.mp3|end.mp3|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
+		ls -1 | grep mp3 | grep -Ev "^begin.mp3|^end.mp3|^input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
 			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
 			del Listmp3_temp.txt
