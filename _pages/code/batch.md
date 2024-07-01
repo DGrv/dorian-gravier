@@ -948,6 +948,20 @@ ag -l assests # but you get wrong slash / and then you pass it with xargs it is 
 grep -r -l assests * |  xargs -I # perl -pi -e "s|assests|assets|g" "#"
 # if you want a backup (.bak)
 grep -r -l assests * |  xargs -I # perl -pi.bak -e "s|assests|assets|g" "#"
-
-
 ```
+
+# find which port is using a Software
+
+Get PID of the exe:
+
+```sh
+tasklist | findstr "RRWS"
+```
+
+Check the port, to run in admin mode:
+
+```sh
+netstat -aon | findstr "4748"
+```
+
+

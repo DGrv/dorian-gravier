@@ -17,7 +17,7 @@ I just used the cmder-mini. To replace the cmd with the cmder :
 - Check [x] Register on OS startup
 - Save settings
 
-![Picture](/assets/images/posts/2019/2019-05-06/Cmder_default_term.jpg)
+![Picture](../assets/images/posts/2019/2019-05-06/Cmder_default_term.jpg)
 
 # Integration with FreeCommander
 
@@ -26,6 +26,14 @@ If you use [FreeCommander](https://freecommander.com/en/summary/) (an expolorer 
 - Go in Settings / View / DOS Prompt
 - Modify DOS box command specification : `<path-of-your-Cmder.exe> /single /x "/cmd cmd" %ActivDir%`
 	- Single permit to open a new tab and to have only one instance
+	
+In windows 11 it is using `wt.exe` which is slow to open. 
+Better using `conhost.exe`.
+For this change it in the settings:
+
+- `Settings -> System -> For Developers -> Developer Mode` activate it
+- `Settings -> System -> For Developers -> Terminal` change the terminal to Windows Console Host
+	
 
 # Batch files
 

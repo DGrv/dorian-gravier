@@ -80,7 +80,7 @@ a
 
 ```
 
-![](/assets/images/posts/2023/world.png)
+![](../assets/images/posts/2023/world.png)
 
 Let's zoom in
 
@@ -95,14 +95,14 @@ zoom.choosen <- zoomman(point.choosen, 7)
 b <- a + coord_cartesian(xlim = zoom.choosen$lon, ylim = zoom.choosen$lat)
 b
 ```
-![](/assets/images/posts/2023/world2.png)
+![](../assets/images/posts/2023/world2.png)
 
 
 ```r
 c <- b + geom_path(data = rr3, aes(x = X, y = Y, group=group), color = "grey20")
 c
 ```
-![](/assets/images/posts/2023/world3.png)
+![](../assets/images/posts/2023/world3.png)
 
 Plot a gpx
 
@@ -111,11 +111,11 @@ datagpx <- data.table(get_table_from_gpx("C:/Users/doria/Downloads/Outdoor/Gpx/B
 d <- c + geom_path(data = datagpx, aes(lon, lat), color = "red")
 d
 ```
-![](/assets/images/posts/2023/world4.png)
+![](../assets/images/posts/2023/world4.png)
 
 Then you can do cool stuff like :
 
-![](/assets/images/posts/2023/world5.png)
+![](../assets/images/posts/2023/world5.png)
 
 Here is the theme I used for this.
 
@@ -130,5 +130,5 @@ theme_set(theme(plot.background = element_rect(fill = "black"),
 
 or even animate it with `gganimate` or create mp4, a lot is possible.
 
-![](/assets/images/posts/2023/Complete_trip.gif)
+![](../assets/images/posts/2023/Complete_trip.gif)
 
