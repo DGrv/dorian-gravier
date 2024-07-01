@@ -14,7 +14,7 @@ You can here have a look at a pretty detailed learning experience and knowledge 
 
 [![](/files/icon/icon-pdf.png){: .align-center width="10%"}](../files/pdf/201906_CV_dgrv.pdf)
 
-![](/assets/images/776374_orig.jpg){: .align-center}
+![](../assets/images/776374_orig.jpg){: .align-center}
 
 
 # What am I actually doing ?
