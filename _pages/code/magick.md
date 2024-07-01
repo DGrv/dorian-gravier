@@ -81,9 +81,8 @@ magick convert -density 300 -trim in.pdf -quality 100 out.png
 -trim removes any edge pixels that are the same color as the corner pixels.
 -quality 100 sets the JPEG compression quality to the highest quality.
 
-# Gif
 
-## crop
+# crop
 
 ```sh
 magick convert input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
@@ -94,9 +93,14 @@ You can use *qimgv* to get the dimension of the crop easily
 
 [Source](https://stackoverflow.com/a/14036766/2444948)
 
-## remove background
 
-### Option 1
+
+
+
+
+# remove background
+
+## Option 1
 
 ```sh
 magick convert input.gif -transparent black g%01d.png
@@ -106,7 +110,7 @@ magick convert -dispose background g*.png output.gif
 Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
 
 
-### Option 2
+## Option 2
 
 or even better, adapt fuzz
 
@@ -132,7 +136,7 @@ creating this:
 
 ![](/assets/images/magick_gif_01.gif)
 
-### Option 3
+## Option 3
 
 Really good results
 
@@ -149,10 +153,25 @@ magick convert Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
 
 ```
 
+# Replace color
 
-# png
 
-## Trim empty pixels
+```sh
+# Adapt the fuzz 
+magick input.png -fuzz 80% -fill black     -opaque white       output1.png
+magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff"   output2.png
+
+# keep the transparency level
+magick input.png  -channel RGB -auto-level    +level-colors black    output3.png
+```
+
+![input](../assets/images/magick_ex_replace_color_input.png)
+![output1](../assets/images/magick_ex_replace_color_output1.png)
+![output2](../assets/images/magick_ex_replace_color_output2.png)
+![output3](../assets/images/magick_ex_replace_color_output3.png)
+
+
+# Trim empty pixels
 
 ```sh
 magick img.png -define trim:edges=north,south -trim +repage img2.png
