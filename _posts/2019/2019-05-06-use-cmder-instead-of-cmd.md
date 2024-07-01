@@ -17,7 +17,7 @@ I just used the cmder-mini. To replace the cmd with the cmder :
 - Check [x] Register on OS startup
 - Save settings
 
-![Picture](/assests/images/posts/2019/2019-05-06/Cmder_default_term.jpg)
+![Picture](/assets/images/posts/2019/2019-05-06/Cmder_default_term.jpg)
 
 # Integration with FreeCommander
 

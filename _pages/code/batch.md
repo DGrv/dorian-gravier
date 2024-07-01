@@ -896,13 +896,58 @@ exiftool out.mp4 > out.txt && exiftool in.mp4 > in.txt && diff --color in.txt ou
 
 # Alias in cmd
 
+Create a file: macros.doskey
+
 ```sh
-doskey scann=nmap -sn $1 $B grep "scan report" $B perl -pe "s|Nmap scan report for ||"
+scann=nmap -sn $1 $B grep "scan report" $B perl -pe "s|Nmap scan report for ||"
+# better Version
+scann=nmap -sn $1 $B awk '{i=5;j=3;k=0;m=4};/Nmap scan report for/{printf $i;}/MAC Address:/{gsub("\\\\(|\\\\)", "");print "       "$j "       " substr($k,index($k,$m)) }'
+# complex example
+# i=5 ... is to avoid to have $5 that would be a parameter 5 for doskey, do not use l=<number>, l is used ...
+# escape \\\\ for special characters in gsub
+# substr($k,index($k,$m)) actually substr($0,index($0,$4)) is meaning from $4 to end of line
+
+
+
+# check com port
+lcom=reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM
 ```
 
 - $1 as parameter
 - $B is pipe
 
+Setup at start
+
+```sh
+reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\macros.doskey\"" /f
+```
+
+[awk builder here](https://awk.js.org/index.html)
+
+# Remove pdf password
+
+Use [qpdf](https://github.com/qpdf/qpdf).
+You can install it via [scoop](https://scoop.sh/#/apps?q=qpdf)
+
+```sh
+qpdf --decrypt --password="" input.pdf output.pdf
+```
+
+# Replace string recursively in all files
+
+[Source1](https://stackoverflow.com/a/24235368/2444948)
+[Source2](https://stackoverflow.com/a/6995010/2444948)
 
 
+```sh
+# first list the files 
+grep -r -l assests *
+ag -l assests # but you get wrong slash / and then you pass it with xargs it is removed ...
 
+# pass result to perl or sed
+grep -r -l assests * |  xargs -I # perl -pi -e "s|assests|assets|g" "#"
+# if you want a backup (.bak)
+grep -r -l assests * |  xargs -I # perl -pi.bak -e "s|assests|assets|g" "#"
+
+
+```

@@ -727,3 +727,99 @@ gpsbabel -i kml -f "in.kml" -t -o csv -F "out.csv"
 ```sh
 gpsbabel -i kml -f "in.kml" -x nuketypes,waypoints -o gpx -F "out.gpx"
 ```
+
+# Raspberry lessons
+
+```sh
+# full upgrade after booting raspberry
+sudo apt -y full-upgrade 
+
+# ip adresses
+hostname -I
+ip a
+ifconfig
+ip route
+nmcli
+
+# taskmanager list
+ps auxww
+ps auxww | grep dhcp
+# kill process with pid
+kill -9 PID
+
+# check connection ip
+nmcli device
+nmcli dev
+nmcli connection 
+nmcli con
+nmcli device show eth0
+nmcli device modify eth0 ipv4.method auto
+nmcli device modify eth0 ipv6.method auto
+# with gui change connection
+sudo nmtui 
+# or with nmcli
+nmcli con mod eth0 ipv4.addresses 192.168.137.89/24
+nmcli con mod eth0 ipv4.gateway 192.168.137.1
+nmcli con mod eth0 ipv4.dns “8.8.8.8”
+nmcli con mod eth0 ipv4.method manual
+nmcli con up eth0
+# The changes will be written to /etc/sysconfig/network-scripts/ifcfg-eth0 file
+
+
+# remove useless packages
+sudo apt autoremove
+
+# To scan for wireless networks, run the following command:
+nmcli dev wifi list
+# Connect to a network
+sudo nmcli --ask dev wifi connect <example_ssid>
+# check if connected
+nmcli dev wifi list
+# set network priority
+nmcli --fields autoconnect-priority,name connection
+#Use the nmcli connection modify command to set the priority of a network. The following example command sets the priority of a network named "Pi Towers" to 10:
+nmcli connection modify "Pi Towers" connection.autoconnect-priority 10
+
+
+```
+
+## share connection from windows wifi throught lan to Linux
+
+[source](https://superuser.com/a/1093443/860920)
+
+On the Windows PC:
+
+- Connect the PC to the WiFi and ensure Internet connection is working locally
+- Connect the PC to the LAN and ensure the Ubuntu LAN IP is reachable
+- You'd better use fixed IP adresses on the LAN instead of DHCP, or make DHCP reservations on the LAN router
+- Go to Control Pannel > Network & Sharing > Network Connections > right-click on the WiFi connection > Properties
+	- WiFi connection: On the Share tab > Allow other users to connect... If you don't see the share tab, you may want to disable this feature on the other connections (the wired one) for the tab to appear.
+	- WiFi connection: On the Network tab, Internet Protocol version 4 > Properties > Advanced > Disable Auto metric. Use a low metric (eg. Interface Metric = 5).
+- Run `ipconfig` from a command prompt and note the Ethernet connection (wired LAN) IP address (<IP>).
+
+On the Ubuntu PC:
+
+- Run `sudo ip route add default via <IP> proto static metric 50`
+
+to reset this reset ip routes `ip route flush table main`
+
+Tips to debug:
+
+Windows:
+
+- `ipconfig /all`
+- `route PRINT`
+- `tracert 8.8.8.8`
+
+Ubuntu:
+
+- `ifconfig and nmcli dev show`
+- `ip route`
+- `traceroute 8.8.8.8`
+
+
+
+
+```
+
+

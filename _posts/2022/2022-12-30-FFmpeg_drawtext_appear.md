@@ -15,7 +15,7 @@ ffmpeg -stats -loglevel error -i in.mp4 -vf "drawtext=text='add overlay where yo
 
 Here an example with a white background:
 
-![](/assests/images/posts/2022/normal_fps15_r500.gif#center)
+![](/assets/images/posts/2022/normal_fps15_r500.gif#center)
 
 
 - `w` is the width of the video, `x=w*%xpos%` is `x=w*0.05` so the position will be at pixel 96 if `w` is 1920 (1920/5=96) 
@@ -55,7 +55,7 @@ ffmpeg -stats -loglevel error -i input.mp4 -vf "drawtext=text='youhou': fontcolo
 
 ```
 
-![](/assests/images/posts/2022/test_fps24_r500.gif#center)
+![](/assets/images/posts/2022/test_fps24_r500.gif#center)
 
 Some explanations for the easiest corner, the top left corner: 
 `x=if( gte( t, 2+3 ), w * 0.05 - w / 10 * (t - 2 - 3 ), if( gte( -w * 0.2 - tw + w / 10 * t, w * 0.05), w * 0.05, -w * 0.2 - tw + w / 10 * t ) ) : y=h*0.05`

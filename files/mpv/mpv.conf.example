@@ -21,7 +21,7 @@ osd-border-color='#DD322640'            # ARGB format
 osd-border-size=2                       # size for osd text and progress bar
 osd-color='#FFFFFFFF'                   # ARGB format
 osd-duration=1000                       # hide the osd after x ms
-osd-font-size=32
+osd-font-size=10
 #osd-font='Arial'                       # sets a custom font (comment out line if font change is undesired)
 osd-status-msg='${time-pos} / ${duration}${?percent-pos:  (${percent-pos}%)}${?frame-drop-count:${!frame-drop-count==0:  Dropped: ${frame-drop-count}}}\n${?chapter:Chapter: ${chapter}}'
 
