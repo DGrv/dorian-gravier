@@ -27,8 +27,8 @@ You have to modify your functionList.xml:
   - I modifiied the main expression in order to have before the # tag possibility to have 1 or several tabs (`|\t{1,5}`), because this is my way to structure my markdown file for lisibility : `"(?x)((?:^|\n|\t{1,5})[#]+\s+(.*?)(\r*|\n*)$)"`
 
 Here what I mean regarding the tabs in my files
-![Picture2](/assets/20200414_functionList_markdown_2.jpg)
-![Picture2](/assets/20200414_functionList_markdown_3.jpg)
+![Picture2](https://dgrv.github.io/dorian-gravier/assets/20200414_functionList_markdown_2.jpg)
+![Picture2](https://dgrv.github.io/dorian-gravier/assets/20200414_functionList_markdown_3.jpg)
 
 
 ```xml
@@ -55,7 +55,7 @@ Here what I mean regarding the tabs in my files
 
 Here the result:
 
-![Picture2](/assets/20200414_functionList_markdown_1.jpg)
+![Picture2](https://dgrv.github.io/dorian-gravier/assets/20200414_functionList_markdown_1.jpg)
 
 If someone knows how to use the `functionName` (example  below) to replace the \t with space in order that the hierarchy is more lisible in the function list it would be great. 
 

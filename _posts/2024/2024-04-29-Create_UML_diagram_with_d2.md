@@ -145,4 +145,4 @@ H.D -> De { style: {stroke-dash: 5}}
 
 ```
 
-![](/assets/images/posts/2024/RR_diagram_Camera-IR-Decoder.png)
+![](https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/RR_diagram_Camera-IR-Decoder.png)

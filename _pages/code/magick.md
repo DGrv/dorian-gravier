@@ -118,12 +118,12 @@ or even better, adapt fuzz
 magick convert charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
 ```
 
-![](/assets/images/charlie_small.png)
-![](/assets/images/charlie2_small.png)
+![](https://dgrv.github.io/dorian-gravier/assets/images/charlie_small.png)
+![](https://dgrv.github.io/dorian-gravier/assets/images/charlie2_small.png)
 
 Other example with this Gif
 
-![](/assets/images/magick_gif_01.gif)
+![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
 
 ```sh
 magick convert in.gif -resize 50% in2.gif # resize 
@@ -134,7 +134,7 @@ magick convert -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame long
 
 creating this:
 
-![](/assets/images/magick_gif_01.gif)
+![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
 
 ## Option 3
 
@@ -165,10 +165,10 @@ magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff"   output2.png
 magick input.png  -channel RGB -auto-level    +level-colors black    output3.png
 ```
 
-![input](/assets/images/magick_ex_replace_color_input.png)
-![output1](/assets/images/magick_ex_replace_color_output1.png)
-![output2](/assets/images/magick_ex_replace_color_output2.png)
-![output3](/assets/images/magick_ex_replace_color_output3.png)
+![input](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_input.png)
+![output1](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output1.png)
+![output2](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output2.png)
+![output3](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output3.png)
 
 [Check this out to replace colors to a certain ton and keep transparency](https://stackoverflow.com/a/62780504/2444948)
 
