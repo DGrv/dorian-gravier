@@ -32,11 +32,11 @@ It is not perfect because each row are not the same length but did not find a fa
 
 And here an example:
 
-![](../assets/images/posts/2022/OUTPUT_STITCH_0_low.jpg){:width="200px"}
-![](../assets/images/posts/2022/OUTPUT_STITCH_2_low.jpg){:width="200px"}
-![](../assets/images/posts/2022/OUTPUT_STITCH_3_low.jpg){:width="200px"}
-![](../assets/images/posts/2022/OUTPUT_STITCH_4_low.jpg){:width="200px"}
-![](../assets/images/posts/2022/OUTPUT_STITCH_5_low.jpg){:width="200px"}
+![](/assets/images/posts/2022/OUTPUT_STITCH_0_low.jpg){:width="200px"}
+![](/assets/images/posts/2022/OUTPUT_STITCH_2_low.jpg){:width="200px"}
+![](/assets/images/posts/2022/OUTPUT_STITCH_3_low.jpg){:width="200px"}
+![](/assets/images/posts/2022/OUTPUT_STITCH_4_low.jpg){:width="200px"}
+![](/assets/images/posts/2022/OUTPUT_STITCH_5_low.jpg){:width="200px"}
 
 
 

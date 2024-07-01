@@ -50,7 +50,7 @@ which will output e.g.: `{\k10}L{\k15}e{\k25}t{\k25}'{\k25}s{\k25} {\k15}t{\k10}
 
 You just have to put it in your file :)
 
-![Gif to show the result](../assets/images/posts/2023/typewritter.gif)
+![Gif to show the result](/assets/images/posts/2023/typewritter.gif)
 
 
 # Big example
@@ -98,5 +98,5 @@ ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=1920x1080:d=60 -vf "su
 
 ## Output
 
-![Gif to show the result](../assets/images/posts/2023/typewritter2.gif)
+![Gif to show the result](/assets/images/posts/2023/typewritter2.gif)
 

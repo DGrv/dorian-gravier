@@ -408,7 +408,7 @@ layout: single
 
 </html>
 
-[![youtube_icon](../assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
+[![youtube_icon](/assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
 
 <center><a href="https://www.youtube.com/@oYoLibro">All the youtube videos here</a></center>
 

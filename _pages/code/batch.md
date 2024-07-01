@@ -50,7 +50,7 @@ exit /b
 
 I created a batch file to change the color of the windows cmd windows. It is using [Ansicon](https://github.com/adoxa/ansicon). The goal is to make the console a bit more clear: You can see you self the difference :
 
-![Picture](../assets/images/cmd_no_ansicon.jpg) ![Picture](../assets/images/cmd_with_ansicon.jpg)
+![Picture](/assets/images/cmd_no_ansicon.jpg) ![Picture](/assets/images/cmd_with_ansicon.jpg)
 
 The batch file is checking which OS you have:
 

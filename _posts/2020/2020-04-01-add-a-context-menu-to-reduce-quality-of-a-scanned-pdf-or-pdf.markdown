@@ -14,7 +14,7 @@ And the idea came for the little freeware [freepdfcompressort](http://www.freepd
 
 I decided to create only 3 context menus (next step will be to use a cascade menu :)). Only the first 3:
 
-![Picture](../assets//images/20200401_picture_1.jpg)
+![Picture](/assets//images/20200401_picture_1.jpg)
 
 
 
@@ -33,7 +33,7 @@ Windows Registry Editor Version 5.00
 ```
 
 Here the result.
-![Picture2](../assets//images/20200401_picture_2.jpg)
+![Picture2](/assets//images/20200401_picture_2.jpg)
 
 
 

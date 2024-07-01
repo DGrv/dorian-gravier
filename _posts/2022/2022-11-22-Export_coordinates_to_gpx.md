@@ -86,5 +86,5 @@ ggplot(world[region %like% "France"])+
 
 ```
 
-![Picture](../assets/images/posts/2022/gpx_export.jpg)
+![Picture](/assets/images/posts/2022/gpx_export.jpg)
 

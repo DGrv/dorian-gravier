@@ -12,27 +12,27 @@ I built a small batch file using [ghostscript](https://www.ghostscript.com/), [i
 The procedure is as follow:
 
 - Export the notes from your handy in pdf (put them on Google Drive e.g.)
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_01.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_01.jpg)
 - get it into txt file via [ghostscript](https://www.ghostscript.com/) **Follow what is selected on the left window and the content of the file on the right window**
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_02.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_02.jpg)
 - remove last line and first spaces
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_03.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_03.jpg)
 - delete accents and special characters
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_04.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_04.jpg)
 - separate title and content
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_05.jpg)
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_06.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_05.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_06.jpg)
 - extract pictures and convert them in jpg
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_07.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_07.jpg)
 - remove all what is not needed
 - Import txt in your Google keep via [txt-to-google-keep-notes.py]((https://gist.github.com/sliceofbytes/f5eab8911c761ff6760362beb17e6477))
 	- <script src="https://gist.github.com/sliceofbytes/f5eab8911c761ff6760362beb17e6477.js"></script>
 	- change the part for your username and password (**you do this at your own risk, I take no responsabilities that someone is stiling your password by doing this**)
 	- run it with python installed and `python your-python-script.py`
 - check your Google Keep
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_08.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_08.jpg)
 - Import manually your pictures if needed (only big manual step, but pretty fast)
-	- ![](../assets/2020-04-14-samsung-notes-to-keep_10.jpg) ![](../assets/2020-04-14-samsung-notes-to-keep_11.jpg)
+	- ![](/assets/2020-04-14-samsung-notes-to-keep_10.jpg) ![](/assets/2020-04-14-samsung-notes-to-keep_11.jpg)
 	
 	
 

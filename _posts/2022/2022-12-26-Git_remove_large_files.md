@@ -7,7 +7,7 @@ comments_id: 59
 I will not explain the all detail why and how because I just do not know.
 I just post what fixed this on my case:
 
-![](../assets/images/posts/2022/2022-12-26_23-39-39.jpg){: width="1000" }
+![](/assets/images/posts/2022/2022-12-26_23-39-39.jpg){: width="1000" }
 
 You have first to remove those files from your repo.
 Then remove them from the history by using [git-filter-repo](https://github.com/newren/git-filter-repo).
@@ -39,7 +39,7 @@ python3 C:\Users\doria\Downloads\git-filter-repo.py --path files/srtm_37_04.tif 
 
 You may need to force it with `--force`.
 
-![](../assets/images/posts/2022/2022-12-26_23-52-23.jpg){: width="1000" }
+![](/assets/images/posts/2022/2022-12-26_23-52-23.jpg){: width="1000" }
 
 You will see that it is working with the files number decreasing.
 And finally push.
