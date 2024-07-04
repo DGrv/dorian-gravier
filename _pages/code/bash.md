@@ -625,7 +625,7 @@ cat yourjson | jq -r '.[] | jq -r @csv > test.csv
 ```
 
 ```sh 
-# depending on your json- will extract headers and use it -- really goog
+# depending on your json- will extract headers and use it -- really good
 cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
 ```
 
@@ -654,6 +654,27 @@ curl "https://park4night.com/api/places/around?lat=46.25977500237305&lng=8.77678
 
 ```
 
+Export what you want how you want, [found here](https://stackoverflow.com/a/39139478/2444948)
+
+```sh
+echo '[{
+    "name": "George",
+    "id": 12,
+    "email": "george@domain.example"
+}, {
+    "name": "Jack",
+    "id": 18,
+    "email": "jack@domain.example"
+}, {
+    "name": "Joe",
+    "id": 19,
+    "email": "joe@domain.example"
+}]' | jq -r '.[] | "\(.id)\t\(.name)"'
+```
+
+
+
+
 # csv to json
 
 For RR:
@@ -661,7 +682,7 @@ For RR:
 save csv with comma separators
 
 ```sh
-yq Contest_new.csv -p=csv -o=json | perl -pe 's|\{\}|"{}"|g' > Contest_new.lvs
+jq Contest_new.csv -p=csv -o=json | perl -pe 's|\{\}|"{}"|g' > Contest_new.lvs
 ```
 
 here the json to csv that comes before

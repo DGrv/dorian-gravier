@@ -165,10 +165,10 @@ magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff"   output2.png
 magick input.png  -channel RGB -auto-level    +level-colors black    output3.png
 ```
 
-![input](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_input.png)
-![output1](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output1.png)
-![output2](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output2.png)
-![output3](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output3.png)
+-input: ![input](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_input.png)
+- ouput1: ![output1](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output1.png)
+- ouput2: ![output2](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output2.png)
+- ouput3: ![output3](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output3.png)
 
 [Check this out to replace colors to a certain ton and keep transparency](https://stackoverflow.com/a/62780504/2444948)
 

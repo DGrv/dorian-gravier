@@ -26,10 +26,15 @@ svgexport input.svg output.png 64x
 
 ```
 
+You can try it online :) [here](https://play.d2lang.com/)
+You can try it online :) [here](https://play.d2lang.com/)
+You can try it online :) [here](https://play.d2lang.com/)
+
+
 
 # Example
 
-```txt
+```json
 vars: {
   d2-config: {
     layout-engine: dagre
