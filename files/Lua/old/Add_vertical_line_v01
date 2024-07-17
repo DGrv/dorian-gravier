@@ -1,0 +1,34 @@
+local msg = require('mp.msg')
+local assdraw = require('mp.assdraw')
+local utils = require "mp.utils"
+
+package.path = mp.command_native({"expand-path", "~~/script-modules/?.lua;"})..package.path
+local input = require "user-input-module"
+
+
+local drawline = function (x)
+	local osd_w, osd_h = mp.get_property("osd-width"), mp.get_property("osd-height")
+	ass = assdraw.ass_new()
+	ass:draw_start()
+	ass:pos(0, 0)
+	-- ass:append(ass_set_color(3, "000000ff"))
+	ass:move_to(tonumber(x), 0)
+	ass:line_to(tonumber(x), osd_h)
+    ass:draw_stop()
+	
+	print("Pixel choosed "..x)
+	print("osd_h "..osd_h)
+	mp.set_osd_ass(osd_w, osd_h, ass.text)
+end
+
+
+
+
+mp.add_key_binding("F3", "drawline", function()
+    input.cancel_user_input()
+    input.get_user_input(drawline, {
+        text = "Pixel position:",
+    })
+    
+end
+)

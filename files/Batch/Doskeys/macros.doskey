@@ -1,2 +1,8 @@
-scann=nmap -sn $1 $B awk '{i=5;j=3;k=0;m=4};/Nmap scan report for/{printf $i;}/MAC Address:/{gsub("\\\\(|\\\\)", "");print "       "$j "       " substr($k,index($k,$m)) }'
+scann=nmap -sn $1 $B awk '{a=0;b=2;c=3;d=4;e=5;f=6} function out() { if (state=="up") { printf "%s   \t%s   \t%s  \t%s\n", ip, mac, name, name2; ip=""; mac=""; name=""; state=""; name2="" } } /Nmap scan report/ { out(); name=$e; ip = substr($f,2,length($f)-2); if (ip=="") { ip=name; name="" } } /Host is/ { state=$c } /MAC Address/ { mac=$c; name2=substr($a,index($a,$d)) } END { out() }'
 lcom=reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM
+gpopen=curl --request GET --url http://172.28.124.51:8080/gopro/camera/control/wired_usb?p=1
+gpclose=curl --request GET --url http://172.28.124.51:8080/gopro/camera/control/wired_usb?p=0
+gpstart=curl --request GET   --url http://172.28.124.51:8080/gopro/camera/shutter/start
+gpstop=curl --request GET   --url http://172.28.124.51:8080/gopro/camera/shutter/stop
+gpka=curl --request GET  --url http://172.28.124.51:8080/gopro/camera/keep_alive
+pissh=putty -ssh raspberrypi.local -P 22 -l pi -pw raspberry

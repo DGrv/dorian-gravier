@@ -168,6 +168,16 @@ splitgpxtrack() {
     done
 }
 
+kml2gpx() {
+    basename="${1%.*}"
+    gpsbabel -i kml -f "$1" -x nuketypes,waypoints -o gpx -F "${basename}.gpx"
+}
+
+
+
+
+
+
 rents () {
 dirname=$(dirname "$1")
 filename=$(basename "$1")

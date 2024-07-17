@@ -27,7 +27,7 @@ suppressWarnings(suppressMessages(library(lubridate)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240623__ZurichCityTriathlon/BU/backup_Zurich_City_Triathlon_2024_20240612-142725/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240706__Solexrennen/BU/backup_EN6h_Solex_Race_Diesse_Plateau_2024DE6St._Solexrennen_auf_dem_Tessenberg_2024FR6h_Course_du_plateau_de_Diesse_2024_20240614-131207/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -106,7 +106,8 @@ for (i in seq_along(ll$filepath)) {
 
 # check providers https://leaflet-extras.github.io/leaflet-providers/preview/
 m <- leaflet() %>%
-  addProviderTiles('OpenTopoMap')
+  # addProviderTiles('OpenTopoMap')
+  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19))
 
 
 

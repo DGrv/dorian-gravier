@@ -956,6 +956,7 @@ Get PID of the exe:
 
 ```sh
 tasklist | findstr "RRWS"
+tasklist | grep "RRWS"
 ```
 
 Check the port, to run in admin mode:

@@ -620,8 +620,9 @@ ascii2uni -a U -q
 
 ```sh 
 cat yourjson | jq -r '.[] | join("\t\t")' > "UDF.csv"
+cat yourjson | jq -r '.[] | join(";")' > "UDF.csv"
 # or even better
-cat yourjson | jq -r '.[] | jq -r @csv > test.csv
+cat yourjson | jq -r '.[]' | jq -r @csv > test.csv
 ```
 
 ```sh 
@@ -756,6 +757,7 @@ gpsbabel -i kml -f "in.kml" -x nuketypes,waypoints -o gpx -F "out.gpx"
 sudo apt -y full-upgrade 
 
 # ip adresses
+ip -br -c a # best of all
 hostname -I
 ip a
 ifconfig
@@ -802,7 +804,43 @@ nmcli --fields autoconnect-priority,name connection
 nmcli connection modify "Pi Towers" connection.autoconnect-priority 10
 
 
+# to source a file in shell script use . instead of source
+
 ```
+
+## install driver AX1800 from BrosTrend
+
+Do not follow their instruction but follow this https://github.com/morrownr/rtl8852bu
+
+## Vnc server
+
+`sudo raspi-config`
+
+Go in Interface / VNC / Enable / Yes
+Will start automatically vnc server at start
+
+To start RealVNC Server now: `sudo systemctl start vncserver-x11-serviced`
+To start RealVNC Server at next boot, and every subsequent boot: `sudo systemctl enable vncserver-x11-serviced`
+To stop RealVNC Server: `sudo systemctl stop vncserver-x11-serviced`
+To prevent RealVNC Server starting at boot: `sudo systemctl disable vncserver-x11-serviced`
+
+[Good Tutorial](https://help.realvnc.com/hc/en-us/articles/360002249917-RealVNC-Connect-and-Raspberry-Pi#stopping-a-virtual-desktop-0-8)
+
+## get what happening on the board 
+
+`pinout`
+
+## get file btw windows and Pi
+
+on Windows cmd 
+
+```sh
+scp pi@192.168.178.67:~/Downloads/Gopro/20240717__100140_100207.png "C:\Users\doria\Downloads\OBS\test.png"
+```
+
+Synchronisation
+
+`rsync -avzP -e ssh pi@192.168.178.67:~/Downloads/Gopro/ /mnt/c/Users/doria/Downloads/OBS/pi`
 
 ## share connection from windows wifi throught lan to Linux
 
@@ -840,7 +878,23 @@ Ubuntu:
 
 
 
+# packages not fully Installed
 
+Check which one `sudo dpkg -C`
+Delete the folders
+
+```sh
+cd /var/lib/dpkg/info/
+ls | grep packagename
+ls | grep packagename | xargs sudo rm 
+sudo dpkg --configure -a
+sudo apt-get update
 ```
+
+if `debconf: DbDriver "config": /var/cache/debconf/config.dat is locked by another process: Resource temporarily unavailable`
+
+then `sudo fuser -v /var/cache/debconf/config.dat`
+`sudo kill PIDshown`
+
 
 

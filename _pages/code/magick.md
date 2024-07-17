@@ -288,4 +288,34 @@ FOR /F "delims=" %%a IN ('dir /a-d /b "*flex"') DO (
 
 ```
 
+# reduce number of frame gif
 
+```sh
+# check number of frames
+convert input.gif[-1] -format %[scene] info:
+    # or
+     exiftool input.gif | grep "Frame Count"
+# identify frame rate
+gifsicle -I input.gif | grep delay
+# use gifsicle to convert in lower colors
+gifsicle --colors=255 input.gif -o output.gif
+# remove some frames
+# source: https://graphicdesign.stackexchange.com/a/20937/157170
+gifsicle -U output.gif `seq -f "#%g" 0 2 2569` -O2 -o output2.gif
+# recheck
+convert output2.gif[-1] -format %[scene] info:
+# set again speed, in 100 of second. Here identify showed :     disposal asis delay 0.07s
+# so I set to 14/100 seconds
+gifsicle -d 14 output2.gif -o output3.gif
+```
+
+# mp4 to gif
+
+```sh
+# check fps:
+exiftool Uphill.mp4 | grep -i "video frame"
+# calculate the delay
+echo 100/fps | bc
+# convert with Magick
+convert -delay 3 GetReady2.mp4 -loop 0 GetReady2.gif
+```
