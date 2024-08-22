@@ -366,6 +366,10 @@ Ignore some extension
 
 `ag --ignore *gpx garmin`
 
+List only files names 
+
+`ag -l garmin`
+
 # sed or perl - Replace string in multiples files
 
 use sed : https://stackoverflow.com/questions/11392478/how-to-replace-a-string-in-multiple-files-in-linux-command-line
@@ -408,6 +412,39 @@ for i in {001..554}; do; echo $i; done
 nrow=$(cat kmlnames.txt | wc -l)
 for i in for i in $( eval echo {001..$nrow} ); do; echo $i; done
 ```
+
+### Multilines to Multilines
+
+You want to replace this:
+
+```txt
+if( paste0(Sys.info()[4]) == 'DESKTOP-MG...PG' ) {
+  rootpath <- 'C:/Users/doria/Dropbox/Shared_Dorian/'
+  Sys.setlocale('LC_ALL', 'German')
+} else {
+  if( paste0(Sys.info()[4]) == 'DORIANSRECHNER' ) {
+    rootpath <- 'C:/Users/dorian.BSPM/Dropbox/Shared_Dorian/'
+  } else {
+    rootpath <- 'C:/Users/buero.BSPM/Dropbox/Shared_Dorian/'
+  }
+}
+```
+
+after.txt is :
+
+```txt
+rootpath \<\- 'D\:\/BU_Work\/Maxi_BU\/20240812\/Shared_Dorian\/' 
+Sys\.setlocale\('LC_ALL', 'German'\)
+```
+
+Prepare you expression to inclide "\n" (check [source](https://unix.stackexchange.com/a/181215/374250))
+You can use the [online tool to escape regex](https://beautifycode.net/regex-escape)
+
+```sh
+perl -i -0 -pe "s/if\( paste0\(Sys\.info\(\)\[4\].*?utf-8\"\)/$(cat after.txt)/s" Bike_map_location_choose_v02.R
+```
+
+[source](https://unix.stackexchange.com/a/181215/374250)
 
 # count 
 

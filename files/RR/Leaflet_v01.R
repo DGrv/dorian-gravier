@@ -1,17 +1,11 @@
 
 
 # setup
+# setup
 rm(list = ls())
-if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
-  rootpath <- 'C:/Users/doria/Dropbox/Shared_Dorian/'
-  suppressWarnings(suppressMessages(Sys.setlocale('LC_ALL', 'German')))
-} else {
-  if( paste0(Sys.info()[4]) == 'DORIANSRECHNER' ) {
-    rootpath <- 'C:/Users/dorian.BSPM/Dropbox/Shared_Dorian/'
-  } else {
-    rootpath <- 'C:/Users/buero.BSPM/Dropbox/Shared_Dorian/'
-  }
-}
+rootpath <- 'D:/BU_Work/Maxi_BU/20240812/Shared_Dorian/'
+Sys.setlocale('LC_ALL', 'German')
+
 suppressWarnings(suppressMessages(source(paste0(rootpath, "Dorian/BM_Function_v01.r"), encoding="utf-8")))
 
 suppressWarnings(suppressMessages(library(leaflet)))
@@ -27,7 +21,7 @@ suppressWarnings(suppressMessages(library(lubridate)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240706__Solexrennen/BU/backup_EN6h_Solex_Race_Diesse_Plateau_2024DE6St._Solexrennen_auf_dem_Tessenberg_2024FR6h_Course_du_plateau_de_Diesse_2024_20240614-131207/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240804_DillierClassics/BU/backup_Dillier_Classics_Gipfel_Granfondo_2024_20240803-225240/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -46,8 +40,9 @@ tp <- tp[, .(Name, Color, lat, lon)]
 tp <- tp[Name != ""]
 setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
+# tp
 
-export.gpx(tp, "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
+export.gpx(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
 
 
 
@@ -71,7 +66,8 @@ setnames(contest, "ID", "Contest")
 
 # read gpx ----------------------------------------------------------------
 
-ll <- data.table(filepath=list.files.only(p0(wd, "/gpx")))
+ll0 <- Sys.glob(p0(wd, "/gpx/*"))
+# ll <- data.table(filepath=list.files.only(p0(wd, "/gpx")))
 ll <- ll[!filepath %like% "TimingPoints.gpx"]
 
 if(nrow(ll)==0){
@@ -96,7 +92,7 @@ ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
 
 data0 <- data.table()
 for (i in seq_along(ll$filepath)) {
-  temp <- data.table(get_table_from_gpx(ll$filepath[i]))
+  temp <- data.table(get_table_from_gpx(ll0[i]))
   # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
   temp[, Name := ll$Name[i]]
   data0 <- rbind(data0, temp, fill = T)
@@ -105,10 +101,17 @@ for (i in seq_along(ll$filepath)) {
 
 
 # check providers https://leaflet-extras.github.io/leaflet-providers/preview/
+#https://www.jeffreyschmid.com/posts/2022-01-01-different-basemaps-in-leaflet-r/
 m <- leaflet() %>%
   # addProviderTiles('OpenTopoMap')
-  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19))
-
+  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19),
+                   group = "OpenTopoMap") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo Sat")
 
 
 
@@ -157,6 +160,7 @@ m <-  m %>%
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
                     zoom = 12) %>%
   addLayersControl(
+    baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) %>% 
       hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
@@ -173,4 +177,4 @@ cat(green("\n\nLeaflet ready"))
 saveWidget(m, file="OverviewMap.html")
 
 cat(green("\nLeaflet DONE :)\n"))
-
+ 

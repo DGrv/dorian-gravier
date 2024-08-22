@@ -63,13 +63,12 @@ lastfile=$(curl --request GET   --url http://172.28.124.51:8080/gopro/media/list
 nameoutmp4=$(echo ${datestamp1}____${hourstamp1}__-__${hourstamp2}____${lastfile})
 nameoutpng=$(echo ${datestamp1}__${hourstamp1}_${hourstamp2}.png)
 
-curl -o $nameoutmp4 --request GET  --url http://172.28.124.51:8080/videos/DCIM/100GOPRO/${lastfile}
+curl -o Video/$nameoutmp4 --request GET  --url http://172.28.124.51:8080/videos/DCIM/100GOPRO/${lastfile}
 
 lastfile3=$(curl --request GET   --url http://172.28.124.51:8080/gopro/media/list | jq ".media[].fs[].n" | tail -3 | head -1 | perl -pe "s/\"//g")
 
 curl --request GET --url http://172.28.124.51:8080/gopro/media/delete/file?path=100GOPRO/${lastfile3}
 
-mv ${nameoutmp4} Video
 
 
 if [[ $new = "Y" ]] || [[ $new = "y" ]]; then

@@ -15,6 +15,8 @@ for /f %%p in ('curl --request GET   --url http://172.28.124.51:8080/gopro/media
 	curl -O --request GET  --url http://172.28.124.51:8080/videos/DCIM/100GOPRO/!file!
 
 )
+curl --request GET --url http://172.28.124.51:8080/gopro/camera/control/wired_usb?p=0
+
 
 REM for %%a in ("%actualdir%") do (
 	REM set pathh=%%~dpa

@@ -20,10 +20,12 @@ magick mogrify -resize 100^< *png
 
 # Montage
 
-```sh
-# center, take care of the number of pictures (here horizontal 12 pictures), need to be resize with height before with this examples
-magick montage *.png -tile 12x1 -gravity center Merge.png
-```
+center, take care of the number of pictures (here horizontal 12 pictures), need to be resize with height before with this examples
+`magick montage *.png -tile 12x1 -gravity center Merge.png`
+
+horizontal
+`magick *.png +append horizontal.png`
+`magick *.png -append vertical.png`
 
 # Sharpen
 
