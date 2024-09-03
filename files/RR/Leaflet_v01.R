@@ -21,7 +21,7 @@ suppressWarnings(suppressMessages(library(lubridate)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240804_DillierClassics/BU/backup_Dillier_Classics_Gipfel_Granfondo_2024_20240803-225240/")
+  wd <- rP("file:///C:/Users/doria/Downloads/backup_Sarnersee_Lauf_2024_20240903-091435/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -59,16 +59,16 @@ splits <- splits[TimingPoint != ""]
 contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
 contest <- contest[ContestName != ""]
 contest[, Name := ifelse(is.na(ContestNameShort), ContestName, ContestNameShort)]
-contest[, Start := seconds_to_period(ContestStart)]
-contest[, Start := sprintf('%02d:%02d:%02d', Start@hour, minute(Start), second(Start))]
+contest[, Start := hms::as_hms(ContestStart)]
 contest[, Dist := round(ContestLength, 2)]
 setnames(contest, "ID", "Contest")
 
 # read gpx ----------------------------------------------------------------
 
-ll0 <- Sys.glob(p0(wd, "/gpx/*"))
-# ll <- data.table(filepath=list.files.only(p0(wd, "/gpx")))
+ll <- data.table(filepath=Sys.glob(p0(wd, "/gpx/*")))
 ll <- ll[!filepath %like% "TimingPoints.gpx"]
+# ll <- data.table(filepath=list.files.only(p0(wd, "/gpx")))
+# ll <- ll[!filepath %like% "TimingPoints.gpx"]
 
 if(nrow(ll)==0){
   cat(red("\nFound", nrow(ll), "gpx :(\n"))
@@ -78,7 +78,7 @@ if(nrow(ll)==0){
 
 ll[, file := basename(filepath)]
 ll <- ll[!filepath %like% "ContestID_|All_Splits"][file %like% "gpx$"]
-ll[, color := brewer.pal(n = nrow(ll), name = "Set1")[1:nrow(ll)]]
+suppressWarnings(suppressMessages(ll[, color := brewer.pal(n = nrow(ll), name = "Set1")[1:nrow(ll)]]))
 ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 # colorDF(contest)
@@ -92,7 +92,7 @@ ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
 
 data0 <- data.table()
 for (i in seq_along(ll$filepath)) {
-  temp <- data.table(get_table_from_gpx(ll0[i]))
+  temp <- data.table(get_table_from_gpx(ll$filepath[i]))
   # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
   temp[, Name := ll$Name[i]]
   data0 <- rbind(data0, temp, fill = T)

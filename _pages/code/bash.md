@@ -437,14 +437,26 @@ rootpath \<\- 'D\:\/BU_Work\/Maxi_BU\/20240812\/Shared_Dorian\/'
 Sys\.setlocale\('LC_ALL', 'German'\)
 ```
 
-Prepare you expression to inclide "\n" (check [source](https://unix.stackexchange.com/a/181215/374250))
+Prepare you expression and you after.txt to include "\n" (check [source](https://unix.stackexchange.com/a/181215/374250))
 You can use the [online tool to escape regex](https://beautifycode.net/regex-escape)
 
 ```sh
 perl -i -0 -pe "s/if\( paste0\(Sys\.info\(\)\[4\].*?utf-8\"\)/$(cat after.txt)/s" Bike_map_location_choose_v02.R
 ```
 
-[source](https://unix.stackexchange.com/a/181215/374250)
+Then run it only on the files you are interested in:
+
+*PLEASE MAKE SOME TEST BEFORE*
+
+```sh 
+ag -l DORIANSRECHNER | xargs -0 perl -i -0 -pe "s/if\( paste0\(Sys\.info\(\)\[4\].*?utf-8\"\)/$(cat /mnt/c/Users/doria/Downloads/sedtemp/after.txt)/s"
+```
+
+other example with `xargs -I ß`
+
+```shell
+ag -i "\# setup\r\n" -l | xargs -I ß perl -i -0 -pe "s/\# setup.*utf-8.\)\r\n\)\)/$(cat /mnt/c/Users/doria/Downloads/sedtemp/replace.txt)/s" "ß"
+```
 
 # count 
 
