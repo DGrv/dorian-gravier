@@ -1,6 +1,8 @@
 #Persistent
 MyLabel:
 
+SetKeyDelay, 35 ; might be important for pasting correct characters
+
 ShowOnOff("info", "Append_Paste ON - will loop", "Purple", 0.15, 0.0001)
 ShowOnOff("info2", "Copy your text", "Red", 0.15, 0.05)
 FileDelete C:\Users\doria\Downloads\Append_Paste_AHK_temp

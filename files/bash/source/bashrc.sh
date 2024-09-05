@@ -3,7 +3,6 @@
 # for examples
 
 
-
 # START Dorian ----------------------------------------------		
 # Alias Dorian
 alias rvid='nold=$(ls |grep -i mp4 |grep old| wc -l); if [[ $nold != 0 ]];then mkdir -p old ; mv *old*.mp4 old/ ; fi ; ls | grep -i mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "temp_%04d.mp4" $n` ; done ; ls | grep mp4 | grep -v zzz | grep -v title | cat -n | while read n f; do mv "$f" `printf "%04d.mp4" $n` ; done'
@@ -41,6 +40,13 @@ reducemp4 () {
 }
 
 # function
+
+mdb-export-all () {
+    mdb-tables "$1" | tr ' ' '\n' | while read line ; do
+       mdb-export -Q -d "\\t" "$1" $line > "${line}.csv"
+    done
+}
+
 
 addpad () {
 # add padding if vertical video - right now video should be 1920x1080 or 1080 x1920
@@ -90,8 +96,8 @@ spareRR () {
 
 sesExtract () {
     if [ -f "$1" ]; then
-        tablewanted=( settings customFields ranks teamscores contests results timingpoints splits )
-        fdir=$(echo $1 | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
+        tablewanted=( settings customFields ranks teamscores contests results timingpoints splits history data RawData )
+        fdir=$(echo rr_${1} | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
         mkdir -p $fdir
         # mdb-tables -1 "$1"
         cecho -y "Export mdb:"
