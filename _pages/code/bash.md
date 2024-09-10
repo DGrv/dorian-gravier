@@ -945,5 +945,19 @@ if `debconf: DbDriver "config": /var/cache/debconf/config.dat is locked by anoth
 then `sudo fuser -v /var/cache/debconf/config.dat`
 `sudo kill PIDshown`
 
+# calculator bc Example
+
+```shell
+start=(47.3 12.66)
+end=(37.3 25.66)
+
+# /1 ist to get int 
+h=$(echo "(${start[0]}-${end[0]})*10/1" | bc)
+w=$(echo "(${start[1]}-${end[1]})*10/-1" | bc)
+
+# scale=2 is to have 2 decimal after the .
+lat=$(echo "scale=2;${start[0]}+($i/10)" | bc -l)
+lon=$(echo "scale=2;${start[1]}+($j/10)" | bc -l)
+```
 
 

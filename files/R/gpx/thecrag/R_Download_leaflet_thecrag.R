@@ -1,8 +1,9 @@
 
 # setup
-rootpath <- 'D:/BU_Work/Maxi_BU/20240812/Shared_Dorian/' 
-Sys.setlocale('LC_ALL', 'German')
-source(paste0(rootpath, 'Dorian/BM_Function_v01.r), encoding='utf-8')
+rm(list = ls())
+rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/' 
+# Sys.setlocale('LC_ALL', 'German')
+source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
 
 
 library(httr)
@@ -15,15 +16,11 @@ library(concaveman)
 
 # chrome <- Chrome$new(bin = "C:/Users/doria/scoop/shims/chrome.exe")
 
-if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
+# if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
   wd <- rP("file:///C:/Users/doria/Dropbox/Shared_Dorian/thecrag/")
   # country.list <- c("Corsica", "France", "Germany")
-  country.list <- c("Croatia", "Slovenia", "Hunga", "Serbia", "Montenegro", "Albania", "Bosnia", "Macedonia")
-} else {
-  wd <- rP("file:///C:/Users/dorian.BSPM/Dropbox/Shared_Dorian/thecrag/")
-  country.list <- c("Italy",  "Germany")
-}
-
+  country.list <- c("Croatia", "Slovenia", "Hunga", "Serbia", "Montenegro", "Albania", "Bosnia", "Macedonia", "Greece")
+# }
 
 # area and tiles ----------------------------------------------------------
 

@@ -1,8 +1,9 @@
 
 # setup
-rootpath <- 'D:/BU_Work/Maxi_BU/20240812/Shared_Dorian/' 
-Sys.setlocale('LC_ALL', 'German')
-source(paste0(rootpath, 'Dorian/BM_Function_v01.r), encoding='utf-8')
+rm(list = ls())
+rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/' 
+# Sys.setlocale('LC_ALL', 'German')
+source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
 
 
 

@@ -48,8 +48,10 @@ timestamp2=$(date +%Y%m%d-%H%M%S)
 datestamp2=$(date +%Y%m%d)
 hourstamp2=$(date +%H-%M-%S)
 
-cecho -r "Stopped at ${hourstamp2}"
+battery=$(curl --request GET --url http://172.28.124.51:8080/gopro/camera/state | jq .status.\"70\")
 
+cecho -r "Stopped at ${hourstamp2}"
+cecho -g "Battery is ${battery} %"
 cecho -y "Do you want to continue to record ? [Y/N]   "
 read -t 100 -N 1 new
 
@@ -68,7 +70,6 @@ curl -o Video/$nameoutmp4 --request GET  --url http://172.28.124.51:8080/videos/
 lastfile3=$(curl --request GET   --url http://172.28.124.51:8080/gopro/media/list | jq ".media[].fs[].n" | tail -3 | head -1 | perl -pe "s/\"//g")
 
 curl --request GET --url http://172.28.124.51:8080/gopro/media/delete/file?path=100GOPRO/${lastfile3}
-
 
 
 if [[ $new = "Y" ]] || [[ $new = "y" ]]; then

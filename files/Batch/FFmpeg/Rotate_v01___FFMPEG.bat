@@ -50,6 +50,9 @@ rename "%input%" "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4"
 
 ::old
 REM ffmpeg -i "%filenamenoext%_old.mp4" -v quiet -stats -vf "transpose=2,transpose=2" "%filename%"
+REM ffmpeg -display_rotation %rotation% -i "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4"  -codec copy  "%filename%"
+REM ffmpeg -v quiet -stats -i "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4" "-metadata:s:v:0" "rotate=%rotation%" -c:v copy -c:a copy "%filename%"
+ffmpeg  -i "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4" -metadata:s:v:0 rotate=%rotation%  -codec copy "%filename%"
 
-ffmpeg -v quiet -stats -i "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4" "-metadata:s:v:0" "rotate=%rotation%" -c:v copy -c:a copy "%filename%"
+
 

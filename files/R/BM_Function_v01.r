@@ -19,6 +19,8 @@ library(crayon)
 library(DBI) # database
 library(odbc) # database
 # library(gmailr)
+library(rgdal) 
+library(colorDF)
 
 # Sys.setlocale('LC_ALL', 'German')
 Sys.getenv()
@@ -34,6 +36,46 @@ options(datatable.print.class = T,    # Change global options of data.table
         datatable.print.nrows = 50)
 
 
+
+# ColorDF -----------------------------------------------------------------
+
+    # # get the them to modifiy them 
+    # dput(get_colorDF_theme("bw"))
+    
+    dori <- list(terminal = "dark",
+                 sep = " | ", 
+                 digits = 2, 
+                 fg_na = "darkgoldenrod1", 
+                 highlight = list(bg = "yellow"), 
+                 col.names = list(fg="tomato", align = "center", decoration = "italic"), 
+                 row.names = list(fg = "grey50"), 
+                 col.types = NULL,
+                 autoformat = TRUE,
+                 type.styles = list(integer = list(is.numeric = TRUE, align = "right", fg="darkseagreen1"),
+                                    character = list(align = "left"), 
+                                    numeric = list(is.numeric = TRUE, align = "right", fg="darkolivegreen1", digits = 3),
+                                    identifier = list(decoration = "bold", align = "right"),
+                                    logical = list(fg_true = "chartreuse3", fg_false = "brown3", align = "left"), 
+                                    factor = list(is.numeric = FALSE, align = "left"),
+                                    match = list(fg_match = "darkorchid1", fg = "grey"), 
+                                    pval = list(fg_sign = "hotpink1",fg = "grey", sign.thr = 0.05, is.pval = TRUE), 
+                                    default = list(align = "left"))
+    )
+    # add theme
+    add_colorDF_theme(dori, id = "dori", description = "blabla")
+    # get the options
+    # colorDF_options()
+    # set the options
+    options(colorDF_theme="dori", colorDF_n = 10)
+    
+    # # test 
+    # temp
+    # colorDF(temp)
+    
+    # make it permanent for data.table
+    # print.data.table <- colorDF:::print_colorDF
+    # remove 
+    # rm(print.data.table)
 
 # PATH --------------------------------------------------------------------
 
@@ -76,50 +118,116 @@ read.csv.wawi <- function(datapath, check.names = T, warn = T) {
   return(temp)
 }
 
-Hcode.table <- read.csv.wawi(paste0(datapath, "JTL_DB_Status_v02.csv"))
-
-# dput(read_clip_tbl())
-
-Hcode.table <- data.table(Hcode.table)
-Hcode.table[, S := gsub("\\.", "", as.character(S))]
-Hcode.table[, W := gsub("\\.", "",as.character(W))]
-Hcode.table[is.na(S), S := ""]
-Hcode.table[is.na(W), W := ""]
-
-d <- format(Sys.time(),"%Y%m%d")
-wyear <- substr(d, 1, 4)
-if( as.numeric(substr(d, 5, 6)) > 6 ) {
-  syear <- as.numeric(substr(d, 1, 4)) + 1
-} else {
-  syear <- substr(d, 1, 4)
-}
-
-Hcode.table[nchar(S) == 3, S := paste0("0", S)]
-Hcode.table[nchar(W) == 3, W := paste0("0", W)]
-Hcode.table[S != "", S := paste0(syear, substr(S, 3, 4), substr(S, 1, 2))]
-Hcode.table[W != "", W := paste0(wyear, substr(W, 3, 4), substr(W, 1, 2))]
-Hcode.table
-
-
-
-
-ggplot(Hcode.table, aes(as.POSIXct(strptime(S, format = "%Y%m%d")), Hersteller))+geom_point()+xlab("Date")+scale_y_discrete(limits=rev)+labs(title="New season for Sommer")
-ggplot(Hcode.table, aes(as.POSIXct(strptime(W, format = "%Y%m%d")), Hersteller))+geom_point()+xlab("Date")+scale_y_discrete(limits=rev)+labs(title="New season for Winter")
+          # Hcode.table <- read.csv.wawi(paste0(datapath, "JTL_DB_Status_v02.csv"))
+          # 
+          # # dput(read_clip_tbl())
+          # 
+          # Hcode.table <- data.table(Hcode.table)
+          # Hcode.table[, S := gsub("\\.", "", as.character(S))]
+          # Hcode.table[, W := gsub("\\.", "",as.character(W))]
+          # Hcode.table[is.na(S), S := ""]
+          # Hcode.table[is.na(W), W := ""]
+          # 
+          # d <- format(Sys.time(),"%Y%m%d")
+          # wyear <- substr(d, 1, 4)
+          # if( as.numeric(substr(d, 5, 6)) > 6 ) {
+          #   syear <- as.numeric(substr(d, 1, 4)) + 1
+          # } else {
+          #   syear <- substr(d, 1, 4)
+          # }
+          # 
+          # Hcode.table[nchar(S) == 3, S := paste0("0", S)]
+          # Hcode.table[nchar(W) == 3, W := paste0("0", W)]
+          # Hcode.table[S != "", S := paste0(syear, substr(S, 3, 4), substr(S, 1, 2))]
+          # Hcode.table[W != "", W := paste0(wyear, substr(W, 3, 4), substr(W, 1, 2))]
+          # Hcode.table
+          # 
+          # ggplot(Hcode.table, aes(as.POSIXct(strptime(S, format = "%Y%m%d")), Hersteller))+geom_point()+xlab("Date")+scale_y_discrete(limits=rev)+labs(title="New season for Sommer")
+          # ggplot(Hcode.table, aes(as.POSIXct(strptime(W, format = "%Y%m%d")), Hersteller))+geom_point()+xlab("Date")+scale_y_discrete(limits=rev)+labs(title="New season for Winter")
 
 
 
 # ggplot ------------------------------------------------------------------
 
- 
+scale_fill_Publication <- function(...){
+  
+  discrete_scale("fill","Publication",manual_pal(values = c("#386cb0","#fdb462","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33")), ...)
+  
+}
+
+scale_colour_Publication <- function(...) {
+  
+  discrete_scale("colour","Publication",manual_pal(values = c("#386cb0","#fdb462","#7fc97f","#ef3b2c","#662506","#a6cee3","#fb9a99","#984ea3","#ffff33")), ...)
+  
+}
+
+turnXaxis <- function(...) {
+  
+  theme(axis.text.x = element_text(angle = 90, hjust = 1), ...)
+  
+}
 
 
-theme_set(theme_bw())
+noXlabel <- function(...) {
+  
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+  
+}
+
+noYlabel <- function(...) {
+  
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+  
+}
+
+statMean <- function(...) {
+  
+  stat_summary(fun.y="mean", size=1, geom="point")
+  
+}
+
+statSd <- function(...) {
+  
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult = 1), geom="errorbar", width=0.1)
+  
+}
+
+hm_color <- function(...) {
+  
+  scale_fill_gradientn(colours=tim.colors(64))
+  
+}
+hm_redblue <- function(steps = 11) {
+  
+  # http://www.sthda.com/french/wiki/couleurs-dans-r
+  scale_fill_gradientn(colours=brewer.pal(n = steps, name = "RdBu"))
+  
+}
 
 orderX <- function(vector) {
   
   scale_x_discrete(limits = vector)  
   
 }
+
+geom_histogram_line <- function(bins = bins) {
+  
+  # set color in ggplot
+  stat_bin(geom = "line", position = "dodge", bins = bins)
+  
+}
+
+
+theme_set(theme_bw())
+# theme_set(theme_bw(base_size=20)) # change default font size
+
+
+
+
 
 theme_Publication <- function(base_size=14, base_family="helvetica") {
   
@@ -152,6 +260,16 @@ theme_Publication <- function(base_size=14, base_family="helvetica") {
 }
 
 
+# RaceResult --------------------------------------------------------------
+
+DecimalToToD <- function(x) {
+  require(hms)
+  hms::as_hms(x)
+}
+
+ToDToDecimal <- function(x) {
+  period_to_seconds(lubridate::hms(x))
+}
 
 # Small function ----------------------------------------------------------
 
@@ -488,9 +606,9 @@ write.csv.wawi <- function(data, datapath) {
   })
   Sys.sleep(2)
   tryCatch({
-    replace.NA.csv(datapath, pattern = ";NA|^NA;|NA;NA", replacement = ";")  
+    invisible(capture.output(replace.NA.csv(datapath, pattern = ";NA|^NA;|NA;NA", replacement = ";")  ))
   }, error=function(e) {
-    replace.NA.csv(datapath, pattern = ";NA|^NA;|NA;NA", replacement = ";")  
+    invisible(capture.output(replace.NA.csv(datapath, pattern = ";NA|^NA;|NA;NA", replacement = ";")  ))
   })
   
   # check if it will be read normally
@@ -687,11 +805,19 @@ dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max
 
 readAll <- function(listfile, fill = F, skip = 0, header = T) {
   
-  # give a list of file and read them all and rbind
   lst <- lapply(listfile, fread, skip=skip, header = header, integer64 = "character", encoding = "UTF-8")
-  lst <- mapply(cbind, lst, file=basename(listfile), SIMPLIFY=F)
-  dt <- rbindlist(lst, fill = fill)
-  return(dt)
+  tryCatch({
+    # give a list of file and read them all and rbind
+    lst <- mapply(cbind, lst, file=basename(listfile), SIMPLIFY=F)
+    dt <- rbindlist(lst, fill = fill)
+    return(dt)
+  }, error=function(e) {
+      info <- data.table(filename = listfile, ncol = unlist(lapply(lst, ncol)))
+      print(info)
+      assign("info", info, envir = .GlobalEnv)
+      debug.easy(T, "Not same number of column check the Robject 'info' (assigned) ")
+      
+  })
   
   
 }
@@ -1063,12 +1189,16 @@ check.DB.ameise.v03 <- function(data) {
   cat("-----------------------------------------------------------------------\n\n")
   
   
+  temp <- dbK[GTIN %in% K$GTIN]$GTIN
+  K.GTIN.no <- K[!GTIN %in% temp]
+  K.GTIN.yes <- K[GTIN %in% temp]
+  # K.GTIN.no <- K[!GTIN %in% dbK$GTIN]
+  # K.GTIN.yes <- K[GTIN  %in% dbK$GTIN]
   
-  K.GTIN.no <- K[!GTIN %in% dbK$GTIN]
-  K.GTIN.yes <- K[GTIN  %in% dbK$GTIN]
+  # benchmark(K.GTIN.no[Artikelnummer %in% dbK$Artikelnummer.db], dbK[Artikelnummer.db %in% K.GTIN.no$Artikelnummer], replications = 1)
+  temp <- dbK[Artikelnummer.db %in% K.GTIN.no$Artikelnummer]$Artikelnummer.db
   
-  
-  K.GTIN.no.pb.AN <- dtjoin(K.GTIN.no[Artikelnummer %in% dbK$Artikelnummer.db, .(Artikelnummer, Artikelname, GTIN)], dbK[, .(Artikelnummer = Artikelnummer.db, Artikelname.db = Artikelname, Serie.db = Serie, GTIN.db = GTIN)])
+  K.GTIN.no.pb.AN <- dtjoin(K.GTIN.no[Artikelnummer %in% temp, .(Artikelnummer, Artikelname, GTIN)], dbK[, .(Artikelnummer = Artikelnummer.db, Artikelname.db = Artikelname, Serie.db = Serie, GTIN.db = GTIN)])
   
   
   
@@ -1079,17 +1209,29 @@ check.DB.ameise.v03 <- function(data) {
   K.GTIN.up.pb.V <- K.GTIN.up[VID.db != "" & VID != VID.db]
   K.GTIN.up.pb.V2 <- K.GTIN.up.pb.V[VID != "" & VID.db != ""] # Kinder with wrong link
   # double or more Vater in db for1 Vater in import
-  # browser()
+  temp <- dtjoin(K.GTIN.up.pb.V[, .(VID, VID.db)], dbK[VID %in% K.GTIN.up.pb.V2$VID.db, .N, VID][, .(N, VID.db = VID)]) # join to get the number of article in db per VID.db
+  vater2keep <- temp[temp[, .I[N == max(N)], VID]$V1] # Vater to rename
+  vater2delete <- temp[!temp[, .I[N == max(N)], VID]$V1] # Vater to delete
   
   
   double.V.db <- K.GTIN.up.pb.V2[VID %in% K.GTIN.up.pb.V2[, .N, .(VID, VID.db)][,.N, VID][N >1]$VID] # double or more Vater in db for1 Vater in import
   double.V.im <- K.GTIN.up.pb.V2[VID.db %in% K.GTIN.up.pb.V2[, .N, .(VID, VID.db)][,.N, VID.db][N >1]$VID.db] # double or more Vater in db for1 Vater in import
+  
+  
   double.V.db2 <- dbV[Artikelname %in% dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2$VID.db]$Artikelname & !Artikelnummer.db %in% K.GTIN.up.pb.V2$VID.db, .(Artikelname, VID.db = Artikelnummer.db)] # double or more Vater in db for1 Vater in import but based on name, since renummer vater is based on name and serie
   # Prepare for renummer Vater without those doubles differences
-  K.GTIN.up.pb.V2.modify.Vater <- dtjoin(dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2[!VID.db %in% c(double.V.db$VID.db, double.V.im$VID.db, double.V.db2$VID.db)]$VID.db, .(Artikelname, VID.db = Artikelnummer.db, Serie)],
+  
+  
+  # old 20240517
+  # K.GTIN.up.pb.V2.modify.Vater <- dtjoin(dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2[!VID.db %in% c(double.V.db$VID.db, double.V.im$VID.db, double.V.db2$VID.db)]$VID.db, .(Artikelname, VID.db = Artikelnummer.db, Serie)],
+  #                                        u(K.GTIN.up.pb.V2[, .(Artikelnummer = VID, VID.db)])) 
+  # K.GTIN.up.pb.V2.V.delete <- dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2$VID.db, .(Artikelnummer = Artikelnummer.db, Artikelname = p0(Artikelname, "-todelete"))]
+  K.GTIN.up.pb.V2.modify.Vater <- dtjoin(dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2[VID.db %in% vater2keep$VID.db]$VID.db, .(Artikelname, VID.db = Artikelnummer.db, Serie)],
                                         u(K.GTIN.up.pb.V2[, .(Artikelnummer = VID, VID.db)]))  
+  
+  
   K.GTIN.up.pb.V2.modify.Vater2 <- K.GTIN.up.pb.V2.modify.Vater[, .(Artikelname, Artikelnummer, Serie)]
-  K.GTIN.up.pb.V2.V.delete <- dbV[Artikelnummer.db %in% K.GTIN.up.pb.V2$VID.db, .(Artikelnummer = Artikelnummer.db, Artikelname = p0(Artikelname, "-todelete"))]
+  K.GTIN.up.pb.V2.V.delete <- dbV[Artikelnummer.db %in% vater2delete$VID.db, .(Artikelnummer = Artikelnummer.db, Artikelname = p0(Artikelname, "-todelete"))]
   K.GTIN.up.pb.V2.V.import <- dbK.lager[VID %in% K.GTIN.up.pb.V2$VID.db][, .(GTIN, Lagerbestand = Lager)]
   
   lost.K <- dbK[VID %in% K.GTIN.up.pb.V2$VID.db][!GTIN %in% K$GTIN]
@@ -1138,10 +1280,16 @@ check.DB.ameise.v03 <- function(data) {
   # if( nrow(lost.K.lager) == 0 ) {
     
     if( any(c(nrow(double.V.db), nrow(double.V.im), nrow(double.V.db2)) > 0) ) {
+      
       cat("\t\t\t\t|  -", red("You have several DOUBLE VATERS"), " either in db (VID:", if0(nrow(double.V.db)), ", or Artikelname:", if0(nrow(double.V.db2)), ") or in im ", if0(nrow(double.V.im)), "), import first, then delete the empty ones with:\n")
-      if(nrow(double.V.db2) > 0) {
-        cat("\t\t\t\t|\t -", silver("double.V.db2"), "is", if0(nrow(double.V.db2)), "Not sure what to do here, GTIN from them are not in im but they are link to a Vater with same name, but different serie. Seems you can ignore ...\n")
+      
+      if( nrow(double.V.db2) > 0) {
+        cat("\t\t\t\t|\t -", silver("double.V.db2"), "is", if0(nrow(double.V.db2)), bgYellow("Not sure what to do here"), ", GTIN from them are not in im but they are link to a Vater with same name, but different serie. Seems you can ignore ...\n")
+        
       }
+      
+      
+      cat("\t\t\t\t|\t - Modify the Vaters with most article with", cyan("Ameise.import.renummer.Vater.Serie(DB = which.db, DATA = K.GTIN.up.pb.V2.modify.Vater2)"), "\n")
       cat("\t\t\t\t|\t - Delete the empty ones", bgBlue("AFTER"), "the import with", "JTL-Wawi and a filter\n")
       # cat("\t\t\t\t|\t - Delete the empty ones", bgBlue("AFTER"), "the import with", silver("notlost.V.delete\n"))
       # cat("\t\t\t\t|\t -", cyan("Ameise.import.todelete(DB = which.db, DATA = notlost.V.delete)\n"))
@@ -1161,17 +1309,17 @@ check.DB.ameise.v03 <- function(data) {
   dbK2 <- dbK[!GTIN %in% lo.K.db$GTIN][!VID %in% K.GTIN.up.pb.V2.V.delete$Artikelnummer]
   dbV2 <- dbV[!Artikelnummer.db %in% K.GTIN.up.pb.V2.V.delete$Artikelnummer] # remove the removed Vaters
   
-  num.konflikt.ArtN <- K[Artikelnummer %in% dbK2$VID]
+  num.konflikt.ArtN <- K[Artikelnummer %in% u(dbK2$VID)]
   num.konflikt.ArtN.lo <- num.konflikt.ArtN[is.na(VID)]
   num.konflikt.ArtN.nolo <- num.konflikt.ArtN[!is.na(VID)]
   num.konflikt.ArtN.lo.realV <- dbK2[VID %in% num.konflikt.ArtN.lo$Artikelnummer][,.N, VID][N > 1]
   KeepVater <- num.konflikt.ArtN.lo.realV$VID
   num.konflikt.ArtN.lo.norealV <- dbK2[VID %in% num.konflikt.ArtN.lo$Artikelnummer][,.N, VID][N == 1]
   
-  dbK2[VID %in% num.konflikt.ArtN.lo.norealV$VID]
+  # dbK2[VID %in% num.konflikt.ArtN.lo.norealV$VID]
   
-  
-  num.konflikt.GTIN <- K[c(Artikelnummer %in% dbK2$VID & !GTIN %in% dbK2$GTIN)]
+  temp <- dbK2[GTIN %in% K$GTIN]$GTIN
+  num.konflikt.GTIN <- K[c(Artikelnummer %in% u(dbK2$VID) & !GTIN %in% temp)]
   num.konflikt <- rbind(num.konflikt.ArtN, num.konflikt.GTIN)
   num.konflikt.V <- dbV[Artikelnummer.db %in% num.konflikt$Artikelnummer]
   num.konflikt.V.delete <- num.konflikt.V[, .(Artikelname, Artikelnummer = Artikelnummer.db)]
@@ -1246,7 +1394,8 @@ check.DB.ameise.v03 <- function(data) {
   
   
   V.no <- V[!Artikelnummer %in% dbV2$Artikelnummer.db] # Vater in import NOT in db
-  V.no.K <- K[VID %in% V.no$Artikelnummer][GTIN %in% dbK2$GTIN] # wrong link VaterID 
+  temp <- dbK2[GTIN %in% K[VID %in% V.no$Artikelnummer]$GTIN]
+  V.no.K <- K[VID %in% V.no$Artikelnummer][GTIN %in% temp] # wrong link VaterID 
   
   V.no.K.lo.db <- dbK2[GTIN %in% V.no.K$GTIN][VID == ""] # wrong link VaterID lonely in db
   V.no.K.nolo.db <- dbK2[GTIN %in% V.no.K$GTIN][VID != ""] # wrong link VaterID NOT lonely in db
@@ -1332,10 +1481,10 @@ clean.kategorie.tree <- function(data, cols) {
   # will check that no Kategorie has defined sub-kategorie and 1 empty, otherwise it is the mess to find product in wawi
   # will update directly your data
   if( length(cols) > 1 ) {
-    for( i in 2:length(cols)) {
+    for( i in 2:length(cols) ) {
       col2ch <- data[, .N, c(cols[1:i])][, .N, c(cols[1:(i-1)])][N > 1]
       # data[1:nrow(data) %in% data[col2ch, on = cols[1:(i-1)], which = T] & get(cols[i]) == ""] # did not finish and never used it
-      data[data[, .I %in% data[col2ch, on = cols[1:(i-1)], which = T] & get(cols[i]) == ""], cols[i] := "None"]
+      data[data[, .I %in% data[col2ch, on = cols[1:(i-1)], which = T]] & get(cols[i]) == "", cols[i] := "None"]
     }
   }
   cat("\nPlease check :)\n\n")
@@ -1575,7 +1724,6 @@ get.price <- function(DATA = data, EK.name, VK.name, rm.na = F) {
   DATA[, (cols) := lapply(.SD, function(x) gsub(" |-|#N/A|€|#NV", "", x)), .SDcols = cols]
   
   
-  
   if( sum(str_count(DATA$VK, ",") + str_count(DATA$EK, ","), na.rm = T) > 0 ){
     
     pos.vir <- min(
@@ -1596,36 +1744,51 @@ get.price <- function(DATA = data, EK.name, VK.name, rm.na = F) {
   }
   DATA[, (cols) := lapply(.SD, function(x) gsub(",", ".", x)), .SDcols = cols]
       
-  print(DATA[,.N, .(VK, VK.old, EK, EK.old)])
-  
   DATA[, VK := as.numeric(VK)]
   DATA[, EK := as.numeric(EK)]
   
+  print(colorDF(DATA[,.N, .(VK, VK.old, EK, EK.old, factor = VK/EK)][order(-VK)]))
+  cat("\n")
+  
+  
+  
   DATA[is.na(EK), EK := 0]
   
-  if(rm.na) {
+  if( rm.na ) {
+    
     cat("\n\n", red("TAKE CARE you have rm.na = T ------------- !!!!!!!!!!!!!!!!!!!!!!!"),"\n\n")
+    
     if( nrow(DATA[is.na(VK)]) > 0 ) { 
-      cat(yellow("[INFO]"), " - You have", bgRed(nrow(DATA[is.na(VK) | is.na(EK)])), "rows with VK are NA --->", bgRed("Removed"), "\n\n") 
+      cat(yellow("[INFO]"), " - You have",
+          bgRed(nrow(DATA[is.na(VK) | is.na(EK)])),
+          "rows with VK are NA --->",
+          bgRed("Removed"), "\n\n") 
       print(DATA[is.na(VK), .N, .(VK, VK.old, EK, EK.old)])
     }
+    
     DATA <- DATA[!is.na(VK)][!is.na(EK)]
+    
+    if( nrow(DATA[VK == 0]) > 0 ) { 
+      cat("\n\n", yellow("[INFO]"),
+          " - You have", bgRed(nrow(DATA[VK == 0])), 
+          "rows with VK == 0 --->",
+          bgRed("Removed"), "\n\n")
+    }
+    
+    DATA <- DATA[VK != 0]
+    
   } else {
-    if( nrow(DATA[is.na(VK)]) > 0) {
+    if( nrow(DATA[is.na(VK)]) > 0 ) {
       if( nrow(DATA[is.na(VK), .N, .(VK, VK.old, EK, EK.old)]) > 0 ) {
-        print(DATA[is.na(VK), .N, .(VK, VK.old, EK, EK.old)])
+        print(colorDF(DATA[is.na(VK), .N, .(VK, VK.old, EK, EK.old)]))
       }
-      cat("You have NA value ... data[is.na(VK)]")
-      stop()
+      cat(bgRed("\nYou have", nrow(DATA[is.na(VK)]), "NA value ... data[is.na(VK)]\n\n"))
+      # stop()
     }
   }
   
   
-  if( nrow(DATA[VK == 0]) > 0 ) { 
-    cat("\n\n", yellow("[INFO]"), " - You have", bgRed(nrow(DATA[VK == 0])), "rows with VK == 0 --->", bgRed("Removed"), "\n\n")
-  }
   
-  DATA <- DATA[VK != 0]
   DATA[, c("VK.old", "EK.old") := NULL]
   
   
@@ -1644,8 +1807,8 @@ clean.prices <- function(DATA, EK.name = "EK", VK.name = "VK") {
   DATA[, VK.r10 := round_any(VK, 10, f = round)]
   DATA[, VK.r100.d := VK.r100-VK]
   DATA[, VK.r10.d := VK.r10-VK]
-  DATA[abs(VK.r100.d) < 5 & abs(VK.r100) > 0, .(VK.bu, VK, VK.r100, VK.r100.d, VK.r10, VK.r10.d)]
-  DATA[abs(VK.r100.d) < 5 & abs(VK.r100) > 0, VK := VK.r100]
+  DATA[abs(VK.r100.d) < 2 & abs(VK.r100) > 0, .(VK.bu, VK, VK.r100, VK.r100.d, VK.r10, VK.r10.d)]
+  DATA[abs(VK.r100.d) < 2 & abs(VK.r100) > 0, VK := VK.r100]
   DATA[abs(VK.r10.d) < 2 & abs(VK.r10) > 20, .(VK.bu, VK, VK.r100, VK.r100.d, VK.r10, VK.r10.d, GTIN)]
   DATA[abs(VK.r10.d) < 2 & abs(VK.r10) > 20, VK := VK.r10]
   DATA[, VK := VK - 0.05]
@@ -1653,7 +1816,7 @@ clean.prices <- function(DATA, EK.name = "EK", VK.name = "VK") {
   DATA[, diff := VK-VK.bu]
   # range(DATA$diff, na.rm = T)
   # DATA[abs(diff) > 2, .(VK, VK.bu)]
-  hist(DATA$diff)
+  hist(DATA$diff, breaks = seq(-2, 2, 0.05))
   DATA[, c("VK.r100.d", "VK.r10.d", "diff", "VK.r100", "VK.r10") := NULL]
 
 }
@@ -1662,7 +1825,6 @@ get.categories <- function(DATA = data, block.list.col) {
   # if multiples cat ---
     cols <- strsplit(block.list.col, " ")[[1]]
     DATA[, .N, cols]
-    cols
     setnames(DATA, cols, p0("K", 1:length(cols)))
     cols <- p0("K", 1:length(cols))
     
@@ -1904,39 +2066,43 @@ readDB <- function(table.name, name.return = "data", DB = "test") {
     # dbDisconnect(conn)
     
     
-    column.types <- data.table(dbGetQuery(conn, p0("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='", table.name, "'")))
+    if( grepl("select ", table.name, ignore.case=TRUE) ) {
+      queryf<-  table.name
+    } else {
     
-    indeq <- dbSendQuery(conn, p0("select * from ", table.name))
-    inde <- data.table(dbColumnInfo(indeq))
-    dbClearResult(indeq)
-    inde
-    setnames(inde, "name", "COLUMN_NAME")
-    column.types <- dtjoin(column.types, inde)
-    column.types <- column.types[order(type)]
-    print(kable(column.types))
+      column.types <- data.table(dbGetQuery(conn, p0("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='", table.name, "'")))
+      indeq <- dbSendQuery(conn, table.name)
+      inde <- data.table(dbColumnInfo(indeq))
+      dbClearResult(indeq)
+      inde
+      setnames(inde, "name", "COLUMN_NAME")
+      column.types <- dtjoin(column.types, inde)
+      column.types <- column.types[order(type)]
+      print(kable(column.types))
+      
+      # # test
+      # column.types
+      # column.types[is.na(CHARACTER_MAXIMUM_LENGTH), CHARACTER_MAXIMUM_LENGTH := -30]
+      # column.types[, COLUMN_NAME2 := COLUMN_NAME]
+      # column.types <- column.types[order(CHARACTER_MAXIMUM_LENGTH)]
+      # column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255), COLUMN_NAME2 := p0("left(", COLUMN_NAME, ", 20) as ", COLUMN_NAME)]
+      # column.types
+      # queryf <- p0("select ", paste(column.types$COLUMN_NAME2[1:8], collapse = ", "), " from ", table.name)
+      # queryf
+  
+      # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH == 0]
+      # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(0, 2147483647)]
+      omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(0, 4000, 2147483647) | type %in% c(-2)]
+      # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255, 2147483647) | type %in% c(-2, -9)]
+      # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255, 2147483647, 500) | type %in% c(-2)]
+      cat("\n---------------------------------")
+      cat(red("\nVariables omitted: \n"))
+      print(kable(omitted))
+      column.types <- column.types[!COLUMN_NAME %in% omitted$COLUMN_NAME][order(-type)]
+      column.types
+      queryf <- p0("select ", paste(column.types$COLUMN_NAME, collapse = ", "), " from ", table.name)
     
-    # # test
-    # column.types
-    # column.types[is.na(CHARACTER_MAXIMUM_LENGTH), CHARACTER_MAXIMUM_LENGTH := -30]
-    # column.types[, COLUMN_NAME2 := COLUMN_NAME]
-    # column.types <- column.types[order(CHARACTER_MAXIMUM_LENGTH)]
-    # column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255), COLUMN_NAME2 := p0("left(", COLUMN_NAME, ", 20) as ", COLUMN_NAME)]
-    # column.types
-    # queryf <- p0("select ", paste(column.types$COLUMN_NAME2[1:8], collapse = ", "), " from ", table.name)
-    # queryf
-
-    # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH == 0]
-    # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(0, 2147483647)]
-    omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(0, 4000, 2147483647) | type %in% c(-2)]
-    # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255, 2147483647) | type %in% c(-2, -9)]
-    # omitted <- column.types[CHARACTER_MAXIMUM_LENGTH %in% c(4000, 255, 2147483647, 500) | type %in% c(-2)]
-    cat("\n---------------------------------")
-    cat(red("\nVariables omitted: \n"))
-    print(kable(omitted))
-    column.types <- column.types[!COLUMN_NAME %in% omitted$COLUMN_NAME][order(-type)]
-    column.types
-    queryf <- p0("select ", paste(column.types$COLUMN_NAME, collapse = ", "), " from ", table.name)
-    
+    }
     
     data <- data.table(dbGetQuery(conn, queryf))
     # ltable <- data.table(Name.tables = dbListTables(conn))
@@ -2028,9 +2194,9 @@ dbSendSQL <- function(sql, DB = "test") {
                    Database = dbname, UID = "sa", PWD = "HuSa1610", Port = 1433, encoding = "latin1")
     
   
-  cat("[INFO] - You are ready to run those sql")
+  cat(yellow("[INFO]"), "- You are ready to run those sql")
   kable(sql)
-  WaitYorN(p0("\n\n", bgRed("[IMPORTANT]"), " - Are you sure you wanna continue [Y or N]?"))
+  WaitYorN(p0("\n\n", bgCyan("[IMPORTANT]"), " - Are you sure you wanna continue [Y or N]?"))
   
   if( DB == "offi" ) {
     WaitYorN(p0("\n\n", bgRed("[IMPORTANT]"), " - Are you sure you wanna continue you will do modif in OFFICIAL Databank [Y or N]?"))
@@ -2243,18 +2409,13 @@ Ameise.import.code <- function(Vater.file,
   
 }
 
-Ameise.import.todelete <- function(DB = "test", DATA = todelete) {
+Ameise.import.todelete <- function(DB = "test", DATA = todelete, batch.file.output = F) {
   
   
   if( DB == "offi") {
     WaitYorN(p0("\n\n", bgRed("[IMPORTANT]"), " - Are you sure you wanna continue you will do modif in OFFICIAL Databank [Y or N]?"))
   }
   
-  cat("\n", green("Maybe not working, but with Ameise schon"))
-  cat("\n", green("Maybe not working, but with Ameise schon"))
-  cat("\n", green("Maybe not working, but with Ameise schon"))
-  cat("\n", green("Maybe not working, but with Ameise schon"))
-  cat("\n")
   
   output <- p0(rootpath, 'Firmen_Listen_EAN/Import/', gettimestamp(long = F), "_", gsub(" ", "", Firma), "_DELETE.csv")
   output2 <- gsub("^.*C:", "C:", gsub("/", "\\\\", output))
@@ -2284,10 +2445,14 @@ Ameise.import.todelete <- function(DB = "test", DATA = todelete) {
   
   # writeLines(code, "test.txt")
   cat(cyan(code))
-  WaitYorN(p0("\n\n", bgCyan("[QUESTION]"),  "You know need to delete the -todelete- article ..... before going to the next step !\nDo you want to run the code in Ameise [Y or N] ? and delete afterwards manually\n"))
+  WaitYorN(p0("\n\n", bgCyan("[QUESTION]"),  "You know need to delete the -todelete- article ..... before going to the next step !\n\nDo you want to run the code in Ameise [Y or N] ? and delete afterwards manually\n"))
   
-  system(code)
-
+  if( batch.file.output ) {
+    cat(yellow("\n[Info] - code in batchfile\n"))
+    writeLines(code, "C:/Users/dorian.BSPM/Dropbox/Shared_Dorian/Firmen_Listen_EAN/Listen/Formatted/ToDelete_article.bat")
+  } else {  
+    system(code)
+  }
   
   # renummer Vater to be sure that you can import the DATA even if you do not delete the articles
   if( "Artikelnummer" %in% names(DATA) ) {
@@ -3383,9 +3548,20 @@ prepare.bilder.import <- function(DATA, color.name, new.name,
 
 
 
-export.gpx <- function(DATA, filename, add.desc = T, add.url = T) {
+export.gpx <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "waypoints") {
+  
+  # layer.type is waypoints or tracks
+  
+  
   
   debug.easy(!all(c("lat", "lon") %in% names(DATA)), "You need 'lat' and 'lon' variable." ) 
+  
+  if( layer.type == "tracks") {
+    layer.type <- "track_points"
+    DATA[,track_fid := 0] #Assign ID to tracks
+    DATA[,track_seg_id := 0] #Assign_seg_id to segments of tracks
+    DATA[, track_seg_point_id := (1:.N) - 1] #Assign point IDs, begin at zero and go in consecutive order. If data is not in order, it will need sorted first.
+  }
   
   if( all( add.desc, add.url )) {
     DATA2 <- DATA[, .(name, desc, url)]
@@ -3393,13 +3569,16 @@ export.gpx <- function(DATA, filename, add.desc = T, add.url = T) {
     DATA2 <- DATA[, .(name, desc)]
   } else if ( add.url ) {
     DATA2 <- DATA[, .(name, url)]
+  } else if ( !all( add.desc, add.url ) ) {
+    DATA2 <-  DATA
   }
   
   latslongs <- SpatialPointsDataFrame(coords = DATA[, .(lon, lat)],
-                                      data = DATA2,
-                                      proj4string = CRS("+proj=longlat + ellps=WGS84")) 
+                                          data = DATA2,
+                                          proj4string = CRS("+proj=longlat + ellps=WGS84")) 
   
-  suppressWarnings(writeOGR(latslongs, dsn=filename, dataset_options="GPX_USE_EXTENSIONS=yes",layer="waypoints",driver="GPX", overwrite_layer = T))
+  
+  suppressWarnings(writeOGR(latslongs, dsn=filename, dataset_options="GPX_USE_EXTENSIONS=yes",layer=layer.type, driver="GPX", overwrite_layer = T))
   
   DATA3 <- data.table(x = readLines(filename, encoding = "UTF8"))
   DATA3[grep("extensions>", x)]

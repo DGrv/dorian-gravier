@@ -3,10 +3,10 @@
 # setup
 # setup
 rm(list = ls())
-rootpath <- 'D:/BU_Work/Maxi_BU/20240812/Shared_Dorian/'
-Sys.setlocale('LC_ALL', 'German')
+rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/'
+# Sys.setlocale('LC_ALL', 'German')
 
-suppressWarnings(suppressMessages(source(paste0(rootpath, "Dorian/BM_Function_v01.r"), encoding="utf-8")))
+suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")))
 
 suppressWarnings(suppressMessages(library(leaflet)))
 suppressWarnings(suppressMessages(library(leaflet.extras)))
