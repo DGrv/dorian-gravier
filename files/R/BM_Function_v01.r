@@ -221,6 +221,10 @@ geom_histogram_line <- function(bins = bins) {
   
 }
 
+fontBig <- function() {
+  theme(text = element_text(size = 20),
+        plot.caption = element_text(size=12,  face="italic", hjust=0, lineheight = 1))
+}
 
 theme_set(theme_bw())
 # theme_set(theme_bw(base_size=20)) # change default font size
@@ -3626,3 +3630,48 @@ png2mp4 <- function(filepath, time.s = 6, outpath = "D:/Pictures/GoPro/Map_bike"
 
 
 
+
+
+# RR12 --------------------------------------------------------------------
+
+readRR12 <- function(APIrawdata, APItimes, APIresults) {
+  
+  # get data
+  system(p0("curl -o rawdata.txt ", APIrawdata))
+  system(p0("curl -o Times.csv ", APItimes))
+  results <- data.table(jsonlite::fromJSON(url(APIresults), flatten = TRUE))
+  
+  rd <- data.table(jsonlite::fromJSON("rawdata.txt", flatten = TRUE))
+  times <- data.table(read.csv("Times.csv"))
+  
+  # Manipulation      
+  rd
+  rd[, ToD := DecimalToToD(Time)]
+  a <- ggplot(rd, aes(ToD))+geom_histogram()
+  print(a)
+  
+  rd2 <- rd[, .(ID, Bib, TimingPoint, Time, ToD, Invalid, Passing.Hits, Passing.RSSI, Passing.DeviceID, Passing.DeviceName)]
+  
+  times[, Time := NULL]
+  times[, InfoText := NULL]
+  setnames(times, c("ï..Bib", "DecimalTime", "Result"), c("Bib", "Time", "ResultID"))
+  times[, ToD := DecimalToToD(Time)]
+  
+  setnames(results, "ID", "ResultID")
+  
+  times2 <- dtjoin(times, results[, .(ResultID, Name)])
+  
+  assign("times", times2, env=.GlobalEnv)
+  
+  data <- dtjoin(rd2, times2[, .(Bib, ResultID, Time, Name)])
+  data[, ToResult := 1]
+  data[is.na(ResultID), ToResult := 0]
+  data[, .N, .(Bib, ToResult)]
+  data[, .N, ToResult]
+  
+  data[, LapID := as.numeric(gsub("(\\D*)(\\d*)", "\\2", Name))]
+  data[, NameTP := gsub("(\\D*)(\\d*)", "\\1", Name)]
+  
+  return(data)
+  
+}
