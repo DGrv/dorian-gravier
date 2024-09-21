@@ -20,7 +20,7 @@ suppressWarnings(suppressMessages(library(plotKML)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240623__ZurichCityTriathlon/BU/backup_Zurich_City_Triathlon_2024_20240612-142725/Gpx/")
+  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/20240316__SwissBikeCup/08_Lenzerheide/gpx/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -43,7 +43,7 @@ setwd(wd)
 # export.gpx(tp, "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
 
 
-tp <- data.table(readGPX(rP("file:///C:/Users/doria/Downloads/Drive/RR/20240316__SwissBikeCup/04_Leysin/Gpx/manual/Splits.gpx"))$waypoints)
+tp <- data.table(readGPX(rP("file:///C:/Users/doria/Downloads/Drive/RR/20240316__SwissBikeCup/08_Lenzerheide/gpx/TimingPoints.gpx"))$waypoints)
 setnames(tp, "name", "TimingPoint")
 
 
@@ -104,8 +104,14 @@ for (i in seq_along(ll$filepath)) {
 
 # check providers https://leaflet-extras.github.io/leaflet-providers/preview/
 m <- leaflet() %>%
-  addProviderTiles('OpenTopoMap')
-
+  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19),
+                   group = "OpenTopoMap") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo Sat")
 
 
 
@@ -155,6 +161,7 @@ m <-  m %>%
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
                     zoom = 12) %>%
   addLayersControl(
+    baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) %>% 
       hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )

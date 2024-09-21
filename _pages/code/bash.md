@@ -960,4 +960,19 @@ lat=$(echo "scale=2;${start[0]}+($i/10)" | bc -l)
 lon=$(echo "scale=2;${start[1]}+($j/10)" | bc -l)
 ```
 
+# rename or move files from subdirectories with subdirectories names
+
+Another version, that is renaming and moving the files to the parent directory. But you can change the last line as you want.
+
+```sh
+here=$(pwd)
+for f in */*.jpg; do
+	dir=$(dirname $f)
+	image=$(basename $f)
+	echo mv ${here}/${f} ${here}/${dir}_${image}
+done
+```
+
+
+
 
