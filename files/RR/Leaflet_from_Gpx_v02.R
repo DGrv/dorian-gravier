@@ -169,10 +169,10 @@ m <-  m %>%
   addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints") %>%
   addMarkers(data = RRdevices[Connected == T], lng = ~lon, lat = ~lat, popup = ~DeviceID, label = ~DeviceID, group = "DevicesOnline",
              icon= icons(iconUrl ="https://github.com/DGrv/dorian-gravier/blob/master/files/RR/Images/loc_green_small.png?raw=true",
-                         iconAnchorX=51, iconAnchorY=101)) %>%
+                         iconAnchorX=11, iconAnchorY=25)) %>%
   addMarkers(data = RRdevices[Connected == F], lng = ~lon, lat = ~lat, popup = ~DeviceID, label = ~DeviceID, group = "DevicesOnline",
              icon= icons(iconUrl = "https://github.com/DGrv/dorian-gravier/blob/master/files/RR/Images/loc_red_small.png?raw=true",
-                         iconAnchorX=51, iconAnchorY=101)) %>%
+                         iconAnchorX=11, iconAnchorY=25)) %>%
   setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
                     zoom = 12) %>%
