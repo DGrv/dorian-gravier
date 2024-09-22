@@ -3634,10 +3634,12 @@ png2mp4 <- function(filepath, time.s = 6, outpath = "D:/Pictures/GoPro/Map_bike"
 
 # RR12 --------------------------------------------------------------------
 
-readRR12 <- function(APIrawdata, APItimes, APIresults) {
+readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
   # get data
-  system(p0("curl -o rawdata.txt ", APIrawdata))
+  if( getrawdata ) {
+    system(p0("curl -o rawdata.txt ", APIrawdata))
+  } 
   system(p0("curl -o Times.csv ", APItimes))
   results <- data.table(jsonlite::fromJSON(url(APIresults), flatten = TRUE))
   
