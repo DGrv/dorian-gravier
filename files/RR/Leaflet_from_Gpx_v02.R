@@ -180,8 +180,26 @@ m <-  m %>%
     baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) %>% 
-      hideGroup(groupslayer[c(2,3,5:length(groupslayer))]) #hide all groups except the 1st and 2nd )
+      hideGroup(groupslayer[c(3,5:length(groupslayer))]) #hide all groups except the 1st and 2nd )
 
+library(geojsonR)
+
+
+
+geojson <-  '{ "type": "FeatureCollection",
+    "features": [
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+        "properties": {"popup": "Thiay!"}
+      },
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [103.0, 1.5]},
+        "properties": {"popup": "This is where the Rockies play!"}
+      }
+   ]
+}'
+
+m <- m %>% addGeoJSON(FROM_GeoJson(geojson))
 
 
 
