@@ -13,18 +13,143 @@ alias csvv='column -t -s,'
 
 # Get duration
 alias mp4d='tts=$(exiftool -n -T -duration -s3 *mp4 | jq -s add);tts=$(calc -d "round($tts)"); ttm=$(calc -d "round($tts / 60, 2)"); echo $tts s - $ttm min'
+
 alias mp3d='tts=$(exiftool -n -T -duration -s3 *mp3 | jq -s add);tts=$(calc -d "round($tts)"); ttm=$(calc -d "round($tts / 60, 2)"); echo $tts s - $ttm min'
-# funktion tosearch on youtube and download the first found video and export audio
-   ytsearch() {  yt-dlp ytsearch1:"$1" -x --audio-format "mp3" --audio-quality 0 -c -o "%(uploader)s__-__%(title)s.%(ext)s"; }
+
+checkaudiosamplerate() {
+  cecho -b "Check Audio Sample Rate ----------"
+  for i in *mp4; do
+    t=$(exiftool -n -T -AudioSampleRate -s3 $i)
+    cecho -y "${i} - ${t}"
+    if [[ "$t" != "48000" ]]; then
+      nname="$(basename $i .mp4)___temp.mp4"
+      mv "$i" "$nname"
+      cecho -g "Change audio sample rate to 48000 $i:"
+      ffmpeg -stats -loglevel error  -i "$nname" -ar 48000 "$i"
+      echo .
+      rm "$nname"
+    fi
+  done
+}
+
+checkresolution() {
+  cecho -b "Check Resolution ----------"
+  for i in *mp4; do
+    t=$(exiftool -n -T -ImageWidth -s3 $i)
+    cecho -y "${i} - ${t}"
+    if [[ "$t" != "1920" ]]; then
+      nname="$(basename $i .mp4)___temp.mp4"
+      mv "$i" "$nname"
+      cecho -g "Change resolution to 1920x1080 $i:"
+      ffmpeg -stats -loglevel error  -i "$nname" -vf "scale=1920:-2" "$i"
+      echo .
+      rm "$nname"
+    fi
+  done
+}
+
+checkduration() {
+  cecho -b "Check Duration ----------"
+  checkdurationout=0
+  count=$(ls -1 *.mp4 2>/dev/null | wc -l)
+  if [[ "$count" -gt "0" ]]; then
+    tts=$(exiftool -n -T -duration -s3 *mp4 | jq -s add)
+    tts=$(calc -d "round($tts)+12+12+12")
+    count=$(ls -1 *.mp3 2>/dev/null | wc -l)
+    if [[ "$count" -gt "0" ]]; then
+      ttsa=$(exiftool -n -T -duration -s3 *mp3 | jq -s add)
+      ttsa=$(calc -d "round($ttsa)")
+      if [[ "$tts" -gt "$ttsa" ]]; then
+        cecho -r "Audio too low"
+        echo "mp4:$tts"
+        echo "mp3:$ttsa"
+        cecho -y "Variable checkdurationout assign to 0"
+        checkdurationout=0
+        echo 0
+      else
+        cecho -g "Ok"
+        echo "mp4:$tts"
+        echo "mp3:$ttsa"
+        cecho -y "Variable checkdurationout assign to 1"
+        checkdurationout=1
+        echo 1
+    fi
+    else
+      checkdurationout=0
+      echo 0
+      cecho -r "No mp3"
+    fi
+  else
+    checkdurationout=0
+    echo 0
+    cecho -r "No mp4"
+  fi
+}
+
+
 # merge all gpx in folder
 alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx $ff -x duplicate,location,shortname -o gpx -F "Merge.gpx"'
+
 # reduce the frame rate of all mp4 in folder
 alias reduce.fr.60='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "60" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 60 "$i"; echo;  fi; done'
+
 alias reduce.fr.30='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "30" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 30 "$i"; echo;  fi; done'
+
 alias reduce.fr.24='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "24" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 24 "$i"; echo;  fi; done'
+
+reducefr30() {
+  cecho -b "Check FPS ----------"
+  for i in *mp4; do
+    fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
+    fr=$(calc -d "round($fr)")
+    fr=$(echo $fr)
+    cecho -y "${i} - ${fr}"
+    if [[ "$fr" != "30" ]]; then
+      nname="$(basename $i .mp4)___old_fr-$fr.mp4"
+      mv "$i" "$nname"
+      cecho -g "Convert $i:"
+      ffmpeg -stats -loglevel error -i "$nname" -r 30 -video_track_timescale 30000 "$i"
+      rm "$nname"
+    fi
+  done
+}
+
+
+# add audio
+addaudio() {
+  for i in *mp4; do
+    t=$(exiftool -n -T -AudioChannels -s3 $i)
+    if [[ "$t" == "-" ]]; then
+      nname="$(basename $i .mp4)___temp.mp4"
+      mv "$i" "$nname"
+      cecho -g "Add audio $i:"
+      ffmpeg -stats -loglevel error  -i "$nname" -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 30000 -shortest -y "$i"
+      echo .
+      rm "$nname"
+    fi
+  done
+}
+
+# funktion tosearch on youtube and download the first found video and export audio
+ytsearch() {  yt-dlp ytsearch1:"$1" -x --audio-format "mp3" --audio-quality 0 -c -o "%(uploader)s__-__%(title)s.%(ext)s"; }
+
+# Print all frame rate
+alias framerate='for i in *mp4; do fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)"); if [[ "$fr" -gt "30" ]]; then echo $i -- $fr;fi; done'
+
+# convert mov to mp4
+mov2mp4 () {
+   for i in $(ls -1 |grep -iE "MOV$|mov$"); do
+       echo --------------------------------
+       cecho -y "Convert $i to mp4"
+       filename="${i%.*}"
+       ffmpeg -stats -loglevel error  -i "$i" -vcodec libx264 -c:a copy "${filename}.mp4"
+       echo .
+   done
+}
 
 # backup bashrc
 alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh'
+
 mergemp4 () {
     rm listmerge 2> /dev/null
     touch listmerge
@@ -34,6 +159,7 @@ mergemp4 () {
     ffmpeg -stats -loglevel error -f concat -safe 0 -i listmerge -c copy merge.mp4
     rm listmerge
 }
+
 reducemp4 () {
     input=$1
     ffmpeg -stats -loglevel error  -i $input -vf "scale=720:-2" -preset slow -crf 30 -r 24 -acodec aac -y ${input%.*}_r720.mp4

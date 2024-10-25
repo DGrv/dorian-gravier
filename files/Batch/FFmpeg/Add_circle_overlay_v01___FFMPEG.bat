@@ -90,7 +90,7 @@ echo ----------------------[37m
 
 
 
-ffmpeg -stats -loglevel error -i "%filenamenew%" -ignore_loop 0 -i "D:\Pictures\Youtube\icon\Arrow\Circle.gif" -filter_complex "[1:v]setpts=PTS-STARTPTS+(1/TB)[1v];[0:v][1v] overlay=%xpos%-(w/2):%ypos%-(h/2):enable='between(t,%times1%,%times2%)':shortest=1" -c:a copy "%filename%"
+ffmpeg -stats -loglevel error -i "%filenamenew%" -ignore_loop 0 -i "D:\Pictures\Youtube\icon\Arrow\Circle.gif" -filter_complex "[1:v]setpts=PTS-STARTPTS+(%times1%/TB)[1v];[0:v][1v] overlay=%xpos%-(w/2):%ypos%-(h/2):enable='between(t,%times1%,%times2%)':shortest=1" -c:a copy "%filename%"
 
 
 

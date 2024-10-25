@@ -8,16 +8,26 @@ source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")
 args <- commandArgs(trailingOnly = T) # to have arguments like windows batch
 
 
+
+
+# if you use special character you have to activate them
+# Sys.setlocale("LC_CTYPE", "croatian")
+
+
+
+
+
+
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  lookfor <- "Crni Kal slovenia"
+  lookfor <- "Plitvice national park"
   lookfortext <- lookfor
-  lookfortext <- "Črni Kal"
+  lookfortext <- "črni Kal"
   zoom.closer <- F
   add.bike <- F
 } else if (length(args)!=0) {
   # default output file
-  cat(red("ARGUMENTS: \n 1 -", args[1], "2 -", args[2], "3- ", args[3], "4- ", args[4], "\n\n"))
+  cat(red("ARGUMENTS: \n 1-", args[1], " 2-", args[2], " 3-", args[3], " 4-", args[4], "\n\n"))
   lookfor <- args[1]
   lookfortext <- args[4]
   zoom.closer <- F
@@ -29,7 +39,6 @@ if (length(args)==0) {
     add.bike <- T
   }
 }
-
 
 
 
@@ -179,26 +188,36 @@ theme_set(theme_void())
 if( zoom.closer ) {
   (ex <- zoomman(loc, 5, side = T))
 } else {
-  ex <- data.table(lon= c(-22,20), lat = c(36,52))
+  # ex <- data.table(lon= c(-22,20), lat = c(36,52))
+  (ex <- zoomman(loc, 3, side = T))
 }
+
+
+# Let coord_quickmap figure out the aspect ratio:
+# help from this https://forum.posit.co/t/aspect-ratio-of-a-plot-produced-with-ggplot2-coord-quickmap/9282/2
+coord <- coord_quickmap(xlim = ex$lon, ylim = ex$lat)
+asp <- coord$aspect(list(x.range = ex$lon, y.range = ex$lat))
+
+
+
+
 
 a <- ggplot()+
   geom_polygon(data=world, aes(long, lat, group = group), colour='black', fill="gray80", linewidth=1.25)+
   # coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
-  coord_cartesian(xlim = ex$lon, ylim = ex$lat)+
+  coord_cartesian(xlim = ex$lon/asp, ylim = ex$lat)+
   geom_point(data = loc, aes(x = lon, y = lat), color = cc[2], size = 7) + 
   # geom_label(data = loc, aes(lon, lat, label = lookfor), fill = cc, size = 14, hjust = -0.1, vjust = 1.2)
+  # geom_label_repel(data = loc, aes(lon, lat, label = lookfortext), fill = cc[2], color = "black", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA, label.)
   geom_label_repel(data = loc, aes(lon, lat, label = lookfortext), fill = cc[2], color = "black", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)
 a
 
 if( add.bike ) {
-  
   a <-  a + geom_path(data=data3, aes(lon, lat), color = cc[1], linewidth = 1.2)
-  printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
   # system("qimgv Location_choose_white.png")
-} else {
-  printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
 }
+
+printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
 
 system("magick Location_choose_white.png -background white -alpha background -alpha off -bordercolor white -border 1 -transparent white Location_choose_white.png")
 # system("magick Location_choose_white.png -background black -alpha background -alpha off -bordercolor black -border 1 -transparent black Location_choose_white.png")

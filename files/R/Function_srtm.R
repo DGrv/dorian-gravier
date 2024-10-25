@@ -7,7 +7,9 @@ zoomman <- function(loc, zoom, side = F) {
   if( side ) {
     d[, lon.ori := lon]
     # d[, lat.ori := lat]
-    d[, lon := lon.ori - ((lon.ori[2] - lon.ori[1]) / 6)*2]
+    # browser()
+    # d[, lon := lon.ori - ((lon.ori[2] - lon.ori[1]) / 6)*2]
+    d[, lon := lon.ori - ((lon.ori[2] - lon.ori[1]) / 6)]
     # d[, lat := lat.ori + ((lat.ori[2] - lat.ori[1]) / 6)*2]
   }
   return(d)

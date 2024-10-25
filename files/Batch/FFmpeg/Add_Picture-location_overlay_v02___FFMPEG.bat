@@ -70,7 +70,7 @@ if "%6"=="" (
 echo.
 echo.
 
-Rscript --vanilla C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\gpx\Bike_map_location_choose_v02.R "%place2look%" "%zoomcloser%" "%addbike%" "%place2looktext%"
+Rscript --vanilla C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\gpx\Bike_map_location_choose_v03.R "%place2look%" "%zoomcloser%" "%addbike%" "%place2looktext%"
 
 if not exist D:\Pictures\GoPro\Map_bike\Location_choose_white.png goto error
 
