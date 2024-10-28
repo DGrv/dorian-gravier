@@ -12,6 +12,7 @@ library(tibble)
 library(rgdal)
 library(sf)
 library(concaveman)
+library(plotKML)
 
 # data <- data.table(read.csv(rP("file:///C:/Users/doria/Downloads/test/test.csv"), sep = ",", encoding = "UTF-8", header = F))
 # names(data) <-c("id", "lat", "lon", "rating", "type", "url", "name", "desc")
@@ -24,11 +25,12 @@ library(concaveman)
 # export.gpx(data[lon != ""], rP("file:///C:/Users/doria/Downloads/test/test.gpx"), add.desc = T, add.url = F)
 
 
-wdcsv <- "file:///C:/Users/doria/Downloads/P4N/P4N_csv/"
-title <- "Croatia_3"
-rdata <- p0(dirname(rP(wdcsv)), "/", title, ".RData")
-
-
+title <- "Croatia_4"
+wd <- "file:///C:/Users/doria/Downloads/P4N"
+create.dir(wd, "csv", "wdcsv")
+create.dir(wd, "temp", "wdtemp")
+rdata <- p0(wdtemp, "/", title, ".RData")
+setwd(wd)
 
 
 # if new run --------------------------------------------------------------
@@ -98,7 +100,15 @@ ggplot()+
 
 
 for(i in u(data[is.na(What)==F]$What)) {
-  export.gpx(data.table(datasf2)[lon != "" & What == i], p0(dirname(rP(wdcsv)), "/P4N_", title, "_", i, ".gpx"), add.desc = T, add.url = T)
+  export.gpx(data.table(datasf2)[lon != "" & What == i], p0(wdtemp, "/P4N_", title, "_", i, ".gpx"), add.desc = T, add.url = T)
 }
   
-
+for(j in c("Nature", "Parking")){
+  lf <- list.files(wd, pattern = "Nature.gpx")
+  all <- data.table()
+  for(i in seq_along(lf)) {
+    temp <- data.table(readGPX(lf[i])$waypoints)
+    all <- rbind(all,temp)
+  }
+  export.gpx(all, p0(wd, "/P4N_ALL_Nature.gpx"), add.desc = T, add.url = T)
+}

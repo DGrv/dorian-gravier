@@ -16,9 +16,36 @@ alias mp4d='tts=$(exiftool -n -T -duration -s3 *mp4 | jq -s add);tts=$(calc -d "
 
 alias mp3d='tts=$(exiftool -n -T -duration -s3 *mp3 | jq -s add);tts=$(calc -d "round($tts)"); ttm=$(calc -d "round($tts / 60, 2)"); echo $tts s - $ttm min'
 
+renamemp4ext() {
+  cecho -c "Rename MP4 to mp4 ----------"
+  for i in *MP4; do
+    nname="$(basename $i .MP4).mp4"
+    tname="$(basename $i .MP4)__rename.mp4"
+    mv "$i" "$tname"
+    mv "$tname" "$nname"
+  done
+}
+
+checkcodec() {
+  cecho -c "Check codec ----------"
+  for i in *{mp4,MP4}; do
+    t=$(exiftool -n -T -CompressorName -s3 $i)
+    cecho -y "${i} - ${t}"
+    # if [[ "$t" != "48000" ]]; then
+      # nname="$(basename $i .mp4)___temp.mp4"
+      # mv "$i" "$nname"
+      # cecho -g "Change audio sample rate to 48000 $i:"
+      # ffmpeg -stats -loglevel error  -i "$nname" -ar 48000 "$i"
+      # echo .
+      # rm "$nname"
+    # fi
+  done
+}
+
+
 checkaudiosamplerate() {
-  cecho -b "Check Audio Sample Rate ----------"
-  for i in *mp4; do
+  cecho -c "Check Audio Sample Rate ----------"
+  for i in *{mp4,MP4}; do
     t=$(exiftool -n -T -AudioSampleRate -s3 $i)
     cecho -y "${i} - ${t}"
     if [[ "$t" != "48000" ]]; then
@@ -33,8 +60,8 @@ checkaudiosamplerate() {
 }
 
 checkresolution() {
-  cecho -b "Check Resolution ----------"
-  for i in *mp4; do
+  cecho -c "Check Resolution ----------"
+  for i in *{mp4,MP4}; do
     t=$(exiftool -n -T -ImageWidth -s3 $i)
     cecho -y "${i} - ${t}"
     if [[ "$t" != "1920" ]]; then
@@ -49,7 +76,7 @@ checkresolution() {
 }
 
 checkduration() {
-  cecho -b "Check Duration ----------"
+  cecho -c "Check Duration ----------"
   checkdurationout=0
   count=$(ls -1 *.mp4 2>/dev/null | wc -l)
   if [[ "$count" -gt "0" ]]; then
@@ -98,8 +125,8 @@ alias reduce.fr.30='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $
 alias reduce.fr.24='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "24" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 24 "$i"; echo;  fi; done'
 
 reducefr30() {
-  cecho -b "Check FPS ----------"
-  for i in *mp4; do
+  cecho -c "Check FPS ----------"
+  for i in *{mp4,MP4}; do
     fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
     fr=$(calc -d "round($fr)")
     fr=$(echo $fr)
@@ -117,7 +144,7 @@ reducefr30() {
 
 # add audio
 addaudio() {
-  for i in *mp4; do
+  for i in *{mp4,MP4}; do
     t=$(exiftool -n -T -AudioChannels -s3 $i)
     if [[ "$t" == "-" ]]; then
       nname="$(basename $i .mp4)___temp.mp4"

@@ -6,3 +6,4 @@ gpstart=curl --request GET   --url http://172.28.124.51:8080/gopro/camera/shutte
 gpstop=curl --request GET   --url http://172.28.124.51:8080/gopro/camera/shutter/stop
 gpka=curl --request GET  --url http://172.28.124.51:8080/gopro/camera/keep_alive
 pissh=putty -ssh raspberrypi.local -P 22 -l pi -pw raspberry
+makeitall=C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Make_it_ALL_v16___FFMPEG.bat

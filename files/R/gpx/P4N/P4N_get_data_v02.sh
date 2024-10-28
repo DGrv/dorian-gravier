@@ -1,7 +1,7 @@
-mkdir P4N_csv
+mkdir csv
 
-start=(45.46 14.255665)
-end=(43.79 16.11)
+start=(43.74798164794179 15.804051617371373)
+end=(42.19130042179526 19.304756444143887)
 
 h=$(echo "(${start[0]}-${end[0]})*3/1" | bc)
 w=$(echo "(${start[1]}-${end[1]})*3/-1" | bc)
@@ -38,7 +38,7 @@ echo '</gpx>' >> P4N_area.gpx
 # get data 
 
 id=0
-cd P4N_csv
+cd csv
 for ((i=1;i<=$h;i++)) do
 	for ((j=1;j<=$w;j++)) do
 		id=$((id+1))

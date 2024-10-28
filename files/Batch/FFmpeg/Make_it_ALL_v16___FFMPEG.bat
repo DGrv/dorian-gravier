@@ -139,10 +139,11 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	:next1
 	
 	:: rename MP$ to mp4
-	for %%a in (*MP4) do (
-		set filenameold=%%~nxa
-		rename !filenameold! !filenameold:MP4=mp4!
-	)
+	bash -c "source ~/.bashrc;renamemp4ext"
+	REM for %%a in (*MP4) do (
+		REM set filenameold=%%~nxa
+		REM rename !filenameold! !filenameold:MP4=mp4!
+	REM )
 	
 	
 	:: config file and BU
@@ -164,12 +165,6 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	REM if %doreso%==n (echo Reso_done >> MakeItAll_temp.config)
 	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
 
-	
-	
-	
-	
-	
-	
 	set title2=%title:\n\n= %
 	set title2=%title2:\n= %
 	set title2=%title2:'=%
@@ -178,6 +173,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	set title2=%title2:,=%
 	set title2=%title2:(=%
 	set title2=%title2:)=%
+	set title2=%title2:~0,-1%
+	
 	
 	echo %title2%
 	echo title2=%title2% >> MakeItAll_temp.config
@@ -677,54 +674,54 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start convert low [37m
 echo.
 	
-	rename output_temp.mp4 output_BIND.mp4
+	rename output_temp.mp4 %title2%_TV.mp4
+	rename audio.mp3 %title2%_AUDIO.mp3
+	if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
 	
-	if %draft%==n (
-		ffmpeg -stats -loglevel error -i output_BIND.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y -movflags faststart output_720_crf25_temp.mp4
-		rename output_BIND.mp4 %title2%_TV.mp4
-		rename output_720_crf25_temp.mp4 %title2%_low.mp4
-		rename audio.mp3 %title2%_AUDIO.mp3
-		if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
-		
-		if %simplemode%==n (
-			echo Sous-titres français disponibles. > Music_list_temp2.txt
-			echo. >> Music_list_temp2.txt
-			echo **Music:** >> Music_list_temp2.txt
-			cat Music_list_temp.txt >> Music_list_temp2.txt
-			echo. >> Music_list_temp2.txt
-			echo You can find all other video here : https://www.youtube.com/playlist?list=PLWaLsaDTITnN2taIj2q8KIhdulM1xcveL >> Music_list_temp2.txt
-			echo. >> Music_list_temp2.txt
-			echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1 >> Music_list_temp2.txt
-			echo. >> Music_list_temp2.txt
-			echo 🚲 *The track* : https://dorian-gravier.com/bt >> Music_list_temp2.txt
-		)
-		
-		del Music_list_temp.txt
-		rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
-		
-		echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
-		echo del %title2%_low.mp4  >> DEL_end_files_MP4.bat
-		echo del %title2%_AUDIO.mp3 >> DEL_end_files_MP4.bat
-		echo del %title2%_AUDIO-NORMA.mp3 >> DEL_end_files_MP4.bat
-		echo del %title2%_MUSIC-TITLE.txt >> DEL_end_files_MP4.bat
-		echo del Test_youtube_copy.mp4 >> DEL_end_files_MP4.bat
-		echo sed -i /Duration/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
-		echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
-		echo sed -i /Check/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+	echo ffmpeg -stats -loglevel error -i %title2%_TV.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y -movflags faststart %title2%_low.mp4 > CONVERT_in_LOW.bat
 
-		
-		echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat
-		echo move %title2%_low.mp4 %pathout%\Low\ >> IF_OK_MOVE_READY_MP4.bat
-		echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
-		echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
-		echo move %title2%_MUSIC-TITLE.txt %pathout%\Music_txt\ >> IF_OK_MOVE_READY_MP4.bat
-		del input_temp.mp3
-		REM xcopy /Y *.mp3 %pathout%\Music\
-		ls | grep mp3 | grep -vE "AUDIO|input_temp|audio.mp3" | xargs -I # cp "#" %pathout%\Music
-		echo.
+	if %simplemode%==n (
+		REM echo Sous-titres français disponibles. > Music_list_temp2.txt
+		REM echo. >> Music_list_temp2.txt
+		echo **Music:** >> Music_list_temp2.txt
+		cat Music_list_temp.txt >> Music_list_temp2.txt
+		REM echo. >> Music_list_temp2.txt
+		REM echo You can find all other video here : https://www.youtube.com/playlist?list=PLWaLsaDTITnN2taIj2q8KIhdulM1xcveL >> Music_list_temp2.txt
+		echo. >> Music_list_temp2.txt
+		echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1 >> Music_list_temp2.txt
+		REM echo. >> Music_list_temp2.txt
+		REM echo 🚲 *The track* : https://dorian-gravier.com/bt >> Music_list_temp2.txt
 	)
+	
+	del Music_list_temp.txt
+	rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
+	
+	echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
+	echo del %title2%_low.mp4  >> DEL_end_files_MP4.bat
+	echo del %title2%_AUDIO.mp3 >> DEL_end_files_MP4.bat
+	echo del %title2%_AUDIO-NORMA.mp3 >> DEL_end_files_MP4.bat
+	echo del %title2%_MUSIC-TITLE.txt >> DEL_end_files_MP4.bat
+	echo del audio_music.mp3 >> DEL_end_files_MP4.bat
+	echo del Test_youtube_copy.mp4 >> DEL_end_files_MP4.bat
+	echo sed -i /Duration/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+	echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+	echo sed -i /Check/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+	echo bash -c "source ~/.bashrc;restoreBUoverlay" >> DEL_end_files_MP4.bat
+
+	
+	echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_low.mp4 %pathout%\Low\ >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
+	echo move %title2%_MUSIC-TITLE.txt %pathout%\Music_txt\ >> IF_OK_MOVE_READY_MP4.bat
+	del input_temp.mp3
+	REM xcopy /Y *.mp3 %pathout%\Music\
+	ls | grep mp3 | grep -vE "AUDIO|input_temp|audio.mp3|audio_music" | xargs -I # cp "#" %pathout%\Music
+	echo.
 
 	echo [32m-------------- Finish ------------- [37m
+	echo [32mDo not forget to convert it in low if it is fine [37m
+	echo [32m----------------------------------- [37m
 	:eof
 	pause
 	
