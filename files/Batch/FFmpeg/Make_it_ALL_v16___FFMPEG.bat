@@ -159,10 +159,6 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 		echo N | copy /-Y * BU\
 	)
 	
-	REM if %dooverlaymusic%==n (echo Overlay_done >> MakeItAll_temp.config)
-	REM if %dofiligrane%==n (echo Filigrane_done >> MakeItAll_temp.config)
-	REM if %docodec%==n (echo Codec_done >> MakeItAll_temp.config)
-	REM if %doreso%==n (echo Reso_done >> MakeItAll_temp.config)
 	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
 
 	set title2=%title:\n\n= %
@@ -180,12 +176,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	echo title2=%title2% >> MakeItAll_temp.config
 
 	:: Music
-	REM if not exist Music_list_temp.txt (
-		echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
-		REM set /p temp="If you wanna use a jiggle beginning and at the end use files named 'begin.mp3' and-or 'end.mp3'"
-		REM ls -1 | grep mp3 | grep -Ev "begin|end|input|List" | sed "s/^/file '/" | sed "s/$/'/" > Music_list_temp.txt
-		ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" > Music_list_temp.txt
-	REM )
+	echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
+	ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" > Music_list_temp.txt
 	
 
 	
@@ -194,36 +186,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 		set RVd=1/!RV!
 		set RA=48000
 		set RAd=1/!RA!
-	) else (
-		set /p tb=Do you wanna see the time base of your video/audio to be able to have a feeling and select only one or just select one [y/n] ? : 
-		:: get time_base
-		echo Time_base of your videos:
-		:: if the variable tb is set in a if else you have to use 'if !tb!==y' if it is outside you can use 'if %tb%==y'
-		if !tb!==y (
-			for %%i in (*.mp4) DO (
-				ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i
-			)
-		) else (
-			echo here the first mp4 to give you a hint
-			(for %%i in (*.mp4) do @echo %%i) > Listmp4_temp.txt
-			set /p firstmp4=<Listmp4_temp.txt
-			ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
-)
-		set /p RV="Which RV (if 1/30000, choose 30000): "
-		set RVd=1/%RV%
-		
-		echo Time_base of your audios:
-		if !tb!==y (
-			for %%i in (*.mp4) DO (
-				ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%i
-			)
-		) else (
-			ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 !firstmp4!
-			del Listmp4_temp.txt
-		)
-		set /p RA="Which RV (if 1/48000, choose 48000): "
-		set RAd=1/%RA%
-	)
+	) 
 
 
 
@@ -251,12 +214,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 		)
 	)
 
-
-
-
-
-
-
+
 
 echo.
 echo [94m------------------------------------------------- [37m
@@ -271,6 +229,9 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start Music input_temp.mp3 [37m
 echo.
 	
+	
+	bash -c "source ~/.bashrc;normamp3"
+
 	
 	if NOT EXIST input_temp.mp3 (
 		if exist Listmp3_temp.txt (
@@ -365,7 +326,12 @@ echo [94mINFO - Start music title [37m
 echo.
 	
 	if NOT EXIST zzz_music_temp.mp4 (
-		call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Create_title_clip_v08___FFMPEG.bat 2 y 70 Music_list_temp.txt zzz_music_temp.mp4
+	
+		echo Music:> Music_temp
+		echo. >> Music_temp
+		cat Music_list_temp.txt >> Music_temp
+		call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Create_title_clip_v08___FFMPEG.bat 2 y 70 Music_temp zzz_music_temp.mp4
+		del Music_temp
 	)
 		
 
@@ -419,10 +385,15 @@ echo.
 		echo.
 		echo [95m Video ----------------- [37m
 		
-		bash -c "source ~/.bashrc;reducefr30"
+		REM bash -c "source ~/.bashrc;reducefr30"
 		echo.
 		bash -c "source ~/.bashrc;checkresolution"
 		echo.
+		bash -c "source ~/.bashrc;checkcodec"
+		echo.
+		bash -c "source ~/.bashrc;checktimescale30"
+		
+		REM bash -c "source ~/.bashrc;checkstarttime"
 	
 		REM for /f %%i in ('grep Check_done MakeItAll_temp.config ^| wc -l') do set check1=%%i
 		REM if !check1!==0 (
@@ -631,16 +602,16 @@ echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
 	
-	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy -movflags faststart output_temp2.mp4
+	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy -movflags faststart output_BIND.mp4
 	del Listmp4_temp.txt
 	
-	ffmpeg -stats -loglevel error -y -i output_temp2.mp4 -async 1 audio.mp3
+	ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3
 	if EXIST input_temp.mp3 (
 		ffmpeg -stats -loglevel error -i audio.mp3 -i input_temp.mp3 -filter_complex "[0]volume=2[a1];[1]volume=0.4[a2];[a1][a2]amix=duration=shortest" audio_music.mp3
-		ffmpeg -stats -loglevel error -i output_temp2.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 output_temp.mp4
-		del output_temp2.mp4
+		ffmpeg -stats -loglevel error -i output_BIND.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 output_temp.mp4
+		REM del output_BIND.mp4
 	) else (
-		rename output_temp2.mp4 output_temp.mp4
+		rename output_BIND.mp4 output_temp.mp4
 	)
 
 	:: check youtube copyright
@@ -651,22 +622,6 @@ echo.
 	)
 	del temp.mp4 temp2.mp4
 
-if %simplemode%==n goto audionormapass
-
-	if %audionorma%==y (
-		WHERE ffmpeg-normalize
-		IF %ERRORLEVEL% EQU 0 (
-			echo.
-			echo [93m[INFO] - use ffmpeg-normlize [37m
-			echo.
-			ffmpeg-normalize audio.mp3 -pr -c:a mp3 -o audio_norma.mp3
-			rename output_temp.mp4 output_temp2.mp4
-			ffmpeg-normalize output_temp2.mp4 -pr -c:a mp3 -o output_temp.mp4
-			del output_temp2.mp4
-		)	
-	)
-	
-:audionormapass
 	
 	
 echo.
@@ -704,9 +659,12 @@ echo.
 	echo del audio_music.mp3 >> DEL_end_files_MP4.bat
 	echo del Test_youtube_copy.mp4 >> DEL_end_files_MP4.bat
 	echo sed -i /Duration/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
-	echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
 	echo sed -i /Check/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
+	echo set /p dooverlay="Do you want restore the overlaid video (music titles) [y/n - or nothing]: ">> DEL_end_files_MP4.bat
+	echo	if "%dooverlay%"=="y" (>> DEL_end_files_MP4.bat
+	echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
 	echo bash -c "source ~/.bashrc;restoreBUoverlay" >> DEL_end_files_MP4.bat
+	echo	) 
 
 	
 	echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat

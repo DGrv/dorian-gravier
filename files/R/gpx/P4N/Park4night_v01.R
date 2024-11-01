@@ -26,7 +26,7 @@ library(plotKML)
 
 
 title <- "Croatia_4"
-wd <- "file:///C:/Users/doria/Downloads/P4N"
+wd <- rP("file:///C:/Users/doria/Downloads/P4N")
 create.dir(wd, "csv", "wdcsv")
 create.dir(wd, "temp", "wdtemp")
 rdata <- p0(wdtemp, "/", title, ".RData")
@@ -104,11 +104,12 @@ for(i in u(data[is.na(What)==F]$What)) {
 }
   
 for(j in c("Nature", "Parking")){
-  lf <- list.files(wd, pattern = "Nature.gpx")
+  lf <- list.files(wdtemp, pattern = j, full.names = T)
   all <- data.table()
   for(i in seq_along(lf)) {
     temp <- data.table(readGPX(lf[i])$waypoints)
     all <- rbind(all,temp)
   }
-  export.gpx(all, p0(wd, "/P4N_ALL_Nature.gpx"), add.desc = T, add.url = T)
+  all <- u(all)
+  export.gpx(all, p0(wd, "/P4N_ALL_", j, ".gpx"), add.desc = T, add.url = T)
 }
