@@ -230,7 +230,6 @@ echo [94mINFO - Start Music input_temp.mp3 [37m
 echo.
 	
 	
-	bash -c "source ~/.bashrc;normamp3"
 
 	
 	if NOT EXIST input_temp.mp3 (
@@ -242,6 +241,7 @@ echo.
 			set filenamenew=!filename:'=!
 			if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
 		)
+		bash -c "source ~/.bashrc;normamp3"
 		ls -1 | grep mp3 | grep -Ev "^begin.mp3|^end.mp3|^input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
 		if exist Listmp3_temp.txt (
 			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
@@ -269,7 +269,6 @@ echo.
 		
 		
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-		echo check=!check!
 		if !check!==0 (
 			copy "!firstfile!" "%wd%\BU\!firstfile!"
 			echo --- Create fadein on !firstfile!
@@ -372,52 +371,6 @@ if NOT %gpxhere%==0 (
 
 echo.
 echo [94m------------------------------------------------- [37m
-echo [94mINFO - Start format check [37m
-echo.
-
-
-		echo [95m Audio ----------------- [37m
-		bash -c "source ~/.bashrc;addaudio"
-		echo.
-		bash -c "source ~/.bashrc;checkaudiosamplerate"
-	
-		:: Video
-		echo.
-		echo [95m Video ----------------- [37m
-		
-		REM bash -c "source ~/.bashrc;reducefr30"
-		echo.
-		bash -c "source ~/.bashrc;checkresolution"
-		echo.
-		bash -c "source ~/.bashrc;checkcodec"
-		echo.
-		bash -c "source ~/.bashrc;checktimescale30"
-		
-		REM bash -c "source ~/.bashrc;checkstarttime"
-	
-		REM for /f %%i in ('grep Check_done MakeItAll_temp.config ^| wc -l') do set check1=%%i
-		REM if !check1!==0 (
-			REM echo Check_done >> MakeItAll_temp.config
-		REM ) else (
-			REM echo Check2_done >> MakeItAll_temp.config
-			REM goto check2end
-		REM )
-
-	REM echo.
-	REM echo -------------------------------------------------
-	REM echo INFO - Start error times
-	REM echo.
-
-	REM :: remove error time
-	REM :: remove duplicated frames (losslesscut error sometimes or with increase speed)
-	REM for %%i in (*.mp4) do (
-		REM rename %%i %%~ni_temp.mp4
-		REM ffmpeg -stats -loglevel error -err_detect ignore_err -i %%~ni_temp.mp4 -c copy %%i
-		REM del %%~ni_temp.mp4
-	REM )
-	
-echo.
-echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start duration [37m
 echo.
 
@@ -461,7 +414,6 @@ echo.
 			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
 				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
 			)
-			echo here
 			
 			
 			set xpos=0.95
@@ -592,6 +544,52 @@ REM echo.
 	REM )
 	
 
+echo.
+echo [94m------------------------------------------------- [37m
+echo [94mINFO - Start format check [37m
+echo.
+
+
+		echo [95m Audio ----------------- [37m
+		bash -c "source ~/.bashrc;addaudio"
+		echo.
+		bash -c "source ~/.bashrc;checkaudiosamplerate"
+	
+		:: Video
+		echo.
+		echo [95m Video ----------------- [37m
+		
+		bash -c "source ~/.bashrc;reducefr30"
+		echo.
+		bash -c "source ~/.bashrc;checkresolution"
+		echo.
+		bash -c "source ~/.bashrc;checkcodec"
+		echo.
+		bash -c "source ~/.bashrc;checktimescale30"
+		
+		REM bash -c "source ~/.bashrc;checkstarttime"
+	
+		REM for /f %%i in ('grep Check_done MakeItAll_temp.config ^| wc -l') do set check1=%%i
+		REM if !check1!==0 (
+			REM echo Check_done >> MakeItAll_temp.config
+		REM ) else (
+			REM echo Check2_done >> MakeItAll_temp.config
+			REM goto check2end
+		REM )
+
+	REM echo.
+	REM echo -------------------------------------------------
+	REM echo INFO - Start error times
+	REM echo.
+
+	REM :: remove error time
+	REM :: remove duplicated frames (losslesscut error sometimes or with increase speed)
+	REM for %%i in (*.mp4) do (
+		REM rename %%i %%~ni_temp.mp4
+		REM ffmpeg -stats -loglevel error -err_detect ignore_err -i %%~ni_temp.mp4 -c copy %%i
+		REM del %%~ni_temp.mp4
+	REM )
+	
 
 
 
@@ -602,10 +600,10 @@ echo.
 
 	(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
 	
-	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy -movflags faststart output_BIND.mp4
+	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_BIND.mp4
 	del Listmp4_temp.txt
 	
-	ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3
+	bash -c "ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3"
 	if EXIST input_temp.mp3 (
 		ffmpeg -stats -loglevel error -i audio.mp3 -i input_temp.mp3 -filter_complex "[0]volume=2[a1];[1]volume=0.4[a2];[a1][a2]amix=duration=shortest" audio_music.mp3
 		ffmpeg -stats -loglevel error -i output_BIND.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 output_temp.mp4
@@ -623,7 +621,6 @@ echo.
 	del temp.mp4 temp2.mp4
 
 	
-	
 echo.
 echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start convert low [37m
@@ -633,7 +630,7 @@ echo.
 	rename audio.mp3 %title2%_AUDIO.mp3
 	if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
 	
-	echo ffmpeg -stats -loglevel error -i %title2%_TV.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y -movflags faststart %title2%_low.mp4 > CONVERT_in_LOW.bat
+	echo ffmpeg -stats -loglevel error -i %title2%_TV.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y %title2%_low.mp4 > CONVERT_in_LOW.bat
 
 	if %simplemode%==n (
 		REM echo Sous-titres français disponibles. > Music_list_temp2.txt

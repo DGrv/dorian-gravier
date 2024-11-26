@@ -18,6 +18,13 @@ magick mogrify -resize 100^< *png
 
 ```
 
+# Resize and Extend
+
+```sh
+magick Sponsor1.png -resize x244 -gravity center -extent 470x244 Sponsor1b.png
+```
+
+
 # Montage
 
 center, take care of the number of pictures (here horizontal 12 pictures), need to be resize with height before with this examples
@@ -76,7 +83,7 @@ for /F "usebackq delims=" %A in (`ls ^|grep -s jpg ^| tr "\n" " "`) do convert -
 [Source Stackoverflow](https://stackoverflow.com/a/13784772/2444948)
 
 ```sh
-magick convert -density 300 -trim in.pdf -quality 100 out.png
+magick -density 300 -trim in.pdf -quality 100 out.png
 ```
 
 -density 300 sets the dpi that the PDF is rendered at.
@@ -87,8 +94,8 @@ magick convert -density 300 -trim in.pdf -quality 100 out.png
 # crop
 
 ```sh
-magick convert input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
-magick convert giphy.gif -coalesce -repage 0x0 -crop 84x139+100+149 +repage output.gif
+magick input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
+magick giphy.gif -coalesce -repage 0x0 -crop 84x139+100+149 +repage output.gif
 ```
 
 You can use *qimgv* to get the dimension of the crop easily
@@ -105,8 +112,8 @@ You can use *qimgv* to get the dimension of the crop easily
 ## Option 1
 
 ```sh
-magick convert input.gif -transparent black g%01d.png
-magick convert -dispose background g*.png output.gif
+magick input.gif -transparent black g%01d.png
+magick -dispose background g*.png output.gif
 ```
 
 Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
@@ -117,7 +124,7 @@ Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official
 or even better, adapt fuzz
 
 ```sh 
-magick convert charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
+magick charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
 ```
 
 ![](https://dgrv.github.io/dorian-gravier/assets/images/charlie_small.png)
@@ -128,10 +135,10 @@ Other example with this Gif
 ![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
 
 ```sh
-magick convert in.gif -resize 50% in2.gif # resize 
-magick convert in2.gif g%01d.png # export each frame
+magick in.gif -resize 50% in2.gif # resize 
+magick in2.gif g%01d.png # export each frame
 del g00.png # remove first one that was the background
-magick convert -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
+magick -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
 ```
 
 creating this:
@@ -143,15 +150,15 @@ creating this:
 Really good results
 
 ```sh
- magick convert Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
+magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
 ```
 
 Combine with Resize, sharpen
 
 ```sh
-magick convert Bild_1.jpg -resize 500x Bild_1b.png 
+magick Bild_1.jpg -resize 500x Bild_1b.png 
 magick Bild_1b.png -sharpen 0x20 Bild_1c.png 
-magick convert Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
+magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
 
 ```
 

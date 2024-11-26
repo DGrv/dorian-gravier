@@ -1,9 +1,11 @@
+#Requires AutoHotkey v1.1.33+
+
 #Persistent
 MyLabel:
 
 SetKeyDelay, 35 ; might be important for pasting correct characters
 
-ShowOnOff("info", "Append_Paste ON - will loop", "Purple", 0.15, 0.0001)
+ShowOnOff("info", "Append_Paste ON - will loop - Use Ctrl+b to paste", "Purple", 0.15, 0.0001)
 ShowOnOff("info2", "Copy your text", "Red", 0.15, 0.05)
 FileDelete C:\Users\doria\Downloads\Append_Paste_AHK_temp
 
@@ -23,13 +25,24 @@ Loop, Read, C:\Users\doria\Downloads\Append_Paste_AHK_temp
 
 lineNumber = 0
 
-^v::
+^b::
 	lineNumber += 1
 	FileReadLine, content, C:\Users\doria\Downloads\Append_Paste_AHK_temp, %lineNumber%
 	ClipWait
 	; Sendinput %content%`r`n
-	Sendinput %content%`n
-	Sleep 500
+	
+	; if (content ~= "\^|\+|\!|\#|\{|\}")
+		; Sendinput %content%`n
+		; ; MsgBox "Contains"
+	; else
+		; SendRaw %content%`n
+		; ; MsgBox "Not contains"
+		
+	Clipboard = %content%`n
+	Send ^v
+		
+	; Sleep 200
+	
 	If (lineNumber = total_lines) {
 		MsgBox Take will loop to line 1 again !
 		lineNumber = 0

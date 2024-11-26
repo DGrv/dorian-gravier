@@ -65,7 +65,7 @@ keyframe () {
 mergemp4 () {
     rm listmerge 2> /dev/null
     touch listmerge
-    for i in *mp4; do 
+    for i in *.mp4; do 
         echo file \'$i\' >> listmerge
     done
     ffmpeg -stats -loglevel error -f concat -safe 0 -i listmerge -c copy merge.mp4
@@ -79,47 +79,43 @@ reducemp4 () {
 
 
 restoreBUoverlay() {
-	orifold=$PWD
-	fold="${orifold}/BU_Music_overlay/"
-	cd "$fold"
-	for i in *mp4; do
-		nname="${i:0:4}.mp4"
-		mv "$i" "$orifold/$nname"
-	done
-	cd "$orifold"
+    orifold=$PWD
+    fold="${orifold}/BU_Music_overlay/"
+    cd "$fold"
+    for i in *mp4; do
+        nname="${i:0:4}.mp4"
+        mv "$i" "$orifold/$nname"
+    done
+    cd "$orifold"
 }
-
-
-
 
 
 renamemp4ext() {
-	count=$(ls -1 *.MP4 2>/dev/null | wc -l)
-	if [[ "$count" -gt "0" ]]; then
-		cecho -c "Rename MP4 to mp4 ----------"
-		for i in *MP4; do
-			nname="$(basename $i .MP4).mp4"
-			tname="$(basename $i .MP4)__rename.mp4"
-			mv "$i" "$tname"
-			mv "$tname" "$nname"
-		done
-	fi
+    count=$(ls -1 *.MP4 2>/dev/null | wc -l)
+    if [[ "$count" -gt "0" ]]; then
+        cecho -c "Rename MP4 to mp4 ----------"
+        for i in *MP4; do
+            nname="$(basename $i .MP4).mp4"
+            tname="$(basename $i .MP4)__rename.mp4"
+            mv "$i" "$tname"
+            mv "$tname" "$nname"
+        done
+    fi
 }
 
 normamp3() {
-	cecho -c "Norma mp3 ----------"
-	# if [ ! -d "BU_mp3" ]; then
-		# Directory does not exist, so create it
-	mkdir -p "BU_music"
-	# fi
-	for i in *.mp3;do 
-		if [[ ! -f "BU_music/${i}" ]]; then
-			cp "$i" "BU_music/${i}"
-		fi
-	done
-	mp3gain -r -d 3 -p *mp3
+    cecho -c "Norma mp3 ----------"
+    # if [ ! -d "BU_mp3" ]; then
+        # Directory does not exist, so create it
+    mkdir -p "BU_music"
+    # fi
+    for i in *.mp3;do 
+        if [[ ! -f "BU_music/${i}" ]]; then
+            cp "$i" "BU_music/${i}"
+        fi
+    done
+    mp3gain -r -d 3 -p *mp3
 }
-
 
 
 checkcodec() {
@@ -128,12 +124,12 @@ checkcodec() {
     # t=$(exiftool -n -T -CompressorName -s3 $i)
     t=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$i")
     if [[ "$t" =~ "265" ]]; then
-		nname="$(basename $i .mp4)___temp.mp4"
-		mv "$i" "$nname"
-		cecho -y "Convert codec $i:"
-		ffmpeg -stats -loglevel error  -i "$nname" "$i"
-		echo .
-		rm "$nname"
+        nname="$(basename $i .mp4)___temp.mp4"
+        mv "$i" "$nname"
+        cecho -y "Convert codec $i:"
+        ffmpeg -stats -loglevel error  -i "$nname" "$i"
+        echo .
+        rm "$nname"
         # cecho -r "${i} - ${t}"
     else 
         cecho -g "${i} - ${t}"
@@ -143,18 +139,18 @@ checkcodec() {
 
 
 checkstarttime() {
-	cecho -c "respair ----------"
-	for i in *mp4; do
-		sumstarttime=$(ffprobe -v error -show_entries stream=start_time -of default=noprint_wrappers=1:nokey=1 "$i" | paste -sd+ | bc)
-		cecho -y "${i} - sumestarttime: ${sumstarttime}"
-		if (($(echo $sumstarttime '>' 0|bc))); then
-			nname="$(basename $i .mp4)"
-			mv "$i" "${nname}___temp.mp4"
-			cecho -g "repair $i:"
-			ffmpeg -stats -loglevel error -err_detect ignore_err -i "${nname}___temp.mp4" -c copy "$i"
-			rm "${nname}___temp.mp4"
-		fi
-	done
+    cecho -c "respair ----------"
+    for i in *mp4; do
+        sumstarttime=$(ffprobe -v error -show_entries stream=start_time -of default=noprint_wrappers=1:nokey=1 "$i" | paste -sd+ | bc)
+        cecho -y "${i} - sumestarttime: ${sumstarttime}"
+        if (($(echo $sumstarttime '>' 0|bc))); then
+            nname="$(basename $i .mp4)"
+            mv "$i" "${nname}___temp.mp4"
+            cecho -g "repair $i:"
+            ffmpeg -stats -loglevel error -err_detect ignore_err -i "${nname}___temp.mp4" -c copy "$i"
+            rm "${nname}___temp.mp4"
+        fi
+    done
 }
 
 
@@ -162,19 +158,19 @@ checkaudiosamplerate() {
   cecho -c "Check Audio Sample Rate ----------"
   for i in *mp4; do
     t=$(exiftool -n -T -AudioSampleRate -s3 $i)
-	# ts=$(ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
+    # ts=$(ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
     # cecho -y "${i} - AudioSampleRate: ${t} - timescale: ${ts}"
     cecho -y "${i} - AudioSampleRate: ${t}"
     if [[ "$t" != "48000" ]]; then
-		nname="$(basename $i .mp4)"
-		mv "$i" "${nname}___temp.mp4"
-		cecho -g "Change audio sample rate to 48000 $i:"
-		ffmpeg -stats -loglevel error -i "${nname}___temp.mp4" -vn -acodec copy "${nname}___temp.aac"
-		ffmpeg -stats -loglevel error -i "${nname}___temp.aac" -ar 48000 "${nname}.aac"
-		ffmpeg -stats -loglevel error -i "${nname}___temp.mp4" -i "${nname}.aac" -c:v copy -map 0:v:0 -map 1:a:0 "$i"
-		# ffmpeg -stats -loglevel error  -i "$nname" -ar 48000 "$i"
-		echo .
-		rm "${nname}___temp.mp4" "${nname}___temp.aac" "${nname}.aac"
+        nname="$(basename $i .mp4)"
+        mv "$i" "${nname}___temp.mp4"
+        cecho -g "Change audio sample rate to 48000 $i:"
+        ffmpeg -stats -loglevel error -i "${nname}___temp.mp4" -vn -acodec copy "${nname}___temp.aac"
+        ffmpeg -stats -loglevel error -i "${nname}___temp.aac" -ar 48000 "${nname}.aac"
+        ffmpeg -stats -loglevel error -i "${nname}___temp.mp4" -i "${nname}.aac" -c:v copy -map 0:v:0 -map 1:a:0 "$i"
+        # ffmpeg -stats -loglevel error  -i "$nname" -ar 48000 "$i"
+        echo .
+        rm "${nname}___temp.mp4" "${nname}___temp.aac" "${nname}.aac"
     fi
   done
 }
@@ -234,6 +230,24 @@ checkduration() {
 }
 
 
+printfps() {
+  cecho -c "Show FPS ----------"
+  for i in *mp4; do
+    fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
+    fr2=$(calc -d "round($fr)")
+    fr2=$(echo $fr2)
+    # ts=$(ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
+    if [[ "$fr2" > "30" ]]; then
+        cecho -y "${i} - framerate: " -r "${fr}"
+        else if [[ "$fr2" < "30" ]]; then  
+            cecho -y "${i} - framerate: " -w "${fr}"
+        else 
+            cecho -y "${i} - framerate: " -g "${fr}"
+        fi
+    fi
+  done
+}
+
 
 reducefr30() {
   cecho -c "Check FPS ----------"
@@ -242,12 +256,12 @@ reducefr30() {
     fr=$(calc -d "round($fr)")
     fr=$(echo $fr)
     # ts=$(ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
-	cecho -y "${i} - framerate: ${fr}"
+    cecho -y "${i} - framerate: ${fr}"
     if [[ "$fr" > "30" ]]; then
       nname="$(basename $i .mp4)___old_fr-$fr.mp4"
       mv "$i" "$nname"
       cecho -g "Convert $i:"
-      ffmpeg -stats -loglevel error -i "$nname" -framerate 30 "$i"
+      ffmpeg -stats -loglevel error -i "$nname" -r 30 -video_track_timescale 30000 "$i"
       rm "$nname"
     fi
   done
@@ -257,7 +271,7 @@ checktimescale30() {
   cecho -c "Check timescale ----------"
   for i in *mp4; do
     ts=$(ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
-	cecho -y "${i} - timescale: ${ts}"
+    cecho -y "${i} - timescale: ${ts}"
     if [[ "$ts" != "1/30000" ]]; then
       nname="$(basename $i .mp4)___temp.mp4"
       mv "$i" "$nname"
@@ -273,26 +287,30 @@ checktimescale30() {
 addaudio() {
   cecho -c "Check Add audio ----------"
   for i in *mp4; do
-	cecho -y "${i}"
+    cecho -y "${i}"
     t=$(exiftool -n -T -AudioChannels -s3 $i)
-	# t2=$(ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
+    # t2=$(ffprobe -v error -select_streams a:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
     if [[ "$t" == "-" ]]; then
       bname="$(basename $i .mp4)"
       mv "$i" "${bname}___temp.mp4"
       cecho -g "Add audio $i:"
       # ffmpeg -stats -loglevel error  -i "${bname}___temp.mp4" -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 -video_track_timescale 30000 -shortest -y "$i"
-	  ffmpeg -stats -loglevel error -i "${bname}___temp.mp4" -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "${bname}___temp2.mp4"
-	  ffmpeg -stats -loglevel error -i "${bname}___temp2.mp4" -ar 48000 -c:v copy "$i" 
+      ffmpeg -stats -loglevel error -i "${bname}___temp.mp4" -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "${bname}___temp2.mp4"
+      ffmpeg -stats -loglevel error -i "${bname}___temp2.mp4" -ar 48000 -c:v copy "$i" 
       echo .
       rm "${bname}___temp2.mp4" "${bname}___temp.mp4"
     fi
   done
 }
 
+replacespacesfilename () {
+  for f in *\ *; do mv "$f" "${f// /_}"; done
+}
 
 
 # convert mov to mp4
 mov2mp4 () {
+   replacespacesfilename
    for i in $(ls -1 |grep -iE "MOV$|mov$"); do
        echo --------------------------------
        cecho -y "Convert $i to mp4"

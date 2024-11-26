@@ -88,10 +88,11 @@ for /F "usebackq tokens=*" %%p in (%file%) do (
 	set ext=%%~xp
 	set filenamenew=!filenamenoext!_old_%TIMESTAMP%!ext!
 	:: check rate video
-	ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%p > tempfile
-	set /p RVdt=<tempfile
+	for /f %%i in ('ffprobe -v error -select_streams v:0 -show_entries stream^=time_base -of default^=noprint_wrappers^=1:nokey^=1 "%%p"') do set RVdt=%%i
+	REM ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 %%p > tempfile
+	REM set /p RVdt=<tempfile
 	set RVfile=!RVdt:1/=!
-	del tempfile
+	REM del tempfile
 	rename "%%p" "!filenamenew!"
 	REM ffmpeg -stats -loglevel error -y -i "!filenamenew!" -af "atempo=%speed%" -vf "setpts=PTS/%speed%" "!filenamenoext!__temp!ext!"
 	REM ffmpeg -stats -loglevel error -i "!filenamenoext!__temp!ext!" -video_track_timescale !RVfile! "%%~np_f%speed%%%~xp"

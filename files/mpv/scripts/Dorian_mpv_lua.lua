@@ -7,15 +7,41 @@ end
 print("[INFO] - Lua bit version = ".._86or64());
 
 
-
-
+local mp = require "mp"
+local msg = require "mp.msg"
+local utils = require "mp.utils"
 
 -- local lanes = require('lanes')
  -- local luacom = require('luacom')
  -- local winapi = require("C:\\Program Files (x86)\\Lua\\5.1\\clibs\\winapi.dll")
  
- mp.add_key_binding('ü', function ()
-	mp.osd_message("\n\n` - show console\n\n F2 - rename in console\n k - Text overlay right \n K - Text overlay left \n l - Text overlay mouse position \n I - Add circle gif \n n - Open Losslesscut \n b - Speed \n h - Sound reduce \n g - Sound increase \n Z - Zoom \n R - Rotate \n N - Remove noice \n y - Keyframes \n B - easyblur \n a - cut \n C - cropeasy \n D - delete file  \n S - Add picture or/and sound \n U - Add video overlay \n a - cut in 2 \n - - add bike trip location\n - Shift+T Always on Top\n - ä - Stabilization with vidstab", 10)
+mp.add_key_binding('ü', function ()
+	mp.osd_message("\n\n"
+.."\n ` - show console"
+.."\n ä - Stabilization with vidstab"
+.."\n Shift+T Always on Top"
+.."\n - - add bike trip location"
+.."\n F2 - rename in console"
+.."\n $ - Fade in/out"
+.."\n % - Add circle gif"
+.."\n & - Frame Rate"
+.."\n a - cut in 2"
+.."\n B - easyblur"
+.."\n b - Speed"
+.."\n C - cropeasy"
+.."\n D - delete file"
+.."\n g - Sound increase"
+.."\n h - Sound reduce"
+.."\n K - Text overlay left"
+.."\n k - Text overlay right" 
+.."\n l - Text overlay mouse position"
+.."\n N - Remove noice"
+.."\n n - Open Losslesscut"
+.."\n R - Rotate"
+.."\n S - Add picture or/and sound"
+.."\n U - Add video overlay"
+.."\n y - Keyframes"
+.."\n Z - Zoom", 10)
 end)
 
 -- mp.add_key_binding('W', function ()
@@ -23,6 +49,14 @@ end)
 	-- Shell:Run ("echo test", 0)
 -- end)
 
+
+
+mp.add_key_binding("ö", function ()
+	print("test timestamp")
+	text = os.date("%X")
+	print(text)
+	mp.osd_message(text, 1000)
+end)
 
 ------------------------------
  
@@ -59,7 +93,15 @@ end)
 mp.add_key_binding('D', function ()
 	video_path = mp.get_property("path")
 	mp.osd_message("Delete file")
-	os.remove(video_path)
+	-- os.remove(video_path)
+	directory, filename = utils.split_path(video_path)
+	strCmd = "nircmd moverecyclebin "..video_path
+	print(strCmd)
+	os.execute(strCmd)
+	-- print("Try to delete")
+	-- print(video_path)
+	-- print("C:\\$Recycle.Bin\\"..filename)
+	-- os.rename(video_path, "C:\\$Recycle.Bin\\"..filename)
 end)
 
 
@@ -135,7 +177,7 @@ end)
 
 
 mp.add_key_binding('b', function ()
-	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\SpeedUp_v04___FFMPEG.bat"'
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\SpeedUp_SINGLE_v05___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
 	strCmd = 'cmder /x "/cmd '..strProgram..' '..video_path..'"'
@@ -144,6 +186,32 @@ mp.add_key_binding('b', function ()
 	os.execute(strCmd)
 end)
 
+------------------------------
+
+
+mp.add_key_binding('&', function ()
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\FrameRate_v01___FFMPEG.bat"'
+	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
+	video_path = mp.get_property("path")
+	strCmd = 'cmder /x "/cmd '..strProgram..' '..video_path..'"'
+	print(strCmd)
+	mp.osd_message("FrameRate")
+	os.execute(strCmd)
+end)
+
+
+------------------------------
+
+
+mp.add_key_binding('$', function ()
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Fade_In_Out_v03___FFMPEG.bat"'
+	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
+	video_path = mp.get_property("path")
+	strCmd = 'cmder /x "/cmd '..strProgram..' '..video_path..'"'
+	print(strCmd)
+	mp.osd_message("Fade In/Out")
+	os.execute(strCmd)
+end)
 
 ------------------------------
 
