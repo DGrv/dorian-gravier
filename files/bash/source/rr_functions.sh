@@ -43,18 +43,19 @@ sesExtract () {
         cecho -y "Export list from settings:"
         let i=1
         echo > "$fdir/output_list.csv"
+        echo > "$fdir/output_list_selectors.csv"
         # get only what I need
         # extract with perl the json
         # remove \" that is making problems for jq
         # transform unicode (\u0026 ...) with ascii2uni -a U -q
         # then work per line
         grep -s "ListName" "$fdir/settings.csv" | perl -pe "s|.*({\"ListName.*})\t.*|\1|g" | perl -pe "s|\\\\\"|'|g"  | ascii2uni -a U -q | while read line ; do 
-            echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ----  /g"  >> "$fdir/output_list.csv"
-            echo "ORDER;Label;Descending;Grouping;GroupingFilterDefault" >> "$fdir/output_list.csv"
+            echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ;\"----\";  /g"  >> "$fdir/output_list.csv"
+            echo "ORDER;Label;Descending;Grouping;GroupingFilterDefault;__________" >> "$fdir/output_list.csv"
             # ; is the separator of the csv, then add \" so a quote for each cell, this \(.Expression) is extract the value with jq
             echo "$line" | jq -r '.Orders[] | ";\"\(.Expression)\";\"\(.Descending)\";\"\(.Grouping)\";\"\(.GroupFilterDefault)\""' >> "$fdir/output_list.csv"
             echo ";" >> "$fdir/output_list.csv"
-            echo "$line" | jq -r  >> "$fdir/output_list.csv"
+            echo "$line" | jq -r '"\"LineDynamicFormat\";\"\(.LineDynamicFormat)\""' >> "$fdir/output_list.csv"
             echo ";" >> "$fdir/output_list.csv"
             echo "FIELDS;Label;Expression;LineDynamicFormat" >> "$fdir/output_list.csv"
             echo "$line" | jq -r '.Fields[] | ";\"\(.Label)\";\"\(.Expression)\";\"\(.LineDynamicFormat)\""' >> "$fdir/output_list.csv"
@@ -64,13 +65,18 @@ sesExtract () {
             echo ";"  >> "$fdir/output_list.csv"
             echo "SELECTORS" >> "$fdir/output_list.csv"
             # jq play : .SelectorResults[] | "\(.ResultID) \(.ShowAs)"
-            echo "$line" | jq -r '.SelectorResults[] | ";\"\(.ResultID)\";\"\(.ShowAs)\""' | tr -d \{  | tr -d \} | perl -pe "s/\|/\";\"/g" >> "$fdir/output_list.csv"
+            echo "$line" | jq -r '.SelectorResults[] | ";\"\(.ResultID)\";\"\(.ShowAs)\";"' | tr -d \{  | tr -d \} | perl -pe "s/\|/\";\"/g" | ascii2uni -a U -q >> "$fdir/output_list.csv"
             echo ";" >> "$fdir/output_list.csv"
+            echo "-------------" >> "$fdir/output_list.csv"
             echo "-------------" >> "$fdir/output_list.csv"
             echo ";"  >> "$fdir/output_list.csv"
             echo ";"  >> "$fdir/output_list.csv"
+            
+            echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ----  /g"  >> "$fdir/output_list_selectors.csv"
+            echo "$line" | jq -r '.SelectorResults[] | ";\"\(.ResultID)\";\"\(.ShowAs)\""' | tr -d \{  | tr -d \} | perl -pe "s/\|/\";\"/g" | ascii2uni -a U -q >> "$fdir/output_list_selectors.csv"
+
             cecho -g "Line $i done"
-             let i++
+            let i++
         done
         cecho -g Done
         
