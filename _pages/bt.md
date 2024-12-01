@@ -176,6 +176,8 @@ layout: single
 		map.createPane("pointsPane");
 
 		L.control.layers(baseLayers, overlays).addTo(map);
+		
+		map.addLayer(lBike); // to have it checked. placed it high maybe
 			
 		L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 
@@ -184,81 +186,78 @@ layout: single
     		for (var j = 0; j < loopinfoBikeTrip2022.what.length; j += 1) {
     			for (var i = 0; i < loopinfoBikeTrip2022.what[j].length; i += 1) {
 
-				var url = loopinfoBikeTrip2022.what[j][i];
-				var trackcolor = loopinfoBikeTrip2022.trackcolor[j];
-				var project = loopinfoBikeTrip2022.project[j];
-				
-								
-				var g = new L.GPX(url,
-					{async: true,
-					pane: "linesPane" ,
-					parseElements: ['track'],
-					polyline_options: { color: trackcolor},
-					marker_options: {
-						startIconUrl: '',
-						endIconUrl: '',
-						shadowUrl: '',
-						wptIconUrls : {
-							'wpt': '',
-						},
-						wptIconTypeUrls : {
-							'wpt': '',
-						},
-						clickable: true
-						}
-					});
+					var url = loopinfoBikeTrip2022.what[j][i];
+					var trackcolor = loopinfoBikeTrip2022.trackcolor[j];
+					var project = loopinfoBikeTrip2022.project[j];
 					
+					var g = new L.GPX(url,
+						{async: true,
+						pane: "linesPane" ,
+						parseElements: ['track'],
+						polyline_options: { color: trackcolor},
+						marker_options: {
+							startIconUrl: '',
+							endIconUrl: '',
+							shadowUrl: '',
+							wptIconUrls : {
+								'wpt': '',
+							},
+							wptIconTypeUrls : {
+								'wpt': '',
+							},
+							clickable: true
+							}
+						});
 					
-				
-				// Important https://github.com/mpetazzoni/leaflet-gpx/issues/105
-				// I needed help from someone to understand how to retrieve (or not) the url of the gpx :
-				// The library doesn't have a way to get you back the URL of the GPX that was loaded, because it doesn't just take URLs as input (you can also directly pass GPX XML to the L.GPX(...) constructor). But since you already have that URL in your code, you don't need the library to give it back to you.
-				// Your problem here is a classic Javascript callback scope capture problem. You can read more about this here: https://www.pluralsight.com/guides/javascript-callbacks-variable-scope-problem
+					// Important https://github.com/mpetazzoni/leaflet-gpx/issues/105
+					// I needed help from someone to understand how to retrieve (or not) the url of the gpx :
+					// The library doesn't have a way to get you back the URL of the GPX that was loaded, because it doesn't just take URLs as input (you can also directly pass GPX XML to the L.GPX(...) constructor). But since you already have that URL in your code, you don't need the library to give it back to you.
+					// Your problem here is a classic Javascript callback scope capture problem. You can read more about this here: https://www.pluralsight.com/guides/javascript-callbacks-variable-scope-problem
 
 
-				// g.on('loaded', (function() {
-					// var _url = url;
-					// var _project = project;
-					// return function(e) {
-						// var gpx = e.target;
-						// namegpx = gpx.get_name(),
-						// distM = gpx.get_distance(),
-						// distKm = distM / 1000,
-						// distKmRnd = distKm.toFixed(1),
-						// eleGain = gpx.get_elevation_gain().toFixed(0),
-						// eleLoss = gpx.get_elevation_loss().toFixed(0),
-						// cen = gpx.getBounds().getCenter();
-						
-						// var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet/#15/' + cen.lat + '/' + cen.lng;
-					
-
-						// // register popup on click
-						// var info = "<b>Name: " + namegpx + "</b></br>" +
-							// "<b>Distance:</b> " + distKmRnd + " km </br>" +
-							// "<b>Elevation Gain:</b> " + eleGain + " m </br>" +
-						// "<b>Elevation Loss:</b> " + eleLoss + " m </br>" +
-							// "<a href='" + _url + "' target='_blank'>Download gpx</a></br>" +
-							// "<a href='" + share + "' target='_blank'>Share location</a></br>";
+					// g.on('loaded', (function() {
+						// var _url = url;
+						// var _project = project;
+						// return function(e) {
+							// var gpx = e.target;
+							// namegpx = gpx.get_name(),
+							// distM = gpx.get_distance(),
+							// distKm = distM / 1000,
+							// distKmRnd = distKm.toFixed(1),
+							// eleGain = gpx.get_elevation_gain().toFixed(0),
+							// eleLoss = gpx.get_elevation_loss().toFixed(0),
+							// cen = gpx.getBounds().getCenter();
 							
-						// gpx.getLayers()[0].bindPopup(info);
+							// var share = 'https://dgrv.github.io/dorian.gravier.github.io/leaflet/#15/' + cen.lat + '/' + cen.lng;
 						
-						// if ( _project == true ) {
-							// gpx.setStyle({opacity: 0.95, dashArray: '10 5'});
-						// };
-						// }})() ); // important to have this : )() )
-				
 
-				g.on('mouseover', function(e) {
-					e.target.setStyle({opacity: 0.7, weight: 6});
-				});
+							// // register popup on click
+							// var info = "<b>Name: " + namegpx + "</b></br>" +
+								// "<b>Distance:</b> " + distKmRnd + " km </br>" +
+								// "<b>Elevation Gain:</b> " + eleGain + " m </br>" +
+							// "<b>Elevation Loss:</b> " + eleLoss + " m </br>" +
+								// "<a href='" + _url + "' target='_blank'>Download gpx</a></br>" +
+								// "<a href='" + share + "' target='_blank'>Share location</a></br>";
+								
+							// gpx.getLayers()[0].bindPopup(info);
+							
+							// if ( _project == true ) {
+								// gpx.setStyle({opacity: 0.95, dashArray: '10 5'});
+							// };
+							// }})() ); // important to have this : )() )
+					
 
-				g.on('mouseout', function(e) {
-					e.target.setStyle({opacity: 1, weight: 3});
-				});
+					g.on('mouseover', function(e) {
+						e.target.setStyle({opacity: 0.7, weight: 6});
+					});
 
-				g.addTo(loopinfoBikeTrip2022.layer[j]);
+					g.on('mouseout', function(e) {
+						e.target.setStyle({opacity: 1, weight: 3});
+					});
+
+					g.addTo(loopinfoBikeTrip2022.layer[j]);
+				};
 			};
-		};
 		
 
 	
@@ -279,8 +278,7 @@ layout: single
 			}).addTo(map);
 		}
 
-		map.addLayer(lBike); // add by default the bike gpx overlays
-		map.addLayer(lStop); // add by default the bike gpx overlays
+		
 		
 		
 		
@@ -388,9 +386,12 @@ layout: single
 			position: 'bottomleft'
 		}).addTo(map);
 	
-
+		
 
     	</script>
+		
+		
+		
 	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
 	<br>

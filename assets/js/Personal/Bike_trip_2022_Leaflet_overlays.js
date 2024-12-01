@@ -79,6 +79,7 @@ var opensnowmapPiste = L.layerGroup();
 
 var overlays = {
 	"Bike Trip 2022": lBike,
+	"Stop 2022": lStop,
 };
 
 var hutteIcon = L.icon({
