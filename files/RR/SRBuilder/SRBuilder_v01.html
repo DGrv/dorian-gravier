@@ -17,6 +17,8 @@
             webr = new WebR();
             await webr.init();
             console.log('WebR initialized');
+            // Hide the loading overlay once WebR is initialized
+            document.getElementById('loadingOverlay').style.display = 'none';
         }
 
         let ninputs=10
@@ -131,6 +133,28 @@
         // Automatically initialize WebR
         window.addEventListener('load', initializeWebR);
     </script>
+
+    <script>
+        // Function to simulate a delay and hide the loading animation
+        function simulateProcess() {
+            // Simulate a process (e.g., loading or waiting for something to complete)
+            setTimeout(() => {
+                // Once your specific code reaches the desired point, hide the overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+
+                // Continue with the rest of your logic here
+                console.log("Process completed! Overlay hidden.");
+            }, 3000);  // Simulating a delay (3 seconds)
+        }
+
+        // Call simulateProcess when the page loads or at the start of your logic
+        window.addEventListener('load', simulateProcess);
+    </script>
+
+
+
+
+
     <!-- Include highlight.js CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -166,6 +190,7 @@
         }
         pre {
             padding: 0em;
+            margin: 0.2em 0px;
         }
         .page {
 			width: 100%; /* Overwrite default page css to get map on all the width */
@@ -199,13 +224,26 @@
             color: #ede4d3;
         }
     </style>
+    
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 
 
 
 </head>
 <body>
+    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div id="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;"></div>
+    </div>
+    
+
+
     <h1>Special Result Builder</h1>
-    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a> with the help of <a href="https://chatgpt.com/">ChatGPT</a> and <a href="https://docs.r-wasm.org/webr/latest/">webR</a>.</p>
+    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a> with the help of <a href="https://chatgpt.com/">ChatGPT</a> using <a href="https://docs.r-wasm.org/webr/latest/">webR</a> and <a href="https://highlightjs.org/">highlight.js</a>.</p>
     <div class="flex"> 
         <p>The input boxes will permit you to use R code that will be run in the form of </p>
         <pre><code class="language-r">paste0(input1, input2, input3, ...)</code></pre>
@@ -216,6 +254,7 @@
         <button id="example1" onclick="loadExample1()">Load Example1</button>
         <pre><code class="language-r">paste0(201:210, ";Lap", 1:10, ";;0;;T", 101:110, "-T", (101:110)-1)</code></pre>
     </div>
+    <p>In some case you need a carriage return (\n) followed by a space. Use then "\n " in your string.</p>
     <div class="flex">
         <button id="example2" onclick="loadExample2()">Load Example2</button> 
         <pre><code class="language-r">paste0(2002:2100, ";Control", 2:100, ";;0;CONTROL;(RAWDATA)\n 0;0;0;", 101:149, ";30;-1;0")</code></pre>
@@ -223,20 +262,20 @@
 
     <br>
     <!-- Input boxes for user values -->
-    <div class="input-container">
-        <input type="text" id="input1" placeholder="Enter value for input1">
-        <input type="text" id="input2" placeholder="input2">
-        <input type="text" id="input3" placeholder="input3">
-        <input type="text" id="input4" placeholder="input4">
-        <input type="text" id="input5" placeholder="input5">
+    <div class="input-container flex">
+        1<input type="text" id="input1" placeholder="Enter value for input1">
+        2<input type="text" id="input2" placeholder="input2">
+        3<input type="text" id="input3" placeholder="input3">
+        4<input type="text" id="input4" placeholder="input4">
+        5<input type="text" id="input5" placeholder="input5">
     </div>
     <br>
-    <div class="input-container">
-        <input type="text" id="input6" placeholder="input6">
-        <input type="text" id="input7" placeholder="input7">
-        <input type="text" id="input8" placeholder="input8">
-        <input type="text" id="input9" placeholder="input9">
-        <input type="text" id="input10" placeholder="input10">
+    <div class="input-container flex">
+        6<input type="text" id="input6" placeholder="input6">
+        7<input type="text" id="input7" placeholder="input7">
+        8<input type="text" id="input8" placeholder="input8">
+        9<input type="text" id="input9" placeholder="input9">
+        10<input type="text" id="input10" placeholder="input10">
     </div>
     <br>
     
