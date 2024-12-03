@@ -4,4 +4,4 @@ author_profile: false
 layout: single
 ---
 
-{% include_relative ../files/RR/SRBuilder/SRBuilder_01.html %}
+{% include SRBuilder/SRBuilder_01.html %}
