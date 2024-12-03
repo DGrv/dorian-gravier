@@ -195,6 +195,7 @@ local crop = function(p1, p2)
 	local t1 = mp.get_property_number("time-pos")
 	-- strCmd = 'ffmpeg -i "'..video_in..'" -filter_complex "[0:v]crop='..w..':'..h..':'..p1.x..':'..p1.y..',boxblur=10[fg]; [0:v][fg]overlay='..p1.x..':'..p1.y..'[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
 	strCmd = 'ffmpeg -i "'..video_in..'" -vf "[0:v]scale=in_w*4:in_h*4,crop='..w..':'..h..':'..p1.x..':'..p1.y..':keep_aspect=1,scale=1920:1080" -c:v libx264 -c:a copy -movflags +faststart "'..video_path..'"'
+    draw_clear() -- added 202411, maybe make problems
 	print(strCmd)
 	io.write(strCmd)
 	os.execute(strCmd)

@@ -197,19 +197,29 @@ if( zoom.closer ) {
 # help from this https://forum.posit.co/t/aspect-ratio-of-a-plot-produced-with-ggplot2-coord-quickmap/9282/2
 coord <- coord_quickmap(xlim = ex$lon, ylim = ex$lat)
 asp <- coord$aspect(list(x.range = ex$lon, y.range = ex$lat))
+plot.width <- 1920
+plot.height <- 1080
+aps.correction <- .9 # Scaling that accounts for spaced you by title
 
 
+# Let coord_quickmap figure out the aspect ratio:
+coord <- coord_quickmap(xlim = range(quakes$long), ylim = range(quakes$lat), expand = F)
+asp <- coord$aspect(list(x.range = range(quakes$long), y.range = range(quakes$lat)))
+asp
+aps.correction <- 0.6
 
 
 
 a <- ggplot()+
   geom_polygon(data=world, aes(long, lat, group = group), colour='black', fill="gray80", linewidth=1.25)+
   # coord_cartesian(xlim = c(-22,20), ylim = c(36, 52))+
-  coord_cartesian(xlim = ex$lon/asp, ylim = ex$lat)+
+  # coord_cartesian(xlim = ex$lon/asp, ylim = ex$lat)+
+  coord_cartesian(xlim = ex$lon/asp/aps.correction, ylim = ex$lat)+
   geom_point(data = loc, aes(x = lon, y = lat), color = cc[2], size = 7) + 
   # geom_label(data = loc, aes(lon, lat, label = lookfor), fill = cc, size = 14, hjust = -0.1, vjust = 1.2)
   # geom_label_repel(data = loc, aes(lon, lat, label = lookfortext), fill = cc[2], color = "black", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA, label.)
   geom_label_repel(data = loc, aes(lon, lat, label = lookfortext), fill = cc[2], color = "black", size = 14, hjust = -0.2, vjust = 1.3, label.r = 0.5, segment.colour = NA)
+printfast(a, "Location_choose_white.png", ext = "png", height = 1080, width = 1920)
 a
 
 if( add.bike ) {

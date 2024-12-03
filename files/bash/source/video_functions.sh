@@ -61,6 +61,29 @@ keyframe () {
 }
 
 
+concat2mp4 () {
+    for i in *.mp4; do 
+        nname="$(basename $i .mp4).ts"
+        ffmpeg -stats -loglevel error  -i $i -c copy -bsf:v h264_mp4toannexb -f mpegts $nname
+        # ffmpeg -stats -loglevel error -i $i -c copy $nname
+    done
+    listts=$(ls -1 *.ts | perl -pe "s/\n/|/")
+    listts=${listts::-1}
+    # ffmpeg -stats -loglevel error -i "concat:${listts}" -c copy concat2.mp4
+    ffmpeg -stats -loglevel error -i "concat:${listts}" -c copy -bsf:a aac_adtstoasc concat2.mp4
+    ls -1 |grep -E "*.ts$" | xargs rm
+}
+
+concatmp4 () {
+    for i in *.mp4; do 
+        nname="$(basename $i .mp4).ts"
+        ffmpeg -stats -loglevel error -i $i -c copy $nname
+    done
+    listts=$(ls -1 *.ts | perl -pe "s/\n/|/")
+    listts=${listts::-1}
+    ffmpeg -stats -loglevel error -i "concat:${listts}" -c copy concat.mp4
+    ls -1 |grep -E "*.ts$" | xargs rm
+}
 
 mergemp4 () {
     rm listmerge 2> /dev/null

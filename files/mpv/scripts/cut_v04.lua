@@ -50,9 +50,9 @@ function cut()
 	print("[DEBUG] - strCmd1 = "..strCmd1)
 	print("[DEBUG] - strCmd2 = "..strCmd2)
 	print("[DEBUG] - debugcmd = "..debugcmd)
-	os.execute('echo "'..debugcmd..'" > '..vpath..'debugMPV')
-	os.execute('echo '..strCmd1..' >> '..vpath..'debugMPV')
-	os.execute('echo '..strCmd2..' >> '..vpath..'debugMPV')
+	-- os.execute('echo "'..debugcmd..'" > '..vpath..'debugMPV')
+	-- os.execute('echo '..strCmd1..' >> '..vpath..'debugMPV')
+	-- os.execute('echo '..strCmd2..' >> '..vpath..'debugMPV')
 	
 
 	os.execute(strCmd1.." && "..strCmd2)

@@ -270,4 +270,13 @@ mpv rtsp://root:system@192.168.1.207/axis-media/media.amp --stream-record="C:\Us
 
 ```
 
+# mpv play multiple video side by side
 
+[source](https://github.com/mpv-player/mpv/issues/3854)
+
+```sh
+# 2 videos: mpv <video1> --external-file=<video2> --lavfi-complex='[vid1] [vid2] hstack [vo]'
+# 4 videos: mpv <video1> --external-file=<video2> --external-file=<video3> --external-file=<video4> --lavfi-complex='[vid1] [vid2] hstack [t1] ; [vid3] [vid4] hstack [t2] ; [t1] [t2] vstack [vo]'
+
+mpv merge.mp4 --external-file=concat.mp4 --lavfi-complex="[vid1] [vid2] hstack [vo]"
+```

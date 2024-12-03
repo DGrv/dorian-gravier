@@ -177,7 +177,7 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 
 	:: Music
 	echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
-	ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" > Music_list_temp.txt
+	ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" | perl -pe "s/^x - |^y - |^z - //g" > Music_list_temp.txt
 	
 
 	
@@ -329,6 +329,7 @@ echo.
 		echo Music:> Music_temp
 		echo. >> Music_temp
 		cat Music_list_temp.txt >> Music_temp
+		
 		call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Create_title_clip_v08___FFMPEG.bat 2 y 70 Music_temp zzz_music_temp.mp4
 		del Music_temp
 	)
@@ -598,10 +599,12 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start bind [37m
 echo.
 
-	(for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
+	REM (for %%i in (*.mp4) do @echo file '%%i') > Listmp4_temp.txt
+	REM ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_BIND.mp4
+	REM del Listmp4_temp.txt
+	bash -c "source ~/.bashrc;concatmp4"
+	rename concat.mp4 output_BIND.mp4
 	
-	ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_BIND.mp4
-	del Listmp4_temp.txt
 	
 	bash -c "ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3"
 	if EXIST input_temp.mp3 (

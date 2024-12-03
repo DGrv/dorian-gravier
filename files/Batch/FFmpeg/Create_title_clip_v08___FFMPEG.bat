@@ -172,7 +172,7 @@ del %last%
 ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000  -video_track_timescale 30000 -shortest -y "title.mp4"
 del temp.mp4
 
-rename title.mp4 "%ouputfile%"
+rename "title.mp4" "%ouputfile%"
 
 
 

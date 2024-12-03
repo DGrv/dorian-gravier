@@ -30,6 +30,7 @@ mp.add_key_binding('ü', function ()
 .."\n b - Speed"
 .."\n C - cropeasy"
 .."\n D - delete file"
+.."\n G - Overlay video"
 .."\n g - Sound increase"
 .."\n h - Sound reduce"
 .."\n K - Text overlay left"
@@ -70,6 +71,19 @@ mp.add_key_binding('N', function ()
 	strCmd = 'ffmpeg -stats -loglevel error  -i "' ..video_in.. '" -af arnndn=m="C\\\\:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg/filters/rnnoise-models/conjoined-burgers-2018-08-28/cb.rnnn" -c:v copy ' ..video_path..'"'
 	print(strCmd)
 	mp.osd_message("Remove noise")
+	os.execute(strCmd)
+end)
+
+
+------------------------------
+ 
+mp.add_key_binding('G', function ()
+	video_path = mp.get_property("path")
+	local t1 = mp.get_property_number("time-pos")
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_video_overlay_v01___FFMPEG.bat"'
+	strCmd = 'cmder /x "/cmd '..strProgram..' "'..video_path..'" '..t1..'"'
+	print(strCmd)
+	mp.osd_message("Overlay video")
 	os.execute(strCmd)
 end)
 
@@ -236,7 +250,7 @@ mp.add_key_binding('h', function ()
 	video_path_noext = string.sub(video_path, 1, -5)
 	video_ext = string.sub(video_path, string.len(video_path) - 3, string.len(video_path))
 	timestamp = os.date("%Y%d%m_%H%M%S")
-	video_in = video_path_noext..'_'..timestamp..'_old'..video_ext
+	video_in = video_path_noext..'_'..timestamp..'_SoundReduce_old'..video_ext
 	os.rename(video_path, video_in)
 	strCmd = 'ffmpeg -stats -loglevel error  -i "' ..video_in.. '" -filter:a "volume=0.2" -c:v copy ' ..video_path..'"'
 	print(strCmd)
@@ -365,7 +379,7 @@ end)
 ------------------------------
 
 
-mp.add_key_binding('I', function ()
+mp.add_key_binding('%', function ()
 	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Add_circle_overlay_v01___FFMPEG.bat"'
 	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
 	video_path = mp.get_property("path")
