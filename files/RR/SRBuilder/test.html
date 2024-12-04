@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Information in Pre</title>
+    <style>
+        pre {
+            display: none; /* Hidden by default */
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            white-space: pre-wrap; /* Ensure text wraps */
+        }
+        button {
+            margin: 10px 0;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Show Information Example</h1>
+    <button id="showInfoButton">Show Information</button>
+    <pre id="infoPre">
+This is some preformatted text.
+You can include multiple lines of information here.
+It is displayed inside a <pre> tag.
+    </pre>
+
+    <script>
+        // Select the button and pre elements
+        const button = document.getElementById('showInfoButton');
+        const preElement = document.getElementById('infoPre');
+
+        // Add a click event listener to the button
+        button.addEventListener('click', () => {
+            // Toggle the visibility of the <pre> element
+            if (preElement.style.display === 'none') {
+                preElement.style.display = 'block';
+                button.textContent = 'Hide Information'; // Update button text
+            } else {
+                preElement.style.display = 'none';
+                button.textContent = 'Show Information'; // Update button text
+            }
+        });
+    </script>
+</body>
+</html>
