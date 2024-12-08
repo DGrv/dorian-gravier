@@ -44,6 +44,7 @@ sesExtract () {
         let i=1
         echo > "$fdir/output_list.csv"
         echo > "$fdir/output_list_selectors.csv"
+        echo "List;Expression;Color;BG" > "$fdir/output_list_colors.csv"
         # get only what I need
         # extract with perl the json
         # remove \" that is making problems for jq
@@ -53,7 +54,9 @@ sesExtract () {
             echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ;\"----\";  /g"  >> "$fdir/output_list.csv"
             echo "ORDER;Label;Descending;Grouping;GroupingFilterDefault;__________" >> "$fdir/output_list.csv"
             # ; is the separator of the csv, then add \" so a quote for each cell, this \(.Expression) is extract the value with jq
-            echo "$line" | jq -r '.Orders[] | ";\"\(.Expression)\";\"\(.Descending)\";\"\(.Grouping)\";\"\(.GroupFilterDefault)\""' >> "$fdir/output_list.csv"
+            # source : https://stackoverflow.com/questions/28164849/using-jq-to-parse-and-display-multiple-fields-in-a-json-serially
+            # echo "$line" | jq -r '.Orders[] | ";\"\(.Expression)\";\"\(.Descending)\";\"\(.Grouping)\";\"\(.GroupFilterDefault)\""' >> "$fdir/output_list.csv"
+            echo "$line" | jq -r '.Orders[] | ";\"\(.Expression)\";\"\(.Descending)\";\"\(.Grouping)\";\"\(.GroupFilterDefault)\"\"\(.Color)\"\"\(.BackgroundColor)\""' >> "$fdir/output_list.csv"
             echo ";" >> "$fdir/output_list.csv"
             echo "$line" | jq -r '"\"LineDynamicFormat\";\"\(.LineDynamicFormat)\""' >> "$fdir/output_list.csv"
             echo ";" >> "$fdir/output_list.csv"
@@ -75,6 +78,11 @@ sesExtract () {
             echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ----  /g"  >> "$fdir/output_list_selectors.csv"
             echo "$line" | jq -r '.SelectorResults[] | ";\"\(.ResultID)\";\"\(.ShowAs)\""' | tr -d \{  | tr -d \} | perl -pe "s/\|/\";\"/g" | ascii2uni -a U -q >> "$fdir/output_list_selectors.csv"
 
+            # colors
+            # source : https://stackoverflow.com/a/75932555/2444948
+            # source : https://stackoverflow.com/questions/67596741/how-to-combine-two-json-variables-using-jq
+            echo "$line" | jq -r '.ListName as $test |.Orders[] | [.Expression, .Color, .BackgroundColor] | join("\";\"") as $t2 | "\"" + $test + "\";\"" + $t2 + "\""'  >> "$fdir/output_list_colors.csv"
+            
             cecho -g "Line $i done"
             let i++
         done

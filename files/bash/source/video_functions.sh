@@ -62,6 +62,9 @@ keyframe () {
 
 
 concat2mp4 () {
+    # not better than concatmap4
+    # not better than concatmap4
+    # not better than concatmap4
     for i in *.mp4; do 
         nname="$(basename $i .mp4).ts"
         ffmpeg -stats -loglevel error  -i $i -c copy -bsf:v h264_mp4toannexb -f mpegts $nname
@@ -86,6 +89,7 @@ concatmp4 () {
 }
 
 mergemp4 () {
+    cecho -r "Do not use this function, use concatmp4 instead"
     rm listmerge 2> /dev/null
     touch listmerge
     for i in *.mp4; do 
@@ -326,9 +330,6 @@ addaudio() {
   done
 }
 
-replacespacesfilename () {
-  for f in *\ *; do mv "$f" "${f// /_}"; done
-}
 
 
 # convert mov to mp4
@@ -356,3 +357,10 @@ jpg2mp4 () {
     ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "${filename}.mp4"
     rm temp.mp4
 }
+
+
+
+
+
+
+
