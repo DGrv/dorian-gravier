@@ -34,7 +34,7 @@ done
 cd "$oripath/output" || exit
 matrixmp4
 
-# cmd.exe /c "mpv matrix.mp4 --loop-file=inf"
+cmd.exe /c "mpv matrix.mp4 --loop-file=inf"
 # cd "$oripath" || exit
 # rm -r output
 

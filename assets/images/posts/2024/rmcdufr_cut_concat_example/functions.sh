@@ -15,6 +15,8 @@ rlc () {
 }
 
 
+
+
 concatmp4 () {
     for i in *.mp4; do 
         nname="$(basename $i .mp4).ts"
