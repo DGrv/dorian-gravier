@@ -1,5 +1,5 @@
 ---
-permalink: /leaflet/
+permalink: /maps/leaflet/
 author_profile: false
 layout: code
 ---

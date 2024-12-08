@@ -1,5 +1,5 @@
 ---
-permalink: /bt/
+permalink: /maps/bt/
 author_profile: false
 layout: single
 ---

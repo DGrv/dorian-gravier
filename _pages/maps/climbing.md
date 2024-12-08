@@ -1,5 +1,5 @@
 ---
-permalink: /climbing/
+permalink: /maps/climbing/
 author_profile: false
 layout: single
 ---

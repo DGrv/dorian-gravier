@@ -1,8 +1,8 @@
 ---
-permalink: /Title_code/
+permalink: /code/
 layout: single
 sidebar:
-  nav: code
+  nav: navcode
 author_profile: false
 ---
 

@@ -75,9 +75,19 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	echo --------------------------------------------------------------------------------------------------------------------[37m
 	echo.
 
+	if "%1"=="" (
+		set /p wd="Where are your mp4 ? (E.g. C:\Users\DGrv\Downloads\test)  "
+		set wd=!wd:"=!
+	) else (
+		set wd=%1
+		set wd=!wd:"=!
+		set wd=!wd:~,-1!
+		set wd=!wd:~1!
+	) 
+
+	echo [91m[DEBUG] - wd: %wd% [37m
 
 
-	set /p wd="Where are your mp4 ? (E.g. C:\Users\DGrv\Downloads\test)  "
 	for %%a in (%wd%) do (
 		set pathh=%%~dpa
 		set filename=%%~nxa
@@ -89,10 +99,11 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	%drive%
 	cd %wd%
 
+
 	REM set /p tbdefault=Do you wanna use simple configuration for fps (24) and audio frequence (48Hz) [y/n] ? :
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
-	REM ---------------USE HERE DEFAULsimplemodeKT-------------------
+	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
 	set simplemode=n
 	set tbdefault=y
@@ -112,51 +123,38 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 					
 					
 	if %simplemode%==y (
-		set draft=n
 		set dooverlaymusic=n
 		set dofiligrane=n
 		goto next1
+	) else (
+		set dooverlaymusic=y
+		set dofiligrane=y
 	)
 	
 	
-	if %simplemode%==n (
-		echo.
-		set /p draft="Do you want to make the [94mdraft[37m version (no filigrane, no overlay) [y/n]: "
-		if !draft!==y (
-			set dooverlaymusic=n
-			set dofiligrane=n
-		) else (
-			set dooverlaymusic=y
-			set dofiligrane=y
-		)
-	)
+	
 
 	echo.
-	echo [91m
-	set /p temp="Did you add the date in your video ?"
-	echo [37m
+	REM echo [91m
+	REM set /p temp="Did you add the date in your video ?"
+	REM echo [37m
 	
 	:next1
 	
 	:: rename MP$ to mp4
 	bash -c "source ~/.bashrc;renamemp4ext"
-	REM for %%a in (*MP4) do (
-		REM set filenameold=%%~nxa
-		REM rename !filenameold! !filenameold:MP4=mp4!
-	REM )
-	
 	
 	:: config file and BU
-	if not exist BU ( 
-		mkdir BU
-	) 
 	if exist MakeItAll_temp.config (
 		set /p title=<MakeItAll_temp.config
 	) else (
+		if not exist BU ( 
+			mkdir BU
+		) 
 		set /p title="Which title: "
 		echo !title! > MakeItAll_temp.config
 		REM Avoid overwriting
-		echo N | copy /-Y * BU\
+		echo No | copy /-Y * BU\
 	)
 	
 	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
@@ -179,42 +177,9 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	echo [INFO] - Rename correctlty your mp3, the music title at the end will be written based on your filenames
 	ls -1 | grep mp3 | grep -Ev "^begin|^end|^input|^List" | sed "s/.mp3//" | perl -pe "s/^x - |^y - |^z - //g" > Music_list_temp.txt
 	
+	bash -c "[ -e 'Test_youtube_copy.mp4' ] && rm 'Test_youtube_copy.mp4'"
+	bash -c "[ -e 'output_temp.mp4' ] && rm 'output_temp.mp4'"
 
-	
-	if %tbdefault%==y (
-		set RV=30000
-		set RVd=1/!RV!
-		set RA=48000
-		set RAd=1/!RA!
-	) 
-
-
-
-
-
-	REM if EXIST output_720_crf25_temp.mp4 GOTO convertion3
-	REM if EXIST output_1920_crf25_temp.mp4 GOTO convertion2
-	REM if EXIST output_1024_crf25_temp.mp4 GOTO convertion1
-	if exist Test_youtube_copy.mp4 del Test_youtube_copy.mp4
-	if exist output_temp.mp4 del output_temp.mp4
-	
-	if EXIST output_720_crf25_temp.mp4 (
-		if %draft%==y (
-			del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Music_list_temp.txt zzz_music_temp.mp4
-		) else (
-			for /f %%i in ('grep Filigrane_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-			if !check!==0 (
-				del output_720_crf25_temp.mp4 output_BIND.mp4 input_temp.mp3 Music_list_temp.txt zzz_music_temp.mp4
-			) else (
-				echo.
-				echo Going to convertion3 because output_bind.mp4 exist
-				echo.
-				GOTO convertion3
-			)
-		)
-	)
-
-
 
 echo.
 echo [94m------------------------------------------------- [37m
@@ -361,9 +326,6 @@ if NOT %gpxhere%==0 (
 			ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -vf "fade=t=in:st=1:d=3,fade=t=out:st=!lengthvideo3!:d=3" -c:a copy zzz_gpx_temp.mp4
 			del zzz_gpx_temp_temp.mp4
 		)
-		rename zzz_gpx_temp.mp4 zzz_gpx_temp_temp.mp4
-		ffmpeg -stats -loglevel error -i zzz_gpx_temp_temp.mp4 -video_track_timescale %RV% -ar %RA% zzz_gpx_temp.mp4
-		del zzz_gpx_temp_temp.mp4
 	)
 )
 
@@ -379,7 +341,7 @@ echo.
 	REM for /f %%i in ('grep Duration_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 	REM if %check%==0 (
 	
-		for /f %%j in ('bash -c "source ~/.bashrc;checkduration"') do (
+		for /f %%j in ('bash -c "source ~/.bashrc;check_duration"') do (
 		   set durationok=%%j
 		   echo [95m%%j[37m
 		)
@@ -465,8 +427,7 @@ echo.
 							
 							
 							move %%b !rename!
-							REM echo ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=textfile=tempfilemusic: fontcolor=white: fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=20: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
-							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy -video_track_timescale %RV% %%b
+							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy %%b
 							move !rename! BU_Music_overlay\!rename!
 							set /a duraTT+=dura
 						)
@@ -505,9 +466,9 @@ REM echo.
 					REM set name=!filenamenoext!_temp!ext!
 					REM rename %%p !name!
 					REM echo [93m--- Add filigrane to %%p[37m
-					REM REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a -video_track_timescale %RV% "%%p"
+					REM REM ffmpeg -stats -loglevel error -y -i "!name!" -stream_loop -1 -i "D:\Pictures\Tatoo_FIX_v01.png" -filter_complex "[0]overlay=enable:x=0:y=0:shortest=1[out]" -map [out] -map 0:a "%%p"
 					REM :: new test from https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
-					REM ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -video_track_timescale %RV% -c:a copy "%%p"
+					REM ffmpeg -stats -loglevel error -y -i "!name!" -i "D:\Pictures\Youtube\Tatoo\Tatoo_FIX_v01_crop.png" -filter_complex "[0:v][1:v] overlay=W-w:H-h" -pix_fmt yuv420p -c:a copy "%%p"
 					REM del "!name!"
 				REM )
 				
@@ -531,7 +492,7 @@ REM echo.
 							REM set name=!filenamenoext!_temp!ext!
 							REM rename %%b !name!
 							REM echo [93m--- Add filigrane subscribe to %%b[37m
-							REM ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -video_track_timescale %RV% -map 0:a "%%b"
+							REM ffmpeg -stats -loglevel error -y -i !name! -i "D:\Pictures\Youtube\Subscribe\Subscribe_v02.mp4" -filter_complex "[1:v]colorkey=black:similarity=0.4[1v2];[0:v][1v2]overlay[v]" -map "[v]" -map 0:a "%%b"
 							REM del "!name!"
 							REM goto endsub
 						REM )
@@ -552,9 +513,9 @@ echo.
 
 
 		echo [95m Audio ----------------- [37m
-		bash -c "source ~/.bashrc;addaudio"
+		bash -c "source ~/.bashrc;check_audio"
 		echo.
-		bash -c "source ~/.bashrc;checkaudiosamplerate"
+		bash -c "source ~/.bashrc;check_AR"
 	
 		:: Video
 		echo.
@@ -562,13 +523,15 @@ echo.
 		
 		bash -c "source ~/.bashrc;reducefr30"
 		echo.
-		bash -c "source ~/.bashrc;checkresolution"
+		bash -c "source ~/.bashrc;check_reso"
 		echo.
-		bash -c "source ~/.bashrc;checkcodec"
+		bash -c "source ~/.bashrc;check_codec"
 		echo.
-		bash -c "source ~/.bashrc;checktimescale30"
+		REM Desactivate check_timescale30 because it is making problems with rmdf
+		REM bash -c "source ~/.bashrc;check_timescale30"
 		
-		REM bash -c "source ~/.bashrc;checkstarttime"
+		
+		REM bash -c "source ~/.bashrc;check_starttime"
 	
 		REM for /f %%i in ('grep Check_done MakeItAll_temp.config ^| wc -l') do set check1=%%i
 		REM if !check1!==0 (
@@ -603,6 +566,7 @@ echo.
 	REM ffmpeg -stats -loglevel error -f concat -i Listmp4_temp.txt -c copy output_BIND.mp4
 	REM del Listmp4_temp.txt
 	bash -c "source ~/.bashrc;concatmp4"
+	
 	rename concat.mp4 output_BIND.mp4
 	
 	
@@ -618,7 +582,7 @@ echo.
 	:: check youtube copyright
 	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "audio_music.mp3"') do set lengthaudio=%%i
 	if %simplemode%==n (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% -video_track_timescale %RV% temp.mp4
+		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% temp.mp4
 		ffmpeg -stats -loglevel error -i temp.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 Test_youtube_copy.mp4
 	)
 	del temp.mp4 temp2.mp4
@@ -629,10 +593,12 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start convert low [37m
 echo.
 	
+
 	rename output_temp.mp4 %title2%_TV.mp4
 	rename audio.mp3 %title2%_AUDIO.mp3
 	if exist audio_norma.mp3 ( rename audio_norma.mp3 %title2%_AUDIO-NORMA.mp3 )
 	
+
 	echo ffmpeg -stats -loglevel error -i %title2%_TV.mp4 -vbr 3 -vf "scale=720:-2" -preset slow -crf 25 -c:a copy -y %title2%_low.mp4 > CONVERT_in_LOW.bat
 
 	if %simplemode%==n (
@@ -646,10 +612,11 @@ echo.
 		echo To subscribe: https://www.youtube.com/@DoriGrv?sub_confirmation=1 >> Music_list_temp2.txt
 		REM echo. >> Music_list_temp2.txt
 		REM echo 🚲 *The track* : https://dorian-gravier.com/bt >> Music_list_temp2.txt
+		rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
 	)
-	
-	del Music_list_temp.txt
-	rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
+
+	del Music_list_temp.txt	
+
 	
 	echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
 	echo del %title2%_low.mp4  >> DEL_end_files_MP4.bat

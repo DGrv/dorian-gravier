@@ -973,6 +973,8 @@ for f in */*.jpg; do
 done
 ```
 
+# github page with so many example and Tips
 
+[e-bash](https://github.com/OleksandrKucherenko/e-bash?tab=readme-ov-file#commons-functions-and-inputs)
 
 

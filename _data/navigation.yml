@@ -4,21 +4,75 @@ main:
     url: /skills/
   - title: "Portofolio"
     url: /portofolio/
-  - title: "Code"
-    url: /Title_code/
-  - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/tools.png" width="30px"/>
-    url: https://dgrv.github.io/dorian-gravier/files/RR/SRBuilder/SRBuilder_v01.html
-  - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/loca.png" />
-    url: /leaflet/
-  - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/Tatoo_v02_icon.png" />
-    url: /bt/
-  - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/mountain_small.png" />
-    url: /climbing/
+  - title: "Code" 
+    url: /code/
+    submenu:
+    - title: "Bash"
+      url: /code/bash/ 
+    - title: "Batch"
+      url: /code/batch/
+    - title: "Ffmpeg"
+      url: /code/ffmpeg/
+    - title: "Batch"
+      url: /code/leaflet/
+    - title: "Python"
+      url: /code/python/
+    - title: "R"
+      url: /code/r/
+    - title: "Youtube-dl"
+      url: /code/youtube-dl/
+    - title: "Javascript"
+      url: /code/java/
+    - title: "Magick"
+      url: /code/magick/
+    - title: "Minimal Mistakes tips"
+      url: /code/minimal-mistakes
+    - title: "Other"
+      url: /code/other/
+  - title: "Maps"
+    url: /maps/
+    submenu:
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/loca.png" class="emoji" /> Outdoor
+      url: /maps/leaflet/
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/Tatoo_v02_icon.png" class="emoji" /> Bike Trip 2022
+      url: /maps/bt/
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/mountain_small.png" class="emoji" /> Legendary Multipitch
+      url: /maps/climbing/
+  - title: "Tools"
+    url: /tools/
+    submenu:
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/tools.png" class="emoji" /> Special Results Builder
+      url: https://dgrv.github.io/dorian-gravier/files/RR/SRBuilder/SRBuilder_v01.html
   - title: "About"
-    url: "/about/"
-    
-code:
-  - title: "Code"
+    url: /about/
+
+# this is the navigation sidebar if you click on code or maps for example.
+# it is refered there as
+# ---
+# sidebar:
+#   nav: navmaps
+# ---
+navmaps:
+  - title: "Maps"
+    url: /maps/
+    children:
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/loca.png" class="emoji" /> Outdoor
+      url: /maps/leaflet/
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/Tatoo_v02_icon.png" class="emoji" /> Bike Trip 2022
+      url: /maps/bt/
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/mountain_small.png" class="emoji"  /> Legendary Multipitch
+      url: /maps/climbing/
+
+navtools:
+  - title: "Tools"
+    url: /tools/
+    children:
+    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/tools.png" class="emoji" /> Special Results Builder
+      url: https://dgrv.github.io/dorian-gravier/files/RR/SRBuilder/SRBuilder_v01.html
+
+navcode:
+  - title: "Code"   
+    url: /code/
     children:
     - title: "Bash"
       url: /code/bash/ 
@@ -38,5 +92,7 @@ code:
       url: /code/java/
     - title: "Magick"
       url: /code/magick/
+    - title: "Minimal Mistakes tips"
+      url: /code/minimal-mistakes
     - title: "Other"
       url: /code/other/

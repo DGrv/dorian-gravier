@@ -32,3 +32,13 @@ rents () {
 replacespacesfilename () {
   for f in *\ *; do mv "$f" "${f// /_}"; done
 }
+
+
+checkdep() {
+    local args=("$@")
+    deps=0
+    for name in "${args[@]}"; do
+        [[ $(command -v $name 2>/dev/null) ]] || { cecho -y "$name" -r " needs to be installed.";deps=1;}
+    done
+    [[ $deps -ne 1 ]] && cecho -g "All depedencies fulfilled" || { cecho -r "\nInstall the above and rerun this script\n"; }
+}

@@ -1,7 +1,6 @@
 --- 
-title: "fix_cut_video" 
+title: "Concat splited video from ffmpeg that have duplicate frames (cut, split, losslesscut)" 
 date: "2024-12-07 23:10" 
-comments_id: --------------------- 
 classes: wide
 --- 
 
@@ -36,7 +35,8 @@ How it functions:
 		- ...
 - concat them again with 2 different [ffmpeg method](https://trac.ffmpeg.org/wiki/Concatenate)
 	- the concat demuxer 
-	- the concat protocol
+	- the concat protocol : *HOWERVER* I use intermediate streams (_.ts_) files, [check here](https://stackoverflow.com/a/37216101/2444948)
+	
 
 Actually nothing crazy but works good on my videos (Gopro 11, 1920x1080, mainly 30fps).
 
@@ -71,39 +71,30 @@ Here the example of 3 segments splitted with the _split_ option.
 
 And the 6 different videos: 2 (ffmpeg method) x 3 ( test folder: b, sc and bfix)
 
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/protocol_b.mp4">
+<video width="700" controls loop="" muted = "">
+	<source src="/assets/images/posts/2024/rmcdufr_cut_concat_example/original/original.mp4">
 </video>
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/demuxer_b.mp4">
-</video>
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/protocol_sc.mp4">
-</video>
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/demuxer_sc.mp4">
-</video>
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/protocol_bfix.mp4">
-</video>
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/demuxer_bfix.mp4">
+<br>
+
+<video width="700" controls loop="" muted = "" autoplay="">
+	<source src="/assets/images/posts/2024/rmcdufr_cut_concat_example/output/matrix.mp4">
 </video>
 
-So first things to say: demuxer and protocol methods give different results... protocol method is the way to go.
+What you however do not see is that the protocol method was better with the bfix than the demuxer.
+
+before and after change fps include code
+before and after change fps include code
+before and after change fps include code
+before and after change fps include code
+before and after change fps include code
+before and after change fps include code
+before and after change fps include code
+
+
+So first things to say: demuxer and protocol (with intermediate streams, .ts) methods give different results... protocol method is the way to go.
 
 
 
 
-And the matrix, as you see the concat_bfix is not fluid in this matrix in comparison to single video.
-
-<video width="326" height="248" controls loop="" muted = "" autoplay="">
-	<source src="https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/output/matrix.mp4">
-</video>
-
-
-**Create issue with:**
-cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io
-gh issue create --title "[Comment] fix_cut_video" --body "" --label Comments
 
 

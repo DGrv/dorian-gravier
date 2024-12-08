@@ -9,7 +9,12 @@
 
 show_downloads: false
 
-remote_theme: "mmistakes/minimal-mistakes"
+# Remote theme for online builds
+# remote_theme: "mmistakes/minimal-mistakes"
+# Uncomment the following line to use the local theme if offline
+theme: "minimal-mistakes-jekyll"
+
+
 search: true
 minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
@@ -135,6 +140,8 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - Rakefile
   - README*
   - tmp
+  - minimal-mistakes
+  - Run_jekyll_local.bat
       
 # # Collections
 # collections:
