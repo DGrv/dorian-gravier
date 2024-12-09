@@ -5,7 +5,7 @@ gem "webrick"
 gem "jekyll-remote-theme"
 gem "tzinfo-data"
 # to allow to have the theme offline
-gem "minimal-mistakes-jekyll", path: "./minimal-mistakes"
+gem "minimal-mistakes-jekyll", path: "../minimal-mistakes"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do

@@ -1,6 +1,6 @@
 ---
-title: "Minimal Mistakes tips"
-permalink: /code/minimal-mistakes/
+title: "Jekyll / Minimal Mistakes"
+permalink: /code/jekyll/
 toc: true
 author_profile: false
 layout: code

@@ -6,43 +6,10 @@ main:
     url: /portofolio/
   - title: "Code" 
     url: /code/
-    submenu:
-    - title: "Bash"
-      url: /code/bash/ 
-    - title: "Batch"
-      url: /code/batch/
-    - title: "Ffmpeg"
-      url: /code/ffmpeg/
-    - title: "Batch"
-      url: /code/leaflet/
-    - title: "Python"
-      url: /code/python/
-    - title: "R"
-      url: /code/r/
-    - title: "Youtube-dl"
-      url: /code/youtube-dl/
-    - title: "Javascript"
-      url: /code/java/
-    - title: "Magick"
-      url: /code/magick/
-    - title: "Minimal Mistakes tips"
-      url: /code/minimal-mistakes
-    - title: "Other"
-      url: /code/other/
   - title: "Maps"
     url: /maps/
-    submenu:
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/loca.png" class="emoji" /> Outdoor
-      url: /maps/leaflet/
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/Tatoo_v02_icon.png" class="emoji" /> Bike Trip 2022
-      url: /maps/bt/
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/mountain_small.png" class="emoji" /> Legendary Multipitch
-      url: /maps/climbing/
   - title: "Tools"
     url: /tools/
-    submenu:
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/tools.png" class="emoji" /> Special Results Builder
-      url: https://dgrv.github.io/dorian-gravier/files/RR/SRBuilder/SRBuilder_v01.html
   - title: "About"
     url: /about/
 
@@ -56,43 +23,43 @@ navmaps:
   - title: "Maps"
     url: /maps/
     children:
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/loca.png" class="emoji" /> Outdoor
+    - title: <img src="/files/icon/loca.png" class="emoji" /> Outdoor
       url: /maps/leaflet/
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/Tatoo_v02_icon.png" class="emoji" /> Bike Trip 2022
+    - title: <img src="/files/icon/Tatoo_v02_icon.png" class="emoji" /> Bike Trip 2022
       url: /maps/bt/
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/mountain_small.png" class="emoji"  /> Legendary Multipitch
+    - title: <img src="/files/icon/mountain_small.png" class="emoji"  /> Legendary Multipitch
       url: /maps/climbing/
 
 navtools:
   - title: "Tools"
     url: /tools/
     children:
-    - title: <img src="https://dgrv.github.io/dorian-gravier/files/icon/tools.png" class="emoji" /> Special Results Builder
-      url: https://dgrv.github.io/dorian-gravier/files/RR/SRBuilder/SRBuilder_v01.html
+    - title: <img src="/files/icon/tools.png" class="emoji" /> Special Results Builder
+      url: /files/RR/SRBuilder/SRBuilder_v01.html
 
 navcode:
   - title: "Code"   
     url: /code/
     children:
-    - title: "Bash"
+    - title: <img src="/files/icon/bash.png" class="emoji"  /> Bash
       url: /code/bash/ 
-    - title: "Batch"
+    - title: <img src="/files/icon/batch.png" class="emoji"  /> Batch
       url: /code/batch/
-    - title: "Ffmpeg"
+    - title: <img src="/files/icon/ffmpeg.png" class="emoji"  /> Ffmpeg
       url: /code/ffmpeg/
-    - title: "Batch"
+    - title: <img src="/files/icon/loca.png" class="emoji"  /> Leaflet
       url: /code/leaflet/
-    - title: "Python"
+    - title: <img src="/files/icon/python.png" class="emoji"  /> Python
       url: /code/python/
-    - title: "R"
+    - title: <img src="/files/icon/r.png" class="emoji"  /> R
       url: /code/r/
-    - title: "Youtube-dl"
+    - title: <img src="/files/icon/youtube.2.png" class="emoji"  /> Youtube-dl
       url: /code/youtube-dl/
-    - title: "Javascript"
+    - title: <img src="/files/icon/js.png" class="emoji"  /> Javascript
       url: /code/java/
-    - title: "Magick"
+    - title: <img src="/files/icon/magick.png" class="emoji"  /> ImageMagick
       url: /code/magick/
-    - title: "Minimal Mistakes tips"
+    - title: <img src="/files/icon/jekyll.png" class="emoji"  /> Jekyll / mm
       url: /code/minimal-mistakes
-    - title: "Other"
+    - title: <img src="/files/icon/more.png" class="emoji"  /> Other
       url: /code/other/

@@ -1,21 +1,21 @@
 @echo off
 
-echo Check Internet connection ---------------------------
+echo [33mCheck Internet connection ---------------------------[37m
 echo.
 
 :: Ping Google to check for an internet connection
 
-REM ping -n 1 google.com >nul 2>&1
-REM if %errorlevel%==0 (
-	REM echo Internet available: Using remote theme.
-	REM perl -pe "s/^theme\:/# theme\:/" -i _config.yml
-	REM perl -pe "s/^# remote_theme\:/remote_theme:/" -i  _config.yml
-REM ) else (
-	REM echo No internet: Using local theme.
-	REM perl -pe "s/^remote_theme\:/# remote_theme:/" -i _config.yml
-	REM perl -pe "s/^# theme\:/theme:/" -i _config.yml
-REM )
-REM echo Theme configuration updated in _config.yml.
+ping -n 1 google.com >nul 2>&1
+if %errorlevel%==0 (
+	echo [32mInternet available: Using remote theme.[37m
+	perl -pe "s/^theme\:/# theme\:/" -i _config.yml
+	perl -pe "s/^# remote_theme\:/remote_theme:/" -i  _config.yml
+) else (
+	echo [31mNo internet: Using local theme.[37m
+	perl -pe "s/^remote_theme\:/# remote_theme:/" -i _config.yml
+	perl -pe "s/^# theme\:/theme:/" -i _config.yml
+)
+echo [33mTheme configuration updated in _config.yml.[37m
 
 echo.
 

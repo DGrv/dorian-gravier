@@ -1,5 +1,5 @@
 PATH
-  remote: minimal-mistakes
+  remote: ../minimal-mistakes
   specs:
     minimal-mistakes-jekyll (4.26.2)
       jekyll (>= 3.7, < 5.0)
