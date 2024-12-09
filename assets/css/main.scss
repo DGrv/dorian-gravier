@@ -68,5 +68,16 @@ html {
     background-color: #211a01;
 }
 
+article img {
+   &.emoji {           /*add dorian */
+      width: 20px;      /*add dorian */
+      height: 20px;     /*add dorian */
+    }                   /*add dorian */
+    &.emojibig {        /*add dorian */
+      width: 50px;      /*add dorian */
+      height: 50px;     /*add dorian */
+    }
+}
+
 
 

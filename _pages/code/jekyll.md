@@ -7,6 +7,21 @@ layout: code
 ---
 
 
+
+to docu : https://jekyllrb.com/docs/liquid/filters/
+
+```
+# ---------------------------------CAREFUL----------------------------------------
+# do not use liquid filter in navigation. Jekyll take it as a static file
+# so <img src="{{ '/files/icon/Tatoo_v02_icon.png' | absolute_url }}" class="emoji" />
+# this will not work
+```
+
+make your modif in css only in assets/css/mains.css
+https://github.com/mmistakes/minimal-mistakes/issues/1453
+
+
+
 # Blog post
 
 ## Wide format
