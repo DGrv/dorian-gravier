@@ -16,8 +16,8 @@ echo [33mTheme configuration updated in _config.yml.[37m
 
 echo.
 
-REM bundle exec jekyll serve
-bundle exec jekyll serve --incremental
+bundle exec jekyll serve
+REM bundle exec jekyll serve --incremental
 
 REM --baseurl="" if locally 
 REM --baseurl="" if locally 
