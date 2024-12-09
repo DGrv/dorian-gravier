@@ -44,7 +44,7 @@ Actually nothing crazy but works good on my videos (Gopro 11, 1920x1080, mainly 
 
 ## Files
 
-[All reproducible code present here](https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example)
+[All reproducible code present here]({{ '/assets/images/posts/2024/rmcdufr_cut_concat_example' | absolute_url }})
 
 	├───example.sh              ---> code to run
 	├───functions.sh            ---> sourced code with functions
@@ -67,17 +67,17 @@ Actually nothing crazy but works good on my videos (Gopro 11, 1920x1080, mainly 
 
 Here the example of 3 segments splitted with the _split_ option.
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/posts/2024/rmcdufr_cut_concat_example/20241207-225852__LosslessCut.png)
+![]({{ '/assets/images/posts/2024/rmcdufr_cut_concat_example/20241207-225852__LosslessCut.png' | absolute_url }})
 
 And the 6 different videos: 2 (ffmpeg method) x 3 ( test folder: b, sc and bfix)
 
 <video width="700" controls loop="" muted = "">
-	<source src="/assets/images/posts/2024/rmcdufr_cut_concat_example/original/original.mp4">
+	<source src="{{ '/assets/images/posts/2024/rmcdufr_cut_concat_example/original/original.mp4' | absolute_url }}">
 </video>
 <br>
 
 <video width="700" controls loop="" muted = "" autoplay="">
-	<source src="/assets/images/posts/2024/rmcdufr_cut_concat_example/output/matrix.mp4">
+	<source src="{{ '/assets/images/posts/2024/rmcdufr_cut_concat_example/output/matrix.mp4' | absolute_url }}">
 </video>
 
 What you however do not see is that the protocol method was better with the bfix than the demuxer.
