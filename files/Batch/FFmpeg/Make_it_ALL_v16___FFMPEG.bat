@@ -81,8 +81,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	) else (
 		set wd=%1
 		set wd=!wd:"=!
-		set wd=!wd:~,-1!
-		set wd=!wd:~1!
+		REM set wd=!wd:~,-1!
+		REM set wd=!wd:~1!
 	) 
 
 	echo [91m[DEBUG] - wd: %wd% [37m
@@ -106,6 +106,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	REM ---------------USE HERE DEFAULKT-------------------
 	REM ---------------USE HERE DEFAULKT-------------------
 	set simplemode=n
+	REM to have the tools slides at the end
+	set ltools=n
 	set tbdefault=y
 	set biketrip=n
 	set pathout=D:\Pictures\2024\Video
@@ -144,17 +146,18 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	:: rename MP$ to mp4
 	bash -c "source ~/.bashrc;renamemp4ext"
 	
+	
+	if not exist BU ( 
+		mkdir BU
+		REM Avoid overwriting
+		echo No | copy /-Y * BU\
+	) 
 	:: config file and BU
 	if exist MakeItAll_temp.config (
 		set /p title=<MakeItAll_temp.config
 	) else (
-		if not exist BU ( 
-			mkdir BU
-		) 
 		set /p title="Which title: "
 		echo !title! > MakeItAll_temp.config
-		REM Avoid overwriting
-		echo No | copy /-Y * BU\
 	)
 	
 	if %docheck%==n (echo Check_done >> MakeItAll_temp.config)
@@ -167,7 +170,8 @@ echo "Put your video in 1 folder, order with names, put your mp3 inside (no matt
 	set title2=%title2:,=%
 	set title2=%title2:(=%
 	set title2=%title2:)=%
-	set title2=%title2:~0,-1%
+	set title2=%title2:/=%
+	set title2=%title2::=%
 	
 	
 	echo %title2%
@@ -194,26 +198,27 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start Music input_temp.mp3 [37m
 echo.
 	
-	
+	set "mp3found=0"
+	for %%f in (*.mp3) do set "mp3found=1"
 
-	
-	if NOT EXIST input_temp.mp3 (
-		if exist Listmp3_temp.txt (
-			rm Listmp3_temp.txt
-		)
-		for %%i in (*mp3) do (
-			set filename=%%~ni
-			set filenamenew=!filename:'=!
-			if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
-		)
-		bash -c "source ~/.bashrc;normamp3"
-		ls -1 | grep mp3 | grep -Ev "^begin.mp3|^end.mp3|^input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
-		if exist Listmp3_temp.txt (
-			ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
-			del Listmp3_temp.txt
+	if %mp3found%==1 (
+		if NOT EXIST input_temp.mp3 (
+			if exist Listmp3_temp.txt (
+				rm Listmp3_temp.txt
+			)
+			for %%i in (*mp3) do (
+				set filename=%%~ni
+				set filenamenew=!filename:'=!
+				if NOT !filename!==!filenamenew! rename "%%i" "!filenamenew!%%~xi"
+			)
+			bash -c "source ~/.bashrc;normamp3"
+			ls -1 | grep mp3 | grep -Ev "^begin.mp3|^end.mp3|^input|List" | sed "s/^/file '/" | sed "s/$/'/" > Listmp3_temp.txt
+			if exist Listmp3_temp.txt (
+				ffmpeg -stats -loglevel error -safe 0 -f concat -i Listmp3_temp.txt -c copy -y input_temp.mp3
+				del Listmp3_temp.txt
+			)
 		)
 	)
-	
 	
 	
 	:: use - safe 0 before i to avoid problem with filename : https://stackoverflow.com/questions/38996925/ffmpeg-concat-unsafe-file-name
@@ -229,26 +234,25 @@ echo.
 		echo [94mINFO - Start Fade in and out, need re-encoding [37m
 		echo.
 		
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_lsub_v01.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| head -1') do set firstfile=%%p
-		for /f %%p in ('ls -1 ^| grep mp4 ^| grep -Ev "zzz_gpx_temp.mp4 ^|zzz ^|zzz_lsub_v01.mp4 ^|zzz_ko-fi.mp4 ^|zzz_music_temp.mp4 ^|00000_title.mp4" ^| tail -1') do set lastfile=%%p
-		
-		
+		for /f %%p in ('bash -c "ls -1 | grep mp4 | grep -Ev 'zzz_gpx_temp.mp4|zzz|zzz_lsub_v01.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4'| head -1"') do set firstfile=%%p
+		for /f %%p in ('bash -c "ls -1 | grep mp4 | grep -Ev 'zzz_gpx_temp.mp4|zzz|zzz_lsub_v01.mp4|zzz_ko-fi.mp4|zzz_music_temp.mp4|00000_title.mp4'| tail -1"') do set lastfile=%%p
+
 		for /f %%i in ('grep fadein_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
-			copy "!firstfile!" "%wd%\BU\!firstfile!"
+			REM copy "!firstfile!" "%wd%\BU\!firstfile!"
 			echo --- Create fadein on !firstfile!
-			ffmpeg -stats -loglevel error -i "%wd%\BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -c:a copy -y "!firstfile!"
+			ffmpeg -stats -loglevel error -i "%wd%\BU\!firstfile!" -vf "fade=t=in:st=0:d=3" -af "afade=t=in:st=0:d=3" -y "!firstfile!"
 			echo fadein_done >> MakeItAll_temp.config
 		)
 		for /f %%i in ('grep fadeout_done MakeItAll_temp.config ^| wc -l') do set check=%%i
 		if !check!==0 (
-			copy "!lastfile!" "%wd%\BU\!lastfile!"
+			REM copy "!lastfile!" "%wd%\BU\!lastfile!"
 			echo --- Create fadeout on !lastfile!
 			for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%wd%\BU\!lastfile!"') do set lengthvideo=%%i
 			set /a lengthvideo2=lengthvideo
 			set /a lengthvideo3=lengthvideo2-3
 			if !lengthvideo2! gtr 3 (
-				ffmpeg -stats -loglevel error -i "BU\!lastfile!" -vf "fade=t=out:st=!lengthvideo3!:d=3" -c:a copy -y "!lastfile!"
+				ffmpeg -stats -loglevel error -i "BU\!lastfile!" -vf "fade=t=out:st=!lengthvideo3!:d=3" -af "afade=t=out:st=!lengthvideo3!:d=3" -y "!lastfile!"
 			)
 			echo fadeout_done >> MakeItAll_temp.config
 		)
@@ -262,7 +266,9 @@ echo.
 
 
 	if %simplemode%==n (
-		if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
+		if %ltools%==y (
+			if not exist zzz_ltools.mp4 ( copy "D:\Pictures\Youtube\tools\zzz_ltools.mp4" "zzz_ltools.mp4" )
+		)
 		if %biketrip%==y ( 
 			if not exist zzz_ko-fi.mp4 ( copy "D:\Pictures\Youtube\Ko-fi\v02\Ko-fi_v02.mp4" "zzz_ko-fi.mp4" )
 		)
@@ -289,14 +295,15 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Start music title [37m
 echo.
 	
-	if NOT EXIST zzz_music_temp.mp4 (
 	
-		echo Music:> Music_temp
-		echo. >> Music_temp
-		cat Music_list_temp.txt >> Music_temp
-		
-		call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Create_title_clip_v08___FFMPEG.bat 2 y 70 Music_temp zzz_music_temp.mp4
-		del Music_temp
+	if %mp3found%==1 (
+		if NOT EXIST zzz_music_temp.mp4 (
+			echo Music:> Music_temp
+			echo. >> Music_temp
+			cat Music_list_temp.txt >> Music_temp
+			call C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Create_title_clip_v08___FFMPEG.bat 2 y 70 Music_temp zzz_music_temp.mp4
+			del Music_temp
+		)
 	)
 		
 
@@ -366,84 +373,86 @@ echo [94m------------------------------------------------- [37m
 echo [94mINFO - Add music title overlay [37m
 echo.
 
-	for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
-	if %dooverlaymusic%==y (
-		if %check%==0 (
-			if not exist Video_list_overlay_temp.txt (
-				(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
-			)
-			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
-			ls -1 | grep mp3 | grep -Ev "begin.mp3|end.mp3|input|List" > Music_list_overlay_temp.txt
-			for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
-				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
-			)
-			
-			
-			set xpos=0.95
-			set ypos=0.95
-			
-			set /a duraTT=5
-			set /a videoTT = 0
-			set /a videoTTbefore = 0
-			set /a n=0
-			if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
-			for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
-				set /a n+=1
-				ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
-				set /p videotime=<tempfile
-				set /a videotime=videotime
-				set /a videoTT+=videotime
-				set rename=%%~nb_%timestamp%.mp4
-				echo [96m!n! - Loop Video - %%b [37m
+	if %mp3found%==1 (
+		for /f %%i in ('grep Overlay_done MakeItAll_temp.config ^| wc -l') do set check=%%i
+		if %dooverlaymusic%==y (
+			if %check%==0 (
+				if not exist Video_list_overlay_temp.txt (
+					(for %%i in (*.mp4) do @echo %%i) > Video_list_overlay_temp.txt
+				)
+				if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
+				ls -1 | grep mp3 | grep -Ev "begin.mp3|end.mp3|input|List" > Music_list_overlay_temp.txt
+				for /F "delims=" %%b in (Music_list_overlay_temp.txt) do (
+					ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" >> Music_list_overlay_duration_temp.txt
+				)
 				
-				if not "%%b"=="00000_title.mp4" (
-					set /a na=0
-					for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
-						set /a na+=1
-						echo [95m!n! - !na! - Loop Audio - %%a [37m
-						REM echo !musicn! > tempfilemusic
-						REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
-						set /p dura=<Music_list_overlay_duration_temp.txt
-						set /a dura=dura
-						if !videoTT! GTR !duraTT! (
-							set musicn=%%a
-							set musicn2=!musicn:~0,-4!
-							set musicn=Music - !musicn2!
-							set /a posmusic=duraTT-videoTTbefore
-							if !posmusic! LSS 0 (
-								set /a posmusic= 1
+				
+				set xpos=0.95
+				set ypos=0.95
+				
+				set /a duraTT=5
+				set /a videoTT = 0
+				set /a videoTTbefore = 0
+				set /a n=0
+				if not exist BU_Music_overlay ( mkdir BU_Music_overlay )
+				for /F "delims=" %%b in (Video_list_overlay_temp.txt) do (
+					set /a n+=1
+					ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%b" > tempfile
+					set /p videotime=<tempfile
+					set /a videotime=videotime
+					set /a videoTT+=videotime
+					set rename=%%~nb_%timestamp%.mp4
+					echo [96m!n! - Loop Video - %%b [37m
+					
+					if not "%%b"=="00000_title.mp4" (
+						set /a na=0
+						for /F "delims=" %%a in (Music_list_overlay_temp.txt) do (
+							set /a na+=1
+							echo [95m!n! - !na! - Loop Audio - %%a [37m
+							REM echo !musicn! > tempfilemusic
+							REM ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "%%a" > tempfile
+							set /p dura=<Music_list_overlay_duration_temp.txt
+							set /a dura=dura
+							if !videoTT! GTR !duraTT! (
+								set musicn=%%a
+								set musicn2=!musicn:~0,-4!
+								set musicn=Music - !musicn2!
+								set /a posmusic=duraTT-videoTTbefore
+								if !posmusic! LSS 0 (
+									set /a posmusic= 1
+								)
+								set /a posmusic2=!posmusic!+7
+								
+								echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
+								
+								rename Music_list_overlay_duration_temp.txt musicduration.temp
+								more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
+								del musicduration.temp
+								
+								rename Music_list_overlay_temp.txt music.temp
+								more +1 music.temp > Music_list_overlay_temp.txt
+								del music.temp
+								
+								
+								move %%b !rename!
+								ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy %%b
+								move !rename! BU_Music_overlay\!rename!
+								set /a duraTT+=dura
 							)
-							set /a posmusic2=!posmusic!+7
-							
-							echo [32mOK ---- %%b gtr !musicn! ------ !videoTT! gtr !duraTT! ----- posmusic = !duraTT!-!videoTTbefore! = !posmusic! [37m
-							
-							rename Music_list_overlay_duration_temp.txt musicduration.temp
-							more +1 musicduration.temp > Music_list_overlay_duration_temp.txt
-							del musicduration.temp
-							
-							rename Music_list_overlay_temp.txt music.temp
-							more +1 music.temp > Music_list_overlay_temp.txt
-							del music.temp
-							
-							
-							move %%b !rename!
-							ffmpeg -stats -loglevel error -i !rename! -vf "drawtext=text='!musicn!': fontcolor=white: fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontfile='C\:\\Windows\\Fonts\\calibri.ttf':fontsize=30: box=1: boxcolor=Black@0.5:boxborderw=5: x=w*!xpos!-text_w:y=h*!ypos!:enable='between(t,!posmusic!,!posmusic2!)'" -vcodec libx264 -x264-params keyint=24:scenecut=0 -c:a copy %%b
-							move !rename! BU_Music_overlay\!rename!
-							set /a duraTT+=dura
 						)
 					)
+					set /a videoTTbefore+=videotime
 				)
-				set /a videoTTbefore+=videotime
+				REM del tempfilemusic
+				del Music_list_overlay_temp.txt
+				del Video_list_overlay_temp.txt
+				del tempfile
+				REM touch Overlay_done.txt
+				echo Overlay_done >> MakeItAll_temp.config
+				sed -i /Check2_done/d MakeItAll_temp.config
+				if exist tempfile del tempfile
+				if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
 			)
-			REM del tempfilemusic
-			del Music_list_overlay_temp.txt
-			del Video_list_overlay_temp.txt
-			del tempfile
-			REM touch Overlay_done.txt
-			echo Overlay_done >> MakeItAll_temp.config
-			sed -i /Check2_done/d MakeItAll_temp.config
-			if exist tempfile del tempfile
-			if exist Music_list_overlay_duration_temp.txt del Music_list_overlay_duration_temp.txt
 		)
 	)
 	
@@ -570,23 +579,24 @@ echo.
 	rename concat.mp4 output_BIND.mp4
 	
 	
-	bash -c "ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3"
 	if EXIST input_temp.mp3 (
+		bash -c "ffmpeg -stats -loglevel error -y -i output_BIND.mp4 -async 1 audio.mp3"
 		ffmpeg -stats -loglevel error -i audio.mp3 -i input_temp.mp3 -filter_complex "[0]volume=2[a1];[1]volume=0.4[a2];[a1][a2]amix=duration=shortest" audio_music.mp3
 		ffmpeg -stats -loglevel error -i output_BIND.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 output_temp.mp4
-		REM del output_BIND.mp4
+		del output_BIND.mp4
 	) else (
 		rename output_BIND.mp4 output_temp.mp4
 	)
 
 	:: check youtube copyright
-	for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "audio_music.mp3"') do set lengthaudio=%%i
-	if %simplemode%==n (
-		ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% temp.mp4
-		ffmpeg -stats -loglevel error -i temp.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 Test_youtube_copy.mp4
+	if EXIST audio_music.mp3 (
+		for /f %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "audio_music.mp3"') do set lengthaudio=%%i
+		if %simplemode%==n (
+			ffmpeg -stats -loglevel error -f lavfi -i color=c=black:s=480x270:d=%lengthaudio% temp.mp4
+			ffmpeg -stats -loglevel error -i temp.mp4 -i audio_music.mp3 -c:v copy -map 0:v:0 -map 1:a:0 Test_youtube_copy.mp4
+		)
+		del temp.mp4 temp2.mp4
 	)
-	del temp.mp4 temp2.mp4
-
 	
 echo.
 echo [94m------------------------------------------------- [37m
@@ -615,7 +625,7 @@ echo.
 		rename Music_list_temp2.txt %title2%_MUSIC-TITLE.txt
 	)
 
-	del Music_list_temp.txt	
+	if exist Music_list_temp.txt ( del Music_list_temp.txt	)
 
 	
 	echo del %title2%_TV.mp4 > DEL_end_files_MP4.bat
@@ -631,7 +641,6 @@ echo.
 	echo	if "%dooverlay%"=="y" (>> DEL_end_files_MP4.bat
 	echo sed -i /Overlay/d MakeItAll_temp.config >> DEL_end_files_MP4.bat
 	echo bash -c "source ~/.bashrc;restoreBUoverlay" >> DEL_end_files_MP4.bat
-	echo	) 
 
 	
 	echo move %title2%_TV.mp4 %pathout%\High\ > IF_OK_MOVE_READY_MP4.bat
@@ -639,7 +648,7 @@ echo.
 	echo move %title2%_AUDIO.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
 	echo move %title2%_AUDIO-NORMA.mp3 %pathout%\Audio\ >> IF_OK_MOVE_READY_MP4.bat
 	echo move %title2%_MUSIC-TITLE.txt %pathout%\Music_txt\ >> IF_OK_MOVE_READY_MP4.bat
-	del input_temp.mp3
+	if exist input_temp.mp3 (del input_temp.mp3 )
 	REM xcopy /Y *.mp3 %pathout%\Music\
 	ls | grep mp3 | grep -vE "AUDIO|input_temp|audio.mp3|audio_music" | xargs -I # cp "#" %pathout%\Music
 	echo.
@@ -648,6 +657,5 @@ echo.
 	echo [32mDo not forget to convert it in low if it is fine [37m
 	echo [32m----------------------------------- [37m
 	:eof
-	pause
 	
 	

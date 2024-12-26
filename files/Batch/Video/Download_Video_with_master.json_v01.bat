@@ -66,7 +66,7 @@ echo.
 D:
 cd D:\Download_video_script
 
-C:\Users\doria\Downloads\Software\Youtube-dl\yt-dlp.exe --write-auto-sub -o %name% %urlnew%
+yt-dlp --write-auto-sub -o %name% %urlnew%
 
 
 

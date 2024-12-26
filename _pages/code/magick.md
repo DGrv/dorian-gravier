@@ -91,7 +91,9 @@ magick -density 300 -trim in.pdf -quality 100 out.png
 -quality 100 sets the JPEG compression quality to the highest quality.
 
 
-# crop
+# crop or trim
+
+## crop
 
 ```sh
 magick input.gif -coalesce -repage 0x0 -crop WxH+X+Y +repage output.gif
@@ -102,8 +104,13 @@ You can use *qimgv* to get the dimension of the crop easily
 
 [Source](https://stackoverflow.com/a/14036766/2444948)
 
+## trim 
 
+Remove the white edges by trimming and setting the white background to transparent:
 
+```sh
+magick input.png -fuzz 40% -trim output.png
+```
 
 
 
@@ -145,9 +152,10 @@ creating this:
 
 ![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
 
-## Option 3
+## Fuzz and Transparent method
 
-Really good results
+Really good results.
+This method makes pixels near white transparent. The -fuzz value determines how similar a pixel needs to be to white to be removed.
 
 ```sh
 magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
@@ -159,7 +167,12 @@ Combine with Resize, sharpen
 magick Bild_1.jpg -resize 500x Bild_1b.png 
 magick Bild_1b.png -sharpen 0x20 Bild_1c.png 
 magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
+```
 
+## Channel and Alpha
+
+```sh
+magick input.png -channel RGBA -fuzz 10% -fill none -opaque white output.png
 ```
 
 # Replace color

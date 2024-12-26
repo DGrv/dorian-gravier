@@ -9,11 +9,7 @@ I am really happy about it but for sure it is highly limited regarding creativit
 
 Whatever
 
-
-
-
-**Create issue with:**
-cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io
-gh issue create --title "[Comment] Video editing home made solution" --body "" --label Comments
-
-
+*to finish*
+*to finish*
+*to finish*
+*to finish*

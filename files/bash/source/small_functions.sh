@@ -4,6 +4,15 @@ rlc () {
 	perl -pe "s/.$//"
 }
 
+alias llh='ls -lh' # (human-readable file sizes)
+alias lls='ls -lhS' #(sort by size)
+alias ltr='ls -ltr' #(sort by modification time)
+alias lsr='ls -R' # (recursive listing)
+alias lsd='ls -d */' #(list directories only)
+alias lt='ls -t' # (sort by modification time)
+
+
+
 # shorcut
 ffm=/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg
 
@@ -16,6 +25,12 @@ alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravi
 
 timestamp () {
   date +"%Y%m%d-%H%M%S"
+}
+
+l0() {
+    local num="$1"
+    local width="$2"
+    printf "%0${width}d" "$num"
 }
 
 

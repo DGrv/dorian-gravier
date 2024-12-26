@@ -78,15 +78,14 @@ for %%a in (*.mp4) do (
 
 	if %sec2% lss !lengthvideo2! (
 		if "%what%"=="in" (
-			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%" -c:a copy %%a
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%" -af "afade=t=in:st=0:d=%sec%" %%a
 		)
 		if "%what%"=="out" (
-			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%a
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=out:st=!lengthvideo3!:d=%sec%" -af "afade=t=out:st=!lengthvideo3!:d=%sec%" %%a
 		)
 		if "%what%"=="both" (
-			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -c:a copy %%a
+			ffmpeg -stats -loglevel error -i !newfilename! -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=!lengthvideo3!:d=%sec%" -af "afade=t=in:st=0:d=%sec%,afade=t=out:st=!lengthvideo3!:d=%sec%" %%a
 		)
-
 	) else (
 		echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[om
 		pause
@@ -145,15 +144,14 @@ rename "%filename%" "%newfilename%"
 
 if %sec2% lss %lengthvideo2% (
 	if "%what%"=="in" (
-		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%" -c:a copy "%file%"
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%" -af "afade=t=in:st=0:d=%sec%" "%file%"
 	)
 	if "%what%"=="out" (
-		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=out:st=%lengthvideo3%:d=%sec%" -c:a copy "%file%"
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=out:st=%lengthvideo3%:d=%sec%" -af "afade=t=out:st=%lengthvideo3%:d=%sec%"  "%file%"
 	)
 	if "%what%"=="both" (
-		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=%lengthvideo3%:d=%sec%" -c:a copy "%file%"
+		ffmpeg -stats -loglevel error -i "%newfilename%" -vf "fade=t=in:st=0:d=%sec%,fade=t=out:st=%lengthvideo3%:d=%sec%" -af "afade=t=in:st=0:d=%sec%,afade=t=out:st=%lengthvideo3%:d=%sec%" "%file%"
 	)
-	rename temp.mp4 "%file%"
 ) else (
 	echo [95m[DEBUG] - Your video is too short to have a fade of %sec2%sec[0m
 	rename "%newfilename%" "%filename%" 

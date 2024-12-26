@@ -108,8 +108,9 @@ mergemp4 () {
 }
 
 reducemp4 () {
-    input=$1
-    ffmpeg -stats -loglevel error  -i $input -vf "scale=720:-2" -preset slow -crf 30 -r 24 -acodec aac -y ${input%.*}_r720.mp4
+    input=$2
+    reso=$1
+    ffmpeg -stats -loglevel error  -i $input -vf "scale=${reso}:-2" -preset slow -crf 30 -r 24 -acodec aac -y "${input%.*}_r${reso}.mp4"
 }
 
 
@@ -217,13 +218,14 @@ check_AR() {
 check_reso() {
   cecho -c "Check Resolution ----------"
   for i in *mp4; do
-    t=$(exiftool -n -T -ImageWidth -s3 $i)
+    t=$(exiftool -n -T -SourceImageWidth -s3 $i)
     if [[ "$t" != "1920" ]]; then
         cecho -y "${i} - Reso: " -r "${t}"
         nname="$(basename $i .mp4)___temp.mp4"
         mv "$i" "$nname"
         cecho -g "Change resolution to 1920x1080 $i:"
-        ffmpeg -stats -loglevel error  -i "$nname" -vf "scale=1920:-2" "$i"
+        # ffmpeg -stats -loglevel error  -i "$nname" -vf "scale=1920:-2" "$i"
+        ffmpeg -stats -loglevel error  -i "$nname" -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(1920-iw)/2:(1080-ih)/2" -c:a copy "$i"
         echo .
         rm "$nname"
     else
@@ -356,6 +358,16 @@ check_audio() {
         cecho -y "${i} - " -g "Ok"
     fi
   done
+}
+
+# remove audio add silence
+rm_audio_mp4() {
+    for i in *mp4; do 
+        nname=$(basename "$i" .mp4)_old_mute.mp4
+        mv "$i" "$nname"
+        # ffmpeg -stats -loglevel error -i "$nname" -f lavfi -i anullsrc -c:v copy -c:a aac -map 1:a -map 0:v -shortest "$i"
+        ffmpeg -stats -loglevel error -i "$nname" -f lavfi -i anullsrc -c:v copy -c:a aac -map 1:a -map 0:v -shortest -ar 48000 "$i"
+    done
 }
 
 

@@ -977,4 +977,12 @@ done
 
 [e-bash](https://github.com/OleksandrKucherenko/e-bash?tab=readme-ov-file#commons-functions-and-inputs)
 
+# convert csv to html table
+
+```sh
+awk 'BEGIN {print "<table border=\"1\">"}
+     NR==1 {print "<tr>"; for (i=1; i<=NF; i++) print "<th>" $i "</th>"; print "</tr>"}
+     NR>1 {print "<tr>"; for (i=1; i<=NF; i++) print "<td>" $i "</td>"; print "</tr>"}
+     END {print "</table>"}' FS=, info2.csv > info.html
+```
 
