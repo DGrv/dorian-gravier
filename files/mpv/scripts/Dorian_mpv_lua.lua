@@ -52,11 +52,19 @@ end)
 
 
 
+-- mp.add_key_binding("ö", function ()
+	-- print("test timestamp")
+	-- text = os.date("%X")
+	-- print(text)
+	-- mp.osd_message(text, 1000)
+-- end)
+
 mp.add_key_binding("ö", function ()
-	print("test timestamp")
-	text = os.date("%X")
-	print(text)
-	mp.osd_message(text, 1000)
+	video_path = mp.get_property("path")
+	strCmd = 'cp "' ..video_path.. '" "C:\\Users\\doria\\Downloads\\CadoNoel2024\\sorting\\Lazzati"'
+	os.execute(strCmd)
+	print(strCmd)
+	mp.osd_message("Copy somewhere")
 end)
 
 ------------------------------
@@ -109,13 +117,9 @@ mp.add_key_binding('D', function ()
 	mp.osd_message("Delete file")
 	-- os.remove(video_path)
 	directory, filename = utils.split_path(video_path)
-	strCmd = "nircmd moverecyclebin "..video_path
+	strCmd = 'nircmd moverecyclebin "'..video_path..'"'
 	print(strCmd)
 	os.execute(strCmd)
-	-- print("Try to delete")
-	-- print(video_path)
-	-- print("C:\\$Recycle.Bin\\"..filename)
-	-- os.rename(video_path, "C:\\$Recycle.Bin\\"..filename)
 end)
 
 
@@ -145,7 +149,7 @@ mp.add_key_binding('k', function ()
 	local t1 = mp.get_property_number("time-pos")
 	t2 = t1 + 6
 	-- keep "'..t1..','..t2..'" with " otherwise it is not working the , i making them separate
-	strCmd = 'cmder /x "/cmd '..strProgram..' "'..video_path..'" '..t1..' '..t2..' 50 TR"'
+	strCmd = 'cmder /x "/cmd '..strProgram..' "'..video_path..'" '..t1..' '..t2..' 25 TR"'
 	print(strCmd)
 	mp.osd_message("Text overlay right")
 	-- os.execute('echo '..strCmd..' > '..vpath..'debugMPV')
