@@ -19,7 +19,7 @@ library(crayon)
 library(DBI) # database
 library(odbc) # database
 # library(gmailr)
-library(rgdal) 
+#library(rgdal) 
 library(colorDF)
 
 # Sys.setlocale('LC_ALL', 'German')
@@ -263,17 +263,6 @@ theme_Publication <- function(base_size=14, base_family="helvetica") {
   
 }
 
-
-# RaceResult --------------------------------------------------------------
-
-DecimalToToD <- function(x) {
-  require(hms)
-  hms::as_hms(x)
-}
-
-ToDToDecimal <- function(x) {
-  period_to_seconds(lubridate::hms(x))
-}
 
 # Small function ----------------------------------------------------------
 
@@ -3550,6 +3539,49 @@ prepare.bilder.import <- function(DATA, color.name, new.name,
 
 }
 
+read.gpx <-  function(input, type = "wpt") {
+  
+  require(xml2)
+  # Read the GPX file
+  gpx_file <- read_xml(input)
+  ns <- xml_ns(gpx_file)
+
+  # Extract waypoints (or other elements like tracks)
+  waypoints <- xml_find_all(gpx_file, p0(".//d1:", type), ns = ns)
+  
+  if( type == "wpt") {
+    # Extract attributes (latitude and longitude)
+    data <- data.table(lat = as.numeric(xml_attr(waypoints, "lat")),
+                       lon = as.numeric(xml_attr(waypoints, "lon")),
+                       name = xml_find_all(waypoints, "d1:name", ns = ns) %>% xml_text())
+    lpara <- c("url", "des")
+    for(j in seq_along(lpara)) {
+      if( length(xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns)) > 0 ) {
+        data[, lpara[j] := xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns) %>% xml_text()]
+      }
+    }
+  }
+  if( type == "trk" ) {
+    data <- data.table()
+    for( i in 1:length(waypoints)) {
+      pts <- xml_find_all(waypoints[i], ".//d1:trkpt", ns = ns)
+      # Extract attributes (latitude and longitude)
+      temp <- data.table(lat = as.numeric(xml_attr(pts, "lat")),
+                         lon = as.numeric(xml_attr(pts, "lon")),
+                         name = xml_find_all(waypoints[i], ".//d1:name", ns=ns)%>% xml_text())
+      lpara <- c("ele", "time")
+      for(j in seq_along(lpara)) {
+        if( length(xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns)) > 0 ) {
+          temp[, lpara[j] := xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns) %>% xml_text()]
+        }
+      }
+      data <- rbind(data, temp)
+    }
+  }
+  
+  return(data)
+  
+}
 
 
 export.gpx <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "waypoints") {
@@ -3633,6 +3665,15 @@ png2mp4 <- function(filepath, time.s = 6, outpath = "D:/Pictures/GoPro/Map_bike"
 
 
 # RR12 --------------------------------------------------------------------
+
+DecimalToToD <- function(x) {
+  require(hms)
+  hms::as_hms(x)
+}
+
+ToDToDecimal <- function(x) {
+  period_to_seconds(lubridate::hms(x))
+}
 
 readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   

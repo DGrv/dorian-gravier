@@ -1,4 +1,5 @@
 // create file
+var ModernZeiten = ['../files/Batch/Gpx/th3cr4g_Listen/ModernZeiten/ModernZeiten.gpx',
 var Bike_trip_2022 = ['../files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2022-07-08.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2022-07-09.gpx',
@@ -159,6 +160,9 @@ var Bike_trip_2022 = ['../files/gpx/Bike_trip_2022/BT22_2022-07-07.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2023-11-12.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2023-11-13.gpx',
 '../files/gpx/Bike_trip_2022/BT22_2023-11-14.gpx']
+
+var Climbing = ['../files/gpx/Climbing/ModernZeiten.gpx',
+'../files/gpx/Climbing/Pause.gpx']
 
 var Bike = ['../files/gpx/Leaflet/Bike/B_2013_Epinal-KN.gpx',
 '../files/gpx/Leaflet/Bike/B_201511_mtb.gpx',

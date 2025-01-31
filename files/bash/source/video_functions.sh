@@ -93,7 +93,7 @@ concatmp4 () {
     listts=$(ls -1 *.ts | perl -pe "s/\n/|/")
     listts=${listts::-1}
     ffmpeg -stats -loglevel error -i "concat:${listts}" -c copy concat.mp4
-    ls -1 |grep -E "*.ts$" | xargs rm
+    ls -1 |grep -E ".*.ts$" | xargs rm
 }
 
 mergemp4 () {

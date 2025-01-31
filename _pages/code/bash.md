@@ -986,3 +986,9 @@ awk 'BEGIN {print "<table border=\"1\">"}
      END {print "</table>"}' FS=, info2.csv > info.html
 ```
 
+# change default terminal in wsl
+
+```sh
+sudo nano /etc/passwd
+# change the line for your user to /usr/bin/bash for example
+```

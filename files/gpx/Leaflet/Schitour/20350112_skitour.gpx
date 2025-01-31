@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<gpx version="1.1" creator="Locus Map, Android"
+ xmlns="http://www.topografix.com/GPX/1/1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+ xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1"
+ xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
+ xmlns:locus="http://www.locusmap.eu">
+	<metadata>
+		<desc>File with points/tracks from Locus Map/4.27.1</desc>
+		<time>2025-01-17T07:47:31.654Z</time>
+	</metadata>
+<trk>
+<name>20350112_skitour</name>
+	<extensions>
+		<line xmlns="http://www.topografix.com/GPX/gpx_style/0/2">
+			<color>0000FF</color>
+			<opacity>0.59</opacity>
+			<width>3.0</width>
+			<extensions>
+				<locus:lsColorBase>#960000FF</locus:lsColorBase>
+				<locus:lsWidth>3.0</locus:lsWidth>
+				<locus:lsUnits>PIXELS</locus:lsUnits>
+			</extensions>
+		</line>
+	</extensions>
+<trkseg>
+<trkpt lat="47.03939589" lon="8.85776802">
+	<ele>1059.18</ele>
+</trkpt>
+<trkpt lat="47.03876526" lon="8.85718967">
+	<ele>1072.16</ele>
+</trkpt>
+<trkpt lat="47.03811192" lon="8.85664287">
+	<ele>1089.19</ele>
+</trkpt>
+<trkpt lat="47.03699275" lon="8.85610307">
+	<ele>1098.61</ele>
+</trkpt>
+<trkpt lat="47.03559884" lon="8.85556328">
+	<ele>1116.89</ele>
+</trkpt>
+<trkpt lat="47.03437928" lon="8.85498142">
+	<ele>1133.26</ele>
+</trkpt>
+<trkpt lat="47.03381379" lon="8.85422802">
+	<ele>1161.14</ele>
+</trkpt>
+<trkpt lat="47.03320279" lon="8.85429478">
+	<ele>1153.92</ele>
+</trkpt>
+<trkpt lat="47.03069373" lon="8.85283565">
+	<ele>1184.59</ele>
+</trkpt>
+<trkpt lat="47.02963417" lon="8.85164356">
+	<ele>1217.21</ele>
+</trkpt>
+<trkpt lat="47.02939691" lon="8.85210132">
+	<ele>1210.63</ele>
+</trkpt>
+<trkpt lat="47.02834057" lon="8.85236359">
+	<ele>1239.87</ele>
+</trkpt>
+<trkpt lat="47.02846733" lon="8.85153389">
+	<ele>1267.50</ele>
+</trkpt>
+<trkpt lat="47.02763525" lon="8.85172462">
+	<ele>1298.00</ele>
+</trkpt>
+<trkpt lat="47.02772951" lon="8.85128593">
+	<ele>1321.42</ele>
+</trkpt>
+<trkpt lat="47.02649437" lon="8.85129070">
+	<ele>1345.18</ele>
+</trkpt>
+<trkpt lat="47.02678100" lon="8.85074888">
+	<ele>1369.15</ele>
+</trkpt>
+<trkpt lat="47.02566286" lon="8.85107789">
+	<ele>1379.23</ele>
+</trkpt>
+<trkpt lat="47.02484138" lon="8.85077618">
+	<ele>1392.80</ele>
+</trkpt>
+<trkpt lat="47.02362567" lon="8.84982250">
+	<ele>1395.33</ele>
+</trkpt>
+<trkpt lat="47.02245161" lon="8.84894989">
+	<ele>1447.73</ele>
+</trkpt>
+<trkpt lat="47.02198351" lon="8.84859703">
+	<ele>1457.93</ele>
+</trkpt>
+<trkpt lat="47.02074408" lon="8.84968912">
+	<ele>1517.43</ele>
+</trkpt>
+<trkpt lat="47.02040295" lon="8.84976493">
+	<ele>1530.10</ele>
+</trkpt>
+<trkpt lat="47.02025651" lon="8.85216852">
+	<ele>1584.34</ele>
+</trkpt>
+<trkpt lat="47.01929196" lon="8.85411871">
+	<ele>1647.04</ele>
+</trkpt>
+<trkpt lat="47.01895376" lon="8.86012882">
+	<ele>1761.25</ele>
+</trkpt>
+<trkpt lat="47.01855715" lon="8.86171192">
+	<ele>1808.28</ele>
+</trkpt>
+<trkpt lat="47.01760138" lon="8.86256069">
+	<ele>1864.64</ele>
+</trkpt>
+<trkpt lat="47.01833609" lon="8.86351436">
+	<ele>1882.78</ele>
+</trkpt>
+<trkpt lat="47.01743233" lon="8.86445850">
+	<ele>1912.55</ele>
+</trkpt>
+<trkpt lat="47.01652205" lon="8.86473507">
+	<ele>1929.12</ele>
+</trkpt>
+<trkpt lat="47.01552073" lon="8.86439174">
+	<ele>1947.36</ele>
+</trkpt>
+<trkpt lat="47.01440235" lon="8.86319011">
+	<ele>2005.88</ele>
+</trkpt>
+</trkseg>
+</trk>
+</gpx>

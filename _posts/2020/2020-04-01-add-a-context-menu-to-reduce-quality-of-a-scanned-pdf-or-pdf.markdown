@@ -37,6 +37,5 @@ Here the result.
 
 
 
-[Here the reg file](/files/Context_menu/Add_Context-Menu_Reduce-PDF-Quality_with_Ghostscript.reg)
+[Here the reg file](/files/Batch/Context_menu/Add_Context-Menu_Reduce-PDF-Quality_with_Ghostscript.reg)
 
-[And the usefull files if needed](/files/Context_menu/Ghostscript_2files_toreduce_pdf_quality.zip)

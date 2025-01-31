@@ -47,3 +47,11 @@ Windows Registry Editor Version 5.00
 ```
 
 - [Source](https://github.com/cmderdev/cmder/issues/2110#issuecomment-1041922115)
+
+# Change info active tab
+
+Under Settings > General > Tab bar, you can set the Console setting to `%m◀m %s %f%m ▶m`
+
+![](https://i.sstatic.net/kOuAk.png)
+
+[Source](https://superuser.com/a/1690976/860920)

@@ -14,14 +14,17 @@ alias lt='ls -t' # (sort by modification time)
 
 
 # shorcut
-ffm=/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Batch/FFmpeg
+alias godown="cd /mnt/c/Users/doria/Downloads"
 
 
 alias sbashrc='source ~/.bashrc'
 alias nbashrc='nano ~/.bashrc'
+alias szshrc='source ~/.zshrc'
+alias nzshrc='nano ~/.zshrc'
 
 # backup bashrc
 alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh'
+alias buzshrc='cat ~/.zshrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/zshrc.sh'
 
 timestamp () {
   date +"%Y%m%d-%H%M%S"

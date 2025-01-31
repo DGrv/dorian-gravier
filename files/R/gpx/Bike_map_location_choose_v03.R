@@ -46,12 +46,12 @@ library(ggh4x)
 library(ggmap)
 library(jsonlite)
 library(httr)
-library(rgdal)
+# library(rgdal)
 library(ggmap)
-library(plotKML)
+# library(plotKML)
 library(gganimate)
 library(rayshader)
-library(rayshaderanimate)
+# library(rayshaderanimate)
 library(raster)
 library(sf)
 library(ggspatial) 
@@ -72,7 +72,7 @@ file.remove("Location_choose_white.png")
 
 
 
-api <- readLines(rP("file:///C:/Users/doria/Downloads/Outdoor/ggmap_ap1_k3y.txt")) # Text file with the API key
+api <- readLines(rP("file:///C:/Users/doria/Downloads/secret/ggmap_ap1_k3y.txt")) # Text file with the API key
 register_google(key = api)
 getOption("ggmap")
 
@@ -116,7 +116,8 @@ if( add.bike ) {
     ll <- list.files.only("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022")
     data0 <- data.table()
     for (i in seq_along(ll)) {
-      temp <- data.table(get_table_from_gpx(ll[i]))
+      temp <- read.gpx(ll[i], type = "trk")
+      # temp <- data.table(get_table_from_gpx(ll[i]))
       # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
       temp[, file := basename(ll[i])]
       data0 <- rbind(data0, temp, fill = T)

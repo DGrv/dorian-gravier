@@ -6,6 +6,9 @@ rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/'
 source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
 
 
+stop("[DEBUG] - Dorian - You have to update the code, plotKML, rayshaderanimate, rgdal are not anymore maintained, used the function read.gpx that I created")
+
+
 library(jsonlite)
 library(httr)
 library(rgdal)

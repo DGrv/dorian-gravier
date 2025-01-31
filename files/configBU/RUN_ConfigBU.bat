@@ -1,0 +1,3 @@
+xcopy C:\Users\doria\scoop\persist\freecommander\Settings C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\FreeCommander /Y
+xcopy C:\Users\doria\scoop\persist\mpv\portable_config C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\mpv /Y /E /EXCLUDE:exclude_mpv.txt
+xcopy C:\Users\doria\scoop\persist\notepadplusplus C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\notepad /Y /E /EXCLUDE:exclude_notepad.txt

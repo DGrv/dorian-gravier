@@ -5,6 +5,8 @@ rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/'
 # Sys.setlocale('LC_ALL', 'German')
 source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
 
+stop("[DEBUG] - Dorian - You have to update the code, plotKML, rayshaderanimate, rgdal are not anymore maintained, used the function read.gpx that I created")
+
 
 library(httr)
 library(rvest)
@@ -16,7 +18,7 @@ library(concaveman)
 
 # chrome <- Chrome$new(bin = "C:/Users/doria/scoop/shims/chrome.exe")
 
-# if( paste0(Sys.info()[4]) == 'DESKTOP-MG495PG' ) {
+# if( paste0(Sys.info()[4]) == 'DELLDORI' ) {
   wd <- rP("file:///C:/Users/doria/Dropbox/Shared_Dorian/thecrag/")
   # country.list <- c("Corsica", "France", "Germany")
   country.list <- c("Croatia", "Slovenia", "Hunga", "Serbia", "Montenegro", "Albania", "Bosnia", "Macedonia", "Greece")

@@ -12,7 +12,7 @@ suppressWarnings(suppressMessages(library(kableExtra)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/Drive/RR/2025/2025__SwissBikeCup/BU/rr_backup_Swiss_Bike_Cup_2025_20241126-092118/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025__SwissBikeCup/BU/rr_backup_Skoda_Swiss_Bike_Cup_2025_20241206-170409/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
