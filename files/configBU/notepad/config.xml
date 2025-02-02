@@ -2,38 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="timing" />
-        <Find name="blank" />
-        <Find name=" " />
-        <Find name="Speziell " />
-        <Find name="Ergebnissen" />
-        <Find name="Ergenisse" />
-        <Find name='\&quot;' />
-        <Find name="\\" />
-        <Find name="C:\\Users\\doria\\Downloads\\Software_pcloud\\PortableApps\\Ghostscript\\bin\\gswin64c.exe" />
-        <Find name="\" />
-        <Replace name="_" />
-        <Replace name="Spezielle " />
-        <Replace name="Ergebnisse" />
-        <Replace name="\" />
-        <Replace name='&quot;' />
-        <Replace name="C:\\Users\\doria\\scoop\\apps\\ghostscript\\current\\bin\\gswin64c.exe" />
-        <Replace name="\\" />
-        <Replace name="C:\Users\doria\scoop\apps\ghostscript\current\bin\gswin64c.exe" />
-        <Replace name="\)" />
-        <Replace name='&quot;)' />
+        <Find name="anp" />
+        <Find name="=1" />
+        <Find name='=&quot;&quot;' />
+        <Find name="=0" />
+        <Find name="len(" />
+        <Find name=")" />
+        <Find name=" @ " />
+        <Find name="\r\n" />
+        <Find name='&quot;' />
+        <Find name="Time" />
+        <Replace name="ansp" />
+        <Replace name='=&quot;&quot;' />
+        <Replace name='&lt;&gt;&quot;&quot;' />
+        <Replace name="\r\n- " />
+        <Replace name='&quot;, &quot;' />
+        <Replace name="_Time" />
+        <Replace name="_Time.De" />
+        <Replace name="[CONTEST.nLaps];[RankLapAF" />
+        <Replace name="[LapAF" />
+        <Replace name="AF" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\2025_SwissBikeCup\SwissBikeCup_2025_v01\1024x128_SwissBikeCup\Styles.xaml" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250419__GP_Osterhas\CI-CD\Big_Shoulders_Text\OFL.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250419__GP_Osterhas\CI-CD\Big_Shoulders_Text\README.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Other\LED\Offers\Zoll_Info.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\dbnetsoft\License\race result Swiss ScreensPro License.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Other\LED\Offers\HScode.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Email_config\Signature_202407.html" />
-        <File filename="D:\DG-Papers\Taxes\DE\Steur-ID.txt" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Notepad\UserDefined\Info_color_exchange_Zenburn2Drakula.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Other\LED\Offers\Zoll_Info.md" />
+        <File filename="C:\Users\doria\Downloads\WavesAudio.MaxxAudioProforDell2019_fh4rh281wavaa!App\LocalFolder.txt" />
+        <File filename="C:\Users\doria\Downloads\WhatsApp Chat with Reinhard Standke Raceresult.txt" />
+        <File filename="C:\Users\doria\Downloads\Special Results (7) - Copy.lvs" />
+        <File filename="C:\Users\doria\Downloads\Special Results (6).lvs" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250126_41._Unterlandstafette\Explanation.md" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250308__Fisherman&apos;s_Sliding_Challenge_Winteredition\Participants\tickets_veranstaltungsreihe_fishermans_friend_sliding_challenge_20250113080431_v02.csv" />
+        <File filename="C:\Users\doria\Downloads\Timing Points.lvs" />
+        <File filename="C:\Users\doria\scoop\apps\notepadplusplus\8.7.5\plugins\Config\EnhanceAnyLexer\EnhanceAnyLexerConfig.ini" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250308__Fisherman&apos;s_Sliding_Challenge_Winteredition\Discussion_Hanno.md" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250308__Fisherman&apos;s_Sliding_Challenge_Winteredition\iRewind\iRewind.csv" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -42,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="-1" increase="-1" repeat="-1" formatChoice="dec" leadingChoice="none" />
+        <number initial="0" increase="3" repeat="2" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -51,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="149" y="137" width="1664" height="700" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="864" top="663" right="1467" bottom="1022" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="100" y="138" width="1739" height="835" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="997" top="300" right="1600" bottom="659" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -93,9 +93,13 @@
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
         <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="1" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
-        <GUIConfig name="DockingManager" leftWidth="200" rightWidth="200" topHeight="200" bottomHeight="200">
+        <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="200">
+            <PluginDlg pluginName="NppMarkdownPanel" id="0" curr="1" prev="-1" isVisible="yes" />
+            <PluginDlg pluginName="MarkdownViewer++" id="0" curr="1" prev="-1" isVisible="no" />
+            <PluginDlg pluginName="FWDataViz.dll" id="0" curr="1" prev="-1" isVisible="no" />
+            <PluginDlg pluginName="JSMinNPP.dll" id="0" curr="0" prev="-1" isVisible="no" />
             <ActiveTabs cont="0" activeTab="-1" />
-            <ActiveTabs cont="1" activeTab="-1" />
+            <ActiveTabs cont="1" activeTab="0" />
             <ActiveTabs cont="2" activeTab="-1" />
             <ActiveTabs cont="3" activeTab="-1" />
         </GUIConfig>

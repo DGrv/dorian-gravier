@@ -429,15 +429,14 @@ if( paste0(Sys.info()[4]) == 'DESKTOP-MG...PG' ) {
   }
 }
 ```
-
-after.txt is :
+with this, which is "after.txt":
 
 ```txt
 rootpath \<\- 'D\:\/BU_Work\/Maxi_BU\/20240812\/Shared_Dorian\/' 
 Sys\.setlocale\('LC_ALL', 'German'\)
 ```
 
-Prepare you expression and you after.txt to include "\n" (check [source](https://unix.stackexchange.com/a/181215/374250))
+Prepare your expression and your after.txt to include "\n" (check [source](https://unix.stackexchange.com/a/181215/374250))
 You can use the [online tool to escape regex](https://beautifycode.net/regex-escape)
 
 ```sh
@@ -457,6 +456,17 @@ other example with `xargs -I ß`
 ```shell
 ag -i "\# setup\r\n" -l | xargs -I ß perl -i -0 -pe "s/\# setup.*utf-8.\)\r\n\)\)/$(cat /mnt/c/Users/doria/Downloads/sedtemp/replace.txt)/s" "ß"
 ```
+
+This did not work 20250201, I needed to run `ag "%Y%m%d-%H%M%S" -l | tr -d "\r" | xargs -I # perl -i -pe "s/%Y%m%d-%H%M%S/%%Y%%m%%d-%%H%%M%%S/s" #`
+
+other tips to open all file with notepad++
+
+```shell
+ag -i "WMIC OS GET LocalDateTime" -l | head -1 | tr -d "\r" | xargs -I # notepad++ #
+```
+
+ag is putting a "\r" at the end of the output you can see it with ` ag -i "WMIC OS GET LocalDateTime" -l | head -1 | cat -A`
+
 
 # count 
 

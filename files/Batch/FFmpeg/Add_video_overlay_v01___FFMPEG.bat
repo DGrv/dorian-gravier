@@ -32,8 +32,9 @@ for %%a in (%input1%) do (
 %drive%
 cd "%pathh%"
 
-FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
-set TIMESTAMP=%time:~0,8%-%time:~8,6%
+REM FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+REM set TIMESTAMP=%time:~0,8%-%time:~8,6%
+for /f %%p in ('bash -c "date +"%%Y%%m%%d-%%H%%M%%S""') do set TIMESTAMP=%%p
 
 set filenamenew=%filenamenoext%_old_%TIMESTAMP%.mp4
 

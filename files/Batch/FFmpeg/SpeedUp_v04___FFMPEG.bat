@@ -72,9 +72,9 @@ set speed2=%speed:~2,1%
 set /a speed2=speed2
 
 
-FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
-set TIMESTAMP=%time:~0,8%-%time:~8,6%
-
+REM FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+REM set TIMESTAMP=%time:~0,8%-%time:~8,6%
+for /f %%p in ('bash -c "date +"%%Y%%m%%d-%%H%%M%%S""') do set TIMESTAMP=%%p
 
 
 

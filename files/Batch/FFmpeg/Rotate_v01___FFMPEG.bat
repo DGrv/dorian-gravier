@@ -42,8 +42,9 @@ echo.
 :: only metadata, if you bind it with other, it will not be rotated ...
 ::ffmpeg -i %input% -v quiet -stats -codec copy -map_metadata 0 -metadata:s:v:0 rotate=180 %filepathnoext%_r%ext%
 
-FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
-set TIMESTAMP=%time:~0,8%-%time:~8,6%
+REM FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+REM set TIMESTAMP=%time:~0,8%-%time:~8,6%
+for /f %%p in ('bash -c "date +"%%Y%%m%%d-%%H%%M%%S""') do set TIMESTAMP=%%p
 
 :: goo one
 rename "%input%" "%filenamenoext%_old_r%rotation%_%TIMESTAMP%.mp4"

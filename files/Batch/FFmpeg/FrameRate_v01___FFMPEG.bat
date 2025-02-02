@@ -51,8 +51,9 @@ for /f %%j in ('exiftool "%filepath%" ^| grep "Video Frame Rate" ^| perl -pe "s|
 
 
 
-FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
-set TIMESTAMP=%time:~0,8%-%time:~8,6%
+REM FOR /F %%A IN ('WMIC OS GET LocalDateTime ^| FINDSTR \.') DO @SET time=%%A
+REM set TIMESTAMP=%time:~0,8%-%time:~8,6%
+for /f %%p in ('bash -c "date +"%%Y%%m%%d-%%H%%M%%S""') do set TIMESTAMP=%%p
 
 set renamefile=%filenamenoext%_old_fr%RV%_%TIMESTAMP%%ext%
 

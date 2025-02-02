@@ -1,0 +1,98 @@
+{
+    "$defs": {
+        "super_fancy": {
+            "properties": {
+                "b": {
+                    "anyOf": [
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "pattern": "^a",
+                            "type": "string"
+                        },
+                        {
+                            "contains": {
+                                "enum": [
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "type": "integer"
+                            },
+                            "items": {
+                                "type": [
+                                    "integer",
+                                    "string"
+                                ]
+                            },
+                            "maxContains": 2,
+                            "maxItems": 4,
+                            "minContains": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        }
+                    ]
+                },
+                "c": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "d": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "b"
+            ],
+            "type": "object"
+        }
+    },
+    "$schema": "http://json-schema.org/schema#",
+    "items": {
+        "patternProperties": {
+            "^d\\d+$": {
+                "type": "integer",
+                "minimum": -5,
+                "maximum": 5
+            },
+            "^0x(?i)[0-9a-f]{6} = (?-i)(?:PASS|FAIL)\t[a-q]{2,5}$": {"type": "string", "pattern": "^(foo|bar|baz)\\s+\\w+\\.\\1$"}
+        },
+        "properties": {
+            "a": {
+                "type": "number",
+                "exclusiveMaximum": 100,
+                "exclusiveMinimum": 0
+            },
+            "b": {
+                "items": {
+                    "properties": {
+                        "a": {
+                            "$ref": "#/$defs/super_fancy"
+                        }
+                    },
+                    "required": [
+                        "a"
+                    ],
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "c": {
+                "type": "integer"
+            },
+            "e": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 3
+            }
+        },
+        "required": [
+            "a"
+        ],
+        "type": "object"
+    },
+    "type": "array"
+}

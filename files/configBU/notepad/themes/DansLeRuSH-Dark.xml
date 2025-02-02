@@ -1098,7 +1098,7 @@ Installation : Copy this file to "%APPDATA%\Notepad++\themes" and in a portable 
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="A88AB6" bgColor="2E2E2E" fontName="" fontStyle="0" fontSize="10"></WidgetStyle>
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="363636"></WidgetStyle>
         <!-- In below rule 'fgColor' attribute for 'Selected text colour' can be unlocked with a enableSelectFgColor.xml file -->
-        <WidgetStyle name="Selected text colour" styleID="0" bgColor="4D4D4D" fgColor="C0C0C0"></WidgetStyle>
+        <WidgetStyle name="Selected text colour" styleID="0" bgColor="6C6C00" fgColor="C0C0C0"></WidgetStyle>
         <WidgetStyle name="Multi-selected text color" styleID="0" bgColor="4D4D4D"></WidgetStyle>
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="A7A7A7"></WidgetStyle>
         <WidgetStyle name="Multi-edit carets color" styleID="0" fgColor="A7A7A7"></WidgetStyle>
