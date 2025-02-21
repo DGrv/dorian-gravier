@@ -13,6 +13,8 @@ suppressWarnings(suppressMessages(library(leaflet.extras)))
 suppressWarnings(suppressMessages(library(htmlwidgets)))
 suppressWarnings(suppressMessages(library(RColorBrewer)))
 suppressWarnings(suppressMessages(library(sf)))
+suppressWarnings(suppressMessages(library(gpx)))
+suppressWarnings(suppressMessages(library(xml2)))
 # display.brewer.all()
 
 wd <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Climbing/")
@@ -29,9 +31,7 @@ ll <- list.files(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.gith
 ll
 data <- data.table()
 for(i in seq_along(ll)) {
-  # temp <- data.table(readGPX(ll[i])$waypoints)
-  temp <- read.gpx(ll[i])
-  temp[, file := ll[i]]
+  temp <- read.gpx(ll[i], type="wpt")
   data <- rbind(data, temp)
 }
 data

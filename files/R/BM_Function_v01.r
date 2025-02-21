@@ -21,6 +21,8 @@ library(odbc) # database
 # library(gmailr)
 #library(rgdal) 
 library(colorDF)
+library(xml2)
+library(sf)
 
 # Sys.setlocale('LC_ALL', 'German')
 Sys.getenv()
@@ -3539,7 +3541,14 @@ prepare.bilder.import <- function(DATA, color.name, new.name,
 
 }
 
-read.gpx <-  function(input, type = "wpt") {
+ read.gpx <-  function(input, type = "wpt") {
+  
+  # not working 20250221
+  # not working 20250221
+  # not working 20250221
+  # not working 20250221
+  # not working 20250221
+  # not working 20250221
   
   require(xml2)
   # Read the GPX file
@@ -3583,6 +3592,39 @@ read.gpx <-  function(input, type = "wpt") {
   
 }
 
+read.gpx <-  function(input, type = "wpt") {
+  
+  require(xml2)
+  require(gpx)
+  require(data.table)
+  
+  if( type == "trk") {
+    debug.easy(length(read_gpx(input)$tracks) > 1, "Please finish function for more than 1 track!")
+    temp <- data.table(read_gpx(input)$tracks[[1]])
+    setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
+             c("name", "ele", "lat", "lon", "desc", "time"),
+             skip_absent=TRUE)
+  }
+  
+  if( type == "wpt" ) {
+    temp <- data.table(read_gpx(input)$waypoints)
+    temp[, file := ll[i]]
+    setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
+             c("name", "ele", "lat", "lon", "desc", "time"),
+             skip_absent=TRUE)
+    gpx_file <- read_xml(input) # Load the GPX file
+    ns <- xml_ns(gpx_file) # Define the namespace
+    # Extract URLs correctly using the namespace
+    urls <- xml_find_all(gpx_file, ".//d1:url", ns)
+    if( length(urls) > 0 ) {
+      url_texts <- xml_text(urls)
+      temp[, url := url_texts]
+    }
+  }
+  
+  return(temp)
+  
+}
 
 export.gpx <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "waypoints") {
   
@@ -3625,6 +3667,41 @@ export.gpx <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "
   }
   write.table(DATA3$x, filename, quote = F, row.names = F, col.names = F)
   
+}
+
+
+export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "waypoints") {
+  
+  # library(sf)
+  # library(data.table)
+  # library(xml2)
+  
+  debug.easy(!all(c("lat", "lon") %in% names(DATA)), "You need 'lat' and 'lon' variable." ) 
+  debug.easy(layer.type == "tracks", "Need to finish to write the function ")
+  
+  if( layer.type == "waypoints") {
+    # Convert data.table to sf object
+    sf_data <- st_as_sf(DATA, coords = c("lon", "lat"), crs = 4326)
+    # Create the GPX XML structure
+    gpx <- xml_new_root("gpx", version = "1.1", creator = "R", xmlns = "http://www.topografix.com/GPX/1/1")
+    # Add metadata
+    metadata <- xml_add_child(gpx, "metadata")
+    xml_add_child(metadata, "bounds", minlat = min(sf_data$lat), minlon = min(sf_data$lon), 
+                  maxlat = max(sf_data$lat), maxlon = max(sf_data$lon))
+    # Add waypoints
+    for (i in 1:nrow(DATA)) {
+      wpt <- xml_add_child(gpx, "wpt", lat = DATA$lat[i], lon = DATA$lon[i])
+      xml_add_child(wpt, "name", DATA$name[i])
+      if ( add.desc ) {
+        xml_add_child(wpt, "desc", DATA$desc[i])
+      }
+      if ( add.url ) {
+        xml_add_child(wpt, "url", DATA$url[i])
+      }
+    }
+    # Save the GPX to file
+    write_xml(gpx, filename)
+  }
 }
 
 

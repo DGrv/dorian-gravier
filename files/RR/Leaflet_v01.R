@@ -10,18 +10,22 @@ suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), 
 
 suppressWarnings(suppressMessages(library(leaflet)))
 suppressWarnings(suppressMessages(library(leaflet.extras)))
-suppressWarnings(suppressMessages(library(rayshaderanimate)))
+# suppressWarnings(suppressMessages(library(rayshaderanimate)))
 suppressWarnings(suppressMessages(library(htmlwidgets)))
 suppressWarnings(suppressMessages(library(RColorBrewer)))
 # display.brewer.all()
 suppressWarnings(suppressMessages(library(sf)))
+suppressWarnings(suppressMessages(library(sp)))
 suppressWarnings(suppressMessages(library(lubridate)))
+suppressWarnings(suppressMessages(library(xml2)))
+suppressWarnings(suppressMessages(library(gpx)))
+# suppressWarnings(suppressMessages(library(rgdal)))
 
 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/backup_Sarnersee_Lauf_2024_20240903-091435/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250308__Fisherman's_Sliding_Challenge_Winteredition/BU/rr_backup_Fishermans_Sliding_Challenge_Winteredition_20250221-165612/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -42,7 +46,8 @@ setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
 # tp
 
-export.gpx(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
+
+export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
 
 
 
@@ -92,8 +97,7 @@ ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
 
 data0 <- data.table()
 for (i in seq_along(ll$filepath)) {
-  temp <- data.table(get_table_from_gpx(ll$filepath[i]))
-  # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
+  temp <- read.gpx(ll$filepath[i], type="trk")
   temp[, Name := ll$Name[i]]
   data0 <- rbind(data0, temp, fill = T)
   cat("\n", i, "- Read done:", ll$file[i])
