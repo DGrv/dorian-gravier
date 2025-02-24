@@ -63,7 +63,7 @@ def main():
             # maxResults=100,
             singleEvents=True,
             orderBy="startTime",
-            showDeleted=True # need this to update deleted ones
+            showDeleted=True
         )
         .execute()
     )
@@ -95,78 +95,78 @@ if __name__ == "__main__":
 
 
 
-# # if you need to delete all from this calendar do this
+# if you need to delete all from this calendar do this
 # pp.pprint(events)
-# for i in range(0, len(events)):
-#   try:
-#     service.events().delete(calendarId=cID, eventId=events[i].get("id")).execute()
-#   except HttpError as error:
-#     # fail if id exist to avoid duplicates
-#     print(f"An error occurred: {error}")
-
-
-
-
-
-
-
-# get the api from RR
-with urllib.request.urlopen("https://api.raceresult.com/316315/ANPSEOUEK8L69XG3IRBDMQKV4SGIRHUN") as url:
-    json_object = json.load(url)
-
-# pretty print
-datav=json.dumps(json_object, indent=1)
-# transform in dict python
-data=json.loads(json.dumps(json_object))
-
-# create empty dict
-ndata={}
-
-for i in range(0, len(data)): 
-  # reformat the date
-  # all info here https://developers.google.com/calendar/api/v3/reference/events/import
-  startdate = re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\3", data[i].get("Start Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\2", data[i].get("Start Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\1", data[i].get("Start Date"))
-  enddate = re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\3", data[i].get("End Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\2", data[i].get("End Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\1", data[i].get("End Date"))
-
-  ndata[i]={"summary": data[i].get("Subject"), 
-    "description": data[i].get("Description"),
-    "location": data[i].get("Location"),
-    "start": {"date": startdate},
-    "end": {"date": enddate},
-    # id have 5 character minimum, use the bib from the event
-    "id": "{:05d}".format(data[i].get("Bib")),
-    'reminders': {
-      'useDefault': False,
-      'overrides': [
-        {'method': 'popup', 'minutes': 24 * 60 * 7},
-        {'method': 'popup', 'minutes': 24*60*7*3},
-      ],
-    }
-  }
-
-
-# debug print
-# pp.pprint(data)
-# print(ndata)
-pp.pprint(ndata)
-# ndata[0]
-eventsids = [events[i].get("id") for i in range(0,len(events))]
-print("Events ids:")
-print("\n".join(eventsids))
-
-for i in range(0, len(ndata)):
-  print("Event from json, id:"+ndata[i].get("id"))
+for i in range(0, len(events)):
   try:
-    # https://stackoverflow.com/questions/67483927/google-calendar-api-deleting-a-event-does-not-delete-an-event-id
-    if ndata[i].get("id") in eventsids:
-      print("\tEvend id exist ---> update")
-      service.events().update(calendarId=cID, eventId=ndata[i].get("id"), body=ndata[i]).execute()
-    else:
-      print("\tEvend id created")
-      service.events().insert(calendarId=cID, body=ndata[i]).execute()
+    service.events().delete(calendarId=cID, eventId=events[i].get("id"), sendNotifications=False).execute()
   except HttpError as error:
     # fail if id exist to avoid duplicates
     print(f"An error occurred: {error}")
+
+
+
+
+
+
+
+# # get the api from RR
+# with urllib.request.urlopen("https://api.raceresult.com/316315/ANPSEOUEK8L69XG3IRBDMQKV4SGIRHUN") as url:
+    # json_object = json.load(url)
+
+# # pretty print
+# datav=json.dumps(json_object, indent=1)
+# # transform in dict python
+# data=json.loads(json.dumps(json_object))
+
+# # create empty dict
+# ndata={}
+
+# for i in range(0, len(data)): 
+  # # reformat the date
+  # # all info here https://developers.google.com/calendar/api/v3/reference/events/import
+  # startdate = re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\3", data[i].get("Start Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\2", data[i].get("Start Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\1", data[i].get("Start Date"))
+  # enddate = re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\3", data[i].get("End Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\2", data[i].get("End Date")) + "-" + re.sub(r"(\d\d)/(\d\d)/(\d\d\d\d)", r"\1", data[i].get("End Date"))
+
+  # ndata[i]={"summary": data[i].get("Subject"), 
+    # "description": data[i].get("Description"),
+    # "location": data[i].get("Location"),
+    # "start": {"date": startdate},
+    # "end": {"date": enddate},
+    # # id have 5 character minimum, use the bib from the event
+    # "id": "{:05d}".format(data[i].get("Bib")),
+    # 'reminders': {
+      # 'useDefault': False,
+      # 'overrides': [
+        # {'method': 'popup', 'minutes': 24 * 60 * 7},
+        # {'method': 'popup', 'minutes': 24*60*7*3},
+      # ],
+    # }
+  # }
+
+
+# # debug print
+# # pp.pprint(data)
+# # print(ndata)
+# pp.pprint(ndata)
+# # ndata[0]
+# eventsids = [events[i].get("id") for i in range(0,len(events))]
+# print("Events ids:")
+# print("\n".join(eventsids))
+
+# for i in range(0, len(ndata)):
+  # print("Event from json, id:"+ndata[i].get("id"))
+  # try:
+    # # https://stackoverflow.com/questions/67483927/google-calendar-api-deleting-a-event-does-not-delete-an-event-id
+    # if ndata[i].get("id") in eventsids:
+      # print("\tEvend id exist ---> update")
+      # service.events().update(calendarId=cID, eventId=ndata[i].get("id"), body=ndata[i]).execute()
+    # else:
+      # print("\tEvend id created")
+      # service.events().insert(calendarId=cID, body=ndata[i]).execute()
+  # except HttpError as error:
+    # # fail if id exist to avoid duplicates
+    # print(f"An error occurred: {error}")
 
 
 
