@@ -159,7 +159,7 @@ for (i in seq_along(ll$filepath)) {
 groupslayer <- c("TimingPoints", ll$Name)
 
 m <-  m %>% 
-  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints") %>% 
+  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>% 
   setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
                     zoom = 12) %>%
