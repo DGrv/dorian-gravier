@@ -1,4 +1,5 @@
 scann=nmap -sn $1 $B awk '{a=0;b=2;c=3;d=4;e=5;f=6} function out() { if (state=="up") { printf "%s   \t%s   \t%s  \t%s\n", ip, mac, name, name2; ip=""; mac=""; name=""; state=""; name2="" } } /Nmap scan report/ { out(); name=$e; ip = substr($f,2,length($f)-2); if (ip=="") { ip=name; name="" } } /Host is/ { state=$c } /MAC Address/ { mac=$c; name2=substr($a,index($a,$d)) } END { out() }'
+myip=ipconfig $B grep IPv4 $B awk '{print $NF}'
 lcom=reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM
 gpopen=curl --request GET --url http://172.28.124.51:8080/gopro/camera/control/wired_usb?p=1
 gpclose=curl --request GET --url http://172.28.124.51:8080/gopro/camera/control/wired_usb?p=0

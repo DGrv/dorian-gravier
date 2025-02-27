@@ -162,17 +162,18 @@ m <-  m %>%
   addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>% 
   setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
-                    zoom = 12) %>%
+                    zoom = 17) %>%
   addLayersControl(
-    baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
+    baseGroups = c("SwissTopo", "SwissTopo Sat", "OpenTopoMap"), 
     overlayGroups = groupslayer,
-    options = layersControlOptions(collapsed=FALSE)) %>% 
-      hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
+    options = layersControlOptions(collapsed=FALSE)) 
+# %>% 
+      # hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
 m <-  m %>%  addFullscreenControl() %>%
   addHash() %>%
   addSearchOSM() %>%
-  addDrawToolbar() %>%
-  addStyleEditor() %>%
+  # addDrawToolbar() %>%
+  # addStyleEditor() %>%
   addControlGPS()
 
 
