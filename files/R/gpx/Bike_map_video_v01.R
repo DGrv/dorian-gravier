@@ -52,7 +52,8 @@ world2 <- world[region %like% "France|Spain|Portuga|Ando|Switzerland|Italy|Germa
 ll <- list.files.only("C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022")
 data <- data.table()
 for (i in seq_along(ll)) {
-  temp <- data.table(get_table_from_gpx(ll[i]))
+  # temp <- data.table(get_table_from_gpx(ll[i]))
+  temp <- read.gpx(ll[i], type="trk")
   # temp <- data.table(readGPX(ll[i])$tracks[[1]][[1]])
   temp[, file := basename(ll[i])]
   data <- rbind(data, temp, fill = T)
