@@ -167,8 +167,14 @@ m <-  m %>%
     baseGroups = c("SwissTopo", "SwissTopo Sat", "OpenTopoMap"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) 
+# to hide layers
+# to hide layers
+# to hide layers
+# to hide layers
 # %>% 
       # hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
+
+
 m <-  m %>%  addFullscreenControl() %>%
   addHash() %>%
   addSearchOSM() %>%
