@@ -1,3 +1,17 @@
+
+# setup
+rm(list = ls())
+rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/'
+# Sys.setlocale('LC_ALL', 'German')
+
+suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")))
+
+suppressWarnings(suppressMessages(library(leaflet)))
+suppressWarnings(suppressMessages(library(leaflet.extras)))
+suppressWarnings(suppressMessages(library(httr2)))
+suppressWarnings(suppressMessages(library(htmlwidgets)))
+
+
 apikey <- "846.dccb7479c667d522bbfe79d4f815251f0780317462a2f1a1d7e5de258efa3a79ca96e6facc7b6ce67d63d590f6c71854"
 
 # repeat {
@@ -54,7 +68,10 @@ RRdevices[, popup := p0(DeviceID,
                     "<br>Power: ",  Power,
                     "<br>", BatteryCharge, 
                     "%<br>LastRec: ", Received, "<br>Rsta: ", ReaderStatus)]
-RRdevices
+RRdevices <- RRdevices[Received > "2025-01-01"]
+
+RRdevices[, .N, DeviceType]
+
 
 
 
@@ -74,3 +91,79 @@ RRdevices[, icon := ifelse(Connected == FALSE,
                                      ifelse(BatteryCharge > 50, 
                                             'battery-half',
                                             'battery-empty'))))]
+
+# check providers https://leaflet-extras.github.io/leaflet-providers/preview/
+m <- leaflet() %>%
+  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19),
+                   group = "OpenTopoMap") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo") %>%
+  addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
+           attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
+           group = "SwissTopo Sat")
+
+
+# output ------------------------------------------------------------------
+
+groupslayer <- c("DevicesOnline", "DevicesOffline")
+
+m <-  m %>%
+  # addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints") %>%
+  # addMarkers(data = RRdevices[Connected == T], lng = ~lon, lat = ~lat, popup = ~DeviceID, label = ~DeviceID, group = "DevicesOnline",
+  #            icon= icons(iconUrl ="https://github.com/DGrv/dorian-gravier/blob/master/files/RR/Images/loc_green_small.png?raw=true",
+  #                        iconAnchorX=11, iconAnchorY=25)) %>%
+  # addMarkers(data = RRdevices[Connected == F], lng = ~lon, lat = ~lat, popup = ~DeviceID, label = ~DeviceID, group = "DevicesOnline",
+  #            icon= icons(iconUrl = "https://github.com/DGrv/dorian-gravier/blob/master/files/RR/Images/loc_red_small.png?raw=true",
+  #                        iconAnchorX=11, iconAnchorY=25)) %>%
+  # setView((max(RRdevices$lon, na.rm = T)-min(RRdevices$lon, na.rm = T))/2+min(RRdevices$lon, na.rm = T),
+  #         (max(RRdevices$lat, na.rm = T)-min(RRdevices$lat, na.rm = T))/2+min(RRdevices$lat, na.rm = T), 
+  #         zoom = 12) %>%
+  setView(46.472,10.184, zoom=12) %>%
+  addLayersControl(
+    baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
+    overlayGroups = groupslayer,
+    options = layersControlOptions(collapsed=FALSE)) 
+# %>% 
+  # hideGroup(groupslayer[c(3,5:length(groupslayer))]) #hide all groups except the 1st and 2nd )
+
+
+for( i in 1:length(RRdevices$DeviceID)) {
+  if( RRdevices$Connected[i] ){
+    cat("Conne", i)
+    m <-  m %>%
+      addAwesomeMarkers(data = RRdevices[DeviceID == RRdevices$DeviceID[i]],
+                        icon=awesomeIcons(
+                          icon = RRdevices$icon[i],
+                          iconColor = 'black',
+                          library = 'ion',
+                          markerColor = RRdevices$color[i]),
+                        lng = ~lon, lat = ~lat, popup = ~popup, label = ~DeviceID, group = "DevicesOnline")
+  } else {
+    m <-  m %>%
+      addAwesomeMarkers(data = RRdevices[DeviceID == RRdevices$DeviceID[i]],
+                        icon=awesomeIcons(
+                          icon = RRdevices$icon[i],
+                          iconColor = 'black',
+                          library = 'ion',
+                          markerColor = RRdevices$color[i]),
+                        lng = ~lon, lat = ~lat, popup = ~popup, label = ~DeviceID, group = "DevicesOffline")
+  }
+}
+
+
+
+m <-  m %>%  addFullscreenControl() %>%
+  addHash() %>%
+  addSearchOSM() %>%
+  # addDrawToolbar() %>%
+  # addStyleEditor() %>%
+  addControlGPS()
+
+
+cat(green("\n\nLeaflet ready"))
+
+setwd(rP("file:///C:/Users/doria/Downloads"))
+saveWidget(m, file="RRdevices.html")
+
+cat(green("\nLeaflet DONE :)\n"))
