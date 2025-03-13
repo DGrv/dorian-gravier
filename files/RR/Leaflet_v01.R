@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250308__Fisherman's_Sliding_Challenge_Winteredition/BU/rr_backup_Fishermans_Sliding_Challenge_Winteredition_20250221-165612/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250525__CyclotourDuLeman/BU/rr_backup_Cyclotour_du_Leman_20250311-200919/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -44,6 +44,8 @@ tp <- tp[, .(Name, Color, lat, lon)]
 tp <- tp[Name != ""]
 setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
+tp[, url:= p0("https://www.google.com/maps/place/", lat, ",", lon)]
+tp[, label := p0(TimingPoint, '<br><a href="', url, '" target="_blank">GoogleMap</a>' )]
 # tp
 
 
@@ -108,14 +110,14 @@ for (i in seq_along(ll$filepath)) {
 #https://www.jeffreyschmid.com/posts/2022-01-01-different-basemaps-in-leaflet-r/
 m <- leaflet() %>%
   # addProviderTiles('OpenTopoMap')
-  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 19),
+  addProviderTiles('OpenTopoMap', options = providerTileOptions(maxZoom = 20),
                    group = "OpenTopoMap") %>%
   addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
            attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
-           group = "SwissTopo") %>%
+           group = "SwissTopo", options = providerTileOptions(maxZoom = 20)) %>%
   addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
            attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
-           group = "SwissTopo Sat")
+           group = "SwissTopo Sat", options = providerTileOptions(maxZoom = 20))
 
 
 
@@ -159,14 +161,22 @@ for (i in seq_along(ll$filepath)) {
 groupslayer <- c("TimingPoints", ll$Name)
 
 m <-  m %>% 
-  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~TimingPoint, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>% 
-  setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
-                    (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
-                    zoom = 17) %>%
+  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>% 
+  fitBounds(
+    lng1 = min(data0$lon), lat1 = min(data0$lat),
+    lng2 = max(data0$lon), lat2 = max(data0$lat)
+  ) %>%
   addLayersControl(
     baseGroups = c("SwissTopo", "SwissTopo Sat", "OpenTopoMap"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) 
+
+# old - used then fitbounds
+  # setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
+  #                   (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
+  #                   zoom = 17) %>%
+
+
 # to hide layers
 # to hide layers
 # to hide layers

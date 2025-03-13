@@ -12,7 +12,7 @@ suppressWarnings(suppressMessages(library(httr2)))
 suppressWarnings(suppressMessages(library(htmlwidgets)))
 
 
-apikey <- "846.dccb7479c667d522bbfe79d4f815251f0780317462a2f1a1d7e5de258efa3a79ca96e6facc7b6ce67d63d590f6c71854"
+apikey <- readLines(rP("file:///C:/Users/doria/Downloads/secret/apiRR.txt"))[1]
 
 # repeat {
 # Add custom header
@@ -71,6 +71,7 @@ RRdevices[, popup := p0(DeviceID,
 RRdevices <- RRdevices[Received > "2025-01-01"]
 
 RRdevices[, .N, DeviceType]
+RRdevices[Connected == T]
 
 
 
@@ -91,6 +92,8 @@ RRdevices[, icon := ifelse(Connected == FALSE,
                                      ifelse(BatteryCharge > 50, 
                                             'battery-half',
                                             'battery-empty'))))]
+
+
 
 # check providers https://leaflet-extras.github.io/leaflet-providers/preview/
 m <- leaflet() %>%
@@ -119,7 +122,7 @@ m <-  m %>%
   # setView((max(RRdevices$lon, na.rm = T)-min(RRdevices$lon, na.rm = T))/2+min(RRdevices$lon, na.rm = T),
   #         (max(RRdevices$lat, na.rm = T)-min(RRdevices$lat, na.rm = T))/2+min(RRdevices$lat, na.rm = T), 
   #         zoom = 12) %>%
-  setView(46.472,10.184, zoom=12) %>%
+  setView(7.998, 46.683, zoom=7) %>%
   addLayersControl(
     baseGroups = c("OpenTopoMap", "SwissTopo", "SwissTopo Sat"), 
     overlayGroups = groupslayer,

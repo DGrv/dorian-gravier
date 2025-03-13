@@ -138,7 +138,7 @@ p <- ggplot(data, aes(x = dist, y = ele, fill = Name)) +
   theme_set(theme_bw())+
   scale_x_continuous(expand = c(0, 0), limits = c(0, NA), breaks = seq(0, max(data$dist), by = breaksx))+  # Remove space before 0 on x-axis
   labs(x = "", y = "")+
-  facet_wrap(Name~., scales = "free_x")
+  facet_wrap(Name~., scales = "free_x", ncol=1)
 p
   
 if( exists("ylim2") ) {
@@ -147,7 +147,7 @@ if( exists("ylim2") ) {
 p
 
 # Save as SVG
-ggsave("temp.svg", plot = p, device = "svg", width = 4000, height = 1000, units = "px")
+ggsave("temp.svg", plot = p, device = "svg", width = 4000, height = 1000*2, units = "px")
 
 
 # Modification  ------------------------------------------------------------------

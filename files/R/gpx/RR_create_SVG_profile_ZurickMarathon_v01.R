@@ -34,7 +34,7 @@ breaksx <- 5
 # GPX --------------------------------------------------------------------
 
 # data <- read.gpx(rP("file:///C:/Users/doria/Downloads/gdrive/RR/2024/20240810_SwissAlps100/Course/Swiss%20Alps%20100%20-%20160KM.gpx"), type="trk")
-data <- read.gpx(rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413_ZuerichMarathon/Course/zhm2025marathon.gpx"), type="trk")
+data <- read.gpx(rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/Course/zhm2025marathon.gpx"), type="trk")
 
 # Calculate dist btw points
 data[, dist:=0]

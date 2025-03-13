@@ -2,39 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="\r\n" />
-        <Find name="Race" />
-        <Find name="Lap" />
-        <Find name="_Time" />
-        <Find name='Filter(.*)\&quot;,$' />
-        <Find name="TIMESTA" />
-        <Find name="TIME" />
-        <Find name="perl" />
-        <Find name="bash" />
-        <Find name="*_" />
-        <Replace name="" />
-        <Replace name="Contest" />
-        <Replace name="LapAF" />
-        <Replace name='Filter\1 AND [isMoto]=0&quot;,' />
-        <Replace name="*" />
+        <Find name="^ 0;1" />
+        <Find name="\r\n\r\n" />
+        <Find name=" 0.*" />
+        <Find name="Det" />
+        <Find name="^1" />
+        <Find name="Time" />
+        <Find name="font" />
+        <Find name="[Event.YearOfBirth]" />
+        <Find name="OfBirth" />
+        <Find name=" " />
+        <Replace name=" 0;0" />
+        <Replace name="\r\n" />
+        <Replace name="----" />
+        <Replace name="2" />
+        <Replace name="Det" />
+        <Replace name='date(&quot;yyyy&quot;;[Event.Date])' />
         <Replace name="_" />
-        <Replace name="_ " />
-        <Replace name=" _" />
-        <Replace name="ansp" />
-        <Replace name='=&quot;&quot;' />
-        <Replace name='&lt;&gt;&quot;&quot;' />
+        <Replace name="End" />
+        <Replace name=" 0;1;0;1;0;2;0\r\n" />
+        <Replace name=" 0;1;0;1;0;2;0" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\20250204_Special Results___Werkstatt_AF_working.lvs" />
+        <File filename="C:\Users\doria\Downloads\2025-03-04 11-26.pdf" />
+        <File filename="C:\Users\doria\Downloads\GitHub\aktiv-gps-data\requirements.txt" />
+        <File filename="C:\Users\doria\Downloads\List_material_RR.md" />
+        <File filename="C:\Users\doria\Downloads\secret\apiRR.txt" />
+        <File filename="C:\Users\doria\Downloads\01 UCI Categories Plates.pdf" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\vscodium\settings_20250202-150139.json" />
+        <File filename="C:\Users\doria\scoop\apps\vscodium\current\data\extensions\extensions.json" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\RUN_ConfigBU.bat" />
         <File filename="C:\Users\doria\Downloads\Special Results (3) - Copy.lvs" />
-        <File filename="C:\Users\doria\Downloads\20250204_Special Results___Werkstatt_AF_working_modified.lvs" />
-        <File filename="C:\Users\doria\Downloads\Special Results (2).lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2024\20240928__40_Wega_Lauf\d2\d2.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250308__Fisherman&apos;s_Sliding_Challenge_Winteredition\Tuto\d2.txt" />
-        <File filename="C:\Users\doria\Downloads\GOPRO\pi\Preview.sh" />
-        <File filename="C:\Users\doria\Downloads\GOPRO\pi\Photofinish.sh" />
-        <File filename="C:\Users\doria\Downloads\Presi_rr.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\Special Results (4) - Copy.lvs" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -43,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="100" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
+        <number initial="3" increase="1" repeat="1" formatChoice="dec" leadingChoice="zeros" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -52,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="103" y="151" width="1763" height="816" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="997" top="300" right="1600" bottom="659" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="97" y="183" width="1763" height="805" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="728" top="518" right="1331" bottom="877" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -95,6 +94,7 @@
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
         <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="2" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="200">
+            <PluginDlg pluginName="CSV Lint" id="0" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="NppMarkdownPanel" id="0" curr="1" prev="-1" isVisible="yes" />
             <PluginDlg pluginName="MarkdownViewer++" id="0" curr="1" prev="-1" isVisible="no" />
