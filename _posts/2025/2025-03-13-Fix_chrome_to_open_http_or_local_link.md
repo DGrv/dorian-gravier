@@ -9,4 +9,4 @@ date: "2025-03-13 09:16"
 		- Should be something like this :
 		- "C:\Users\user\scoop\apps\googlechrome\current\chrome.exe" --user-data-dir="C:\Users\user\scoop\apps\googlechrome\current\User Data"
 - Modify in the registry : Computer\HKEY_CLASSES_ROOT\ChromeHTML.NT43LP3HFQOY4TWE5TD7B6C6SY\shell\open\command
-	- to "C:\Users\doria\scoop\apps\googlechrome\current\chrome.exe" --user-data-dir="C:\Users\doria\scoop\apps\googlechrome\current\User Data" %1
+	- to "C:\Users\doria\scoop\apps\googlechrome\current\chrome.exe" --user-data-dir="C:\Users\doria\scoop\apps\googlechrome\current\User Data" "%1"

@@ -8,5 +8,6 @@ gpstop=curl --request GET   --url http://172.28.124.51:8080/gopro/camera/shutter
 gpka=curl --request GET  --url http://172.28.124.51:8080/gopro/camera/keep_alive
 pissh=putty -ssh raspberrypi.local -P 22 -l pi -pw raspberry
 makeitall=C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Make_it_ALL_v16___FFMPEG.bat "%CD%"
-gitupdate=cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io && git add . && git commit -m up && git push
+gitupdatedgrv=cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io && git add . && git commit -m up && git push
+gitupdate=git add . && git commit -m up && git push
 n=notepad++

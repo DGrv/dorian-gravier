@@ -63,7 +63,8 @@ async function fetchData(DeviceID) {
 }
 
 // Run the function
-fetchData("D-5022").then(data => console.log('API Response:', data)).catch(error => console.error('Error:', error));
+fetchData("T-20346").then(data => console.log('API Response:', data)).catch(error => console.error('Error:', error));
+// fetchData("D-5022").then(data => console.log('API Response:', data)).catch(error => console.error('Error:', error));
 
 // // Run the function every 5 seconds
 // setInterval(async () => {
