@@ -6244,7 +6244,7 @@
 
     <script src="Leaflet-functions_rrst_v01.js"></script>
     <script>
-     
+        document.addEventListener("DOMContentLoaded", function () {
             setInterval(async () => {
                 try {
                     await fetchrrst(["T-20346", "T-21009"])
@@ -6252,7 +6252,7 @@
                     console.error('Error during periodic fetch:', error);
                 }
             }, 5000);  // 5000 milliseconds = 5 seconds
-
+        });
     </script>
 
 
