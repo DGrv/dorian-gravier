@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
 
     function addMarkerToLeafletMap(idhtmlwidget, latM, lonM, flag, icon1, icon2) {
         var widget = window.HTMLWidgets.find(idhtmlwidget);
@@ -71,7 +70,6 @@ async function fetchrrst(boxids) {
     });
 
     const responseData = await response.json();
-    aktivBoxLayer.clearLayers()
 
     responseData.position.forEach(function (id) {
         console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)

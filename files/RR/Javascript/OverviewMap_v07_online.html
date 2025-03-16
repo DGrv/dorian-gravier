@@ -6246,9 +6246,13 @@
     <script>
 
         const youridhtmlwidget = "#htmlwidget-06f5a1ae3f7614cd3b94"
+        var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
+
         setInterval(async () => {
             try {
+
                 await fetchrrst(["T-20346", "T-21009"]).then(data => {
+                    aktivBoxLayer.clearLayers()
                     data.forEach(function(id) {
                         addMarkerToLeafletMap(youridhtmlwidget , id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png" );
                     })
