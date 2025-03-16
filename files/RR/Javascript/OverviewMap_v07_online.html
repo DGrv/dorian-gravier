@@ -6253,7 +6253,7 @@
 
                 await fetchrrst(["T-20346", "T-21009"]).then(data => {
                     aktivBoxLayer.clearLayers()
-                    data.forEach(function(id) {
+                    data.position.forEach(function(id) {
                         addMarkerToLeafletMap(youridhtmlwidget , id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png" );
                     })
 
