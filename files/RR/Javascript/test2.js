@@ -34,8 +34,7 @@ async function fetchrrst(boxids) {
             // aktivBoxLayer.clearLayers()
             console.log("I got this from fetchrrst:", data)
             data.position.forEach(function (id) {
-                console.log("Device:", id.DeviceID, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
-                addMarkerToLeafletMap(id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png");
+                console.log("Device:", id.DeviceID, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude, "Received:", id.Received)
             })
 
 

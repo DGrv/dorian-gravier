@@ -6266,7 +6266,6 @@
                         // X : Position may not be accurate (box has moved since last GPS fix)
                         var iconEnd = flag === "X" ? icon2 : icon1;
 
-
                         // Define custom Awesome Icon using Font Awesome
                         var awesomeIcon = L.icon({
                             iconUrl: iconEnd,
@@ -6275,14 +6274,11 @@
                             popupAnchor: [0, -30] // Popup position when opened
                         });
 
-
                         // Add marker dynamically
                         // var markerAB = L.marker([latM, lonM])
                         var markerAB = L.marker([latM, lonM], { icon: awesomeIcon })
                             .bindPopup("1st")
                             .openPopup();
-
-
 
                         // Add marker to the LayerGroup
                         aktivBoxLayer.addLayer(markerAB);
@@ -6319,29 +6315,27 @@
                 });
 
                 const responseData = await response.json();
-                console.log(responseData)
-                // console.log(accessToken)
 
+                aktivBoxLayer.clearLayers()
+                responseData.position.forEach(function (id) {
+                    console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
+                    addMarkerToLeafletMap(id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png");
+                })
+                
                 if (!response.ok) {
                     throw new Error(`API Request Failed: ${response.status}`);
                 }
                 return await responseData; // Return API response
             }
-
-
+            
+            
             // setInterval(async () => {
                 try {
-
+                    
                     // await fetchrrst(["T-20346", "T-21009"]).then(data => {
-                    fetchrrst(["T-20346", "T-21009"]).then(data => {
+                        fetchrrst(["T-20346", "T-21009"]).then(data => {
+                        // console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
                         // console.log('API Response:', data);
-                        const data2=data;
-                        aktivBoxLayer.clearLayers()
-                        console.log("I got this from fetchrrst:", data)
-                        data.position.forEach(function (id) {
-                            console.log("Device:", id.DeviceID, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
-                            addMarkerToLeafletMap(id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png");
-                        })
 
 
                     }).catch(error => console.error('Error:', error));
