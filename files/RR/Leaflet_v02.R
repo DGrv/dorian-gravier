@@ -106,6 +106,24 @@ for (i in seq_along(ll$filepath)) {
 }
 
 
+# icons -------------------------------------------------------------------
+
+rrIcons <- iconList(
+  ubi = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/Ubidium.png",
+    iconWidth = 36,
+    iconHeight = 36,
+    iconAnchorX = 36,
+    iconAnchorY = 36
+  )
+)
+
+
+
+# providers ---------------------------------------------------------------
+
+
+
 # check providers https://leaflet-extras.github.io/leaflet-providers/preview/
 #https://www.jeffreyschmid.com/posts/2022-01-01-different-basemaps-in-leaflet-r/
 m <- leaflet() %>%
@@ -161,13 +179,18 @@ for (i in seq_along(ll$filepath)) {
 groupslayer <- c("TimingPoints", ll$Name)
 
 m <-  m %>% 
-  addAwesomeMarkers(data = tp,
-                    icon=awesomeIcons(
-                      icon = "caret-forward-circle-outline",
-                      iconColor = 'black',
-                      library = 'ion',
-                      markerColor = "green"),
-                    lng = ~lon, lat = ~lat, popup = ~label, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>%
+  # addAwesomeMarkers(data = tp,
+  #                   icon=awesomeIcons(
+  #                     icon = "caret-forward-circle-outline",
+  #                     iconColor = 'black',
+  #                     library = 'ion',
+  #                     markerColor = "green"),
+  #                   lng = ~lon, lat = ~lat, popup = ~label, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>%
+  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label,
+             label = ~TimingPoint, group = "TimingPoints",
+             icon = ~rrIcons["ubi"],
+             labelOptions = labelOptions(noHide = TRUE, offset = c(15, 0))
+             ) %>%
   fitBounds(
     lng1 = min(data0$lon), lat1 = min(data0$lat),
     lng2 = max(data0$lon), lat2 = max(data0$lat)
@@ -176,7 +199,6 @@ m <-  m %>%
     baseGroups = c("SwissTopo", "SwissTopo Sat", "OpenTopoMap"), 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=FALSE)) 
-  # addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label, label = ~TimingPoint, group = "TimingPoints", labelOptions = labelOptions(noHide = TRUE)) %>% 
 
 # old - used then fitbounds
   # setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),

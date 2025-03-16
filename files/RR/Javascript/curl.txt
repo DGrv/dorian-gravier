@@ -1,0 +1,7 @@
+curl -X POST https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data -H "Content-Type: application/json" 
+curl -X POST https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data -H "Content-Type: application/json" -d "{\"deviceid\": \"T-bonj\"}"
+text digitalocean console
+curl -I http://localhost:8080/api/get-data 
+
+curl -X POST https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data -H "Content-Type: application/json" -d "{\"boxid\": \"T-20346\"}
+
