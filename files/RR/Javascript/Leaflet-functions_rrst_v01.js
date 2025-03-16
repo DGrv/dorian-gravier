@@ -50,32 +50,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    async function fetchrrst(boxids) {
 
-        const data = { boxid: boxids }; // Create an object with the key 'boxid' and assign the array as its value
-        // Now stringify the object
-        const jsonString = JSON.stringify(data);
 
-        //   const response = await fetch('https://rest.devices.raceresult.com/customers/846/devices/' + DeviceID, {
-        const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: jsonString
-        });
-
-        const responseData = await response.json();
-
-        aktivBoxLayer.clearLayers()
-        responseData.position.forEach(function (id) {
-            console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
-            addMarkerToLeafletMap(id.Position.Latitude, id.Position.Longitude, id.Position.Flag, "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", "https://cdn-icons-png.flaticon.com/512/2583/2583364.png");
-        })
-
-        if (!response.ok) {
-            throw new Error(`API Request Failed: ${response.status}`);
-        }
-        return await responseData; // Return API response
-    }
 })
+
+
+async function fetchrrst(boxids) {
+
+    const data = { boxid: boxids }; // Create an object with the key 'boxid' and assign the array as its value
+    // Now stringify the object
+    const jsonString = JSON.stringify(data);
+
+    //   const response = await fetch('https://rest.devices.raceresult.com/customers/846/devices/' + DeviceID, {
+    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: jsonString
+    });
+
+    const responseData = await response.json();
+    aktivBoxLayer.clearLayers()
+
+    responseData.position.forEach(function (id) {
+        console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
+    })
+
+    if (!response.ok) {
+        throw new Error(`API Request Failed: ${response.status}`);
+    }
+    return await responseData; // Return API response
+}
