@@ -1,5 +1,5 @@
 
-function addMarkerToLeafletMap(idhtmlwidget, latM, lonM, flag, icon1, icon2) {
+async function addMarkerToLeafletMap(idhtmlwidget, latM, lonM, flag, icon1, icon2) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 
     if (widget) {
