@@ -6304,13 +6304,18 @@
             // })
 
             async function fetchrrst(boxids) {
+
+                const data = { boxid: boxids }; // Create an object with the key 'boxid' and assign the array as its value
+                // Now stringify the object
+                const jsonString = JSON.stringify(data);
+
                 //   const response = await fetch('https://rest.devices.raceresult.com/customers/846/devices/' + DeviceID, {
                 const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: boxids
+                    body: jsonString
                 });
 
                 const responseData = await response.json();
