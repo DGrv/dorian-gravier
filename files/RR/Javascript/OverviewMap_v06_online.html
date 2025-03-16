@@ -6329,21 +6329,13 @@
             }
             
             
-            // setInterval(async () => {
+            setInterval(async () => {
                 try {
-                    
-                    // await fetchrrst(["T-20346", "T-21009"]).then(data => {
-                        fetchrrst(["T-20346", "T-21009"]).then(data => {
-                        // console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
-                        // console.log('API Response:', data);
-
-
-                    }).catch(error => console.error('Error:', error));
-
+                    await fetchrrst(["T-20346", "T-21009"])
                 } catch (error) {
                     console.error('Error during periodic fetch:', error);
                 }
-            // }, 5000);  // 5000 milliseconds = 5 seconds
+            }, 5000);  // 5000 milliseconds = 5 seconds
 
 
         })
