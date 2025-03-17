@@ -239,7 +239,7 @@ m <-  m %>%  addFullscreenControl() %>%
 
 cat(green("\n\nLeaflet ready"))
 
-saveWidget(m, file="OverviewMap_fromGPX.html")
+saveWidget(m, file="OverviewMap_fromGPX2.html")
 
 cat(green("\nLeaflet DONE :)\n"))
 

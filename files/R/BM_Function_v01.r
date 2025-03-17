@@ -3541,56 +3541,56 @@ prepare.bilder.import <- function(DATA, color.name, new.name,
 
 }
 
- read.gpx <-  function(input, type = "wpt") {
-  
-  # not working 20250221
-  # not working 20250221
-  # not working 20250221
-  # not working 20250221
-  # not working 20250221
-  # not working 20250221
-  
-  require(xml2)
-  # Read the GPX file
-  gpx_file <- read_xml(input)
-  ns <- xml_ns(gpx_file)
-
-  # Extract waypoints (or other elements like tracks)
-  waypoints <- xml_find_all(gpx_file, p0(".//d1:", type), ns = ns)
-  
-  if( type == "wpt") {
-    # Extract attributes (latitude and longitude)
-    data <- data.table(lat = as.numeric(xml_attr(waypoints, "lat")),
-                       lon = as.numeric(xml_attr(waypoints, "lon")),
-                       name = xml_find_all(waypoints, "d1:name", ns = ns) %>% xml_text())
-    lpara <- c("url", "des")
-    for(j in seq_along(lpara)) {
-      if( length(xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns)) > 0 ) {
-        data[, lpara[j] := xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns) %>% xml_text()]
-      }
-    }
-  }
-  if( type == "trk" ) {
-    data <- data.table()
-    for( i in 1:length(waypoints)) {
-      pts <- xml_find_all(waypoints[i], ".//d1:trkpt", ns = ns)
-      # Extract attributes (latitude and longitude)
-      temp <- data.table(lat = as.numeric(xml_attr(pts, "lat")),
-                         lon = as.numeric(xml_attr(pts, "lon")),
-                         name = xml_find_all(waypoints[i], ".//d1:name", ns=ns)%>% xml_text())
-      lpara <- c("ele", "time")
-      for(j in seq_along(lpara)) {
-        if( length(xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns)) > 0 ) {
-          temp[, lpara[j] := xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns) %>% xml_text()]
-        }
-      }
-      data <- rbind(data, temp)
-    }
-  }
-  
-  return(data)
-  
-}
+# read.gpx <-  function(input, type = "wpt") {
+#   
+#   # not working 20250221
+#   # not working 20250221
+#   # not working 20250221
+#   # not working 20250221
+#   # not working 20250221
+#   # not working 20250221
+#   
+#   require(xml2)
+#   # Read the GPX file
+#   gpx_file <- read_xml(input)
+#   ns <- xml_ns(gpx_file)
+# 
+#   # Extract waypoints (or other elements like tracks)
+#   waypoints <- xml_find_all(gpx_file, p0(".//d1:", type), ns = ns)
+#   
+#   if( type == "wpt") {
+#     # Extract attributes (latitude and longitude)
+#     data <- data.table(lat = as.numeric(xml_attr(waypoints, "lat")),
+#                        lon = as.numeric(xml_attr(waypoints, "lon")),
+#                        name = xml_find_all(waypoints, "d1:name", ns = ns) %>% xml_text())
+#     lpara <- c("url", "des")
+#     for(j in seq_along(lpara)) {
+#       if( length(xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns)) > 0 ) {
+#         data[, lpara[j] := xml_find_all(waypoints, p0("d1:", lpara[j]), ns = ns) %>% xml_text()]
+#       }
+#     }
+#   }
+#   if( type == "trk" ) {
+#     data <- data.table()
+#     for( i in 1:length(waypoints)) {
+#       pts <- xml_find_all(waypoints[i], ".//d1:trkpt", ns = ns)
+#       # Extract attributes (latitude and longitude)
+#       temp <- data.table(lat = as.numeric(xml_attr(pts, "lat")),
+#                          lon = as.numeric(xml_attr(pts, "lon")),
+#                          name = xml_find_all(waypoints[i], ".//d1:name", ns=ns)%>% xml_text())
+#       lpara <- c("ele", "time")
+#       for(j in seq_along(lpara)) {
+#         if( length(xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns)) > 0 ) {
+#           temp[, lpara[j] := xml_find_all(pts, p0(".//d1:", lpara[j]), ns = ns) %>% xml_text()]
+#         }
+#       }
+#       data <- rbind(data, temp)
+#     }
+#   }
+#   
+#   return(data)
+#   
+# }
 
 read.gpx <-  function(input, type = "wpt") {
   
@@ -3598,17 +3598,24 @@ read.gpx <-  function(input, type = "wpt") {
   require(gpx)
   require(data.table)
   
+  
   if( type == "trk") {
-    debug.easy(length(read_gpx(input)$tracks) > 1, "Please finish function for more than 1 track!")
-    temp <- data.table(read_gpx(input)$tracks[[1]])
+    
+    temp <- data.table()
+    for(i in 1:length(read_gpx(input)$tracks)) {
+      temp0 <- data.table(read_gpx(input)$tracks[[i]])
+      temp0[, Name := names(read_gpx(input)$tracks[i])]
+      temp <- rbind(temp, temp0)
+    }
     setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
              c("name", "ele", "lat", "lon", "desc", "time"),
              skip_absent=TRUE)
+    
   }
   
   if( type == "wpt" ) {
     temp <- data.table(read_gpx(input)$waypoints)
-    temp[, file := ll[i]]
+    temp[, file := input]
     setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
              c("name", "ele", "lat", "lon", "desc", "time"),
              skip_absent=TRUE)
