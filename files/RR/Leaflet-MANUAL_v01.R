@@ -57,10 +57,15 @@ if(nrow(ll)==0){
 ll[, file := basename(filepath)]
 ll <- ll[!filepath %like% "ContestID_|All_Splits"]
 
-colorb <- brewer.pal(n = nrow(ll)+1, name = "Set1")
-colorb <- colorb[colorb != "#4DAF4A"]
 
-suppressWarnings(suppressMessages(ll[, color := colorb]))
+
+
+
+# colorb <- brewer.pal(n = nrow(ll)+1, name = "Set1")
+# colorb <- colorb[colorb != "#4DAF4A"]
+colorb <- "#E41A1C"
+
+ll[, color := colorb]
 # ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 # ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
