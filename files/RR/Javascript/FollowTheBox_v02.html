@@ -5323,7 +5323,8 @@ function asArray(value) {
             // );
 
             // Online ----------------------------------------------------------------------------------------------------------
-            await fetchrrst(["T-20346", "T-21126", "T-21044", "T-21043"]).then(data => {
+            // await fetchrrst(["T-20346", "T-21126", "T-21044", "T-21043"]).then(data => {
+            await fetchrrst(["T-20346"]).then(data => {
                 // data.position.forEach(function(id) {
                     addMarkerToLeafletMap(data.position[0].DeviceID, // box id
                         youridhtmlwidget, // youridhtmlwidget
@@ -5335,43 +5336,43 @@ function asArray(value) {
                         "red", //iconPulseColor
                         "red" // iconPulseFill
                     );
-                    addMarkerToLeafletMap(data.position[1].DeviceID, // box id
-                        youridhtmlwidget, // youridhtmlwidget
-                        data.position[1].Position.Latitude, // latM
-                        data.position[1].Position.Longitude, // lonM
-                        data.position[1].Position.Flag, // flag
-                        "", // icon
-                        [20,20], // iconUserSize
-                        "green", //iconPulseColor
-                        "green" // iconPulseFill
-                    );
-                    addMarkerToLeafletMap(data.position[2].DeviceID, // box id
-                        youridhtmlwidget, // youridhtmlwidget
-                        data.position[2].Position.Latitude, // latM
-                        data.position[2].Position.Longitude, // lonM
-                        data.position[2].Position.Flag, // flag
-                        "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", // icon
-                        [40,40], // iconUserSize
-                        "red", //iconPulseColor
-                        "red" // iconPulseFill
-                    );
-                    addMarkerToLeafletMap(data.position[3].DeviceID, // box id
-                        youridhtmlwidget, // youridhtmlwidget
-                        data.position[3].Position.Latitude, // latM
-                        data.position[3].Position.Longitude, // lonM
-                        data.position[3].Position.Flag, // flag
-                        "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", // icon
-                        [60,60], // iconUserSize
-                        "red", //iconPulseColor
-                        "red" // iconPulseFill
-                    );
+                    // addMarkerToLeafletMap(data.position[1].DeviceID, // box id
+                    //     youridhtmlwidget, // youridhtmlwidget
+                    //     data.position[1].Position.Latitude, // latM
+                    //     data.position[1].Position.Longitude, // lonM
+                    //     data.position[1].Position.Flag, // flag
+                    //     "", // icon
+                    //     [20,20], // iconUserSize
+                    //     "green", //iconPulseColor
+                    //     "green" // iconPulseFill
+                    // );
+                    // addMarkerToLeafletMap(data.position[2].DeviceID, // box id
+                    //     youridhtmlwidget, // youridhtmlwidget
+                    //     data.position[2].Position.Latitude, // latM
+                    //     data.position[2].Position.Longitude, // lonM
+                    //     data.position[2].Position.Flag, // flag
+                    //     "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", // icon
+                    //     [40,40], // iconUserSize
+                    //     "red", //iconPulseColor
+                    //     "red" // iconPulseFill
+                    // );
+                    // addMarkerToLeafletMap(data.position[3].DeviceID, // box id
+                    //     youridhtmlwidget, // youridhtmlwidget
+                    //     data.position[3].Position.Latitude, // latM
+                    //     data.position[3].Position.Longitude, // lonM
+                    //     data.position[3].Position.Flag, // flag
+                    //     "https://cdn-icons-png.flaticon.com/128/2583/2583381.png", // icon
+                    //     [60,60], // iconUserSize
+                    //     "red", //iconPulseColor
+                    //     "red" // iconPulseFill
+                    // );
                 // })
             }).catch(error => console.error('Error:', error));
 
         } catch (error) {
             console.error('Error during periodic fetch:', error);
         }
-    }, 5000);  // 5000 milliseconds = 5 seconds
+    }, 3000);  // 5000 milliseconds = 5 seconds
 </script>
 
 
