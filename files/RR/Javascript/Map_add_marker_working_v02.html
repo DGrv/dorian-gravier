@@ -6241,8 +6241,6 @@
   <script type="application/htmlwidget-sizing"
     data-for="htmlwidget-d7c46b3251d02f9f5d67">{"viewer":{"width":"100%","height":400,"padding":0,"fill":true},"browser":{"width":"100%","height":400,"padding":0,"fill":true}}</script>
 
-    <script src="https://raw.githubusercontent.com/mapshakers/leaflet-icon-pulse/refs/heads/master/src/L.Icon.Pulse.js" />
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/mapshakers/leaflet-icon-pulse/refs/heads/master/src/L.Icon.Pulse.css" />
   <script>
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -6257,7 +6255,7 @@
             var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
 
             // Add marker dynamically
-            L.marker([47.69305, 9.18977],{icon: pulsingIcon})
+            L.marker([47.69305, 9.18977], {icon: pulsingIcon})
               .addTo(map)
               .bindPopup("Dynamic Marker from dloc")
               .openPopup();

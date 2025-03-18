@@ -58,6 +58,7 @@ async function fetchrrst(boxids) {
     const jsonString = JSON.stringify(data);
 
     //   const response = await fetch('https://rest.devices.raceresult.com/customers/846/devices/' + DeviceID, {
+        // const response = await fetch('http://localhost:8080/api/get-data', {
     const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
         method: 'POST',
         headers: {
