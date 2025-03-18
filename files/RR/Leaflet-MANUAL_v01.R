@@ -63,7 +63,7 @@ ll <- ll[!filepath %like% "ContestID_|All_Splits"]
 
 # colorb <- brewer.pal(n = nrow(ll)+1, name = "Set1")
 # colorb <- colorb[colorb != "#4DAF4A"]
-colorb <- "#E41A1C"
+colorb <- "#1956fc"
 
 ll[, color := colorb]
 # ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
