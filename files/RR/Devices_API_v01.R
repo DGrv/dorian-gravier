@@ -39,7 +39,7 @@ resp2b
 rm(req1, req2)
 
 
-
+resp2b
 RRdevices <- resp2b[, .(DeviceID, 
                   DeviceType,
                   BatteryCharge,
@@ -51,6 +51,8 @@ RRdevices <- resp2b[, .(DeviceID,
                   FileNo,
                   TimeZoneName,
                   RecordsCount,
+                  time = Time.Time,
+                  flag = Position.Flag,
                   lon = Position.Longitude, 
                   lat = Position.Latitude, 
                   Power = DecoderStatus.HasPower,
@@ -58,6 +60,8 @@ RRdevices <- resp2b[, .(DeviceID,
                   Antennas = DecoderStatus.Antennas,
                   ReaderStatus = TrackboxStatus.ReaderStatus)]
 RRdevices
+RRdevicesBU <- copy(RRdevices)
+
 RRdevices <- RRdevices[is.na(DeviceID)==F]
 dGMT <- RRdevices[TimeZoneName == "GMT"]$DeviceID
 RRdevices[TimeZoneName == "GMT", RealTime := RealTime + 7200]

@@ -1,4 +1,7 @@
 
+var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
+
+
 async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize, iconPulseColor, iconPulseFill) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 

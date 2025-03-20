@@ -13,15 +13,16 @@ rrIcons <- iconList(
   iconUbi = makeIcon(
     iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/Ubidium.png",
     iconWidth = 36,
-    iconHeight = 36,
-    iconAnchorX = iconAnchor,
-    iconAnchorY = iconAnchor
+    iconHeight = 36
+    # iconAnchorY does not seem to work 
+    # iconAnchorY does not seem to work 
+    # iconAnchorY does not seem to work 
+    # iconAnchorY does not seem to work 
   ),
   iconFinish = makeIcon(
     iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/Finish.png",
-    iconWidth = 50,
-    iconHeight = 50,
-    iconAnchorY = -100
+    iconWidth = 36,
+    iconHeight = 36
   )
 )
 
@@ -80,7 +81,7 @@ for (i in seq_along(ll$filepath)) {
                  group = ll$Name[i],
                  color = ll$color[i],
                  opacity = 1,
-                 weight = 6)
+                 weight = 4)
   if( exists("splits") ) {
     tp2 <- tp[TimingPoint %in% splits[Contest == ll$Contest[i]]$TimingPoint]
     
