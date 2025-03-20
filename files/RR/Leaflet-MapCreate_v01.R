@@ -10,12 +10,18 @@ if(exists("splits") ) {
 
 
 rrIcons <- iconList(
-  ubi = makeIcon(
+  iconUbi = makeIcon(
     iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/Ubidium.png",
     iconWidth = 36,
     iconHeight = 36,
     iconAnchorX = iconAnchor,
     iconAnchorY = iconAnchor
+  ),
+  iconFinish = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/Finish.png",
+    iconWidth = 50,
+    iconHeight = 50,
+    iconAnchorY = -100
   )
 )
 
@@ -112,7 +118,7 @@ m <-  m %>%
   #            labelOptions = labelOptions(noHide = TRUE, offset = offsetlabel)) %>%  
   addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label,
              group = "TimingPoints",
-             icon = ~rrIcons["ubi"]
+             icon = ~rrIcons[tp$icon]
              ) %>%
   addLabelOnlyMarkers(data = tp,
     ~lon, ~lat, label = ~TimingPoint, 

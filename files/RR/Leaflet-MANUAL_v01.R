@@ -42,6 +42,8 @@ tp.input <- "TimingPoints.gpx"
 tp <- read.gpx(tp.input, type="wpt")
 setnames(tp, "name", "TimingPoint")
 tp[, label := TimingPoint]
+tp[, icon := ifelse(grepl("start|finish|ziel", TimingPoint, ignore.case = T), "iconFinish", "iconUbi")]
+tp
 
 
 # read gpx ----------------------------------------------------------------
