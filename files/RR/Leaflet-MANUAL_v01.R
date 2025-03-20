@@ -19,6 +19,7 @@ suppressWarnings(suppressMessages(library(sp)))
 suppressWarnings(suppressMessages(library(lubridate)))
 suppressWarnings(suppressMessages(library(xml2)))
 suppressWarnings(suppressMessages(library(gpx)))
+suppressWarnings(suppressMessages(library(geosphere)))
 # suppressWarnings(suppressMessages(library(rgdal)))
 
 
@@ -77,10 +78,17 @@ data0 <- data.table()
 for (i in seq_along(ll$filepath)) {
   temp <- read.gpx(ll$filepath[i], type="trk")
   temp[, file := ll$file[i]]
+  temp[, dist:=0]
+  temp[2:nrow(temp), dist := distHaversine(temp[,.(lon, lat)])/1000]
+  temp[, dist := cumsum(dist)]
   data0 <- rbind(data0, temp, fill = T)
   cat("\n", i, "- Read done:", ll$file[i])
 }
 
+ll <- dtjoin(ll, data0[data0[, .I[dist==max(dist, na.rm = T)], file]$V1])
+ll[, dist := round(dist, 2)]
+
+ll[, Name := p0(name, "__", dist, "__", Name)]
 
 
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v01.R"))
