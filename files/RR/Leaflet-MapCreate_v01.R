@@ -30,8 +30,9 @@ rrIcons <- iconList(
 
 # providers ---------------------------------------------------------------
 
-mapGroups <- c("SwissTopo", 
+mapGroups <- c(
                "SwissTopo BW", 
+  "SwissTopo", 
                "SwissTopo Sat",
                "OpenTopoMap",
                "Esri.WorldImagery",
@@ -52,8 +53,8 @@ m <- leaflet() %>%
   # addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
   #          attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
   #          group = "SwissTopo Sat", options = providerTileOptions(maxZoom = 20)) %>%
-  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
-  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
+  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
+  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
   addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
   addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxZoom = 20), "OpenTopoMap") %>%
   addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxZoom = 20), "Esri.WorldImagery") %>%
@@ -61,7 +62,14 @@ m <- leaflet() %>%
   addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
   addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxZoom = 20), "CartoDB.VoyagerNoLabels")
 
-
+m <- m %>% 
+  onRender("
+    function(el, x) {
+      var map = this;
+      map.options.zoomSnap = 0.5;
+      map.options.zoomDelta = 0.5;
+    }
+  ")
 
 
 # Add layers --------------------------------------------------------------
@@ -106,6 +114,30 @@ for (i in seq_along(ll$filepath)) {
 groupslayer <- c("Labels", "TimingPoints", ll$Name)
 
 m <-  m %>% 
+  addLayersControl(
+    baseGroups = mapGroups, 
+    overlayGroups = groupslayer,
+    options = layersControlOptions(collapsed=TRUE)) %>%
+  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label,
+             group = "TimingPoints",
+             icon = ~rrIcons[tp$icon]
+             ) %>%
+  # addLabelOnlyMarkers(data = tp,
+  #   ~lon, ~lat, label = ~TimingPoint, 
+  #   labelOptions = labelOptions(noHide = TRUE, direction = "top"),
+  #   group = "Labels"
+  # ) %>%
+  
+  # # used before tamaro
+  # fitBounds(
+  #   lng1 = min(data0$lon), lat1 = min(data0$lat),
+  #   lng2 = max(data0$lon), lat2 = max(data0$lat)
+  # )
+  setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
+                    (max(data0$lat)-min(data0$lat))/2+min(data0$lat),
+                    zoom = 17.5)
+  
+  
   # addAwesomeMarkers(data = tp,
   #                   icon=awesomeIcons(
   #                     icon = "caret-forward-circle-outline",
@@ -117,24 +149,6 @@ m <-  m %>%
   #            label = ~TimingPoint, group = "TimingPoints",
   #            icon = ~rrIcons["ubi"],
   #            labelOptions = labelOptions(noHide = TRUE, offset = offsetlabel)) %>%  
-  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label,
-             group = "TimingPoints",
-             icon = ~rrIcons[tp$icon]
-             ) %>%
-  addLabelOnlyMarkers(data = tp,
-    ~lon, ~lat, label = ~TimingPoint, 
-    labelOptions = labelOptions(noHide = TRUE, direction = "top"),
-    group = "Labels"
-  ) %>%
-  fitBounds(
-    lng1 = min(data0$lon), lat1 = min(data0$lat),
-    lng2 = max(data0$lon), lat2 = max(data0$lat)
-  ) %>%
-  addLayersControl(
-    baseGroups = mapGroups, 
-    overlayGroups = groupslayer,
-    options = layersControlOptions(collapsed=TRUE)) 
-
 # old - used then fitbounds
 # setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
 #                   (max(data0$lat)-min(data0$lat))/2+min(data0$lat), 
