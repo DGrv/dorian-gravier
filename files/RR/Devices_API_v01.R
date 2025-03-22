@@ -62,6 +62,11 @@ RRdevices <- resp2b[, .(DeviceID,
 RRdevices
 RRdevicesBU <- copy(RRdevices)
 
+
+
+RRdevices[DeviceID == "T-21169"]
+
+
 RRdevices <- RRdevices[is.na(DeviceID)==F]
 dGMT <- RRdevices[TimeZoneName == "GMT"]$DeviceID
 RRdevices[TimeZoneName == "GMT", RealTime := RealTime + 7200]
