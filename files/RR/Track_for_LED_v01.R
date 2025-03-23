@@ -17,7 +17,8 @@ create.dir(wd, "TrackPNG", "wd2")
 for(i in 1:length(u(data0$file)) ) {
   
   a <- ggplot(data0[file == u(file)[i]], aes(lon, lat))+
-    geom_path(size=4, color = "#0E3A2F")
+    geom_path(size=4, color = "#0E3A2F")+
+    geom_point(data = tp[TimingPoint %like%])
   
   fout <- p0(gsub(".gpx$", ".png", u(data0[file == u(file)[i]]$file)))
   printfast(a, fout, ext = "png", height = 600, width = 600*1.41) # 1.41 is ration lat lon
