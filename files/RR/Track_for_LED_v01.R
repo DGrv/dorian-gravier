@@ -30,8 +30,8 @@ for(i in 1:length(u(data0$file)) ) {
   
   a <- ggplot(temp, aes(lon, lat))+
     geom_path(size=4, color = "#0E3A2F")+
-    geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 30, color = "#0E3A2F")+
-    geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 15, color = "#78FAAE")
+    geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 30, color = "#0E3A2F")
+    # geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 15, color = "#78FAAE")
   a
   
   fout <- p0(gsub(".gpx$", ".png", u(data0[file == u(file)[i]]$file)))
