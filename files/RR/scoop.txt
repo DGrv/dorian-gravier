@@ -19,6 +19,8 @@ scoop install extras/powertoys
 scoop install extras/quicklook
 scoop install extras/sharex
 scoop install svn
+scoop install main/ffmpeg
+scoop install extras/mpv
 
 
 cd C:\Users\%USERNAME%\Downloads
