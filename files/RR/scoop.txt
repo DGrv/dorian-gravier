@@ -16,7 +16,9 @@ scoop install main/cmder
 scoop install extras/obs-studio
 scoop install extras/putty
 scoop install extras/powertoys
+scoop install extras/quicklook
 scoop install extras/sharex
+scoop install svn
 
 
 cd C:\Users\%USERNAME%\Downloads
@@ -34,8 +36,21 @@ RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
 :: Cmder
 reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
 
-:: 2. Reset Pinned Apps on the Taskbar
-del /F /Q "%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*"
-taskkill /F /IM explorer.exe & start explorer.exe
+::Freecommander
+cd C:\Users\%USERNAME%\scoop\persist\freecommander\Settings
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.mren.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.find.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.shc
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.hist.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.wcx.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ftp.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FcExceptionLog.txt
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/WebVersion32.txt
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
+
 
 pause
