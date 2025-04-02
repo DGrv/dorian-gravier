@@ -34,4 +34,8 @@ RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
 :: Cmder
 reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
 
+:: 2. Reset Pinned Apps on the Taskbar
+del /F /Q "%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*"
+taskkill /F /IM explorer.exe & start explorer.exe
+
 pause
