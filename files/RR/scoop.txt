@@ -1,0 +1,23 @@
+powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+cmd
+scoop install git
+scoop bucket add extras
+scoop bucket add main
+scoop bucket add versions
+scoop install extras/googlechrome
+scoop install extras/notepadplusplus
+scoop install main/7zip
+scoop install extras/freecommander
+scoop install extras/pdf-xchange-editor
+scoop install main/cmder
+scoop install extras/obs-studio
+scoop install extras/putty
+scoop install extras/powertoys
+scoop install openssh
+cd C:\Users\%USERNAME%\Downloads
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
+reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
+pause
