@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="du" />
-        <Find name="in all file" />
-        <Find name="replace in all" />
-        <Find name="replacein all" />
-        <Find name="replace all" />
-        <Find name="all" />
-        <Find name="perl -pe" />
-        <Find name="leafl" />
-        <Find name="split" />
+        <Find name="\t" />
+        <Find name="pid" />
+        <Find name="CRIT" />
         <Find name=" " />
-        <Replace name="" />
-        <Replace name="315977" />
+        <Find name="s" />
+        <Find name="pasta" />
+        <Find name="petigna" />
+        <Find name="amrei" />
+        <Find name="chappell" />
+        <Find name="chappel" />
+        <Replace name=";" />
         <Replace name="_" />
+        <Replace name="s.kk" />
+        <Replace name="\t" />
+        <Replace name="315977" />
         <Replace name=" 0;0" />
         <Replace name="\r\n" />
         <Replace name="----" />
         <Replace name="2" />
         <Replace name="Det" />
-        <Replace name='date(&quot;yyyy&quot;;[Event.Date])' />
-        <Replace name="End" />
-        <Replace name=" 0;1;0;1;0;2;0\r\n" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstdevices\.gitignore" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstdevices\package.json" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstdevices\tuto.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Javascript\Map_add_marker_working.html" />
-        <File filename="C:\Users\doria\Downloads\RRE_tobias.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#1_Tamaro\gpx\Tamaro Trophy (Rivera)-u9-u11.gpx" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#1_Tamaro\gpx\TimingPoints.gpx" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Providers1.html" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Providers2.html" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\batch.md" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Documents\Vouchers.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Documents\Vouchers_BSV.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Documents\Vouchers_BML.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\BU\rr_backup_Bike_Marathon_Lumnezia_20250401-112140\contests.csv" />
         <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\test.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250419__GP_Osterhas\Emails\Registration_Confirmation_v08.html" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\.scoop_list_instal.md" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\.scoop_list_instal.txt" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -43,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="3" increase="1" repeat="1" formatChoice="dec" leadingChoice="zeros" />
+        <number initial="10" increase="1" repeat="1" formatChoice="dec" leadingChoice="zeros" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -52,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="97" y="183" width="1763" height="805" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="714" top="215" right="1317" bottom="574" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="97" y="60" width="1763" height="928" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="1173" top="382" right="1776" bottom="741" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
