@@ -1,0 +1,7 @@
+cd C:\Users\%USERNAME%\Downloads
+mkdir OBS
+cd OBS
+mkdir OFFA
+cd OFFA
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/OFFA.json
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/Logo2.png
