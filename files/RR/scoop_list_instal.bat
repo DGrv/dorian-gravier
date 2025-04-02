@@ -10,4 +10,5 @@ scoop install extras/pdf-xchange-editor
 scoop install main/cmder
 scoop install extras/obs-studio
 scoop install extras/putty
+scoop install extras/powertoys
 pause
