@@ -28,6 +28,11 @@ spareRR () {
 
 sesExtract () {
     if [ -f "$1" ]; then
+	
+		# 1="backup_Bike Marathon Lumnezia_20250401-112140.ses"
+		# fdir="/mnt/c/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra"
+	
+	
         tablewanted=( settings customFields ranks teamscores contests results timingpoints splits history data RawData )
         fdir=$(echo rr_${1} | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
         mkdir -p $fdir

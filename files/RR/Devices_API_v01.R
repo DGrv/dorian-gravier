@@ -64,7 +64,13 @@ RRdevicesBU <- copy(RRdevices)
 
 
 
-RRdevices[DeviceID == "T-21169"]
+RRdevices[DeviceID == "T-20015"]
+RRdevices[DeviceID == "T-20014"]
+
+
+
+
+
 
 
 RRdevices <- RRdevices[is.na(DeviceID)==F]

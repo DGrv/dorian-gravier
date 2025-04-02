@@ -1,0 +1,43 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Cmder",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        },
+        "cmder": {
+            "path": "C:\\WINDOWS\\System32\\cmd.exe",
+            "args": []
+        },
+        "Cmder": {
+            "path": "C:\\WINDOWS\\System32\\cmd.exe",
+            "args": [
+                "/K",
+                "C:\\Users\\doria\\scoop\\apps\\cmder\\current\\vendor\\bin\\vscode_init.cmd"
+            ]
+        }
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "[svg]": {
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
+    "svg.preview.mode": "svg",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "redhat.telemetry.enabled": true
+}

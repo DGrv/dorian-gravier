@@ -5286,7 +5286,8 @@ function asArray(value) {
                 // T-20346 = gelb
                 // T-20195 = red
                 // await fetchrrst(["T-20346"]).then(data => {
-                await fetchrrst(["T-20195"]).then(data => {
+                // await fetchrrst(["T-20195"]).then(data => {
+                await fetchrrst(["T-20014", "T-20015"]).then(data => {
                     addMarkerToLeafletMap(data.position[0].DeviceID, // box id
                     youridhtmlwidget, // youridhtmlwidget
                     data.position[0].Position.Latitude, // latM
