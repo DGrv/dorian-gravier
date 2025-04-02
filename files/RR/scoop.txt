@@ -1,6 +1,7 @@
 powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
 cmd
 scoop install git
 scoop bucket add extras
@@ -15,9 +16,21 @@ scoop install main/cmder
 scoop install extras/obs-studio
 scoop install extras/putty
 scoop install extras/powertoys
-scoop install openssh
+scoop install extras/sharex
+
+
 cd C:\Users\%USERNAME%\Downloads
+
+:: Doskey
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey
+reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\"" /f
+
+:: Wallpaper
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
+
+:: Cmder
+reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
+
 pause
