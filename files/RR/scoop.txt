@@ -32,8 +32,12 @@ reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macro
 :: Wallpaper
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
+:: to delete
+:: reg delete "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /f
+RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
 :: Cmder
 reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f

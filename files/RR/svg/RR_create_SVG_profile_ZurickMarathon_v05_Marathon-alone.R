@@ -61,12 +61,12 @@ if( exists("ylim1") ) {
 # TimingPoints ------------------------------------------------------------
 
 # cd <- data.table(read.table("clipboard", sep="\t", header=TRUE))
-cd <- structure(list(Split = c("BÃ¼rkliplatz - 4 km", "BÃ¼rkliplatz - 8 km",
-                               "QuaibrÃ¼cke - 8.3 km", "Bellerivestrasse - 10 km", "Seestrasse - 15.8 km",
+cd <- structure(list(Split = c("Bürkliplatz - 4 km", "Bürkliplatz - 8 km",
+                               "Quaibrücke - 8.3 km", "Bellerivestrasse - 10 km", "Seestrasse - 15.8 km",
                                "Meilen - 20 km", "Half Marathon - 21.1 km", "Meilen - 22.1 km",
-                               "KÃ¼snacht - 30 km", "KÃ¼snacht Goldbach - 31.2 km", "QuaibrÃ¼cke - 36 km",
-                               "Mythenquai - 37.2 km", "Sihlstrasse - 40 km", "BÃ¼rkliplatz - 40.9 km",
-                               "QuaibrÃ¼cke - 42 km"), dist = c(4, 8, 8.3, 10, 15.8, 20, 21.1,
+                               "Küsnacht - 30 km", "Küsnacht Goldbach - 31.2 km", "Quaibrücke - 36 km",
+                               "Mythenquai - 37.2 km", "Sihlstrasse - 40 km", "Bürkliplatz - 40.9 km",
+                               "Quaibrücke - 42 km"), dist = c(4, 8, 8.3, 10, 15.8, 20, 21.1,
                                                              22.1, 30, 31.2, 36, 37.2, 40, 40.9, 42)), row.names = c(NA, -15L
                                                              ), class = c("data.table", "data.frame"))
 cd
@@ -104,28 +104,57 @@ p <- ggplot(data, aes(x = dist, y = ele)) +
   # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*7), x = dist - (0.005*7)), size = 0.1)+
   # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*8), x = dist - (0.005*8)), size = 0.1)+
   # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*9), x = dist - (0.005*9)), size = 0.1)+
+  theme(
+    # panel.border = element_blank(),
+    # panel.grid.major = element_blank(),
+    # panel.grid.minor = element_blank(),
+    # plot.background = element_rect(fill = "#353535", color = "#353535"),
+    # panel.background = element_rect(fill = "#353535"),
+    axis.ticks.length = unit(0.1, "inches"))+
   geom_point(data=data[Split!=""], size=3)+
   geom_label_repel(data=data[Split!=""],aes(label = Split), vjust = 0, hjust= 0, nudge_y = nylabel, nudge_x=-2, direction = "y", size=3)+
-  theme_set(theme_bw())+
   scale_x_continuous(expand = c(0, 0), limits = c(0, NA), breaks = seq(0, max(data$dist), by = breaksx))+  # Remove space before 0 on x-axis
-  labs(x = "", y = "")
+  labs(x = "Km", y = "Elevation (m)")
   
 if( exists("ylim2") ) {
   p <- p+coord_cartesian(ylim=c(NA, ylim2))
 }
 p
+p2 <- p + theme(
+    text = element_text(color = "white"),
+    axis.text.y = element_text(colour = "white"),
+    axis.text.x = element_text(colour = "white"),
+    axis.ticks.y = element_line(color = "white"),
+    axis.ticks.x = element_line(color = "white"))
+p2
 
 # Save as SVG
-ggsave("elevation_profile.svg", plot = p, device = "svg", width = 4000, height = 1000, units = "px")
+setwd(rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/Course/svg/v05_Marathon"))
+ggsave("Marathon.svg", plot = p2, device = "svg", width = 4000, height = 1000, units = "px")
+ggsave("MarathonBlack.svg", plot = p, device = "svg", width = 4000, height = 1000, units = "px")
 
 
 # Modification  ------------------------------------------------------------------
 
-t <- data.table(raw=readLines("elevation_profile.svg"))
-t[, raw2:= gsub("#0000FF", "url(#linear-gradient)", raw)]
-t[, raw2:= gsub('"', "'", raw2)]
-t[, raw2:= gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", raw2)]
-t[, raw2:= gsub("<defs>", "<defs><linearGradient id='linear-gradient' x1='0%' x2='20%' y1='0%' y2='0%'><stop offset='100%' stop-color='rgba(20, 136, 202,0.8)'></stop><stop offset='100%' stop-color='rgba(175, 223, 250,0.4)'></stop></linearGradient>", raw2)]
+t <- readLines("Marathon.svg")
+t <- gsub("#0000FF", "url(#linear-gradient)", t)
+t <- gsub('"', "'", t)
+t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
+t <- gsub("<defs>", "<defs><linearGradient id='linear-gradient' x1='0%' x2='20%' y1='0%' y2='0%'><stop offset='100%' stop-color='rgba(20, 136, 202,0.8)'></stop><stop offset='100%' stop-color='rgba(175, 223, 250,0.4)'></stop></linearGradient>", t)
+t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
+t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
+          "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
 
-write.table(t$raw2, "test.svg", row.names = F, col.names = F, quote = F)
+write.table(t, "Marathon.svg", row.names = F, col.names = F, quote = F)
+
+t <- readLines("MarathonBlack.svg")
+t <- gsub("#0000FF", "url(#linear-gradient)", t)
+t <- gsub('"', "'", t)
+t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
+t <- gsub("<defs>", "<defs><linearGradient id='linear-gradient' x1='0%' x2='20%' y1='0%' y2='0%'><stop offset='100%' stop-color='rgba(20, 136, 202,0.8)'></stop><stop offset='100%' stop-color='rgba(175, 223, 250,0.4)'></stop></linearGradient>", t)
+t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
+t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
+          "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
+
+write.table(t, "MarathonBlack.svg", row.names = F, col.names = F, quote = F)
 
