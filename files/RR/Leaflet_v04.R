@@ -42,7 +42,6 @@ setwd(wd)
 # Splits ------------------------------------------------------------------
 
 tp <- data.table(read.csv("timingpoints.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-tp
 tp[, Position := gsub(" ", "", Position)]
 tp[, lat := as.numeric(gsub("(.*),(.*)", "\\1", Position))]
 tp[, lon := as.numeric(gsub("(.*),(.*)", "\\2", Position))]
@@ -53,8 +52,10 @@ setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
 tp[, url:= p0("https://www.google.com/maps/place/", lat, ",", lon)]
 tp[, label := p0(TimingPoint, '<br><a href="', url, '" target="_blank">GoogleMap</a>' )]
+
 tp[, icon := ifelse(grepl("start|finish|ziel", TimingPoint, ignore.case = T), "iconFinish", "iconUbi")]
 
+# tp
 
 
 export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
@@ -72,10 +73,11 @@ splits <- splits[TimingPoint != ""]
 # Contest -----------------------------------------------------------------
 
 contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-contest <- contest[ContestName != ""]
-contest[, Name := ifelse(is.na(ContestNameShort), ContestName, ContestNameShort)]
-contest[, Start := hms::as_hms(ContestStart)]
-contest[, Dist := round(ContestLength, 2)]
+contest
+contest <- contest[Name != ""]
+contest[, Name := ifelse(is.na(NameShort), Name, NameShort)]
+contest[, Start := hms::as_hms(Start)]
+contest[, Dist := round(Length, 2)]
 setnames(contest, "ID", "Contest")
 
 # read gpx ----------------------------------------------------------------

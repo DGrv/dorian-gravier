@@ -122,11 +122,11 @@ m <-  m %>%
              group = "TimingPoints",
              icon = ~rrIcons[tp$icon]
              ) %>%
-  # addLabelOnlyMarkers(data = tp,
-  #   ~lon, ~lat, label = ~TimingPoint, 
-  #   labelOptions = labelOptions(noHide = TRUE, direction = "top"),
-  #   group = "Labels"
-  # ) %>%
+  addLabelOnlyMarkers(data = tp,
+    ~lon, ~lat, label = ~TimingPoint,
+    labelOptions = labelOptions(noHide = TRUE, direction = "top"),
+    group = "Labels"
+  ) %>%
   
   # # used before tamaro
   # fitBounds(
@@ -135,7 +135,7 @@ m <-  m %>%
   # )
   setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat),
-                    zoom = 17.5)
+                    zoom = 15)
   
   
   # addAwesomeMarkers(data = tp,
@@ -175,4 +175,19 @@ cat(green("\n\nLeaflet ready"))
 
 saveWidget(m, file="OverviewMap.html")
 
+t <- readLines("OverviewMap.html")
+idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/TrackingBox_CLEAN_v01.html"))
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
+
+write.table(t, "OverviewMap_Tracking.html", row.names = F, col.names = F, quote = F)
+
+
 cat(green("\nLeaflet DONE :)\n"))
+
+
+
+

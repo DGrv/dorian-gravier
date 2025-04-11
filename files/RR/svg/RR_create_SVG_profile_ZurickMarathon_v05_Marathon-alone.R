@@ -29,6 +29,23 @@ ylim2 <- 550
 dist.wanted <- 42.2
 nylabel <- 100
 breaksx <- 5
+lName <- c("Marathon", 
+           "Halbmarathon",
+           "10km"
+)
+ll <- data.table(gpx=c("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/Course/zhm2025marathon.gpx",
+                       "file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/Course/zhm2025hm.gpx",
+                       "file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/Course/zhm202510km.gpx"),
+                 Name = factor(lName, levels = lName),
+                 dist.wanted = c(42.2,
+                                 21.1,
+                                 10),
+                 color = c("rgba(20, 136, 202,0.8)",
+                           "rgba(149, 193, 31,0.8)",
+                           "rgba(229, 0, 91,0.8)"
+                 ),
+                 breaksx=c(5, 5, 2))
+
 
 
 # GPX --------------------------------------------------------------------
@@ -136,11 +153,13 @@ ggsave("MarathonBlack.svg", plot = p, device = "svg", width = 4000, height = 100
 
 # Modification  ------------------------------------------------------------------
 
+i <- 1
+
 t <- readLines("Marathon.svg")
-t <- gsub("#0000FF", "url(#linear-gradient)", t)
+t <- gsub("#0000FF", p0("url(#linear-gradient", i, ")"), t)
 t <- gsub('"', "'", t)
 t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
-t <- gsub("<defs>", "<defs><linearGradient id='linear-gradient' x1='0%' x2='20%' y1='0%' y2='0%'><stop offset='100%' stop-color='rgba(20, 136, 202,0.8)'></stop><stop offset='100%' stop-color='rgba(175, 223, 250,0.4)'></stop></linearGradient>", t)
+t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit', i, ']&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])
 t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
 t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
           "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
@@ -148,10 +167,10 @@ t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-
 write.table(t, "Marathon.svg", row.names = F, col.names = F, quote = F)
 
 t <- readLines("MarathonBlack.svg")
-t <- gsub("#0000FF", "url(#linear-gradient)", t)
+t <- gsub("#0000FF", p0("url(#linear-gradient", i, ")"), t)
 t <- gsub('"', "'", t)
 t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
-t <- gsub("<defs>", "<defs><linearGradient id='linear-gradient' x1='0%' x2='20%' y1='0%' y2='0%'><stop offset='100%' stop-color='rgba(20, 136, 202,0.8)'></stop><stop offset='100%' stop-color='rgba(175, 223, 250,0.4)'></stop></linearGradient>", t)
+t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit', i, ']&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])
 t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
 t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
           "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)

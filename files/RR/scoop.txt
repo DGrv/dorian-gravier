@@ -14,14 +14,14 @@ scoop install extras/freecommander
 scoop install extras/pdf-xchange-editor
 scoop install main/cmder
 scoop install extras/obs-studio
-scoop install extras/putty
 scoop install extras/powertoys
 scoop install extras/quicklook
 scoop install extras/sharex
-scoop install svn
 scoop install main/ffmpeg
 scoop install extras/mpv
-
+scoop install main/nmap
+scoop install extras/geekuninstaller
+scoop install extras/awake
 
 cd C:\Users\%USERNAME%\Downloads
 
