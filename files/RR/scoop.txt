@@ -2,7 +2,10 @@
 :: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 :: Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-cmd
+powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
+
+
+::cmd
 scoop install git
 scoop bucket add extras
 scoop bucket add main
