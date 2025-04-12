@@ -5283,8 +5283,14 @@ setInterval(async () => {
         // await fetchrrst(["T-20346", "T-21126", "T-21044", "T-21043"]).then(data => {
         // await fetchrrst(["T-20346"]).then(data => {
 
-       
-        await fetchrrst(["T-20014", "T-21155", "T-20980", "T-21156", "T-21031", "T-21083"]).then(data => {
+        // Ma
+        iconcolor="#1488ca"
+        // Hm
+        // iconcolor="#95C11F" // iconPulseFill
+        // 10km
+        // iconcolor="#e5005b" // iconPulseFill
+
+        await fetchrrst(["T-20196", "T-20321", "T-20190"]).then(data => {
 
           // Marathon
           addMarkerToLeafletMap(data.position[0].DeviceID, // box id
@@ -5294,71 +5300,33 @@ setInterval(async () => {
           data.position[0].Position.Flag, // flag
           "", // icon
           [20, 20], // iconUserSize
-          "red", //iconPulseColor
-          "#1488ca" // iconPulseFill
+          iconcolor, //iconPulseColor
+          "blue" // iconPulseFill
           );
           addMarkerToLeafletMap(data.position[1].DeviceID, // box id
           youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
+          data.position[1].Position.Latitude, // latM
+          data.position[1].Position.Longitude, // lonM
+          data.position[1].Position.Flag, // flag
           "", // icon
           [20, 20], // iconUserSize
-          "green", //iconPulseColor
-          "#1488ca" // iconPulseFill
+          iconcolor, //iconPulseColor
+          "red" // iconPulseFill
           );
-
-          // Hm
           addMarkerToLeafletMap(data.position[2].DeviceID, // box id
           youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
+          data.position[2].Position.Latitude, // latM
+          data.position[2].Position.Longitude, // lonM
+          data.position[2].Position.Flag, // flag
           "", // icon
           [20, 20], // iconUserSize
-          "red", //iconPulseColor
-          "#95C11F" // iconPulseFill
-          );
-          addMarkerToLeafletMap(data.position[3].DeviceID, // box id
-          youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
-          "", // icon
-          [20, 20], // iconUserSize
-          "green", //iconPulseColor
-          "#95C11F" // iconPulseFill
-          );
-
-          // 10km
-          addMarkerToLeafletMap(data.position[4].DeviceID, // box id
-          youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
-          "", // icon
-          [20, 20], // iconUserSize
-          "red", //iconPulseColor
-          "#e5005b" // iconPulseFill
-          );
-          addMarkerToLeafletMap(data.position[5].DeviceID, // box id
-          youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
-          "", // icon
-          [20, 20], // iconUserSize
-          "green", //iconPulseColor
-          "#e5005b" // iconPulseFill
+          iconcolor, //iconPulseColor
+          "green" // iconPulseFill
           );
 
 
 
-
-        
-
-
-
+      
 
 
 
