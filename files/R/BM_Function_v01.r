@@ -3768,7 +3768,8 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   system(p0("curl -o Times.csv ", APItimes))
   results <- data.table(jsonlite::fromJSON(url(APIresults), flatten = TRUE))
   
-  rd <- data.table(jsonlite::fromJSON("rawdata.txt", flatten = TRUE))
+  rd0 <- jsonlite::fromJSON("rawdata.txt", flatten = TRUE)
+  rd <- data.table(rd0)
   times <- data.table(read.csv("Times.csv"))
   
   # Manipulation      
@@ -3781,7 +3782,9 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
   times[, Time := NULL]
   times[, InfoText := NULL]
-  setnames(times, c("Ã¯..Bib", "DecimalTime", "Result"), c("Bib", "Time", "ResultID"))
+  browser()
+  times
+  setnames(times, c("ï..ID", "DecimalTime", "Result"), c("ID", "Time", "ResultID"))
   times[, ToD := DecimalToToD(Time)]
   
   setnames(results, "ID", "ResultID")
@@ -3790,7 +3793,7 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
   assign("times", times2, env=.GlobalEnv)
   
-  data <- dtjoin(rd2, times2[, .(Bib, ResultID, Time, Name)])
+  data <- dtjoin(rd2, times2[, .(ID, ResultID, Time, Name)])
   data[, ToResult := 1]
   data[is.na(ResultID), ToResult := 0]
   data[, .N, .(Bib, ToResult)]
