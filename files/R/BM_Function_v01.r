@@ -3782,9 +3782,8 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
   times[, Time := NULL]
   times[, InfoText := NULL]
-  browser()
-  times
-  setnames(times, c("ï..ID", "DecimalTime", "Result"), c("ID", "Time", "ResultID"))
+  setnames(times, c("DecimalTime", "Result"), c("Time", "ResultID"))
+  names(times)[1] <- c("ID")
   times[, ToD := DecimalToToD(Time)]
   
   setnames(results, "ID", "ResultID")
