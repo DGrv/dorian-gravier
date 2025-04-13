@@ -27,7 +27,7 @@ spareRR () {
 sesExtract () {
     if [ -f "$1" ]; then
 	
-		# set "backup_OCHSNER SPORT Zurich Marathon 2025_20250407-111407.ses"
+		# set "backup_OCHSNER SPORT Zurich Marathon 2025_20250409-121357.ses"
 		
         # tablewanted=( settings customFields rankings teamscores contests results timingpoints splits history data RawData )
         tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
@@ -121,7 +121,7 @@ sesExtract () {
 
         cecho -y "R Split_map:"
         #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
-        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Leaflet_v03.R" "$PWD/$fdir"
+        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Leaflet_v04.R" "$PWD/$fdir"
         cecho -g Done
     else
         echo File not found
