@@ -5293,16 +5293,6 @@ setInterval(async () => {
         await fetchrrst(["T-20196", "T-20321", "T-20190", "T-20343", "T-20345"]).then(data => {
 
           // Marathon
-          addMarkerToLeafletMap(data.position[0].DeviceID, // box id
-          youridhtmlwidget, // youridhtmlwidget
-          data.position[0].Position.Latitude, // latM
-          data.position[0].Position.Longitude, // lonM
-          data.position[0].Position.Flag, // flag
-          "", // icon
-          [20, 20], // iconUserSize
-          iconcolorma, //iconPulseColor
-          "blue" // iconPulseFill
-          );
           addMarkerToLeafletMap(data.position[1].DeviceID, // box id
           youridhtmlwidget, // youridhtmlwidget
           data.position[1].Position.Latitude, // latM
@@ -5311,13 +5301,23 @@ setInterval(async () => {
           "", // icon
           [20, 20], // iconUserSize
           iconcolorma, //iconPulseColor
-          "red" // iconPulseFill
+          "blue" // iconPulseFill
           );
           addMarkerToLeafletMap(data.position[2].DeviceID, // box id
           youridhtmlwidget, // youridhtmlwidget
           data.position[2].Position.Latitude, // latM
           data.position[2].Position.Longitude, // lonM
           data.position[2].Position.Flag, // flag
+          "", // icon
+          [20, 20], // iconUserSize
+          iconcolorma, //iconPulseColor
+          "red" // iconPulseFill
+          );
+          addMarkerToLeafletMap(data.position[0].DeviceID, // box id
+          youridhtmlwidget, // youridhtmlwidget
+          data.position[0].Position.Latitude, // latM
+          data.position[0].Position.Longitude, // lonM
+          data.position[0].Position.Flag, // flag
           "", // icon
           [20, 20], // iconUserSize
           iconcolorma, //iconPulseColor
