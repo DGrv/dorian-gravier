@@ -10,6 +10,7 @@ scoop install git
 scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
+scoop bucket add sysinternals
 scoop install extras/googlechrome
 scoop install extras/notepadplusplus
 scoop install main/7zip
@@ -25,6 +26,7 @@ scoop install extras/mpv
 scoop install main/nmap
 scoop install extras/geekuninstaller
 scoop install extras/awake
+scoop install sysinternals/process-explorer
 
 cd C:\Users\%USERNAME%\Downloads
 
@@ -63,5 +65,46 @@ curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
+
+::notepadplusplus
+cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\userDefineLangs
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/Md_dracula.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/AutoHotKey_Dracula.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/markdown._preinstalled.udl.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/markdown._preinstalled_DM.udl.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/Notepad_FFmpeg.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/NuTeX_dracula.xml
+cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\themes
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/DansLeRuSH-Dark.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Zenburn.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Monokai.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/vim Dark Blue.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/khaki.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Vibrant Ink.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Twilight.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Solarized.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Solarized-light.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Plastic Code Wrap.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Obsidian.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Navajo.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/MossyLawn.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Mono Industrial.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/HotFudgeSundae.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Hello Kitty.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Deep Black.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/DarkModeDefault.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Choco.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Black board.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Bespin.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Ruby Blue.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Dracula.xml
+cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/config.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/shortcuts.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/nativeLang.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLang.xml
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/stylers.xml
+
+
 
 pause
