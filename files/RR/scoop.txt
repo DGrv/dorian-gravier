@@ -28,6 +28,9 @@ scoop install extras/awake
 
 cd C:\Users\%USERNAME%\Downloads
 
+::shareX
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb
+
 :: Doskey
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey
 reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\"" /f
@@ -60,6 +63,5 @@ curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
-
 
 pause
