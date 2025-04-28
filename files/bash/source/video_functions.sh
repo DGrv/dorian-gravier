@@ -390,8 +390,10 @@ jpg2mp4 () {
     # convert picture to video
     # $1 is video path
     # $2 how many seconds
-    cecho -r "Arg1 is the image, arg2 is duration of the mp4"
-    mogrify -resize 1920x1080 -extent 1920x1080 -gravity Center -background black "$1"
+    cecho -r "Arg1 is the image, arg2 is duration of the mp4, arg3 is T or F is you want to adapt it to 1920x1080"
+    if [[ "$3" == "T" ]]; then
+		mogrify -resize 1920x1080 -extent 1920x1080 -gravity Center -background black "$1"
+	fi
     ffmpeg -stats -loglevel error -r "1/$2" -f image2 -i "$1" -vcodec libx264 -vf "fps=30,format=yuv420p" -y temp.mp4
     filename="${1%.*}"
     ffmpeg -stats -loglevel error -i temp.mp4 -f lavfi -i aevalsrc=0 -ac 2 -shortest -y -c:v copy "${filename}.mp4"

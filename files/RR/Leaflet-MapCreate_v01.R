@@ -135,7 +135,7 @@ m <-  m %>%
   # )
   setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     (max(data0$lat)-min(data0$lat))/2+min(data0$lat),
-                    zoom = 15)
+                    zoom = 11)
   
   
   # addAwesomeMarkers(data = tp,
