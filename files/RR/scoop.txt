@@ -27,6 +27,8 @@ scoop install main/nmap
 scoop install extras/geekuninstaller
 scoop install extras/awake
 scoop install sysinternals/process-explorer
+scoop install extras/qimgv
+scoop install extras/msrt
 
 cd C:\Users\%USERNAME%\Downloads
 
@@ -78,25 +80,17 @@ cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\themes
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/DansLeRuSH-Dark.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Zenburn.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Monokai.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/vim Dark Blue.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/khaki.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Vibrant Ink.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Twilight.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Solarized.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Solarized-light.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Plastic Code Wrap.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Obsidian.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Navajo.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/MossyLawn.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Mono Industrial.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/HotFudgeSundae.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Hello Kitty.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Deep Black.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/DarkModeDefault.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Choco.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Black board.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Bespin.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Ruby Blue.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/themes/Dracula.xml
 cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/config.xml
