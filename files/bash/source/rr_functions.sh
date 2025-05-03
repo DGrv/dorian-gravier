@@ -101,12 +101,17 @@ sesExtract () {
         mkdir -p $fdir/gpx
         rm $fdir/gpx/*
         # extract gpx daten
-        cat "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
-        # extract name gpx
-        grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s/.*GPXFileName\t.*?\t(.*?)\t(.*?).gpx.*/\1__\2.gpx/g" > "$fdir/gpx/namegpx"
-        # export gpx
-        while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
-        rm $fdir/gpx/namegpx $fdir/gpx/gpx
+		grep -s "GPXFile" "$fdir/settings.csv" > "$fdir/gpx/gpxallinfo"
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Extract_gpx_ses_v01.R" "$PWD/$fdir"
+
+		#old
+        # grep -P "GPXFile\t" "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
+        # # extract name gpx
+        # grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s/.*GPXFileName\t.*?\t(.*?)\t(.*?).gpx.*/\1__\2.gpx/g" > "$fdir/gpx/namegpx"
+        # # export gpx
+        # while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
+        # rm $fdir/gpx/namegpx $fdir/gpx/gpx
+        rm $fdir/gpx/gpxallinfo
         ls -1 $fdir/gpx/*gpx | cat -n | while read n i; do gpsbabel -i gpx -f "$i" -x simplify,crosstrack,error=0.01k -o gpx -F "$i"; done
         cecho -g Done
         

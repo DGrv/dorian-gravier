@@ -268,6 +268,21 @@ theme_Publication <- function(base_size=14, base_family="helvetica") {
 
 # Small function ----------------------------------------------------------
 
+
+hex2rgba <- function(hex, alpha = 1) {
+  # Remove "#" if present
+  hex <- gsub("#", "", hex)
+  
+  # Split into RGB components
+  r <- strtoi(substr(hex, 1, 2), 16L)
+  g <- strtoi(substr(hex, 3, 4), 16L)
+  b <- strtoi(substr(hex, 5, 6), 16L)
+  
+  # Return RGBA string
+  sprintf("rgba(%d, %d, %d, %.2f)", r, g, b, alpha)
+}
+
+
 str_extract_all_bind <- function(variable, pattern) {
   # source : https://stackoverflow.com/a/66910086/2444948
   return(apply(str_extract_all(variable, pattern, simplify = T), 1, paste, collapse=" "))

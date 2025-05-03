@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250413__ZuerichMarathon/BU/rr_backup_OCHSNER_SPORT_Zurich_Marathon_2025_20250407-111407/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250430__Innsbruck_Alpine_Trailrun_Festival/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -39,7 +39,7 @@ setwd(wd)
 
 
 
-# Splits ------------------------------------------------------------------
+# TimingPoints ------------------------------------------------------------------
 
 tp <- data.table(read.csv("timingpoints.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
 tp[, Position := gsub(" ", "", Position)]

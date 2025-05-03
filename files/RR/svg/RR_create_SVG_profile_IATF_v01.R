@@ -1,0 +1,206 @@
+
+
+# setup
+# setup
+rm(list = ls())
+rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/'
+# Sys.setlocale('LC_ALL', 'German')
+
+suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")))
+
+
+# SETUP -------------------------------------------------------------------
+
+library(geosphere)
+library(svglite)  # To save as SVG
+library(ggrepel)
+
+wd <- rP("file:///C:/Users/doria/Downloads")
+setwd(wd)
+
+
+# User choices ------------------------------------------------------------
+
+
+# comment if you do not know
+
+# ylim1 <- 350
+# ylim2 <- 550
+# dist.wanted <- 110
+# nylabel <- 100
+# breaksx <- 5
+
+lName <- c("K110")
+ll <- data.table(gpx=c("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250430__Innsbruck_Alpine_Trailrun_Festival/gpx/IATF25_K110_250423.gpx"),
+                 Name = factor(lName, levels = lName),
+                 dist.wanted = c(NA), # let NA for letting calculate the dist from gpx
+                 color = c("rgba(205, 20, 29,0.8)"
+                 ),
+                 breaksx=c(10),
+                 nylabel=1000,
+                 nxlabel=c(-5))
+
+
+
+# GPX --------------------------------------------------------------------
+
+data <- data.table()
+for(i in 1:nrow(ll)) {
+  
+  dt <- read.gpx(rP(ll$gpx[i]), type="trk")
+  
+  dt[, Name := ll$Name[i]]
+  
+  # Calculate dist btw points
+  dt[, dist:=0]
+  dt[2:nrow(dt), dist := distHaversine(dt[,.(lon, lat)])/1000]
+  dt[, dist := cumsum(dist)]
+  
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$dist.wanted[i]), "\n")
+  
+  # correction distance if gpx is longer than expected
+  if( !is.na(ll$dist.wanted[i]) ) {
+    cat(red("[INFO] - Make dist ratio correction with dist.wanted"))
+    ratio.correction <- max(dt$dist)/ll$dist.wanted[i]
+    dt[, dist := dist/ratio.correction]
+  }
+  
+  # trim ele
+  if( exists("ylim1") ) {
+    dt[1, ele := ylim1]
+    dt[nrow(dt), ele := ylim1]
+  } else {
+    dt[1, ele := 0]
+    dt[nrow(dt), ele := 0]
+  }
+  
+  
+  data <- rbind(data, dt)
+  
+}
+data
+
+
+
+# TimingPoints ------------------------------------------------------------
+
+# cd <- data.table(read.table("clipboard", sep="\t", header=TRUE))
+cd <- structure(list(Split = c("Hans-Psenner Steg - 1.1km", "Hungerburg - 3.6km", "Höttinger Bild - 6.8km", "Kranebitten - 12.6km", "Dornach - 19.6km", "Birgitz Dorfplatz - 20.7km", "Götzner Graben - 27.5km", "Mutterer Alm - 29.5km", "Telfes - 38.1km", "Bahnhof Unterberg - 47.4km", "Gärberbach - 50.1km", "Bierstindl - 54.2km", "Heiligwasser - 62.2km", "Zirbenweg - 68.8km", "Sistranser Alm - 72.7km", "Rinn - 78.5km", "Herzsee - 84.3km", "Münze Hall - 91.5km", "Romediwirt - 98.2km", "Hungerburg - 106.2km", "Hans-Psennen Steg - 108.6km"), dist = c(1.1, 3.6, 6.8, 12.6, 19.6, 20.7, 27.5, 29.5, 38.1, 47.4, 50.1, 54.2, 62.2, 68.8, 72.7, 78.5, 84.3, 91.5, 98.2, 106.2, 108.6), Name = c("K110")), row.names = c(NA, 
+                                                                                                                 -29L), class = c("data.table", "data.frame"))
+cd
+
+data[, Split := NULL]
+data[, Split := ""]
+# assign them depending on dist
+temp <- copy(data)
+rm(data)
+data <- data.table()
+
+for(j in seq_along(lName)) {
+  if(length(u(cd$Name))==1) {
+    cd2 <- copy(cd)
+    temp2 <- copy(temp)
+  } else {
+   cd2 <- cd[Name == lName[j]]
+   temp2 <- temp[Name == lName[j]]
+  }
+  for(i in 1:nrow(cd2)) {
+    t <- which.min(abs(temp2$dist - cd2$dist[i]))
+    temp2[t, Split := cd2$Split[i]]
+  }
+  data <- rbind(data, temp2)
+}
+
+data[Split != "", .N, .(Name, Split)]
+
+# Plots -------------------------------------------------------------------
+
+# if( !exists("nylabel") ) {
+#   nylabel <- 0
+# }
+# if( !exists("breaksx") ) {
+#   breaksx <- 10
+# }
+
+lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF")
+
+for(i in seq_along(lName)) {
+  # Create the elevation profile plot
+  p <- ggplot(data[Name == ll$Name[i]], aes(x = dist, y = ele)) +
+    geom_polygon(fill=lcolor[i])+
+    geom_line(linewidth = 0.2)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*1), x = dist - (0.005*1)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*2), x = dist - (0.005*2)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*3), x = dist - (0.005*3)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*4), x = dist - (0.005*4)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*5), x = dist - (0.005*5)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*6), x = dist - (0.005*6)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*7), x = dist - (0.005*7)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*8), x = dist - (0.005*8)), size = 0.1)+
+    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*9), x = dist - (0.005*9)), size = 0.1)+
+    theme(
+      # panel.border = element_blank(),
+      # panel.grid.major = element_blank(),
+      # panel.grid.minor = element_blank(),
+      # plot.background = element_rect(fill = "#353535", color = "#353535"),
+      # panel.background = element_rect(fill = "#353535"),
+      axis.ticks.length = unit(0.1, "inches"))+
+    theme(plot.margin = margin(r=10, t=10))+ # default = margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5, unit = "pt")
+    geom_point(data=data[Name == ll$Name[i]][Split!=""], size=3)+
+    geom_label_repel(data=data[Name == ll$Name[i]][Split!=""],aes(label = Split), vjust = 0, hjust= 0, nudge_y = ll$nylabel[i], nudge_x=ll$nxlabel[i], direction = "y", size=3)+
+    scale_x_continuous(expand = c(0, 0), limits = c(0, NA), breaks = seq(0, max(data$dist), by = ll$breaksx[i]))+  # Remove space before 0 on x-axis
+    labs(x = "Km", y = "Elevation (m)", title=lName[i])
+  p
+    
+  if( exists("ylim2") ) {
+    p <- p+coord_cartesian(ylim=c(NA, ylim2))
+  }
+  p
+  p2 <- p + theme(
+      text = element_text(color = "white"),
+      axis.text.y = element_text(colour = "white"),
+      axis.text.x = element_text(colour = "white"),
+      axis.ticks.y = element_line(color = "white"),
+      axis.ticks.x = element_line(color = "white"))
+  p2
+  
+  # Save as SVG
+  setwd(rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250430__Innsbruck_Alpine_Trailrun_Festival/svg/"))
+  ggsave(p0(lName[i],".svg"), plot = p2, device = "svg", width = 4000, height = 1000, units = "px")
+  ggsave(p0(lName[i],"Black.svg"), plot = p, device = "svg", width = 4000, height = 1000, units = "px")
+  
+  
+  # Modification  ------------------------------------------------------------------
+  
+  
+  t <- readLines(p0(lName[i],".svg"))
+  t <- gsub(lcolor[i], p0("url(#linear-gradient", i, ")"), t)
+  t <- gsub('"', "'", t)
+  t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
+  t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit(', i, ')]&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])
+  t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
+  t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
+            "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
+  
+  write.table(t, p0(lName[i],".svg"), row.names = F, col.names = F, quote = F)
+  
+  t <- readLines(p0(lName[i],"Black.svg"))
+  t <- gsub(lcolor[i], p0("url(#linear-gradient", i, ")"), t)
+  t <- gsub('"', "'", t)
+  t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
+  t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit(', i, ')]&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])
+  t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
+  t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
+            "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
+  
+  write.table(t, p0(lName[i],"Black.svg"), row.names = F, col.names = F, quote = F)
+  
+}
+
+
+cat(green("--- END ---"))
