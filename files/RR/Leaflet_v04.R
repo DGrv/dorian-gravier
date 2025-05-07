@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250430__Innsbruck_Alpine_Trailrun_Festival/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#2_Schaan/gpx/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -46,6 +46,7 @@ tp[, Position := gsub(" ", "", Position)]
 tp[, lat := as.numeric(gsub("(.*),(.*)", "\\1", Position))]
 tp[, lon := as.numeric(gsub("(.*),(.*)", "\\2", Position))]
 tp[, Position := NULL]
+if( length(tp$Color) == 0 ) { tp[, Color := ""] }
 tp <- tp[, .(Name, Color, lat, lon)]
 tp <- tp[Name != ""]
 setnames(tp, "Name", "TimingPoint")
@@ -57,16 +58,17 @@ tp[, icon := ifelse(grepl("start|finish|ziel", TimingPoint, ignore.case = T), "i
 
 # tp
 
-
 export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.desc = F, add.url = F)
 
 
 
 # splits ------------------------------------------------------------------
 
-splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
-splits <- splits[TimingPoint != ""]
+if( exists("splits.csv") ) {
+  splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+  splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
+  splits <- splits[TimingPoint != ""]
+}
 
 
 
@@ -98,6 +100,8 @@ ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
 ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
+ll[, Name := ifelse(Name == "NA__NA__NA__NA", gsub(".gpx", "", file))]
+
 
 
 data0 <- data.table()

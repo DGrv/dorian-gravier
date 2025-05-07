@@ -28,7 +28,7 @@ data <- readRR12(APIrawdata = "https://api.raceresult.com/298211/3KAPEF2S246MUHW
                  getrawdata = checkifrawdataexists)
 setorder(data, Time)
 
-
+write.csv(data[, .N, Passing.DeviceID][order(Passing.DeviceID)], "Devices_used.csv", row.names = F)
 
 searchbib <- 15334
 
