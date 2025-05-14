@@ -14,7 +14,7 @@ theme_set(theme_void())
 setwd(wd)
 create.dir(wd, "TrackPNG", "wd2")
 
-for(i in 1:length(u(data0$file)) ) {
+for(i in seq_along(ll$file) ) {
   
   tempTP <- tp[grepl("start|Finish", TimingPoint, ignore.case = T)]
   debug.easy(nrow(tempTP) > 1, "several finish ? nrow > 1")
@@ -24,8 +24,8 @@ for(i in 1:length(u(data0$file)) ) {
   temp[, lonSF := tempTP$lon]
   temp[, latdiff := abs(latSF-lat)]
   temp[, londiff := abs(lonSF-lon)]
-  tempTP[, lat := temp[latdiff == min(latdiff)]$lat]
-  tempTP[, lon := temp[londiff == min(londiff)]$lon]
+  tempTP[, lat := temp[latdiff == min(latdiff)]$lat[1]]
+  tempTP[, lon := temp[londiff == min(londiff)]$lon[1]]
   
   
   a <- ggplot(temp, aes(lon, lat))+

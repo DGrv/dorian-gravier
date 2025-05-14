@@ -2,38 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name=";" />
+        <Find name="GPXFile" />
+        <Find name="1202301776" />
+        <Find name="GPSFile" />
+        <Find name="\r\n" />
+        <Find name="NameShort" />
         <Find name="\t" />
-        <Find name=", " />
-        <Find name="C:/Users/doria/Downloads/gdrive/RR/2025/20250404__OFFA/Pictures/" />
-        <Find name="Logo2" />
-        <Find name="local_file" />
-        <Find name="/" />
-        <Find name="pid" />
-        <Find name="CRIT" />
-        <Find name=" " />
-        <Replace name="," />
+        <Find name="\]" />
+        <Find name="\[" />
+        <Find name="[" />
+        <Find name='&quot;' />
+        <Replace name='&quot;, &quot;' />
+        <Replace name="Name" />
         <Replace name=";" />
-        <Replace name="\t" />
-        <Replace name="C:/Users/bernh/Downloads/OBS/OFFA/" />
-        <Replace name="\" />
+        <Replace name=']&amp;&quot;' />
+        <Replace name='&quot;&amp;[' />
+        <Replace name='&quot;&quot;' />
         <Replace name="_" />
-        <Replace name="s.kk" />
-        <Replace name="315977" />
-        <Replace name=" 0;0" />
         <Replace name="\r\n" />
+        <Replace name="Minus" />
+        <Replace name="------LapBU" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250404__OFFA\OBS\OFFA.json" />
-        <File filename="C:\Users\doria\scoop\persist\freecommander\Settings\FreeCommander.mren.ini" />
-        <File filename="C:\Users\doria\Downloads\RRE_tobias.txt" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\temp\OFFA.json" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250525__CyclotourDuLeman\BU\test_import_CDL.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250404__OFFA\TestData\data.csv" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\ssh.ps1" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250504__Bischofszeller_Staedlilauf\Participants\20250403_import.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250525__CyclotourDuLeman\Draft_CDL.ada" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250419__GP_Osterhas\Emails\RaceMail_v01.html" />
+        <File filename="C:\Users\doria\Downloads\udf.lvs" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\video_functions.sh" />
         <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\scoop.txt" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\temp\Install.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\LED\20250430__Innsbruck_Alpine_Trailrun_Festival\IATF_2025_v01\1024x128\SwissBikeCup.csproj" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\LED\20250430__Innsbruck_Alpine_Trailrun_Festival\IATF_2025_v01\1024x128\IATF.sln" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\BU\rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212\gpx\namegpx" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\BU\rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212\settings.csv" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -42,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="10" increase="1" repeat="1" formatChoice="dec" leadingChoice="zeros" />
+        <number initial="100" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -51,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="124" y="62" width="1763" height="928" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="1173" top="382" right="1776" bottom="741" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="48" y="39" width="1763" height="928" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="640" top="548" right="1659" bottom="907" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -92,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="2" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="200">
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="CSV Lint" id="0" curr="3" prev="-1" isVisible="no" />
