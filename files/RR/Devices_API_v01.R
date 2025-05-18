@@ -33,6 +33,9 @@ req2 <- request("https://rest.devices.raceresult.com/customers/846/devices") |>
 
 resp2 <- req_perform(req2)
 
+# debug
+writeLines(resp_body_string(resp2), rP("file:///C:/Users/doria/Downloads/resp2.json"))
+
 resp2b <- data.table(jsonlite::fromJSON(resp_body_string(resp2), flatten = T)$Devices)
 resp2b
 
@@ -61,15 +64,24 @@ RRdevices <- resp2b[, .(DeviceID,
                   ReaderStatus = TrackboxStatus.ReaderStatus)]
 RRdevices
 RRdevicesBU <- copy(RRdevices)
+# RRdevices <- copy(RRdevicesBU)
 
 
+# RRdevices[DeviceID == "T-20015"]
 
-RRdevices[DeviceID == "T-20015"]
-RRdevices[DeviceID == "T-20014"]
-
-
-
-
+cdl <- c("T-21172",
+         "T-21154",
+         "T-21112",
+         "T-21030",
+         "T-21051",
+         "T-21122",
+         "T-20967",
+         "T-21046",
+         "T-21179",
+         "T-21083",
+         "T-21144",
+         "T-21079")
+# RRdevices[DeviceID %in% cdl]
 
 
 
@@ -88,7 +100,8 @@ RRdevices <- RRdevices[Received > "2025-01-01"]
 RRdevices[, .N, DeviceType]
 RRdevices[Connected == T]
 
-
+# test 2 days ago
+RRdevices[Received > "2025-05-16"]
 
 
 setorder(RRdevices, -Connected)

@@ -14,6 +14,8 @@ copy C:\Users\doria\scoop\apps\vscodium\current\data\extensions\extensions.json 
 :: Timetrap ------------------------
 echo Put this at the end !!!!!!!!!!!!!!!!!
 t d -f csv > C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_timetrap.csv
+rscript "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
+
 
 REM :: Thunderbird ------------------------
 REM set "processname=thunderbird.exe"
