@@ -2,6 +2,78 @@
 var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
 
 
+
+async function addMarkerDevices(idhtmlwidget, datadevices) {
+    var widget = window.HTMLWidgets.find(idhtmlwidget);
+
+    if (widget) {
+        var map = widget.getMap();
+
+        if (map) {
+
+
+            datadevices.position.forEach(did => {
+                // console.log(`Connected: ${did.Connected}`);
+                var id = did.DeviceID
+                var latM = did.Position.Latitude;
+                var lonM = did.Position.Longitude;
+                var Flag = did.Position.Flag;
+
+
+                // console.log("DeviceID: ", id, " - latM: ", latM, " - lonM:", lonM, " - Flag: ", Flag)
+
+
+                if (Flag != "U") {
+
+                    var iconType = L.icon({
+                        iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-green.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-red.png",
+                        iconSize: [40, 40], // Size of the icon
+                        iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
+                        popupAnchor: [0, -30] // Popup position when opened
+                    });
+
+                    // Add marker dynamically ------------------------------------------------------------------------------------------------------------
+                    // var markerAB = L.marker([latM, lonM], {icon: iconType}) 
+                    //     .bindPopup("1st")
+                    //     .openPopup();
+
+                    // Initialize window.markerAB as an empty object if not already initialized
+                    // window is to assign it globaly
+                    if (!window.markerAB) {
+                        window.markerAB = {};
+                    }
+
+                    if (window.markerAB[id]) {
+
+                        window.markerAB[id].setLatLng([latM, lonM])
+                        // console.log("Setlat for ", id)
+
+                    } else {
+
+                        // Add a new marker using the dynamic id as the key
+                        window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
+                            .bindPopup(id)
+                            .openPopup();
+                        // Add marker to the LayerGroup
+                        aktivBoxLayer.addLayer(markerAB[id]);
+                        // Ensure the layer is added to the map
+                        aktivBoxLayer.addTo(map);
+                        // console.log("create marker for ", id)
+                    }
+                }
+            });
+
+
+        } else {
+            console.warn("Leaflet widget found, but map is not ready yet. Retrying...");
+            setTimeout(() => addMarkerDevices(idhtmlwidget, datadevices), 500); // Retry after 500ms
+        }
+    } else {
+        console.warn("Leaflet widget not found. Retrying...");
+        setTimeout(() => addMarkerDevices(idhtmlwidget, datadevices), 500); // Retry after 500ms
+    }
+}
+
 async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize, iconPulseColor, iconPulseFill) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 
@@ -20,33 +92,35 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
             // X : Position may not be accurate (box has moved since last GPS fix)
             // var iconEnd = flag === "X" ? icon2 : iconUser;
 
-            if(!iconUserSize) {
-                var iconUserSize = [40,40]
+            if (!iconUserSize) {
+                var iconUserSize = [40, 40]
             }
-            if(!iconPulseColor) {
+            if (!iconPulseColor) {
                 var iconPulseColor = "red"
             }
-            if(!iconPulseFill) {
+            if (!iconPulseFill) {
                 var iconPulseFill = "red"
             }
-            
+
             if (iconUser) {
                 // Awesome Icon ----------------------------------------------------------------------------------------------------------
                 // Define custom Awesome Icon using Font Awesome
-                var  iconType = L.icon({
-                        iconUrl: iconUser,
-                        iconSize: iconUserSize, // Size of the icon
-                        iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
-                        popupAnchor: [0, -30] // Popup position when opened
-                    });
+                var iconType = L.icon({
+                    iconUrl: iconUser,
+                    iconSize: iconUserSize, // Size of the icon
+                    iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
+                    popupAnchor: [0, -30] // Popup position when opened
+                });
             } else {
-                
+
                 // leaflet-icon-pulse --------------------------------------------------------------------------------------------------
-                var  iconType = L.icon.pulse({iconSize: iconUserSize,
-                    color: iconPulseColor, 
-                    fillColor: iconPulseFill, 
-                    animate: true, 
-                    heartbeat: 2});
+                var iconType = L.icon.pulse({
+                    iconSize: iconUserSize,
+                    color: iconPulseColor,
+                    fillColor: iconPulseFill,
+                    animate: true,
+                    heartbeat: 2
+                });
                 // ### Options
                 // | Property        | Description            | Default Value | Possible  values         |
                 // | --------------- | ---------------------- | ------------- | ------------------------ |
@@ -55,7 +129,7 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
                 // | iconSize        | size of L.divIcon      | [12,12]       | <Point> [width,height]   |
                 // | animate         | enable pulsing         | true          | true\|false            |
                 // | heartbeat       | pulsing beat           | 1             | number (seconds)         |
-                
+
             }
 
             // Add marker dynamically ------------------------------------------------------------------------------------------------------------
@@ -70,16 +144,16 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
             }
 
             if (window.markerAB[id]) {
-                    
+
                 window.markerAB[id].setLatLng([latM, lonM])
                 // console.log("Setlat for ", id)
-                
+
             } else {
-                
+
                 // Add a new marker using the dynamic id as the key
                 window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
-                .bindPopup("1st")
-                .openPopup();
+                    .bindPopup("1st")
+                    .openPopup();
                 // Add marker to the LayerGroup
                 aktivBoxLayer.addLayer(markerAB[id]);
                 // Ensure the layer is added to the map
@@ -108,8 +182,8 @@ async function fetchrrst(boxids) {
     const jsonString = JSON.stringify(data);
     // console.log('jsonString:', jsonString)
 
-        // const response = await fetch('http://localhost:8080/api/get-data', {
-        const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
+    // const response = await fetch('http://localhost:8080/api/get-data', {
+    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
