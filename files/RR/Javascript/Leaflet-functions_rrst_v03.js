@@ -12,57 +12,59 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
         if (map) {
 
 
-            datadevices.position.forEach(did => {
-                // console.log(`Connected: ${did.Connected}`);
-                var id = did.DeviceID
-                var latM = did.Position.Latitude;
-                var lonM = did.Position.Longitude;
-                var Flag = did.Position.Flag;
+            if (datadevices.position?.length) {
+                datadevices.position.forEach(did => {
+                    // console.log(`Connected: ${did.Connected}`);
+                    var id = did.DeviceID
+                    var latM = did.Position.Latitude;
+                    var lonM = did.Position.Longitude;
+                    var Flag = did.Position.Flag;
 
 
-                // console.log("DeviceID: ", id, " - latM: ", latM, " - lonM:", lonM, " - Flag: ", Flag)
+                    // console.log("DeviceID: ", id, " - latM: ", latM, " - lonM:", lonM, " - Flag: ", Flag)
 
 
-                if (Flag != "U") {
+                    if (Flag != "U") {
 
-                    var iconType = L.icon({
-                        iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-green.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-red.png",
-                        iconSize: [40, 40], // Size of the icon
-                        iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
-                        popupAnchor: [0, -30] // Popup position when opened
-                    });
+                        var iconType = L.icon({
+                            iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-green.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-red.png",
+                            iconSize: [40, 40], // Size of the icon
+                            iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
+                            popupAnchor: [0, -30] // Popup position when opened
+                        });
 
-                    // Add marker dynamically ------------------------------------------------------------------------------------------------------------
-                    // var markerAB = L.marker([latM, lonM], {icon: iconType}) 
-                    //     .bindPopup("1st")
-                    //     .openPopup();
+                        // Add marker dynamically ------------------------------------------------------------------------------------------------------------
+                        // var markerAB = L.marker([latM, lonM], {icon: iconType}) 
+                        //     .bindPopup("1st")
+                        //     .openPopup();
 
-                    // Initialize window.markerAB as an empty object if not already initialized
-                    // window is to assign it globaly
-                    if (!window.markerAB) {
-                        window.markerAB = {};
+                        // Initialize window.markerAB as an empty object if not already initialized
+                        // window is to assign it globaly
+                        if (!window.markerAB) {
+                            window.markerAB = {};
+                        }
+
+                        if (window.markerAB[id]) {
+
+                            window.markerAB[id].setLatLng([latM, lonM])
+                            // console.log("Setlat for ", id)
+
+                        } else {
+
+                            // Add a new marker using the dynamic id as the key
+                            window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
+                                .bindPopup(id)
+                                .openPopup();
+                            // Add marker to the LayerGroup
+                            aktivBoxLayer.addLayer(markerAB[id]);
+                            // Ensure the layer is added to the map
+                            aktivBoxLayer.addTo(map);
+                            // console.log("create marker for ", id)
+                        }
                     }
+                });
 
-                    if (window.markerAB[id]) {
-
-                        window.markerAB[id].setLatLng([latM, lonM])
-                        // console.log("Setlat for ", id)
-
-                    } else {
-
-                        // Add a new marker using the dynamic id as the key
-                        window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
-                            .bindPopup(id)
-                            .openPopup();
-                        // Add marker to the LayerGroup
-                        aktivBoxLayer.addLayer(markerAB[id]);
-                        // Ensure the layer is added to the map
-                        aktivBoxLayer.addTo(map);
-                        // console.log("create marker for ", id)
-                    }
-                }
-            });
-
+            }
 
         } else {
             console.warn("Leaflet widget found, but map is not ready yet. Retrying...");
@@ -214,10 +216,7 @@ async function fetchrrstdevices() {
     });
 
     const responseData = await response.json();
-
-    // responseData.position.forEach(function (id) {
-    //     console.log("Device:", id.DeviceID, "Received:", id.Received, "Flag:", id.Position.Flag, "Lat:", id.Position.Latitude, "Lon:", id.Position.Longitude)
-    // })
+    console.log("Got new get-devices");
 
     if (!response.ok) {
         throw new Error(`API Request Failed: ${response.status}`);

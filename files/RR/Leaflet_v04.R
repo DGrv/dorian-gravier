@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#2_Schaan/gpx/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250525__CyclotourDuLeman/BU/rr_backup_Cyclotour_du_Leman_20250519-103810/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -64,7 +64,7 @@ export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.d
 
 # splits ------------------------------------------------------------------
 
-if( exists("splits.csv") ) {
+if( file.exists("splits.csv") ) {
   splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
   splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
   splits <- splits[TimingPoint != ""]
@@ -100,7 +100,7 @@ ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
 ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
-ll[, Name := ifelse(Name == "NA__NA__NA__NA", gsub(".gpx", "", file))]
+ll[, Name := ifelse(Name == "NA__NA__NA__NA", gsub(".gpx", "", file), Name)]
 
 
 
@@ -115,7 +115,7 @@ for (i in seq_along(ll$filepath)) {
 
 
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v02.R"))
 
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v01.R"))
 

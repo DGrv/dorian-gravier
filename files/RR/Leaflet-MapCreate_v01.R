@@ -1,5 +1,7 @@
 # icons -------------------------------------------------------------------
 
+setwd(wd)
+
 if(exists("splits") ) {
   offsetlabel <- c(0, 0)
   iconAnchor <- 0
@@ -178,7 +180,7 @@ saveWidget(m, file="OverviewMap.html")
 t <- readLines("OverviewMap.html")
 idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
 
-tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/TrackingBox_CLEAN_v01.html"))
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/TrackingBox_CLEAN_v02.html"))
 tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
 
 t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
