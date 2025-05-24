@@ -37,10 +37,16 @@ sesExtract () {
         sqlite3 "$1" ".tables"
         cecho -y "Export mdb:"
         for value in "${tablewanted[@]}"; do sqlite3 -header -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
-        cecho -g Done
+        cecho -g "csv Done"
+		
+		# Enhance participants.csv
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Enhance_Participantscsv_from_BU_v01.R" "$PWD/$fdir"
+        cecho -g "participants_full.csv Done"
+		
+		
         cecho -y "Export von settings UDF:"
         grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
-        cecho -g Done
+        cecho -g "UDF Done"
 
         # Export list ---------------------------------------------
         cecho -y "Export list from settings:"
