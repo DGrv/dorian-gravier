@@ -2,31 +2,34 @@
 var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
 var DevicesLayer = L.layerGroup(); // Define a global LayerGroup
 
+var aktivBoxLayerAdded = false; // Control flag to ensure it's added only once
+var DevicesLayerAdded = false; // Control flag to ensure it's added only once
+
+
+
 
 
 async function addMarkerDevices(idhtmlwidget, datadevices) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
-
+    
     if (widget) {
         var map = widget.getMap();
-
+        
         if (map) {
+            
+            
+             // Add layer control once
+             if (!DevicesLayerAdded) {
+                var DevicesLayerOverlay = {
+                    "Devices": DevicesLayer
+                };
 
-            // Add received variable to ubidium
-            datadevices.Devices.forEach(d => {
-                // Set Received from Time.Received if missing
-                if (!d.Received && d.Time?.Received) {
-                    d.Received = d.Time.Received;
-                }
-
-                // Set Connected from ConnStatus if Connected is missing
-                if (d.ConnStatus !== undefined && d.Connected === undefined) {
-                    d.Connected = d.ConnStatus === 1;
-                }
-            });
-
+                L.control.layers(null, DevicesLayerOverlay, { collapsed: false }).addTo(map);
+                DevicesLayerAdded = true;
+            }
 
             if (datadevices.position?.length) {
+
                 datadevices.position.forEach(did => {
                     // console.log(`Connected: ${did.Connected}`);
                     var id = did.DeviceID
@@ -42,9 +45,9 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                         var iconType = L.icon({
                             iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png",
-                            iconSize: [100, 100], // Size of the icon
-                            iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
-                            popupAnchor: [0, -30] // Popup position when opened
+                            iconSize: [70, 70], // Size of the icon
+                            iconAnchor: [35, 65], // Point of the icon that will correspond to marker's location, proportional to the pixel you want and the iconsize here, you have to calculate it
+                            popupAnchor: [0, -60] // Popup position when opened
                         });
 
                         // Add marker dynamically ------------------------------------------------------------------------------------------------------------
@@ -107,6 +110,16 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
             // T : Box was moving with a speed of at least 5km/h in the last minute
             // X : Position may not be accurate (box has moved since last GPS fix)
             // var iconEnd = flag === "X" ? icon2 : iconUser;
+
+            // Add layer control once
+            if (!aktivBoxLayerAdded) {
+            var aktivBoxLayerOverlay = {
+                "Devices": aktivBoxLayer
+            };
+
+            L.control.layers(null, aktivBoxLayerOverlay, { collapsed: false }).addTo(map);
+            aktivBoxLayerAdded = true;
+        }
 
             if (!iconUserSize) {
                 var iconUserSize = [40, 40]
