@@ -9,6 +9,17 @@ const json = JSON.parse(data);
 // Get current time and subtract 2 days (in ms)
 const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
 
+json.Devices.forEach(d => {
+    // Set Received from Time.Received if missing
+    if (!d.Received && d.Time?.Received) {
+        d.Received = d.Time.Received;
+    }
+
+    // Set Connected from ConnStatus if Connected is missing
+    if (d.ConnStatus !== undefined && d.Connected === undefined) {
+        d.Connected = d.ConnStatus === 1;
+    }
+});
 // Filter
 const recentData = json.Devices.filter(item => new Date(item.Received) > twoDaysAgo);
 

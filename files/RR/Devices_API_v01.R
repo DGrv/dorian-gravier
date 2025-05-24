@@ -49,9 +49,9 @@ RRdevices <- resp2b[, .(DeviceID = ifelse(is.na(DeviceID)==T, System.DeviceID, D
                   DeviceName =  ifelse(is.na(DeviceID)==T, System.DeviceName, DeviceName),
                   BatteryCharge,
                   Temperature = ifelse(is.na(DeviceID)==T, System.Temperature, Temperature),
-                  Connected,
-                  Received = as.POSIXct(gsub("T", " ", gsub("Z", "", Received)), format = "%F %T"),
-                  RealTime = as.POSIXct(gsub("T", " ", gsub("Z", "", RealTime)), format = "%F %T"),
+                  Connected = ifelse(is.na(DeviceID)==T, ifelse(ConnStatus==0, F, T), Connected),
+                  Received = ifelse(is.na(DeviceID)==T, as.POSIXct(gsub("T", " ", gsub("Z", "", Time.Received)), format = "%F %T"), as.POSIXct(gsub("T", " ", gsub("Z", "", Received)), format = "%F %T")),
+                  RealTime = ifelse(is.na(DeviceID)==T, as.POSIXct(gsub("T", " ", gsub("Z", "", Time.Time)), format = "%F %T"), as.POSIXct(gsub("T", " ", gsub("Z", "", RealTime)), format = "%F %T")),
                   UTCOffset,
                   FileNo,
                   TimeZoneName,
@@ -69,7 +69,7 @@ RRdevices <- RRdevices[,DeviceType2 := substr(DeviceID, 1, 1)]
 RRdevices
 RRdevicesBU <- copy(RRdevices)
 # RRdevices <- copy(RRdevicesBU)
-RRdevices[, .N, DeviceType2]
+RRdevices[DeviceType2=="U", .N, Connected]
 
 
 # RRdevices[DeviceID == "T-20015"]

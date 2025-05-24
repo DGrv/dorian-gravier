@@ -1,5 +1,6 @@
 
 var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
+var DevicesLayer = L.layerGroup(); // Define a global LayerGroup
 
 
 
@@ -10,6 +11,19 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
         var map = widget.getMap();
 
         if (map) {
+
+            // Add received variable to ubidium
+            datadevices.Devices.forEach(d => {
+                // Set Received from Time.Received if missing
+                if (!d.Received && d.Time?.Received) {
+                    d.Received = d.Time.Received;
+                }
+
+                // Set Connected from ConnStatus if Connected is missing
+                if (d.ConnStatus !== undefined && d.Connected === undefined) {
+                    d.Connected = d.ConnStatus === 1;
+                }
+            });
 
 
             if (datadevices.position?.length) {
@@ -28,7 +42,7 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                         var iconType = L.icon({
                             iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png",
-                            iconSize: [40, 40], // Size of the icon
+                            iconSize: [100, 100], // Size of the icon
                             iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
                             popupAnchor: [0, -30] // Popup position when opened
                         });
@@ -40,25 +54,25 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                         // Initialize window.markerAB as an empty object if not already initialized
                         // window is to assign it globaly
-                        if (!window.markerAB) {
-                            window.markerAB = {};
+                        if (!window.markerDevices) {
+                            window.markerDevices = {};
                         }
 
-                        if (window.markerAB[id]) {
+                        if (window.markerDevices[id]) {
 
-                            window.markerAB[id].setLatLng([latM, lonM])
+                            window.markerDevices[id].setLatLng([latM, lonM])
                             // console.log("Setlat for ", id)
 
                         } else {
 
                             // Add a new marker using the dynamic id as the key
-                            window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
+                            window.markerDevices[id] = L.marker([latM, lonM], { icon: iconType })
                                 .bindPopup(id)
                                 .openPopup();
                             // Add marker to the LayerGroup
-                            aktivBoxLayer.addLayer(markerAB[id]);
+                            DevicesLayer.addLayer(markerDevices[id]);
                             // Ensure the layer is added to the map
-                            aktivBoxLayer.addTo(map);
+                            DevicesLayer.addTo(map);
                             // console.log("create marker for ", id)
                         }
                     }
