@@ -43,16 +43,19 @@ rm(req1, req2)
 
 
 resp2b
-RRdevices <- resp2b[, .(DeviceID, 
+resp2b[is.na(DeviceID)==T]
+RRdevices <- resp2b[, .(DeviceID = ifelse(is.na(DeviceID)==T, System.DeviceID, DeviceID), 
                   DeviceType,
+                  DeviceName =  ifelse(is.na(DeviceID)==T, System.DeviceName, DeviceName),
                   BatteryCharge,
-                  Temperature,
+                  Temperature = ifelse(is.na(DeviceID)==T, System.Temperature, Temperature),
                   Connected,
                   Received = as.POSIXct(gsub("T", " ", gsub("Z", "", Received)), format = "%F %T"),
                   RealTime = as.POSIXct(gsub("T", " ", gsub("Z", "", RealTime)), format = "%F %T"),
                   UTCOffset,
                   FileNo,
                   TimeZoneName,
+                  Firmware = ifelse(is.na(DeviceID)==T, System.Firmware, DecoderStatus.Firmware),
                   RecordsCount,
                   time = Time.Time,
                   flag = Position.Flag,
@@ -62,9 +65,11 @@ RRdevices <- resp2b[, .(DeviceID,
                   ReadHealthy = DecoderStatus.ReaderIsHealthy,
                   Antennas = DecoderStatus.Antennas,
                   ReaderStatus = TrackboxStatus.ReaderStatus)]
+RRdevices <- RRdevices[,DeviceType2 := substr(DeviceID, 1, 1)]
 RRdevices
 RRdevicesBU <- copy(RRdevices)
 # RRdevices <- copy(RRdevicesBU)
+RRdevices[, .N, DeviceType2]
 
 
 # RRdevices[DeviceID == "T-20015"]

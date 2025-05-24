@@ -27,7 +27,7 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                     if (Flag != "U") {
 
                         var iconType = L.icon({
-                            iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-green.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/location-red.png",
+                            iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png",
                             iconSize: [40, 40], // Size of the icon
                             iconAnchor: [15, 30], // Point of the icon that will correspond to marker's location
                             popupAnchor: [0, -30] // Popup position when opened

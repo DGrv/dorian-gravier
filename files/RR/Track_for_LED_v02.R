@@ -24,7 +24,7 @@ for(i in seq_along(ll$file) ) {
   # debug.easy(nrow(tempTP) > 1, p0("several finish ? nrow > 1 at ", ll[i]$Name))
   if( nrow(tempTP) > 1) { 
     
-    cat(bgRed("[DEBUG] - "), "several finish ? nrow > 1 at ", ll[i]$Name) 
+    cat(bgRed("[DEBUG] - "), "several finish ? nrow > 1 at ", ll[i]$Name, "\n") 
     
   } else {
     

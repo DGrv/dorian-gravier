@@ -185,6 +185,12 @@ tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
 
 t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 
+# change meta that is good phones 
+# t[t %like% "<meta"]
+t <- gsub(t[t %like% "<meta"], '<meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0" />', t)
+
+
+
 write.table(t, "OverviewMap_Tracking.html", row.names = F, col.names = F, quote = F)
 
 
