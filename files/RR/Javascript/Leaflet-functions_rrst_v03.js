@@ -114,7 +114,7 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
             // Add layer control once
             if (!aktivBoxLayerAdded) {
             var aktivBoxLayerOverlay = {
-                "Devices": aktivBoxLayer
+                "AktivBox": aktivBoxLayer
             };
 
             L.control.layers(null, aktivBoxLayerOverlay, { collapsed: false }).addTo(map);
