@@ -101,7 +101,7 @@ for (i in seq_along(ll$filepath)) {
                          group = ll$Name[i],
                          color = ll$color[i],
                          opacity = 1,
-                         radius = 15,
+                         radius = 30,
                          fillOpacity = 0.8) 
       
     }
@@ -187,7 +187,7 @@ t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 
 # change meta that is good phones 
 # t[t %like% "<meta"]
-t <- gsub(t[t %like% "<meta"], '<meta name="viewport" charset="utf-8" content="width=device-width, height=device-height, initial-scale=1.0" />', t)
+t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />', t)
 
 
 
