@@ -11,15 +11,15 @@ var DevicesLayerAdded = false; // Control flag to ensure it's added only once
 
 async function addMarkerDevices(idhtmlwidget, datadevices) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
-    
+
     if (widget) {
         var map = widget.getMap();
-        
+
         if (map) {
-            
-            
-             // Add layer control once
-             if (!DevicesLayerAdded) {
+
+
+            // Add layer control once
+            if (!DevicesLayerAdded) {
                 var DevicesLayerOverlay = {
                     "Devices": DevicesLayer
                 };
@@ -43,8 +43,27 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                     if (Flag != "U") {
 
+                        if (did.DeviceType2 === "U") {
+                            // Do something with iconUrl, override it, log it, etc.
+                            var iconUrltemp = did.Connected == true
+                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png"
+                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png";
+                        }
+                        if (did.DeviceType2 === "D") {
+                            // Do something with iconUrl, override it, log it, etc.
+                            var iconUrltemp = did.Connected == true
+                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/rrsMapMarkerGreen.png"
+                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/rrsMapMarkerRed.png";
+                        }
+                        if (did.DeviceType2 === "T") {
+                            // Do something with iconUrl, override it, log it, etc.
+                            var iconUrltemp = did.Connected == true
+                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ptbMapMarkerGreen.png"
+                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/tbMapMarkerRed.png";
+                        }
+
                         var iconType = L.icon({
-                            iconUrl: did.Connected == true ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png" : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png",
+                            iconUrl: iconUrltemp,
                             iconSize: [70, 70], // Size of the icon
                             iconAnchor: [35, 65], // Point of the icon that will correspond to marker's location, proportional to the pixel you want and the iconsize here, you have to calculate it
                             popupAnchor: [0, -60] // Popup position when opened
@@ -113,13 +132,13 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
 
             // Add layer control once
             if (!aktivBoxLayerAdded) {
-            var aktivBoxLayerOverlay = {
-                "AktivBox": aktivBoxLayer
-            };
+                var aktivBoxLayerOverlay = {
+                    "AktivBox": aktivBoxLayer
+                };
 
-            L.control.layers(null, aktivBoxLayerOverlay, { collapsed: false }).addTo(map);
-            aktivBoxLayerAdded = true;
-        }
+                L.control.layers(null, aktivBoxLayerOverlay, { collapsed: false }).addTo(map);
+                aktivBoxLayerAdded = true;
+            }
 
             if (!iconUserSize) {
                 var iconUserSize = [40, 40]

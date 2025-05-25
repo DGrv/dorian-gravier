@@ -70,7 +70,7 @@ RRdevices
 RRdevicesBU <- copy(RRdevices)
 # RRdevices <- copy(RRdevicesBU)
 RRdevices[DeviceType2=="U", .N, Connected]
-
+RRdevices[DeviceID %like% "21154"]
 
 # RRdevices[DeviceID == "T-20015"]
 

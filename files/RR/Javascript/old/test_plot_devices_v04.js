@@ -19,10 +19,17 @@ json.Devices.forEach(d => {
     if (d.ConnStatus !== undefined && d.Connected === undefined) {
         d.Connected = d.ConnStatus === 1;
     }
+    // set deviceID for Ubidium
+    if (d.DeviceID == undefined) {
+        d.DeviceID = d.System.DeviceID;
+        }
+        // Device type
+        d.DeviceType2 = d.DeviceID[0];
+        console.log(d.DeviceType2)
 });
 // Filter
 const recentData = json.Devices.filter(item => new Date(item.Received) > twoDaysAgo);
 
 
 
-console.log(recentData);
+// console.log(recentData);
