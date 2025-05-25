@@ -187,7 +187,7 @@ t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 
 # change meta that is good phones 
 # t[t %like% "<meta"]
-t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />', t)
+t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />', t)
 
 
 
