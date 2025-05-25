@@ -59,7 +59,7 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                             // Do something with iconUrl, override it, log it, etc.
                             var iconUrltemp = did.Connected == true
                                 ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ptbMapMarkerGreen.png"
-                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/tbMapMarkerRed.png";
+                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ptbMapMarkerRed.png";
                         }
 
                         var iconType = L.icon({
