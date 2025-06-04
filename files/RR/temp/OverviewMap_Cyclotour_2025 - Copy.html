@@ -6246,7 +6246,7 @@
   <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.css">
   <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
   <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v03.js"></script>
-  <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.js"></script>
+  <script src="L.Control.MousePosition.js"></script>
   <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.css" />
 
   <script>
@@ -6343,13 +6343,13 @@
           console.log("Ready to add coord")
           L.control.mousePosition({
             position: 'bottomleft',
-            separator: ' : ',
+            separator: ',',
             emptyString: 'Unavailable',
             lngFirst: false,
-            numDigits: 5,
+            numDigits: 6,
             lngFormatter: undefined,
             latFormatter: undefined,
-            prefix: ""
+            prefix: "Ctrl+c to copy: "
           }).addTo(map);
 
     
