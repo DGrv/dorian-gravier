@@ -6246,8 +6246,8 @@
   <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.css">
   <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
   <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v03.js"></script>
-  <script src="https://raw.githubusercontent.com/MrMufflon/Leaflet.Coordinates/master/src/Control.Coordinates.js"></script>
-<link rel="stylesheet" href="https://raw.githubusercontent.com/MrMufflon/Leaflet.Coordinates/master/src/Control.Coordinates.css" />
+  <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.js"></script>
+  <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.css" />
 
   <script>
 
@@ -6341,25 +6341,10 @@
         if (map) {
 
           console.log("Ready to add coord")
-          // Track mouse move over the map
-          L.control.coordinates({
-            position: "bottomleft", //optional default "bootomright"
-            decimals: 2, //optional default 4
-            decimalSeperator: ".", //optional default "."
-            labelTemplateLat: "Latitude: {y}", //optional default "Lat: {y}"
-            labelTemplateLng: "Longitude: {x}", //optional default "Lng: {x}"
-            enableUserInput: true, //optional default true
-            useDMS: false, //optional default false
-            useLatLngOrder: true, //ordering of labels, default false-> lng-lat
-            markerType: L.marker, //optional default L.marker
-            markerProps: {}, //optional default {},
-            labelFormatterLng: function (lng) { return lng + " lng" }, //optional default none,
-            labelFormatterLat: function (lat) { return lat + " lat" }, //optional default none
-            customLabelFcn: function (latLonObj, opts) { "Geohash: " + encodeGeoHash(latLonObj.lat, latLonObj.lng) } //optional default none
-          }).addTo(map);
+        
 
-          console.log("lng:", lng, " lat:", lat)
-
+    
+      });
         }
       }
     });
@@ -6368,8 +6353,8 @@
 
 
 
-
   </script>
+
 
 </body>
 
