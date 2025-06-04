@@ -6341,10 +6341,18 @@
         if (map) {
 
           console.log("Ready to add coord")
-        
+          L.control.mousePosition({
+            position: 'bottomleft',
+            separator: ' : ',
+            emptyString: 'Unavailable',
+            lngFirst: false,
+            numDigits: 5,
+            lngFormatter: undefined,
+            latFormatter: undefined,
+            prefix: ""
+          }).addTo(map);
 
     
-      });
         }
       }
     });
