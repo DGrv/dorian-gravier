@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="GPXFile" />
-        <Find name="1202301776" />
-        <Find name="GPSFile" />
-        <Find name="\r\n" />
-        <Find name="NameShort" />
+        <Find name=" " />
+        <Find name="groupID" />
+        <Find name="group" />
+        <Find name="F;" />
+        <Find name="M;" />
         <Find name="\t" />
-        <Find name="\]" />
-        <Find name="\[" />
-        <Find name="[" />
-        <Find name='&quot;' />
-        <Replace name='&quot;, &quot;' />
-        <Replace name="Name" />
-        <Replace name=";" />
-        <Replace name=']&amp;&quot;' />
-        <Replace name='&quot;&amp;[' />
-        <Replace name='&quot;&quot;' />
+        <Find name='&amp;&quot;)&quot;' />
+        <Find name='&quot;C(&quot;&amp;' />
+        <Find name="BG" />
+        <Find name="BG\(#.*?\)" />
         <Replace name="_" />
-        <Replace name="\r\n" />
-        <Replace name="Minus" />
-        <Replace name="------LapBU" />
+        <Replace name="f;" />
+        <Replace name="m;" />
+        <Replace name=";" />
+        <Replace name="C" />
+        <Replace name='BG\(&quot;&amp;ListColor\(1\)&amp;&quot;\)' />
+        <Replace name='BG\(&quot;&amp;ListColor(1)&amp;&quot;\)' />
+        <Replace name='BG(&quot;&amp;ListColor(1)&amp;&quot;)' />
+        <Replace name='&quot;;&quot;' />
+        <Replace name=';&quot;' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250525__CyclotourDuLeman\Draft_CDL.ada" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250419__GP_Osterhas\Emails\RaceMail_v01.html" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250906__Herbstlauf_Muri\Participants\IMPORT_Fake_Participants_v01.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\Import.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\AG2-4.lvs" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\AG1.lvs" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\VBA\LibreOffice_Macro_Export_csv_in_specific_folder_Other-solution.vba" />
+        <File filename="C:\Users\doria\Downloads\test.html" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\small_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Draft_BML.ada" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250906__Herbstlauf_Muri\Draf_Muri.ada" />
         <File filename="C:\Users\doria\Downloads\udf.lvs" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\video_functions.sh" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\scoop.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\LED\20250430__Innsbruck_Alpine_Trailrun_Festival\IATF_2025_v01\1024x128\SwissBikeCup.csproj" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\LED\20250430__Innsbruck_Alpine_Trailrun_Festival\IATF_2025_v01\1024x128\IATF.sln" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\BU\rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212\gpx\namegpx" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250430__Innsbruck_Alpine_Trailrun_Festival\BU\rr_backup_Innsbruck_Alpine_Trailrun_Festival_2025_20250429-224212\settings.csv" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -52,7 +52,7 @@
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
         <GUIConfig name="AppPosition" x="48" y="39" width="1763" height="928" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="640" top="548" right="1659" bottom="907" isLessModeOn="no" />
+        <GUIConfig name="FindWindowPosition" left="316" top="164" right="970" bottom="523" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>

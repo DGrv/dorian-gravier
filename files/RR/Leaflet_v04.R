@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250525__CyclotourDuLeman/BU/rr_backup_Cyclotour_du_Leman_20250519-103810/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#3_Savognin/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -75,7 +75,6 @@ if( file.exists("splits.csv") ) {
 # Contest -----------------------------------------------------------------
 
 contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-contest
 contest <- contest[Name != ""]
 contest[, Name := ifelse(is.na(NameShort), Name, NameShort)]
 contest[, Start := hms::as_hms(Start)]

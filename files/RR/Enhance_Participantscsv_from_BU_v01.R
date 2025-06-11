@@ -26,14 +26,14 @@ pa <- data.table(read.csv("participants.csv", encoding = "UTF-8", sep="\t"))
 setnames(pa, "ID", "PID")
 pa[, PID := as.integer(PID)]
 pa <- pa[is.na(PID) == F]
-pa
-af
-afv
+# pa
+# af
+# afv
 
 af <- dtjoin(afv, af[, .(ID, Name)])
 af2 <- dcast.data.table(af, PID~Name, value.var="Value")
 
 pa2 <- dtjoin(pa, af2)
-pa2
+# pa2
 
 write.csv(pa2, "participants_full.csv", row.names = F, fileEncoding="utf-8")

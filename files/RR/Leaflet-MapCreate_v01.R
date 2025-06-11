@@ -119,25 +119,35 @@ m <-  m %>%
   addLayersControl(
     baseGroups = mapGroups, 
     overlayGroups = groupslayer,
-    options = layersControlOptions(collapsed=TRUE)) %>%
-  addMarkers(data = tp, lng = ~lon, lat = ~lat, popup = ~label,
+    options = layersControlOptions(collapsed=TRUE)) 
+
+if( nrow(tp) > 0 ) {
+  m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
              group = "TimingPoints",
              icon = ~rrIcons[tp$icon]
              ) %>%
   addLabelOnlyMarkers(data = tp,
-    ~lon, ~lat, label = ~TimingPoint,
-    labelOptions = labelOptions(noHide = TRUE, direction = "top"),
-    group = "Labels"
-  ) %>%
+                      ~lon, ~lat, label = ~TimingPoint,
+                      labelOptions = labelOptions(noHide = TRUE, direction = "top"),
+                      group = "Labels"
+  )
+} 
   
   # # used before tamaro
   # fitBounds(
   #   lng1 = min(data0$lon), lat1 = min(data0$lat),
   #   lng2 = max(data0$lon), lat2 = max(data0$lat)
   # )
-  setView((max(data0$lon)-min(data0$lon))/2+min(data0$lon),
-                    (max(data0$lat)-min(data0$lat))/2+min(data0$lat),
+  if( nrow(data0)>0) {
+    setView(map=m, lng=(max(data0$lon)-min(data0$lon))/2+min(data0$lon),
+                    lat=(max(data0$lat)-min(data0$lat))/2+min(data0$lat),
                     zoom = 11)
+    
+  } else {
+    setView(map=m, lng=46.7615,
+            lat=8.4601,
+            zoom = 8)
+  }
   
   
   # addAwesomeMarkers(data = tp,

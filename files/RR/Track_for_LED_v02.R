@@ -17,8 +17,12 @@ create.dir(wd, "TrackPNG", "wd2")
 
 for(i in seq_along(ll$file) ) {
   
-  tempsplits <- splits[Contest == ll[i]$Contest]
-  tempTP <- tp[TimingPoint %in% tempsplits$TimingPoint][grepl("start|Finish", TimingPoint, ignore.case = T)]
+  if(exists("splits") ) {
+    tempsplits <- splits[Contest == ll[i]$Contest]
+    tempTP <- tp[TimingPoint %in% tempsplits$TimingPoint][grepl("start|Finish", TimingPoint, ignore.case = T)]
+  } else {
+    tempTP <- tp[grepl("start|Finish", TimingPoint, ignore.case = T)]
+  }
   
   
   # debug.easy(nrow(tempTP) > 1, p0("several finish ? nrow > 1 at ", ll[i]$Name))
