@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra/BU/rr_backup_Bike_Marathon_Lumnezia_20250613-093925/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra/BU/rr_backup_Bike_Marathon_Lumnezia_20250613-102307/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -76,9 +76,10 @@ if( file.exists("splits.csv") ) {
 
 contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
 contest <- contest[Name != ""]
+contest[, Length := ifelse(LengthUnit=="m", Length/1000, Length)/10000]
 contest[, Name := ifelse(is.na(NameShort), Name, NameShort)]
-contest[, Start := hms::as_hms(Start)]
-contest[, Dist := round(Length, 2)]
+contest[, Start := hms::as_hms(Start/10000)]
+contest[, Dist := p0(round(Length, 2), "km")]
 setnames(contest, "ID", "Contest")
 
 # read gpx ----------------------------------------------------------------
@@ -98,8 +99,12 @@ suppressWarnings(suppressMessages(ll[, color := brewer.pal(n = nrow(ll), name = 
 ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
-ll[, Name := p0(Contest, "__", Start, "__", Dist, "__", Name)]
+ll[, Name := p0(Contest, "__", Start, "--", Dist, "__", Name)]
+ll[, ncharName := nchar(Name)]
+tt <- max(ll$ncharName)
 ll[, Name := ifelse(Name == "NA__NA__NA__NA", gsub(".gpx", "", file), Name)]
+ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name), Name]
+
 
 
 
