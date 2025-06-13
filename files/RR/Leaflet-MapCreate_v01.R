@@ -199,8 +199,8 @@ t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" 
 
 
 tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
-t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 write.table(t, "OverviewMap.html", row.names = F, col.names = F, quote = F)
 
 
