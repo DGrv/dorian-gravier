@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.css">
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v03.js"></script>
-<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.js"></script>
-<link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.css" />
 <script>
 
     const youridhtmlwidget = "#idwidget"
@@ -83,35 +81,5 @@
         }
     }, 3000);
     // 5000 milliseconds = 5 seconds
-
-
-    // Mouse position https://github.com/ardhi/Leaflet.MousePosition
-    document.addEventListener("DOMContentLoaded", function () {
-      var widget = window.HTMLWidgets.find(youridhtmlwidget);
-
-      if (widget) {
-        var map = widget.getMap();
-
-        if (map) {
-
-          L.control.mousePosition({
-            position: 'bottomleft',
-            separator: ',',
-            emptyString: 'Unavailable',
-            lngFirst: false,
-            numDigits: 6,
-            lngFormatter: undefined,
-            latFormatter: undefined,
-            prefix: "Ctrl+c to copy: "
-          }).addTo(map);
-
-    
-        }
-      }
-    });
-
-
-
-
 
 </script>

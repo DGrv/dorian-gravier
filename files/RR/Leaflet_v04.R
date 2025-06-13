@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#3_Savognin/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra/BU/rr_backup_Bike_Marathon_Lumnezia_20250613-093925/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }

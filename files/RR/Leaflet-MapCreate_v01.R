@@ -190,19 +190,33 @@ saveWidget(m, file="OverviewMap.html")
 t <- readLines("OverviewMap.html")
 idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
 
-tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/TrackingBox_CLEAN_v02.html"))
-tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
-
-t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
-
 # change meta that is good phones 
 # t[t %like% "<meta"]
 t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />', t)
 
 
+# Mouse position ---------------------------------------------------------
+
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+write.table(t, "OverviewMap.html", row.names = F, col.names = F, quote = F)
+
+
+
+# Tracking ----------------------------------------------------------------
+
+t <- readLines("OverviewMap.html")
+ 
+# idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/TrackingBox_CLEAN_v02.html"))
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 
 write.table(t, "OverviewMap_Tracking.html", row.names = F, col.names = F, quote = F)
-
 
 cat(green("\nLeaflet DONE :)\n"))
 

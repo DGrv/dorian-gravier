@@ -1,0 +1,33 @@
+<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.js"></script>
+<link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/ControlCoordinates/L.Control.MousePosition.css" />
+
+<script>
+
+    const youridhtmlwidgetmouse = "#idwidget"
+
+// Mouse position https://github.com/ardhi/Leaflet.MousePosition
+    document.addEventListener("DOMContentLoaded", function () {
+      var widget = window.HTMLWidgets.find(youridhtmlwidgetmouse);
+
+      if (widget) {
+        var map = widget.getMap();
+
+        if (map) {
+
+          L.control.mousePosition({
+            position: 'bottomleft',
+            separator: ',',
+            emptyString: 'Unavailable',
+            lngFirst: false,
+            numDigits: 6,
+            lngFormatter: undefined,
+            latFormatter: undefined,
+            prefix: "Ctrl+c to copy: "
+          }).addTo(map);
+
+    
+        }
+      }
+    });
+    
+</script>
