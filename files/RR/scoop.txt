@@ -29,6 +29,8 @@ scoop install extras/awake
 scoop install sysinternals/process-explorer
 scoop install extras/qimgv
 scoop install extras/msrt
+scoop install main/scrcpy
+scoop install main/adb
 
 cd C:\Users\%USERNAME%\Downloads
 
