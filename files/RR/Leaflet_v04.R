@@ -25,9 +25,10 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra/BU/rr_backup_Bike_Marathon_Lumnezia_20250613-102307/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#3_Savognin/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
+  wd <- gsub("\\\\", "/", wd)
 }
 cat(yellow("\n[INFO] - wd:   ", wd, "\n"))
 setwd(wd)
@@ -102,7 +103,7 @@ ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
 ll[, Name := p0(Contest, "__", Start, "--", Dist, "__", Name)]
 ll[, ncharName := nchar(Name)]
 tt <- max(ll$ncharName)
-ll[, Name := ifelse(Name == "NA__NA__NA__NA", gsub(".gpx", "", file), Name)]
+ll[, Name := ifelse(Name == "NA__NA--NA__NA", gsub(".gpx", "", file), Name)]
 ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name), Name]
 
 
