@@ -13,15 +13,22 @@ mdb-export-all () {
 spareRR () {
    # keep as info 
    for i in *.csv ; do 
-   ll=$(grep -n "$1" "$i" | cut -d : -f 1)
-   if [[  $ll ]]; then
-   cecho -g "$i"
-   ll2="1p;${ll}p"
-   sed -n "${ll2}" "$i" | csvv | grep --color -E "$1|$"
-   echo
-   fi
+	   ll=$(grep -n "$1" "$i" | cut -d : -f 1)
+	   if [[  $ll ]]; then
+		   cecho -g "$i"
+		   ll2="1p;${ll}p"
+		   sed -n "${ll2}" "$i" | csvv | grep --color -E "$1|$"
+		   echo
+	   fi
    done
 }
+
+splitRawData() {
+	if [ -f "$1" ]; then
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_RawData_v01.R" "${PWD}" "${1}" "${2}"
+	fi
+}
+
 
 
 sesExtract () {
