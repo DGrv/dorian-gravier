@@ -50,8 +50,8 @@ RRdevices <- resp2b[, .(DeviceID = ifelse(is.na(DeviceID)==T, System.DeviceID, D
                   BatteryCharge,
                   Temperature = ifelse(is.na(DeviceID)==T, System.Temperature, Temperature),
                   Connected = ifelse(is.na(DeviceID)==T, ifelse(ConnStatus==0, F, T), Connected),
-                  Received = ifelse(is.na(DeviceID)==T, as.POSIXct(gsub("T", " ", gsub("Z", "", Time.Received)), format = "%F %T"), as.POSIXct(gsub("T", " ", gsub("Z", "", Received)), format = "%F %T")),
-                  RealTime = ifelse(is.na(DeviceID)==T, as.POSIXct(gsub("T", " ", gsub("Z", "", Time.Time)), format = "%F %T"), as.POSIXct(gsub("T", " ", gsub("Z", "", RealTime)), format = "%F %T")),
+                  Received = as.POSIXct(gsub("(.*)\\..*", "\\1",ifelse(is.na(DeviceID)==T, gsub("T", " ", gsub("Z", "", Time.Received)), gsub("T", " ", gsub("Z", "", Received))))),
+                  RealTime = as.POSIXct(gsub("(.*)\\..*", "\\1",ifelse(is.na(DeviceID)==T, gsub("T", " ", gsub("Z", "", Time.Time)), gsub("T", " ", gsub("Z", "", RealTime))))),
                   UTCOffset,
                   FileNo,
                   TimeZoneName,
@@ -70,22 +70,31 @@ RRdevices
 RRdevicesBU <- copy(RRdevices)
 # RRdevices <- copy(RRdevicesBU)
 RRdevices[DeviceType2=="U", .N, Connected]
-RRdevices[DeviceID %like% "21154"]
 
-# RRdevices[DeviceID == "T-20015"]
+        RRdevices[DeviceID %in% c("T-20015", "T-20014")]
+        
+        
+temp <- resp2b[, .(DeviceID, Received, Time.Received, RealTime, Time.Time)]
+# temp[, Received2 := gsub("(.*)\\..*", "\\1",ifelse(is.na(DeviceID)==T, gsub("T", " ", gsub("Z", "", Time.Received)), gsub("T", " ", gsub("Z", "", Received))))]
+temp[, RealTime2 := ifelse(is.na(DeviceID)==T, gsub("T", " ", gsub("Z", "", Time.Time)), gsub("T", " ", gsub("Z", "", RealTime)))]
+temp[, Received2 := as.POSIXct(gsub("(.*)\\..*", "\\1",ifelse(is.na(DeviceID)==T, gsub("T", " ", gsub("Z", "", Time.Received)), gsub("T", " ", gsub("Z", "", Received)))), format = "%F %T")]
+# temp[, RealTime2 := ifelse(is.na(DeviceID)==T, as.POSIXct(gsub("T", " ", gsub("Z", "", Time.Time)), format = "%F %T"), as.POSIXct(gsub("T", " ", gsub("Z", "", RealTime)), format = "%F %T"))]
+temp
 
-cdl <- c("T-21172",
-         "T-21154",
-         "T-21112",
-         "T-21030",
-         "T-21051",
-         "T-21122",
-         "T-20967",
-         "T-21046",
-         "T-21179",
-         "T-21083",
-         "T-21144",
-         "T-21079")
+
+
+# cdl <- c("T-21172",
+#          "T-21154",
+#          "T-21112",
+#          "T-21030",
+#          "T-21051",
+#          "T-21122",
+#          "T-20967",
+#          "T-21046",
+#          "T-21179",
+#          "T-21083",
+#          "T-21144",
+#          "T-21079")
 # RRdevices[DeviceID %in% cdl]
 
 
@@ -104,6 +113,10 @@ RRdevices <- RRdevices[Received > "2025-01-01"]
 
 RRdevices[, .N, DeviceType]
 RRdevices[Connected == T]
+
+
+
+
 
 # test 2 days ago
 RRdevices[Received > "2025-05-16"]

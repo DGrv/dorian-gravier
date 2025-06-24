@@ -506,7 +506,7 @@ slugify <- function(x, non_alphanum_replace="", space_replace="_", tolower=TRUE)
   return(x)
 }
 
-list.files.only <- function(path, full = T) {
+list.files.only <- function(path, full = T, pattern) {
   lf <- list.files(path, full = full)
   ld <- list.dirs(path)
   if(length(ld) == 1) {
