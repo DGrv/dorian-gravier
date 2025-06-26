@@ -21,6 +21,8 @@ args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
   wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#3_Savognin/")
+  input <- "RawData.csv"
+  keepbib <- 1 
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -40,19 +42,23 @@ cat(yellow("\n[INFO] - Keep Bib:\t", keepbib, "\n"))
 setwd(wd)
 
 
-data <- data.table(read.csv(args[2]))
+data <- data.table(read.csv(input))
 
 tp <- u(data$RD_TimingPoint)
 
 cat("\n")
 data[, .N, .(RD_TimingPoint, RD_DeviceID)]
 
+create.dir(wd, "Extracted_RawData", "wd2")
+
 for (i in seq_along(tp)) {
   temp <- data[RD_TimingPoint == tp[i]]
   if(keepbib == 0) {
     temp[, RD_Bib := NULL]
   }
-  write.csv(temp, p0(gsub(" ", "_", tp[i]), ".csv"), quote=F, row.names = F)
+  if( nrow(temp) > 0 ) {
+    write.csv(temp, p0(gsub(" ", "_", tp[i]), ".csv"), quote=F, row.names = F)
+  }
 }
 
 
