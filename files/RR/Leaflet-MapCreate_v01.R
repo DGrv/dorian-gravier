@@ -113,13 +113,24 @@ for (i in seq_along(ll$filepath)) {
 
 # output ------------------------------------------------------------------
 
-groupslayer <- c("Labels", "TimingPoints", ll$Name)
+if( nrow(tpr) > 0 ) {
+  groupslayer <- c("Labels", "TimingPoints", "Loop/Channel IDs", ll$Name)
+} else  {
+  groupslayer <- c("Labels", "TimingPoints", ll$Name)
+}
+
+
+
 
 m <-  m %>% 
   addLayersControl(
     baseGroups = mapGroups, 
     overlayGroups = groupslayer,
     options = layersControlOptions(collapsed=TRUE)) 
+
+
+
+
 
 if( nrow(tp) > 0 ) {
   m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
@@ -150,6 +161,45 @@ if( nrow(tp) > 0 ) {
   }
   
   
+if( nrow(tpr) > 0 ) {
+
+  m <- m %>%
+    addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID==1], lng = ~lon, lat = ~lat, 
+                     group = "Loop/Channel IDs",
+                     color = "#000000",
+                     opacity = 1,
+                     radius = 20,
+                     fillOpacity = 0.8,
+                     label = tp[is.na(LoopID) == F & LoopID==1]$labelrules) %>%
+    addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID!=1], lng = ~lon, lat = ~lat, 
+                     group = "Loop/Channel IDs",
+                     color = "#000000",
+                     opacity = 1,
+                     radius = 10,
+                     fillOpacity = 0.5,
+                     label = tp[is.na(LoopID) == F & LoopID!=1]$labelrules)
+  
+  lCHloop1 <- tp[is.na(LoopID) == F & LoopID==1]$ChannelID
+  for( i in lCHloop1) {
+    temp <- tp[ChannelID == lCHloop1[i]]
+    l1 <- temp[LoopID == 1]
+    l0 <- temp[LoopID != 1]
+    for( j in 1:nrow(l0))  {
+      toplot <- rbind(l1, l0[j])
+      m <- m %>%
+        addPolylines(lat = toplot$lat,
+                     lng = toplot$lon,
+                     group = "Loop/Channel IDs",
+                     color = "#000000",
+                     opacity = 1,
+                     weight = 4)
+    }
+  }
+}
+
+
+
+
   # addAwesomeMarkers(data = tp,
   #                   icon=awesomeIcons(
   #                     icon = "caret-forward-circle-outline",
@@ -180,7 +230,14 @@ m <-  m %>%  addFullscreenControl() %>%
   addSearchOSM() %>%
   # addDrawToolbar() %>%
   # addStyleEditor() %>%
-  addControlGPS()
+  addControlGPS() %>%
+  hideGroup("Loop/Channel IDs") %>%
+  addMeasure(
+    primaryLengthUnit = "kilometers",   # or "meters", "miles", etc.
+    secondaryLengthUnit = "meters",
+    position = "topleft"
+  )
+
 
 
 cat(green("\n\nLeaflet ready"))
