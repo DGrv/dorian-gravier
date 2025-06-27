@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250629__Zurich_City_Triathlon_2025/BU/rr_backup_Zurich_City_Triathlon_2025_20250626-174109")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250629__Zurich_City_Triathlon_2025/BU/rr_backup_Zurich_City_Triathlon_2025_20250627-090901")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)

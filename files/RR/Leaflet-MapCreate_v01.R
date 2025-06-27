@@ -168,7 +168,7 @@ if( nrow(tpr) > 0 ) {
                      group = "Loop/Channel IDs",
                      color = "#000000",
                      opacity = 1,
-                     radius = 20,
+                     radius = 15,
                      fillOpacity = 0.8,
                      label = tp[is.na(LoopID) == F & LoopID==1]$labelrules) %>%
     addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID!=1], lng = ~lon, lat = ~lat, 
@@ -182,8 +182,10 @@ if( nrow(tpr) > 0 ) {
   lCHloop1 <- tp[is.na(LoopID) == F & LoopID==1]$ChannelID
   for( i in lCHloop1) {
     temp <- tp[ChannelID == lCHloop1[i]]
+    
     l1 <- temp[LoopID == 1]
     l0 <- temp[LoopID != 1]
+    
     for( j in 1:nrow(l0))  {
       toplot <- rbind(l1, l0[j])
       m <- m %>%
