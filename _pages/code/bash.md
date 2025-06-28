@@ -573,7 +573,7 @@ Print readable
 
 ```sh
 pip install csvkit
-csvlook"Google_Calendar_Dori (1).csv"
+csvlook "Google_Calendar_Dori (1).csv"
 ```
 
 Print near each other
@@ -588,6 +588,28 @@ merge columns
 ```sh
 paste -d , file1.csv file2.csv
 paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/temp.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/temp.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > Info_Contest.txt
+```
+
+Search in column
+
+```sh
+qsv search -s PID "4577" -d "\t" history.csv | csview
+qsv search -s PID "4577" -d "\t" history.csv | qsv table
+qsv search -s PID "4577" -d "\t" history.csv | qsv table
+```
+
+Search in column with csvlens
+
+```sh
+csvlens -t history.csv
+	# tab to change btw row or column mode
+	# choose your row or column
+	# Type & to filter rows 
+	# 	&<regex>	Filter rows using regex (show only matches)
+	# 	/<regex>	Find content matching regex and highlight matches
+	# 	*<regex>	Filter columns using regex (show only matches)
+	# Type what you want
+	# q to exit
 ```
 
 

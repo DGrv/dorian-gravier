@@ -53,6 +53,21 @@ data[RD_TimingPoint == "", RD_TimingPoint := "MANUAL"]
 data[, RD_LoopID := NULL] # otherwise it is taking the rules
 data[, RD_Channel := NULL] # otherwise it is taking the rules
 
+
+# # create fake one
+# add1 <- data[RD_TimingPoint == "RUN_LAP_YOUTH"][, RD_Time := RD_Time + 60 +40]
+# add2 <- data[RD_TimingPoint == "RUN_LAP_OLYMPIC"][, RD_Time := RD_Time -20]
+# data <- rbind(data, add1, add2)
+
+
+data <- data[order(RD_Time)]
+
+data
+
+
+# Export data -------------------------------------------------------------
+
+
 create.dir(wd, "Extracted_RawData", "wd2")
 
 for (i in seq_along(tp)) {
@@ -65,6 +80,37 @@ for (i in seq_along(tp)) {
   }
 }
 
+
+# Or Push online ----------------------------------------------------------
+
+library(httr)
+library(furrr)
+plan(multisession)  # or multicore on Linux/Mac
+
+# create api with custom=rawdata/addmanual
+
+api <- "http://192.168.1.201/_307885/api/ZWF3Y1548A48G8FJWDYSFK7AQI1EHGJ8"
+
+data[, push := p0(api, "?TimingPoint=", RD_TimingPoint, "&bib=", RD_Bib, "&time=", RD_Time)]
+results <- future_map(data$push, ~GET(.x))
+
+
+# headers <- add_headers(
+#   `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+#   `Accept` = "text/html",
+#   `Accept-Language` = "en-US,en;q=0.9"
+# )
+# 
+# results <- future_map(data$push, function(url) {
+#   # Sys.sleep(runif(1, 0.2, 0.5))  # avoid being blocked
+#   GET(url, headers)
+# })
+
+# for(i in 1:nrow(data)) {
+#   Sys.sleep(runif(1, 0.2, 0.6))  # slight delay per request
+#   GET(data$push[i], add_headers(`User-Agent` = "Mozilla/5.0"))
+#   # system(p0("curl -s ", data$push[i], " > /dev/null 2>&1 &"))
+# }
 
 
 

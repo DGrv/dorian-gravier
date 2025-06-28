@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
+        <Find name="true" />
+        <Find name="[Contest]=1" />
+        <Find name="[Contest]=2" />
+        <Find name="15" />
+        <Find name="ZKDDX07" />
+        <Find name='\\&quot;' />
+        <Find name="\\r\\n" />
+        <Find name="\r\n" />
+        <Find name="nsec" />
         <Find name=" " />
-        <Find name="groupID" />
-        <Find name="group" />
-        <Find name="F;" />
-        <Find name="M;" />
-        <Find name="\t" />
-        <Find name='&amp;&quot;)&quot;' />
-        <Find name='&quot;C(&quot;&amp;' />
-        <Find name="BG" />
-        <Find name="BG\(#.*?\)" />
+        <Replace name='true&quot;' />
+        <Replace name="[Contest]=2" />
+        <Replace name="[Contest]=1" />
+        <Replace name="50" />
+        <Replace name='&quot;' />
+        <Replace name="\r\n" />
         <Replace name="_" />
+        <Replace name=":" />
         <Replace name="f;" />
         <Replace name="m;" />
-        <Replace name=";" />
-        <Replace name="C" />
-        <Replace name='BG\(&quot;&amp;ListColor\(1\)&amp;&quot;\)' />
-        <Replace name='BG\(&quot;&amp;ListColor(1)&amp;&quot;\)' />
-        <Replace name='BG(&quot;&amp;ListColor(1)&amp;&quot;)' />
-        <Replace name='&quot;;&quot;' />
-        <Replace name=';&quot;' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250906__Herbstlauf_Muri\Participants\IMPORT_Fake_Participants_v01.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\Import.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\AG2-4.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Participants\AG1.lvs" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\VBA\LibreOffice_Macro_Export_csv_in_specific_folder_Other-solution.vba" />
-        <File filename="C:\Users\doria\Downloads\test.html" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\small_functions.sh" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Draft_BML.ada" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250906__Herbstlauf_Muri\Draf_Muri.ada" />
-        <File filename="C:\Users\doria\Downloads\udf.lvs" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\CSS\Online_v01.css" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\CSS\Presenter.css" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#2_Schaan\gpx\contests.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#2_Schaan\gpx\WHAT_YOU_NEED_Overviewmap.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#3_Savognin\Ranking\code_rankinig_download.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\Draft.ada" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Draft_GG.ada" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250816__Baselbieter_Bike_Challenge\Draft_BBC.ada" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Install\CMD_Colors.bat" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#3_Savognin\Ranking\STAGE4__Ranking.csv" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -42,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="100" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
+        <number initial="12" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -92,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="2" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="200">
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="CSV Lint" id="0" curr="3" prev="-1" isVisible="no" />

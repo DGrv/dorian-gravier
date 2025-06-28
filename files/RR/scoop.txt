@@ -4,6 +4,7 @@
 
 powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
 
+clink update
 
 ::cmd
 scoop install git
@@ -31,6 +32,11 @@ scoop install extras/qimgv
 scoop install extras/msrt
 scoop install main/scrcpy
 scoop install main/adb
+scoop install main/brename
+scoop install extras/squirreldisk
+scoop install main/ag
+
+scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git
 
 cd C:\Users\%USERNAME%\Downloads
 
