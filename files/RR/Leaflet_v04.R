@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250629__Zurich_City_Triathlon_2025/BU/rr_backup_Zurich_City_Triathlon_2025_20250627-090901")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250822__Matterhorn_Ultraks/BU/rr_backup_Matterhorn_Ultraks_20250628-113205")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -65,11 +65,13 @@ export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.d
 
 # tp rules ----------------------------------------------------------------
 
-tpr <- data.table(read.csv("timingpointrules.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-if( nrow(tpr) > 0 ) {
-  tpr <- tpr[, .(TimingPoint, LoopID, ChannelID)]
-  tpr[, labelrules := p0(TimingPoint, " - C", ChannelID, "/L", LoopID)]
-  tp <- dtjoin(tp, tpr)
+if( exists("timingpointrules.csv")) {
+  tpr <- data.table(read.csv("timingpointrules.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+  if( nrow(tpr) > 0 ) {
+    tpr <- tpr[, .(TimingPoint, LoopID, ChannelID)]
+    tpr[, labelrules := p0(TimingPoint, " - C", ChannelID, "/L", LoopID)]
+    tp <- dtjoin(tp, tpr)
+  }
 }
 
 

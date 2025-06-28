@@ -49,6 +49,10 @@ tp <- u(data$RD_TimingPoint)
 cat("\n")
 data[, .N, .(RD_TimingPoint, RD_DeviceID)]
 
+data[RD_TimingPoint == "", RD_TimingPoint := "MANUAL"]
+data[, RD_LoopID := NULL] # otherwise it is taking the rules
+data[, RD_Channel := NULL] # otherwise it is taking the rules
+
 create.dir(wd, "Extracted_RawData", "wd2")
 
 for (i in seq_along(tp)) {

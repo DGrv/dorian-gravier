@@ -113,10 +113,14 @@ for (i in seq_along(ll$filepath)) {
 
 # output ------------------------------------------------------------------
 
-if( nrow(tpr) > 0 ) {
-  groupslayer <- c("Labels", "TimingPoints", "Loop/Channel IDs", ll$Name)
-} else  {
-  groupslayer <- c("Labels", "TimingPoints", ll$Name)
+if( exists("tpr") ) {
+  if( nrow(tpr) > 0 ) {
+    groupslayer <- c("Labels", "TimingPoints", "Loop/Channel IDs", ll$Name)
+  } else  {
+    groupslayer <- c("Labels", "TimingPoints", ll$Name)
+  }
+} else {
+    groupslayer <- c("Labels", "TimingPoints", ll$Name)
 }
 
 
@@ -131,18 +135,19 @@ m <-  m %>%
 
 
 
-
-if( nrow(tp) > 0 ) {
-  m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
-             group = "TimingPoints",
-             icon = ~rrIcons[tp$icon]
-             ) %>%
-  addLabelOnlyMarkers(data = tp,
-                      ~lon, ~lat, label = ~TimingPoint,
-                      labelOptions = labelOptions(noHide = TRUE, direction = "top"),
-                      group = "Labels"
-  )
-} 
+if( exists("tpr") ) {
+  if( nrow(tp) > 0 ) {
+    m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
+               group = "TimingPoints",
+               icon = ~rrIcons[tp$icon]
+               ) %>%
+    addLabelOnlyMarkers(data = tp,
+                        ~lon, ~lat, label = ~TimingPoint,
+                        labelOptions = labelOptions(noHide = TRUE, direction = "top"),
+                        group = "Labels"
+    )
+  } 
+}
   
   # # used before tamaro
   # fitBounds(
@@ -160,45 +165,45 @@ if( nrow(tp) > 0 ) {
             zoom = 8)
   }
   
+if( exists("tpr") ) {
+  if( nrow(tpr) > 0 ) {
   
-if( nrow(tpr) > 0 ) {
-
-  m <- m %>%
-    addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID==1], lng = ~lon, lat = ~lat, 
-                     group = "Loop/Channel IDs",
-                     color = "#000000",
-                     opacity = 1,
-                     radius = 15,
-                     fillOpacity = 0.8,
-                     label = tp[is.na(LoopID) == F & LoopID==1]$labelrules) %>%
-    addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID!=1], lng = ~lon, lat = ~lat, 
-                     group = "Loop/Channel IDs",
-                     color = "#000000",
-                     opacity = 1,
-                     radius = 10,
-                     fillOpacity = 0.5,
-                     label = tp[is.na(LoopID) == F & LoopID!=1]$labelrules)
-  
-  lCHloop1 <- tp[is.na(LoopID) == F & LoopID==1]$ChannelID
-  for( i in lCHloop1) {
-    temp <- tp[ChannelID == lCHloop1[i]]
+    m <- m %>%
+      addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID==1], lng = ~lon, lat = ~lat, 
+                       group = "Loop/Channel IDs",
+                       color = "#000000",
+                       opacity = 1,
+                       radius = 15,
+                       fillOpacity = 0.8,
+                       label = tp[is.na(LoopID) == F & LoopID==1]$labelrules) %>%
+      addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID!=1], lng = ~lon, lat = ~lat, 
+                       group = "Loop/Channel IDs",
+                       color = "#000000",
+                       opacity = 1,
+                       radius = 10,
+                       fillOpacity = 0.5,
+                       label = tp[is.na(LoopID) == F & LoopID!=1]$labelrules)
     
-    l1 <- temp[LoopID == 1]
-    l0 <- temp[LoopID != 1]
-    
-    for( j in 1:nrow(l0))  {
-      toplot <- rbind(l1, l0[j])
-      m <- m %>%
-        addPolylines(lat = toplot$lat,
-                     lng = toplot$lon,
-                     group = "Loop/Channel IDs",
-                     color = "#000000",
-                     opacity = 1,
-                     weight = 4)
+    lCHloop1 <- tp[is.na(LoopID) == F & LoopID==1]$ChannelID
+    for( i in lCHloop1) {
+      temp <- tp[ChannelID == lCHloop1[i]]
+      
+      l1 <- temp[LoopID == 1]
+      l0 <- temp[LoopID != 1]
+      
+      for( j in 1:nrow(l0))  {
+        toplot <- rbind(l1, l0[j])
+        m <- m %>%
+          addPolylines(lat = toplot$lat,
+                       lng = toplot$lon,
+                       group = "Loop/Channel IDs",
+                       color = "#000000",
+                       opacity = 1,
+                       weight = 4)
+      }
     }
   }
 }
-
 
 
 

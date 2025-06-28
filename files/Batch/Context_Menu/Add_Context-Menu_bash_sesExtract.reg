@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.ses\shell\sesExtract\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\sesExtractWrapper.bat\" \"%1\""
