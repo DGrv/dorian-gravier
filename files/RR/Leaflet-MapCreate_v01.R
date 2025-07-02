@@ -78,6 +78,7 @@ m <- m %>%
 
 
 for (i in seq_along(ll$filepath)) {
+  
   data1 <- st_as_sf(x = data0[file == ll$file[i]],                         
                     coords = c("lon", "lat"))
   data2 <- data1 %>%
@@ -92,21 +93,28 @@ for (i in seq_along(ll$filepath)) {
                  color = ll$color[i],
                  opacity = 1,
                  weight = 4)
+  
   if( exists("splits") ) {
     tp2 <- tp[TimingPoint %in% splits[Contest == ll$Contest[i]]$TimingPoint]
+    splits2 <- splits[Contest == ll$Contest[i], .(SplitName = Name, TimingPoint)]
+    splits3 <- splits2[, .(SplitName = paste(SplitName, collapse = ", ")), TimingPoint]
+    tp2 <- dtjoin(tp2, splits3)
     
+
     if( nrow(tp2) > 0 ) {
       m <- m %>%
-        addCircleMarkers(data = tp2, lng = ~lon, lat = ~lat, 
+        addCircleMarkers(data = tp2, lng = ~lon, lat = ~lat,
                          group = ll$Name[i],
                          color = ll$color[i],
+                          popup = ~SplitName,
+                         popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
                          opacity = 1,
                          radius = 30,
-                         fillOpacity = 0.8) 
-      
+                         fillOpacity = 0.8)
+
     }
-  } 
-  
+  }
+
 }
 
 
@@ -143,7 +151,9 @@ if( exists("tpr") ) {
                ) %>%
     addLabelOnlyMarkers(data = tp,
                         ~lon, ~lat, label = ~TimingPoint,
-                        labelOptions = labelOptions(noHide = TRUE, direction = "top"),
+                        labelOptions = labelOptions(noHide = TRUE, 
+                                                    direction = "right",
+                                                    offset = c(32, 0)),
                         group = "Labels"
     )
   } 
@@ -155,12 +165,12 @@ if( exists("tpr") ) {
   #   lng2 = max(data0$lon), lat2 = max(data0$lat)
   # )
   if( nrow(data0)>0) {
-    setView(map=m, lng=(max(data0$lon)-min(data0$lon))/2+min(data0$lon),
+    m <- setView(map=m, lng=(max(data0$lon)-min(data0$lon))/2+min(data0$lon),
                     lat=(max(data0$lat)-min(data0$lat))/2+min(data0$lat),
-                    zoom = 11)
+                    zoom = 11, options = )
     
   } else {
-    setView(map=m, lng=46.7615,
+    m <- setView(map=m, lng=46.7615,
             lat=8.4601,
             zoom = 8)
   }
@@ -169,24 +179,26 @@ if( exists("tpr") ) {
   if( nrow(tpr) > 0 ) {
   
     m <- m %>%
-      addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID==1], lng = ~lon, lat = ~lat, 
+      addCircleMarkers(data = tp[is.na(labelrules) == F & labelrules %like% "L1"], lng = ~lon, lat = ~lat, 
                        group = "Loop/Channel IDs",
                        color = "#000000",
                        opacity = 1,
                        radius = 15,
                        fillOpacity = 0.8,
-                       label = tp[is.na(LoopID) == F & LoopID==1]$labelrules) %>%
-      addCircleMarkers(data = tp[is.na(LoopID) == F & LoopID!=1], lng = ~lon, lat = ~lat, 
+                       label = ~labelrules) %>%
+      addCircleMarkers(data = tp[is.na(labelrules) == F & !labelrules %like% "L1"], lng = ~lon, lat = ~lat, 
                        group = "Loop/Channel IDs",
                        color = "#000000",
                        opacity = 1,
                        radius = 10,
                        fillOpacity = 0.5,
-                       label = tp[is.na(LoopID) == F & LoopID!=1]$labelrules)
+                       label = ~labelrules)
     
-    lCHloop1 <- tp[is.na(LoopID) == F & LoopID==1]$ChannelID
+    lCHloop1 <- tpr[LoopID==1]$ChannelID
+    
     for( i in lCHloop1) {
-      temp <- tp[ChannelID == lCHloop1[i]]
+      
+      temp <- tprloc[ChannelID == lCHloop1[i]]
       
       l1 <- temp[LoopID == 1]
       l0 <- temp[LoopID != 1]

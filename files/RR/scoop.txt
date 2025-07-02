@@ -35,10 +35,22 @@ scoop install main/adb
 scoop install main/brename
 scoop install extras/squirreldisk
 scoop install main/ag
+scoop install extras/barrier
 
+taskkill /IM PowerToys.exe /F
+taskkill /IM ShareX.exe /F
+taskkill /IM QuickLook.exe /F
+taskkill /IM notepad++.exe /F
+
+scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git
 scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git
 
 cd C:\Users\%USERNAME%\Downloads
+
+::barrier
+:: IN ADMIN !!!
+::powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
+
 
 ::shareX
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb

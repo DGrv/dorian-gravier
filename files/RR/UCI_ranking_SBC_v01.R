@@ -66,6 +66,14 @@ all <- dtjoin(uci[, c("UCI_ID", "Name", p0("Stage", stageid, "UCI_Ranking"),
               sc[, c("UCI_ID", p0("Stage", stageid, "SwissCycling_Ranking"), "SC_Points"), with = F])
 setnames(all, "Nationality", "Nat")
 
+# replace name RankingType
+# all[, .N, c(p0("Stage", stageid, "UCI_RankingType"))]
+
+all[get(p0("Stage", stageid, "UCI_RankingType")) == "EliteM", p0("Stage", stageid, "UCI_RankingType") := "Men Elite"]
+all[get(p0("Stage", stageid, "UCI_RankingType")) == "EliteW", p0("Stage", stageid, "UCI_RankingType") := "Women Elite"]
+all[get(p0("Stage", stageid, "UCI_RankingType")) == "JuniorM", p0("Stage", stageid, "UCI_RankingType") := "Men Junior"]
+all[get(p0("Stage", stageid, "UCI_RankingType")) == "JuniorW", p0("Stage", stageid, "UCI_RankingType") := "Women Junior"]
+
 
 write.csv(all, p0("STAGE", stageid, "__Ranking.csv"), row.names = F)
 replace.NA.csv(p0("STAGE", stageid, "__Ranking.csv"), pattern = "NA", replacement = "")

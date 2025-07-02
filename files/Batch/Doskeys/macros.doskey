@@ -11,3 +11,5 @@ makeitall=C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\F
 gitupdatedgrv=cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io && git add . && git commit -m up && git push
 gitupdate=git add . && git commit -m up && git push
 n=notepad++
+printers=powershell "Get-Printer | Select-Object Name, PrinterStatus, WorkOffline"
+
