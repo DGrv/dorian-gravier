@@ -5,7 +5,7 @@
  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
  xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
  xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1"
- xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v2"
+
  xmlns:locus="http://www.locusmap.eu">
 	<metadata>
 		<desc>File with points/tracks from Locus Map/4.27.1</desc>
@@ -13,18 +13,18 @@
 	</metadata>
 <trk>
 <name>20350112_skitour</name>
-	<extensions>
+
 		<line xmlns="http://www.topografix.com/GPX/gpx_style/0/2">
 			<color>0000FF</color>
 			<opacity>0.59</opacity>
 			<width>3.0</width>
-			<extensions>
+
 				<locus:lsColorBase>#960000FF</locus:lsColorBase>
 				<locus:lsWidth>3.0</locus:lsWidth>
 				<locus:lsUnits>PIXELS</locus:lsUnits>
-			</extensions>
+
 		</line>
-	</extensions>
+
 <trkseg>
 <trkpt lat="47.03939589" lon="8.85776802">
 	<ele>1059.18</ele>

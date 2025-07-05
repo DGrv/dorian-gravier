@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gte="http://www.gpstrackeditor.com/xmlschemas/General/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
+
   <metadata>
     <name>2017_KS1T_Hinterstein-Rotspitze.gpx</name>
     <time>2023-05-24T14:05:28.927Z</time>
@@ -1007,10 +1007,10 @@
       <trkpt lat="47.483501000" lon="10.389383000">
         <ele>828.200</ele>
         <time>2019-12-23T13:50:16.860Z</time>
-        <extensions>
-          <gte:name>#1</gte:name>
-          <gte:color>#fbaf00</gte:color>
-        </extensions>
+
+
+
+
       </trkpt>
     </trkseg>
   </trk>
@@ -1705,10 +1705,10 @@
       <trkpt lat="47.456504000" lon="10.379681000">
         <ele>1924.800</ele>
         <time>2019-12-23T13:59:25.790Z</time>
-        <extensions>
-          <gte:name>#2</gte:name>
-          <gte:color>#00ce00</gte:color>
-        </extensions>
+
+
+
+
       </trkpt>
     </trkseg>
   </trk>

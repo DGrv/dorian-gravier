@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="GPSBabel - https://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gte="http://www.gpstrackeditor.com/xmlschemas/General/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
+
   <metadata>
     <name>activity_6260659441.gpx</name>
     <link href="connect.garmin.com">
@@ -854,10 +854,10 @@
       <trkpt lat="47.474065000" lon="10.417127000">
         <ele>716.400</ele>
         <time>2021-02-12T13:15:43Z</time>
-        <extensions>
-          <gte:name>#1</gte:name>
-          <gte:color>#fbaf00</gte:color>
-        </extensions>
+
+
+
+
       </trkpt>
     </trkseg>
   </trk>

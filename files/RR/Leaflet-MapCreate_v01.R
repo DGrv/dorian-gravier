@@ -34,7 +34,7 @@ rrIcons <- iconList(
 
 mapGroups <- c(
                "SwissTopo BW", 
-  "SwissTopo", 
+                "SwissTopo", 
                "SwissTopo Sat",
                "OpenTopoMap",
                "Esri.WorldImagery",

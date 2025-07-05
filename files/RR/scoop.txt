@@ -47,7 +47,7 @@ scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplu
 
 cd C:\Users\%USERNAME%\Downloads
 
-::barrier
+::barrier --- do not use anymore
 :: IN ADMIN !!!
 ::powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
 

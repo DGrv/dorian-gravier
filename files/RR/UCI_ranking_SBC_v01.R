@@ -75,5 +75,4 @@ all[get(p0("Stage", stageid, "UCI_RankingType")) == "JuniorM", p0("Stage", stage
 all[get(p0("Stage", stageid, "UCI_RankingType")) == "JuniorW", p0("Stage", stageid, "UCI_RankingType") := "Women Junior"]
 
 
-write.csv(all, p0("STAGE", stageid, "__Ranking.csv"), row.names = F)
-replace.NA.csv(p0("STAGE", stageid, "__Ranking.csv"), pattern = "NA", replacement = "")
+write.csv(all, p0("STAGE", stageid, "__Ranking.csv"), row.names = F, fileEncoding = "utf-8", na = "")

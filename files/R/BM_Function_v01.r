@@ -3617,14 +3617,20 @@ read.gpx <-  function(input, type = "wpt") {
   if( type == "trk") {
     
     temp <- data.table()
-    for(i in 1:length(read_gpx(input)$tracks)) {
-      temp0 <- data.table(read_gpx(input)$tracks[[i]])
-      temp0[, Name := names(read_gpx(input)$tracks[i])]
+    all <- read_gpx(input)$tracks
+    for(i in 1:length(all) ) {
+      temp0 <- data.table(all[[i]])
+      temp0[, Name := names(all[i])]
+      if ("time" %in% names(temp0)) {
+        temp0 <- temp0[order(time)]
+      }
+      # ggplot(temp0, aes(Longitude, Latitude))+geom_path()
       temp <- rbind(temp, temp0)
     }
     setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
              c("name", "ele", "lat", "lon", "desc", "time"),
              skip_absent=TRUE)
+    # ggplot(temp, aes(lon, lat))+geom_path()
     
   }
   

@@ -18,6 +18,7 @@ suppressWarnings(suppressMessages(library(xml2)))
 # display.brewer.all()
 
 wd <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Climbing/")
+wdout <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/html_output/")
 setwd(wd)
 
 cat("\nwd = ", wd)
@@ -80,6 +81,7 @@ m <-  m %>%
       # hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
 cat("\nLeaflet ready")
 
+setwd(wdout)
 saveWidget(m, file="Climbing.html")
 
 cat("\nLeaflet DONE :)\n")

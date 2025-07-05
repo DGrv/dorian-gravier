@@ -15,7 +15,7 @@ REM http://www.network-science.de/ascii/
 echo.
 
 
-set wd="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_posts\2024"
+set wd="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_posts\2025"
 cd %wd%
 
 set /p title=Give me a small title for the filename: 
