@@ -3616,21 +3616,54 @@ read.gpx <-  function(input, type = "wpt") {
   
   if( type == "trk") {
     
-    temp <- data.table()
+    ## dorian
+    # temp <- data.table()
+    # all <- read_gpx(input)$tracks
+    # for(i in 1:length(all) ) {
+    #   temp0 <- data.table(all[[i]])
+    #   temp0[, Name := names(all[i])]
+    #   # ggplot(temp0, aes(Longitude, Latitude))+geom_path()
+    #   temp <- rbind(temp, temp0)
+    # }
+    # setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
+    #          c("name", "ele", "lat", "lon", "desc", "time"),
+    #          skip_absent=TRUE)
+    # # ggplot(temp, aes(lon, lat))+geom_path()
+    # if ("time" %in% names(temp)) {
+    #   temp <- temp[order(name, time)]
+    # } 
+    
     all <- read_gpx(input)$tracks
-    for(i in 1:length(all) ) {
-      temp0 <- data.table(all[[i]])
-      temp0[, Name := names(all[i])]
-      # ggplot(temp0, aes(Longitude, Latitude))+geom_path()
-      temp <- rbind(temp, temp0)
+
+    # Preallocate list of data.tables
+    dt_list <- vector("list", length(all))
+    nm <- names(all)
+    
+    for (i in seq_along(all)) {
+      dt <- data.table(all[[i]])
+      dt[, name := nm[i]]
+      dt_list[[i]] <- dt
     }
-    setnames(temp, c("Name", "Elevation", "Latitude", "Longitude", "Description", "Time"),
-             c("name", "ele", "lat", "lon", "desc", "time"),
-             skip_absent=TRUE)
-    # ggplot(temp, aes(lon, lat))+geom_path()
+    
+    # Combine all data.tables at once (MUCH faster than looped rbind)
+    temp <- rbindlist(dt_list, use.names = TRUE, fill = TRUE)
+    
+    # Rename columns efficiently
+    colmap <- c(
+      "Name" = "name",
+      "Elevation" = "ele",
+      "Latitude" = "lat",
+      "Longitude" = "lon",
+      "Description" = "desc",
+      "Time" = "time"
+    )
+    setnames(temp, old = names(colmap)[names(colmap) %in% names(temp)], 
+             new = colmap[names(colmap) %in% names(temp)])
+    
+    # Optional: sort by name & time if time is present
     if ("time" %in% names(temp)) {
-      temp <- temp[order(name, time)]
-    } 
+      setorder(temp, name, time)
+    }
     
   }
   
@@ -3698,16 +3731,15 @@ export.gpx <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "
 }
 
 
-export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "waypoints") {
+export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = "wpt",  segment.column.name = "") {
   
-  # library(sf)
-  # library(data.table)
-  # library(xml2)
+  require(sf)
+  require(data.table)
+  require(xml2)
   
   debug.easy(!all(c("lat", "lon") %in% names(DATA)), "You need 'lat' and 'lon' variable." ) 
-  debug.easy(layer.type == "tracks", "Need to finish to write the function ")
   
-  if( layer.type == "waypoints") {
+  if( layer.type == "wpt") {
     # Convert data.table to sf object
     sf_data <- st_as_sf(DATA, coords = c("lon", "lat"), crs = 4326)
     # Create the GPX XML structure
@@ -3730,6 +3762,58 @@ export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = 
     # Save the GPX to file
     write_xml(gpx, filename)
   }
+  
+  if( layer.type == "trk") {
+    
+    debug.easy( segment.column.name == "", "Please tell me the name of your column for your segment" ) 
+    
+    # Create the GPX XML structure
+    gpx <- xml_new_root("gpx", version = "1.1", creator = "R", xmlns = "http://www.topografix.com/GPX/1/1")
+    # Add metadata
+    metadata <- xml_add_child(gpx, "metadata")
+    xml_add_child(metadata, "bounds",
+                  minlat = min(DATA$lat, na.rm = TRUE),
+                  minlon = min(DATA$lon, na.rm = TRUE),
+                  maxlat = max(DATA$lat, na.rm = TRUE),
+                  maxlon = max(DATA$lon, na.rm = TRUE))
+    
+    
+    
+    l1 <- unique(DATA[[segment.column.name]])
+    # Loop over each filename (track segment)
+    for (i in seq_along(l1) ) {
+      
+      cat(i, " - Write gpx trkseg:", l1[i])
+      
+      trk <- xml_add_child(gpx, "trk")
+      xml_add_child(trk, "name", segment.column.name[i])
+      segment <- DATA[get(segment.column.name) == l1[i]]
+      
+      # Prebuild XML strings for points
+      pt_strs <- paste0(
+        '<trkpt lat="', segment$lat, '" lon="', segment$lon, '">',
+        ifelse(!is.na(segment$ele), paste0("<ele>", segment$ele, "</ele>"), ""),
+        ifelse(!is.na(segment$time), paste0("<time>", segment$time, "</time>"), ""),
+        "</trkpt>"
+      )
+      
+      # Combine points into a trkseg
+      trkseg_str <- paste0("<trkseg>", paste(pt_strs, collapse = ""), "</trkseg>")
+      
+      # Parse string and add as XML node
+      trkseg_node <- read_xml(trkseg_str)
+      xml_add_child(trk, trkseg_node)
+      
+      cat(green(" - Done\n"))
+    }
+    
+    # Save to GPX file
+    write_xml(gpx, filename)
+  }
+  
+  
+  
+  
 }
 
 

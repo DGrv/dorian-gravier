@@ -62,12 +62,17 @@ layout: single
     <body>
 
 		<iframe width="100%" height="500px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
+		
+		
+		
+		<br>
+		<br>
 	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
 	<br>
-	<center><iframe src="../assets/images/BikeTrip2022/text.txt" frameBorder="0"></iframe></center>
+	<center><iframe src="./assets/images/BikeTrip2022/text.txt" frameBorder="0"></iframe></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Elevation.png"></center>
+	<center><img src="./assets/images/BikeTrip2022/Elevation.png"></center>
 	<br>
 	<center><img src="../assets/images/BikeTrip2022/Distance.png"/></center>
 	<br>
@@ -75,9 +80,6 @@ layout: single
 	<br>
 
 
-    </body>
-
-</html>
 
 [![youtube_icon](https://dgrv.github.io/dorian-gravier/assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
 

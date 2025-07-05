@@ -36,6 +36,7 @@ ll[, What := basename(dirname(path))]
 ll[, colorID := .GRP, What]
 ll[, .N, colorID]
 ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
+# ll[, color := qualitative_hcl(length(u(ll$colorID)), palette = "Dark 3")[colorID]]
 ll[, .N, .(colorID, color)]
 
 
@@ -125,15 +126,26 @@ for(i in seq_along(ll$file)) {
 
 zelt <- read.gpx(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx"), type = "wpt")
 
+rrIcons <- iconList(
+  camp = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/icon/camping.png",
+    iconWidth = 36,
+    iconHeight = 36
+  )
+)
+
+
 m <- m %>%
-  addCircleMarkers(data = zelt, lng = ~lon, lat = ~lat,
-                   group = "Wild Camping",
-                   color = "#ff3355",
-                   # popup = ~SplitName,
-                   # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
-                   opacity = 1,
-                   radius = 4,
-                   fillOpacity = 0.5)
+  addMarkers(data = zelt, lng = ~lon, lat = ~lat,
+             group = "Wild Camping",
+             # color = "#ff3355",
+             icon = rrIcons["camp"]
+             # popup = ~SplitName,
+             # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
+             # opacity = 1,
+             # radius = 4,
+             # fillOpacity = 0.5
+  )
 
 
 

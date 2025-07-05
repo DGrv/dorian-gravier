@@ -37,6 +37,7 @@ ll[, What := basename(dirname(path))]
 ll[, colorID := .GRP, What]
 ll[, .N, colorID]
 ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
+# ll[, color := qualitative_hcl(length(u(ll$colorID)), palette = "Dark 3")[colorID]]
 ll[, .N, .(colorID, color)]
 
 ll[, desc := p0(file, '<br><a target="_blank" href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
@@ -55,7 +56,6 @@ for (i in seq_along(ll$path)) {
 }
 data[, uname := p0(file, " - ", name)]
 dataBU <- copy(data)
-
 # # Old
 # data <- data.table()
 # for(i in seq_along(ll)) {
@@ -101,7 +101,7 @@ m <- m %>%
 
 # Add layers --------------------------------------------------------------
 
-groupLayers <- c(u(ll$What), "Huts")
+groupLayers <- c(u(ll$What), "Huts", "Wild Camping")
 
 
 u(data$uname)
@@ -130,18 +130,44 @@ for(i in seq_along(u(data$name)) ) {
 # icon/hutte.png
 hutte <- data.table(read.csv(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/DAV_hutte_coord.csv")))
 hutte[, popup := p0(Name, '<br><a href="', link, '">Infos</a>')]
-hutte
 
+zelt <- read.gpx(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx"), type = "wpt")
+
+
+rrIcons <- iconList(
+  hut = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/icon/hutte.png",
+    iconWidth = 36,
+    iconHeight = 36
+  ),
+  camp = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/icon/camping.png",
+    iconWidth = 36,
+    iconHeight = 36
+  )
+)
 
 m <- m %>%
-  addCircleMarkers(data = hutte, lng = ~lon, lat = ~lat,
+  addMarkers(data = hutte, lng = ~lon, lat = ~lat,
                    group = "Huts",
-                   color = "#ff3355",
-                   popup = ~popup,
-                   popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -10)),
-                   opacity = 1,
-                   radius = 4,
-                   fillOpacity = 0.5)
+                   # color = "#ff3355",
+                   icon = rrIcons["hut"],
+                   popup = ~popup
+                   # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -10)),
+                   # opacity = 1,
+                   # radius = 4,
+                   # fillOpacity = 0.5
+                   ) %>%
+  addMarkers(data = zelt, lng = ~lon, lat = ~lat,
+                   group = "Wild Camping",
+                   # color = "#ff3355",
+                   icon = rrIcons["camp"]
+                   # popup = ~SplitName,
+                   # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
+                   # opacity = 1,
+                   # radius = 4,
+                   # fillOpacity = 0.5
+                   )
 
 
 # output ------------------------------------------------------------------
@@ -171,4 +197,11 @@ setwd(wdout)
 saveWidget(m, file="Leaflet.html")
 
 cat("\nLeaflet DONE :)\n")
+
+
+
+export.gpx2(data[What == "Bike"],
+            rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/All_Bikes_for_gpxstudio.gpx"), 
+            layer.type = "trk",
+            segment.column.name = "uname")
 
