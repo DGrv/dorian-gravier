@@ -1,5 +1,5 @@
 ---
-permalink: /maps/climbing/
+permalink: /maps/bt/
 author_profile: false
 layout: single
 ---
@@ -7,7 +7,7 @@ layout: single
 <html>
 	<head>
 	
-	<title>Climbing spot</title>
+	<title>Bike Trip 2022</title>
 	
 	<style>
 		#circle {
