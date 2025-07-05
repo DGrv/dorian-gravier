@@ -62,6 +62,54 @@ layout: single
     <body>
 
 		<iframe width="100%" height="500px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
+	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
+
+	<br>
+	<center><iframe src="../assets/images/BikeTrip2022/text.txt" frameBorder="0"></iframe></center>
+	<br>
+	<center><img src="../assets/images/BikeTrip2022/Elevation.png"></center>
+	<br>
+	<center><img src="../assets/images/BikeTrip2022/Distance.png"/></center>
+	<br>
+	<center><img src="../assets/images/BikeTrip2022/Ascent.png"/></center>
+	<br>
+
+
+    </body>
+
+</html>
+
+[![youtube_icon](https://dgrv.github.io/dorian-gravier/assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
+
+<center><a href="https://www.youtube.com/@oYoLibro">All the youtube videos here</a></center>
+
+
+Software used to create all of this:
+
+- Video
+	- [Losslesscut](https://mifi.github.io/lossless-cut/) to cut the video
+	- [FFmpeg](https://ffmpeg.org/)
+	- [Gpx-animator](https://gpx-animator.app/)
+		- I used once [gpxfaketimer](https://github.com/mikaello/gpxfaketimer) to add some fake timestamp to use in gpx-animator
+	- [youtube-dl]() for the music
+	- [mpv](https://mpv.io/) as player and with some [lua scripts](../files/Batch/Lua) that I wrote to calling some batch files easily (see below)
+	- Batch files that I created ([here](..files/Batch/FFmpeg))
+	- lua scripts that I created for mpv ([mpv-easyblur](https://github.com/DGrv/mpv-easyblur))
+	- for subtitles
+		- [whisper-faster](https://github.com/Purfview/whisper-standalone-win)
+- Map
+	- [leaflet](https://github.com/Leaflet/Leaflet) and a lot other addon
+		- **to finish**
+	- [GPSBabel](https://www.gpsbabel.org/) to work on the gpx
+	- [gpx_reduce](https://github.com/Alezy80/gpx_reduce) with the original author [here](https://wiki.openstreetmap.org/wiki/User:Travelling_salesman/gpx_reduce) to clean the gpx
+	- Batch files that I created ([here](..files/Batch/Gpx))
+- Graphics
+	- [R](https://www.r-project.org/)
+- Planning
+	- [gpx.studio](https://gpx.studio/)
+	- [Locus Android app](https://www.locusmap.app/) with the incredible [OpenAndroMaps](https://www.openandromaps.org/en)
+
+<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
     </body>
 

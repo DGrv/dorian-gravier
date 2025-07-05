@@ -39,7 +39,7 @@ ll[, .N, colorID]
 ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
 ll[, .N, .(colorID, color)]
 
-# ll[, desc := p0(file, '<br><a target=”_blank” href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
+ll[, desc := p0(file, '<br><a target="_blank" href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
 ll <- ll[!What %like% "time|Project|Stop"]
 ll[, .N, What]
 ll[What == "Bike_trip_2022", What := "Bike"]
@@ -53,6 +53,7 @@ for (i in seq_along(ll$path)) {
   data <- rbind(data, temp, fill = T)
   cat(green(" - Read done\n"))
 }
+data[, uname := p0(file, " - ", name)]
 dataBU <- copy(data)
 
 # # Old
@@ -103,25 +104,25 @@ m <- m %>%
 groupLayers <- c(u(ll$What), "Huts")
 
 
-u(data$name)
+u(data$uname)
 for(i in seq_along(u(data$name)) ) {
   
-  data1 <- st_as_sf(x = data[name == u(data$name)[i]],                         
+  data1 <- st_as_sf(x = data[uname == u(data$uname)[i]],                         
                     coords = c("lon", "lat"))
   data2 <- data1 %>%
     st_combine() %>%
     st_cast(to = "LINESTRING") %>%
     st_sf()
   
-  ll2 <- ll[file == data[name == u(data$name)[i]]$file[1]]
+  ll2 <- ll[file == data[uname == u(data$uname)[i]]$file[1]]
   
   m <- m %>%
     addPolylines(data = data2,
                  group = ll2$What,
                  color = ll2$color,
-                 popup = ~desc,
+                 popup = ll2$desc,
                  opacity=1,
-                 weight=6
+                 weight=4
                  # label = ~name
                  )
 }
@@ -145,12 +146,12 @@ m <- m %>%
 
 # output ------------------------------------------------------------------
 
-m <- setView(map=m, lng=(max(data$lon)-min(data$lon))/2+min(data$lon),
-             lat=(max(data$lat)-min(data$lat))/2+min(data$lat),
-             zoom = 5, options = )
+# m <- setView(map=m, lng=(max(data$lon)-min(data$lon))/2+min(data$lon),
+#              lat=(max(data$lat)-min(data$lat))/2+min(data$lat),
+#              zoom = 6, options = )
 
 m <-  m %>% 
-  # setView(11, 45,  zoom = 6) %>%
+  setView(5.142, 44.536,  zoom = 6) %>%
   addLayersControl(
     baseGroups = mapGroups, 
     overlayGroups = groupLayers,

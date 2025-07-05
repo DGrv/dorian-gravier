@@ -39,7 +39,7 @@ ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
 ll[, .N, .(colorID, color)]
 
 
-ll[, desc := p0(file, '<br><a target=”_blank” href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
+ll[, desc := p0(file, '<br><a target="_blank"  href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
 
 ll <- ll[What!= "time"]
 
@@ -117,7 +117,7 @@ for(i in seq_along(ll$file)) {
                  color = ll$color[i],
                  popup = ~desc,
                  opacity = ifelse(ll$What[i]=="Stop", 0.4, 1),
-                 weight = 5
+                 weight = 4
                  # label = ~name
                  )
 }

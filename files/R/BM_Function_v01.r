@@ -3621,9 +3621,6 @@ read.gpx <-  function(input, type = "wpt") {
     for(i in 1:length(all) ) {
       temp0 <- data.table(all[[i]])
       temp0[, Name := names(all[i])]
-      if ("time" %in% names(temp0)) {
-        temp0 <- temp0[order(time)]
-      }
       # ggplot(temp0, aes(Longitude, Latitude))+geom_path()
       temp <- rbind(temp, temp0)
     }
@@ -3631,6 +3628,9 @@ read.gpx <-  function(input, type = "wpt") {
              c("name", "ele", "lat", "lon", "desc", "time"),
              skip_absent=TRUE)
     # ggplot(temp, aes(lon, lat))+geom_path()
+    if ("time" %in% names(temp)) {
+      temp <- temp[order(name, time)]
+    } 
     
   }
   
