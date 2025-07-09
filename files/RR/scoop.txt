@@ -35,7 +35,8 @@ scoop install main/adb
 scoop install main/brename
 scoop install extras/squirreldisk
 scoop install main/ag
-scoop install extras/barrier
+::scoop install extras/barrier
+scoop install main/exiftool
 
 taskkill /IM PowerToys.exe /F
 taskkill /IM ShareX.exe /F
