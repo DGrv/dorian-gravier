@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="true" />
-        <Find name="[Contest]=1" />
-        <Find name="[Contest]=2" />
-        <Find name="15" />
-        <Find name="ZKDDX07" />
-        <Find name='\\&quot;' />
-        <Find name="\\r\\n" />
+        <Find name="  " />
+        <Find name="\t" />
+        <Find name="clean" />
+        <Find name='\&quot;BG\((.*)\)\&quot;' />
         <Find name="\r\n" />
-        <Find name="nsec" />
-        <Find name=" " />
-        <Replace name='true&quot;' />
-        <Replace name="[Contest]=2" />
-        <Replace name="[Contest]=1" />
-        <Replace name="50" />
-        <Replace name='&quot;' />
-        <Replace name="\r\n" />
-        <Replace name="_" />
-        <Replace name=":" />
-        <Replace name="f;" />
-        <Replace name="m;" />
+        <Find name="Stage2" />
+        <Find name="Stage3" />
+        <Find name="Stage4" />
+        <Find name="Stage5" />
+        <Find name="Stage6" />
+        <Replace name="" />
+        <Replace name='&quot;$1&quot;' />
+        <Replace name="$1" />
+        <Replace name="Stage1" />
+        <Replace name="Stage2" />
+        <Replace name="Stage3" />
+        <Replace name="Stage4" />
+        <Replace name="Stage5" />
+        <Replace name="Stage6" />
+        <Replace name="Lap10" />
+        <Replace name="Lap9" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\CSS\Online_v01.css" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\CSS\Presenter.css" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#2_Schaan\gpx\contests.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#2_Schaan\gpx\WHAT_YOU_NEED_Overviewmap.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#3_Savognin\Ranking\code_rankinig_download.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250620__Roche_Childrens_Walk\Draft.ada" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250921__Gempen_Grinder\Draft_GG.ada" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250816__Baselbieter_Bike_Challenge\Draft_BBC.ada" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Install\CMD_Colors.bat" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______SwissBikeCup\STAGES\#3_Savognin\Ranking\STAGE4__Ranking.csv" />
+        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\2025____ZurichMarathon\ZM_2025_v01\ZM2025_RRE_v01.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\scoop.txt" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\gpx\Bike_trip_2022\BT22_2023-05-15b.gpx" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\gpx\Climbing\Pause.gpx" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\maps\bt.md" />
+        <File filename="C:\Users\doria\Downloads\testindent.py" />
+        <File filename="C:\Users\doria\Downloads\logic.dsl" />
+        <File filename="C:\Users\doria\Downloads\logic.dsl.formatted" />
+        <File filename="C:\Users\doria\Downloads\dsl_formatter.py" />
+        <File filename="C:\Users\doria\Downloads\IndentParatest.py" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -42,7 +43,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="12" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
+        <number initial="1" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -51,8 +52,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="48" y="39" width="1763" height="928" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="316" top="164" right="970" bottom="523" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="78" y="111" width="1763" height="928" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="1021" top="264" right="1675" bottom="623" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -92,8 +93,10 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
-        <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="200">
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="1" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="441">
+            <PluginDlg pluginName="Python Script" id="-1" curr="3" prev="-1" isVisible="no" />
+            <PluginDlg pluginName="Notepad++::InternalFunction" id="0" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="CSV Lint" id="0" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="NppMarkdownPanel" id="0" curr="1" prev="-1" isVisible="yes" />

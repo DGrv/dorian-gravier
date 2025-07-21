@@ -25,7 +25,7 @@ suppressWarnings(suppressMessages(library(gpx)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250629__Zurich_City_Triathlon_2025/BU/rr_backup_Zurich_City_Triathlon_2025_20250627-090901")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250802__BikeMarathonLumnezia__BerglaufStavialaVedra/BU/rr_backup_Bike_Marathon_Lumnezia_20250709-153213/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -65,17 +65,21 @@ export.gpx2(tp[, .(name = TimingPoint, lat, lon)], "gpx/TimingPoints.gpx", add.d
 
 # tp rules ----------------------------------------------------------------
 
-if( file.exists("timingpointrules.csv") ) {
-  tpr <- data.table(read.csv("timingpointrules.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+if( file.exists("timingpointrules.csv")) {
   
-  if( nrow(tpr) > 0 ) {
-    tpr <- tpr[, .(TimingPoint, LoopID, ChannelID)]
-    tpr[, labelrules := p0(" - C", ChannelID, "/L", LoopID)]
-    tpr2 <- tpr[, .(labelrules = paste(labelrules, collapse = "")), by = TimingPoint]
-    tpr2[, labelrules := p0(TimingPoint, labelrules)]
+  if( file.info("timingpointrules.csv")$size > 0 ) {
     
-    tp <- dtjoin(tp, tpr2)
-    tprloc <- dtjoin(tpr, tp[, .(TimingPoint, lon, lat)])
+    tpr <- data.table(read.csv("timingpointrules.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+    
+    if( nrow(tpr) > 0 ) {
+      tpr <- tpr[, .(TimingPoint, LoopID, ChannelID)]
+      tpr[, labelrules := p0(" - C", ChannelID, "/L", LoopID)]
+      tpr2 <- tpr[, .(labelrules = paste(labelrules, collapse = "")), by = TimingPoint]
+      tpr2[, labelrules := p0(TimingPoint, labelrules)]
+      
+      tp <- dtjoin(tp, tpr2)
+      tprloc <- dtjoin(tpr, tp[, .(TimingPoint, lon, lat)])
+    }
   }
 }
 
@@ -83,9 +87,14 @@ if( file.exists("timingpointrules.csv") ) {
 # splits ------------------------------------------------------------------
 
 if( file.exists("splits.csv") ) {
-  splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-  splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
-  splits <- splits[TimingPoint != ""]
+  
+  if( file.info("splits.csv")$size > 0 ) {
+    
+    splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+    splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
+    splits <- splits[TimingPoint != ""]
+    
+  }
 }
 
 

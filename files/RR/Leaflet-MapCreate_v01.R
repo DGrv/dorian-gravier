@@ -143,21 +143,19 @@ m <-  m %>%
 
 
 
-if( exists("tpr") ) {
-  if( nrow(tp) > 0 ) {
-    m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
-               group = "TimingPoints",
-               icon = ~rrIcons[tp$icon]
-               ) %>%
-    addLabelOnlyMarkers(data = tp,
-                        ~lon, ~lat, label = ~TimingPoint,
-                        labelOptions = labelOptions(noHide = TRUE, 
-                                                    direction = "right",
-                                                    offset = c(32, 0)),
-                        group = "Labels"
-    )
-  } 
-}
+if( nrow(tp) > 0 ) {
+  m <- addMarkers(map = m, data = tp, lng = ~lon, lat = ~lat, popup = ~label,
+             group = "TimingPoints",
+             icon = ~rrIcons[tp$icon]
+             ) %>%
+  addLabelOnlyMarkers(data = tp,
+                      ~lon, ~lat, label = ~TimingPoint,
+                      labelOptions = labelOptions(noHide = TRUE, 
+                                                  direction = "right",
+                                                  offset = c(32, 0)),
+                      group = "Labels"
+  )
+} 
   
   # # used before tamaro
   # fitBounds(
