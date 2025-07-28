@@ -11,6 +11,10 @@ mdb-export-all () {
 }
 
 gpx2svg() {
+	
+	# to use like this : gpx2svg *.gpx 
+	# gpx2svg input.gpx
+
     for file in "$@"; do
         # Only process .gpx files
         if [[ "$file" == *.gpx ]]; then
@@ -19,6 +23,7 @@ gpx2svg() {
             python3 /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Python/gpx2elevation.py "$file" "${filename}_elev-100.svg" 100
             python3 /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Python/gpx2elevation.py "$file" "${filename}_elev-50.svg" 50
             python3 /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Python/gpx2elevation.py "$file" "${filename}_elev-10.svg" 10
+            python3 /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/Python/gpx2elevation.py "$file" "${filename}_elev-1.svg" 1
         fi
     done
 }
