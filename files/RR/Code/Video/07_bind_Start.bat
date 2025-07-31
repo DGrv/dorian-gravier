@@ -1,0 +1,1 @@
+magick Countdown.gif ( Start1.gif ) ( Start2.gif ) -coalesce -background none -layers Optimize -loop 1 Start.gif
