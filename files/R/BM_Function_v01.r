@@ -3632,7 +3632,7 @@ read.gpx <-  function(input, type = "wpt") {
     # if ("time" %in% names(temp)) {
     #   temp <- temp[order(name, time)]
     # } 
-    
+
     all <- read_gpx(input)$tracks
 
     # Preallocate list of data.tables
