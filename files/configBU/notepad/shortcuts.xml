@@ -10,6 +10,7 @@
         <Shortcut id="42015" Ctrl="no" Alt="yes" Shift="no" Key="40" />
         <Shortcut id="50010" Ctrl="no" Alt="no" Shift="no" Key="0" />
         <Shortcut id="50011" Ctrl="no" Alt="no" Shift="no" Key="0" />
+        <Shortcut id="42036" Ctrl="yes" Alt="yes" Shift="no" Key="75" />
     </InternalCommands>
     <Macros>
         <Macro name="Trim Trailing Space and Save" Ctrl="no" Alt="yes" Shift="yes" Key="83">
@@ -34,6 +35,21 @@
             <Action type="0" message="2451" wParam="0" lParam="0" sParam="" />
             <Action type="1" message="2170" wParam="0" lParam="0" sParam='&quot;' />
             <Action type="1" message="2170" wParam="0" lParam="0" sParam=")" />
+        </Macro>
+        <Macro name="RRE" Ctrl="no" Alt="no" Shift="no" Key="0">
+            <Action type="0" message="2013" wParam="0" lParam="0" sParam="" />
+            <Action type="3" message="1700" wParam="0" lParam="0" sParam="" />
+            <Action type="3" message="1601" wParam="0" lParam="0" sParam='\\&quot;' />
+            <Action type="3" message="1625" wParam="0" lParam="2" sParam="" />
+            <Action type="3" message="1602" wParam="0" lParam="0" sParam='&quot;' />
+            <Action type="3" message="1702" wParam="0" lParam="768" sParam="" />
+            <Action type="3" message="1701" wParam="0" lParam="1609" sParam="" />
+            <Action type="3" message="1700" wParam="0" lParam="0" sParam="" />
+            <Action type="3" message="1601" wParam="0" lParam="0" sParam="\\r\\n" />
+            <Action type="3" message="1625" wParam="0" lParam="2" sParam="" />
+            <Action type="3" message="1602" wParam="0" lParam="0" sParam="\r\n" />
+            <Action type="3" message="1702" wParam="0" lParam="768" sParam="" />
+            <Action type="3" message="1701" wParam="0" lParam="1609" sParam="" />
         </Macro>
     </Macros>
     <UserDefinedCommands>

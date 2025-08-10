@@ -40,6 +40,14 @@ alias reduce.fr.24='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $
 ytsearch() {  yt-dlp ytsearch1:"$1" -x --audio-format "mp3" --audio-quality 0 -c -o "%(uploader)s__-__%(title)s.%(ext)s"; }
 
 
+gifx4() {
+	# speed up a gif 4 times
+	ffmpeg -i "$1" -filter_complex "[0:v]mpdecimate,setpts=0.25*PTS,split[a][b];[a]palettegen[p];[b][p]paletteuse" -y "$(basename $i .gif)_x4.gif"
+}
+
+
+
+
 addpad () {
     # add padding if vertical video - right now video should be 1920x1080 or 1080 x1920
     cecho -y "Will add a padding if video is 1080x1920 to get it 1920x1080"

@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.gif\shell\gifx4\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\gifx4.bat\" \"%1\""

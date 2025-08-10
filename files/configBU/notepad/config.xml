@@ -2,38 +2,39 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
+        <Find name="C1" />
+        <Find name="scriban" />
+        <Find name="size" />
         <Find name=" " />
-        <Find name="background" />
-        <Find name=".*name.*" />
-        <Find name=".*sym.*" />
-        <Find name=".*locus.*" />
+        <Find name="\]\r\n\[" />
+        <Find name=".*surface.*" />
         <Find name=".*extension.*" />
-        <Find name="insv_" />
-        <Find name="lrv" />
-        <Find name="Club" />
-        <Find name="[ ]  " />
-        <Replace name="_" />
-        <Replace name="VID_" />
-        <Replace name="insv" />
-        <Replace name="[Contest]" />
-        <Replace name='&quot;$1&quot;' />
-        <Replace name="$1" />
-        <Replace name="Stage1" />
-        <Replace name="Stage2" />
-        <Replace name="Stage3" />
-        <Replace name="Stage4" />
+        <Find name="started" />
+        <Find name="Teilne" />
+        <Find name="sec" />
+        <Replace name="" />
+        <Replace name="min" />
+        <Replace name="\r\n" />
+        <Replace name=" " />
+        <Replace name="false : " />
+        <Replace name=" : " />
+        <Replace name=" ? " />
+        <Replace name='&quot;&quot;' />
+        <Replace name='[x]=&quot;' />
+        <Replace name='&quot;' />
+        <Replace name="_crop.gif" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\Whatsapp\Whatsapp_Merge_Logo_RR_v01.bat" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\List\Dorian\02_LIVE_Finish Line.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\List\Dorian\02_LIVE_LIVE.lvs" />
-        <File filename="C:\Users\doria\Downloads\02_LIVE_LIVE.lvs" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Magick\.Magick_sh-to-bat.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\magick.md" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\List\Dorian\09_Orga_Contest_variable.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250801__Pitz_Alpine_Glacier_Trail_2025.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\List\Dorian\05_Monitoring_Monitoring.lvs" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\UDF.bat" />
+        <File filename="C:\Users\doria\Downloads\UDF_template_v01 - List_UDF.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Code\udf_bat.bat" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250822__Matterhorn_Ultraks\LED\Text_led.txt" />
+        <File filename="C:\Program Files\dbnetsoft\RaceResultExchange\history.txt" />
+        <File filename="C:\Program Files\dbnetsoft\RaceResultExchange\RaceResultExchange.xml" />
+        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\20250822__Matterhorn_ultraks\MattUltraks_2025_v01\MattUltraks_2025_RRE_v01.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\20250822__Matterhorn_ultraks\MattUltraks_2025_v01\MattUltraks_2025_RRE_v02.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\20250803__Pitz_Alpine_Glacier_Trail_2025\PAGT_2025_v01\PAGT_2025_RRE_v01.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250801__Pitz_Alpine_Glacier_Trail_2025\Draft_Solution_Runtime.ada" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -42,7 +43,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="1" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
+        <number initial="0" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -51,8 +52,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="78" y="111" width="1763" height="928" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="1021" top="264" right="1675" bottom="623" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="-2" y="158" width="1924" height="876" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="955" top="340" right="1609" bottom="699" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
