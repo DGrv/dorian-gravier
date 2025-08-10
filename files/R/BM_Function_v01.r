@@ -3746,8 +3746,8 @@ export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = 
     gpx <- xml_new_root("gpx", version = "1.1", creator = "R", xmlns = "http://www.topografix.com/GPX/1/1")
     # Add metadata
     metadata <- xml_add_child(gpx, "metadata")
-    xml_add_child(metadata, "bounds", minlat = min(sf_data$lat), minlon = min(sf_data$lon), 
-                  maxlat = max(sf_data$lat), maxlon = max(sf_data$lon))
+    suppressWarnings(suppressMessages(xml_add_child(metadata, "bounds", minlat = min(sf_data$lat), minlon = min(sf_data$lon), 
+                  maxlat = max(sf_data$lat), maxlon = max(sf_data$lon))))
     # Add waypoints
     for (i in 1:nrow(DATA)) {
       wpt <- xml_add_child(gpx, "wpt", lat = DATA$lat[i], lon = DATA$lon[i])
@@ -3760,7 +3760,7 @@ export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = 
       }
     }
     # Save the GPX to file
-    write_xml(gpx, filename)
+    write_xml(gpx, filename, encoding="UTF-8")
   }
   
   if( layer.type == "trk") {
@@ -3771,11 +3771,11 @@ export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = 
     gpx <- xml_new_root("gpx", version = "1.1", creator = "R", xmlns = "http://www.topografix.com/GPX/1/1")
     # Add metadata
     metadata <- xml_add_child(gpx, "metadata")
-    xml_add_child(metadata, "bounds",
+    suppressWarnings(suppressMessages(xml_add_child(metadata, "bounds",
                   minlat = min(DATA$lat, na.rm = TRUE),
                   minlon = min(DATA$lon, na.rm = TRUE),
                   maxlat = max(DATA$lat, na.rm = TRUE),
-                  maxlon = max(DATA$lon, na.rm = TRUE))
+                  maxlon = max(DATA$lon, na.rm = TRUE))))
     
     
     
@@ -3808,7 +3808,7 @@ export.gpx2 <- function(DATA, filename, add.desc = T, add.url = T, layer.type = 
     }
     
     # Save to GPX file
-    write_xml(gpx, filename)
+    write_xml(gpx, filename, encoding="UTF-8")
   }
   
   

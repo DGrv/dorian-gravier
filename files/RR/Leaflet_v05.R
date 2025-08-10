@@ -48,7 +48,8 @@ tp[, lat := as.numeric(gsub("(.*),(.*)", "\\1", Position))]
 tp[, lon := as.numeric(gsub("(.*),(.*)", "\\2", Position))]
 tp[, Position := NULL]
 if( length(tp$Color) == 0 ) { tp[, Color := ""] }
-tp <- tp[, .(Name, Color, lat, lon)]
+setnames(tp, "Color", "ColorTP")
+tp <- tp[, .(Name, ColorTP, lat, lon)]
 tp <- tp[Name != ""]
 setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
@@ -84,6 +85,23 @@ if( file.exists("timingpointrules.csv")) {
 }
 
 
+
+# Contest -----------------------------------------------------------------
+
+contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+setnames(contest, grepcol("Name", contest), p0("Contest", grepcol("Name", contest)))
+
+contest <- contest[ContestName != ""]
+contest[, Length := ifelse(LengthUnit=="m", Length/1000, Length)/10000]
+contest[, ContestNameShort := ifelse(is.na(ContestNameShort), ContestName, ContestNameShort)]
+contest[, Start := hms::as_hms(Start/10000)]
+contest[, Dist := p0(round(Length, 2), "km")]
+setnames(contest, "ID", "Contest")
+
+# get color contest
+contest[, ColorHEX := gsub(".*\\#(.{6}).*", "#\\1", Attributes)]
+contest[, ColorCID := hex2rgba(ColorHEX, 0.8)]
+
 # splits ------------------------------------------------------------------
 
 if( file.exists("splits.csv") ) {
@@ -91,23 +109,27 @@ if( file.exists("splits.csv") ) {
   if( file.info("splits.csv")$size > 0 ) {
     
     splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-    splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos)]
+    splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos, Label)]
     splits <- splits[TimingPoint != ""]
+    setnames(splits, c("Name", "Label"), c("SplitName", "Split"))
+    
+    cd <- dtjoin(contest[, .(Contest, ContestName)], splits)
+    cd[, Split := gsub(",", ".", Split)]
+    cd[, Split := gsub(" km", "km", Split)]
+    cd[, Split := gsub(" ca. ", " - ", Split)]
+    cd[, dist := Distance / 1000 / 10000]
+    
+    cd[cd[, .I[dist==max(dist)], ContestName]$V1] # Wichtig should feet the Contest.Length
+    
+    cd <- cd[!grep("start|finish|spotter", SplitName, ignore.case = T)]
+    cd[cd[, .I[dist==max(dist)], ContestName]$V1]
+    cd[, .N, .(ContestName)]
     
   }
 }
 
 
 
-# Contest -----------------------------------------------------------------
-
-contest <- data.table(read.csv("Contests.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-contest <- contest[Name != ""]
-contest[, Length := ifelse(LengthUnit=="m", Length/1000, Length)/10000]
-contest[, Name := ifelse(is.na(NameShort), Name, NameShort)]
-contest[, Start := hms::as_hms(Start/10000)]
-contest[, Dist := p0(round(Length, 2), "km")]
-setnames(contest, "ID", "Contest")
 
 # read gpx ----------------------------------------------------------------
 
@@ -122,32 +144,107 @@ if(nrow(ll)==0){
 
 ll[, file := basename(filepath)]
 ll <- ll[!filepath %like% "ContestID_|All_Splits"]
-suppressWarnings(suppressMessages(ll[, color := brewer.pal(n = nrow(ll), name = "Set1")[1:nrow(ll)]]))
+suppressWarnings(suppressMessages(ll[, ColorTrack := brewer.pal(n = nrow(ll), name = "Set1")[1:nrow(ll)]]))
 ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
-ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, Name)])
-ll[, Name := p0(Contest, "__", Start, "--", Dist, "__", Name)]
+ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, ContestName, Length, ColorCID)])
+
+ll[, Name := p0(Contest, "__", Start, "--", Dist, "__", ContestName)]
 ll[, ncharName := nchar(Name)]
 tt <- max(ll$ncharName)
 ll[, Name := ifelse(Name == "NA__NA--NA__NA", gsub(".gpx", "", file), Name)]
 ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name), Name]
 
 
+# SVG
+ll[, breaksx := ifelse(Length >= 40, 10, 5)]
+ll[, nylabel := 1000]
+ll[, nxlabel := ifelse(Length >= 80, -5, ifelse(Length >= 40, -2, -1))]
+ll
 
 
-data0 <- data.table()
+# read gpx
+
+data <- data.table()
 for (i in seq_along(ll$filepath)) {
-  temp <- read.gpx(ll$filepath[i], type="trk")
-  temp[, file := ll$file[i]]
-  temp[, Name := ll$Name[i]]
-  data0 <- rbind(data0, temp, fill = T)
+  dt <- read.gpx(ll$filepath[i], type="trk")
+  setnames(dt, "name", "GpxName")
+  dt[, file := ll$file[i]]
+  dt[, ContestName := ll$ContestName[i]]
+  
+  #svg
+  # Calculate dist btw points
+  dt[, dist:=0]
+  dt[2:nrow(dt), dist := distHaversine(dt[,.(lon, lat)])/1000]
+  dt[, dist := cumsum(dist)]
+  
+  cat(yellow("[INFO] - dist gpx="), red(round(max(dt$dist), 2)), yellow("dist.wanted="), blue(ll$Length[i]), "\n")
+  
+  # correction distance if gpx is longer than expected
+  if( !is.na(ll$Length[i]) ) {
+    cat(red("[INFO] - Make dist ratio correction with dist.wanted"))
+    ratio.correction <- max(dt$dist)/ll$Length[i]
+    dt[, dist := dist/ratio.correction]
+  }
+  
+  # trim ele
+  if( exists("ylim1") ) {
+    dt[1, ele := ylim1]
+    dt[nrow(dt), ele := ylim1]
+  } else {
+    dt[1, ele := 0]
+    dt[nrow(dt), ele := 0]
+  }
+  
+  # bind
+  data <- rbind(data, dt, fill = T)
   cat("\n", i, "- Read done:", ll$file[i])
 }
 
 
+data[data[, .I[dist==max(dist)], ContestName]$V1]
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v02.R"))
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v01.R"))
+# svg again 
+
+
+if( file.exists("splits.csv") ) {
+  
+  if( file.info("splits.csv")$size > 0 ) {
+    
+    suppressWarnings(data[, Split := NULL])
+    data[, Split := ""]
+    # assign them depending on dist
+    temp <- copy(data)
+    rm(data)
+    data <- data.table()
+    
+    for(j in seq_along(ll$ContestName)) {
+      if( length(u(cd$ContestName)) == 1 ) {
+        cd2 <- copy(cd)
+        temp2 <- copy(temp)
+      } else {
+        cd2 <- cd[ContestName == ll$ContestName[j]]
+        temp2 <- temp[ContestName == ll$ContestName[j]]
+      }
+      for(i in 1:nrow(cd2)) {
+        t <- which.min(abs(temp2$dist - cd2$dist[i]))
+        temp2[t, Split := cd2$Split[i]]
+      }
+      data <- rbind(data, temp2)
+    }
+    
+    data[Split != "", .N, .(ContestName, Split)]
+  }   
+}
+
+
+
+
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v03.R"))
+
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v02.R"))
+
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/SVGCreate_v01.R"))
 
  
