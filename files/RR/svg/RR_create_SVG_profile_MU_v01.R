@@ -74,7 +74,7 @@ for(i in 1:nrow(ll)) {
   
   dt <- read.gpx(rP(ll$gpx[i]), type="trk")
   
-  dt[, Name := ll$Name[i]]
+  dt[, Name := ll$ContestName[i]]
   
   # Calculate dist btw points
   dt[, dist:=0]
@@ -192,12 +192,12 @@ data[Split != "", .N, .(Name, Split)]
 #   breaksx <- 10
 # }
 
-ll$ColorCID <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066")
+lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066")
 
 for(i in seq_along(ll$ContestName)) {
   # Create the elevation profile plot
-  p <- ggplot(data[Name == ll$Name[i]], aes(x = dist, y = ele)) +
-    geom_polygon(fill=ll$ColorCID[i])+
+  p <- ggplot(data[ContestName == ll$ContestName[i]], aes(x = dist, y = ele)) +
+    geom_polygon(fill=lcolor[i])+
     geom_line(linewidth = 0.2)+
     # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*1), x = dist - (0.005*1)), size = 0.1)+
     # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*2), x = dist - (0.005*2)), size = 0.1)+
@@ -216,14 +216,14 @@ for(i in seq_along(ll$ContestName)) {
       # panel.background = element_rect(fill = "#353535"),
       axis.ticks.length = unit(0.1, "inches"))+
     theme(plot.margin = margin(r=10, t=10))+ # default = margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5, unit = "pt")
-    geom_point(data=data[Name == ll$Name[i]][Split!=""], size=3)+
-    geom_label_repel(data=data[Name == ll$Name[i]][Split!=""],aes(label = Split), vjust = 0, hjust= 0, nudge_y = ll$nylabel[i], nudge_x=ll$nxlabel[i], direction = "y", size=3)+
+    geom_point(data=data[ContestName == ll$ContestName[i]][Split!=""], size=3)+
+    geom_label_repel(data=data[ContestName == ll$ContestName[i]][Split!=""],aes(label = Split), vjust = 0, hjust= 0, nudge_y = ll$nylabel[i], nudge_x=ll$nxlabel[i], direction = "y", size=3)+
     scale_x_continuous(expand = c(0, 0), limits = c(0, NA), breaks = seq(0, max(data$dist), by = ll$breaksx[i]))+  # Remove space before 0 on x-axis
     labs(x = "Km", y = "Elevation (m)", title=ll$ContestName[i])
   p
     
   if( exists("ylim2") ) {
-    p <- p+coord_cartesian(ylim=c(NA, ylim2))
+    p <- p+coord_cartesian(ylim=c(ylim2, NA))
   }
   p
   p2 <- p + theme(
@@ -244,7 +244,7 @@ for(i in seq_along(ll$ContestName)) {
   
   
   t <- readLines(p0(ll$ContestName[i],".svg"))
-  t <- gsub(ll$ColorCID[i], p0("url(#linear-gradient", i, ")"), t)
+  t <- gsub(lcolor[i], p0("url(#linear-gradient", i, ")"), t)
   t <- gsub('"', "'", t)
   t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
   t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit(', ll$ContestID[i], ')]&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])
@@ -255,7 +255,7 @@ for(i in seq_along(ll$ContestName)) {
   write.table(t, p0(ll$ContestName[i],".svg"), row.names = F, col.names = F, quote = F)
   
   t <- readLines(p0(ll$ContestName[i],"Black.svg"))
-  t <- gsub(ll$ColorCID[i], p0("url(#linear-gradient", i, ")"), t)
+  t <- gsub(lcolor[i], p0("url(#linear-gradient", i, ")"), t)
   t <- gsub('"', "'", t)
   t <- gsub("lass='svglite' width='.*' height='.*' viewBox", "lass='svglite' viewBox", t)
   t <- c(t[1:2], p0("<defs><linearGradient id='linear-gradient", i, "' x1='0%' x2='", '"&[GradientLimit(', ll$ContestID[i], ')]&"%', "' y1='0%' y2='0%'><stop offset='100%' stop-color='", ll$color[i], "'></stop><stop offset='100%' stop-color='rgba(156, 156, 156,0.2)'></stop></linearGradient></defs>"), t[3:length(t)])

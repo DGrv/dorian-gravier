@@ -20,12 +20,15 @@ suppressWarnings(suppressMessages(library(lubridate)))
 suppressWarnings(suppressMessages(library(xml2)))
 suppressWarnings(suppressMessages(library(gpx)))
 # suppressWarnings(suppressMessages(library(rgdal)))
+suppressWarnings(suppressMessages(library(geosphere)))
+suppressWarnings(suppressMessages(library(svglite)))  # To save as SVG
+suppressWarnings(suppressMessages(library(ggrepel)))
 
 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250822__Matterhorn_Ultraks/BU/rr_backup_Matterhorn_Ultraks_20250810-160600/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250822__Matterhorn_Ultraks/BU/rr_backup_Matterhorn_Ultraks_20250812-130226/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -57,6 +60,7 @@ tp[, url:= p0("https://www.google.com/maps/place/", lat, ",", lon)]
 tp[, label := p0(TimingPoint, '<br><a href="', url, '" target="_blank">GoogleMap</a>' )]
 
 tp[, icon := ifelse(grepl("start|finish|ziel", TimingPoint, ignore.case = T), "iconFinish", "iconUbi")]
+tp[, TimingPointUTF8 := TimingPoint] 
 tp[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
 # tp
 
@@ -110,6 +114,7 @@ if( file.exists("splits.csv") ) {
     
     splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
     splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos, Label)]
+    splits[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
     splits <- splits[TimingPoint != ""]
     setnames(splits, c("Name", "Label"), c("SplitName", "Split"))
     
@@ -157,7 +162,7 @@ ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name)
 
 
 # SVG
-ll[, breaksx := ifelse(Length >= 40, 10, 5)]
+ll[, breaksx := ifelse(Length >= 40, 10, ifelse(Length < 5, 1, 5))]
 ll[, nylabel := 1000]
 ll[, nxlabel := ifelse(Length >= 80, -5, ifelse(Length >= 40, -2, -1))]
 ll

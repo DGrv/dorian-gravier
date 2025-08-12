@@ -33,8 +33,8 @@ rrIcons <- iconList(
 # providers ---------------------------------------------------------------
 
 mapGroups <- c(
+               "SwissTopo", 
                "SwissTopo BW", 
-                "SwissTopo", 
                "SwissTopo Sat",
                "OpenTopoMap",
                "Esri.WorldImagery",
@@ -55,14 +55,32 @@ m <- leaflet() %>%
   # addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
   #          attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
   #          group = "SwissTopo Sat", options = providerTileOptions(maxZoom = 20)) %>%
-  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
-  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
+  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
+  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
   addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
   addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxZoom = 20), "OpenTopoMap") %>%
   addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxZoom = 20), "Esri.WorldImagery") %>%
   addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxZoom = 20), "CartoDB.PositronNoLabels")%>%
   addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
   addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxZoom = 20), "CartoDB.VoyagerNoLabels")
+  # addWMSTiles(
+  #   "http://ows.mundialis.de/services/service?",
+  #   layers = "SRTM30-Hillshade",
+  #   options = WMSTileOptions(opacity = 0.5),
+  #   group = mapGroups[9]
+  # )
+  # addWMSTiles(
+  #   baseUrl = "https://tiles.arcgis.com/tiles/oPre3pOfRfefL8y0/arcgis/rest/services/WTM_Hillshade/MapServer/WMTS/1.0.0/WMTSCapabilities.xml",
+  #   layers = "WTM_Hillshade",
+  #   # options = WMSTileOptions(opacity = 0.5),
+  #   group = mapGroups[9]
+  # )
+  # addTiles(
+  #   urlTemplate = "https://wmts.geo.admin.ch/1.0.0/hillshade/default/current/3857/{z}/{x}/{y}.jpeg",
+  #   options = tileOptions(opacity = 0.5),
+  #   group = mapGroups[9]
+  # )
+
 
 m <- m %>% 
   onRender("
@@ -149,7 +167,7 @@ if( nrow(tp) > 0 ) {
              icon = ~rrIcons[tp$icon]
              ) %>%
   addLabelOnlyMarkers(data = tp,
-                      ~lon, ~lat, label = ~TimingPoint,
+                      ~lon, ~lat, label = ~TimingPointUTF8,
                       labelOptions = labelOptions(noHide = TRUE, 
                                                   direction = "right",
                                                   offset = c(32, 0)),

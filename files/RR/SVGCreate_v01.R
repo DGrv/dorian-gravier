@@ -1,16 +1,4 @@
 
-
-
-
-
-# SETUP -------------------------------------------------------------------
-
-suppressWarnings(suppressMessages(library(geosphere)))
-suppressWarnings(suppressMessages(library(svglite)))  # To save as SVG
-suppressWarnings(suppressMessages(library(ggrepel)))
-
-
-
 # Plots -------------------------------------------------------------------
 
 # if( !exists("nylabel") ) {
@@ -24,45 +12,51 @@ lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#
 create.dir(wd, "svg", "wdsvg")
 
 
+svgall <- c()
+svgallblack <- c()
+
 for(i in seq_along(ll$ContestName)) {
+  
+  
+  gpxdata <- data[ContestName == ll$ContestName[i]]
+  
+ 
+  
   # Create the elevation profile plot
-  p <- ggplot(data[ContestName == ll$ContestName[i]], aes(x = dist, y = ele)) +
+  p <- ggplot(gpxdata, aes(x = dist, y = ele)) +
     geom_polygon(fill=lcolor[i])+
     geom_line(linewidth = 0.2)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*1), x = dist - (0.005*1)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*2), x = dist - (0.005*2)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*3), x = dist - (0.005*3)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*4), x = dist - (0.005*4)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*5), x = dist - (0.005*5)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*6), x = dist - (0.005*6)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*7), x = dist - (0.005*7)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*8), x = dist - (0.005*8)), size = 0.1)+
-    # geom_line(aes(y=ylim1 + (ele-ylim1)*(0.1*9), x = dist - (0.005*9)), size = 0.1)+
-    theme(
-      # panel.border = element_blank(),
-      # panel.grid.major = element_blank(),
-      # panel.grid.minor = element_blank(),
-      # plot.background = element_rect(fill = "#353535", color = "#353535"),
-      # panel.background = element_rect(fill = "#353535"),
-      axis.ticks.length = unit(0.1, "inches"))+
-    theme(plot.margin = margin(r=10, t=10))+ # default = margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5, unit = "pt")
     geom_point(data=data[ContestName == ll$ContestName[i]][Split!=""], size=3)+
     geom_label_repel(data=data[ContestName == ll$ContestName[i]][Split!=""],aes(label = Split), vjust = 0, hjust= 0, nudge_y = ll$nylabel[i], nudge_x=ll$nxlabel[i], direction = "y", size=3)+
     scale_x_continuous(expand = c(0, 0), limits = c(0, NA), breaks = seq(0, max(data$dist), by = ll$breaksx[i]))+  # Remove space before 0 on x-axis
-    labs(x = "Km", y = "Elevation (m)", title=ll$ContestName[i])
-  p
+    labs(x = "Km", y = "Elevation (m)", title=ll$ContestName[i])+
+    theme(
+      plot.margin = margin(r=10, t=10), # default = margin(t = 5.5, r = 5.5, b = 5.5, l = 5.5, unit = "pt")
+      axis.ticks.length = unit(0.1, "inches"),
+      text = element_text(color = "black"),
+      axis.text.y = element_text(colour = "black"),
+      axis.text.x = element_text(colour = "black"),
+      axis.ticks.y = element_line(color = "black"),
+      axis.ticks.x = element_line(color = "black"))
   
-  if( exists("ylim2") ) {
-    p <- p+coord_cartesian(ylim=c(NA, ylim2))
+  minele <- min(gpxdata[ele != 0]$ele)
+  maxele <- max(gpxdata$ele)
+  if( maxele > 500 & minele > 300) {
+    ylim2 <- round(minele - minele*0.1, -2)
+    p <- p + coord_cartesian(ylim=c(ylim2, NA))
+  } else {
+    p <- p + scale_y_continuous( # avoid small gap at 0 
+      expand = expansion(mult = c(0, 0.05)), # 0 at bottom, small top padding
+      limits = c(0, NA)                       # start at 0, let top be automatic
+    )
   }
-  p
+  
   p2 <- p + theme(
     text = element_text(color = "white"),
     axis.text.y = element_text(colour = "white"),
     axis.text.x = element_text(colour = "white"),
     axis.ticks.y = element_line(color = "white"),
     axis.ticks.x = element_line(color = "white"))
-  p2
   
   # Save as SVG
   ggsave(p0(ll$ContestName[i],".svg"), plot = p2, device = "svg", width = 4000, height = 1000, units = "px")
@@ -82,6 +76,7 @@ for(i in seq_along(ll$ContestName)) {
             "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
   
   write.table(t, p0(ll$ContestName[i],".svg"), row.names = F, col.names = F, quote = F)
+  svgall <- c(svgall,   paste0(t, collapse=""))
   
   t <- readLines(p0(ll$ContestName[i],"Black.svg"))
   t <- gsub(lcolor[i], p0("url(#linear-gradient", i, ")"), t)
@@ -93,8 +88,28 @@ for(i in seq_along(ll$ContestName)) {
             "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
   
   write.table(t, p0(ll$ContestName[i],"Black.svg"), row.names = F, col.names = F, quote = F)
+  svgallblack <- c(svgallblack,   paste0(t, collapse=""))
+
   
 }
+
+# UDF ---------------------------------------------------------------------
+
+svgallUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgall, collapse='"; "'),  '")& "</div>"'), collapse="")
+svgallblackUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgallblack, collapse='"; "'), '")& "</div>"'), collapse="")
+
+svgallUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgall, collapse='<br>'),  '</div>"'), collapse="")
+svgallblackUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgallblack, collapse='<br>'),  '</div>"'), collapse="")
+
+
+UDF <- c("svg(x)", svgallUDF, "svgblack(x)" , svgallblackUDF, "svgCHECK", svgallUDFcheck, "svgblackCHECK", svgallblackUDFcheck)
+
+writeLines(UDF, "UDF.ada")
+
+
+svgallblackUDFchecklocal <- paste0(c('<div id="elevation_chart style="100%>', paste0(gsub('"&\\[GradientLimit.*?\\]&"', "50", svgallblack), collapse='<br>'),  '</div>'), collapse="")
+writeLines(svgallblackUDFchecklocal, "test.html")
+
 
 
 cat(green("--- END ---"))
