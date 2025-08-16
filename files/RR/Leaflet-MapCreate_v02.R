@@ -277,14 +277,18 @@ m <-  m %>%  addFullscreenControl() %>%
 
 cat(green("\n\nLeaflet ready"))
 
-saveWidget(m, file="OverviewMap.html")
+outfilename <- p0("OverviewMap__", EventName, ".html")
 
-t <- readLines("OverviewMap.html")
+saveWidget(m, file=outfilename)
+
+t <- readLines(outfilename)
 idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
 
 # change meta that is good phones 
 # t[t %like% "<meta"]
 t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />', t)
+
+t <- gsub("<title>leaflet</title>", p0("<title>", EventName, "</title>"), t)
 
 
 # Mouse position ---------------------------------------------------------
@@ -293,13 +297,13 @@ t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" 
 tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
 tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
 t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
-write.table(t, "OverviewMap.html", row.names = F, col.names = F, quote = F)
+write.table(t, outfilename, row.names = F, col.names = F, quote = F)
 
 
 
 # Tracking ----------------------------------------------------------------
 
-t <- readLines("OverviewMap.html")
+t <- readLines(outfilename)
  
 # idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
 
@@ -308,7 +312,7 @@ tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
 
 t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 
-write.table(t, "OverviewMap_Tracking.html", row.names = F, col.names = F, quote = F)
+write.table(t, p0("OverviewMap_Tracking__", EventName, ".html"), row.names = F, col.names = F, quote = F)
 
 cat(green("\nLeaflet DONE :)\n"))
 

@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250822__Matterhorn_Ultraks/BU/rr_backup_Matterhorn_Ultraks_20250812-130226/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#5_Basel")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -40,6 +40,14 @@ setwd(wd)
 
 
 
+# event -------------------------------------------------------------------
+
+if( file.exists("settings.csv")) {
+  
+  temp <- data.table(read.csv("settings.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+  EventName <- gsub("[^A-z0-9]+", "_",temp[Name == "Eventname"]$Value)
+  
+}
 
 
 
@@ -172,6 +180,9 @@ ll
 
 data <- data.table()
 for (i in seq_along(ll$filepath)) {
+  
+  cat(yellow("\n[DEBUG] - Try to read", ll$file[i]))
+  
   dt <- read.gpx(ll$filepath[i], type="trk")
   setnames(dt, "name", "GpxName")
   dt[, file := ll$file[i]]

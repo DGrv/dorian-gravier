@@ -44,12 +44,13 @@ for(i in seq_along(ll$file) ) {
     
     a <- ggplot(temp, aes(lon, lat))+
       geom_path(size=4, color = "#0E3A2F")+
-      geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 30, color = "#0E3A2F")
+      geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 30, color = "#0E3A2F")+
+      coord_fixed() 
       # geom_point(data = tempTP[grepl("start|Finish", TimingPoint, ignore.case = T)], size = 15, color = "#78FAAE")
     a
     
     fout <- p0(gsub(".gpx$", ".png", u(data[file == u(file)[i]]$file)))
-    printfast(a, fout, ext = "png", height = 600, width = 600*1.41) # 1.41 is ration lat lon
+    printfast(a, fout, ext = "png", height = 600, width = 600) # 1.41 is ration lat lon
     
     
     system(p0('magick "', fout, '" -background white -alpha background -alpha off -bordercolor white -border 1 -transparent white "', fout, '"'))
