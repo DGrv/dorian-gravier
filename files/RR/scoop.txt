@@ -7,36 +7,36 @@ REM powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
 REM clink update
 
 REM cmd
-scoop install git
+scoop update git
 scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
 scoop bucket add sysinternals
-scoop install extras/googlechrome
-scoop install extras/notepadplusplus
-scoop install main/7zip
-scoop install extras/freecommander
-scoop install extras/pdf-xchange-editor
-scoop install main/cmder
-scoop install extras/obs-studio
-scoop install extras/powertoys
-scoop install extras/quicklook
-scoop install extras/sharex
-scoop install main/ffmpeg
-scoop install extras/mpv
-scoop install main/nmap
-scoop install extras/geekuninstaller
-scoop install extras/awake
-scoop install sysinternals/process-explorer
-scoop install extras/qimgv
-scoop install extras/msrt
-scoop install main/scrcpy
-scoop install main/adb
-scoop install main/brename
-scoop install extras/squirreldisk
-scoop install main/ag
-REM scoop install extras/barrier
-scoop install main/exiftool
+scoop update extras/googlechrome
+scoop update extras/notepadplusplus
+scoop update main/7zip
+scoop update extras/freecommander
+scoop update extras/pdf-xchange-editor
+scoop update main/cmder
+scoop update extras/obs-studio
+scoop update extras/powertoys
+scoop update extras/quicklook
+scoop update extras/sharex
+scoop update main/ffmpeg
+scoop update extras/mpv
+scoop update main/nmap
+scoop update extras/geekuninstaller
+scoop update extras/awake
+scoop update sysinternals/process-explorer
+scoop update extras/qimgv
+scoop update extras/msrt
+scoop update main/scrcpy
+scoop update main/adb
+scoop update main/brename
+scoop update extras/squirreldisk
+scoop update main/ag
+REM scoop update extras/barrier
+scoop update main/exiftool
 
 REM tasklist | grep -i google
 taskkill /IM PowerToys.exe /F
@@ -45,28 +45,29 @@ taskkill /IM QuickLook.exe /F
 taskkill /IM notepad++.exe /F
 taskkill /IM chrome.exe /F
 
-scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
-scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
+REM scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
+
+
+
+
+
 
 cd C:\Users\%USERNAME%\Downloads
 
-REM Open bat with cmder
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/reg/Open_bat_w_cmder.reg
-regedit /s "Open_bat_w_cmder.reg"
 
-REM barrier --- do not use anymore
+REM barrier --- do not use anymore  ---------------------------------------------------------------------------------------
 REM IN ADMIN !!!
 REM powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
 
 
-REM shareX
+REM shareX ---------------------------------------------------------------------------------------
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb
 
-REM Doskey
+REM Doskey ---------------------------------------------------------------------------------------
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey
-reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\"" /f
+reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\" %*" /f
 
-REM Wallpaper
+REM Wallpaper ---------------------------------------------------------------------------------------
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
 REM to delete
@@ -76,10 +77,10 @@ RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
-REM Cmder
+REM Cmder ---------------------------------------------------------------------------------------
 reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
 
-REM Freecommander
+REM Freecommander ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\persist\freecommander\Settings
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.mren.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.find.ini
@@ -95,7 +96,7 @@ curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
 
-REM notepadplusplus
+REM notepadplusplus ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\userDefineLangs
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/Md_dracula.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/AutoHotKey_Dracula.xml
