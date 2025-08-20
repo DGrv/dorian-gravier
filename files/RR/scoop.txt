@@ -1,12 +1,12 @@
-:: powershell
-:: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-:: Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+REM powershell
+REM Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+REM Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-:: powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
+REM powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
 
-:: clink update
+REM clink update
 
-:: cmd
+REM cmd
 scoop install git
 scoop bucket add extras
 scoop bucket add main
@@ -35,10 +35,10 @@ scoop install main/adb
 scoop install main/brename
 scoop install extras/squirreldisk
 scoop install main/ag
-:: scoop install extras/barrier
+REM scoop install extras/barrier
 scoop install main/exiftool
 
-:: tasklist | grep -i google
+REM tasklist | grep -i google
 taskkill /IM PowerToys.exe /F
 taskkill /IM ShareX.exe /F
 taskkill /IM QuickLook.exe /F
@@ -50,36 +50,36 @@ scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplu
 
 cd C:\Users\%USERNAME%\Downloads
 
-:: Open bat with cmder
+REM Open bat with cmder
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/reg/Open_bat_w_cmder.reg
 regedit /s "Open_bat_w_cmder.reg"
 
-:: barrier --- do not use anymore
-:: IN ADMIN !!!
-:: powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
+REM barrier --- do not use anymore
+REM IN ADMIN !!!
+REM powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
 
 
-:: shareX
+REM shareX
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb
 
-:: Doskey
+REM Doskey
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey
 reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\"" /f
 
-:: Wallpaper
+REM Wallpaper
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
-:: to delete
-:: reg delete "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /f
+REM to delete
+REM reg delete "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /f
 RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
-:: Cmder
+REM Cmder
 reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
 
-:: Freecommander
+REM Freecommander
 cd C:\Users\%USERNAME%\scoop\persist\freecommander\Settings
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.mren.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.find.ini
@@ -95,7 +95,7 @@ curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
 
-:: notepadplusplus
+REM notepadplusplus
 cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\userDefineLangs
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/Md_dracula.xml
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/notepad/userDefineLangs/AutoHotKey_Dracula.xml
