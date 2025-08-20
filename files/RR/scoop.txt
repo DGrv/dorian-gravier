@@ -2,9 +2,9 @@
 :: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 :: Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
+::powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
 
-clink update
+::clink update
 
 ::cmd
 scoop install git
@@ -49,6 +49,10 @@ scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplu
 scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
 
 cd C:\Users\%USERNAME%\Downloads
+
+:: Open bat with cmder
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/reg/Open_bat_w_cmder.reg
+regedit /s "Open_bat_w_cmder.reg"
 
 ::barrier --- do not use anymore
 :: IN ADMIN !!!
