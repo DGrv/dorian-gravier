@@ -38,13 +38,15 @@ scoop install main/ag
 ::scoop install extras/barrier
 scoop install main/exiftool
 
+:: tasklist | grep -i google
 taskkill /IM PowerToys.exe /F
 taskkill /IM ShareX.exe /F
 taskkill /IM QuickLook.exe /F
 taskkill /IM notepad++.exe /F
+taskkill /IM chrome.exe /F
 
-scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git
-scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git
+scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
+scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
 
 cd C:\Users\%USERNAME%\Downloads
 
