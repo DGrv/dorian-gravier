@@ -171,10 +171,14 @@ sesExtract () {
         # cecho -y "Export contest info:"
         # paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/contests.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/contests.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > "$fdir/Info_Contest.txt"
         # cecho -g Done
+		
+
 
         cecho -y "R Split_map:"
         #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
         /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Leaflet_v05.R" "$PWD/$fdir"
+		
+		
         cecho -g Done
     else
         echo File not found

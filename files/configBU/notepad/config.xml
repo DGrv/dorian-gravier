@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="no" purge="no">
         <Filter name="" />
-        <Find name="C1" />
-        <Find name="scriban" />
-        <Find name="size" />
-        <Find name=" " />
-        <Find name="\]\r\n\[" />
-        <Find name=".*surface.*" />
-        <Find name=".*extension.*" />
-        <Find name="started" />
-        <Find name="Teilne" />
-        <Find name="sec" />
-        <Replace name="" />
-        <Replace name="min" />
-        <Replace name="\r\n" />
-        <Replace name=" " />
-        <Replace name="false : " />
-        <Replace name=" : " />
-        <Replace name=" ? " />
-        <Replace name='&quot;&quot;' />
-        <Replace name='[x]=&quot;' />
-        <Replace name='&quot;' />
-        <Replace name="_crop.gif" />
+        <Find name="scoop install" />
+        <Find name=":: " />
+        <Find name="::" />
+        <Find name="process" />
+        <Find name="taskkill" />
+        <Find name="manda" />
+        <Find name="AnzahlTablet" />
+        <Find name="AnzahlComputer" />
+        <Find name="AnzahlUSBBox" />
+        <Find name="AnzahlLoopbox" />
+        <Replace name="scoop update" />
+        <Replace name="REM " />
+        <Replace name="aTablet" />
+        <Replace name="aComputer" />
+        <Replace name="aUSBBox" />
+        <Replace name="aLoopBox" />
+        <Replace name="aV3" />
+        <Replace name="aPTB" />
+        <Replace name="a" />
+        <Replace name='dfirst(&quot;[Bib]&quot;;&quot;[Startday]=&quot; &amp; [StartDay])' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\UDF.bat" />
-        <File filename="C:\Users\doria\Downloads\UDF_template_v01 - List_UDF.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Code\udf_bat.bat" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250822__Matterhorn_Ultraks\LED\Text_led.txt" />
-        <File filename="C:\Program Files\dbnetsoft\RaceResultExchange\history.txt" />
-        <File filename="C:\Program Files\dbnetsoft\RaceResultExchange\RaceResultExchange.xml" />
-        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\20250822__Matterhorn_ultraks\MattUltraks_2025_v01\MattUltraks_2025_RRE_v01.RaceResultExchangeConfig" />
-        <File filename="C:\Users\doria\Downloads\20250822__Matterhorn_ultraks\MattUltraks_2025_v01\MattUltraks_2025_RRE_v02.RaceResultExchangeConfig" />
-        <File filename="C:\Users\doria\Downloads\20250803__Pitz_Alpine_Glacier_Trail_2025\PAGT_2025_v01\PAGT_2025_RRE_v01.RaceResultExchangeConfig" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250801__Pitz_Alpine_Glacier_Trail_2025\Draft_Solution_Runtime.ada" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Scriban\RR_Scriban_functions_v01.ada" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Python\DeleteRREvents_GoogleCalendar_v01.py" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250525__CyclotourDuLeman\Participants\FirstLastName_case.R" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250802__BikeMarathonLumnezia__BerglaufStavialaVedra\Alpencup\Ergebnislisten_Ergebnisliste Export Alpencup.lvs" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\bash.md" />
+        <File filename="C:\Users\doria\Downloads\tempCmderbat.reg" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\reg\Open_bat_w_cmder.reg" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\2025______Terminplanung\terminBU.ada" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\scoop.txt" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Doskeys\macros.doskey" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -43,7 +42,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="0" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
+        <number initial="1" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -52,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="-2" y="158" width="1924" height="876" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="955" top="340" right="1609" bottom="699" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="164" y="160" width="1603" height="876" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="762" top="173" right="1365" bottom="532" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -93,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="3" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="2" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="646" topHeight="200" bottomHeight="441">
             <PluginDlg pluginName="Notepad++::InternalFunction" id="0" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="Python Script" id="-1" curr="3" prev="-1" isVisible="no" />

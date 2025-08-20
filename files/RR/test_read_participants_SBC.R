@@ -12,4 +12,5 @@ url <- "https://api.raceresult.com/315977/4TV4B6CVD10OOGLG5KYUUWZ30GFO2PYA"
 data <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
 setnames(data, names(data), c("Contest","Firstname","Lastname","Nation","UCI_ID", "Bib"))
 
-data[UCI_ID %in% data[UCI_ID != "", .N, UCI_ID][N>1]$UCI_ID][order(UCI_ID)]
+data[Contest != 100][UCI_ID %in% data[Contest != 100][UCI_ID != "", .N, UCI_ID][N>1]$UCI_ID][order(UCI_ID, Contest)]
+

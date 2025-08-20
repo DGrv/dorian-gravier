@@ -12,6 +12,4 @@ gitupdatedgrv=cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io && git
 gitupdate=git add . && git commit -m up && git push
 n=notepad++
 printers=powershell "Get-Printer | Select-Object Name, PrinterStatus, WorkOffline"
-upscoop=cd /d "%USERPROFILE%\Downloads" ^&^& curl -L -o "update_computer_RR.bat" "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/scoop.txt" ^&^& Cmder.exe /single /x "/cmd update_computer_RR.bat" $*
-
 
