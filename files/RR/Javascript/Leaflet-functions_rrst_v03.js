@@ -112,7 +112,7 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
     }
 }
 
-async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize, iconPulseColor, iconPulseFill) {
+async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize, iconPulseColor, iconPulseFill, popUpstring) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 
     if (widget) {
@@ -200,7 +200,7 @@ async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUse
 
                 // Add a new marker using the dynamic id as the key
                 window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
-                    .bindPopup("1st")
+                    .bindPopup(popUpstring)
                     .openPopup();
                 // Add marker to the LayerGroup
                 aktivBoxLayer.addLayer(markerAB[id]);

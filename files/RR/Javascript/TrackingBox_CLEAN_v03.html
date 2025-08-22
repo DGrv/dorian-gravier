@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.css">
+<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
+<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v03.js"></script>
+<script>
+
+    const youridhtmlwidget = "#idwidget"
+
+    setInterval(async () => {
+        try {
+            // Fetch device list
+            const devices = await fetchrrstdevices();
+            addMarkerDevices(youridhtmlwidget, devices);
+
+            // Fetch specific device positions
+            // const data = await fetchrrst(["T-20320", "T-20344", "T-20342", "T-20341", "T-20351"]);
+            // addMarkerToLeafletMap(data.position[0].DeviceID, // box id
+            //     youridhtmlwidget, // youridhtmlwidget
+            //     data.position[0].Position.Latitude, // latM
+            //     data.position[0].Position.Longitude, // lonM
+            //     data.position[0].Position.Flag, // flag
+            //     "", // icon
+            //     [20, 20], // iconUserSize
+            //     "red", //iconPulseColor
+            //     "red" // iconPulseFill
+            // );
+
+            // addMarkerToLeafletMap(data.position[1].DeviceID, // box id
+            //     youridhtmlwidget, // youridhtmlwidget
+            //     data.position[1].Position.Latitude, // latM
+            //     data.position[1].Position.Longitude, // lonM
+            //     data.position[1].Position.Flag, // flag
+            //     "", // icon
+            //     [20,20], // iconUserSize
+            //     "green", //iconPulseColor
+            //     "green" // iconPulseFill
+            // );
+
+            // Icon
+            // Bäsen : https://cdn-icons-png.flaticon.com/512/8323/8323626.png
+            // First : https://cdn-icons-png.flaticon.com/128/2583/2583381.png
+        
+
+            // If you want always the same point for each box -------------
+
+            // data.position.forEach(function(id) {
+            //     addMarkerToLeafletMap(id.DeviceID, // box id
+            //         youridhtmlwidget, // youridhtmlwidget
+            //         id.Position.Latitude, // latM
+            //         id.Position.Longitude, // lonM
+            //         id.Position.Flag, // flag
+            //         "", // icon
+            //         [20,20], // iconUserSize
+            //         "red", //iconPulseColor
+            //         "red" // iconPulseFill
+            //     );
+            // })
+
+        } catch (error) {
+            console.error('Error during periodic fetch:', error);
+        }
+    }, 10000);
+    // 5000 milliseconds = 5 seconds
+            
+
+</script>
