@@ -71,7 +71,9 @@ RRdevicesBU <- copy(RRdevices)
 # RRdevices <- copy(RRdevicesBU)
 RRdevices[DeviceType2=="U", .N, Connected]
 
-        RRdevices[DeviceID %in% c("T-20015", "T-20014")]
+        RRdevices[DeviceID %in% c("T-20342")]
+        resp2b[DeviceID %in% c("T-20342", "T-23792")]
+        resp2b[DeviceID %in% c("T-20342")][, names(resp2b)[names(resp2b) %like% "Connected"], with =F]
         
         
 temp <- resp2b[, .(DeviceID, Received, Time.Received, RealTime, Time.Time)]
