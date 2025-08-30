@@ -888,6 +888,21 @@ show all possibilities from your chipset
 `netsh wlan show wirelesscapabilities`
 `netsh wlan show drivers`
 
+## Set interface priority
+
+`netsh interface ipv4 show interface`
+lower metric is higher priority
+`netsh interface ipv4 set interface "Wifi" metric=5`
+
+## check interface infos
+
+ipconfig /all
+netsh interface ip show config
+netsh advfirewall show allprofiles 
+
+
+
+
 # compare
 
 ```sh

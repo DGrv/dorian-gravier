@@ -192,7 +192,7 @@ if( nrow(tp) > 0 ) {
   }
   
 if( exists("tpr") ) {
-  if( nrow(tpr) > 0 ) {
+  if( nrow(tpr) > 1 ) {
   
     m <- m %>%
       addCircleMarkers(data = tp[is.na(labelrules) == F & labelrules %like% "L1"], lng = ~lon, lat = ~lat, 

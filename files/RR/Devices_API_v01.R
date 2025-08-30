@@ -73,7 +73,7 @@ RRdevices[DeviceType2=="U", .N, Connected]
 
         RRdevices[DeviceID %in% c("T-20342")]
         resp2b[DeviceID %in% c("T-20342", "T-23792")]
-        resp2b[DeviceID %in% c("T-20342")][, names(resp2b)[names(resp2b) %like% "Connected"], with =F]
+        resp2b[DeviceID %in% c("T-20342")][, names(resp2b)[names(resp2b) %like% "Connected|Position"], with =F]
         
         
 temp <- resp2b[, .(DeviceID, Received, Time.Received, RealTime, Time.Time)]
