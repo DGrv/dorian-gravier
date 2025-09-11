@@ -8,6 +8,7 @@ alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx 
 
 
 splitgpxtrack() {
+	perl -i -pe "s/\&amp;//g" "$1"
     basename="${1%.*}"
     grep name "$1" | perl -pe "s|.*<name>(.*)</name>|\1|g" \
     | cat -n | while read n f; do

@@ -980,4 +980,15 @@ Check the port, to run in admin mode:
 netstat -aon | findstr "4748"
 ```
 
+# csv
 
+
+## Extract columns
+
+```sh
+csvcut -c ContestLabel Contest_variable.csv
+csvcut -c ContestLabel,Contest Contest_variable.csv
+# remove quotes
+csvcut -c ContestLabel,Contest Contest_variable.csv | tr -d '"'
+
+```

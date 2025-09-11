@@ -44,7 +44,8 @@ lineNumber = 0
 	; Sleep 200
 	
 	If (lineNumber = total_lines) {
-		MsgBox Take will loop to line 1 again !
+		;MsgBox Take will loop to line 1 again !
+		SoundBeep, 750, 500
 		lineNumber = 0
 	}
 Return
@@ -58,7 +59,8 @@ F9::
 		Clipboard = %content%`n
 		Send ^v
 		If (lineNumber = total_lines) {
-			MsgBox Take will loop to line 1 again !
+			;MsgBox Take will loop to line 1 again !
+			SoundBeep, 750, 500
 			lineNumber = 0
 			Break
 		}

@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250831__Eglisauer_Triathlon_2025/BU/rr_backup_Eglisauer_Triathlon_2025_20250830-174849/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#6_Graenichen/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -42,11 +42,13 @@ setwd(wd)
 
 # event -------------------------------------------------------------------
 
-if( file.exists("settings.csv")) {
+if( file.exists("settings.csv") ) {
 
-  temp <- data.table(read.csv("settings.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-  EventName <- gsub("[^A-z0-9]+", "_",temp[Name == "EventName"]$Value)
+  temp <- data.table(read.csv("settings.csv", sep = "\t", header = T, fileEncoding = "utf-8", nrows = 10))
+  EventName <- gsub("[^A-z0-9]+", "_",temp[Name %in% c("Eventname", "EventName")]$Value)
   
+} else {
+  EventName <- ""
 }
 
 
@@ -186,7 +188,12 @@ for (i in seq_along(ll$filepath)) {
   dt <- read.gpx(ll$filepath[i], type="trk")
   setnames(dt, "name", "GpxName")
   dt[, file := ll$file[i]]
-  dt[, ContestName := ll$ContestName[i]]
+  if( is.na(ll$ContestName[i]) ){
+    dt[, ContestName := ll$Name[i]]
+  } else {
+    dt[, ContestName := ll$ContestName[i]]
+  }
+  
   
   #svg
   # Calculate dist btw points

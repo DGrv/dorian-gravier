@@ -20,7 +20,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250914__Stadtlauf_St.Gallen_2025/BU/Extracted_RawData_2024/RawData.csv")
+  wd <- rP("file:///C:/Users/doria/Downloads/")
   input <- "RawData.csv"
   keepbib <- 1 
 } else{
@@ -73,50 +73,59 @@ data[, RD_ID := NULL] # making mess if you import again
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
-
-    # data/list?fields=Contest,Bib&listformat=json
-    url <- "https://api.raceresult.com/274390/VGWNLC91B6TV49ZLPNOPXXUG8SBX5G32"
-    parti <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
-    setnames(parti, names(parti), c("Contest","RD_Bib"))
-    parti <- parti[order(Contest, RD_Bib)]
-    
-    # replace bib with other event 
-    # replace bib with other event 
-    # data/list?fields=Contest,Bib&listformat=json
-    url <- "https://api.raceresult.com/323259/KAL5O4PHTJ2A1XYSSP82ARVX7Z2Y958D"
-    new <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
-    setnames(new, names(new), c("Contest","RD_Bib2"))
-    new <- new[order(Contest, RD_Bib2)]
-    new <- new[Contest %in% u(parti$Contest)]
-    
-    u1 <- u(parti$RD_Bib)
-    u2 <- u(new$RD_Bib2)
-    
-    
-    j = 1
-    for( i in seq_along(u1)) {
-      if( parti$Contest[i] == new$Contest[j] ) {
-        new[j, RD_Bib := parti$RD_Bib[i]]
-        j <- j+1
-      }
+    if( keepbib == 0 ) {
       
-    }
-    new
-    parti
+        # get bib from Event 2024
+        # data/list?fields=Contest,Bib&listformat=json
+        url <- "https://api.raceresult.com/274390/VGWNLC91B6TV49ZLPNOPXXUG8SBX5G32"
+        parti <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
+        setnames(parti, names(parti), c("Contest","RD_Bib"))
+        parti <- parti[order(Contest, RD_Bib)]
+        
+        # replace bib with other event 
+        # replace bib with other event 
+        # Event 2025
+        # data/list?fields=Contest,Bib&listformat=json
+        url <- "https://api.raceresult.com/323259/KAL5O4PHTJ2A1XYSSP82ARVX7Z2Y958D"
+        new <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
+        setnames(new, names(new), c("Contest","RD_Bib2"))
+        new <- new[order(Contest, RD_Bib2)]
+        new <- new[Contest %in% u(parti$Contest)]
+        
+        u1 <- u(parti$RD_Bib)
+        u2 <- u(new$RD_Bib2)
+        
+        
+        j = 1
+        for( i in seq_along(u1)) {
+          if( parti$Contest[i] == new$Contest[j] ) {
+            new[j, RD_Bib := parti$RD_Bib[i]]
+            j <- j+1
+          }
+          
+        }
+        new
+        parti
+        
+        data <- dtjoin(data, new[!is.na(RD_Bib)])
+        data[, RD_Bib := NULL]
+        setnames(data, "RD_Bib2", "RD_Bib")
+        data <- data[!is.na(RD_Bib)]
+        data[, Contest := NULL]
+        data
     
-    data <- dtjoin(data, new[!is.na(RD_Bib)])
-    data[, RD_Bib := NULL]
-    setnames(data, "RD_Bib2", "RD_Bib")
-    data <- data[!is.na(RD_Bib)]
-    data[, Contest := NULL]
-    data
-
-    id <- 505
-    data[RD_Bib== id]
-    new[RD_Bib2 == id]
+        id <- 505
+        data[RD_Bib == id]
+        new[RD_Bib2 == id]
+    
+    }
     
 # Export data -------------------------------------------------------------
 
+# data2 <- data[data[RD_DeviceID == "D-5025", .I[RD_Time==min(RD_Time)], RD_Bib]$V1]
+# data2[, RD_Time := 9*60*60+52*60]
+# data2[, .N, RD_Bib]
+# data <- copy(data2)
 
 create.dir(wd, "Extracted_RawData", "wd2")
 

@@ -35,7 +35,7 @@ vertiAppendPdf() {
 	img2pdf output.png -o output.pdf
 }
 
-rrsvg() {
+svg2png() {
   # Replace In All Files
   cecho -g "rrsvg=Replace in all svg 'Color1' with '$1' : USE DOUBLE QUOTES: rrsvg \"#fa9b2c\""
   local color="$1"

@@ -53,3 +53,55 @@ end
 # -->      end
 # -->   end
 
+
+
+func RuntimeString(Start, Text, Color)
+    start_time = Start | ToSeconds
+    now = date.now | Format "HH:mm:ss" | ToSeconds
+    runtime2 = now - start_time | FormatRaceResult "HH:Mm:ss"
+	trimtext=16-runtime2.size
+	Text2 = Text | TrimPad trimtext
+	if Color=="Red" 
+		color1="^cs 1^"
+	else if Color=="Black" 
+		color1="^cs 0^"
+	else if Color=="Green" 
+		color1="^cs 2^"
+	else if Color=="Blue" 
+		color1="^cs 3^"
+	else if Color=="Yellow" 
+		color1="^cs 4^"
+	else if Color=="Magenta" 
+		color1="^cs 5^"
+	else if Color=="Cian" 
+		color1="^cs 6^"
+	else if Color=="White" 
+		color1="^cs 7^"
+	else if Color=="Orange" 
+		color1="^cs 8^"
+	else if Color=="DeepPink" 
+		color1="^cs 8^"
+	else if Color=="LightBlue" 
+		color1="^cs 10^"
+	end
+	all = color1 + Text2 + "^cs 7^" + runtime2
+    ret all
+end
+
+RuntimeString("13:00:00.0", "Walking", "Red")
+RuntimeString("13:10:00.0", "10km", "Green")
+
+func CountdownString(Start)
+    start_time = Start | ToSeconds
+    now = date.now | Format "HH:mm:ss" | ToSeconds
+    runtime2 = start_time - now | FormatRaceResult "HH:Mm:ss"
+    mled.Color "White"
+    all = runtime2 | TrimPad 16 "Center"
+    ret all
+end
+
+CountdownString(SG.First.Start)
+
+
+
+
