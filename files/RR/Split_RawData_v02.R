@@ -53,6 +53,7 @@ data[, .N, .(RD_TimingPoint, RD_DeviceID)]
 data[RD_TimingPoint == "", RD_TimingPoint := "MANUAL"]
 data[, RD_LoopID := NULL] # otherwise it is taking the rules
 data[, RD_Channel := NULL] # otherwise it is taking the rules
+setnames(data, "ï..RD_Invalid", "RD_Invalid")
 
 
 # # create fake one
@@ -73,11 +74,12 @@ data[, RD_ID := NULL] # making mess if you import again
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
+    keepbib <- 0
     if( keepbib == 0 ) {
       
         # get bib from Event 2024
         # data/list?fields=Contest,Bib&listformat=json
-        url <- "https://api.raceresult.com/274390/VGWNLC91B6TV49ZLPNOPXXUG8SBX5G32"
+        url <- "https://api.raceresult.com/322776/QJQRM6AS6ABDD8GW950PBVYUDAOLJGAS"
         parti <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
         setnames(parti, names(parti), c("Contest","RD_Bib"))
         parti <- parti[order(Contest, RD_Bib)]
@@ -86,7 +88,7 @@ data[, RD_ID := NULL] # making mess if you import again
         # replace bib with other event 
         # Event 2025
         # data/list?fields=Contest,Bib&listformat=json
-        url <- "https://api.raceresult.com/323259/KAL5O4PHTJ2A1XYSSP82ARVX7Z2Y958D"
+        url <- "https://api.raceresult.com/322777/1OT530IS3XNIRXH2LRC5PG895DTWCB9O"
         new <- data.table(jsonlite::fromJSON(url(url), flatten = TRUE))
         setnames(new, names(new), c("Contest","RD_Bib2"))
         new <- new[order(Contest, RD_Bib2)]
@@ -112,11 +114,15 @@ data[, RD_ID := NULL] # making mess if you import again
         setnames(data, "RD_Bib2", "RD_Bib")
         data <- data[!is.na(RD_Bib)]
         data[, Contest := NULL]
-        data
+        data[, RD_Transponder := RD_Bib]
     
-        id <- 505
+        # check
+        id <- 1415
         data[RD_Bib == id]
         new[RD_Bib2 == id]
+        
+        data[,.N, RD_Bib]
+        
     
     }
     
@@ -133,9 +139,9 @@ write.table(data[, .N, .(RD_TimingPoint, RD_DeviceID)], "Summary_rawdata.csv", s
 
 for (i in seq_along(tp)) {
   temp <- data[RD_TimingPoint == tp[i]]
-  if(keepbib == 0) {
-    temp[, RD_Bib := NULL]
-  }
+  # if(keepbib == 0) {
+  #   temp[, RD_Bib := NULL]
+  # }
   if( nrow(temp) > 0 ) {
     write.csv(temp, path_sanitize(p0(gsub(" ", "_", tp[i]), ".csv")), quote=F, row.names = F)
   }

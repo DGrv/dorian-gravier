@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#6_Graenichen/")
+  wd <- rP("file:///C:/Users/doria/Downloads/rr_backup_WWF_Lauf_Amriswil_20250916-092955")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -264,10 +264,10 @@ if( file.exists("splits.csv") ) {
 
 
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v03.R"))
 
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v02.R"))
-
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/SVGCreate_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v03.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Split_RawData-from-ses_v01.R"))
 
  
