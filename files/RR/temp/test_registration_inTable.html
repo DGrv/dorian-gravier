@@ -1,85 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,minimal-ui">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="Webpage description goes here" />
-  <meta charset="utf-8">
-  <title>Change_me</title>
+  <title>ZC3 2026 - Company Self-service</title>
+  <link rel="shortcut icon" href="/graphics/favicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="">
   <link rel="stylesheet" href="css/style.css">
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
-  
-<div class="container">
-  
-</div>
+
+  <div class="container">
+
+  </div>
 
 
 
-<script type="text/javascript">
-<!--
-  var RRReg_eventid="360525";
-  var RRReg_name="Corporate Self-Service_2026";
-  var RRReg_key="OJyCzLqYviY4";
-  var RRReg_server="https://events2.raceresult.com";
--->
-</script>
-<script type="text/javascript" src="https://events2.raceresult.com/registrations/init.js?lang=en"></script>
-<style>
-  /* Add custom CSS here or elsewhere to change the design */
-</style>
+  <script type="text/javascript">
+    <!-
+      var RRReg_eventid="360525";
+      var RRReg_name="Corporate Self-Service_2026";
+      var RRReg_key="OJyCzLqYviY4";
+      var RRReg_server="https://events2.raceresult.com";
+     ->
+  </script>
+  <script type="text/javascript" src="https://events2.raceresult.com/registrations/init.js?lang=en"></script>
+  <style>
+    /* Add custom CSS here or elsewhere to change the design */
+  </style>
 
 
 
 
 
-<script>
-document.addEventListener("paste", function(event) {
-  event.preventDefault();
+  <script>
+    document.addEventListener("paste", function (event) {
+      event.preventDefault();
 
-  // Get the pasted text
-  const pasted = (event.clipboardData || window.clipboardData).getData("text");
+      // Get the pasted text
+      const pasted = (event.clipboardData || window.clipboardData).getData("text");
 
-  // Split into lines, trim, remove empties
-  const lines = pasted.split(/\r?\n/).map(l => l.trim()).filter(l => l !== "");
+      // Split into lines, trim, remove empties
+      const lines = pasted.split(/\r?\n/).map(l => l.trim()).filter(l => l !== "");
 
-  // Get the currently focused input
-  const focusedInput = document.activeElement;
+      // Get the currently focused input
+      const focusedInput = document.activeElement;
 
-  if (!focusedInput) return;
+      if (!focusedInput) return;
 
-  // Find the box that contains the focused input
-  const currentBox = focusedInput.closest(".RRReg_Box");
-  if (!currentBox) return;
+      // Find the box that contains the focused input
+      const currentBox = focusedInput.closest(".RRReg_Box");
+      if (!currentBox) return;
 
-  // Find all boxes
-  const allBoxes = Array.from(document.querySelectorAll(".RRReg_Box"));
+      // Find all boxes
+      const allBoxes = Array.from(document.querySelectorAll(".RRReg_Box"));
 
-  // Find the index of the current box
-  const boxIndex = allBoxes.indexOf(currentBox);
+      // Find the index of the current box
+      const boxIndex = allBoxes.indexOf(currentBox);
 
-  // Find the index of the focused input within its box
-  const inputsInBox = Array.from(currentBox.querySelectorAll("input"));
-  const inputIndex = inputsInBox.indexOf(focusedInput);
+      // Find the index of the focused input within its box
+      const inputsInBox = Array.from(currentBox.querySelectorAll("input"));
+      const inputIndex = inputsInBox.indexOf(focusedInput);
 
-  // Fill the same input in this box and subsequent boxes
-  lines.forEach((line, i) => {
-    const targetBox = allBoxes[boxIndex + i];
-    if (!targetBox) return;
-    const targetInputs = targetBox.querySelectorAll("input");
-    if (targetInputs[inputIndex]) {
-      targetInputs[inputIndex].value = line;
-    }
-  });
-});
-</script>
+      // Fill the same input in this box and subsequent boxes
+      lines.forEach((line, i) => {
+        const targetBox = allBoxes[boxIndex + i];
+        if (!targetBox) return;
+        const targetInputs = targetBox.querySelectorAll("input");
+        if (targetInputs[inputIndex]) {
+          targetInputs[inputIndex].value = line;
+        }
+      });
+    });
+  </script>
 
-<style>
-  /* Add custom CSS here or elsewhere to change the design */
-</style>
+  <style>
+    /* Add custom CSS here or elsewhere to change the design */
+  </style>
 
 </body>
+
 </html>
