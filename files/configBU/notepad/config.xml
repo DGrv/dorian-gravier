@@ -2,38 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="Contestdis" />
-        <Find name="[Contest] IN " />
-        <Find name="$" />
-        <Find name="\(.*$" />
-        <Find name="(" />
-        <Find name="Saturday, 27. Juni 2026" />
-        <Find name="-" />
-        <Find name="Kidstriathlon" />
-        <Find name="Premium " />
-        <Find name=" - " />
-        <Replace name="]" />
-        <Replace name="(|\t" />
-        <Replace name="Saturday, 27. June 2026" />
-        <Replace name="Kids" />
-        <Replace name="P-" />
-        <Replace name="-" />
-        <Replace name="Team" />
-        <Replace name="8kmFR" />
-        <Replace name="8kmSR" />
-        <Replace name="Color2" />
+        <Find name=";;(" />
+        <Find name="erste" />
+        <Find name="AnzahlRunden" />
+        <Find name="51" />
+        <Find name=";Messung" />
+        <Find name=";Runde" />
+        <Find name=";Kontrolle" />
+        <Find name=";MessungD" />
+        <Find name=";CONTROL_" />
+        <Find name=";Spotter_;" />
+        <Replace name=";FINISH;(" />
+        <Replace name=";CONTROL;(" />
+        <Replace name=";SPOTTER;(" />
+        <Replace name="nLap" />
+        <Replace name=";FINISH_" />
+        <Replace name=";LAP_" />
+        <Replace name=";CONTROL_" />
+        <Replace name=";FINISH_D_" />
+        <Replace name=";CONTROL_D_" />
+        <Replace name=";CONTROL_D_;" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Templates_RR12\CSS\Presenter.css" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250913__Runway_Run_2025\CSS\Wall.css" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20251008_Crosslauf_Montana_Zugerberg\Participants\Import.csv" />
         <File filename="C:\Users\doria\Downloads\Special Results (1) - Copy.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250914__Stadtlauf_St.Gallen_2025\CSS\Registration_v01.css" />
-        <File filename="C:\Users\doria\Downloads\rr_backup_Stadtlauf_St._Gallen_2025_20250914-101211\settings.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250914__Stadtlauf_St.Gallen_2025\Draft_StGallen.ada" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Scriban\RR_Scriban_functions_v01.ada" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250914__Stadtlauf_St.Gallen_2025\Document\Distance_infos.md" />
-        <File filename="C:\Users\doria\Downloads\Registration.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Registration\CSS\CSS_Registration_2025.css" />
+        <File filename="C:\Users\doria\Downloads\Special Results - Copy.lvs" />
+        <File filename="C:\Users\doria\Downloads\Ziel.txt" />
+        <File filename="C:\Users\doria\Downloads\Kontrolle.txt" />
+        <File filename="C:\Users\doria\Downloads\RawData.csv" />
+        <File filename="C:\Users\doria\Downloads\Special Results (2) - Copy.lvs" />
+        <File filename="D:\DG-Papers\Bank\DKB\info.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250822__Matterhorn_Ultraks\Code\GoActive\Check_Dorian_MU.R" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2025\20250822__Matterhorn_Ultraks\Code\Missing.csv" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -51,7 +51,7 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="97" y="74" width="1603" height="876" isMaximized="yes" />
+        <GUIConfig name="AppPosition" x="193" y="79" width="1603" height="876" isMaximized="yes" />
         <GUIConfig name="FindWindowPosition" left="1266" top="271" right="1869" bottom="630" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
@@ -92,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="1" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="241" topHeight="200" bottomHeight="441">
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="Notepad++::InternalFunction" id="0" curr="3" prev="-1" isVisible="no" />

@@ -11,7 +11,7 @@ suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/20250525__CyclotourDuLeman/BU/rr_backup_Cyclotour_du_Leman_20250519-103810/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/BU/rr_backup_Skoda_Swiss_Bike_Cup_2025_20250507-100402")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -37,3 +37,4 @@ pa2 <- dtjoin(pa, af2)
 # pa2
 
 write.csv(pa2, "participants_full.csv", row.names = F, fileEncoding="utf-8")
+
