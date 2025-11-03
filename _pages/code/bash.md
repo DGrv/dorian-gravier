@@ -596,6 +596,10 @@ Search in column
 qsv search -s PID "4577" -d "\t" history.csv | csview
 qsv search -s PID "4577" -d "\t" history.csv | qsv table
 qsv search -s PID "4577" -d "\t" history.csv | qsv table
+# if qsv does not work, no output with qsv --version use xsv
+
+xsv search -s Field "Contest" history.csv | csvlens
+
 ```
 
 Search in column with csvlens

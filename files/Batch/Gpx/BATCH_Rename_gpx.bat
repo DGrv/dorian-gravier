@@ -31,7 +31,7 @@ echo %pathfile%
 REM The first <time> is wro´ng so use the first one
 REM Use a ^to use a pipe
 for /f %%i in ('sed -nr "s/.*<time>(.*)<\/time>/\1/p" %pathfile% ^| head -2 ^| tail -1') do set dayy=%%i
-set dayy=%dayy:~0,10%
+set dayy=%dayy:~0,13%
 
 for /f %%i in ('sed -nr "s/.*<name>(.*)<\/name>/\1/p" %pathfile% ^| tail -1') do set nametoreplace=%%i
 
@@ -42,25 +42,28 @@ echo --------------------------
 
 sed -i "s/%nametoreplace%/%dayy%/g" %pathfile%
 
+
+
+
 set newname=%name%_%dayy%.gpx
 
 if not exist "%pathfile%\%newname%" (
-	rename %pathfile% "%newname%"
+	move %pathfile% "%newname%"
 ) else (
 	set newname=%name%_%dayy%b.gpx
 )
 if not exist "%pathfile%\%newname%" (
-	rename %pathfile% "%newname%"
+	move %pathfile% "%newname%"
 ) else (
 	set newname=%name%_%dayy%c.gpx
 )
 if not exist "%pathfile%\%newname%" (
-	rename %pathfile% "%newname%"
+	move %pathfile% "%newname%"
 ) else (
 	set newname=%name%_%dayy%d.gpx
 )
 if not exist "%pathfile%\%newname%" (
-	rename %pathfile% "%newname%"
+	move %pathfile% "%newname%"
 ) 
 
 

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gpx xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3" creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd">
+  <metadata>
+    <link href="connect.garmin.com">
+      <text>Garmin Connect</text>
+    </link>
+    <time>2025-10-15T06:28:27.000Z</time>
+  </metadata>
+  <trk>
+    <name>2025-10-15T06 (Bodensee) Cycling</name>
+    <type>cycling</type>
+    <trkseg>
+      <trkpt lat="47.56656833924353122711181640625" lon="9.650157205760478973388671875">
+        <ele>270</ele>
+        <time>2025-10-15T06.000Z</time>
+      </trkpt>
+      <trkpt lat="47.5631248019635677337646484375" lon="9.65301853604614734649658203125">
+        <ele>276.79998779296875</ele>
+        <time>2025-10-15T06:33:50.000Z</time>
+      </trkpt>
+      <trkpt lat="47.56007605232298374176025390625" lon="9.65744602493941783905029296875">
+        <ele>284.79998779296875</ele>
+        <time>2025-10-15T06:36:55.000Z</time>
+      </trkpt>
+      <trkpt lat="47.55981219001114368438720703125" lon="9.66528008691966533660888671875">
+        <ele>282.600006103515625</ele>
+        <time>2025-10-15T06:38:59.000Z</time>
+      </trkpt>
+      <trkpt lat="47.55906016565859317779541015625" lon="9.67268650420010089874267578125">
+        <ele>272.600006103515625</ele>
+        <time>2025-10-15T06:40:31.000Z</time>
+      </trkpt>
+      <trkpt lat="47.55835239775478839874267578125" lon="9.68035988509654998779296875">
+        <ele>266</ele>
+        <time>2025-10-15T06:42:00.000Z</time>
+      </trkpt>
+      <trkpt lat="47.55424308590590953826904296875" lon="9.683250971138477325439453125">
+        <ele>268.20001220703125</ele>
+        <time>2025-10-15T06:44:59.000Z</time>
+      </trkpt>
+      <trkpt lat="47.552604340016841888427734375" lon="9.68298300169408321380615234375">
+        <ele>267.79998779296875</ele>
+        <time>2025-10-15T06:45:54.000Z</time>
+      </trkpt>
+      <trkpt lat="47.5475130043923854827880859375" lon="9.68103043735027313232421875">
+        <ele>268.20001220703125</ele>
+        <time>2025-10-15T06:48:05.000Z</time>
+      </trkpt>
+      <trkpt lat="47.54250054247677326202392578125" lon="9.68187659047544002532958984375">
+        <ele>267.399993896484375</ele>
+        <time>2025-10-15T06:55:03.000Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

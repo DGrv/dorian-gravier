@@ -4,4 +4,5 @@ REM C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\doria
 
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\Leaflet_github.R
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\BikeTrip_github.R
+C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\BikeTrip2025_github.R
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\Climbing_githubpage.R
