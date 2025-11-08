@@ -22,6 +22,11 @@ system('cmd.exe /c "type diff.ansi.txt | ansi2html > diff.html"')
 
 ```
 
+_[UPDATE]_: now you can have both tools on windows with pip `sh pip install ansi2html icdiff`, tee is coming from git I think.
+
+Then just run `sh icdiff --cols=200 "input1.txt" "input2.txt" -W | tee | ansi2html > diff.html
+
+
 
 
 
