@@ -40,7 +40,7 @@ ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
 ll[, .N, .(colorID, color)]
 
 
-ll[, desc := p0(file, '<br><a target="_blank"  href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
+ll[, desc := p0(file, '<br><a target="_blank" href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, '" download>Download</a>')]
 
 ll <- ll[What!= "time"]
 
@@ -50,6 +50,8 @@ for (i in seq_along(ll$path)) {
   temp <- read.gpx(ll$path[i], type="trk")
   temp[, file := ll$file[i]]
   temp[, What := ll$What[i]]
+  temp[, isStart := F]
+  temp[1, isStart := T]
   data <- rbind(data, temp, fill = T)
   cat(green(" - Read done\n"))
 }
@@ -147,6 +149,16 @@ m <- m %>%
              # fillOpacity = 0.5
   )
 
+
+# m <- m %>%
+#   addCircleMarkers(data = data[isStart == T], lng = ~lon, lat = ~lat,
+#                    group = ll$What[1],
+#                    color = ll$color[1],
+#                    # popup = ~SplitName,
+#                    # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
+#                    opacity = 1,
+#                    radius = 4,
+#                    fillOpacity = 0.8)
 
 
 # output ------------------------------------------------------------------
