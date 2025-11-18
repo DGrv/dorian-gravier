@@ -115,10 +115,27 @@ mergemp4 () {
     rm listmerge
 }
 
+# OLD VERSION
+# reducemp4 () {
+    # cecho -r "Reduce resolution of a video, $1 is x resolution, $2 is inputfile"
+    # input=$2
+    # reso=$1
+    # ffmpeg -stats -loglevel error  -i $input -vf "scale=${reso}:-2" -preset slow -crf 30 -r 24 -acodec aac -y "${input%.*}_r${reso}.mp4"
+# }
+
 reducemp4 () {
-    input=$2
+	cecho -r "Reduce resolution of a video, $1 is x resolution, $2 is inputfile, can also be used 'reducemp4 720 *.mp4'"
     reso=$1
-    ffmpeg -stats -loglevel error  -i $input -vf "scale=${reso}:-2" -preset slow -crf 30 -r 24 -acodec aac -y "${input%.*}_r${reso}.mp4"
+    shift   # removes the first argument so "$@" now contains only the files
+
+    for input in "$@"; do
+        cecho -r "Reduce resolution of $input to $reso px"
+        ffmpeg -stats -loglevel error \
+            -i "$input" \
+            -vf "scale=${reso}:-2" \
+            -preset slow -crf 30 -r 24 -acodec aac \
+            -y "${input%.*}_r${reso}.mp4"
+    done
 }
 
 

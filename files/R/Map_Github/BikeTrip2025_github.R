@@ -40,7 +40,7 @@ ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
 ll[, .N, .(colorID, color)]
 
 
-ll[, desc := p0(file, '<br><a target="_blank"  href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
+ll[, desc := p0(file, '<br><a target="_blank"  href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, '" download>Download</a>')]
 
 ll <- ll[What!= "time"]
 
@@ -116,7 +116,7 @@ for(i in seq_along(ll$file)) {
     addPolylines(data = data2,
                  group = ll$What[i],
                  color = ll$color[i],
-                 popup = ~desc,
+                 popup = ll$desc[i],
                  opacity = ifelse(ll$What[i]=="Stop", 0.4, 1),
                  weight = 4
                  # label = ~name
@@ -125,6 +125,7 @@ for(i in seq_along(ll$file)) {
 
 
 zelt <- read.gpx(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx"), type = "wpt")
+zelt <- zelt[time > "2025-10-13" & time < "2026-02-15"]
 
 rrIcons <- iconList(
   camp = makeIcon(
