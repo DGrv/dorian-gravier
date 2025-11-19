@@ -823,8 +823,9 @@
             const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template.html');
             let template = await response.text();
 
-            const nodes = window.cy.nodes().map(n => n.data());
-            const edges = window.cy.edges().map(e => e.data());
+            // Include positions to preserve layout
+            const nodes = window.cy.nodes().map(n => ({ data: n.data(), position: n.position() }));
+            const edges = window.cy.edges().map(e => ({ data: e.data() }));
             const layoutName = document.getElementById('layoutSelect').value;
 
             const nodesJSON = JSON.stringify(nodes).replace(/</g, '\\u003c');
@@ -833,7 +834,9 @@
             // Replace placeholders in template
             template = template.replace('const nodes = [];', `const nodes = ${nodesJSON};`);
             template = template.replace('const edges = [];', `const edges = ${edgesJSON};`);
-            template = template.replace("const layoutName = 'cose';", `const layoutName = '${layoutName}';`);
+
+            // Use 'preset' layout in saved file to keep positions
+            template = template.replace("const layoutName = 'cose';", `const layoutName = 'preset';`);
 
             const blob = new Blob([template], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
@@ -843,6 +846,7 @@
             a.click();
             URL.revokeObjectURL(url);
         }
+
 
 
 
