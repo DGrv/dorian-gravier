@@ -1,0 +1,45 @@
+1;FinishResult;;0;;[Finish.DECIMAL]+nz([Penalty.DECIMAL])
+2;Penalty;;0;MANUAL;
+5;Start_detected;;0;START;(RAWDATA)
+ 0;1;0;-1;0;0;7200
+10;Chip_Return_ToD;;0;CHIP_RETURN;(RAWDATA)
+ 0;0;0;-1;0;-1;0
+11;Chip_Returned;s;0;;[Chip_Return_ToD.DECIMAL]>0
+100;RelayRankAsTime;s;0;;ifPositive([RelayRank])
+110;GenderRankAsTime;s;0;;ifPositive([GenderRank])
+111;ClubChallengeFactoredResult;s.kkkk;0;;[ClubChallengeSumOfPlacesTS.DECIMALTIME1]/([ClubChallengeOverallRank.max]*[ClubChallengeFactor])
+113;ClubChallengeSumOfCategoryPlaces;s;0;;ifPositive([ClubChallengeSumOfPlacesCategoryTS.DECIMALTIME1])
+1000;FinishCheck;;0;FINISH;(RAWDATA)
+ 0;0;0;0;0;-1;0
+2000;TeamPoints;s;0;;if([CONTEST.isTeam] AND [OverallRank]>0;[OverallRank.Max]-[OverallRank]+1)
+3001;TeamCategoryPoints;s;0;;if([CONTEST.isTeam] AND [RelayRank]>0;[RelayRank.Max]-[RelayRank]+1)
+3002;TeamCategoryPointsFactor;s.kk;-3;;if([CONTEST.isTeam] AND [RelayRank]>0;[OverallRank.Max]/[RelayRank.Max])
+ 0;0;0;0;0;-1;0
+3003;TeamCategoryFactoredPoints;s.kk;-3;;[TeamCategoryPoints.ROUNDED]*[TeamCategoryPointsFactor.ROUNDED]
+3004;TeamCategoryPointsAverage;s.kk;-3;;ifPositive([CompanySumOfPointsCategoryTS.DECIMALTIME3])
+3005;TeamCategoryPointsSumOfAverages;s.kk;-3;;ifPositive([CompanySumOfCategoryAveragesTS.DECIMALTIME1])
+3006;TeamContestSumOfPoints;s.kk;-3;;ifPositive([CompanySumOfContestSumsTS.DECIMALTIME1])
+3007;TeamContestAverageOfPoints;s.kk;-3;;ifPositive([CompanySumOfContestSumsTS.DECIMALTIME2])
+3008;TeamOverallAverageOfPoints;s.kk;-3;;ifPositive([CompanyAverageOfContestSumsTS.DECIMALTIME1])
+3009;TeamOverallBonus;s.k;-3;;[CompanyAllTeamsRank.max]*2.5
+3010;TeamOverallPointsWithBonus;s.kk;-3;;[TeamOverallAverageOfPoints.DECIMAL]+[TeamOverallBonus.DECIMAL]
+3100;____NEW_____;s.kk;-3;;
+4001;SUM_TeamCategoryPoints;s;-3;;DSum("[TeamCategoryPoints]";"[CompanyCategoryRank]>0 AND [CompanyName]="""&[CompanyName]&""" AND [CONTEST]="&[CONTEST]&" AND [TeamCategoryIndex]="&[TeamCategoryIndex]) 
+4002;SUM_TeamCategoryPoints_Factored;s.kk;-3;;[SUM_TeamCategoryPoints]*[TeamCategoryPointsFactor]
+4010;__OPTION_1__;s.kk;-3;;
+4011;nCatFinished;s;-3;;dCount("[CompanyCategoryRank]>0 AND  [CompanyName]=""" & [CompanyName] & """ AND [TeamCategoryIndex]="&[TeamCategoryIndex]&" AND [CONTEST]="&[CONTEST])
+4012;AVG_CatContest;s,kk;-3;;[SUM_TeamCategoryPoints_Factored.DECIMAL]/[nCatFinished]
+4013;SUM_CatContest;s,kk;-3;;DSum("[AVG_CatContest.DECIMAL]";"[CompanyCategoryRank]=1 AND [CompanyName]="""&[CompanyName]&""" AND [CONTEST]="&[CONTEST]) 
+4020;__OPTION_2__;s.kk;-3;;
+4021;nContestFinished;s;-3;;dCount("[CompanyCategoryRank]>0 AND  [CompanyName]=""" & [CompanyName] & """ AND [CONTEST]="&[CONTEST])
+4022;SUM_Contest;s.kk;-3;;DSum("[SUM_TeamCategoryPoints_Factored.DECIMAL]";"[CompanyCategoryRank]=1 AND [CompanyName]="""&[CompanyName]&""" AND [CONTEST]="&[CONTEST]) 
+4023;AVG_Contest;s.kk;-3;;[SUM_Contest]/[nContestFinished]
+4030;__END__;s.kk;-3;;
+4031;SUM_Firma1;s.kk;-3;;Dsum("[SUM_CatContest]";"[CompanyName]="""&[CompanyName]&""" AND [CompanyOverallRank]=1")
+4032;SUM_Firma2;s.kk;-3;;Dsum("[AVG_Contest]";"[CompanyName]="""&[CompanyName]&""" AND [CompanyOverallRank]=1")
+4033;nCatConFinishedFirma;s;-3;;Dcount("[CompanyName]="""&[CompanyName]&""" AND [CompanyCategoryRank]=1")
+4034;EndResultFirma1;s.kk;-3;;[SUM_Firma1]/[nCatConFinishedFirma]
+4035;EndResultFirma2;s.kk;-3;;[SUM_Firma2]/[nCatConFinishedFirma]
+4036;EndResultFirmaWithBonus1;s.kk;-3;;[TeamOverallBonus]+[EndResultFirma1]
+4037;EndResultFirmaWithBonus2;s.kk;-3;;[TeamOverallBonus]+[EndResultFirma2]
+9999;Finish mit 1/10;mm:ss,kk;-3;;[Finish.DECIMAL]+nz([Penalty.DECIMAL])
