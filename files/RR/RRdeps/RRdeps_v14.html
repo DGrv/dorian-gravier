@@ -820,7 +820,7 @@
         async function saveDiagram() {
             if (!window.cy) return;
 
-            const response = await fetch('diagram_template.html');
+            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template.html');
             let template = await response.text();
 
             const nodes = window.cy.nodes().map(n => n.data());

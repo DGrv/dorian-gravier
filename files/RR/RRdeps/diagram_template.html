@@ -5,66 +5,118 @@
 <title>Saved Diagram</title>
 <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
 <style>
-  body { margin:0; background:#2c2b29; }
+  body { margin:0; background:#2c2b29; color:#ede4d3; font-family:Arial,sans-serif; }
   #cy { width:100vw; height:100vh; display:block; }
+  #nodePopup {
+    font-size:1.2em;
+    display:none;
+    position:fixed;
+    top:30%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#7e7565;
+    color:#000;
+    border:2px solid #333;
+    border-radius:8px;
+    padding:20px;
+    max-width:700px;
+    max-height:500px;
+    overflow:auto;
+    z-index:1000;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+  }
 </style>
 </head>
 <body>
+
 <div id="cy"></div>
+<div id="nodePopup">
+  <div id="nodePopupContent"></div>
+  <button onclick="closeNodePopup()" style="margin-top:10px;">Close</button>
+</div>
+
 <script>
-(async function() {
-    // This will be replaced dynamically
-    const nodes = [];
-    const edges = [];
-    const layoutName = 'cose';
+function showNodePopup(htmlContent) {
+    const popup = document.getElementById('nodePopup');
+    document.getElementById('nodePopupContent').innerHTML = htmlContent;
+    popup.style.display = 'block';
+}
 
-    const cy = cytoscape({
-        container: document.getElementById('cy'),
-        elements: { nodes, edges },
-        style: [
-            {
-                selector: 'node',
-                style: {
-                    label: 'data(label)',
-                    'text-valign': 'center',
-                    'text-halign': 'center',
-                    'background-color': ele => {
-                        if (ele.data('source') === 'csv') return '#0074D9';
-                        if (ele.data('source') === 'json') return '#2ECC40';
-                        if (ele.data('source') === 'rankings') return '#FF4136';
-                        if (ele.data('source') === 'teamscores') return '#ff36f5';
-                        if (ele.data('source') === 'contest') return '#badd1d';
-                        if (ele.data('source') === 'addifields') return '#ffbf00';
-                    },
-                    color: '#000',
-                    'padding': 5,
-                    shape: 'roundrectangle',
-                    'text-wrap': 'wrap',
-                    width: 'label',
-                    height: 'label'
-                }
-            },
-            { selector: 'edge', style: { width:2, 'line-color':'#aaa', 'target-arrow-color':'#aaa', 'target-arrow-shape':'triangle' } }
-        ],
-        layout: { name: layoutName },
-        userZoomingEnabled: true,
-        wheelSensitivity: 0.2
-    });
+function closeNodePopup() {
+    document.getElementById('nodePopup').style.display = 'none';
+}
 
-    cy.on('tap', 'node', function(evt) {
-        const node = evt.target;
-        alert('Field: ' + node.id());
-    });
+// --- REPLACE THESE ARRAYS DYNAMICALLY ---
+const nodes = []; // Will be replaced dynamically
+const edges = []; // Will be replaced dynamically
+const layoutName = 'cose';
 
-    // Wait a moment for layout to complete
-    await cy.layout({ name: layoutName }).run();
-})();
+// --- Initialize Cytoscape ---
+const cy = cytoscape({
+    container: document.getElementById('cy'),
+    elements: { nodes, edges },
+    style: [
+        {
+            selector: 'node',
+            style: {
+                label: 'data(label)',
+                'text-valign': 'center',
+                'text-halign': 'center',
+                'background-color': ele => {
+                    if (ele.data('source') === 'csv') return '#0074D9';
+                    if (ele.data('source') === 'json') return '#2ECC40';
+                    if (ele.data('source') === 'rankings') return '#FF4136';
+                    if (ele.data('source') === 'teamscores') return '#ff36f5';
+                    if (ele.data('source') === 'contest') return '#badd1d';
+                    if (ele.data('source') === 'addifields') return '#ffbf00';
+                    return '#999';
+                },
+                color: '#000',
+                'padding': 5,
+                shape: 'roundrectangle',
+                'text-wrap': 'wrap',
+                width: 'label',
+                height: 'label'
+            }
+        },
+        {
+            selector: 'edge',
+            style: {
+                width: 2,
+                'line-color': '#aaa',
+                'target-arrow-color': '#aaa',
+                'target-arrow-shape': 'triangle'
+            }
+        }
+    ],
+    layout: { name: layoutName },
+    userZoomingEnabled: true,
+    wheelSensitivity: 0.2
+});
 
+// --- Node popup on click ---
+cy.on('tap', 'node', function(evt) {
+    const node = evt.target;
 
+    function tr(label, value) {
+        return `<tr><td style="font-weight:bold;padding:4px 8px;">${label}</td><td style="padding:4px 8px;">${value}</td></tr>`;
+    }
 
+    let content = '<table style="border-collapse:collapse;width:100%;">';
+    content += tr('Field', node.id());
+    if (node.data('formula')) content += tr('Formula', node.data('formula'));
+    if (node.data('filter')) content += tr('Filter', node.data('filter'));
+    if (node.data('sort')) content += tr('Sort', node.data('sort').join(', '));
+    if (node.data('group')) content += tr('Group', node.data('group').join(', '));
+    if (node.data('resultIDs')) content += tr('Result IDs', node.data('resultIDs').join(', '));
+    content += '</table>';
 
+    showNodePopup(content);
+});
 
-
+// --- Run layout ---
+cy.layout({ name: layoutName }).run();
 </script>
+
 </body>
 </html>
