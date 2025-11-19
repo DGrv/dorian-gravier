@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Saved Diagram</title>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+<style>
+  body { margin:0; background:#2c2b29; color: #ede4d3; font-family: Arial, sans-serif; }
+  #cy { width:100vw; height:90vh; display:block; border:1px solid #ccc; }
+  #searchBar {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #3a3835;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  #searchInput {
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+  }
+  #searchBtn {
+    padding: 6px 12px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    background: #0074D9;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="searchBar">
+    <input type="text" id="searchInput" placeholder="Enter field name">
+    <button id="searchBtn">Search</button>
+</div>
+
+<div id="cy"></div>
+
+<script>
+(async function() {
+    const nodes = []; // will be replaced dynamically
+    const edges = [];
+    const layoutName = 'cose';
+
+    const cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: { nodes, edges },
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    label: 'data(label)',
+                    'text-valign': 'center',
+                    'text-halign': 'center',
+                    'background-color': ele => {
+                        if (ele.data('source') === 'csv') return '#0074D9';
+                        if (ele.data('source') === 'json') return '#2ECC40';
+                        if (ele.data('source') === 'rankings') return '#FF4136';
+                        if (ele.data('source') === 'teamscores') return '#ff36f5';
+                        if (ele.data('source') === 'contest') return '#badd1d';
+                        if (ele.data('source') === 'addifields') return '#ffffff';
+                    },
+                    color: '#000',
+                    'padding': 5,
+                    shape: 'roundrectangle',
+                    'text-wrap': 'wrap',
+                    width: 'label',
+                    height: 'label'
+                }
+            },
+            { selector: 'edge', style: { width:2, 'line-color':'#aaa', 'target-arrow-color':'#aaa', 'target-arrow-shape':'triangle' } }
+        ],
+        layout: { name: layoutName },
+        userZoomingEnabled: true,
+        wheelSensitivity: 0.2
+    });
+
+    cy.on('tap', 'node', function(evt) {
+        const node = evt.target;
+        alert('Field: ' + node.id());
+    });
+
+    await cy.layout({ name: layoutName }).run();
+
+    // --- Search function ---
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function searchNode() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) return;
+
+        const node = cy.nodes().filter(n => n.id().toLowerCase() === query);
+        if (node.length === 0) {
+            alert(`Field "${query}" not found.`);
+            return;
+        }
+
+        // Highlight
+        cy.elements().removeClass('highlighted');
+        node.addClass('highlighted');
+
+        // Zoom to node
+        cy.animate({
+            center: { eles: node },
+            zoom: 1.5,
+            duration: 500
+        });
+    }
+
+    searchBtn.addEventListener('click', searchNode);
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') searchNode();
+    });
+
+    // Highlight style
+    cy.style()
+      .selector('.highlighted')
+      .style({ 'border-width': 3, 'border-color': '#FF4136' })
+      .update();
+
+})();
+</script>
+</body>
+</html>

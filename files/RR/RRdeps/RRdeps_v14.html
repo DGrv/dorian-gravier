@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>RRdeps</title>
+    <title>🪂 RRdeps</title>
     <link rel="icon" type="image/x-icon" href="builder.ico">
     <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
     <style>
@@ -824,6 +824,10 @@
         async function saveDiagram() {
             if (!window.cy) return;
 
+            // Ask the user for a prefix
+            const prefix = prompt("Enter a prefix for your diagram:", "MyDiagram");
+            if (!prefix) return; // user cancelled
+
             const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template.html');
             let template = await response.text();
 
@@ -842,14 +846,18 @@
             // Use 'preset' layout in saved file to keep positions
             template = template.replace("const layoutName = 'cose';", `const layoutName = 'preset';`);
 
+            // Replace <title> in template with prefix
+            template = template.replace(/<title>.*<\/title>/, `<title>🪂 ${prefix} RRdeps</title>`);
+
             const blob = new Blob([template], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'diagram.html';
+            a.download = `RRdeps_${prefix}.html`; // filename uses prefix
             a.click();
             URL.revokeObjectURL(url);
         }
+
 
 
 

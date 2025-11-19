@@ -81,6 +81,29 @@
             z-index: 1000;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
+        #generateBtn {
+            display: block;
+            /* makes margin auto work */
+            margin: 20px auto;
+            /* centers horizontally and adds vertical spacing */
+            padding: 15px 30px;
+            /* bigger button */
+            font-size: 1.2em;
+            /* larger text */
+            background-color: #971b00;
+            /* nice blue color */
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #generateBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -88,17 +111,15 @@
 
     <h1><img src="builder.ico" alt="" / width="30px"> RRdeps <img src="builder.ico" alt="" / width="30px"> <img
             src="raceresultswiss_small.jpg" /></h1>
-    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a>
-        with the help of <a href="https://chatgpt.com/">ChatGPT</a> using <a
-            href="https://js.cytoscape.org//">cytoscape.js</a>.</p>
+
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 
         <!-- Column 1: File Inputs -->
         <div>
-            <label>Upload <b style="color:#0074D9;">Special results</b> (CSV-style) .lvs file:</label>
+            <label>Upload <b style="color:#0074D9;">Special results</b> cSV-style .lvs file:</label>
             <input type="file" id="csvFile" accept=".lvs,.csv"><br>
 
-            <label>Upload <b style="color:#2ECC40;">User Defined Fields</b> (JSON-style) .lvs file:</label>
+            <label>Upload <b style="color:#2ECC40;">User Defined Fields</b> JSON-style .lvs file:</label>
             <input type="file" id="jsonFile" accept=".lvs,.json"><br>
 
             <label>Upload <b style="color:#FF4136;">Rankings</b> JSON-style .lvs file:</label>
@@ -119,84 +140,88 @@
             <input type="file" id="folderInput" webkitdirectory directory multiple>
 
 
-            <br><br>
-            <button onclick="generateDiagram()">Generate Diagram</button>
+
 
         </div>
 
         <!-- Column 2: Layout / COSE Options -->
         <div>
-            <label>Layout:</label>
-            <select id="layoutSelect">
-                <option value="cose">Cose (force-directed)</option>
-                <option value="breadthfirst">Breadthfirst</option>
-                <option value="grid">Grid</option>
-                <option value="circle">Circle</option>
-            </select>
-            <br>
-
-            <label>Gravity:</label>
+            <!-- <label>Gravity:</label>
             <input type="number" id="gravityInput" value="0.5" step="0.1" min="0">
             <span class="input-explanation">Controls how strongly nodes are pulled toward the center</span>
-            <br>
+            <br> -->
 
             <label>Number of Iterations:</label>
             <input type="number" id="numIterInput" value="1000" step="100" min="100">
-            <span class="input-explanation">More iterations produce a more stable layout</span>
+            <span class="input-explanation">More iterations produce a more stable layout (if too long try with 10 or 100
+                before generating the diagram)</span>
             <br>
 
-            <label>Component Spacing:</label>
+            <!-- <label>Component Spacing:</label>
             <input type="number" id="componentSpacingInput" value="200" step="10" min="0">
             <span class="input-explanation">Distance between disconnected subgraphs</span>
-            <br>
+            <br> -->
 
             <label>Node Overlap:</label>
-            <input type="number" id="nodeOverlapInput" value="100" step="5" min="0">
-            <span class="input-explanation">Minimum space to prevent nodes from overlapping</span>
+            <input type="number" id="nodeOverlapInput" value="1000" step="5" min="0">
+            <span class="input-explanation">Minimum space to prevent nodes from overlapping (for big events like SBC add a 0)</span>
             <br>
 
-            <label>Spacing Factor:</label>
+            <!-- <label>Spacing Factor:</label>
             <input type="number" id="spacingFactorInput" value="3" step="0.1" min="0.1">
             <span class="input-explanation">Overall scaling factor for spacing between nodes</span>
-            <br>
+            <br> -->
 
             <label>Node Repulsion:</label>
             <input type="number" id="nodeRepulsionInput" value="100000000" step="500" min="0">
-            <span class="input-explanation">Force pushing nodes apart</span>
+            <span class="input-explanation">Force pushing nodes apart (for big events like SBC add a 0)</span>
             <br>
 
-            <label>Ideal Edge Length:</label>
+            <!-- <label>Ideal Edge Length:</label>
             <input type="number" id="idealEdgeLengthInput" value="1" step="10" min="10">
             <span class="input-explanation">Preferred length of edges connecting nodes</span>
-            <br>
+            <br> -->
 
-            <label>Edge Elasticity:</label>
+            <!-- <label>Edge Elasticity:</label>
             <input type="number" id="edgeElasticityInput" value="0.1" step="0.1" min="0">
             <span class="input-explanation">How “stretchy” edges are; higher = stronger pull</span>
-            <br>
+            <br> -->
+
+            <!-- Full-width Legend -->
+            <div style="margin-top:20px;">
+                <h3>Legend</h3>
+                <ul style="list-style:none; padding-left:0;">
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#0074D9;margin-right:5px;"></span>
+                        Special results</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#2ECC40;margin-right:5px;"></span>
+                        User Defined Fields</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#FF4136;margin-right:5px;"></span>
+                        Rankings</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#ff36f5;margin-right:5px;"></span>
+                        Team Scores</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#badd1d;margin-right:5px;"></span>
+                        Contest</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#ffffff;margin-right:5px;"></span>
+                        Additional Fields</li>
+                </ul>
+            </div>
 
         </div>
 
+
+
     </div>
 
-    <!-- Full-width Legend -->
-    <div style="margin-top:20px;">
-        <h3>Legend</h3>
-        <ul style="list-style:none; padding-left:0;">
-            <li><span style="display:inline-block;width:15px;height:15px;background:#0074D9;margin-right:5px;"></span>
-                Special results (CSV-style)</li>
-            <li><span style="display:inline-block;width:15px;height:15px;background:#2ECC40;margin-right:5px;"></span>
-                User Defined Fields (JSON-style)</li>
-            <li><span style="display:inline-block;width:15px;height:15px;background:#FF4136;margin-right:5px;"></span>
-                Rankings (JSON-style)</li>
-            <li><span style="display:inline-block;width:15px;height:15px;background:#ff36f5;margin-right:5px;"></span>
-                Team Scores (JSON-style)</li>
-            <li><span style="display:inline-block;width:15px;height:15px;background:#badd1d;margin-right:5px;"></span>
-                Contest (JSON-style)</li>
-            <li><span style="display:inline-block;width:15px;height:15px;background:#ffffff;margin-right:5px;"></span>
-                Additional Fields (JSON-style)</li>
-        </ul>
-    </div>
+    <button id="generateBtn" onclick="generateDiagram()">Generate Diagram</button>
+
+    <br>
+
 
     <label>Search field:</label>
     <input type="text" id="searchInput" placeholder="Enter field name">
@@ -238,6 +263,10 @@
     <div id="cy" style="width:100%; height:800px; border:1px solid #ccc; margin-top:10px;"></div>
 
 
+
+    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a>
+        with the help of <a href="https://chatgpt.com/">ChatGPT</a> using <a
+            href="https://js.cytoscape.org//">cytoscape.js</a>.</p>
 
     <script>
 
@@ -688,27 +717,32 @@
             }
 
             // --- Get layout and spacingFactor ---
-            const layoutName = document.getElementById('layoutSelect').value;
-            const spacingFactor = parseFloat(document.getElementById('spacingFactorInput').value);
+            const layoutName = 'cose';
+            // const spacingFactor = parseFloat(document.getElementById('spacingFactorInput').value);
             const nodeRepulsion = parseFloat(document.getElementById('nodeRepulsionInput').value);
-            const idealEdgeLength = parseFloat(document.getElementById('idealEdgeLengthInput').value);
-            const edgeElasticity = parseFloat(document.getElementById('edgeElasticityInput').value);
-            const gravity = parseFloat(document.getElementById('gravityInput').value);
+            // const idealEdgeLength = parseFloat(document.getElementById('idealEdgeLengthInput').value);
+            // const edgeElasticity = parseFloat(document.getElementById('edgeElasticityInput').value);
+            // const gravity = parseFloat(document.getElementById('gravityInput').value);
             const numIter = parseInt(document.getElementById('numIterInput').value);
-            const componentSpacing = parseFloat(document.getElementById('componentSpacingInput').value);
+            // const componentSpacing = parseFloat(document.getElementById('componentSpacingInput').value);
             const nodeOverlap = parseFloat(document.getElementById('nodeOverlapInput').value);
 
             const layoutOptions = {
                 name: layoutName,
                 nodeDimensionsIncludeLabels: true,
                 animate: true,
-                spacingFactor: spacingFactor,
+                spacingFactor: 3,
+                // spacingFactor: spacingFactor,
                 nodeRepulsion: nodeRepulsion,
-                idealEdgeLength: idealEdgeLength,
-                edgeElasticity: edgeElasticity,
-                gravity: gravity,
+                idealEdgeLength: 1,
+                // idealEdgeLength: idealEdgeLength,
+                edgeElasticity: 0.1,
+                // edgeElasticity: edgeElasticity,
+                gravity: 0.5,
+                // gravity: gravity,
                 numIter: numIter,
-                componentSpacing: componentSpacing,
+                componentSpacing: 200,
+                // componentSpacing: componentSpacing,
                 nodeOverlap: nodeOverlap
             };
 
@@ -828,13 +862,13 @@
             const prefix = prompt("Enter a prefix for your diagram:", "MyDiagram");
             if (!prefix) return; // user cancelled
 
-            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template.html');
+            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template_v02.html');
             let template = await response.text();
 
             // Include positions to preserve layout
             const nodes = window.cy.nodes().map(n => ({ data: n.data(), position: n.position() }));
             const edges = window.cy.edges().map(e => ({ data: e.data() }));
-            const layoutName = document.getElementById('layoutSelect').value;
+            const layoutName = 'cose'
 
             const nodesJSON = JSON.stringify(nodes).replace(/</g, '\\u003c');
             const edgesJSON = JSON.stringify(edges).replace(/</g, '\\u003c');
