@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Saved Diagram</title>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+<style>
+  body { margin:0; background:#2c2b29; }
+  #cy { width:100vw; height:100vh; display:block; }
+</style>
+</head>
+<body>
+<div id="cy"></div>
+<script>
+(async function() {
+    // This will be replaced dynamically
+    const nodes = [];
+    const edges = [];
+    const layoutName = 'cose';
+
+    const cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: { nodes, edges },
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    label: 'data(label)',
+                    'text-valign': 'center',
+                    'text-halign': 'center',
+                    'background-color': ele => {
+                        if (ele.data('source') === 'csv') return '#0074D9';
+                        if (ele.data('source') === 'json') return '#2ECC40';
+                        if (ele.data('source') === 'rankings') return '#FF4136';
+                        if (ele.data('source') === 'teamscores') return '#ff36f5';
+                        if (ele.data('source') === 'contest') return '#badd1d';
+                        if (ele.data('source') === 'addifields') return '#ffbf00';
+                    },
+                    color: '#000',
+                    'padding': 5,
+                    shape: 'roundrectangle',
+                    'text-wrap': 'wrap',
+                    width: 'label',
+                    height: 'label'
+                }
+            },
+            { selector: 'edge', style: { width:2, 'line-color':'#aaa', 'target-arrow-color':'#aaa', 'target-arrow-shape':'triangle' } }
+        ],
+        layout: { name: layoutName },
+        userZoomingEnabled: true,
+        wheelSensitivity: 0.2
+    });
+
+    cy.on('tap', 'node', function(evt) {
+        const node = evt.target;
+        alert('Field: ' + node.id());
+    });
+
+    // Wait a moment for layout to complete
+    await cy.layout({ name: layoutName }).run();
+})();
+
+
+
+
+
+
+</script>
+</body>
+</html>
