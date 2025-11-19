@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RRdeps</title>
+    <link rel="icon" type="image/x-icon" href="builder.ico">
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+    <style>
+        html {
+            background-color: #2c2b29 !important;
+            color-scheme: dark !important;
+        }
+
+        iframe {
+            color-scheme: dark !important;
+        }
+
+        html,
+        body {
+            background-color: #2c2b29;
+            border-color: #7e7565;
+            color: #ede4d3;
+        }
+
+
+        a {
+            color: #5c94d2;
+        }
+
+        table {
+            border-color: #656661;
+        }
+
+        mark {
+            color: #ede4d3;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        #cy {
+            width: 100%;
+            height: 2000px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        select,
+        input,
+        button {
+            margin: 5px 0;
+        }
+        /* Style for explanation text next to inputs */
+  .input-explanation {
+      font-size: 0.9em;
+      color: #555;
+  }
+    </style>
+</head>
+
+<body>
+
+ <h1><img src="builder.ico" alt="" / width="30px"> RRdeps <img src="builder.ico" alt="" /
+            width="30px"> <img src="raceresultswiss_small.jpg" /></h1>
+    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a>
+        with the help of <a href="https://chatgpt.com/">ChatGPT</a> using <a
+            href="https://js.cytoscape.org//">cytoscape.js</a>.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+        <!-- Column 1: File Inputs -->
+        <div>
+            <label>Upload <b style="color:#0074D9;">Special results</b> (CSV-style) .lvs file:</label>
+            <input type="file" id="csvFile" accept=".lvs,.csv"><br>
+
+            <label>Upload <b style="color:#2ECC40;">User Defined Fields</b> (JSON-style) .lvs file:</label>
+            <input type="file" id="jsonFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#FF4136;">Rankings</b> JSON-style .lvs file:</label>
+            <input type="file" id="rankingsFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#ff36f5;">Team Scores</b> JSON-style .lvs file:</label>
+            <input type="file" id="teamscoresFile" accept=".lvs,.json"><br>
+
+            <br><br>
+            <button onclick="generateDiagram()">Generate Diagram</button>
+        </div>
+
+        <!-- Column 2: Layout / COSE Options -->
+        <div>
+            <label>Layout:</label>
+            <select id="layoutSelect">
+                <option value="cose">Cose (force-directed)</option>
+                <option value="breadthfirst">Breadthfirst</option>
+                <option value="grid">Grid</option>
+                <option value="circle">Circle</option>
+            </select>
+            <br>
+
+            <label>Gravity:</label>
+            <input type="number" id="gravityInput" value="0.5" step="0.1" min="0">
+            <span class="input-explanation">Controls how strongly nodes are pulled toward the center</span>
+            <br>
+
+            <label>Number of Iterations:</label>
+            <input type="number" id="numIterInput" value="10000000000" step="100" min="100">
+            <span class="input-explanation">More iterations produce a more stable layout</span>
+            <br>
+
+            <label>Component Spacing:</label>
+            <input type="number" id="componentSpacingInput" value="200" step="10" min="0">
+            <span class="input-explanation">Distance between disconnected subgraphs</span>
+            <br>
+
+            <label>Node Overlap:</label>
+            <input type="number" id="nodeOverlapInput" value="100" step="5" min="0">
+            <span class="input-explanation">Minimum space to prevent nodes from overlapping</span>
+            <br>
+
+            <label>Spacing Factor:</label>
+            <input type="number" id="spacingFactorInput" value="3" step="0.1" min="0.1">
+            <span class="input-explanation">Overall scaling factor for spacing between nodes</span>
+            <br>
+
+            <label>Node Repulsion:</label>
+            <input type="number" id="nodeRepulsionInput" value="100000000" step="500" min="0">
+            <span class="input-explanation">Force pushing nodes apart</span>
+            <br>
+
+            <label>Ideal Edge Length:</label>
+            <input type="number" id="idealEdgeLengthInput" value="1" step="10" min="10">
+            <span class="input-explanation">Preferred length of edges connecting nodes</span>
+            <br>
+
+            <label>Edge Elasticity:</label>
+            <input type="number" id="edgeElasticityInput" value="0.1" step="0.1" min="0">
+            <span class="input-explanation">How “stretchy” edges are; higher = stronger pull</span>
+            <br>
+
+        </div>
+
+    </div>
+
+    <!-- Full-width Legend -->
+    <div style="margin-top:20px;">
+        <h3>Legend</h3>
+        <ul style="list-style:none; padding-left:0;">
+            <li><span style="display:inline-block;width:15px;height:15px;background:#0074D9;margin-right:5px;"></span>
+                Special results (CSV-style)</li>
+            <li><span style="display:inline-block;width:15px;height:15px;background:#2ECC40;margin-right:5px;"></span>
+                User Defined Fields (JSON-style)</li>
+            <li><span style="display:inline-block;width:15px;height:15px;background:#FF4136;margin-right:5px;"></span>
+                Rankings (JSON-style)</li>
+            <li><span style="display:inline-block;width:15px;height:15px;background:#ff36f5;margin-right:5px;"></span>
+                Team Scores (JSON-style)</li>
+        </ul>
+    </div>
+
+    <label>Search field:</label>
+    <input type="text" id="searchInput" placeholder="Enter field name">
+    <button onclick="searchNode()">Go</button>
+
+
+    <!-- Full-width Cytoscape diagram -->
+    <div id="cy" style="width:100%; height:800px; border:1px solid #ccc; margin-top:10px;"></div>
+
+
+
+    <script>
+        function searchNode() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query || !window.cy) return;
+
+            const node = window.cy.$(`#${CSS.escape(query)}`); // CSS.escape to handle special chars
+            if (node.length === 0) {
+                alert(`Field "${query}" not found.`);
+                return;
+            }
+
+            // Optionally, highlight node
+            window.cy.elements().removeClass('highlighted'); // remove previous highlights
+            node.addClass('highlighted');
+
+            // Zoom and pan to node
+            window.cy.animate({
+                center: { eles: node },
+                zoom: 1.5,  // adjust zoom level
+                duration: 500
+            });
+        }
+
+        // --- Parse CSV .lvs ---
+        function parseCSV(text) {
+            const lines = text.split(/\r?\n/);
+            const fields = [];
+            for (const line of lines) {
+                if (!line.trim()) continue;
+                const parts = line.split(";");
+                if (parts.length < 6) continue;
+
+                const id = parseInt(parts[0].trim(), 10);              // column 1 as number
+                const name = parts[1].trim().replace(/\.TIMESET$|\.DECIMAL$/i, '');
+                const formula = parts[5].trim().replace(/\.TIMESET$|\.DECIMAL$/gi, '');
+
+                fields.push({ id, name, formula, source: 'csv' });
+            }
+            return fields;
+        }
+
+
+
+        // --- Parse JSON .lvs ---
+        function parseJSON(text) {
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // Remove .TIMESET/.DECIMAL from Name and Expression
+                const name = item.Name.replace(/\.TIMESET$|\.DECIMAL$/i, '');
+                const formula = item.Expression.replace(/\.TIMESET$|\.DECIMAL$/gi, '');
+                return { name, formula, source: 'json' };
+            });
+        }
+
+
+        // --- Parse Rankings JSON .lvs ---
+        function parseRankingsJSON(text) {
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // Ensure Sort is an array
+                const sortArray = Array.isArray(item.Sort) ? item.Sort : [item.Sort];
+                const sortDeps = sortArray
+                    .filter(s => s)                           // remove empty
+                    .map(s => s.replace(/\.TIMESET$|\.DECIMAL$/i, ''));
+
+                // Ensure Filter is an array
+                const filterArray = Array.isArray(item.Filter) ? item.Filter : [item.Filter];
+                const filterDeps = filterArray
+                    .filter(s => s)                           // remove empty
+                    .map(s => s.replace(/\.TIMESET$|\.DECIMAL$/i, ''));
+
+                // Combine both for dependencies
+                const deps = [...sortDeps, ...filterDeps];
+
+                return {
+                    name: item.Name.replace(/\.TIMESET$|\.DECIMAL$/i, ''),
+                    formula: '',             // empty for rankings
+                    source: 'rankings',
+                    dependencies: deps,
+                    sort: sortArray,
+                    filter: filterArray,
+                    group: item.Group
+                };
+            });
+        }
+
+
+        // --- Parse Team Scores JSON .lvs ---
+        // --- Parse Team Scores JSON .lvs ---
+        function parseTeamScoresJSON(text, csvFields = []) {
+            // Map CSV IDs to field names
+            const csvMap = {};
+            csvFields.forEach(f => {
+                csvMap[String(f.id)] = f.name;  // normalize key as string
+            });
+
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // --- Filter dependencies (from Filter string) ---
+                let filterDeps = [];
+                if (item.Filter) {
+                    const regex = /\[([^\]]+)\]/g;
+                    let match;
+                    while ((match = regex.exec(item.Filter)) !== null) {
+                        filterDeps.push(match[1].replace(/\.TIMESET$|\.DECIMAL$/i, ''));
+                    }
+                }
+
+                // --- ResultID dependencies (map ID → CSV field name) ---
+                const resultDeps = [];
+                const resultIDs = []; // store field names for popup
+                for (let i = 1; i <= 4; i++) {
+                    const rid = item[`ResultID${i}`];
+                    if (rid && csvMap[String(rid)]) {
+                        const fieldName = csvMap[String(rid)];
+                        resultDeps.push(fieldName);
+                        resultIDs.push(fieldName);
+                    }
+                }
+
+                // Combine all dependencies for edge generation
+                const deps = [...filterDeps, ...resultDeps];
+
+                return {
+                    name: item.Name.replace(/\.TIMESET$|\.DECIMAL$/i, ''),
+                    formula: '',               // optional, for compatibility
+                    source: 'teamscores',      // for color
+                    filter: item.Filter || '', // store filter for popup
+                    resultIDs: resultIDs,      // store ResultID field names for popup
+                    dependencies: deps         // for edge generation
+                };
+            });
+        }
+
+
+
+
+
+
+        // --- Extract dependencies ---
+        function extractDependencies(formula) {
+            const deps = [];
+            const regex = /\[([^\]]+)\]/g;
+            let match;
+            while ((match = regex.exec(formula)) !== null) {
+                deps.push(match[1]);
+            }
+            return deps;
+        }
+
+        // --- Generate diagram ---
+        async function generateDiagram() {
+
+            // const csvInput = document.getElementById("csvFile").files[0];
+            // const jsonInput = document.getElementById("jsonFile").files[0];
+            // const rankingsInput = document.getElementById("rankingsFile").files[0];
+            // const teamscoresInput = document.getElementById("teamscoresFile").files[0];
+
+            // if (!csvInput || !jsonInput || !rankingsInput || !teamscoresInput) {
+            //     alert("Please select CSV, JSON, and Rankings files.");
+            //     return;
+            // }
+
+            // const csvText = await csvInput.text();
+            // const jsonText = await jsonInput.text();
+            // const rankingsText = await rankingsInput.text();
+            // const teamscoresText = await teamscoresInput.text();
+
+
+
+            // --- fetch files from GitHub ---
+            const csvText = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/cytoscape/Special%20Results.lvs')
+                .then(r => r.text());
+            const jsonText = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/cytoscape/User%20Defined%20Fields_Fcts..lvs')
+                .then(r => r.text());
+            const rankingsText = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/cytoscape/Rankings.lvs')
+                .then(r => r.text());
+            const teamscoresText = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/temp/cytoscape/Team%20Scores.lvs')
+                .then(r => r.text());
+
+
+
+
+
+
+            const csvFields = parseCSV(csvText);
+            const jsonFields = parseJSON(jsonText);
+            const rankingsFields = parseRankingsJSON(rankingsText);
+            const teamscoresFields = parseTeamScoresJSON(teamscoresText, csvFields);
+
+            const allFields = [...csvFields, ...jsonFields, ...rankingsFields, ...teamscoresFields];
+
+            // --- Node map for real fields only ---
+            const nodeMap = {};
+            allFields.forEach(f => nodeMap[f.name] = f);
+
+            // --- Build edges as before ---
+            const edges = [];
+
+            // CSV + JSON fields
+            allFields.forEach(field => {
+                if (field.formula) {
+                    const deps = extractDependencies(field.formula);
+                    deps.forEach(dep => {
+                        if (nodeMap[dep]) {
+                            edges.push({ data: { source: dep, target: field.name } });
+                        }
+                    });
+                }
+            });
+
+            // Team Scores fields
+            allFields.forEach(field => {
+                if (field.source === 'teamscores' && field.dependencies) {
+                    field.dependencies.forEach(dep => {
+                        if (nodeMap[dep]) {
+                            edges.push({ data: { source: dep, target: field.name } });
+                        }
+                    });
+                }
+            });
+
+            // --- Keep only nodes that appear in edges ---
+            const connectedNodeNames = new Set();
+            edges.forEach(e => {
+                connectedNodeNames.add(e.data.source);
+                connectedNodeNames.add(e.data.target);
+            });
+
+            // --- Build nodes with formulas stored, but only those that are connected ---
+            const nodes = allFields
+                .filter(f => connectedNodeNames.has(f.name))
+                .map(f => ({
+                    data: {
+                        id: f.name,
+                        label: f.name,
+                        source: f.source,
+                        formula: f.formula || '',
+                        sort: f.sort || [],
+                        filter: f.filter || '',
+                        group: f.group || [],
+                        resultIDs: f.resultIDs || []   // <-- array of ResultID1..4
+                    }
+                }));
+
+
+            // --- Remove existing graph if any ---
+            if (window.cy && typeof window.cy.destroy === 'function') {
+                window.cy.destroy();
+            }
+
+            // --- Get layout and spacingFactor ---
+            const layoutName = document.getElementById('layoutSelect').value;
+            const spacingFactor = parseFloat(document.getElementById('spacingFactorInput').value);
+            const nodeRepulsion = parseFloat(document.getElementById('nodeRepulsionInput').value);
+            const idealEdgeLength = parseFloat(document.getElementById('idealEdgeLengthInput').value);
+            const edgeElasticity = parseFloat(document.getElementById('edgeElasticityInput').value);
+            const gravity = parseFloat(document.getElementById('gravityInput').value);
+            const numIter = parseInt(document.getElementById('numIterInput').value);
+            const componentSpacing = parseFloat(document.getElementById('componentSpacingInput').value);
+            const nodeOverlap = parseFloat(document.getElementById('nodeOverlapInput').value);
+
+            const layoutOptions = {
+                name: layoutName,
+                nodeDimensionsIncludeLabels: true,
+                animate: true,
+                spacingFactor: spacingFactor,
+                nodeRepulsion: nodeRepulsion,
+                idealEdgeLength: idealEdgeLength,
+                edgeElasticity: edgeElasticity,
+                gravity: gravity,
+                numIter: numIter,
+                componentSpacing: componentSpacing,
+                nodeOverlap: nodeOverlap
+            };
+
+
+            // --- Initialize Cytoscape ---
+            window.cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: { nodes, edges },
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'label': 'data(label)',
+                            'text-valign': 'center',
+                            'text-halign': 'center',
+                            'background-color': ele => {
+                                if (ele.data('source') === 'csv') return '#0074D9';
+                                if (ele.data('source') === 'json') return '#2ECC40';
+                                if (ele.data('source') === 'rankings') return '#FF4136';  // red
+                                if (ele.data('source') === 'teamscores') return '#ff36f5';  // red
+                            }, 'color': '#000',
+                            'padding': 5,           // fixed padding
+                            'shape': 'roundrectangle',
+                            'text-wrap': 'wrap',
+                            'width': 'label',        // auto-width
+                            'height': 'label'        // auto-height
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#aaa',
+                            'target-arrow-color': '#aaa',
+                            'target-arrow-shape': 'triangle'
+                        }
+                    }
+                ],
+                layout: layoutOptions,
+                userZoomingEnabled: true,    // allow zoom
+                wheelSensitivity: 0.2        // smaller = slower zoom
+            });
+
+            // --- Show formula or rankings info on click ---
+            cy.on('tap', 'node', function (evt) {
+                const node = evt.target;
+                const source = node.data('source');
+
+                if (source === 'rankings') {
+                    alert(
+                        `Field: ${node.id()}\n` +
+                        `Filter: ${node.data('filter')}\n` +
+                        `Group: ${node.data('group').join(', ')}\n` +
+                        `Sort: ${node.data('sort').join(', ')}`
+                    );
+                }
+                else if (source === 'teamscores') {
+                    alert(
+                        `Field: ${node.id()}\n` +
+                        `Filter: ${node.data('filter')}\n` +
+                        `Result IDs: ${node.data('resultIDs').join(', ')}`
+                    );
+                }
+                else { // CSV / JSON
+                    alert(`Field: ${node.id()}\nFormula:\n${node.data('formula')}`);
+                }
+            });
+
+
+            cy.style()
+                .selector('.highlighted')
+                .style({
+                    'border-width': 3,
+                    'border-color': '#FF4136'
+                })
+                .update();
+
+
+
+
+        }
+    </script>
+
+</body>
+
+</html>

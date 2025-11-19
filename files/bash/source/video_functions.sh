@@ -76,6 +76,13 @@ keyframe () {
     done
 }
 
+rmkeyframe () {
+    # reduce size by removing keyframes, or at least 200 frame interval
+	nname="$(basename $1 .mp4)___noKF.mp4"
+	cecho -g "Remove keyframes $1:"
+	ffmpeg -stats -loglevel error -i "$1" -vcodec libx264 -x264-params keyint=200:scenecut=0 -acodec copy "$nname"
+}
+
 
 concat2mp4 () {
     # not better than concatmap4
