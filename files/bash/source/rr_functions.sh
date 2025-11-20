@@ -75,11 +75,19 @@ sesExtract () {
         tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
         fdir=$(echo rr_${1} | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
         mkdir -p $fdir
-        # mdb-tables -1 "$1"
         sqlite3 "$1" ".tables"
         cecho -y "Export mdb:"
         for value in "${tablewanted[@]}"; do sqlite3 -header -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
         cecho -g "csv Done"
+		
+		# Export in other format for RRdeps
+        mkdir -p $fdir/RRdeps
+		sqlite3 -json "$1" "SELECT * FROM results" | jq -r '.[] | [.ID, .Name, .TimeFormat, .TimeRounding, .Location, .Formula ] | @csv' | sed 's/,/;/g; s/"//g' > "$fdir/RRdeps/Special Results.lvs"
+		grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" > "$fdir/RRdeps/User Defined Fields_Fcts..lvs"
+		sqlite3 -json "$1" "SELECT * FROM contests" > "$fdir/RRdeps/Contests.lvs"
+		sqlite3 -json "$1" "SELECT * FROM rankings" > "$fdir/RRdeps/Rankings.lvs"
+		sqlite3 -json "$1" "SELECT * FROM customFields" > "$fdir/RRdeps/Additional Fields.lvs"
+		
 		
 		# Enhance participants.csv
 		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Enhance_Participantscsv_from_BU_v01.R" "$PWD/$fdir"
