@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>🪂 RRdeps</title>
+    <link rel="icon" type="image/x-icon" href="builder.ico">
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+    <style>
+        html {
+            background-color: #2c2b29 !important;
+            color-scheme: dark !important;
+        }
+
+        iframe {
+            color-scheme: dark !important;
+        }
+
+        html,
+        body {
+            background-color: #2c2b29;
+            border-color: #7e7565;
+            color: #ede4d3;
+        }
+
+
+        a {
+            color: #5c94d2;
+        }
+
+        table {
+            border-color: #656661;
+        }
+
+        mark {
+            color: #ede4d3;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        #cy {
+            width: 100%;
+            height: 2000px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        select,
+        input,
+        button {
+            margin: 5px 0;
+        }
+
+        /* Style for explanation text next to inputs */
+        .input-explanation {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #nodePopup {
+            font-size: 1.2em;
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #7e7565;
+            color: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 700px;
+            max-height: 500px;
+            overflow: auto;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #generateBtn {
+            display: block;
+            /* makes margin auto work */
+            margin: 20px auto;
+            /* centers horizontally and adds vertical spacing */
+            padding: 15px 30px;
+            /* bigger button */
+            font-size: 1.2em;
+            /* larger text */
+            background-color: #971b00;
+            /* nice blue color */
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #generateBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1><img src="builder.ico" alt="" / width="30px"> RRdeps <img src="builder.ico" alt="" / width="30px"> <img
+            src="raceresultswiss_small.jpg" /></h1>
+
+    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 0px;">
+
+        <!-- Column 1: File Inputs -->
+        <div>
+            <label>Upload <b style="color:#0074D9;">Special results</b> csv-style .lvs file:</label>
+            <input type="file" id="srFile" accept=".lvs,.csv"><br>
+
+            <label>Upload <b style="color:#2ECC40;">User Defined Fields</b> JSON-style .lvs file:</label>
+            <input type="file" id="udfFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#FF4136;">Rankings</b> JSON-style .lvs file:</label>
+            <input type="file" id="rkgFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#ff36f5;">Team Scores</b> JSON-style .lvs file:</label>
+            <input type="file" id="tsFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#badd1d;">Contest</b> JSON-style .lvs file:</label>
+            <input type="file" id="conFile" accept=".lvs,.json"><br>
+
+            <label>Upload <b style="color:#ffffff;">Additional Fields</b> JSON-style .lvs file:</label>
+            <input type="file" id="afFile" accept=".lvs,.json"><br>
+
+            <h1>or</h1>
+
+            <label>Select a folder containing your files (optional):</label>
+            <input type="file" id="folderInput" webkitdirectory directory multiple>
+
+
+
+
+        </div>
+
+        <!-- Column 2: Layout / COSE Options -->
+        <div>
+            <!-- <label>Gravity:</label>
+            <input type="number" id="gravityInput" value="0.5" step="0.1" min="0">
+            <span class="input-explanation">Controls how strongly nodes are pulled toward the center</span>
+            <br> -->
+
+            <label>Number of Iterations:</label>
+            <input type="number" id="numIterInput" value="1000" step="100" min="100">
+            <span class="input-explanation">More iterations produce a more stable layout (if too long try with 10 or 100
+                before generating the diagram)</span>
+            <br>
+
+            <!-- <label>Component Spacing:</label>
+            <input type="number" id="componentSpacingInput" value="200" step="10" min="0">
+            <span class="input-explanation">Distance between disconnected subgraphs</span>
+            <br> -->
+
+            <label>Node Overlap:</label>
+            <input type="number" id="nodeOverlapInput" value="1000" step="5" min="0">
+            <span class="input-explanation">Minimum space to prevent nodes from overlapping (for big events like SBC add a 0)</span>
+            <br>
+
+            <!-- <label>Spacing Factor:</label>
+            <input type="number" id="spacingFactorInput" value="3" step="0.1" min="0.1">
+            <span class="input-explanation">Overall scaling factor for spacing between nodes</span>
+            <br> -->
+
+            <label>Node Repulsion:</label>
+            <input type="number" id="nodeRepulsionInput" value="100000000" step="500" min="0">
+            <span class="input-explanation">Force pushing nodes apart (for big events like SBC add a 0)</span>
+            <br>
+
+            <!-- <label>Ideal Edge Length:</label>
+            <input type="number" id="idealEdgeLengthInput" value="1" step="10" min="10">
+            <span class="input-explanation">Preferred length of edges connecting nodes</span>
+            <br> -->
+
+            <!-- <label>Edge Elasticity:</label>
+            <input type="number" id="edgeElasticityInput" value="0.1" step="0.1" min="0">
+            <span class="input-explanation">How “stretchy” edges are; higher = stronger pull</span>
+            <br> -->
+
+            <!-- Full-width Legend -->
+            <div style="margin-top:20px;">
+                <h3>Legend</h3>
+                <ul style="list-style:none; padding-left:0;">
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#0074D9;margin-right:5px;"></span>
+                        Special results</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#2ECC40;margin-right:5px;"></span>
+                        User Defined Fields</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#FF4136;margin-right:5px;"></span>
+                        Rankings</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#ff36f5;margin-right:5px;"></span>
+                        Team Scores</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#badd1d;margin-right:5px;"></span>
+                        Contest</li>
+                    <li><span
+                            style="display:inline-block;width:15px;height:15px;background:#ffffff;margin-right:5px;"></span>
+                        Additional Fields</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <button id="generateBtn" onclick="generateDiagram()">Generate Diagram</button>
+
+    <br>
+
+
+    <label>Search field:</label>
+    <input type="text" id="searchInput" placeholder="Enter field name">
+    <button onclick="searchNode()">Go</button>
+
+    &emsp;&emsp;
+
+    <label>
+        <input type="checkbox" id="toggleIsolated" checked>
+        Show nodes without edges
+    </label>
+
+    &emsp;&emsp;
+
+    <button onclick="saveDiagram()">Save Diagram as HTML</button>
+
+
+
+
+
+
+
+
+
+    <!-- Add this somewhere in your body -->
+    <div id="nodePopup">
+        <div id="nodePopupContent"></div>
+        <button onclick="closeNodePopup()" style="margin-top:10px;">Close</button>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Full-width Cytoscape diagram -->
+    <div id="cy" style="width:100%; height:800px; border:1px solid #ccc; margin-top:10px;"></div>
+
+
+
+    <p style="font-style: italic;">Code created by <a href="https://dgrv.github.io/dorian-gravier/">Dorian Gravier</a>
+        with the help of <a href="https://chatgpt.com/">ChatGPT</a> using <a
+            href="https://js.cytoscape.org//">cytoscape.js</a>.</p>
+
+    <script>
+
+        function showNodePopup(htmlContent) {
+            const popup = document.getElementById('nodePopup');
+            document.getElementById('nodePopupContent').innerHTML = htmlContent;
+            popup.style.display = 'block';
+        }
+
+        function closeNodePopup() {
+            document.getElementById('nodePopup').style.display = 'none';
+        }
+
+
+
+
+
+
+
+        function searchNode() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!query || !window.cy) return;
+
+            // Filter nodes by lowercase comparison
+            const node = window.cy.nodes().filter(n => n.id().toLowerCase() === query);
+
+            if (node.length === 0) {
+                alert(`Field "${query}" not found.`);
+                return;
+            }
+
+            // Remove previous highlights
+            window.cy.elements().removeClass('highlighted');
+            node.addClass('highlighted');
+
+            // Zoom and pan to node
+            window.cy.animate({
+                center: { eles: node },
+                zoom: 1.5,
+                duration: 500
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // --- Parse CSV .lvs ---
+        function parsesr(text) {
+            const lines = text
+                .split(/\r?\n/)
+                .map(l => l.trim())
+                .filter(l => l.length > 0);
+
+            const results = [];
+
+            for (const line of lines) {
+                // Split only FIRST 5 semicolons → everything after is formula
+                const parts = line.split(';');
+                if (parts.length < 2) continue; // invalid line
+
+                const id = parts[0].trim();
+
+                // Extract the first 5 fields
+                const firstFive = parts.slice(0, 5).map(p => p.trim());
+
+                // Everything after field 5 = full formula (preserved)
+                const formula = parts.slice(5).join(';').trim();
+
+                // Clean field name
+                const name = firstFive[1]
+                    .replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
+                    .trim();
+
+                // Parse dependencies from formula
+                const deps = [];
+                const regex = /\[([^\]]+)\]/g;
+                let match;
+
+                while ((match = regex.exec(formula)) !== null) {
+                    deps.push(
+                        match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
+                    );
+                }
+
+                results.push({
+                    id,
+                    name,
+                    formula,
+                    source: "sr",
+                    dependencies: deps
+                });
+            }
+
+            return results;
+        }
+
+
+
+
+
+        // --- Parse JSON .lvs ---
+        function parseudf(text) {
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // Remove .TIMESET/.DECIMAL from Name and Expression
+                const name = item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '');
+                const formula = item.Expression.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/gi, '');
+                return { name, formula, source: 'udf' };
+            });
+        }
+
+
+        // --- Parse Rankings JSON .lvs ---
+        function parserkg(text) {
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // Ensure Sort is an array
+                const sortArray = Array.isArray(item.Sort) ? item.Sort : [item.Sort];
+                const sortDeps = sortArray
+                    .filter(s => s)                           // remove empty
+                    .map(s => s.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''));
+
+                // Ensure Filter is an array
+                const filterArray = Array.isArray(item.Filter) ? item.Filter : [item.Filter];
+                const filterDeps = filterArray
+                    .filter(s => s)                           // remove empty
+                    .map(s => s.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''));
+
+                // Combine both for dependencies
+                const deps = [...sortDeps, ...filterDeps];
+
+                return {
+                    name: item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''),
+                    formula: '',             // empty for rankings
+                    source: 'rkg',
+                    dependencies: deps,
+                    sort: sortArray,
+                    filter: filterArray,
+                    group: item.Group
+                };
+            });
+        }
+
+
+        // --- Parse Team Scores JSON .lvs ---
+        function parsets(text, srFields = []) {
+            // Map CSV IDs to field names
+            const srMap = {};
+            srFields.forEach(f => {
+                srMap[String(f.id)] = f.name;  // normalize key as string
+            });
+
+            const data = JSON.parse(text);
+            return data.map(item => {
+                // --- Filter dependencies (from Filter string) ---
+                let filterDeps = [];
+                if (item.Filter) {
+                    const regex = /\[([^\]]+)\]/g;
+                    let match;
+                    while ((match = regex.exec(item.Filter)) !== null) {
+                        filterDeps.push(match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''));
+                    }
+                }
+
+                // --- ResultID dependencies (map ID → CSV field name) ---
+                const resultDeps = [];
+                const resultIDs = []; // store field names for popup
+                for (let i = 1; i <= 4; i++) {
+                    const rid = item[`ResultID${i}`];
+                    if (rid && srMap[String(rid)]) {
+                        const fieldName = srMap[String(rid)];
+                        resultDeps.push(fieldName);
+                        resultIDs.push(fieldName);
+                    }
+                }
+
+                // Combine all dependencies for edge generation
+                const deps = [...filterDeps, ...resultDeps];
+
+                return {
+                    name: item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''),
+                    formula: '',               // optional, for compatibility
+                    source: 'ts',      // for color
+                    filter: item.Filter || '', // store filter for popup
+                    resultIDs: resultIDs,      // store ResultID field names for popup
+                    dependencies: deps         // for edge generation
+                };
+            });
+        }
+
+
+
+        function parsecon(text) {
+            const data = JSON.parse(text); // parse the array of contests
+            const fields = [];
+
+            data.forEach(contest => {
+                if (!contest.Attributes) return;
+
+                // Attributes is a stringified JSON, parse it
+                let attrs = {};
+                try {
+                    attrs = JSON.parse(contest.Attributes);
+                } catch (e) {
+                    console.warn("Failed to parse Attributes for contest", contest.Name, e);
+                    return;
+                }
+
+                // For each key in Attributes, create a field node
+                Object.keys(attrs).forEach(key => {
+                    fields.push({
+                        name: `Contest.${key}`,  // prefix with "Contest."
+                        formula: '',             // empty formula for now
+                        source: 'con',       // to use for color
+                        dependencies: []         // empty deps for now
+                    });
+                });
+            });
+
+            return fields;
+        }
+
+        function parseaf(text) {
+            const data = JSON.parse(text);
+            return data.map(item => ({
+                name: item.Name,       // The field name
+                formula: '',           // No formula
+                source: 'af',  // For coloring/type
+                dependencies: []       // No dependencies for now
+            }));
+        }
+
+
+
+
+
+
+
+
+
+        // --- Extract dependencies ---
+        function extractDependencies(formula) {
+            const deps = [];
+            const regex = /\[([^\]]+)\]/g;
+            let match;
+
+            while ((match = regex.exec(formula)) !== null) {
+                deps.push(match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''));
+            }
+            return deps;
+        }
+
+
+        // --- Show or hide isolated nodes based on checkbox ---
+        function updateIsolatedNodeVisibility() {
+            if (!window.cy) return;
+
+            const show = document.getElementById("toggleIsolated").checked;
+
+            cy.nodes().forEach(node => {
+                const isolated = node.data('isolated');
+
+                if (!isolated) return;
+
+                if (show) {
+                    node.style({
+                        'display': 'element',
+                        'opacity': 0.7,
+                        'background-opacity': 0.7,
+                        'border-opacity': 0.7
+                    });
+                } else {
+                    node.style({
+                        'display': 'none'
+                    });
+                }
+            });
+        }
+
+
+        document.getElementById("toggleIsolated").addEventListener("change", () => {
+            updateIsolatedNodeVisibility();
+        });
+
+        async function getFiles() {
+            const folderFiles = Array.from(document.getElementById("folderInput").files);
+
+            let srInput, udfInput, rkgInput, tsInput;
+
+            if (folderFiles.length > 0) {
+                // Look for the 4 expected files in the folder
+                srInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
+                udfInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
+                rkgInput = folderFiles.find(f => f.name.toLowerCase().includes("rkg")) || null;
+                tsInput = folderFiles.find(f => f.name.toLowerCase().includes("team scores")) || null;
+                conInput = folderFiles.find(f => f.name.toLowerCase().includes("con")) || null;
+                afInput = folderFiles.find(f => f.name.toLowerCase().includes("additional")) || null;
+            } else {
+                // Use single-file inputs
+                srInput = document.getElementById("srFile").files[0];
+                udfInput = document.getElementById("udfFile").files[0];
+                rkgInput = document.getElementById("rkgFile").files[0];
+                tsInput = document.getElementById("tsFile").files[0];
+                conInput = document.getElementById("conFile").files[0];
+                afInput = document.getElementById("afFile").files[0];
+            }
+
+            // Count selected files
+            const filesSelected = [srInput, udfInput, rkgInput, tsInput, conInput, afInput].filter(f => f).length;
+            if (filesSelected < 2) {
+                alert("Please select at least 2 files.");
+                return null;
+            }
+
+            if (tsInput && !srInput) {
+                alert("If Team Scores file is selected, Special Results (CSV) must also be provided.");
+                return null;
+            }
+
+            // Read files
+            const srText = srInput ? await srInput.text() : null;
+            const udfText = udfInput ? await udfInput.text() : null;
+            const rkgText = rkgInput ? await rkgInput.text() : null;
+            const tsText = tsInput ? await tsInput.text() : null;
+            const conText = conInput ? await conInput.text() : null;
+            const afText = afInput ? await afInput.text() : null;
+
+            return { srText, udfText, rkgText, tsText, conText, afText };
+        }
+
+        // --- Generate diagram ---
+        async function generateDiagram() {
+
+            const files = await getFiles();
+            if (!files) return;
+
+            const { srText, udfText, rkgText, tsText, conText, afText } = files;
+
+            const srFields = srText ? parsesr(srText) : [];
+            const udfFields = udfText ? parseudf(udfText) : [];
+            const rkgFields = rkgText ? parserkg(rkgText) : [];
+            const tsFields = tsText ? parsets(tsText, srFields) : [];
+            const conFields = conText ? parsecon(conText) : [];
+            const afFields = afText ? parseaf(afText) : [];
+
+            const allFields = [...srFields, ...udfFields, ...rkgFields, ...tsFields, ...conFields, ...afFields];
+
+
+
+
+
+
+
+
+
+
+
+            // --- Build a node map with lowercase keys ---
+            const nodeMap = {};
+            allFields.forEach(f => nodeMap[f.name.toLowerCase()] = f);
+
+            // --- Build edges as before ---
+            const edges = [];
+
+            // CSV + JSON fields
+            // --- Build edges ---
+            allFields.forEach(field => {
+                if (field.formula) {
+                    const deps = extractDependencies(field.formula);
+                    deps.forEach(dep => {
+                        const depKey = dep.toLowerCase();
+                        if (nodeMap[depKey]) {
+                            edges.push({ data: { source: nodeMap[depKey].name, target: field.name } });
+                        }
+                    });
+                }
+            });
+
+            // Team Scores fields
+            allFields.forEach(field => {
+                if (field.source === 'ts' && field.dependencies) {
+                    field.dependencies.forEach(dep => {
+                        const depKey = dep.toLowerCase();
+                        if (nodeMap[depKey]) {
+                            edges.push({ data: { source: nodeMap[depKey].name, target: field.name } });
+                        }
+                    });
+                }
+            });
+
+            // Contest fields
+            allFields.forEach(field => {
+                if (field.source === 'con' && field.dependencies) {
+                    field.dependencies.forEach(dep => {
+                        const depKey = dep.toLowerCase();
+                        if (nodeMap[depKey]) {
+                            edges.push({ data: { source: nodeMap[depKey].name, target: field.name } });
+                        }
+                    });
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+            // --- Keep only nodes that appear in edges ---
+            const connectedNodeNames = new Set();
+            edges.forEach(e => {
+                connectedNodeNames.add(e.data.source);
+                connectedNodeNames.add(e.data.target);
+            });
+
+            // --- Build nodes with formulas stored, but only those that are connected ---
+            const nodes = allFields
+                // .filter(f => connectedNodeNames.has(f.name)) //This will automatically remove all isolated nodes from your diagram while keeping the current structure for node data and formulas.
+                .map(f => ({
+                    data: {
+                        id: f.name,
+                        label: f.name,
+                        source: f.source,
+                        formula: f.formula || '',
+                        sort: f.sort || [],
+                        filter: f.filter || '',
+                        group: f.group || [],
+                        resultIDs: f.resultIDs || []   // <-- array of ResultID1..4
+                    }
+                }));
+
+
+            // --- Remove existing graph if any ---
+            if (window.cy && typeof window.cy.destroy === 'function') {
+                window.cy.destroy();
+            }
+
+            // --- Get layout and spacingFactor ---
+            const layoutName = 'cose';
+            // const spacingFactor = parseFloat(document.getElementById('spacingFactorInput').value);
+            const nodeRepulsion = parseFloat(document.getElementById('nodeRepulsionInput').value);
+            // const idealEdgeLength = parseFloat(document.getElementById('idealEdgeLengthInput').value);
+            // const edgeElasticity = parseFloat(document.getElementById('edgeElasticityInput').value);
+            // const gravity = parseFloat(document.getElementById('gravityInput').value);
+            const numIter = parseInt(document.getElementById('numIterInput').value);
+            // const componentSpacing = parseFloat(document.getElementById('componentSpacingInput').value);
+            const nodeOverlap = parseFloat(document.getElementById('nodeOverlapInput').value);
+
+            const layoutOptions = {
+                name: layoutName,
+                nodeDimensionsIncludeLabels: true,
+                animate: true,
+                spacingFactor: 3,
+                // spacingFactor: spacingFactor,
+                nodeRepulsion: nodeRepulsion,
+                idealEdgeLength: 1,
+                // idealEdgeLength: idealEdgeLength,
+                edgeElasticity: 0.1,
+                // edgeElasticity: edgeElasticity,
+                gravity: 0.5,
+                // gravity: gravity,
+                numIter: numIter,
+                componentSpacing: 200,
+                // componentSpacing: componentSpacing,
+                nodeOverlap: nodeOverlap
+            };
+
+
+            // --- Initialize Cytoscape ---
+            window.cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: { nodes, edges },
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'label': 'data(label)',
+                            'text-valign': 'center',
+                            'text-halign': 'center',
+                            'background-color': ele => {
+                                if (ele.data('source') === 'sr') return '#0074D9';
+                                if (ele.data('source') === 'udf') return '#2ECC40';
+                                if (ele.data('source') === 'rkg') return '#FF4136';
+                                if (ele.data('source') === 'ts') return '#ff36f5';
+                                if (ele.data('source') === 'con') return '#badd1d';
+                                if (ele.data('source') === 'af') return '#ffffff';
+                            }, 'color': '#000',
+                            'padding': 5,           // fixed padding
+                            'shape': 'roundrectangle',
+                            'text-wrap': 'wrap',
+                            'width': 'label',        // auto-width
+                            'height': 'label'        // auto-height
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#aaa',
+                            'target-arrow-color': '#aaa',
+                            'target-arrow-shape': 'triangle'
+                        }
+                    }
+                ],
+                layout: layoutOptions,
+                userZoomingEnabled: true,    // allow zoom
+                wheelSensitivity: 0.2        // smaller = slower zoom
+            });
+
+            // --- Updated Cytoscape tap handler ---
+            cy.on('tap', 'node', function (evt) {
+                const node = evt.target;
+                const source = node.data('source');
+
+                // Helper to create table rows
+                function tr(label, value) {
+                    return `<tr><td style="font-weight:bold;padding:4px 8px;">${label}</td><td style="padding:4px 8px;">${value}</td></tr>`;
+                }
+
+                let content = '<table style="border-collapse:collapse;width:100%;">';
+
+                if (source === 'rkg') {
+                    content += tr('Field', node.id());
+                    content += tr('Filter', node.data('filter'));
+                    content += tr('Group', node.data('group').join(', '));
+                    content += tr('Sort', node.data('sort').join(', '));
+                } else if (source === 'ts') {
+                    content += tr('Field', node.id());
+                    content += tr('Filter', node.data('filter'));
+                    content += tr('Result IDs', node.data('resultIDs').join(', '));
+                } else { // CSV / JSON
+                    content += tr('Field', node.id());
+                    content += tr('Formula', node.data('formula'));
+                }
+
+                content += '</table>';
+
+                showNodePopup(content);
+            });
+
+
+
+            cy.style()
+                .selector('.highlighted')
+                .style({
+                    'border-width': 3,
+                    'border-color': '#FF4136'
+                })
+                .update();
+
+            // Mark isolated nodes & set opacity
+            cy.nodes().forEach(n => {
+                const isolated = n.connectedEdges().length === 0;
+                n.data('isolated', isolated);
+
+                if (isolated) {
+                    n.style({
+                        'opacity': 0.7,
+                        'background-opacity': 0.7,
+                        'border-opacity': 0.7
+                    });
+                } else {
+                    n.style({
+                        'opacity': 1,
+                        'background-opacity': 1,
+                        'border-opacity': 1
+                    });
+                }
+            });
+            // Apply isolated-node visibility on load
+            updateIsolatedNodeVisibility();
+
+        }
+
+
+
+        async function saveDiagram() {
+            if (!window.cy) return;
+
+            // Ask the user for a prefix
+            const prefix = prompt("Enter a prefix for your diagram:", "MyDiagram");
+            if (!prefix) return; // user cancelled
+
+            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template_v03.html');
+            let template = await response.text();
+
+            // Include positions to preserve layout
+            const nodes = window.cy.nodes().map(n => ({ data: n.data(), position: n.position() }));
+            const edges = window.cy.edges().map(e => ({ data: e.data() }));
+            const layoutName = 'cose'
+
+            const nodesJSON = JSON.stringify(nodes).replace(/</g, '\\u003c');
+            const edgesJSON = JSON.stringify(edges).replace(/</g, '\\u003c');
+
+            // Replace placeholders in template
+            template = template.replace('const nodes = [];', `const nodes = ${nodesJSON};`);
+            template = template.replace('const edges = [];', `const edges = ${edgesJSON};`);
+
+            // Use 'preset' layout in saved file to keep positions
+            template = template.replace("const layoutName = 'cose';", `const layoutName = 'preset';`);
+
+            // Replace <title> in template with prefix
+            template = template.replace(/<title>.*<\/title>/, `<title>🪂 ${prefix} RRdeps</title>`);
+
+            const blob = new Blob([template], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `RRdeps_${prefix}.html`; // filename uses prefix
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

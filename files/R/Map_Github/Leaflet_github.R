@@ -17,18 +17,17 @@ suppressWarnings(suppressMessages(library(gpx)))
 suppressWarnings(suppressMessages(library(xml2)))
 # display.brewer.all()
 
-wd <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022/")
 wdout <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/html_output/")
-setwd(wd)
-
-cat("\nwd = ", wd)
 
 
 
 
 # read gpx ----------------------------------------------------------------
 
-ll <- data.table(path = list.files(wd, pattern = "gpx$", full = T, recursive = T))
+ll <- rbind(data.table(path = list.files(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2022/"), pattern = "gpx$", full = T, recursive = T)),
+            data.table(path = list.files(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2025/"), pattern = "gpx$", full = T, recursive = T)))
+        
+
 ll2 <- data.table(path = list.files(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Leaflet/"), pattern = "gpx$", full = T, recursive = T))
 ll <- rbind(ll, ll2)
 ll[, file := basename(path)]
@@ -43,7 +42,8 @@ ll[, .N, .(colorID, color)]
 ll[, desc := p0(file, '<br><a target="_blank" href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, ' download>Download</a>')]
 ll <- ll[!What %like% "time|Project|Stop"]
 ll[, .N, What]
-ll[What == "Bike_trip_2022", What := "Bike"]
+ll[What %like% "Bike", What := "Bike"]
+ll[, .N, What]
 
 data <- data.table()
 for (i in seq_along(ll$path)) {

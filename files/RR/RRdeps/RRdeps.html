@@ -116,23 +116,23 @@
 
         <!-- Column 1: File Inputs -->
         <div>
-            <label>Upload <b style="color:#0074D9;">Special results</b> cSV-style .lvs file:</label>
-            <input type="file" id="csvFile" accept=".lvs,.csv"><br>
+            <label>Upload <b style="color:#0074D9;">Special results</b> csv-style .lvs file:</label>
+            <input type="file" id="srFile" accept=".lvs,.csv"><br>
 
             <label>Upload <b style="color:#2ECC40;">User Defined Fields</b> JSON-style .lvs file:</label>
-            <input type="file" id="jsonFile" accept=".lvs,.json"><br>
+            <input type="file" id="udfFile" accept=".lvs,.json"><br>
 
             <label>Upload <b style="color:#FF4136;">Rankings</b> JSON-style .lvs file:</label>
-            <input type="file" id="rankingsFile" accept=".lvs,.json"><br>
+            <input type="file" id="rkgFile" accept=".lvs,.json"><br>
 
             <label>Upload <b style="color:#ff36f5;">Team Scores</b> JSON-style .lvs file:</label>
-            <input type="file" id="teamscoresFile" accept=".lvs,.json"><br>
+            <input type="file" id="tsFile" accept=".lvs,.json"><br>
 
             <label>Upload <b style="color:#badd1d;">Contest</b> JSON-style .lvs file:</label>
-            <input type="file" id="contestFile" accept=".lvs,.json"><br>
+            <input type="file" id="conFile" accept=".lvs,.json"><br>
 
             <label>Upload <b style="color:#ffffff;">Additional Fields</b> JSON-style .lvs file:</label>
-            <input type="file" id="contestFile" accept=".lvs,.json"><br>
+            <input type="file" id="afFile" accept=".lvs,.json"><br>
 
             <h1>or</h1>
 
@@ -323,7 +323,7 @@
 
 
         // --- Parse CSV .lvs ---
-        function parseCSV(text) {
+        function parsesr(text) {
             const lines = text
                 .split(/\r?\n/)
                 .map(l => l.trim())
@@ -364,7 +364,7 @@
                     id,
                     name,
                     formula,
-                    source: "csv",
+                    source: "sr",
                     dependencies: deps
                 });
             }
@@ -377,19 +377,19 @@
 
 
         // --- Parse JSON .lvs ---
-        function parseJSON(text) {
+        function parseudf(text) {
             const data = JSON.parse(text);
             return data.map(item => {
                 // Remove .TIMESET/.DECIMAL from Name and Expression
                 const name = item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '');
                 const formula = item.Expression.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/gi, '');
-                return { name, formula, source: 'json' };
+                return { name, formula, source: 'udf' };
             });
         }
 
 
         // --- Parse Rankings JSON .lvs ---
-        function parseRankingsJSON(text) {
+        function parserkg(text) {
             const data = JSON.parse(text);
             return data.map(item => {
                 // Ensure Sort is an array
@@ -410,7 +410,7 @@
                 return {
                     name: item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''),
                     formula: '',             // empty for rankings
-                    source: 'rankings',
+                    source: 'rkg',
                     dependencies: deps,
                     sort: sortArray,
                     filter: filterArray,
@@ -421,11 +421,11 @@
 
 
         // --- Parse Team Scores JSON .lvs ---
-        function parseTeamScoresJSON(text, csvFields = []) {
+        function parsets(text, srFields = []) {
             // Map CSV IDs to field names
-            const csvMap = {};
-            csvFields.forEach(f => {
-                csvMap[String(f.id)] = f.name;  // normalize key as string
+            const srMap = {};
+            srFields.forEach(f => {
+                srMap[String(f.id)] = f.name;  // normalize key as string
             });
 
             const data = JSON.parse(text);
@@ -445,8 +445,8 @@
                 const resultIDs = []; // store field names for popup
                 for (let i = 1; i <= 4; i++) {
                     const rid = item[`ResultID${i}`];
-                    if (rid && csvMap[String(rid)]) {
-                        const fieldName = csvMap[String(rid)];
+                    if (rid && srMap[String(rid)]) {
+                        const fieldName = srMap[String(rid)];
                         resultDeps.push(fieldName);
                         resultIDs.push(fieldName);
                     }
@@ -458,7 +458,7 @@
                 return {
                     name: item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, ''),
                     formula: '',               // optional, for compatibility
-                    source: 'teamscores',      // for color
+                    source: 'ts',      // for color
                     filter: item.Filter || '', // store filter for popup
                     resultIDs: resultIDs,      // store ResultID field names for popup
                     dependencies: deps         // for edge generation
@@ -468,7 +468,7 @@
 
 
 
-        function parseContestJSON(text) {
+        function parsecon(text) {
             const data = JSON.parse(text); // parse the array of contests
             const fields = [];
 
@@ -489,7 +489,7 @@
                     fields.push({
                         name: `Contest.${key}`,  // prefix with "Contest."
                         formula: '',             // empty formula for now
-                        source: 'contest',       // to use for color
+                        source: 'con',       // to use for color
                         dependencies: []         // empty deps for now
                     });
                 });
@@ -498,12 +498,12 @@
             return fields;
         }
 
-        function parseAddifieldsJSON(text) {
+        function parseaf(text) {
             const data = JSON.parse(text);
             return data.map(item => ({
                 name: item.Name,       // The field name
                 formula: '',           // No formula
-                source: 'addifields',  // For coloring/type
+                source: 'af',  // For coloring/type
                 dependencies: []       // No dependencies for now
             }));
         }
@@ -563,47 +563,47 @@
         async function getFiles() {
             const folderFiles = Array.from(document.getElementById("folderInput").files);
 
-            let csvInput, jsonInput, rankingsInput, teamscoresInput;
+            let srInput, udfInput, rkgInput, tsInput;
 
             if (folderFiles.length > 0) {
                 // Look for the 4 expected files in the folder
-                csvInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
-                jsonInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
-                rankingsInput = folderFiles.find(f => f.name.toLowerCase().includes("rankings")) || null;
-                teamscoresInput = folderFiles.find(f => f.name.toLowerCase().includes("team scores")) || null;
-                contestInput = folderFiles.find(f => f.name.toLowerCase().includes("contest")) || null;
-                addifieldsInput = folderFiles.find(f => f.name.toLowerCase().includes("additional")) || null;
+                srInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
+                udfInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
+                rkgInput = folderFiles.find(f => f.name.toLowerCase().includes("rkg")) || null;
+                tsInput = folderFiles.find(f => f.name.toLowerCase().includes("team scores")) || null;
+                conInput = folderFiles.find(f => f.name.toLowerCase().includes("con")) || null;
+                afInput = folderFiles.find(f => f.name.toLowerCase().includes("additional")) || null;
             } else {
                 // Use single-file inputs
-                csvInput = document.getElementById("csvFile").files[0];
-                jsonInput = document.getElementById("jsonFile").files[0];
-                rankingsInput = document.getElementById("rankingsFile").files[0];
-                teamscoresInput = document.getElementById("teamscoresFile").files[0];
-                contestInput = document.getElementById("contestFile").files[0];
-                addifieldsInput = document.getElementById("addifieldsFile").files[0];
+                srInput = document.getElementById("srFile").files[0];
+                udfInput = document.getElementById("udfFile").files[0];
+                rkgInput = document.getElementById("rkgFile").files[0];
+                tsInput = document.getElementById("tsFile").files[0];
+                conInput = document.getElementById("conFile").files[0];
+                afInput = document.getElementById("afFile").files[0];
             }
 
             // Count selected files
-            const filesSelected = [csvInput, jsonInput, rankingsInput, teamscoresInput, contestInput, addifieldsInput].filter(f => f).length;
+            const filesSelected = [srInput, udfInput, rkgInput, tsInput, conInput, afInput].filter(f => f).length;
             if (filesSelected < 2) {
                 alert("Please select at least 2 files.");
                 return null;
             }
 
-            if (teamscoresInput && !csvInput) {
+            if (tsInput && !srInput) {
                 alert("If Team Scores file is selected, Special Results (CSV) must also be provided.");
                 return null;
             }
 
             // Read files
-            const csvText = csvInput ? await csvInput.text() : null;
-            const jsonText = jsonInput ? await jsonInput.text() : null;
-            const rankingsText = rankingsInput ? await rankingsInput.text() : null;
-            const teamscoresText = teamscoresInput ? await teamscoresInput.text() : null;
-            const contestText = contestInput ? await contestInput.text() : null;
-            const addifieldsText = addifieldsInput ? await addifieldsInput.text() : null;
+            const srText = srInput ? await srInput.text() : null;
+            const udfText = udfInput ? await udfInput.text() : null;
+            const rkgText = rkgInput ? await rkgInput.text() : null;
+            const tsText = tsInput ? await tsInput.text() : null;
+            const conText = conInput ? await conInput.text() : null;
+            const afText = afInput ? await afInput.text() : null;
 
-            return { csvText, jsonText, rankingsText, teamscoresText, contestText, addifieldsText };
+            return { srText, udfText, rkgText, tsText, conText, afText };
         }
 
         // --- Generate diagram ---
@@ -612,16 +612,16 @@
             const files = await getFiles();
             if (!files) return;
 
-            const { csvText, jsonText, rankingsText, teamscoresText, contestText, addifieldsText } = files;
+            const { srText, udfText, rkgText, tsText, conText, afText } = files;
 
-            const csvFields = csvText ? parseCSV(csvText) : [];
-            const jsonFields = jsonText ? parseJSON(jsonText) : [];
-            const rankingsFields = rankingsText ? parseRankingsJSON(rankingsText) : [];
-            const teamscoresFields = teamscoresText ? parseTeamScoresJSON(teamscoresText, csvFields) : [];
-            const contestFields = contestText ? parseContestJSON(contestText) : [];
-            const addifieldsFields = addifieldsText ? parseAddifieldsJSON(addifieldsText) : [];
+            const srFields = srText ? parsesr(srText) : [];
+            const udfFields = udfText ? parseudf(udfText) : [];
+            const rkgFields = rkgText ? parserkg(rkgText) : [];
+            const tsFields = tsText ? parsets(tsText, srFields) : [];
+            const conFields = conText ? parsecon(conText) : [];
+            const afFields = afText ? parseaf(afText) : [];
 
-            const allFields = [...csvFields, ...jsonFields, ...rankingsFields, ...teamscoresFields, ...contestFields, ...addifieldsFields];
+            const allFields = [...srFields, ...udfFields, ...rkgFields, ...tsFields, ...conFields, ...afFields];
 
 
 
@@ -656,7 +656,7 @@
 
             // Team Scores fields
             allFields.forEach(field => {
-                if (field.source === 'teamscores' && field.dependencies) {
+                if (field.source === 'ts' && field.dependencies) {
                     field.dependencies.forEach(dep => {
                         const depKey = dep.toLowerCase();
                         if (nodeMap[depKey]) {
@@ -668,7 +668,7 @@
 
             // Contest fields
             allFields.forEach(field => {
-                if (field.source === 'contest' && field.dependencies) {
+                if (field.source === 'con' && field.dependencies) {
                     field.dependencies.forEach(dep => {
                         const depKey = dep.toLowerCase();
                         if (nodeMap[depKey]) {
@@ -759,12 +759,12 @@
                             'text-valign': 'center',
                             'text-halign': 'center',
                             'background-color': ele => {
-                                if (ele.data('source') === 'csv') return '#0074D9';
-                                if (ele.data('source') === 'json') return '#2ECC40';
-                                if (ele.data('source') === 'rankings') return '#FF4136';
-                                if (ele.data('source') === 'teamscores') return '#ff36f5';
-                                if (ele.data('source') === 'contest') return '#badd1d';
-                                if (ele.data('source') === 'addifields') return '#ffffff';
+                                if (ele.data('source') === 'sr') return '#0074D9';
+                                if (ele.data('source') === 'udf') return '#2ECC40';
+                                if (ele.data('source') === 'rkg') return '#FF4136';
+                                if (ele.data('source') === 'ts') return '#ff36f5';
+                                if (ele.data('source') === 'con') return '#badd1d';
+                                if (ele.data('source') === 'af') return '#ffffff';
                             }, 'color': '#000',
                             'padding': 5,           // fixed padding
                             'shape': 'roundrectangle',
@@ -800,12 +800,12 @@
 
                 let content = '<table style="border-collapse:collapse;width:100%;">';
 
-                if (source === 'rankings') {
+                if (source === 'rkg') {
                     content += tr('Field', node.id());
                     content += tr('Filter', node.data('filter'));
                     content += tr('Group', node.data('group').join(', '));
                     content += tr('Sort', node.data('sort').join(', '));
-                } else if (source === 'teamscores') {
+                } else if (source === 'ts') {
                     content += tr('Field', node.id());
                     content += tr('Filter', node.data('filter'));
                     content += tr('Result IDs', node.data('resultIDs').join(', '));
@@ -862,7 +862,7 @@
             const prefix = prompt("Enter a prefix for your diagram:", "MyDiagram");
             if (!prefix) return; // user cancelled
 
-            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template_v02.html');
+            const response = await fetch('https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/RRdeps/diagram_template_v03.html');
             let template = await response.text();
 
             // Include positions to preserve layout
