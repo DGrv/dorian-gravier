@@ -25,11 +25,6 @@ layout: single
 		img {
 			max-width: 100%;
 		}
-		    	<style>
-		#map { 
-			width: 100%;
-			height: 500px;
-		}
 		.legend {
 			line-height: 13px;
 			color: #555;
@@ -59,29 +54,30 @@ layout: single
  
 
     </head>
+
     <body>
 
-		<iframe width="100%" height="500px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
-		
-		
-		
-		<br>
-		<br>
+	<iframe width="100%" height="700px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
+	
+	
+	
+	<br>
+	<br>
 	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
 	<br>
-	<center><iframe src="./assets/images/BikeTrip2022/text.txt" frameBorder="0"></iframe></center>
+	<center><iframe src="{{ "/assets/images/BikeTrip2022/text.txt" | relative_url }}" frameBorder="0"></iframe></center>
 	<br>
-	<center><img src="./assets/images/BikeTrip2022/Elevation.png"></center>
+	<center><img src="{{ "/assets/images/BikeTrip2022/Elevation.png" | relative_url }}"></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Distance.png"/></center>
+	<center><img src="{{ "/assets/images/BikeTrip2022/Distance.png" | relative_url }}"/></center>
 	<br>
-	<center><img src="../assets/images/BikeTrip2022/Ascent.png"/></center>
+	<center><img src="{{ "/assets/images/BikeTrip2022/Ascent.png" | relative_url }}"/></center>
 	<br>
 
 
 
-[![youtube_icon](https://dgrv.github.io/dorian-gravier/assets/images/BikeTrip2022/youtube.png){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
+[![youtube_icon]({{ "/assets/images/BikeTrip2022/youtube.png" | relative_url }}){: .align-center width="10%"}](https://www.youtube.com/@oYoLibro)
 
 <center><a href="https://www.youtube.com/@oYoLibro">All the youtube videos here</a></center>
 
@@ -111,7 +107,7 @@ Software used to create all of this:
 	- [gpx.studio](https://gpx.studio/)
 	- [Locus Android app](https://www.locusmap.app/) with the incredible [OpenAndroMaps](https://www.openandromaps.org/en)
 
-<html><center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
+	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
     </body>
 
