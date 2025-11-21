@@ -4,7 +4,13 @@
 # source '/path/to/cecho.sh'
 
 # merge all gpx in folder
-alias merge.gpx='ff="";for f in *.gpx; do ff="$ff -f $f"; done; gpsbabel -i gpx $ff -x duplicate,location,shortname -o gpx -F "Merge.gpx"'
+mergegpx() {
+	ff=""
+	for f in *.gpx;	do 
+		ff="$ff -f $f"
+	done
+	gpsbabel -i gpx $ff -x duplicate,location,shortname -o gpx -F "Merge.gpx"
+}
 
 
 splitgpxtrack() {
