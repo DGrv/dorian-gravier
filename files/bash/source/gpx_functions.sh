@@ -3,8 +3,8 @@
 # source me in your script or .bashrc/.zshrc if wanna use cecho
 # source '/path/to/cecho.sh'
 
-# merge all gpx in folder
-mergegpx() {
+
+mergegpx() { # merge all gpx in folder
 	ff=""
 	for f in *.gpx;	do 
 		ff="$ff -f $f"
@@ -13,7 +13,7 @@ mergegpx() {
 }
 
 
-splitgpxtrack() {
+splitgpxtrack() { # split a gpx in multiples if track inside
 	perl -i -pe "s/\&amp;//g" "$1"
     basename="${1%.*}"
     grep name "$1" | perl -pe "s|.*<name>(.*)</name>|\1|g" \
@@ -24,7 +24,7 @@ splitgpxtrack() {
     done
 }
 
-kml2gpx() {
+kml2gpx() { # convert kml to gpx
     basename="${1%.*}"
     gpsbabel -i kml -f "$1" -x nuketypes,waypoints -o gpx -F "${basename}.gpx"
 }

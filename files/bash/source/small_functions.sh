@@ -19,25 +19,44 @@ alias godown="cd /mnt/c/Users/doria/Downloads"
 
 alias sbashrc='source ~/.bashrc'
 alias nbashrc='nano ~/.bashrc'
-alias szshrc='source ~/.zshrc'
-alias nzshrc='nano ~/.zshrc'
 
 # backup bashrc
 alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh'
-alias buzshrc='cat ~/.zshrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/zshrc.sh'
 
-timestamp () {
+lfunction() { # List all function that I have written
+
+	
+
+	wd="/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/"
+
+	# Find all .sh files in the specified directory
+	find "$wd" -name '*.sh' | while read -r file; do
+	    filename=$(basename "$file")
+		cecho -g "------------------ filename ------------------------------"
+		# Extract function names using grep and cut
+		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d ' ' -f 1 | sed 's/\(\)//g'
+		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d '#' -f 2 | sed 's/^\s//g'
+		grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | sed 's/().*\#/\t\t--->\t/g'
+
+		echo ""
+	done
+}
+
+
+
+
+timestamp () { # echo timestamp
   date +"%Y%m%d-%H%M%S"
 }
 
-l0() {
+l0() { 
     local num="$1"
     local width="$2"
     printf "%0${width}d" "$num"
 }
 
 
-rents () {
+rents () { # add timestamp to a filename
     dirname=$(dirname "$1")
     filename=$(basename "$1")
     ext=$(echo "$filename" | cut -f 2 -d '.')
@@ -47,12 +66,12 @@ rents () {
 }
 
 
-replacespacesfilename () {
+replacespacesfilename () { # Replace all spaces in filenames and path
   for f in *\ *; do mv "$f" "${f// /_}"; done
 }
 
 
-checkdep() {
+checkdep() { # check if packages are installed arguments as packages
     local args=("$@")
     deps=0
     for name in "${args[@]}"; do
@@ -61,7 +80,7 @@ checkdep() {
     [[ $deps -ne 1 ]] && cecho -g "All depedencies fulfilled" || { cecho -r "\nInstall the above and rerun this script\n"; }
 }
 
-riaf() {
+riaf() { # replace string in all files in folder run
   # Replace In All Files
   cecho -g "riaf=Replace in All Files, '$1' is search string, '$2' is replacement: USE DOUBLE QUOTES: riaf \"#fa9b2c\" \"Color1\""
   local in="$1"

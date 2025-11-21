@@ -5,7 +5,7 @@
 
 
 
-makeitall() {
+makeitall() { # Run makeitall script for videos in cd
     cmd.exe /c 'C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Make_it_ALL_v16___FFMPEG.bat "%CD%"'
 }
 
@@ -36,20 +36,20 @@ alias reduce.fr.30='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $
 alias reduce.fr.24='for i in *mp4; do  fr=$(exiftool -n -T -VideoFrameRate -s3 $i);  fr=$(calc -d "round($fr)");  fr=$(echo $fr);  if [[ "$fr" -gt "24" ]]; then   nname="$(basename $i .mp4)___old_fr-$fr.mp4";   mv "$i" "$nname"; cecho -g "Convert $i:"; ffmpeg -stats -loglevel error -i "$nname" -r 24 "$i"; echo;  fi; done'
 
 
-# funktion tosearch on youtube and download the first found video and export audio
-ytsearch() {  yt-dlp ytsearch1:"$1" -x --audio-format "mp3" --audio-quality 0 -c -o "%(uploader)s__-__%(title)s.%(ext)s"; }
+
+ytsearch() { # function to search on youtube and download the first found video and export audio
+	yt-dlp ytsearch1:"$1" -x --audio-format "mp3" --audio-quality 0 -c -o "%(uploader)s__-__%(title)s.%(ext)s"
+}
 
 
-gifx4() {
-	# speed up a gif 4 times
+gifx4() { # speed up a gif 4 times
 	ffmpeg -i "$1" -filter_complex "[0:v]mpdecimate,setpts=0.25*PTS,split[a][b];[a]palettegen[p];[b][p]paletteuse" -y "$(basename $i .gif)_x4.gif"
 }
 
 
 
 
-addpad () {
-    # add padding if vertical video - right now video should be 1920x1080 or 1080 x1920
+addpad () { # add padding if vertical video - right now video should be 1920x1080 or 1080 x1920
     cecho -y "Will add a padding if video is 1080x1920 to get it 1920x1080"
     for i in *mp4; do
         cecho -g $i
@@ -63,8 +63,7 @@ addpad () {
     done
 }
 
-keyframe () {
-    # add keyframe to get 1 per second to all files in folder
+keyframe () { # add keyframe to get 1 per second to all files in folder
     for i in *mp4; do
        fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
        fr=$(calc -d "round($fr)")
@@ -76,15 +75,14 @@ keyframe () {
     done
 }
 
-rmkeyframe () {
-    # reduce size by removing keyframes, or at least 200 frame interval
+rmkeyframe () { # reduce size by removing keyframes, or at least 200 frame interval
 	nname="$(basename $1 .mp4)___noKF.mp4"
 	cecho -g "Remove keyframes $1:"
 	ffmpeg -stats -loglevel error -i "$1" -vcodec libx264 -x264-params keyint=200:scenecut=0 -acodec copy "$nname"
 }
 
 
-concat2mp4 () {
+concat2mp4 () { # other test of concatmp4
     # not better than concatmap4
     # not better than concatmap4
     # not better than concatmap4
@@ -100,7 +98,7 @@ concat2mp4 () {
     ls -1 |grep -E "*.ts$" | xargs rm
 }
 
-concatmp4 () {
+concatmp4 () { # concat all mp4 in a folder
     for i in *.mp4; do 
         nname="$(basename $i .mp4).ts"
         ffmpeg -stats -loglevel error -i $i -c copy $nname
@@ -111,7 +109,7 @@ concatmp4 () {
     ls -1 |grep -E ".*.ts$" | xargs rm
 }
 
-mergemp4 () {
+mergemp4 () { # Do not use this function, use concatmp4 instead
     cecho -r "Do not use this function, use concatmp4 instead"
     rm listmerge 2> /dev/null
     touch listmerge
@@ -122,15 +120,8 @@ mergemp4 () {
     rm listmerge
 }
 
-# OLD VERSION
-# reducemp4 () {
-    # cecho -r "Reduce resolution of a video, $1 is x resolution, $2 is inputfile"
-    # input=$2
-    # reso=$1
-    # ffmpeg -stats -loglevel error  -i $input -vf "scale=${reso}:-2" -preset slow -crf 30 -r 24 -acodec aac -y "${input%.*}_r${reso}.mp4"
-# }
 
-reducemp4 () {
+reducemp4 () { # Reduce resolution of a video, $1 is x resolution, $2 is inputfile, can also be used 'reducemp4 720 *.mp4
 	cecho -r "Reduce resolution of a video, $1 is x resolution, $2 is inputfile, can also be used 'reducemp4 720 *.mp4'"
     reso=$1
     shift   # removes the first argument so "$@" now contains only the files
@@ -146,7 +137,7 @@ reducemp4 () {
 }
 
 
-restoreBUoverlay() {
+restoreBUoverlay() { # Video function to restore certain overlay mp4
     orifold=$PWD
     fold="${orifold}/BU_Music_overlay/"
     cd "$fold"
@@ -158,7 +149,7 @@ restoreBUoverlay() {
 }
 
 
-renamemp4ext() {
+renamemp4ext() { # rename MP4 to mp4
     count=$(ls -1 *.MP4 2>/dev/null | wc -l)
     if [[ "$count" -gt "0" ]]; then
         cecho -c "Rename MP4 to mp4 ----------"
@@ -171,7 +162,7 @@ renamemp4ext() {
     fi
 }
 
-normamp3() {
+normamp3() { # Normalize all mp3 in a directory
     cecho -c "Norma mp3 ----------"
     # if [ ! -d "BU_mp3" ]; then
         # Directory does not exist, so create it
@@ -186,7 +177,7 @@ normamp3() {
 }
 
 
-check_codec() {
+check_codec() { # print the codecs
   cecho -c "Check codec ----------"
   for i in *mp4; do
     # t=$(exiftool -n -T -CompressorName -s3 $i)
@@ -206,7 +197,7 @@ check_codec() {
 }
 
 
-check_starttime() {
+check_starttime() { # print starttime
     cecho -c "repair ----------"
     for i in *mp4; do
         sumstarttime=$(ffprobe -v error -show_entries stream=start_time -of default=noprint_wrappers=1:nokey=1 "$i" | paste -sd+ | bc)
@@ -224,7 +215,7 @@ check_starttime() {
 }
 
 
-check_AR() {
+check_AR() { # print Audio Sample Rate
   cecho -c "Check Audio Sample Rate ----------"
   for i in *mp4; do
     t=$(exiftool -n -T -AudioSampleRate -s3 $i)
@@ -247,7 +238,7 @@ check_AR() {
   done
 }
 
-check_reso() {
+check_reso() { # print Resolution
   cecho -c "Check Resolution ----------"
   for i in *mp4; do
     t=$(exiftool -n -T -SourceImageWidth -s3 $i)
@@ -266,7 +257,7 @@ check_reso() {
   done
 }
 
-check_duration() {
+check_duration() { # print duration
   cecho -c "Check Duration ----------"
   checkdurationout=0
   count=$(ls -1 *.mp4 2>/dev/null | wc -l)
@@ -305,7 +296,7 @@ check_duration() {
 }
 
 
-printfps() {
+printfps() { # print fps
   cecho -c "Show FPS ----------"
   for i in *mp4; do
     fr=$(exiftool -n -T -VideoFrameRate -s3 $i)
@@ -324,7 +315,7 @@ printfps() {
 }
 
 
-reducefr30() {
+reducefr30() { # reduce fps to 30 - if you want to set another value use $1
     cecho -c "Check FPS ---------- if you want to set another value use $1"
     if [[ ! -z "$1" ]]; then
         fps=$1
@@ -350,7 +341,7 @@ reducefr30() {
     done
 }
 
-check_timescale30() {
+check_timescale30() { # print timescale
   cecho -c "Check timescale ----------"
   for i in *mp4; do
     ts=$(ffprobe -v error -select_streams v:0 -show_entries stream=time_base -of default=noprint_wrappers=1:nokey=1 "$i")
@@ -372,7 +363,7 @@ check_timescale30() {
 
 
 # add audio
-check_audio() {
+check_audio() { # add audio silence if no audio in mp4
   cecho -c "Check Add audio ----------"
   for i in *mp4; do
     t=$(exiftool -n -T -AudioChannels -s3 $i)
@@ -392,8 +383,8 @@ check_audio() {
   done
 }
 
-# remove audio add silence
-rm_audio_mp4() {
+
+rm_audio_mp4() { # remove audio add silence
     for i in *mp4; do 
         nname=$(basename "$i" .mp4)_old_mute.mp4
         mv "$i" "$nname"
@@ -404,8 +395,8 @@ rm_audio_mp4() {
 
 
 
-# convert mov to mp4
-mov2mp4 () {
+
+mov2mp4 () { # convert mov to mp4
    replacespacesfilename
    for i in $(ls -1 |grep -iE "MOV$|mov$"); do
        echo --------------------------------
@@ -418,10 +409,7 @@ mov2mp4 () {
 
 
 
-jpg2mp4 () {
-    # convert picture to video
-    # $1 is video path
-    # $2 how many seconds
+jpg2mp4 () { # convert picture to video $1 is video path $2 how many seconds
     cecho -r "Arg1 is the image, arg2 is duration of the mp4, arg3 is T or F is you want to adapt it to 1920x1080"
     if [[ "$3" == "T" ]]; then
 		mogrify -resize 1920x1080 -extent 1920x1080 -gravity Center -background black "$1"
@@ -434,7 +422,7 @@ jpg2mp4 () {
 
 
 
-matrixmp4() {
+matrixmp4() { # make a video matrix
 
     # important for making a matrix
     # - same codec, fr, time ...
@@ -519,7 +507,7 @@ matrixmp4() {
 }
 
 
-rmdf() {
+rmdf() { # function to make test, do not remember
 
     [ ! -e BU_rmdf ] && mkdir BU_rmdf
 

@@ -4,13 +4,8 @@
 # source '/path/to/cecho.sh'
 
 
-mdb-export-all () {
-    mdb-tables "$1" | tr ' ' '\n' | while read line ; do
-       mdb-export -Q -d "\\t" "$1" $line > "${line}.csv"
-    done
-}
 
-gpx2svg() {
+gpx2svg() { # convert a gpx to svg for profile, gpx2svg *.gpx  or gpx2svg input.gpx
 	
 	# to use like this : gpx2svg *.gpx 
 	# gpx2svg input.gpx
@@ -30,12 +25,12 @@ gpx2svg() {
 
 
 
-vertiAppendPdf() {
+vertiAppendPdf() { # convert png and append them together vertically and create a pdf for commenting
 	convert *.png -append output.png
 	img2pdf output.png -o output.pdf
 }
 
-svg2png() {
+svg2png() { # convert svg to png in directory with $1 a color to replace it : NOT FINISHED FUNCTION
   # Replace In All Files
   cecho -g "rrsvg=Replace in all svg 'Color1' with '$1' : USE DOUBLE QUOTES: rrsvg \"#fa9b2c\""
   local color="$1"
@@ -45,7 +40,7 @@ svg2png() {
   for file in *.svg; do convert -background none -density 300 "$file" -resize 100x100 "${file%.svg}.png"; done
 }
 
-spareRR () {
+spareRR () { # (not used anymore)
    # keep as info 
    for i in *.csv ; do 
 	   ll=$(grep -n "$1" "$i" | cut -d : -f 1)
@@ -58,7 +53,7 @@ spareRR () {
    done
 }
 
-splitRawData() {
+splitRawData() { # Split a file with rawdata to split files, using Rscript (not used anymore) used Split_RawData_v01, but now Split_RawData_v02
 	if [ -f "$1" ]; then
 		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_RawData_v01.R" "${PWD}" "${1}" "${2}"
 	fi
@@ -66,7 +61,7 @@ splitRawData() {
 
 
 
-sesExtract () {
+sesExtract () { # Extract ses data
     if [ -f "$1" ]; then
 	
 		# set "backup_OCHSNER SPORT Zurich Marathon 2025_20250409-121357.ses"
