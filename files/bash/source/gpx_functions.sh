@@ -4,7 +4,7 @@
 # source '/path/to/cecho.sh'
 
 
-mergegpx() { # merge all gpx in folder
+mergegpx() { # merge all gpx in folder in gpx with trkseg
 	args=()
     for f in *.gpx; do
         args+=(-f "$f")
