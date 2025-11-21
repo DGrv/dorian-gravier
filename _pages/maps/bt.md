@@ -4,11 +4,6 @@ author_profile: false
 layout: single
 ---
 
-<html>
-	<head>
-	
-	<title>Bike Trip 2022</title>
-	
 	<style>
 		#circle {
 			width: 30px;
@@ -53,9 +48,6 @@ layout: single
 
  
 
-    </head>
-
-    <body>
 
 	<iframe width="100%" height="700px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
 	
@@ -109,8 +101,5 @@ Software used to create all of this:
 
 	<center><script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff00e6', 'G2G7GK8LM');kofiwidget2.draw();</script> </center>
 
-    </body>
-
-</html>
 
 
