@@ -5,11 +5,11 @@
 
 
 mergegpx() { # merge all gpx in folder
-	ff=""
-	for f in *.gpx;	do 
-		ff="$ff -f $f"
-	done
-	gpsbabel -i gpx $ff -x duplicate,location,shortname -o gpx -F "Merge.gpx"
+	args=()
+    for f in *.gpx; do
+        args+=(-f "$f")
+    done
+    gpsbabel -i gpx "${args[@]}" -x duplicate,location,shortname -o gpx -F "Merge.gpx"
 }
 
 

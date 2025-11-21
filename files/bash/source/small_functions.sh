@@ -69,13 +69,31 @@ l0() { # ...
 }
 
 
-rents () { # add timestamp to a filename
-    dirname=$(dirname "$1")
-    filename=$(basename "$1")
-    ext=$(echo "$filename" | cut -f 2 -d '.')
-    filename=$(echo "$filename" | cut -f 1 -d '.')
-    ts=$(timestamp)
-    mv "$1"  "${dirname}/${filename}_${ts}.${ext}"
+addts () { # add timestamp to a filename
+	# # old code
+    # dirname=$(dirname "$1")
+    # filename=$(basename "$1")
+    # ext=$(echo "$filename" | cut -f 2 -d '.')
+    # filename=$(echo "$filename" | cut -f 1 -d '.')
+    # ts=$(timestamp)
+    # mv "$1"  "${dirname}/${filename}_${ts}.${ext}"
+	# old code
+	local input="$1"
+	local ts
+    ts="$(date +'%Y%m%d-%H%M%S')"
+
+    # extract basename and extension
+    local base="${input%.*}"
+    local ext="${input##*.}"
+
+    # if no extension, avoid adding a trailing dot
+    if [[ "$base" == "$ext" ]]; then
+        local new=$(printf "%s_%s\n" "$input" "$ts")
+    else
+        local new=$(printf "%s_%s.%s\n" "$base" "$ts" "$ext")
+    fi
+    mv -- "$input" "$new"
+    echo "Renamed to: $new"
 }
 
 
