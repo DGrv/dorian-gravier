@@ -1,6 +1,7 @@
 
-# remove last character
-rlc () {
+
+
+rlc () { # remove last character
 	perl -pe "s/.$//"
 }
 
@@ -25,20 +26,32 @@ alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravi
 
 lfunction() { # List all function that I have written
 
-	
-
 	wd="/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/"
-
 	# Find all .sh files in the specified directory
 	find "$wd" -name '*.sh' | while read -r file; do
 	    filename=$(basename "$file")
-		cecho -g "------------------ filename ------------------------------"
+		cecho -g "------------------ $filename ------------------------------"
 		# Extract function names using grep and cut
 		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d ' ' -f 1 | sed 's/\(\)//g'
 		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d '#' -f 2 | sed 's/^\s//g'
-		grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | sed 's/().*\#/\t\t--->\t/g'
-
+		
+		# grep -P '^\s*\w+\s*\(\)\s*\{' "$file" | perl -pe 's/\(\).*\#/\t\t--->\t/g'
+		
+		 # Extract functions and comments, sort alphabetically by function name
+        grep -P '^\s*\w+\s*\(\)\s*\{' "$file" | \
+        perl -ne '
+            if (/^\s*(\w+)\s*\(\).*\{.*(#.*)$/) {
+                $func = $1;
+                $comment = $2 // "";
+                $comment =~ s/^#\s*//;
+                print "$func\t$comment\n";
+            }
+        ' | sort | while IFS=$'\t' read -r func_name comment2; do
+            printf "%-25s\t%s\t%s\n" "${YELLOW}$func_name${NC}" "${CYAN}--->${NC}" "${WHITE}${comment2}${NC} "
+        done
+		
 		echo ""
+
 	done
 }
 
@@ -49,7 +62,7 @@ timestamp () { # echo timestamp
   date +"%Y%m%d-%H%M%S"
 }
 
-l0() { 
+l0() { # ...
     local num="$1"
     local width="$2"
     printf "%0${width}d" "$num"

@@ -6,11 +6,14 @@
 # START Dorian ----------------------------------------------		
 
 # source cecho for color echo
+source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/ansi_colors.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/small_functions.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/video_functions.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/gpx_functions.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/rr_functions.sh
+
+
 
 
 # END DORIAN --------------------------------------------
