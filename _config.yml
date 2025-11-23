@@ -140,6 +140,7 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - Rakefile
   - README*
   - tmp
+  - _site
       
 # # Collections
 # collections:
