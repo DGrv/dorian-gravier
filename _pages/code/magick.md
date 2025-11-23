@@ -6,6 +6,25 @@ author_profile: false
 layout: code
 ---
 
+# Get information
+
+## Transparency
+
+Input image:
+
+![]({{ "/assets/images/pages/code/magick/logo_wwf_black.png" | relative_url }})
+
+
+See transparency of an image: `magick input.png -alpha extract mask.png && qimgv mask.png`
+
+![]({{ "/assets/images/pages/code/magick/Get-info-mask.png" | relative_url }})
+
+Identify if transparency in the image : `magick identify -format "%f: %[channels]\n" logo.png`
+
+If `input.png: srgba 4.0 ` or rgba there is transparency but not if `gray` or `rgb`
+
+
+
 # Resize
 
 ## Keep aspect ration
@@ -114,9 +133,90 @@ magick input.png -fuzz 40% -trim output.png
 
 
 
-# remove background
+# Remove background
 
-## Option 1
+## Fuzz
+
+Some comparison from what is explained below with different fuzzy levels
+
+```sh
+# rembg1
+magick input.png -fill none -fuzz 80% -draw "color 0,0 floodfill" output.png
+# rembg2
+# Really good results. This method makes pixels near white transparent. The -fuzz value determines how similar a pixel needs to be to white to be removed.
+magick input.png -fuzz 80% -transparent white output.png
+# rembg3
+magick input.png -channel RGBA -fuzz 80% -fill none -opaque white output.png
+```
+
+💡 [The code to create those is done on wsl and can be found here]({{ "/assets/images/pages/code/magick/Comparison/code_run_to_create_comparison.sh" | relative_url }})
+
+
+### 80%
+
+| Original                                                                        | rembg1_80                                                                                 | rembg2_80                                                                                 | rembg3_80                                                                                 |
+| :------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S01.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S02.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S03.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S04.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S05.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S06.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S07.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S08.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S09.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S10.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S11.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S12.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S13.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S14.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_80/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_80/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_80/S15.png" | relative_url }}) |
+
+
+### 50%
+
+| Original                                                                        | rembg1_50                                                                                 | rembg2_50                                                                                 | rembg3_50                                                                                 |
+| :------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S01.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S02.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S03.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S04.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S05.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S06.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S07.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S08.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S09.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S10.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S11.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S12.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S13.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S14.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_50/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_50/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_50/S15.png" | relative_url }}) |
+
+
+### 25%
+
+| Original                                                                        | rembg1_25                                                                                 | rembg2_25                                                                                 | rembg3_25                                                                                 |
+| :------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S01.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S02.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S03.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S03.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S04.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S05.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S06.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S07.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S08.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S09.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S10.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S11.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S12.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S13.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S14.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg1_25/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg2_25/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/rembg3_25/S15.png" | relative_url }}) |
+
+
+
+## For Gif
 
 ```sh
 magick input.gif -transparent black g%01d.png
@@ -126,92 +226,116 @@ magick -dispose background g*.png output.gif
 Part of the [source](https://stackoverflow.com/a/30026293/2444948) and [official manual](https://www.imagemagick.org/Usage/anim_basics/#background)
 
 
-## Option 2
-
-or even better, adapt fuzz
-
-```sh 
-magick charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
-```
-
-![]({{ "/assets/images/charlie_small.png" | relative_url }})
-![]({{ "/assets/images/charlie2_small.png" | relative_url }})
-
-Other example with this Gif
-
-![]({{ "/assets/images/magick_gif_01.gif" | relative_url }})
-
-```sh
-magick in.gif -resize 50% in2.gif # resize 
-magick in2.gif g%01d.png # export each frame
-del g00.png # remove first one that was the background
-magick -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
-```
-
-creating this:
-
-![]({{ "/assets/images/magick_gif_01.gif" | relative_url }})
-
-## Fuzz and Transparent method
-
-Really good results.
-This method makes pixels near white transparent. The -fuzz value determines how similar a pixel needs to be to white to be removed.
-
-```sh
-magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
-```
-
-Combine with Resize, sharpen
-
-```sh
-magick Bild_1.jpg -resize 500x Bild_1b.png 
-magick Bild_1b.png -sharpen 0x20 Bild_1c.png 
-magick Bild_1c.png -fuzz 80% -transparent white Bild_1d.png
-```
-
-## Channel and Alpha
-
-```sh
-magick input.png -channel RGBA -fuzz 10% -fill none -opaque white output.png
-```
-
 # Replace color
-
 
 ```sh
 # Adapt the fuzz 
-magick input.png -fuzz 80% -fill black     -opaque white       output1.png
-magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff"   output2.png
+magick input.png -fuzz 80% -fill black -opaque white output1.png
+magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff" output2.png
 
 # keep the transparency level
 magick input.png  -channel RGB -auto-level    +level-colors black    output3.png
 ```
 
--input: ![input]({{ "/assets/images/magick_ex_replace_color_input.png" | relative_url }})
-- ouput1: ![output1]({{ "/assets/images/magick_ex_replace_color_output1.png" | relative_url }})
-- ouput2: ![output2]({{ "/assets/images/magick_ex_replace_color_output2.png" | relative_url }})
-- ouput3: ![output3]({{ "/assets/images/magick_ex_replace_color_output3.png" | relative_url }})
+-input: ![input]({{ "/assets/images/pages/code/magick/magick_ex_replace_color_input.png" | relative_url }})
+- ouput1: ![output1]({{ "/assets/images/pages/code/magick/magick_ex_replace_color_output1.png" | relative_url }})
+- ouput2: ![output2]({{ "/assets/images/pages/code/magick/magick_ex_replace_color_output2.png" | relative_url }})
+- ouput3: ![output3]({{ "/assets/images/pages/code/magick/magick_ex_replace_color_output3.png" | relative_url }})
 
 [Check this out to replace colors to a certain ton and keep transparency](https://stackoverflow.com/a/62780504/2444948)
-
-## Replace the color from a mono logo
-
-[Source](https://stackoverflow.com/a/62780504/2444948)
 
 With some explanation and modification.
 Really good method, keep transparency.
 If 2 color will remove the whiter one and change the darker one for what you want.
 
 ```sh
-magick logo.png -colorspace gray -contrast-stretch 0 +level-colors "none,#f48023" logo2.png && qimgv logo2.png
+magick logo.png -colorspace gray -contrast-stretch 0 +level-colors "none,#9370DB"  logo2.png && qimgv logo2.png
 # -colorspace gray				Converts the image to grayscale.
 # -contrast-stretch 0 			Automatically maximize contrast based on the darkest and brightest pixels.
-# +level-colors "none,#f48023"		This remaps the grayscale levels to new colors. none is transparent
+# +level-colors "none,#9370DB"		+level-colors A,B maps black → A and white → B, with intermediate grays forming a gradient. none is transparent
 ```
 
-![]({{ "/assets/images/logo_wwf_black.png" | relative_url }})
-![]({{ "/assets/images/logo_wwf_purple.png" | relative_url }})
+⚠️⚠️⚠️ If you have problem with some pixel try to remove `-contrast-stretch 0 `
 
+![]({{ "/assets/images/pages/code/magick/logo_wwf_black.png" | relative_url }})
+➡️
+![]({{ "/assets/images/pages/code/magick/logo_wwf_purple.png" | relative_url }})
+
+## Replace non tranparent pixel to a color
+
+### Flat recolor
+
+What it does:
+
+- `colorize 100` → replaces all existing colors with the given -fill color.
+- Transparency is preserved (alpha channel is untouche- d).
+- All opaque pixels become solid red.- 
+- No gradients are created; the color is uniform.- 
+- Good for logos or images where you want a flat color- .
+
+Key points:
+
+- The original shades of the image are ignored.
+- The effect is deterministic and flat.
+
+```sh
+magick input.png -fill "#ff0000" -colorize 100 output.png
+```
+
+![]({{ "/assets/images/pages/code/magick/Example_magick_fill_input.png" | relative_url }})
+➡️
+![]({{ "/assets/images/pages/code/magick/Example_magick_fill_output1.png" | relative_url }})
+
+### Levels-based recolor
+
+What it does:
+
+- `channel RGB` → only affects the RGB channels, alpha unchanged.
+- `auto-level` → stretches the darkest pixel → black and brightest pixel → white.
+    - Normalizes contrast across the image.
+- `+level-colors "#9370DB"` → maps grayscale values to a color gradient:
+    - Black → #9370DB
+    - White → default (or another color if specified)
+    - Mid-gray → interpolated between black & white colors
+
+Key points:
+
+- Produces a gradient of colors, not a flat fill.
+- Preserves shading / contrast from the original image.
+- Good for artistic recoloring where you want shadows/highlights to remain visible.
+- Transparency may be tricky — if the image has alpha, +level-colors doesn’t reliably preserve it.
+
+```sh
+magick input.png -channel RGB -auto-level +level-colors "#9370DB" output.png
+```
+
+![]({{ "/assets/images/pages/code/magick/Example_magick_fill_input.png" | relative_url }})
+➡️
+![]({{ "/assets/images/pages/code/magick/Example_magick_fill_output2.png" | relative_url }})
+
+
+### Comparison of those 2 methods
+
+| Original                                                                                 | Flat                                                                                          | Level                                                                                          |
+| :--------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S01.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S01.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S02.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S02.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S04.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S04.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S05.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S05.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S06.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S06.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S07.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S07.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S08.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S08.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S09.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S09.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S10.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S10.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S11.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S11.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S12.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S12.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S13.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S13.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S14.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S14.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S15.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S15.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S16.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S16.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S16.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S17.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S17.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S17.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S18.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S18.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S18.png" | relative_url }}) |
+| ![]({{ "/assets/images/pages/code/magick/Comparison/S19.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/flat/S19.png" | relative_url }}) | ![]({{ "/assets/images/pages/code/magick/Comparison/level/S19.png" | relative_url }}) |
 
 
 
