@@ -46,7 +46,7 @@ layout: single
 	}
 </style>
 
-<iframe width="100%" height="700px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/Leaflet.html"> </iframe>
+<iframe width="100%" height="700px" src="{{ "/files/gpx/html_output/Leaflet.html" | relative_url}}"> </iframe>
 
 
 

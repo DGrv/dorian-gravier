@@ -13,25 +13,20 @@ copy C:\Users\doria\scoop\apps\vscodium\current\data\extensions\extensions.json 
 
 :: Timetrap ------------------------
 echo Put this at the end !!!!!!!!!!!!!!!!!
-t d -f csv > C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_timetrap.csv
-rscript "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
+REM copy C:\Users\doria\.timetrap.db C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_.timetrap.db
+C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.timetrap.db /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.csv"
+REM t d -f csv > C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_timetrap.csv
+C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;t d -f csv > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.csv"
+C:\Users\doria\scoop\shims\rscript.exe "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
+
+::wt windows-terminal
+cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\
+mkdir wt
+copy C:\Users\doria\scoop\apps\windows-terminal\current\settings\settings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wt\%TIMESTAMP%_settings.json
+copy C:\Users\doria\scoop\apps\windows-terminal\current\settings\settings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wt\settings.json /Y
+
+:: wezterm
+REM copy C:\Users\doria\scoop\apps\wezterm\current\wezterm.lua C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wezterm\%TIMESTAMP%_wezterm.lua
 
 
-REM :: Thunderbird ------------------------
-REM set "processname=thunderbird.exe"
-REM tasklist /FI "IMAGENAME eq %processname%" 2>NUL | find /I "%processname%" >NUL
-REM if "%ERRORLEVEL%"=="0" (
-    REM echo %processname% is running. Attempting to close it...
-    REM taskkill /IM "%processname%" /F
-    REM echo %processname% closed.
-REM ) else (
-    REM echo %processname% is not running.
-REM )
-REM :: Set backup destination (Change this to your preferred location)
-REM set "backupPath=D:\RR_BU_Email"
-REM :: Locate the Thunderbird profile folder
-REM set "profilePath=C:\Users\doria\AppData\Roaming\Thunderbird\Profiles\4lopllqe.default-release"
-REM :: Define output ZIP file name
-REM set "zipFile=%backupPath%\4lopllqe.default-release_%TIMESTAMP%.zip"
-REM :: Use PowerShell to zip the folder
-REM powershell -command "& {Compress-Archive -Path '%profilePath%' -DestinationPath '%zipFile%' -Force}"
+

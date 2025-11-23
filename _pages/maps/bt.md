@@ -49,7 +49,7 @@ layout: single
 
 
 
-<iframe width="100%" height="700px" src="https://dgrv.github.io/dorian-gravier/files/gpx/html_output/BikeTrip2022.html"> </iframe>
+<iframe width="100%" height="700px" src="{{ "/files/gpx/html_output/BikeTrip2022.html" | relative_url}}"> </iframe>
 
 
 

@@ -25,7 +25,7 @@ This following data workflow is composed of 3 major software and 1 OS:
 The workflow can be summarize this way
 
 <center>
-<img src="../assets/images/Portofolio/2019_HCS/HCS_Workflow_Github_v01.png"/>
+<img src="{{ "/assets/images/Portofolio/2019_HCS/HCS_Workflow_Github_v01.png" | relative_url }}"/>
 </center>
 
 <br>
@@ -33,7 +33,7 @@ The workflow can be summarize this way
 The output can be whatever you want, here what I dseigned (click to unlarge):
 
 <center>
-<a href="../assets/images/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg"><img src="../assets/images/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg"/></a>
+<a href="{{ "/assets/images/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg" | relative_url }}"><img src="{{ "/assets/images/Portofolio/2019_HCS/HDC_HCS_Data_output.jpg" | relative_url }}"/></a>
 </center>
 
 <br>
@@ -45,7 +45,7 @@ This PlateView is a just a html page linking to the jpeg picture with a java sli
 Here an example about the PlateView coupled with quantitative data:
 
 <center>
-<img src="../assets/images/Portofolio/2019_HCS/HCS_Plateview_Example.gif"/>
+<img src="{{ "/assets/images/Portofolio/2019_HCS/HCS_Plateview_Example.gif" | relative_url }}"/>
 </center>
 
 
@@ -55,41 +55,41 @@ Here an example about the PlateView coupled with quantitative data:
 We are getting at HDC GmbH Kinetic data. Let’s imagine a kinetic curve:
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine1.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine1.png" | relative_url }}"/>
 </center>
 
 <br> The user wants to get the slope on different area of this curve. The width of this area (in time or number of measures) is called window size (how much data point this area should have). By calculating in a window the slope and by moving the position of this window on the x axis,
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine2.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine2.png" | relative_url }}"/>
 </center>
 <br>
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine3.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine3.png" | relative_url }}"/>
 </center>
 
 we get kinetic data of slope values.
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine4.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine4.png" | relative_url }}"/>
 </center>
 
 <br> By changing the window size this kinetic data of the slope is logically modified:
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine5.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine5.png" | relative_url }}"/>
 </center>
 
 <br> Here a real case example showing the matrix of wells from a microtiter plate. The kinetic data is the original data. The background color correspond to the max slope calculated with a unique window size.
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine7.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine7.png" | relative_url }}"/>
 </center>
 
 <br> And here the kinetic slope data from the matrix above.
 
 <center>
-<img src="../assets/images/Portofolio/2017_Kinetic/Kine6.png"/>
+<img src="{{ "/assets/images/Portofolio/2017_Kinetic/Kine6.png" | relative_url }}"/>
 </center>
 
 # 2016 - HTS data processing and analysis. Example of possibilities with open source softwares (R) (HDC GmbH, Konstanz, BW, DE).
@@ -111,19 +111,19 @@ we get kinetic data of slope values.
 - Quality control
   - Automatic data processing and analysis with automatic display of graphics in order to troubleshoot as fast as possible in case of problems
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/excel-ic50_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/0008s001-kineplate_orig.jpg)
+![Picture]({{ "/assets/images/Portofolio/excel-ic50_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/0008s001-kineplate_orig.jpg" | relative_url }})
 
 Example of kinetic data with 2 addition in DRC format. Curve fitting of the 2 additions, raw data kinetic graphic, IC50 exported in spreadsheet format, 1 compound per line. IC50 parameters calculated with R (compared with GraphPad Prism: identical). Kinetic data with in background the ratio MaxMin or Max Background.
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/scatter-value-npa-ori-vs-crop-3_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/scatter-ar-cel-i-ori-vs-crop_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/hcdrc-scatter-pc-inhibition-per_orig.jpg)
+![Picture]({{ "/assets/images/Portofolio/scatter-value-npa-ori-vs-crop-3_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/scatter-ar-cel-i-ori-vs-crop_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/hcdrc-scatter-pc-inhibition-per_orig.jpg" | relative_url }})
 
 Comparison of data for 2 different Image analysis procedure (HCS). Vertical and Horizontal lines reprensent 1 to 4x the sd of the compound data. Usually used as a threshold for hit selection. Comparison of data for 2 Sessions (duplicates).
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/hm-all-same-legend.jpg)
+![Picture]({{ "/assets/images/Portofolio/hm-all-same-legend.jpg" | relative_url }})
 
 Heatmap of n (number of rows) plates in 3 variables (columns).
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/20160720-pq-drc-ctg-2-summary-valuect-con_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/20160325-pq-prs-1-scaplot-med-int-ia.jpg)
+![Picture]({{ "/assets/images/Portofolio/20160720-pq-drc-ctg-2-summary-valuect-con_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/20160325-pq-prs-1-scaplot-med-int-ia.jpg" | relative_url }})
 
 Evolution of quality control parameters through a screen.
 
@@ -140,23 +140,23 @@ Scatterplot of data from a screen. Colors are the controls. Horizontal line repr
   - Extract all intensity information of .flex files (picture for Opera reader) and plot their distribution 
     - Help to set thresholds for image analysis (segmentation)
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/polara_orig.jpg)
+![Picture]({{ "/assets/images/Portofolio/polara_orig.jpg" | relative_url }})
 
 Schedule Graphics created with the analysis of the logfile from 1 robotic line.
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/cplibrary1_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/cplibrary2_orig.jpg)
+![Picture]({{ "/assets/images/Portofolio/cplibrary1_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/cplibrary2_orig.jpg" | relative_url }})
 
 Status of a compound library (volume left, chronology from a plate, volume dispensed …)
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/echo.jpg)
+![Picture]({{ "/assets/images/Portofolio/echo.jpg" | relative_url }})
 
 Echo logfile analysis. Permit to track quality control of the transfer (BC included in graph).
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/flex3_orig.jpg)
+![Picture]({{ "/assets/images/Portofolio/flex3_orig.jpg" | relative_url }})
 
 Density graphic (histogram) from the intensity of each field (image) from a well. Permit to see if some fields differ from the majority as well as to get an idea of the intensity distribution in the images
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/flex2_orig.jpg) ![Picture](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/flex1.jpg)
+![Picture]({{ "/assets/images/Portofolio/flex2_orig.jpg" | relative_url }}) ![Picture]({{ "/assets/images/Portofolio/flex1.jpg" | relative_url }})
 
 Display flex files (tiff from the Opera). 1 row per well.
 
@@ -170,19 +170,19 @@ Example of the characteristics of the scripts created in R :
 - Graphics created : IC50 on each microplate from a screen, hitmaps, kinetic curves, summary graphics (Average, standard deviation, CV of positive and negative controls, Z-factor, signal to background).
 - Screen correction : as what the famous [Screener](https://www.genedata.com/products/screener/) software from Genedata is able to do. Look at the pattern of each plates and apply a correction factor to each well. Allow to correct dispensing error, reader effect ….
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/1581298_orig.jpg)
+![Photo]({{ "/assets/images/Portofolio/1581298_orig.jpg" | relative_url }})
 
 Distribution of the interval generated by kinetic data of wells per plate, depending on the controls.
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/1700648.png)
+![Photo]({{ "/assets/images/Portofolio/1700648.png" | relative_url }})
 
 Explanation of a screen correction calculation. Done with R.
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/6557276.jpg)
+![Photo]({{ "/assets/images/Portofolio/6557276.jpg" | relative_url }})
 
 Calculation of Dose response curves : 1 graph generated per plate and summary in xlsx. Allow to follow in detail the quality of the results over a screen.
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/3197499.jpeg)
+![Photo]({{ "/assets/images/Portofolio/3197499.jpeg" | relative_url }})
 
 Kinetic curves of wells , raw data function of the time. Red curves are non corrected values, black corrected.
 
@@ -196,46 +196,46 @@ Kinetic curves of wells , raw data function of the time. Red curves are non corr
 - Spatial analysis with the help of [Pascal Monestiez](http://ciam.inra.fr/biosp/node/85).
 - Capture Mark Release Recapture analysis with  the help of [Christophe Barbraud](http://www.cebc.cnrs.fr/Fidentite/barbraud/barbraud.htm).
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Cover_report_Commerson.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex02.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex03.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex04.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex05.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex06.jpg)
+![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Cover_report_Commerson.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex02.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex03.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex04.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex05.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_CNRS/2013_CNRS_Report_Commerson_ex06.jpg" | relative_url }})
 
 # 2013 - Implementation of Commerson dolphins’ monitoring protocol via photo-identification (National Nature Reserve of French Austral Islands (France, Kerguelen Island, Indian Ocean).
 
 Example of a catalog produce regarding photo-identification of the Commerson dolphins:
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_cover.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex01.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex02.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex03.jpg)
+![Photo]({{ "/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_cover.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex01.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex02.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2013_RNN/2013_RNN_Catalog_ex03.jpg" | relative_url }})
 
 # 2012 - Intership on bats and aquatic insect emergences (Limnological Institute Konstanz, BW, DE).
 
 **Subject :** Seasonality and differences in **insect emergences** among 3 lakes around Constance (Germany) and their **influences on bat activity** between spring and early summer.
 
-My report is not available since it will certainly contribute to a future scientific publication. However, the abstract and the bibliography used can be found [here](/files/pdf/d.gravier_2012_intership_konstanz_bats_insects.pdf). 
+My report is not available since it will certainly contribute to a future scientific publication. However, the abstract and the bibliography used can be found [here]({{ "/files/pdf/d.gravier_2012_intership_konstanz_bats_insects.pdf" | relative_url }}). 
 
 I learned alone how to use R to create nice and interesting graphs as well as performing several statistical tests and manipulating dataframes. Some examples are exposed below with some information voluntary hidden (essentialy with libraries ggplot2, plyr, scales, grid, reshape, FactoMineR and ggmap).
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/9513442_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2958636_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/7268086_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/1013339_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/3133014_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/1284476_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/8988297_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/8450187.jpg)
+![Photo]({{ "/assets/images/Portofolio/9513442_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2958636_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/7268086_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/1013339_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/3133014_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/1284476_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/8988297_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/8450187.jpg" | relative_url }})
 
 # 2012 - Erasmus in Sweden (Gothenburg, SE).
 
 I had the opportunity to do an **Erasmus** in Sweden during winter 2011-12. There, I followed 2 courses :  Comparative Physiology of Marine Animals  and Primary Producers of the Sea.
 
-I did a project work during 2 weeks in the first one concerning leptin receptors in the Rainbow trout.  In the second one, I wrote a review concerning the **monitoring of green tides on the Brittany coast** (France). This one is available [here](/files/pdf/gravier_-_2012_-_monitoring_of_green_tides_on_the_brittany_coasts_france.pdf).
+I did a project work during 2 weeks in the first one concerning leptin receptors in the Rainbow trout.  In the second one, I wrote a review concerning the **monitoring of green tides on the Brittany coast** (France). This one is available [here]({{ "/files/pdf/gravier_-_2012_-_monitoring_of_green_tides_on_the_brittany_coasts_france.pdf" | relative_url }}).
 
 # 2011 - Intership on bats (Cholet, Maine-et-Loire, FR).
 
 **Subject :** **Bats** roosts research and **protection** approaches
 
-33 colonies found, 6 convention signed with owners of colony. Results are available [here](/files/pdf/d.gravier_2011_intership_bats_results.pdf). Example of organisation of a prospective week-end to find bats’ roost, management of several volunteers : [pdf available](/files/pdf/dorian-gravier_example_we-prosp_2011.pdf).
+33 colonies found, 6 convention signed with owners of colony. Results are available [here]({{ "/files/pdf/d.gravier_2011_intership_bats_results.pdf" | relative_url }}). Example of organisation of a prospective week-end to find bats’ roost, management of several volunteers : [pdf available]({{ "/files/pdf/dorian-gravier_example_we-prosp_2011.pdf" | relative_url }}).
 
 Example of analyzes and resulting map. Explanations:
 
-- Map 1 : *cf *[this pdf](/files/pdf/d.gravier_2011_intership_bats_map1_expla.pdf)
-- Map 2 : *cf *[Results of the internship report.](/files/pdf/d.gravier_2011_intership_bats_results.pdf)
+- Map 1 : *cf *[this pdf]({{ "/files/pdf/d.gravier_2011_intership_bats_map1_expla.pdf" | relative_url }})
+- Map 2 : *cf *[Results of the internship report.]({{ "/files/pdf/d.gravier_2011_intership_bats_results.pdf" | relative_url }})
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/104426.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/330057.jpg)
+![Photo]({{ "/assets/images/Portofolio/104426.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/330057.jpg" | relative_url }})
 
 **Communication:**
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/8474397_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/7784363.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/9933958.jpg)
+![Photo]({{ "/assets/images/Portofolio/8474397_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/7784363.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/9933958.jpg" | relative_url }})
 
 # 2010 - Internship on the Little Owl (Chevreuse, Yvelines, FR).
 
@@ -243,24 +243,24 @@ Example of analyzes and resulting map. Explanations:
 
 A final report had to be given to my structure for which I was working. The approach was quite new and was quite turned on “research”. The idea was to try to find the best reproductive area for this species, to know why, and at the same time to prioritize where to put action and how for the future (increase perch to enhance his hunting, increase tanks preys ….). 
 
-You can have an idea of the final report given to the [Regional Nature Parc of the Haute Vallée de Chevreuse](http://www.parc-naturel-chevreuse.fr/) here ([Part 1](/files/pdf/dorian-gravier_part-report_pnrhvc_2010_1.pdf) & [Part 2](https://dgrv.github.io/dorian-gravier/assets/dorian-gravier_part-report_pnrhvc_2010_2.pdf)) with the map provided here.
+You can have an idea of the final report given to the [Regional Nature Parc of the Haute Vallée de Chevreuse](http://www.parc-naturel-chevreuse.fr/) here ([Part 1]({{ "/files/pdf/dorian-gravier_part-report_pnrhvc_2010_1.pdf" | relative_url }}) & [Part 2]({{ "/assets/dorian-gravier_part-report_pnrhvc_2010_2.pdf" | relative_url }})) with the map provided here.
 
 Example of map created for the conservative plan. Those are concerning the ideas that we proposed on prioritize area for the species). 
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/620556.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/9081003.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2842060.jpg)
+![Photo]({{ "/assets/images/Portofolio/620556.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/9081003.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/2842060.jpg" | relative_url }})
 
 # 2009 - Internship on Lady-beetles (Calais, Nord Pas-de-Calais, FR).
 
 **Subject **: Participation to a **lady-beetles atlas** of the Pas-de-Calais (France).
 
-This internship was quietly only field work. I had a certain area to prospect to find the maximum of lady-beetles species. First use of Arc gis by my own wishes. You can have a look to the [short results](/files/pdf/dorian-gravier_results_2009_atlas_ladybeetles.pdf).
+This internship was quietly only field work. I had a certain area to prospect to find the maximum of lady-beetles species. First use of Arc gis by my own wishes. You can have a look to the [short results]({{ "/files/pdf/dorian-gravier_results_2009_atlas_ladybeetles.pdf" | relative_url }}).
 
 # 2007-2008 - BTSA Forestry Management (Mirecourt, Vosges, FR).
 
-Synthesis of the work done : [available here](/files/ppdf/btsa-gf_dorian-gravier_synthese_stage.pdf).
+Synthesis of the work done : [available here]({{ "/files/ppdf/btsa-gf_dorian-gravier_synthese_stage.pdf" | relative_url }}).
 
 # Other - R graphics.
 
 Some other examples of graphic done with R (essentialy with libraries ggplot2, plyr, scales, grid, reshape, lattice and ggmap).
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/2088431_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/9484012_orig.jpeg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/3327157_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/6190964_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/9663466_orig.jpg) ![Photo](https://dgrv.github.io/dorian-gravier/assets/images/Portofolio/228531_orig.jpeg)
+![Photo]({{ "/assets/images/Portofolio/2088431_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/9484012_orig.jpeg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/3327157_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/6190964_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/9663466_orig.jpg" | relative_url }}) ![Photo]({{ "/assets/images/Portofolio/228531_orig.jpeg" | relative_url }})

@@ -35,8 +35,12 @@ scoop update main/adb
 scoop update main/brename
 scoop update extras/squirreldisk
 scoop update main/ag
-REM scoop update extras/barrier
+scoop update extras/windows-terminal
+scoop update main/fzf
+scoop update main/clink
 scoop update main/exiftool
+scoop update nerd-fonts/JetBrains-Mono
+
 
 REM tasklist | grep -i google
 taskkill /IM PowerToys.exe /F
@@ -78,7 +82,15 @@ RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
 REM Cmder ---------------------------------------------------------------------------------------
-reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
+:: reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
+:: reset default
+reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"%SystemRoot%\System32\cmd.exe\" /c \"%1\" %*" /f
+
+REM Windows Terminal  ---------------------------------------------------------------------------------------
+cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
+ 
+
 
 REM Freecommander ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\persist\freecommander\Settings

@@ -11,9 +11,10 @@ author_profile: true
 
 You can find here an outdated CV. For more information regarding what I did until then, please have a look here.
 
-[![](/files/icon/icon-pdf.png){: .align-center width="10%"}](../files/pdf/201906_CV_dgrv.pdf)
+[![]({{ "/files/icon/icon-pdf.png" | relative_url }}){: .align-center width="10%"}]({{ "/files/pdf/201906_CV_dgrv.pdf" | relative_url }})
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/776374_orig.jpg){: .align-center}
+![]({{ "/assets/images/776374_orig.jpg" | relative_url }}){: .align-center}
+
 
 
 # What am I actually doing ?
@@ -29,7 +30,7 @@ Actually working as a programer for [Bergsport Maxi](https://bergsport-maxi.de/)
 At [Bergsport Maxi](https://bergsport-maxi.de/), I am responsible of the articles data meaning that I have to actualise them during the year while new season are coming to get the updated prices and the actual data from the brands we are selling. Moreover I am taking care of our store window which permit the client to see what we have in stock, including the pictures of the articles.
 
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/3098356_orig.jpg){: .align-center}
+![]({{ "/assets/images/3098356_orig.jpg" | relative_url }}){: .align-center}
 
 
 # Languages
@@ -50,7 +51,7 @@ The best example of all of this is for sure my actual job where I learned from s
 
 I love bringing the power of computer science in a team via communication. This allow a team to work together for a more efficient, reliable, fun and reproducible work. 
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/1932032.jpg){: .align-left} 
+![Photo]({{ "/assets/images/1932032.jpg" | relative_url }}){: .align-left} 
 
 - **R** : Daily usage since 2013 and high skills
   - *​Data mining, to reporting, standardised functions developed since years *
@@ -67,7 +68,7 @@ I love bringing the power of computer science in a team via communication. This 
 - Experience in dynamic presentation : [ImpressJS](https://github.com/impress/impress.js/)
 
 
-![Picture](https://dgrv.github.io/dorian-gravier/assets/images/excel-ic502_orig.jpg){: .align-center}
+![Picture]({{ "/assets/images/excel-ic502_orig.jpg" | relative_url }}){: .align-center}
 
 # Robotic
 
@@ -83,7 +84,7 @@ I love bringing the power of computer science in a team via communication. This 
 
 **Lines:**
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/thermo_orig.jpg){: .align-center width="50%"}
+![]({{ "/assets/images/thermo_orig.jpg" | relative_url }}){: .align-center width="50%"}
 - Thermo line
   - Dimension 4 System
   - Silvermax controllers
@@ -91,7 +92,7 @@ I love bringing the power of computer science in a team via communication. This 
 - Robocon lines (2x and one build from scratch without support)
   - C500C controller with CataLyst-5 or A255 arm
   - Robolab 3 Plus, v3.17 for Windows NT
-![](https://dgrv.github.io/dorian-gravier/assets/images/cybio_orig.jpg){: .align-center width="50%"}
+![]({{ "/assets/images/cybio_orig.jpg" | relative_url }}){: .align-center width="50%"}
 - Cybio line
   - Cybio-Control v3.2
   - Cybio-Scheduler v2.0
@@ -114,9 +115,9 @@ I love bringing the power of computer science in a team via communication. This 
   - ​Scintillation Proximity Assays (SPA) radioative assay (HTS)
   - ​Enzymatic assays
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/robocon2.jpg)
-![](https://dgrv.github.io/dorian-gravier/assets/images/robocon.jpg)
-![](https://dgrv.github.io/dorian-gravier/assets/images/presrobocon2.jpg)
+![]({{ "/assets/images/robocon2.jpg" | relative_url }})
+![]({{ "/assets/images/robocon.jpg" | relative_url }})
+![]({{ "/assets/images/presrobocon2.jpg" | relative_url }})
 
 
 # Bats
@@ -149,18 +150,18 @@ I love bringing the power of computer science in a team via communication. This 
   - Radiotracking : during nights for feeding territories with *Myotis emarginatus* and day for roosts.           
 - 2011 - January & February - Participation at approximatly 5 entire **winter prospection** week-end with the association [CPEPESC Lorraine](http://www.cpepesc-lorraine.fr/) in Lorraine (France).
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/9654167_orig.jpg){: .align-center}
+![]({{ "/assets/images/9654167_orig.jpg" | relative_url }}){: .align-center}
 
 # Mammals in general
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/6102908_orig.jpg){: .align-right width="30%"}
+![]({{ "/assets/images/6102908_orig.jpg" | relative_url }}){: .align-right width="30%"}
 
 **Competences**
 
 - Tags set-up on and off on elephant seals
 - Photo-identification (done on Commerson dolphins (*Cephalorhynchus commersonii*) - **first try in the world**)
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/2860214_orig.jpg){: .align-center}
+![]({{ "/assets/images/2860214_orig.jpg" | relative_url }}){: .align-center}
 
 **Involved in project :**
 
@@ -168,11 +169,11 @@ I love bringing the power of computer science in a team via communication. This 
   - **Centre National de la Recherche Scientifique** of Chizé on biologic studies, **Data analysis** (R), Distribution, spatial usage, isotope analysis, Commerson dolphins (Cephalorhynchus commersonii) sociality from Kerguelen island. (Contact: christophe.guinet@cebc.cnrs.fr et paul.tixier@taaf.re)
   - **National Nature Reserve** of French Austral islands in Kerguelen. Charged of **Commerson dolphins’ monitoring**. Help the CNRS of Chizé for setting-up on and off tags on elephant seals.
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/539720_orig.jpg){: .align-center} 
+![]({{ "/assets/images/539720_orig.jpg" | relative_url }}){: .align-center} 
 
 # Birds
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/9481651_orig.jpg){: .align-left} 
+![Photo]({{ "/assets/images/9481651_orig.jpg" | relative_url }}){: .align-left} 
 
 **Competences**
 
@@ -180,7 +181,7 @@ I love bringing the power of computer science in a team via communication. This 
 - Experience in catching birds in Japan nets.
 - Beginner in songs of common birds.
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/3315922.jpg){: .align-center} 
+![Photo]({{ "/assets/images/3315922.jpg" | relative_url }}){: .align-center} 
 
 **Participation**
 
@@ -189,7 +190,7 @@ I love bringing the power of computer science in a team via communication. This 
 - 2009-2010 - Several days of catching with different specialists in ringing birds.
 - 2010 - April to August - **Intership** during 5 months with the Regional Natural Parc, Haute Vallée de Chevreuse (*supervisor : Alexandre Mari*). Subject : Elaboration of an actions plan to conserve two **Little owl** population and monitoring of nesting boxes.
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/6180538.jpg){: .align-right} 
+![Photo]({{ "/assets/images/6180538.jpg" | relative_url }}){: .align-right} 
 
 # Other contributions
 
@@ -203,7 +204,7 @@ I love bringing the power of computer science in a team via communication. This 
 
 **Insects:** 
 
-![Photo](https://dgrv.github.io/dorian-gravier/assets/images/9516745_orig.jpg){: .align-left width="20%"}
+![Photo]({{ "/assets/images/9516745_orig.jpg" | relative_url }}){: .align-left width="20%"}
 
 - 2012 - Identification of aquatic emerged insects and terrestrial flying and walking insects at family level for Diptera species, related to  internship in the Limnological Institute (2nd master thesis).
 - 2009 - Research and identification of Coccinellidae of north of France during my internship in 2009.
@@ -221,10 +222,10 @@ I love bringing the power of computer science in a team via communication. This 
 - **2011 - August** : Recherche et démarches de protection de colonies de chauves-souris dans les Mauges (49). M2 CRB. *Metz - France.*
 - **2010 - June** : Elaboration d’une méthodologie descriptive des habitats potentiels pour la Chevêche d’Athéna (*Athene noctua)* préalable à la mise en œuvre d’un plan d’actions pour la conservation d’un noyau de population. M1 CRB. *Metz - France.*
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/7182505.jpg){: .align-center}
+![]({{ "/assets/images/7182505.jpg" | relative_url }}){: .align-center}
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/6375922_orig.jpg){: .align-center width="50%"}
+![]({{ "/assets/images/6375922_orig.jpg" | relative_url }}){: .align-center width="50%"}
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/6121603_orig.jpg){: .align-center width="50%"}
+![]({{ "/assets/images/6121603_orig.jpg" | relative_url }}){: .align-center width="50%"}
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/6841579_orig.jpg){: .align-center width="50%"}
+![]({{ "/assets/images/6841579_orig.jpg" | relative_url }}){: .align-center width="50%"}

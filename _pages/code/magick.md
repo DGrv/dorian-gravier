@@ -134,12 +134,12 @@ or even better, adapt fuzz
 magick charlie.png -fill none -fuzz 50% -draw "color 0,0 floodfill" charlie2.png
 ```
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/charlie_small.png)
-![](https://dgrv.github.io/dorian-gravier/assets/images/charlie2_small.png)
+![]({{ "/assets/images/charlie_small.png" | relative_url }})
+![]({{ "/assets/images/charlie2_small.png" | relative_url }})
 
 Other example with this Gif
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
+![]({{ "/assets/images/magick_gif_01.gif" | relative_url }})
 
 ```sh
 magick in.gif -resize 50% in2.gif # resize 
@@ -150,7 +150,7 @@ magick -delay 5 g*.png -delay 600 g17.png out.gif # keep last frame longer
 
 creating this:
 
-![](https://dgrv.github.io/dorian-gravier/assets/images/magick_gif_01.gif)
+![]({{ "/assets/images/magick_gif_01.gif" | relative_url }})
 
 ## Fuzz and Transparent method
 
@@ -187,12 +187,33 @@ magick input.png -fuzz 80% -fill "#000000" -opaque "#ffffff"   output2.png
 magick input.png  -channel RGB -auto-level    +level-colors black    output3.png
 ```
 
--input: ![input](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_input.png)
-- ouput1: ![output1](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output1.png)
-- ouput2: ![output2](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output2.png)
-- ouput3: ![output3](https://dgrv.github.io/dorian-gravier/assets/images/magick_ex_replace_color_output3.png)
+-input: ![input]({{ "/assets/images/magick_ex_replace_color_input.png" | relative_url }})
+- ouput1: ![output1]({{ "/assets/images/magick_ex_replace_color_output1.png" | relative_url }})
+- ouput2: ![output2]({{ "/assets/images/magick_ex_replace_color_output2.png" | relative_url }})
+- ouput3: ![output3]({{ "/assets/images/magick_ex_replace_color_output3.png" | relative_url }})
 
 [Check this out to replace colors to a certain ton and keep transparency](https://stackoverflow.com/a/62780504/2444948)
+
+## Replace the color from a mono logo
+
+[Source](https://stackoverflow.com/a/62780504/2444948)
+
+With some explanation and modification.
+Really good method, keep transparency.
+If 2 color will remove the whiter one and change the darker one for what you want.
+
+```sh
+magick logo.png -colorspace gray -contrast-stretch 0 +level-colors "none,#f48023" logo2.png && qimgv logo2.png
+# -colorspace gray				Converts the image to grayscale.
+# -contrast-stretch 0 			Automatically maximize contrast based on the darkest and brightest pixels.
+# +level-colors "none,#f48023"		This remaps the grayscale levels to new colors. none is transparent
+```
+
+![]({{ "/assets/images/logo_wwf_black.png" | relative_url }})
+![]({{ "/assets/images/logo_wwf_purple.png" | relative_url }})
+
+
+
 
 
 
@@ -204,6 +225,17 @@ magick mogrify -define trim:edges=north,south -trim +repage -path edited\images\
 ```
 
 [Source](https://github.com/ImageMagick/ImageMagick/discussions/6982#discussioncomment-7969996)
+
+input
+
+![](https://private-user-images.githubusercontent.com/13458218/293316618-fe3e0f60-02f6-49a4-af8c-8ce525989cbc.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjM4OTg0MDUsIm5iZiI6MTc2Mzg5ODEwNSwicGF0aCI6Ii8xMzQ1ODIxOC8yOTMzMTY2MTgtZmUzZTBmNjAtMDJmNi00OWE0LWFmOGMtOGNlNTI1OTg5Y2JjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTExMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMTIzVDExNDE0NVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJkZjZiM2NkY2VkMGZlODc5N2MyMWYyZmE5NmUwOWI1YzU4Y2ViN2ZmZWZmY2ViNGM4MTM5ZGFiNmJhNDAzMjcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.IIw4EEqPR7EAq8xihM-JxaiGI6ZYZU3asb3eJiyndVQ)
+
+output
+
+![](https://private-user-images.githubusercontent.com/13458218/293316774-26fdcb4e-ac0e-4f9c-9aed-c445537824fc.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjM4OTg0MDUsIm5iZiI6MTc2Mzg5ODEwNSwicGF0aCI6Ii8xMzQ1ODIxOC8yOTMzMTY3NzQtMjZmZGNiNGUtYWMwZS00ZjljLTlhZWQtYzQ0NTUzNzgyNGZjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTExMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMTIzVDExNDE0NVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWE2ZGE1ZmQxMTYwNWEzMzU1MDA3MTEyZDQ1YzM0ZTMyMDU0NzVmMDUyMDI5NmVmOWJlM2FkN2I1NTY4MDkyYzUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.KuP7LfjUYtwvi2o7FLxHcXS-10hQb8bZDep3aHigMkU)
+
+
+
 
 # Batch examples
 
