@@ -24,7 +24,7 @@ library(colorDF)
 library(xml2)
 library(sf)
 library(fs) # for path_sanetize
-
+library(jsonlite)
 
 # Sys.setlocale('LC_ALL', 'German')
 Sys.getenv()
@@ -167,7 +167,8 @@ scale_colour_Publication <- function(...) {
 
 turnXaxis <- function(...) {
   
-  theme(axis.text.x = element_text(angle = 90, hjust = 1), ...)
+  # theme(axis.text.x = element_text(angle = 90, hjust = 1), ...) # maybe this was use when I was turn the coordinates
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5), ...)
   
 }
 
@@ -269,6 +270,14 @@ theme_Publication <- function(base_size=14, base_family="helvetica") {
 
 
 # Small function ----------------------------------------------------------
+
+setcolstart <- function(DATA, vectorColumns) {
+  setcolorder(DATA, c(vectorColumns, setdiff(names(DATA), vectorColumns)))
+}
+
+setcolend <- function(DATA, vectorColumns) {
+  setcolorder(DATA, c(setdiff(names(DATA), vectorColumns), vectorColumns))
+}
 
 
 hex2rgba <- function(hex, alpha = 1) {

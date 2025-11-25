@@ -1028,3 +1028,9 @@ awk 'BEGIN {print "<table border=\"1\">"}
 sudo nano /etc/passwd
 # change the line for your user to /usr/bin/bash for example
 ```
+
+# Show all 256 colors bash prompt
+
+```sh 
+curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/ | bash
+```

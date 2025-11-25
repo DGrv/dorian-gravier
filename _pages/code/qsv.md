@@ -1,0 +1,119 @@
+---
+title: "qsv"
+permalink: /code/qsv/
+toc: true
+author_profile: false
+layout: code
+---
+
+![]({{ "/files/icon/qsv.png" | relative_url }})
+
+
+# Histogram with dirtribution
+
+[Github distribution](https://github.com/wizzat/distribution)
+
+[To install follow brew](https://formulae.brew.sh/formula/distribution#default)
+
+`brew install distirbution`
+
+My csv is , sperated:
+
+    "","Contest","","TierSize","DisplaySlots","Which Tier Concerned","WaitlistReached","ContestCapacity","","nPartiNoPre NoRegVoucher","nPremium","nParti","nPremiumTT","nParti RegVoucher","","Price","Year","Age","Label","InsuranceType","SlotNumberFormula / Firma","EntryFeeTabText"
+    "","Olympic","Tier1 Tier2 Tier3 Tier4","185 185 370 1110","1-185 186-370 371-740 741-1850","Waitlist","1","1850","","1850","56","1910","150 / 150","4","","129 149 159 169","1900-2008","18-126","Olympic (Sunday, 29 June 2026)","1","1851 / 1850","Olympic - Wait list"
+    "","Sprint","Tier1 Tier2 Tier3 Tier4","115 115 230 690","1-115 116-230 231-460 461-1150","Waitlist","1","1150","","1150","16","1166","","","","79 89 99 109","1900-2010","16-126","Sprint (Sunday, 29 June 2026)","2","1151 / 1150","Sprint - Wait list"
+
+```sh
+qsv headers Contest_Fee.csv
+
+qsv select ContestCapacity,Contest Contest_Fee.csv
+# ContestCapacity,Contest
+# 1850,Olympic
+# 1150,Sprint
+# 150,Super Sprint
+# 420,Olympic Team / Firmentriathlon
+# 380,Sprint Team / Firmentriathlon
+# 130,Junior Triathlon U14
+
+qsv select ContestCapacity,Contest Contest_Fee.csv | qsv table
+# ContestCapacity  Contest
+# 1850             Olympic
+# 1150             Sprint
+# 150              Super Sprint
+# 420              Olympic Team / Firmentriathlon
+# 380              Sprint Team / Firmentriathlon
+# 130              Junior Triathlon U14
+
+qsv select ContestCapacity,Contest Contest_Fee.csv | qsv table | distribution -g --color
+#                            Key|Ct   (Pct)    Histogram
+#                        Olympic|1850 (35.99%) -----------------------------------
+#                         Sprint|1150 (22.37%) ----------------------
+# Olympic Team / Firmentriathlon| 420  (8.17%) --------
+#  Sprint Team / Firmentriathlon| 380  (7.39%) -------
+#                  Kidstriathlon| 200  (3.89%) ----
+#                   Super Sprint| 150  (2.92%) ---
+#            Premium Sprint Team| 150  (2.92%) ---
+#                 Premium Sprint| 150  (2.92%) ---
+#           Premium Olympic Team| 150  (2.92%) ---
+#                Premium Olympic| 150  (2.92%) ---
+#           Junior Triathlon U14| 130  (2.53%) ---
+#                 Youth League M|  75  (1.46%) --
+#                 Youth League W|  50  (0.97%) -
+#           Junior Triathlon U16|  50  (0.97%) -
+#              National League M|  45  (0.88%) -
+
+qsv select ContestCapacity,Contest Contest_Fee.csv | grep -vE "Premium|WL -" | qsv table | distribution -g --color
+
+#                            Key|Ct   (Pct)    Histogram
+#                        Olympic|1850 (40.75%) -----------------------------------
+#                         Sprint|1150 (25.33%) ----------------------
+# Olympic Team / Firmentriathlon| 420  (9.25%) --------
+#  Sprint Team / Firmentriathlon| 380  (8.37%) -------
+#                  Kidstriathlon| 200  (4.41%) ----
+#                   Super Sprint| 150  (3.30%) ---
+#           Junior Triathlon U14| 130  (2.86%) ---
+#                 Youth League M|  75  (1.65%) --
+#                 Youth League W|  50  (1.10%) -
+#           Junior Triathlon U16|  50  (1.10%) -
+#              National League M|  45  (0.99%) -
+#              National League W|  40  (0.88%) -
+#                     Abgemeldet|   0  (0.00%) -
+```
+
+# distribution
+
+- Get only tsv.
+- `-g` is for already aggregated 
+- `-v` not sur yet
+- value should be first and then key, or you use 
+	--graph[=G]    input is already key/value pairs. vk is default:
+		kv       input is ordered key then value
+		vk       input is ordered value then key
+
+# miller
+
+Aggregation sum on 1 column : `cat input.csv |  mlr --csv stats1 -a sum -f "NameNumericColumn" -g "NamegaggregationColumn" | qsv table`
+Using math: `mlr --csv put '$Sum=round($ToPayOut_sum)'`
+
+
+` mlr --csv put '$Sum=round($ToPayOut_sum)' | qsv select 3,1 | qsv table| distribution -g`
+
+# Little things
+
+Remove last row : `qsv slice -s -1 --invert `
+Check the stat of a table, type of columns ... : `qsv stats | qsv lens`
+Remove header: `tail -n +2`
+
+
+
+
+
+
+
+
+
+
+
+
+
+

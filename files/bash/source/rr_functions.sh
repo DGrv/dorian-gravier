@@ -3,7 +3,11 @@
 # source me in your script or .bashrc/.zshrc if wanna use cecho
 # source '/path/to/cecho.sh'
 
-
+uColor() { # change all color from a logo to one unique color (e.g. for templates #9370DB of test events #FF1493): usage: uColor "filename" "hex code your color" 
+	
+	checkdep convert
+	convert "$1" -channel RGB -auto-level +level-colors "$2" "${1%.*}_uColor.png"
+}
 
 gpx2svg() { # convert a gpx to svg for profile, gpx2svg *.gpx  or gpx2svg input.gpx
 	
@@ -67,12 +71,15 @@ sesExtract () { # Extract ses data
 		# set "backup_OCHSNER SPORT Zurich Marathon 2025_20250409-121357.ses"
 		
         # tablewanted=( settings customFields rankings teamscores contests results timingpoints splits history data RawData )
-        tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
+        # tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
+        tablewanted=( agegroups exporters rankings tableValues bibranges history rawdata teamScores contests invoiceSourceItems rawdatarules times customFieldValues invoices results timingpointrules customFields overwriteValues settings timingpoints entryfees participants splits vouchers )
         fdir=$(echo rr_${1} | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
         mkdir -p $fdir
         sqlite3 "$1" ".tables"
         cecho -y "Export mdb:"
-        for value in "${tablewanted[@]}"; do sqlite3 -header -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
+        for value in "${tablewanted[@]}"; do sqlite3 -header -csv -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
+		# use quote in participant to avoid error in comments field
+		# sqlite3 -header -csv -separator $"," "$1" "SELECT * FROM participants" > "$fdir/participants_quote.csv"
         cecho -g "csv Done"
 		
 		# Export in other format for RRdeps

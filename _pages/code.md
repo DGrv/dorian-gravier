@@ -26,4 +26,5 @@ They are categorized in the left sidebar. On the right you will find the table o
 <img src="{{ '/files/icon/magick.png' | absolute_url }}" class="emoji"  />
 <img src="{{ '/files/icon/jekyll.png' | absolute_url }}" class="emoji"  />
 <img src="{{ '/files/icon/more.png' | absolute_url }}" class="emoji"  />
+<img src="{{ '/files/icon/qsv.png' | absolute_url }}" class="emoji"  />
 </center>

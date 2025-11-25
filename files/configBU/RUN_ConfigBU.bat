@@ -14,7 +14,7 @@ copy C:\Users\doria\scoop\apps\vscodium\current\data\extensions\extensions.json 
 :: Timetrap ------------------------
 echo Put this at the end !!!!!!!!!!!!!!!!!
 REM copy C:\Users\doria\.timetrap.db C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_.timetrap.db
-C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.timetrap.db /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.csv"
+C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.timetrap.db /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.db"
 REM t d -f csv > C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_timetrap.csv
 C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;t d -f csv > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.csv"
 C:\Users\doria\scoop\shims\rscript.exe "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
@@ -27,6 +27,13 @@ copy C:\Users\doria\scoop\apps\windows-terminal\current\settings\settings.json C
 
 :: wezterm
 REM copy C:\Users\doria\scoop\apps\wezterm\current\wezterm.lua C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wezterm\%TIMESTAMP%_wezterm.lua
+
+
+:: synth-shell config
+C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.config/synth-shell/synth-shell-prompt.config $(wslpath "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\synth-shell")"
+
+
+
 
 
 

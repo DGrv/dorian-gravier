@@ -22,7 +22,7 @@ data <- data.table(read.csv(lf, encoding = "utf-8"))
 data[, start2 := as.POSIXct(start, format = "%Y-%m-%d %H:%M:%S")]
 data[, end2 := as.POSIXct(end, format = "%Y-%m-%d %H:%M:%S")]
 data[, EventDay := F]
-data[note %like% " EVENT", EventDay := T]
+data[note %like% " @event", EventDay := T]
 data[EventDay==T, nDays := as.numeric(difftime(end2, start2, units = "days"))]
 data[, nDays2 := ifelse(nDays<1, ceiling(nDays), ceiling(nDays*2)/2)]
 data[EventDay==F, nHours := as.numeric(difftime(end2, start2, units = "hours"))]
@@ -30,7 +30,19 @@ data[EventDay==F, nHours := as.numeric(difftime(end2, start2, units = "hours"))]
 # Events ------------------------------------------------------------------
 
 dataE <- data[EventDay==T, .(SumDays = sum(nDays2), StartDay = format(min(start2), "%Y-%m-%d"), EndDay = format(max(start2), "%Y-%m-%d")), note]
-dataE[, note := gsub(" EVENT", "", note)]
+dataE[, note := gsub(" @event", "", note)]
+
+
+# to finish this
+# to finish this
+# to finish this
+# to finish this
+
+dataE[, note := gsub(" @ka", "", note)]
+
+
+
+
 TTDays <- sum(dataE$SumDays)
 cat(red("Number of Event days: "), TTDays, "\n")
 

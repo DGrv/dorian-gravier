@@ -1,5 +1,28 @@
 
 
+# eza as ls
+alias ls="eza -lh -smod --git" # smod is sorted modified
+alias lsa="eza -lha --git"
+
+# ln -s $(wslpath "C:\Users\doria\Downloads") down
+
+
+cdd() { # use cd on windows path cdd "C:\Users\doria\Downloads"
+    cd "$(wslpath "$1")"
+}
+
+cddown() { # go to C:\Users\doria\Downloads
+    cd "$(wslpath "C:\Users\doria\Downloads")"
+}
+
+fjson() { # pretty print json
+	
+	checkdep sponge jq
+	# sponge reads all input first, then writes to the file
+	jq '.' "$1" | sponge "$1"
+}
+
+
 
 rlc () { # remove last character
 	perl -pe "s/.$//"
@@ -97,7 +120,7 @@ addts () { # add timestamp to a filename
 }
 
 
-replacespacesfilename () { # Replace all spaces in filenames and path
+rsf () { # Replace all spaces in filenames
   for f in *\ *; do mv "$f" "${f// /_}"; done
 }
 
@@ -108,7 +131,8 @@ checkdep() { # check if packages are installed arguments as packages
     for name in "${args[@]}"; do
         [[ $(command -v $name 2>/dev/null) ]] || { cecho -y "$name" -r " needs to be installed.";deps=1;}
     done
-    [[ $deps -ne 1 ]] && cecho -g "All depedencies fulfilled" || { cecho -r "\nInstall the above and rerun this script\n"; }
+    # [[ $deps -ne 1 ]] && cecho -g "All depedencies fulfilled" || { cecho -r "\nInstall the above and rerun this script\n"; }
+    [[ $deps -ne 1 ]] || { cecho -r "\nInstall the above and rerun this script\n"; }
 }
 
 riaf() { # replace string in all files in folder run

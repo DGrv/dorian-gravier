@@ -14,7 +14,23 @@ source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/s
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/rr_functions.sh
 
 # Set up fzf key bindings and fuzzy completion
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(fzf --bash)"
+
+# environment python need to be activated:
+# Auto-activate virtualenv if exists
+if [ -f "./myenv/bin/activate" ]; then
+    source ./myenv/bin/activate
+fi
+
+# install :  synth-shell, run the ./setup.sh again to uninstall)
+# install only the synth-shell-prompt, all the rest not, it will colide with fzf or eza
+#git clone --recursive https://github.com/andresgongora/synth-shell.git
+#cd synth-shell
+#./setup.sh
+
+
+
 
 # END DORIAN --------------------------------------------
 
@@ -76,7 +92,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[[01;32m\]\u@\h\[[00m\]:\[[01;34m\]\w\[[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -85,7 +101,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\]$PS1"
     ;;
 *)
     ;;
@@ -94,7 +110,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    #alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -107,9 +123,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+#alias ll='ls -alF'
+#alias la='ls -A'
+#alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -136,7 +152,11 @@ if ! shopt -oq posix; then
 fi
 
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
 
+##-----------------------------------------------------
+## synth-shell-prompt.sh
+if [ -f /home/dori/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/dori/.config/synth-shell/synth-shell-prompt.sh
+fi
