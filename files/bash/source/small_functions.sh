@@ -1,19 +1,19 @@
 
 
 # eza as ls
-alias ls="eza -lh -smod --git" # smod is sorted modified
-alias lsa="eza -lha --git"
-
-# ln -s $(wslpath "C:\Users\doria\Downloads") down
-
+alias ls="eza -lh -smod --git" # use eza instead of ls `eza -lh -smod --git`, smod is sorted modified
+alias lsa="eza -lha -smod --git" # like ls but show hidden files
+alias s1="cd /mnt/c/Users/doria/Downloads" # go do Download on C
+alias sbashrc='source ~/.bashrc' # source your .bashrc
+alias nbashrc='nano ~/.bashrc' # nano your .bashrc
+alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh' # backup bashrc
+alias rmFl='tail -n +2' # rm first line of a file 
+alias rmLl='head -n -1' # rm last line of a file 
 
 cdd() { # use cd on windows path cdd "C:\Users\doria\Downloads"
     cd "$(wslpath "$1")"
 }
 
-cddown() { # go to C:\Users\doria\Downloads
-    cd "$(wslpath "C:\Users\doria\Downloads")"
-}
 
 fjson() { # pretty print json
 	
@@ -28,53 +28,38 @@ rlc () { # remove last character
 	perl -pe "s/.$//"
 }
 
-alias llh='ls -lh' # (human-readable file sizes)
-alias lls='ls -lhS' #(sort by size)
-alias ltr='ls -ltr' #(sort by modification time)
-alias lsr='ls -R' # (recursive listing)
-alias lsd='ls -d */' #(list directories only)
-alias lt='ls -t' # (sort by modification time)
-
-
-
-# shorcut
-alias godown="cd /mnt/c/Users/doria/Downloads"
-
-
-alias sbashrc='source ~/.bashrc'
-alias nbashrc='nano ~/.bashrc'
-
-# backup bashrc
-alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh'
 
 lfunction() { # List all function that I have written
 
 	wd="/mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/"
-	# Find all .sh files in the specified directory
-	find "$wd" -name '*.sh' | while read -r file; do
-	    filename=$(basename "$file")
-		cecho -g "------------------ $filename ------------------------------"
-		# Extract function names using grep and cut
-		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d ' ' -f 1 | sed 's/\(\)//g'
-		# grep -oP '^\s*\w+\s*\(\)\s*\{' "$file" | cut -d '#' -f 2 | sed 's/^\s//g'
-		
-		# grep -P '^\s*\w+\s*\(\)\s*\{' "$file" | perl -pe 's/\(\).*\#/\t\t--->\t/g'
-		
-		 # Extract functions and comments, sort alphabetically by function name
-        grep -P '^\s*\w+\s*\(\)\s*\{' "$file" | \
-        perl -ne '
-            if (/^\s*(\w+)\s*\(\).*\{.*(#.*)$/) {
-                $func = $1;
-                $comment = $2 // "";
-                $comment =~ s/^#\s*//;
-                print "$func\t$comment\n";
-            }
-        ' | sort | while IFS=$'\t' read -r func_name comment2; do
-            printf "%-25s\t%s\t%s\n" "${YELLOW}$func_name${NC}" "${CYAN}--->${NC}" "${WHITE}${comment2}${NC} "
-        done
-		
-		echo ""
 
+	
+	find "$wd" -name '*.sh' | while read -r file; do
+		filename=$(basename "$file")
+		cecho -g "------------------ $filename ------------------------------"
+
+		# Extract both functions and aliases
+		grep -P '^\s*(\w+\s*\(\)\s*\{|alias\s+\w+=)' "$file" | \
+		perl -ne '
+			if (/^\s*(\w+)\s*\(\).*{.*(#.*)$/) {
+				# Function
+				$func = $1;
+				$comment = $2 // "";
+				$comment =~ s/^#\s*//;
+				print "$func\t$comment\n";
+			}
+			elsif (/^\s*alias\s+(\w+)=.*(#.*)$/) {
+				# Alias
+				$func = $1;
+				$comment = $2 // "";
+				$comment =~ s/^#\s*//;
+				print "$func\t$comment\n";
+			}
+		' | sort | while IFS=$'\t' read -r func_name comment2; do
+			printf "%-25s\t%s\t%s\n" "${YELLOW}$func_name${NC}" "${CYAN}--->${NC}" "${WHITE}${comment2}${NC} "
+		done
+
+		echo ""
 	done
 }
 

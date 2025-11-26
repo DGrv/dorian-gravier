@@ -30,7 +30,7 @@ REM copy C:\Users\doria\scoop\apps\wezterm\current\wezterm.lua C:\Users\doria\Do
 
 
 :: synth-shell config
-C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.config/synth-shell/synth-shell-prompt.config $(wslpath "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\synth-shell")"
+C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;")"
 
 
 

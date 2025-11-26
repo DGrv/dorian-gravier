@@ -5,6 +5,9 @@
 
 # START Dorian ----------------------------------------------
 
+# source cargo package manager
+. "$HOME/.cargo/env"
+
 # source cecho for color echo
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/ansi_colors.sh
 source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh
@@ -16,6 +19,8 @@ source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/s
 # Set up fzf key bindings and fuzzy completion
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(fzf --bash)"
+eval "$(jump shell bash)"
+
 
 # environment python need to be activated:
 # Auto-activate virtualenv if exists
@@ -160,3 +165,4 @@ fi
 if [ -f /home/dori/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo $- | grep i )" ]; then
 	source /home/dori/.config/synth-shell/synth-shell-prompt.sh
 fi
+. "$HOME/.cargo/env"
