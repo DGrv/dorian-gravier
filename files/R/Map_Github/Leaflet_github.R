@@ -194,14 +194,43 @@ m <-  m %>%
 cat("\nLeaflet ready")
 
 setwd(wdout)
-saveWidget(m, file="Leaflet.html")
-
-cat("\nLeaflet DONE :)\n")
-
-
 
 export.gpx2(data[What == "Bike"],
             rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/All_Bikes_for_gpxstudio.gpx"), 
             layer.type = "trk",
             segment.column.name = "uname")
+
+
+outfilename <- "Leaflet.html"
+
+saveWidget(m, file=outfilename)
+
+
+# change few thing in the html
+
+t <- readLines(outfilename)
+idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
+
+# change meta that is good phones 
+# t[t %like% "<meta"]
+t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />', t)
+
+t <- gsub("<title>leaflet</title>", p0("<title>", gsub(".html", "", outfilename), "</title>"), t)
+
+
+
+# Mouse position ---------------------------------------------------------
+
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
+write.table(t, outfilename, row.names = F, col.names = F, quote = F)
+
+
+
+cat("\nLeaflet DONE :)\n")
+
+
+
 
