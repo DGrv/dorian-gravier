@@ -9,6 +9,7 @@ alias nbashrc='nano ~/.bashrc' # nano your .bashrc
 alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh' # backup bashrc
 alias rmFl='tail -n +2' # rm first line of a file 
 alias rmLl='head -n -1' # rm last line of a file 
+alias vscodium='/mnt/c/Windows/System32/cmd.exe /C "vscodium"' # open vscodium in windows
 
 cdd() { # use cd on windows path cdd "C:\Users\doria\Downloads"
     cd "$(wslpath "$1")"

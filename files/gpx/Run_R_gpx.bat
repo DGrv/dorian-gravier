@@ -7,3 +7,4 @@ C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gr
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\BikeTrip2025_github.R
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\BikeTrip2025_calculation.R
 C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\Climbing_github.R
+C:\Users\doria\scoop\shims\rscript.exe C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\R\Map_Github\PlanMap_github.R
