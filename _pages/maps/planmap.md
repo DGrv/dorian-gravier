@@ -1,5 +1,5 @@
 ---
-permalink: /maps/bt2025/
+permalink: /maps/planmap/
 author_profile: false
 layout: single
 ---
