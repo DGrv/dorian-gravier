@@ -224,7 +224,7 @@ t <- gsub("<title>leaflet</title>", p0("<title>", gsub(".html", "", outfilename)
 
 
 # Mouse position ---------------------------------------------------------
-
+  
 
 tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
 tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)

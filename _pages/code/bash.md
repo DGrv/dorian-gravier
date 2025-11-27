@@ -21,11 +21,8 @@ tail -n +2 # Remove header
 ```sh
 qsv  slice -s -1 --invert # Remove last row
 qsv  stats | qsv lens # Check the stat of a table, type of columns ... 
-```
-
-```sh
 qsv  stats | qsv lens      # Check the stat of a table, type of columns ... 
-tail -n +2                 # Remove header
+qsv apply operations len coord -c testnewcolumn # calculate length of coord column and create a new colum to store the result : https://www.stijn.digital/docs/data-tools/qsv-commands/apply/
 ```
 
 
@@ -39,6 +36,16 @@ rmLl Not_paid_out_yet.csv | \                          # remove last line from t
  then sort -nr Sum | \                                 # sort, check  mlr sort -h
  rmH  | \                                              # rm header for termagraph
  termgraph                                             # to a distribution
+```
+
+```sh
+cat whc001.csv | \ 
+ mlr --csv filter '${States Names}=="Greece"' then \                                # filter, filter should always be a bool output
+ rename "Name EN", "name", "Coordinates", "coord", "Description EN", "desc" then \  # rename "Name EN" to "Name" and so on
+ cut -o -f "name,coord,desc" then put '$group="Unesco"' \                           # select only those columns and keep the order with -o
+ --ofs tab | \                                                                      # Export in tsv --ofs is separatour output, you have also --ifs
+ rmFl | \                                                                           # remove the header
+ clip.exe                                                                           # copy to clipboard
 ```
 
 ## termgraph
