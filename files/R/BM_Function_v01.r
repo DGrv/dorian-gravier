@@ -825,8 +825,8 @@ dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max
 # read - write ------------------------------------------------------------
 
 readAll <- function(listfile, fill = F, skip = 0, header = T) {
-  
-  lst <- lapply(listfile, fread, skip=skip, header = header, integer64 = "character", encoding = "UTF-8")
+
+    lst <- lapply(listfile, fread, skip=skip, header = header, integer64 = "character", encoding = "UTF-8")
   tryCatch({
     # give a list of file and read them all and rbind
     lst <- mapply(cbind, lst, file=basename(listfile), SIMPLIFY=F)

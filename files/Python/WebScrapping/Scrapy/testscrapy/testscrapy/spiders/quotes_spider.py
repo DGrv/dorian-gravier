@@ -27,9 +27,9 @@ from shutil import which
 # RUN CMD               docker run -p 8050:8050 scrapinghub/splash
 # check if running      http://localhost:8050/    
 
-# scrapy shell http://localhost:8050/render.html?url=https://www.thecrag.com/de/klettern/spain/area/4679626191
+# scrapy shell http://localhost:8050/render.html?url=https://www.th3cr4g.com/de/klettern/spain/area/4679626191
 # fetch('http://localhost:8050/render.html?url=https://www.dynafit.com/de-de/expedition-30-rucksack-08-0000048953?c=318560')
-# fetch("https://www.thecrag.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
+# fetch("https://www.th3cr4g.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
 
 
 # # seleniumoptions = Options()
@@ -68,7 +68,7 @@ class ExtractUrls(scrapy.Spider):
         'ROBOTSTXT_OBEY' : False,
         'LOG_FORMAT' : '\x1b[0;0;34m%(asctime)s\x1b[0;0m \x1b[0;0;36m[%(name)s]\x1b[0;0m \x1b[0;0;31m%(levelname)s\x1b[0;0m: %(message)s',
 
-        # # test thecrag
+        # # test th3cr4g
         # 'HTTPCACHE_IGNORE_HTTP_CODES': [301,302],
         # 'HTTPCACHE_ENABLED': False,
         # 'REDIRECT_ENABLED': False,
@@ -106,7 +106,7 @@ class ExtractUrls(scrapy.Spider):
     
     # request function
     def start_requests(self):
-        urls = [ 'https://www.thecrag.com/de/klettern/' + self.country]
+        urls = [ 'https://www.th3cr4g.com/de/klettern/' + self.country]
         for url in urls:
             # yield scrapy.Request(url = url, callback = self.parse)
             # yield scrapy.Request(url = url, meta = {'dont_redirect': True, 'handle_httpstatus_list': [302]}, callback = self.parse)
@@ -152,7 +152,7 @@ class ExtractUrls(scrapy.Spider):
         # Get anchor tags
         links = response.css('a::attr(href)').extract()     
         # the links list is local links so I have to add the domain for each element in the list
-        links[:] = ['https://www.thecrag.com' + e for e in links if 'http' not in e]
+        links[:] = ['https://www.th3cr4g.com' + e for e in links if 'http' not in e]
         
         # use scrapy crawl extract -o youroutput.csv -a country=spain
         notok = ['route', 'ascent', 'forum', 'guide', 'weather', 'accommodation', 'publication', 'contributors', 'discussions', 'nodes', 'climbers', 'photos', 'list', 'search', 'topos', 'favorites', 'map', 'webcover', 'sandpit', 'article', 'kml']
@@ -175,7 +175,7 @@ class ExtractUrls(scrapy.Spider):
                 if all(x not in link for x in notok):
                     # yield scrapy.Request(url = link, callback = self.parse)
                     # # If you have redirect 302:
-                    # # 2023-03-21 18:10:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://sandpit.thecrag.com/e8a/redirect.py?redir=processmap/login?return=%2Fde%2Fklettern%2Fspain%2Farea%2F4679626191> from <GET https://www.thecrag.com/de/klettern/spain/area/4679626191>
+                    # # 2023-03-21 18:10:55 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://sandpit.th3cr4g.com/e8a/redirect.py?redir=processmap/login?return=%2Fde%2Fklettern%2Fspain%2Farea%2F4679626191> from <GET https://www.th3cr4g.com/de/klettern/spain/area/4679626191>
                     # # use this (from https://stackoverflow.com/questions/22795416/how-to-handle-302-redirect-in-scrapy)
                     # yield scrapy.Request(url = link, meta = {'dont_redirect': True, 'handle_httpstatus_list': [302]}, callback=self.parse)
                     # yield SeleniumRequest(url = link, callback = self.parse)
@@ -186,7 +186,7 @@ class ExtractUrls(scrapy.Spider):
 
 
 
-# fetch("https://www.thecrag.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
+# fetch("https://www.th3cr4g.com/de/klettern/spain", meta = {'dont_redirect': True, 'handle_httpstatus_list': [302], 'handle_httpstatus_list': [301]})
 
 
 # test = ["spain"]

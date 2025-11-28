@@ -450,7 +450,7 @@ substitute all `\n `{=tex}characters
 
 ```batchfile
 :: get the country out
-echo https://www.thecrag.com/de/klettern/france/  | sed -nr "s/https\:\/\/www\.thecrag\.com\/..\/.*\/(.*)\//\1/p"
+echo https://www.th3cr4g.com/de/klettern/france/  | sed -nr "s/https\:\/\/www\.th3cr4g\.com\/..\/.*\/(.*)\//\1/p"
 ```
 
 ### substr or substitute / replace
