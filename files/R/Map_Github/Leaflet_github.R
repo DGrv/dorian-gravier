@@ -65,39 +65,7 @@ dataBU <- copy(data)
 # brewer.pal(n = 2, name = "Set1")
 
 
-
-
-mapGroups <- c(
-  "CyclOSM", 
-  "OpenTopoMap",
-  "SwissTopo", 
-  "SwissTopo Sat",
-  "Esri.WorldImagery",
-  "CartoDBPositron",
-  "CartoDBDarkMatter",
-  "CartoDBVoyager",
-  "OPNVKarte")
-# check providers https://leaflet-extras.github.io/leaflet-providers/preview/
-m <- leaflet() %>%
-  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "CyclOSM") %>%
-  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "OpenTopoMap") %>%
-  addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
-  addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
-  addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxZoom = 20), "Esri.WorldImagery") %>%
-  addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxZoom = 20), "CartoDB.PositronNoLabels")%>%
-  addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
-  addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxZoom = 20), "CartoDB.VoyagerNoLabels") %>%
-  addProviderTiles( group = mapGroups[9], options = providerTileOptions(maxZoom = 20), "OPNVKarte")
-
-
-m <- m %>% 
-  onRender("
-    function(el, x) {
-      var map = this;
-      map.options.zoomSnap = 0.5;
-      map.options.zoomDelta = 0.5;
-    }
-  ")
+source(p0(rootpath, "Map_Github/Map_providers.R"))
 
 # Add layers --------------------------------------------------------------
 
