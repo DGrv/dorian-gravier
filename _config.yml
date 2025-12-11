@@ -141,6 +141,7 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - README*
   - tmp
   - _site
+  - Run_jekyll_local.bat
       
 # # Collections
 # collections:
