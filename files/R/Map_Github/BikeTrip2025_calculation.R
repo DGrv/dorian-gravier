@@ -13,6 +13,7 @@ suppressWarnings(suppressMessages(library(RColorBrewer)))
 suppressWarnings(suppressMessages(library(sf)))
 suppressWarnings(suppressMessages(library(gpx)))
 suppressWarnings(suppressMessages(library(xml2)))
+suppressWarnings(suppressMessages(library(geosphere)))
 # display.brewer.all()
 
 wd <- rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Bike_trip_2025/")
