@@ -3,10 +3,21 @@
 # source me in your script or .bashrc/.zshrc if wanna use cecho
 # source '/path/to/cecho.sh'
 
-uColor() { # change all color from a logo to one unique color (e.g. for templates #9370DB of test events #FF1493): usage: uColor "filename" "hex code your color" 
-	
+uColor() { # change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: uColor "filename" "hex code your color" 
 	checkdep convert
-	convert "$1" -channel RGB -auto-level +level-colors "$2" "${1%.*}_uColor.png"
+	convert "$1" -channel RGB -auto-level +level-colors "$2" "${1%.*}_uColor1.png"
+	convert "$1" -colorspace gray -contrast-stretch 0 +level-colors "none,$2" -transparent black "${1%.*}_uColor2.png"
+	convert "$1" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$2" -transparent black "${1%.*}_uColor3.png"
+	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
+}
+
+rmwbg() { # Remove the hite bakcground based on different fuzz
+    for i in $(seq 10 10 90); do 
+        convert "$1" -fill none -fuzz $i% -draw "color 0,0 floodfill" "${1%.*}_rmwbg${i}_floodfill.png"
+        convert "$1" -channel RGBA -fuzz $i% -fill none -opaque white "${1%.*}_rmwbg$i.png"
+        # convert "$1" -channel RGBA -fuzz $i% -fill none -opaque white -alpha on -blur 0x0.5 "${1%.*}_rmwbg${i}_smooth.png"
+    done
+
 }
 
 gpx2svg() { # convert a gpx to svg for profile, gpx2svg *.gpx  or gpx2svg input.gpx

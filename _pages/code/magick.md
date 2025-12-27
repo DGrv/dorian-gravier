@@ -253,6 +253,11 @@ magick logo.png -colorspace gray -contrast-stretch 0 +level-colors "none,#9370DB
 # -colorspace gray				Converts the image to grayscale.
 # -contrast-stretch 0 			Automatically maximize contrast based on the darkest and brightest pixels.
 # +level-colors "none,#9370DB"		+level-colors A,B maps black → A and white → B, with intermediate grays forming a gradient. none is transparent
+
+# can be combined with -negate, or -transparent yourcolor:
+convert "$1" -channel RGB -auto-level +level-colors "$2" "${1%.*}_uColor1.png"
+convert "$1" -colorspace gray -contrast-stretch 0 +level-colors "none,$2" -transparent black "${1%.*}_uColor2.png"
+convert "$1" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$2" -transparent black "${1%.*}_uColor3.png"
 ```
 
 ⚠️⚠️⚠️ If you have problem with some pixel try to remove `-contrast-stretch 0 `

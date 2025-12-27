@@ -51,8 +51,86 @@ cat whc001.csv | \
 ## termgraph
 
 
-```sh
+## jq
+
+
+
+
+### read json and export csv
+
+[Source](https://www.cyberciti.biz/faq/how-to-convert-json-to-csv-using-linux-unix-shell/)
+[Manual](https://jqlang.github.io/jq/manual/#invoking-jq)
+
+```sh 
+cat yourjson | jq -r '.[] | join("\t\t")' > "UDF.csv"
+cat yourjson | jq -r '.[] | join(";")' > "UDF.csv"
+# or even better
+cat yourjson | jq -r '.[]' | jq -r @csv > test.csv
 ```
+
+```sh 
+# depending on your json- will extract headers and use it -- really good
+cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
+```
+
+[Source here](https://stackoverflow.com/a/30032247/2444948)
+
+You can try everything here : [](https://jqplay.org/)
+
+### some commands
+
+
+```sh
+# prettify
+jq '.'
+# with arrays
+jq '.[]'
+# access with index
+jq '.[1]'
+jq '.[]. [0]'
+# with Name
+jq '.[].name'
+# select certain rows
+jq '.[]' | jq 'select(.id == 65061)'
+# use select with regex
+jq '.[]' | jq 'select(.title_short | test("111"))'
+# export in csv big example
+curl "https://park4night.com/api/places/around?lat=46.25977500237305&lng=8.776788825087465&radius=200" | jq '.[]' | jq '[.id, .lat, .lng, .rating, .type.label, .url, .title_short, .description]' | jq -r @csv > test.csv
+# csv to json, For RR: save csv with comma separators
+jq Contest_new.csv -p=csv -o=json | perl -pe 's|\{\}|"{}"|g' > Contest_new.lvs
+# depending on your json- will extract headers and use it -- really goog
+cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
+# extract ids from json and add url:
+jq -r '.[].[0] | "https://my.raceresult.com/\(.)/logo"' events_2024.json
+# do a curl on it, 2 options:
+jq -r '.[].[0]' events_2024.json | xargs -I {} curl -o logo_{}.png "https://my.raceresult.com/{}/logo"
+jq -r '.[].[0] | "curl -o logo_\(.).png https://my.raceresult.com/\(.)/logo"' events_2024.json | sh
+
+
+```
+
+### Export 
+
+Export what you want how you want, [found here](https://stackoverflow.com/a/39139478/2444948)
+
+```sh
+echo '[{
+    "name": "George",
+    "id": 12,
+    "email": "george@domain.example"
+}, {
+    "name": "Jack",
+    "id": 18,
+    "email": "jack@domain.example"
+}, {
+    "name": "Joe",
+    "id": 19,
+    "email": "joe@domain.example"
+}]' | jq -r '.[] | "\(.id)\t\(.name)"'
+```
+
+
+
 
 
 
@@ -357,14 +435,14 @@ $ echo "abc"'"'"abc"
 abc"abc
 ```
 
-*# Size folders*
+#### Size folders
 
 ```sh
 sudo apt-get install ncdu
 ncdu
 ```
 
-*list packages size*
+#### list packages size
 
 ```sh
 dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n
@@ -373,96 +451,16 @@ dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n
 
 [Source](https://unix.stackexchange.com/a/107039/374250)
 
-*unicode to utf-8*
+#### unicode to utf-8
 
 ```sh
 ascii2uni -a U -q
 ```
 
-*read json and export csv*
-
-[Source](https://www.cyberciti.biz/faq/how-to-convert-json-to-csv-using-linux-unix-shell/)
-[Manual](https://jqlang.github.io/jq/manual/#invoking-jq)
-
-```sh 
-cat yourjson | jq -r '.[] | join("\t\t")' > "UDF.csv"
-cat yourjson | jq -r '.[] | join(";")' > "UDF.csv"
-# or even better
-cat yourjson | jq -r '.[]' | jq -r @csv > test.csv
-```
-
-```sh 
-# depending on your json- will extract headers and use it -- really good
-cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
-```
-
-[Source here](https://stackoverflow.com/a/30032247/2444948)
-
-You can try everything here : [](https://jqplay.org/)
-
-jq command:
-
-
-```sh
-# prettify
-cat test.txt | jq '.'
-# with arrays
-cat test.txt | jq '.[]'
-# access with index
-cat test.txt | jq '.[1]'
-# with Name
-cat test.txt | jq '.[].name'
-# select certain rows
-cat test.txt | jq '.[]' | jq 'select(.id == 65061)'
-# use select with regex
-cat test.txt | jq '.[]' | jq 'select(.title_short | test("111"))'
-# export in csv big example
-curl "https://park4night.com/api/places/around?lat=46.25977500237305&lng=8.776788825087465&radius=200" | jq '.[]' | jq '[.id, .lat, .lng, .rating, .type.label, .url, .title_short, .description]' | jq -r @csv > test.csv
-
-```
-
-Export what you want how you want, [found here](https://stackoverflow.com/a/39139478/2444948)
-
-```sh
-echo '[{
-    "name": "George",
-    "id": 12,
-    "email": "george@domain.example"
-}, {
-    "name": "Jack",
-    "id": 18,
-    "email": "jack@domain.example"
-}, {
-    "name": "Joe",
-    "id": 19,
-    "email": "joe@domain.example"
-}]' | jq -r '.[] | "\(.id)\t\(.name)"'
-```
 
 
 
-
-*csv to json*
-
-For RR:
-
-save csv with comma separators
-
-```sh
-jq Contest_new.csv -p=csv -o=json | perl -pe 's|\{\}|"{}"|g' > Contest_new.lvs
-```
-
-here the json to csv that comes before
-
-```sh 
-# depending on your json- will extract headers and use it -- really goog
-cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
-```
-
-
-
-
-*P4N matrix coordinate*
+#### P4N matrix coordinate
 
 ```sh
 mkdir P4N_csv
