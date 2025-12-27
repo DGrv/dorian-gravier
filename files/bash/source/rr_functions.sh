@@ -79,7 +79,7 @@ splitRawData() { # Split a file with rawdata to split files, using Rscript (not 
 sesExtract () { # Extract ses data
     if [ -f "$1" ]; then
 	
-		# set "backup_OCHSNER SPORT Zurich Marathon 2025_20250409-121357.ses"
+		# set "backup_Zurich City Triathlon 2026_20251227-152734.ses"
 		
         # tablewanted=( settings customFields rankings teamscores contests results timingpoints splits history data RawData )
         # tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
@@ -108,7 +108,8 @@ sesExtract () { # Extract ses data
 		
 		
         cecho -y "Export von settings UDF:"
-        grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
+        # grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv" # old 20251227
+        grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe "s|\\t||g" | perl -pe 's|\"\"|"|g' | ascii2uni -a U -q | jq -r '.[] | join("\t\t")' > "$fdir/UDF.csv"
         cecho -g "UDF Done"
 
         # Export list ---------------------------------------------
@@ -122,7 +123,8 @@ sesExtract () { # Extract ses data
         # remove \" that is making problems for jq
         # transform unicode (\u0026 ...) with ascii2uni -a U -q
         # then work per line
-        grep -s "ListName" "$fdir/settings.csv" | perl -pe "s|.*({\"ListName.*})\t.*|\1|g" | perl -pe "s|\\\\\"|'|g"  | ascii2uni -a U -q | while read line ; do 
+        # grep -s "ListName" "$fdir/settings.csv" | perl -pe "s|.*({\"ListName.*})\t.*|\1|g" | perl -pe "s|\\\\\"|'|g"  | ascii2uni -a U -q | while read line ; do # old 20251227
+        grep -s "ListName" "$fdir/settings.csv" | perl -pe 's|\"\"|"|g' | perl -pe "s/.*(\{\"ListName.*\})\"\t.*/\1/g" | perl -pe "s|\\\\\"|'|g" | ascii2uni -a U -q | while read line ; do 
             echo "$line" | jq -r '.ListName' | perl -pe "s/\|/  ;\"----\";  /g"  >> "$fdir/output_list.csv"
             echo "ORDER;Label;Descending;Grouping;GroupingFilterDefault;__________" >> "$fdir/output_list.csv"
             # ; is the separator of the csv, then add \" so a quote for each cell, this \(.Expression) is extract the value with jq
