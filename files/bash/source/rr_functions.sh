@@ -96,7 +96,7 @@ sesExtract () { # Extract ses data
 		# Export in other format for RRdeps
         mkdir -p $fdir/RRdeps
 		sqlite3 -json "$1" "SELECT * FROM results" | jq -r '.[] | [.ID, .Name, .TimeFormat, .TimeRounding, .Location, .Formula ] | @csv' | sed 's/,/;/g; s/"//g' > "$fdir/RRdeps/Special Results.lvs"
-		grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" > "$fdir/RRdeps/User Defined Fields_Fcts..lvs"
+		grep -s UserFields "$fdir/settings.csv" | perl -pe "s|.*?(\[.*\]).*|\1|g" | perl -pe 's|\"\"|"|g' > "$fdir/RRdeps/User Defined Fields_Fcts..lvs"
 		sqlite3 -json "$1" "SELECT * FROM contests" > "$fdir/RRdeps/Contests.lvs"
 		sqlite3 -json "$1" "SELECT * FROM rankings" > "$fdir/RRdeps/Rankings.lvs"
 		sqlite3 -json "$1" "SELECT * FROM customFields" > "$fdir/RRdeps/Additional Fields.lvs"
