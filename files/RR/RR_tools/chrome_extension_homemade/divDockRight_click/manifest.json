@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "RR14 divDockRight + Reload",
+  "version": "1.2",
+  "description": "Click on divDockRight or Reload button with shortcuts",
+  "permissions": ["scripting", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://events1.raceresult.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "commands": {
+    "trigger-click": {
+      "suggested_key": { "default": "Ctrl+Y" },
+      "description": "Click the divDockRight div"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
