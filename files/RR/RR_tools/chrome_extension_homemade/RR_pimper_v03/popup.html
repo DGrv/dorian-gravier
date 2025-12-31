@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 12px;
+            background: #ffffff;
+            border: 2px solid #c41011;
+            border-radius: 10px;
+            width: 260px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 14px;
+            background: #c41011;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px; /* fully rounded */
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background: #000000;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        pre {
+            margin-top: 12px;
+            padding: 8px;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #c41011;
+            border-radius: 6px;
+            font-size: 12px;
+            max-height: 120px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body style="font-family:sans-serif; padding:10px">
+    <button id="export"><img src="opExport.gif" />  Export all List</button></button>
+    <span id="exportLoading" style="display:none; margin-left:10px;">⏳ Exporting...</span>
+
+    <button id="delete"><img src="opDelete.gif" />  Delete all List</button></button>
+    <pre id="out"></pre>
+    <script src="popup.js"></script>
+
+</body>
+
+</html>
