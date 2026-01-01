@@ -11,7 +11,7 @@ uColor() { # change all color from a logo to one unique color (e.g. for template
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
-rmwbg() { # Remove the hite bakcground based on different fuzz
+rmwbg() { # Remove the white background based on different fuzz
     for i in $(seq 10 10 90); do 
         convert "$1" -fill none -fuzz $i% -draw "color 0,0 floodfill" "${1%.*}_rmwbg${i}_floodfill.png"
         convert "$1" -channel RGBA -fuzz $i% -fill none -opaque white "${1%.*}_rmwbg$i.png"
@@ -211,3 +211,180 @@ sesExtract () { # Extract ses data
 
 
 
+
+RRgroupingColors() { # Function to update Color and BackgroundColor in JSON files (supports glob patterns *.lvs) Example: RRgroupingColors data.json "#ff0000,#00ff00" "#0000ff,#ffff00" "#ff00ff,#00ffff"
+
+    # Function to update Color and BackgroundColor in JSON files (supports glob patterns)
+    # Usage: update_colors "<pattern_or_file>" "<color1>,<color2>" ["<color3>,<color4>"] ["<color5>,<color6>"]
+    # Example: update_colors "*.lv" "#ff0000,#00ff00" "#0000ff,#ffff00"
+    # Example: update_colors "data.json" "#ff0000,#00ff00"
+
+    # Check if correct number of arguments provided (2-4 total)
+    if [ $# -lt 2 ] || [ $# -gt 4 ]; then
+        echo "Usage: update_colors \"<pattern_or_file>\" \"<color1>,<color2>\" [\"<color3>,<color4>\"] [\"<color5>,<color6>\"]"
+        echo "Example: update_colors \"*.lv\" \"#ff0000,#00ff00\" \"#0000ff,#ffff00\""
+        echo "Example: update_colors \"data.json\" \"#ff0000,#00ff00\""
+        echo "Note: You can provide 2-4 parameters total (pattern + 1-3 color pairs)"
+        return 1
+    fi
+
+    local PATTERN="$1"
+    
+    # Expand the glob pattern to get actual files
+    local FILES=()
+    if [[ "$PATTERN" == *"*"* ]] || [[ "$PATTERN" == *"?"* ]] || [[ "$PATTERN" == *"["* ]]; then
+        # It's a glob pattern
+        shopt -s nullglob  # Enable nullglob so empty matches return empty array
+        FILES=($PATTERN)
+        shopt -u nullglob  # Disable nullglob after use
+        
+        if [ ${#FILES[@]} -eq 0 ]; then
+            echo "Error: No files match pattern '$PATTERN'"
+            return 1
+        fi
+        
+        echo "Found ${#FILES[@]} files matching pattern '$PATTERN':"
+        printf "  %s\n" "${FILES[@]}"
+        echo
+    else
+        # It's a single file
+        FILES=("$PATTERN")
+    fi
+
+    # Function to validate and parse color pair
+    validate_color_pair() {
+        local colors="$1"
+        local pair_num="$2"
+        
+        # Split colors using regex (supports both comma and semicolon)
+        local color1=$(echo "$colors" | sed -E 's/^([^,;]+)[,;].*$/\1/')
+        local color2=$(echo "$colors" | sed -E 's/^[^,;]+[,;](.+)$/\1/')
+        
+        # Validate that we have two colors
+        if [ -z "$color1" ] || [ -z "$color2" ] || [ "$color1" = "$color2" ]; then
+            echo "Error: Color pair $pair_num - Please provide two different colors separated by comma or semicolon."
+            echo "Example: \"#ff0000,#00ff00\" or \"#ff0000;#00ff00\""
+            return 1
+        fi
+        
+        # Validate hex color format
+        if ! [[ "$color1" =~ ^#[0-9a-fA-F]{6}$ ]] || ! [[ "$color2" =~ ^#[0-9a-fA-F]{6}$ ]]; then
+            echo "Error: Color pair $pair_num - Colors must be in hex format (#rrggbb)."
+            echo "Example: #ff0000, #00ff00"
+            return 1
+        fi
+        
+        echo "$color1,$color2"
+        return 0
+    }
+
+    # Parse and validate all color pairs (only once for all files)
+    local COLOR_PAIRS=()
+    for i in $(seq 2 $#); do
+        local pair_index=$((i-1))
+        local colors="${!i}"
+        
+        echo "Processing color pair $pair_index: $colors"
+        
+        local parsed_colors=$(validate_color_pair "$colors" "$pair_index")
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+        
+        COLOR_PAIRS+=("$parsed_colors")
+    done
+
+    echo "Number of color pairs: ${#COLOR_PAIRS[@]}"
+    echo
+
+    # Build jq arguments for all color pairs (only once)
+    local COLOR_JSON="["
+    for i in "${!COLOR_PAIRS[@]}"; do
+        local color1=$(echo "${COLOR_PAIRS[$i]}" | cut -d',' -f1)
+        local color2=$(echo "${COLOR_PAIRS[$i]}" | cut -d',' -f2)
+        if [ $i -gt 0 ]; then
+            COLOR_JSON+=","
+        fi
+        COLOR_JSON+="{\"color\":\"$color1\",\"backgroundColor\":\"$color2\"}"
+    done
+    COLOR_JSON+="]"
+
+    # Process each file
+    local SUCCESS_COUNT=0
+    local FAIL_COUNT=0
+    
+    for FILE in "${FILES[@]}"; do
+        echo "Processing file: $FILE"
+        
+        # Check if file exists
+        if [ ! -f "$FILE" ]; then
+            echo "  Error: File '$FILE' does not exist."
+            ((FAIL_COUNT++))
+            continue
+        fi
+
+        # Validate JSON format
+        if ! jq empty "$FILE" 2>/dev/null; then
+            echo "  Error: File '$FILE' is not valid JSON."
+            ((FAIL_COUNT++))
+            continue
+        fi
+
+        # Find orders with Grouping != 0 and update colors
+        local TEMP_FILE=$(mktemp)
+
+        jq --argjson "colorPairs" "$COLOR_JSON" '
+          # Find all indices where Grouping != 0
+          [.Orders | to_entries[] | select(.value.Grouping != 0) | .key] as $indices |
+          
+          # Update colors for each available index and color pair
+          reduce range(0; [($colorPairs | length), ($indices | length)] | min) as $i (.;
+            $indices[$i] as $order_index |
+            .Orders[$order_index].Color = $colorPairs[$i].color |
+            .Orders[$order_index].BackgroundColor = $colorPairs[$i].backgroundColor
+          )
+        ' "$FILE" > "$TEMP_FILE"
+
+        # Check if jq command was successful
+        if [ $? -eq 0 ]; then
+            # Replace original file with updated content
+            mv "$TEMP_FILE" "$FILE"
+            echo "  ✓ Successfully updated colors in $FILE"
+            ((SUCCESS_COUNT++))
+            
+            # Show the updated orders (only for single file or verbose mode)
+            if [ ${#FILES[@]} -eq 1 ]; then
+                echo "  Updated order details:"
+                jq '
+                .Orders | to_entries | 
+                map(select(.value.Grouping != 0)) | 
+                to_entries | 
+                map({
+                  "order_index": .value.key,
+                  "pair_index": (.key + 1),
+                  "grouping": .value.value.Grouping,
+                  "color": .value.value.Color,
+                  "backgroundColor": .value.value.BackgroundColor
+                })
+                ' "$FILE"
+            fi
+        else
+            echo "  ✗ Error: Failed to update file '$FILE'."
+            rm -f "$TEMP_FILE"
+            ((FAIL_COUNT++))
+        fi
+        echo
+    done
+    
+    # Summary
+    echo "=== Summary ==="
+    echo "Successfully processed: $SUCCESS_COUNT files"
+    echo "Failed: $FAIL_COUNT files"
+    echo "Total: ${#FILES[@]} files"
+    
+    if [ $FAIL_COUNT -eq 0 ]; then
+        return 0
+    else
+        return 1
+    fi
+}

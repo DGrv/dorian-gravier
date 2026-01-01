@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 12px;
+            background: #ffffff;
+            border: 2px solid #c41011;
+            border-radius: 10px;
+            width: 260px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 14px;
+            background: #c41011;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            /* fully rounded */
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background: #000000;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* Container to position the hidden input and the fake button */
+        .file-input-container {
+            position: relative;
+            /* 1. Set a width less than 100%. Adjust as you like. */
+            width: 80%;
+            /* 2. Use 'auto' for left/right margin to center the block. 
+          The '5px' keeps the vertical margin. */
+            margin: 5px auto;
+        }
+
+
+        /* The actual file input, made invisible but still functional */
+        .file-input-container input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            /* Makes it transparent */
+            cursor: pointer;
+            /* Ensures the hand cursor appears */
+            z-index: 2;
+            /* Puts it on top of the label */
+        }
+
+        /* The <label> styled to look exactly like your other buttons */
+        .file-input-container label {
+            display: block;
+            /* Changed from inline-block to block */
+            box-sizing: border-box;
+            width: 100%;
+            /* This now means 100% of the 80% container */
+            padding: 4px 14px;
+            background: #e73331;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            z-index: 1;
+            /* Label is below the input */
+        }
+
+
+        /* Hover effect to match your other buttons */
+        .file-input-container label:hover {
+            background: #000000;
+        }
+
+        /* Style for the text that shows the selected file names */
+        #file-chosen-text {
+            display: block;
+            /* Makes it take its own line */
+            text-align: center;
+            font-size: 10px;
+            color: #555;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            /* Adds some space before the "Import" button */
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body style="font-family:sans-serif; padding:10px">
+    <button id="export"><img src="opExport.gif" /> Export all List</button></button>
+    <button id="delete"><img src="opDelete.gif" /> Delete all List</button></button>
+    <br>
+<hr>
+    <!-- Import files -->
+    <div class="file-input-container">
+        <input type="file" id="importFiles" multiple accept=".lvs">
+        <label for="importFiles">
+            <!-- You can add an icon here if you have one -->
+            <span>Choose Files...</span>
+        </label>
+    </div>
+    <span id="file-chosen-text">No files chosen</span>
+    <button id="import">Import selected lists</button>
+
+
+    <!-- <pre id="out"></pre> -->
+    <script src="popup.js"></script>
+
+</body>
+
+</html>
