@@ -34,7 +34,7 @@ rmLl Not_paid_out_yet.csv | \                          # remove last line from t
  then rename 'ToPayOut_sum,Sum'\                       # rename the output column
  then put '$Sum=round($Sum)'\                          # do calculatoon
  then sort -nr Sum | \                                 # sort, check  mlr sort -h
- rmH  | \                                              # rm header for termagraph
+ rmH  | \                                              # rm header for termgraph
  termgraph                                             # to a distribution
 ```
 
@@ -48,8 +48,61 @@ cat whc001.csv | \
  clip.exe                                                                           # copy to clipboard
 ```
 
+```sh
+cat fee-summary.tsv | \ 
+ mlr  --tsv sort -nr Sum \   # sort by Sum
+ then cut -f Name, Sum \     # select only those columns
+ then filter '$Sum > 0' | \  # filter only positive values, need to use single quotes NO DOUBLE QUOTES
+ rmFl | \                    # remove the header needed for termgraph
+ termgraph
+```
+
+Single Commands
+
+```sh
+then sort -nr Sum | \                                 # sort, check  mlr sort -h
+then put '$Sum=round($Sum)'\                          # do calculatoon
+then filter '$Sum > 0' | \  # filter only positive values, need to use single quotes NO DOUBLE QUOTES
+then put '$Label=$ID."_".$Label' # Concatenate ID "_" and Label
+then rename "Name EN", "name", "Coordinates", "coord", "Description EN", "desc" then \  # rename "Name EN" to "Name" and so on
+```
+
+
 ## termgraph
 
+- can be used with tsv
+- no header !!!
+- if you need a legend you need a header with @label1,label2
+
+```sh
+cat merged-fees-payments-summary.tsv | \         
+ mlr --tsv sort -nr SumFees \ 
+ then cut -f Label,SumFees,SumPayments \
+ then filter '$SumFees > 0' | \ 
+ rmFl | \
+ awk 'BEGIN {print "@ Fees,Payments"}{print}' |\  # Add a header for the legend
+ termgraph --color {red,blue}
+#  @ Fees,Payments
+# Shopping Run - Fun Run  360     390
+# Shopping Run - Speed Run        200     240
+```
+
+## python
+
+Your WSL distro marks system Python as “externally managed”.
+This blocks pip install (even with --user) to protect the OS.
+So classic pip installs are intentionally blocked.
+
+✅ BEST solution for WSL: use pipx (recommended)
+
+```sh 
+# pipx is exactly meant for CLI tools like termgraph.
+sudo apt install -y pipx
+# Make sure its path is set:
+pipx ensurepath
+source ~/.bashrc
+pipx install termgraph
+```
 
 ## jq
 

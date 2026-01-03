@@ -11,6 +11,9 @@ function clickDiv() {
 }
 
 
+
+
+
 /**
  * Finds the notification element with the ID 'out' on the page.
  * If the element doesn't exist, it creates and styles it, then appends it to the page.
@@ -294,6 +297,21 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         (document.head || document.documentElement).appendChild(script);
 
     }
+
+
+
+if (msg.action === "GET_ENTRY_FEES") {
+    const script = document.createElement("script");
+    script.src = chrome.runtime.getURL("getEntryFees.js");
+    script.onload = () => {
+        script.remove();
+        console.log("✅ getEntryFees.js injected and executed");
+    };
+    (document.head || document.documentElement).appendChild(script);
+    sendResponse({ success: true });
+    return true;
+}
+
 
 
 

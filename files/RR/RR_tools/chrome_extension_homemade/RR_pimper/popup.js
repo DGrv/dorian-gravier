@@ -128,8 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
         showPageStatus("\u23F3  I need your permission to delete all files ...");
 
         setTimeout(() => {
-            // Show the first modal
-            showModal1();
+            showWarningConfirmation(
+                "Have you exported all items before deleting?",
+                () => showModal2()
+            );
         }, 2000);
     };
 
@@ -137,76 +139,108 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Helper function to show Modal 1
-function showModal1() {
-    const modal1 = document.getElementById("confirmModal1");
-    modal1.style.display = "flex";
 
-    document.getElementById("confirmModal1Yes").onclick = () => {
-        modal1.style.display = "none";
-        showModal2(); // Proceed to second confirmation
-    };
+    // Helper function to show warning confirmation with custom message
+    function showWarningConfirmation(customMessage, onConfirm) {
+        const modal = document.getElementById("confirmWarningConfirmation");
+        const messageElement = modal.querySelector('p');
 
-    document.getElementById("confirmModal1No").onclick = () => {
-        modal1.style.display = "none";
-        // User cancelled, do nothing
-    };
-}
+        // Update the message
+        messageElement.textContent = customMessage;
 
-// Helper function to show Modal 2 (with text input)
-function showModal2() {
-    const modal2 = document.getElementById("confirmModal2");
-    const input = document.getElementById("deleteConfirmInput");
-    modal2.style.display = "flex";
-    input.value = ""; // Clear previous input
-    input.focus(); // Auto-focus the input
+        modal.style.display = "flex";
 
-    document.getElementById("confirmModal2Yes").onclick = () => {
-        if (input.value.toLowerCase() === "delete") {
-            modal2.style.display = "none";
+        document.getElementById("confirmModal1Yes").onclick = () => {
+            modal.style.display = "none";
+            if (onConfirm) onConfirm(); // Execute callback
+        };
 
-            // User confirmed, proceed with deletion
-            deleteBtn.disabled = true;
-            showPageStatus("⏳ Delete all started...");
+        document.getElementById("confirmModal1No").onclick = () => {
+            modal.style.display = "none";
+            // User cancelled, do nothing
+        };
+    }
 
-            chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-                chrome.tabs.sendMessage(tabs[0].id, { action: "DELETE_ALL" }, response => {
-                    console.log("Delete_ALL message sent", response);
+
+    // Helper function to show Modal 2 (with text input)
+    function showModal2() {
+        const modal2 = document.getElementById("confirmModal2");
+        const input = document.getElementById("deleteConfirmInput");
+        modal2.style.display = "flex";
+        input.value = ""; // Clear previous input
+        input.focus(); // Auto-focus the input
+
+        document.getElementById("confirmModal2Yes").onclick = () => {
+            if (input.value.toLowerCase() === "delete") {
+                modal2.style.display = "none";
+
+                // User confirmed, proceed with deletion
+                deleteBtn.disabled = true;
+                showPageStatus("⏳ Delete all started...");
+
+                chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: "DELETE_ALL" }, response => {
+                        console.log("Delete_ALL message sent", response);
+                    });
                 });
-            });
-        } else {
-            // Shake the input or show error
-            input.style.borderColor = "#c41011";
-            input.placeholder = "You must type 'delete'";
-            setTimeout(() => {
-                input.style.borderColor = "#ddd";
-            }, 1000);
-        }
+            } else {
+                // Shake the input or show error
+                input.style.borderColor = "#c41011";
+                input.placeholder = "You must type 'delete'";
+                setTimeout(() => {
+                    input.style.borderColor = "#ddd";
+                }, 1000);
+            }
+        };
+
+        document.getElementById("confirmModal2No").onclick = () => {
+            modal2.style.display = "none";
+            // User cancelled, do nothing
+        };
+
+        // Allow Enter key to submit
+        input.onkeypress = (e) => {
+            if (e.key === "Enter") {
+                document.getElementById("confirmModal2Yes").click();
+            }
+        };
+    }
+
+
+    const getEntryFeesBtn = document.getElementById("getentryfees");
+
+    getEntryFeesBtn.onclick = () => {
+        showWarningConfirmation(
+            "Get Entry Fees can take a long time. Continue?",
+            () => {
+                getEntryFeesBtn.disabled = true;
+                showPageStatus("⏳ Starting entry fees analysis...");
+
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: "GET_ENTRY_FEES" }, (response) => {
+                        console.log('GET_ENTRY_FEES response:', response);
+                    });
+                });
+            }
+        );
     };
 
-    document.getElementById("confirmModal2No").onclick = () => {
-        modal2.style.display = "none";
-        // User cancelled, do nothing
-    };
-
-    // Allow Enter key to submit
-    input.onkeypress = (e) => {
-        if (e.key === "Enter") {
-            document.getElementById("confirmModal2Yes").click();
-        }
-    };
-}
-
-
-
-
-
+    // Listen for completion message to re-enable button
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         if (msg.type === "EXPORT_PROCESS_COMPLETE") {
             if (exportBtn) {
                 exportBtn.disabled = false;
             }
         }
+
+        // NEW: Re-enable entry fees button when complete
+        if (msg.type === "ENTRY_FEES_COMPLETE") {
+            if (getEntryFeesBtn) {
+                getEntryFeesBtn.disabled = false;
+            }
+        }
     });
+
+
 
 });

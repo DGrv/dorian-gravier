@@ -3,8 +3,9 @@
 rm(list = ls())
 rootpath <- 'C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/' 
 # Sys.setlocale('LC_ALL', 'German')
-source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
+suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")))
 
+library(tibble)
 
 
 # Explanation -------------------------------------------------------------
@@ -37,7 +38,8 @@ source(paste0(rootpath, 'BM_Function_v01.r'), encoding='utf-8')
 
 country.list <- c("Greece")
 nminRoutes <- 100
-wd <- rP("file:///C:/Users/doria/Downloads/Outdoor/Gpx/thecrag/greece/")
+# wd <- rP("file:///C:/Users/doria/Downloads/Outdoor/Gpx/thecrag/greece/")
+wd <- rP("file:///C:/Users/doria/Downloads/Outdoor/Gpx/thecrag/greece/manikia")
 
 
 # area and tiles ----------------------------------------------------------
@@ -136,8 +138,9 @@ a
 
 
 for(i in seq_along(country.list)) {
-  filenameout <- p0(wd, "th3cra4g_", country.list[i])
-  export.gpx2(data2[grepl(country.list[i], country, ignore.case = T)], p0(filenameout , ".gpx"))
+  filenameout <- p0(wd, "/th3cra4g_", country.list[i])
+  export.gpx2(data2[grepl(country.list[i], country, ignore.case = T)], p0(filenameout , "_filtered.gpx"))
+  export.gpx2(data[grepl(country.list[i], country, ignore.case = T)], p0(filenameout , "_all.gpx"))
   temp <- data2[grepl(country.list[i], country, ignore.case = T), .(name,
                                                                    coord=p0(lat,",", lon),
                                                                    desc = p0(desc, "\n<a href='", url, "' target='_blank'>Thecrag link</a>"),

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "RR_pimper",
-  "version": "1.8",
+  "version": "1.9",
   "description": "Pimp RR by Dorian Gravier",
   "permissions": ["scripting", "activeTab"],
   "content_scripts": [
@@ -12,7 +12,13 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["exportAllItems.js", "deleteAllItems.js", "importAllItems.js"],
+      "resources": [
+        "exportAllItems.js",
+        "importAllItems.js",
+        "deleteAllItems.js",
+        "getEntryFees.js",
+        "jszip.min.js"
+      ],
       "matches": ["<all_urls>"]
     }
   ],
