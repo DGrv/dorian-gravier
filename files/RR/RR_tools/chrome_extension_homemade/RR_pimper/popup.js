@@ -225,8 +225,44 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     };
 
+    const getDevicesLinksCheckbox = document.getElementById("getdeviceslinks");
+
+
+
+    // Restore checkbox state when popup opens
+    chrome.runtime.sendMessage({ action: "GET_MONITORING_STATE" }, (response) => {
+        if (response && response.active) {
+            getDevicesLinksCheckbox.checked = true;
+        }
+    });
+
+    getDevicesLinksCheckbox.onchange = (e) => {
+        const isChecked = e.target.checked;
+
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tabId = tabs[0].id;
+
+            if (isChecked) {
+                chrome.runtime.sendMessage({ action: "START_MONITORING", tabId: tabId });
+                chrome.tabs.sendMessage(tabId, { action: "START_DEVICE_MONITORING" });
+                showPageStatus("✅ Device monitoring active");
+            } else {
+                chrome.runtime.sendMessage({ action: "STOP_MONITORING", tabId: tabId });
+                chrome.tabs.sendMessage(tabId, { action: "STOP_DEVICE_MONITORING" });
+                showPageStatus("✅ Device monitoring stopped");
+            }
+        });
+    };
+
+
+
     // Listen for completion message to re-enable button
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+        if (msg.type === "DEVICES_LINKS_COMPLETE") {
+            if (getDevicesLinksBtn) {
+                getDevicesLinksBtn.disabled = false;
+            }
+        }
         if (msg.type === "EXPORT_PROCESS_COMPLETE") {
             if (exportBtn) {
                 exportBtn.disabled = false;
@@ -240,6 +276,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+
+
+
 
 
 

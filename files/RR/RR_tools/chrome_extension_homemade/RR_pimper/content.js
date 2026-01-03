@@ -1,4 +1,13 @@
-console.log("✅ content.js loaded");
+console.log("%c RR Pimper", "font-weight: bold; font-size: 30px; color: #293BFF; text-shadow: 3px 3px 0 #2BCCCC , 6px 6px 0 #57CCFF , 9px 9px 0 #33FF57 , 12px 12px 0 #FFC300 , 15px 15px 0 #FF5733 , 18px 18px 0 #F52B9A , 21px 21px 0 #9A2BF5;");
+
+
+// Add these variables at the top of content.js
+let deviceMonitorInterval = null;
+let deviceStatusDiv = null;
+
+
+
+
 
 function clickDiv() {
     const div = document.querySelector("#divDockRight");
@@ -83,6 +92,168 @@ function displayStatus(text) {
 
 
 
+/**
+ * Start monitoring devices (inject script every 5 seconds)
+ */
+function startDeviceMonitoring() {
+    console.log("Starting device monitoring...");
+
+    // Create the floating div if it doesn't exist
+    if (!deviceStatusDiv) {
+        createDeviceStatusDiv();
+    }
+
+    // Initial fetch
+    injectDeviceScript();
+
+    // Set interval to refresh every 10 seconds
+    deviceMonitorInterval = setInterval(() => {
+        injectDeviceScript();
+    }, 10000);
+}
+
+/**
+ * Stop monitoring devices
+ */
+function stopDeviceMonitoring() {
+    console.log("Stopping device monitoring...");
+
+    if (deviceMonitorInterval) {
+        clearInterval(deviceMonitorInterval);
+        deviceMonitorInterval = null;
+    }
+
+    if (deviceStatusDiv) {
+        deviceStatusDiv.remove();
+        deviceStatusDiv = null;
+    }
+}
+
+/**
+ * Inject the device script
+ */
+function injectDeviceScript() {
+    const script = document.createElement("script");
+    script.src = chrome.runtime.getURL("getDevicesLinks.js");
+    script.onload = () => {
+        script.remove();
+    };
+    (document.head || document.documentElement).appendChild(script);
+}
+
+/**
+ * Create the floating device status div
+ */
+function createDeviceStatusDiv() {
+
+// Inject CSS animation for blinking border
+    if (!document.getElementById('device-status-style')) {
+        const style = document.createElement('style');
+        style.id = 'device-status-style';
+        style.textContent = `
+            @keyframes device-alert-blink {
+                0%, 100% { 
+                    border-color: #c41011;
+                    border-width: 2px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                }
+                50% { 
+                    border-color: #ff0000;
+                    border-width: 4px;
+                    box-shadow: 0 0 20px rgba(196, 16, 17, 0.8);
+                }
+            }
+            .device-alert {
+                animation: device-alert-blink 1s infinite !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+
+    deviceStatusDiv = document.createElement("div");
+    deviceStatusDiv.id = "racemgr-device-status";
+    deviceStatusDiv.style.cssText = `
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #c41011;
+        border-radius: 8px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 999999;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-family: sans-serif;
+    `;
+    deviceStatusDiv.innerHTML = '<span style="font-size: 12px; color: #666;">Loading devices...</span>';
+    document.body.appendChild(deviceStatusDiv);
+}
+
+/**
+ * Update the device status div with new data
+ */
+function updateDeviceStatusDiv(devices) {
+    if (!deviceStatusDiv) return;
+
+    deviceStatusDiv.innerHTML = '';
+
+
+    // Check if any device is disconnected
+    const hasDisconnected = devices.some(device => device.ConnStatus <= 0);
+
+    // Add or remove blinking animation based on connection status
+    if (hasDisconnected) {
+        deviceStatusDiv.classList.add('device-alert');
+    } else {
+        deviceStatusDiv.classList.remove('device-alert');
+    }
+
+    devices.forEach(device => {
+        const deviceIcon = document.createElement("div");
+        deviceIcon.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        `;
+
+        const img = document.createElement("img");
+        img.src = chrome.runtime.getURL(device.ConnStatus > 0 ? "icons/connected.png" : "icons/disconnected.png");
+        img.style.cssText = "width: 16px; height: 16px;";
+        img.title = `${device.DeviceID} - ${device.TimingPoint}\nPassings: ${device.PassingsWritten}\nLast: ${device.SinceLastPassing}s ago`;
+
+        const labelDeviceID = document.createElement("span");
+        labelDeviceID.textContent = device.DeviceID;
+        labelDeviceID.style.cssText = "font-size: 10px; color: #333; font-weight: 500;";
+        
+        const labelTimingPoint = document.createElement("span");
+        labelTimingPoint.textContent = device.TimingPoint;
+        labelTimingPoint.style.cssText = "font-size: 8px; color: #333; font-weight: 500;";
+
+        const labelReads = document.createElement("span");
+        labelReads.textContent = device.PassingsWritten;
+        labelReads.style.cssText = "font-size: 6px; color: #333; font-weight: 100; font-style: italic;";
+
+        const labelSinceLastPassing = document.createElement("span");
+        labelSinceLastPassing.textContent = device.SinceLastPassing;
+        labelSinceLastPassing.style.cssText =
+          "font-size: 6px; color: #333; font-weight: 100; font-style: italic;";
+
+        deviceIcon.appendChild(labelTimingPoint);
+        deviceIcon.appendChild(img);
+        deviceIcon.appendChild(labelDeviceID);
+        deviceIcon.appendChild(labelReads);
+        deviceIcon.appendChild(labelSinceLastPassing);
+        deviceStatusDiv.appendChild(deviceIcon);
+    });
+}
+
+
+
 
 
 window.addEventListener("message", (event) => {
@@ -116,6 +287,12 @@ window.addEventListener("message", (event) => {
     if (event.data.type === "STATUS_UPDATE") {
         displayStatus(event.data.message);
     }
+
+    if (event.data.type === "DEVICE_DATA_UPDATE") {
+        updateDeviceStatusDiv(event.data.data);
+    }
+
+
 });
 
 
@@ -300,20 +477,43 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 
 
-if (msg.action === "GET_ENTRY_FEES") {
-    const script = document.createElement("script");
-    script.src = chrome.runtime.getURL("getEntryFees.js");
-    script.onload = () => {
-        script.remove();
-        console.log("✅ getEntryFees.js injected and executed");
-    };
-    (document.head || document.documentElement).appendChild(script);
-    sendResponse({ success: true });
-    return true;
-}
+    if (msg.action === "GET_ENTRY_FEES") {
+        const script = document.createElement("script");
+        script.src = chrome.runtime.getURL("getEntryFees.js");
+        script.onload = () => {
+            script.remove();
+            console.log("✅ getEntryFees.js injected and executed");
+        };
+        (document.head || document.documentElement).appendChild(script);
+        sendResponse({ success: true });
+        return true;
+    }
 
+    if (msg.action === "GET_DEVICES_LINKS") {
+        const script = document.createElement("script");
+        script.src = chrome.runtime.getURL("getDevicesLinks.js");
+        script.onload = () => {
+            script.remove();
+            console.log("✅ getDevicesLinks.js injected and executed");
+        };
+        (document.head || document.documentElement).appendChild(script);
+        sendResponse({ success: true });
+        return true;
+    }
 
+    if (msg.action === "START_DEVICE_MONITORING") {
+        startDeviceMonitoring();
+        sendResponse({ success: true });
+        return true;
+    }
+
+    if (msg.action === "STOP_DEVICE_MONITORING") {
+        stopDeviceMonitoring();
+        sendResponse({ success: true });
+        return true;
+    }
 
 
     return true;
 });
+
