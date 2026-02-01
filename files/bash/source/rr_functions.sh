@@ -11,11 +11,16 @@ uColor() { # change all color from a logo to one unique color (e.g. for template
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
-rmwbg() { # Remove the white background based on different fuzz
+
+
+rmbg() { # Remove the white/first piel background based on different fuzz
+    color=$(convert "$1"  -format "%[pixel:p{0,0}]" info:)
     for i in $(seq 10 10 90); do 
         convert "$1" -fill none -fuzz $i% -draw "color 0,0 floodfill" "${1%.*}_rmwbg${i}_floodfill.png"
         convert "$1" -channel RGBA -fuzz $i% -fill none -opaque white "${1%.*}_rmwbg$i.png"
         # convert "$1" -channel RGBA -fuzz $i% -fill none -opaque white -alpha on -blur 0x0.5 "${1%.*}_rmwbg${i}_smooth.png"
+        # Get color at position 0,0 (top-left)
+        convert "$1" -alpha set -fuzz $i% -transparent "$color" "${1%.*}_rmwbg${i}_colorpixel.png"
     done
 
 }
@@ -45,14 +50,26 @@ vertiAppendPdf() { # convert png and append them together vertically and create 
 	img2pdf output.png -o output.pdf
 }
 
-svg2png() { # convert svg to png in directory with $1 a color to replace it : NOT FINISHED FUNCTION
+svg2png() { # convert svg to png in directory with $1 a color to replace it and $2 resize size (e.g. 50x50) or none
   # Replace In All Files
-  cecho -g "rrsvg=Replace in all svg 'Color1' with '$1' : USE DOUBLE QUOTES: rrsvg \"#fa9b2c\""
+  cecho -g "rrsvg=Replace in all svg : \n\t- $1 with hex color -> USE DOUBLE QUOTES: rrsvg \"#fa9b2c\"\n\t- $2 with resize (50x50) or none"
   local color="$1"
+  local resize="$2"
   # old \Q is opening quote and \E ending quote
   # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|\Q${in}\E|${out}|g" "{}"
-  ls | grep -E svg$ | xargs -d '\n' -I {} perl -pi -e "s|Color1|${color}|g" "{}"
-  for file in *.svg; do convert -background none -density 300 "$file" -resize 100x100 "${file%.svg}.png"; done
+	# Replace color in all SVG files
+  find . -name "*.svg" -print0 | xargs -0 -I {} perl -pi -e "s|Color1|${color}|g" "{}"
+  
+  # Convert SVG to PNG with conditional resize
+  for file in *.svg; do
+    if [ -z "$resize" ]; then
+      # No resize specified
+      convert -background none -density 300 "$file" "${file%.svg}.png"
+    else
+      # Resize specified
+      convert -background none -density 300 "$file" -resize "$resize" "${file%.svg}.png"
+    fi
+  done
 }
 
 spareRR () { # (not used anymore)
@@ -212,7 +229,7 @@ sesExtract () { # Extract ses data
 
 
 
-RRgroupingColors() { # Function to update Color and BackgroundColor in JSON files (supports glob patterns *.lvs) Example: RRgroupingColors data.json "#ff0000,#00ff00" "#0000ff,#ffff00" "#ff00ff,#00ffff"
+RRgroupingColors() { # Function to update BackgroundColor and Color in JSON files (supports glob patterns *.lvs) Example: RRgroupingColors data.json "#ff0000,#00ff00" "#0000ff,#ffff00" "#ff00ff,#00ffff"
 
     # Function to update Color and BackgroundColor in JSON files (supports glob patterns)
     # Usage: update_colors "<pattern_or_file>" "<color1>,<color2>" ["<color3>,<color4>"] ["<color5>,<color6>"]
@@ -257,8 +274,8 @@ RRgroupingColors() { # Function to update Color and BackgroundColor in JSON file
         local pair_num="$2"
         
         # Split colors using regex (supports both comma and semicolon)
-        local color1=$(echo "$colors" | sed -E 's/^([^,;]+)[,;].*$/\1/')
-        local color2=$(echo "$colors" | sed -E 's/^[^,;]+[,;](.+)$/\1/')
+        local color1=$(echo "$colors" | sed -E 's/^[^,;]+[,;](.+)$/\1/')
+        local color2=$(echo "$colors" | sed -E 's/^([^,;]+)[,;].*$/\1/')
         
         # Validate that we have two colors
         if [ -z "$color1" ] || [ -z "$color2" ] || [ "$color1" = "$color2" ]; then
@@ -315,6 +332,7 @@ RRgroupingColors() { # Function to update Color and BackgroundColor in JSON file
     
     for FILE in "${FILES[@]}"; do
         echo "Processing file: $FILE"
+		
         
         # Check if file exists
         if [ ! -f "$FILE" ]; then
@@ -323,6 +341,9 @@ RRgroupingColors() { # Function to update Color and BackgroundColor in JSON file
             continue
         fi
 
+		# convert ANSI to UTF-8
+		iconv -f WINDOWS-1252 -t UTF-8 "$FILE" > "temp" && mv "temp" "$FILE"
+		
         # Validate JSON format
         if ! jq empty "$FILE" 2>/dev/null; then
             echo "  Error: File '$FILE' is not valid JSON."

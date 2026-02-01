@@ -10,7 +10,7 @@ alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravi
 alias rmFl='tail -n +2' # rm first line of a file 
 alias rmLl='head -n -1' # rm last line of a file 
 alias vscodium='/mnt/c/Windows/System32/cmd.exe /C "vscodium"' # open vscodium in windows
-alias slugify='slugify --separator "_" --no-lowercase'
+alias slugify='slugify --separator "_" --no-lowercase' # Slugify a filename
 
 cdd() { # use cd on windows path cdd "C:\Users\doria\Downloads"
     cd "$(wslpath "$1")"
@@ -23,6 +23,11 @@ fjson() { # pretty print json
 	# sponge reads all input first, then writes to the file
 	jq '.' "$1" | sponge "$1"
 }
+
+headers() { # print the header, names, labels from a csv file 
+	head -n 1 "$1" | tr ',' '\n'
+}
+
 
 
 
@@ -43,7 +48,7 @@ lfunction() { # List all function that I have written
 		# Extract both functions and aliases
 		grep -P '^\s*(\w+\s*\(\)\s*\{|alias\s+\w+=)' "$file" | \
 		perl -ne '
-			if (/^\s*(\w+)\s*\(\).*{.*(#.*)$/) {
+			if (/^\s*(\w+)\s*\(\).*{\s*(#.*)$/) {
 				# Function
 				$func = $1;
 				$comment = $2 // "";
@@ -107,9 +112,15 @@ addts () { # add timestamp to a filename
 }
 
 
-rsf () { # Replace all spaces in filenames
-  for f in *\ *; do mv "$f" "${f// /_}"; done
+slugi () { # Slugify filenames: usage slugi "filename.txt", or slugi *.mp4 (replace special characters amd spaces and keep case)
+    # for f in *\ *; do mv "$f" "${f// /_}"; done
+    for file in "$@"; do
+        filename="${file%.*}"
+        ext="${file##*.}"
+        mv "$file" "$(slugify --separator "_" --no-lowercase "${filename}").${ext}"
+    done
 }
+
 
 
 checkdep() { # check if packages are installed arguments as packages

@@ -25,6 +25,7 @@ library(xml2)
 library(sf)
 library(fs) # for path_sanetize
 library(jsonlite)
+library(janitor) # for clean_names after readr::read_csv or fread
 
 # Sys.setlocale('LC_ALL', 'German')
 Sys.getenv()
@@ -517,8 +518,16 @@ slugify <- function(x, non_alphanum_replace="", space_replace="_", tolower=TRUE)
   return(x)
 }
 
-list.files.only <- function(path, full = T, pattern) {
-  lf <- list.files(path, full = full)
+list.files.Dori <- function(path, pattern = "", full = T) {
+  lf <- data.table(filepath = list.files(path, pattern = pattern, full = full))
+  lf[, filename := basename(filepath)]
+  (lf[, dir := basename(dirname(filepath))])
+  return(lf)
+}
+
+
+list.files.only <- function(path, full = T, pattern="") {
+  lf <- list.files(path, pattern = pattern, full = full)
   ld <- list.dirs(path)
   if(length(ld) == 1) {
     return(lf)
@@ -602,9 +611,32 @@ update.DT <- function(DATA1, DATA2, join.variable, overwrite.variable, overwrite
   
 }
 
+replaceNA <- function(DATA) {
+  
+  data_name <- deparse(substitute(DATA))
+  
+  
+  # Replace NAs with 0 in all numeric columns
+  DATA <- DATA %>%
+    mutate(across(where(is.numeric), ~coalesce(., 0)))
+  
+  # Replace NAs with empty string in character columns
+  DATA <- DATA %>%
+    mutate(across(where(is.character), ~coalesce(., "")))
+  
+  assign(data_name, DATA, env =  .GlobalEnv)
+  
+  
+}
+
 replace.NA.csv <- function(listcsv, pattern, replacement) {
   
+  error("DO NOT USE - use ")
+  
   cat("\n", yellow("[INFO]"), " - Using readLines, so you have to be sure that you use the good pattern !!!!! do not replace for example just NA, with 'NA', but use the separator - e.g. ';NA;'\n")
+  
+  
+  
   
   for(i in seq_along(listcsv)) {
 

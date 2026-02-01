@@ -1,4 +1,4 @@
-Similar to "t d" but print all in 1 line to allow grep
+# Similar to "t d" but print all in 1 line to allow grep
 # Dorian Gravier
 # https://dgrv.github.io/dorian-gravier/
 
@@ -24,6 +24,8 @@ Similar to "t d" but print all in 1 line to allow grep
 # 574      2025-08-09 10:00:00 - 2025-08-09 21:00:00     11:00:00    Example2 @event
 # 576      2025-08-10 07:12:44 - 2025-08-10 21:00:00     13:47:16    Example2 @event
 
+# can be used like this for example : t d -f oneline | grep -i RR_pimper | cut -f 1 | xargs -I "{}" t e -i{} "Code # RR_pimper"
+
 
 
 module Timetrap
@@ -39,7 +41,8 @@ module Timetrap
           end_str   = e.end.strftime("%Y-%m-%d %H:%M:%S") rescue "-"
           duration  = format_duration(e.duration)
           note      = (e.note || "").gsub("\n"," ")  # remove newlines
-          self.output << "%3d      %s - %s     %s    %s\n" % [e.id, start_str, end_str, duration, note]
+          # self.output << "%3d      %s - %s     %s    %s\n" % [e.id, start_str, end_str, duration, note]
+          self.output << "%3d\t%s - %s\t%s\t%s\n" % [e.id, start_str, end_str, duration, note]
         end
       end
     end

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
+        <Find name="online" />
+        <Find name="9908" />
+        <Find name="new" />
+        <Find name="39985" />
         <Find name="image([0-9]*)(\.png|\.gif)(.*)$" />
         <Find name="image([0-9]*)\.(png|gif)(.*)$" />
         <Find name="image([0-9]*)\.([png|gif])(.*)$" />
         <Find name="image.*?\.([png|gif])" />
         <Find name='&quot;' />
         <Find name='                alt=&quot;&quot; src=&quot;images/' />
-        <Find name="image1" />
-        <Find name="source" />
-        <Find name='\&quot;' />
-        <Find name=" \(.*\)" />
         <Replace name="image\1\2\3\2" />
         <Replace name='&quot;' />
         <Replace name="services" />
@@ -24,16 +24,16 @@
         <Replace name=" " />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\portofolio.md" />
-        <File filename="C:\Users\doria\Downloads\LED_Balken_Examples\temp.txt" />
-        <File filename="C:\Users\doria\Downloads\accidental_presiden\ReadMe.txt" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\_includes\head\custom.html" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\assets\images\logo\events\temp.png" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\_pages\services\led.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\Gemfile" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\_layouts\single.html" />
-        <File filename="C:\Users\doria\Downloads\bibs\test.sh" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\_pages\services\wall.md" />
+        <File filename="C:\Users\doria\Downloads\Outdoor\Gpx\thecrag\greece\resp_2.json" />
+        <File filename="C:\Users\doria\Downloads\resp_0.json" />
+        <File filename="C:\Users\doria\Downloads\Outdoor\Gpx\thecrag\greece\code_in_dev_tools.js" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\all-participants-with-fees.json" />
+        <File filename="C:\Users\doria\Downloads\merged-fees-payments-summary.tsv" />
+        <File filename="C:\Users\doria\scoop\apps\quicklook\current\UserData\QuickLook.config" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Code\RR_tools\chrome_extension_homemade\Backup_RR_Pipmer_Github.bat" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\RUN_ConfigBU.bat" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\20250103\code.sh" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\graphic.txt" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -51,7 +51,7 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="87" y="78" width="1714" height="908" isMaximized="no" />
+        <GUIConfig name="AppPosition" x="155" y="78" width="1646" height="908" isMaximized="no" />
         <GUIConfig name="FindWindowPosition" left="985" top="243" right="1588" bottom="602" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
@@ -92,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="1" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="241" topHeight="200" bottomHeight="441">
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="Notepad++::InternalFunction" id="0" curr="3" prev="-1" isVisible="no" />
