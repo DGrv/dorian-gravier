@@ -63,6 +63,9 @@ Single Commands
 then sort -nr Sum | \                                 # sort, check  mlr sort -h
 then put '$Sum=round($Sum)'\                          # do calculatoon
 then filter '$Sum > 0' | \  # filter only positive values, need to use single quotes NO DOUBLE QUOTES
+filter '$Expression !=~ "---------------"' # regex
+filter '$Expression =~ "---------------"' # regex
+mlr --ijson --ocsv  # input output
 then put '$Label=$ID."_".$Label' # Concatenate ID "_" and Label
 then rename "Name EN", "name", "Coordinates", "coord", "Description EN", "desc" then \  # rename "Name EN" to "Name" and so on
 ```

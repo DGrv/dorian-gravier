@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="online" />
-        <Find name="9908" />
-        <Find name="new" />
-        <Find name="39985" />
-        <Find name="image([0-9]*)(\.png|\.gif)(.*)$" />
-        <Find name="image([0-9]*)\.(png|gif)(.*)$" />
-        <Find name="image([0-9]*)\.([png|gif])(.*)$" />
-        <Find name="image.*?\.([png|gif])" />
-        <Find name='&quot;' />
-        <Find name='                alt=&quot;&quot; src=&quot;images/' />
-        <Replace name="image\1\2\3\2" />
+        <Find name="\r\n" />
+        <Find name="^" />
+        <Find name="Service" />
+        <Find name="jpg" />
+        <Find name="City" />
+        <Find name="ZIP" />
+        <Find name="timefromstring([RunTimeEstimationD])" />
+        <Find name="BibRank];" />
+        <Find name="BibAllocationRank" />
+        <Find name="\d*,(\d*),,(\d*),,.*" />
+        <Replace name="" />
         <Replace name='&quot;' />
-        <Replace name="services" />
-        <Replace name="th3cr4g" />
-        <Replace name="\tNature ChatGPT" />
-        <Replace name="\t" />
-        <Replace name="^" />
-        <Replace name="03_Wall" />
-        <Replace name="05_Monitoring" />
-        <Replace name=" " />
+        <Replace name="png" />
+        <Replace name="Event.City" />
+        <Replace name="Event.ZIP" />
+        <Replace name="val(timefromstring([RunTimeEstimationD]))" />
+        <Replace name="BibRank]-1;" />
+        <Replace name="BibRank" />
+        <Replace name="[Contest]=$2;$1+[BibAllocationRank];" />
+        <Replace name="[Contest]=$2;$1+[BibAllocationRank]" />
+        <Replace name="\r\n" />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\Outdoor\Gpx\thecrag\greece\resp_2.json" />
-        <File filename="C:\Users\doria\Downloads\resp_0.json" />
-        <File filename="C:\Users\doria\Downloads\Outdoor\Gpx\thecrag\greece\code_in_dev_tools.js" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\all-participants-with-fees.json" />
-        <File filename="C:\Users\doria\Downloads\merged-fees-payments-summary.tsv" />
-        <File filename="C:\Users\doria\scoop\apps\quicklook\current\UserData\QuickLook.config" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Code\RR_tools\chrome_extension_homemade\Backup_RR_Pipmer_Github.bat" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\RUN_ConfigBU.bat" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\20250103\code.sh" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260628__Zurich_City_Triathlon_2026\Document\EntryFee_Summary\graphic.txt" />
+        <File filename="C:\Users\doria\Downloads\20260122-1603__45._GP_Osterhas_2026_Payouts.csv" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\iconList.svg" />
+        <File filename="C:\Users\doria\Downloads\GitHub\RR_Pimper\icons\svg2png.txt" />
+        <File filename="C:\Users\doria\Downloads\BibRanges_export.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260913__Stadtlauf_St._Gallen_2026\Registration\Registration_online_v06.html" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\WWF\List_wwf_2026.tsv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260913__Stadtlauf_St._Gallen_2026\Registration\Registration_online_v08.html" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\WWF\Draft_wwf.ada" />
+        <File filename="C:\Users\doria\Downloads\history_export.csv" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -51,8 +52,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="155" y="78" width="1646" height="908" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="985" top="243" right="1588" bottom="602" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="206" y="51" width="1645" height="908" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="1041" top="113" right="1644" bottom="472" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>

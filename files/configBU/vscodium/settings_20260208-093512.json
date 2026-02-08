@@ -1,0 +1,88 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        },
+        "cmder": {
+            "path": "C:\\WINDOWS\\System32\\cmd.exe",
+            "args": []
+        },
+        "Cmder": {
+            "path": "C:\\WINDOWS\\System32\\cmd.exe",
+            "args": [
+                "/K",
+                "C:\\Users\\doria\\scoop\\apps\\cmder\\current\\vendor\\bin\\vscode_init.cmd"
+            ]
+        },
+        "Ubuntu (WSL)": {
+            "path": "C:\\WINDOWS\\System32\\wsl.exe",
+            "args": [
+                "-d",
+                "Ubuntu"
+            ]
+        }
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "[svg]": {
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
+    "svg.preview.mode": "svg",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "redhat.telemetry.enabled": true,
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "livePreview.notifyOnOpenLooseFile": false,
+    "emmet.triggerExpansionOnTab": true,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "customLocalFormatters.formatters": [
+    {
+      "command": "python C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Python\\RR12_formatter.py",
+      "languages": ["ada"]
+    }
+    ],
+    "[ada]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "betterAlign.languageConfigs": {
+    },
+    "betterAlign.surroundSpace": {
+        "colon": [
+            0,
+            1
+        ],
+        "assignment": [
+            1,
+            1
+        ],
+        "arrow": [
+            1,
+            1
+        ],
+        "comment": 2
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.lvs": "json"
+}
+}
