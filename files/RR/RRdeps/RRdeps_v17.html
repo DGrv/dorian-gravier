@@ -164,8 +164,7 @@
 
             <label>Node Overlap:</label>
             <input type="number" id="nodeOverlapInput" value="1000" step="5" min="0">
-            <span class="input-explanation">Minimum space to prevent nodes from overlapping (for big events like SBC add
-                a 0)</span>
+            <span class="input-explanation">Minimum space to prevent nodes from overlapping (for big events like SBC add a 0)</span>
             <br>
 
             <!-- <label>Spacing Factor:</label>
@@ -323,91 +322,54 @@
 
 
 
-        // --- Parse CSV or JSON .lvs ---
+        // --- Parse CSV .lvs ---
         function parsesr(text) {
-            // Trim the input
-            text = text.trim();
+            const lines = text
+                .split(/\r?\n/)
+                .map(l => l.trim())
+                .filter(l => l.length > 0);
 
-            // Check if input is JSON format (starts with '[')
-            if (text.startsWith('[')) {
-                // Parse as JSON
-                const data = JSON.parse(text);
+            const results = [];
 
-                return data.map(item => {
-                    // Clean field name
-                    const name = item.Name.replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '').trim();
+            for (const line of lines) {
+                // Split only FIRST 5 semicolons → everything after is formula
+                const parts = line.split(';');
+                if (parts.length < 2) continue; // invalid line
 
-                    // Extract formula
-                    const formula = item.Formula || '';
+                const id = parts[0].trim();
 
-                    // Parse dependencies from formula
-                    const deps = [];
-                    const regex = /\[([^\]]+)\]/g;
-                    let match;
+                // Extract the first 5 fields
+                const firstFive = parts.slice(0, 5).map(p => p.trim());
 
-                    while ((match = regex.exec(formula)) !== null) {
-                        deps.push(
-                            match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
-                        );
-                    }
+                // Everything after field 5 = full formula (preserved)
+                const formula = parts.slice(5).join(';').trim();
 
-                    return {
-                        id: String(item.ID),
-                        name: name,
-                        formula: formula,
-                        source: "sr",
-                        dependencies: deps
-                    };
-                });
-            } else {
-                // Parse as CSV
-                const lines = text
-                    .split(/\r?\n/)
-                    .map(l => l.trim())
-                    .filter(l => l.length > 0);
+                // Clean field name
+                const name = firstFive[1]
+                    .replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
+                    .trim();
 
-                const results = [];
+                // Parse dependencies from formula
+                const deps = [];
+                const regex = /\[([^\]]+)\]/g;
+                let match;
 
-                for (const line of lines) {
-                    // Split only FIRST 5 semicolons → everything after is formula
-                    const parts = line.split(';');
-                    if (parts.length < 2) continue; // invalid line
-
-                    const id = parts[0].trim();
-
-                    // Extract the first 5 fields
-                    const firstFive = parts.slice(0, 5).map(p => p.trim());
-
-                    // Everything after field 5 = full formula (preserved)
-                    const formula = parts.slice(5).join(';').trim();
-
-                    // Clean field name
-                    const name = firstFive[1]
-                        .replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
-                        .trim();
-
-                    // Parse dependencies from formula
-                    const deps = [];
-                    const regex = /\[([^\]]+)\]/g;
-                    let match;
-
-                    while ((match = regex.exec(formula)) !== null) {
-                        deps.push(
-                            match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
-                        );
-                    }
-
-                    results.push({
-                        id,
-                        name,
-                        formula,
-                        source: "sr",
-                        dependencies: deps
-                    });
+                while ((match = regex.exec(formula)) !== null) {
+                    deps.push(
+                        match[1].replace(/\.TIMESET$|\.DECIMAL$|\.MAX$/i, '')
+                    );
                 }
 
-                return results;
+                results.push({
+                    id,
+                    name,
+                    formula,
+                    source: "sr",
+                    dependencies: deps
+                });
             }
+
+            return results;
         }
 
 
@@ -613,7 +575,7 @@
                 //     .test(f.name) - Test if the pattern matches the string
                 srInput = folderFiles.find(f => /(special|results)/i.test(f.name)) || null;
                 // srInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
-                udfInput = folderFiles.find(f => /(user defined|userdefined)/i.test(f.name)) || null;
+                udfInputput = folderFiles.find(f => /(user defined|userdefined)/i.test(f.name)) || null;
                 // udfInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
                 rkgInput = folderFiles.find(f => /(rkg|ranks)/i.test(f.name)) || null;
                 // rkgInput = folderFiles.find(f => f.name.toLowerCase().includes("rkg")) || null;
