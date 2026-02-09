@@ -566,13 +566,25 @@
             let srInput, udfInput, rkgInput, tsInput;
 
             if (folderFiles.length > 0) {
-                // Look for the 4 expected files in the folder
-                srInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
-                udfInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
-                rkgInput = folderFiles.find(f => f.name.toLowerCase().includes("rkg")) || null;
-                tsInput = folderFiles.find(f => f.name.toLowerCase().includes("team scores")) || null;
-                conInput = folderFiles.find(f => f.name.toLowerCase().includes("con")) || null;
-                afInput = folderFiles.find(f => f.name.toLowerCase().includes("additional")) || null;
+                // // Look for the 4 expected files in the folder
+                // Parts:
+                //     / - Start of regex pattern
+                //     special|doof - Match "special" OR "doof" (the | means OR)
+                //     / - End of regex pattern
+                //     i - Case-insensitive flag (ignore uppercase/lowercase)
+                //     .test(f.name) - Test if the pattern matches the string
+                srInput = folderFiles.find(f => /(special|results)/i.test(f.name)) || null;
+                // srInput = folderFiles.find(f => f.name.toLowerCase().includes("special")) || null;
+                udfInputput = folderFiles.find(f => /(user defined|userdefined)/i.test(f.name)) || null;
+                // udfInput = folderFiles.find(f => f.name.toLowerCase().includes("user defined")) || null;
+                rkgInput = folderFiles.find(f => /(rkg|ranks)/i.test(f.name)) || null;
+                // rkgInput = folderFiles.find(f => f.name.toLowerCase().includes("rkg")) || null;
+                tsInput = folderFiles.find(f => /(team scores|teamscores)/i.test(f.name)) || null;
+                // tsInput = folderFiles.find(f => f.name.toLowerCase().includes("team scores")) || null;
+                conInput = folderFiles.find(f => /(contest)/i.test(f.name)) || null;
+                // conInput = folderFiles.find(f => f.name.toLowerCase().includes("con")) || null;
+                afInput = folderFiles.find(f => /(additional|Fields.json)/i.test(f.name)) || null;
+                // afInput = folderFiles.find(f => f.name.toLowerCase().includes("additional")) || null;
             } else {
                 // Use single-file inputs
                 srInput = document.getElementById("srFile").files[0];
