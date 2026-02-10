@@ -164,7 +164,7 @@ cat("\nLeaflet ready")
 setwd(wdout)
 
 export.gpx2(data[What == "Bike"],
-            rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/All_Bikes_for_gpxstudio.gpx"), 
+            rP("file:///C:/Users/doria/Downloads/Outdoor/Gpx/All_Bikes_for_gpxstudio.gpx"), 
             layer.type = "trk",
             segment.column.name = "uname")
 
