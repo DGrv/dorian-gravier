@@ -12,8 +12,17 @@ scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
 scoop bucket add sysinternals
+scoop bucket add nerd-fonts
 
 
+REM tasklist | grep -i google
+taskkill /IM PowerToys.exe /F
+taskkill /IM ShareX.exe /F
+taskkill /IM QuickLook.exe /F
+taskkill /IM notepad++.exe /F
+taskkill /IM chrome.exe /F
+
+scoop install nerd-fonts/JetBrains-Mono
 scoop install extras/googlechrome && scoop update extras/googlechrome
 scoop install extras/notepadplusplus && scoop update extras/notepadplusplus
 scoop install main/7zip && scoop update main/7zip
@@ -46,26 +55,17 @@ scoop install main/mlr && scoop update main/mlr
 scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
 
 
-REM tasklist | grep -i google
-taskkill /IM PowerToys.exe /F
-taskkill /IM ShareX.exe /F
-taskkill /IM QuickLook.exe /F
-taskkill /IM notepad++.exe /F
-taskkill /IM chrome.exe /F
-
-REM scoop update powertoys qimgv quicklook obs-studio geekuninstaller notepadplusplus freecommander sharex cmder googlechrome ag git sharex scrcpy process-explorer ag nmap 7zip googlechrome pdf-xchange-editor
-
-
-
 
 
 
 cd C:\Users\%USERNAME%\Downloads
 
+:: CMD Color
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Install/CMD_Colors.bat
+start CMD_Colors.bat
 
-REM barrier --- do not use anymore  ---------------------------------------------------------------------------------------
-REM IN ADMIN !!!
-REM powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"New-Service -Name ''Barrier'' -BinaryPathName ''C:\\Users\\%USERNAME%\\scoop\\apps\\barrier\\current\\barrierd.exe'' -StartupType Automatic -Description ''Manages the Barrier background processes.'' -ErrorAction SilentlyContinue\"'"
+:: clink
+clink inject
 
 
 REM shareX ---------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 REM Cmder ---------------------------------------------------------------------------------------
 :: reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"C:\Users\%USERNAME%\scoop\apps\cmder\current\Cmder.exe\" /single /x \"/cmd %1\"" /f
 :: reset default
-reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"%SystemRoot%\System32\cmd.exe\" /c \"%1\" %*" /f
+:: reg add "HKEY_CLASSES_ROOT\batfile\shell\open\command" /ve /t REG_SZ /d "\"%SystemRoot%\System32\cmd.exe\" /c \"%1\" %*" /f
 
 REM Windows Terminal  ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
