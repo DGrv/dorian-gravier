@@ -20,6 +20,9 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 # calendar ID
 cID="c68b1567d9cb7dcf87bd496cfdde9e473ea36c74499bc78db7ac1f653ba00865@group.calendar.google.com"
 
+# json api
+apijsonrr = "https://api.raceresult.com/370831/ANPSEOUEK8L69XG3IRBDMQKV4SGIRHUN"
+
 
 def main():
   """Shows basic usage of the Google Calendar API.
@@ -111,7 +114,7 @@ if __name__ == "__main__":
 
 
 # get the api from RR
-with urllib.request.urlopen("https://api.raceresult.com/316315/ANPSEOUEK8L69XG3IRBDMQKV4SGIRHUN") as url:
+with urllib.request.urlopen(apijsonrr) as url:
     json_object = json.load(url)
 
 # pretty print

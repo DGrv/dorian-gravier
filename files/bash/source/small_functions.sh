@@ -1,4 +1,11 @@
 
+# remove git checks
+
+git config --global status.showUntrackedFiles no
+
+
+
+
 
 # eza as ls
 alias ls="eza -lh -smod --git" # use eza instead of ls `eza -lh -smod --git`, smod is sorted modified
@@ -141,4 +148,43 @@ riaf() { # replace string in all files in folder run
   # old \Q is opening quote and \E ending quote
   # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|\Q${in}\E|${out}|g" "{}"
   grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+}
+
+
+riaf() { # replace string in folder or recursive (-r)
+  # Replace In All Files
+  local recursive=true
+  local in=""
+  local out=""
+  
+  # Parse arguments
+  if [[ "$1" == "-r" ]]; then
+    recursive=true
+    in="$2"
+    out="$3"
+  else
+    recursive=false
+    in="$1"
+    out="$2"
+  fi
+  
+  # Validate arguments
+  if [[ -z "$in" || -z "$out" ]]; then
+    cecho -g "riaf=Replace in All Files"
+    cecho -g "Usage: riaf [-r] \"search_string\" \"replacement\""
+    cecho -g "  -r: recursive search (default if not specified)"
+    cecho -g "  Without -r: search only in current directory"
+    cecho -g "USE DOUBLE QUOTES: riaf \"#fa9b2c\" \"Color1\""
+    return 1
+  fi
+  
+  cecho -g "riaf=Replace in All Files, '$in' is search string, '$out' is replacement"
+  
+  if [[ "$recursive" == true ]]; then
+    cecho -g "Searching recursively..."
+    grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+  else
+    cecho -g "Searching in current directory only..."
+    grep -l -- "${in}" * 2>/dev/null | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+  fi
 }

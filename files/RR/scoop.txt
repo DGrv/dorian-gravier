@@ -12,36 +12,38 @@ scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
 scoop bucket add sysinternals
-scoop update extras/googlechrome
-scoop update extras/notepadplusplus
-scoop update main/7zip
-scoop update extras/freecommander
-scoop update extras/pdf-xchange-editor
-scoop update main/cmder
-scoop update extras/obs-studio
-scoop update extras/powertoys
-scoop update extras/quicklook
-scoop update extras/sharex
-scoop update main/ffmpeg
-scoop update extras/mpv
-scoop update main/nmap
-scoop update extras/geekuninstaller
-scoop update extras/awake
-scoop update sysinternals/process-explorer
-scoop update extras/qimgv
-scoop update extras/msrt
-scoop update main/scrcpy
-scoop update main/adb
-scoop update main/brename
-scoop update extras/squirreldisk
-scoop update main/ag
-scoop update extras/windows-terminal
-scoop update main/fzf
-scoop update main/clink
-scoop update main/exiftool
-scoop update main/qsv
-scoop update main/mlr
-scoop update nerd-fonts/JetBrains-Mono
+
+
+scoop install extras/googlechrome && scoop update extras/googlechrome
+scoop install extras/notepadplusplus && scoop update extras/notepadplusplus
+scoop install main/7zip && scoop update main/7zip
+scoop install extras/freecommander && scoop update extras/freecommander
+scoop install extras/pdf-xchange-editor && scoop update extras/pdf-xchange-editor
+scoop install main/cmder && scoop update main/cmder
+scoop install extras/obs-studio && scoop update extras/obs-studio
+scoop install extras/powertoys && scoop update extras/powertoys
+scoop install extras/quicklook && scoop update extras/quicklook
+scoop install extras/sharex && scoop update extras/sharex
+scoop install main/ffmpeg && scoop update main/ffmpeg
+scoop install extras/mpv && scoop update extras/mpv
+scoop install main/nmap && scoop update main/nmap
+scoop install extras/geekuninstaller && scoop update extras/geekuninstaller
+scoop install extras/awake && scoop update extras/awake
+scoop install sysinternals/process-explorer && scoop update sysinternals/process-explorer
+scoop install extras/qimgv && scoop update extras/qimgv
+scoop install extras/msrt && scoop update extras/msrt
+scoop install main/scrcpy && scoop update main/scrcpy
+scoop install main/adb && scoop update main/adb
+scoop install main/brename && scoop update main/brename
+scoop install extras/squirreldisk && scoop update extras/squirreldisk
+scoop install main/ag && scoop update main/ag
+scoop install extras/windows-terminal && scoop update extras/windows-terminal
+scoop install main/fzf && scoop update main/fzf
+scoop install main/clink && scoop update main/clink
+scoop install main/exiftool && scoop update main/exiftool
+scoop install main/qsv && scoop update main/qsv
+scoop install main/mlr && scoop update main/mlr
+scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
 
 
 REM tasklist | grep -i google
