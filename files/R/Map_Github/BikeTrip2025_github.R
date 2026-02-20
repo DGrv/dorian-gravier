@@ -147,7 +147,7 @@ m <-  m %>%
   addLayersControl(
     baseGroups = mapGroups, 
     overlayGroups = groupLayers,
-    options = layersControlOptions(collapsed=FALSE)) %>%
+    options = layersControlOptions(collapsed=TRUE)) %>%
   addFullscreenControl() %>%
   addHash() %>%
   addSearchOSM() %>%
