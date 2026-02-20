@@ -1,7 +1,7 @@
 |What                   |  value|
 |:----------------------|------:|
-|Distance total (km)    |   2004|
-|Days spent on the bike |     51|
-|Days gone              |     72|
-|Total ascent (m)       |  31966|
-|Total descent (m)      | -32312|
+|Distance total (km)    |   2462|
+|Days spent on the bike |     63|
+|Days gone              |    118|
+|Total ascent (m)       |  40155|
+|Total descent (m)      | -40477|

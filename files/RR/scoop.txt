@@ -53,16 +53,20 @@ scoop install main/exiftool && scoop update main/exiftool
 scoop install main/qsv && scoop update main/qsv
 scoop install main/mlr && scoop update main/mlr
 scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
-
-
+scoop install extras/window-switcher && scoop update extras/window-switcher
+scoop install main/ansicon
 
 
 
 cd C:\Users\%USERNAME%\Downloads
 
+:: windows-switcher
+sed -i "s/enable = no/enable = yes/g" C:\Users\%USERNAME%\scoop\apps\window-switcher\current\window-switcher.ini
+
 :: CMD Color
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Install/CMD_Colors.bat
-start CMD_Colors.bat
+ansicon -i
+setx prompt $e[1;31m$p$s$e[1;34m$g$s$e[1;37m
+
 
 :: clink
 clink inject
