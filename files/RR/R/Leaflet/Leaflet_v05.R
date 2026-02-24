@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/BU/rr_backup_Skoda_Swiss_Bike_Cup_2025_20250507-100402/")
+  wd <- rP("file:///C:/Users/doria/Downloads/rr_backup_Aargau_Halbmarathon_2025_20260224-153004/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -265,9 +265,9 @@ if( file.exists("splits.csv") ) {
 
 
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Leaflet-MapCreate_v02.R"))
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/SVGCreate_v01.R"))
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Track_for_LED_v03.R"))
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Split_RawData-from-ses_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v02.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_SVGCreate_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Track_for_LED_v03.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Split_RawData-from-ses_v02.R"))
 
  

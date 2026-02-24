@@ -87,7 +87,7 @@ spareRR () { # (not used anymore)
 
 splitRawData() { # Split a file with rawdata to split files, using Rscript (not used anymore) used Split_RawData_v01, but now Split_RawData_v02
 	if [ -f "$1" ]; then
-		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_RawData_v01.R" "${PWD}" "${1}" "${2}"
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Split_RawData_v01.R" "${PWD}" "${1}" "${2}"
 	fi
 }
 
@@ -120,7 +120,7 @@ sesExtract () { # Extract ses data
 		
 		
 		# Enhance participants.csv
-		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Enhance_Participantscsv_from_BU_v01.R" "$PWD/$fdir"
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Enhance_Participantscsv_from_BU_v01.R" "$PWD/$fdir"
         cecho -g "participants_full.csv Done"
 		
 		
@@ -180,7 +180,7 @@ sesExtract () { # Extract ses data
         cecho -g Done
         
         cecho -y "R Kable for list"
-        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Kable_v01.R" "$PWD/$fdir"
+        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Kable_v01.R" "$PWD/$fdir"
         cecho -g Done
 
         
@@ -190,7 +190,7 @@ sesExtract () { # Extract ses data
         rm $fdir/gpx/*
         # extract gpx daten
 		grep -s "GPXFile" "$fdir/settings.csv" > "$fdir/gpx/gpxallinfo"
-		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Extract_gpx_ses_v01.R" "$PWD/$fdir"
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Extract_gpx_ses_v01.R" "$PWD/$fdir"
 
 		#old
         # grep -P "GPXFile\t" "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
@@ -216,7 +216,7 @@ sesExtract () { # Extract ses data
 
         cecho -y "R Split_map:"
         #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
-        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Leaflet_v05.R" "$PWD/$fdir"
+        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Leaflet\Leaflet_v05.R" "$PWD/$fdir"
 		
 		
         cecho -g Done
