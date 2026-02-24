@@ -10,7 +10,13 @@ git config --global status.showUntrackedFiles no
 # eza as ls
 alias ls="eza -lh -smod --git" # use eza instead of ls `eza -lh -smod --git`, smod is sorted modified
 alias lsa="eza -lha -smod --git" # like ls but show hidden files
-alias s1="cd /mnt/c/Users/doria/Downloads" # go do Download on C
+alias cd1="cd /mnt/c/Users/doria/Downloads" # go do Download on C
+alias cd2="cd /mnt/c/Users/doria/Downloads/GitHub"
+alias cd3="cd /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files"
+alias cd4="cd /mnt/c/Users/doria/Downloads/gdrive/RR"
+alias cd5="cd /mnt/c/Users/doria/Downloads/dorian.gravier.github.io/files/bash/source"
+alias cd6="cd /mnt/c/Users/doria/scoop"
+alias cd7="cd /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/_pages/code"
 alias sbashrc='source ~/.bashrc' # source your .bashrc
 alias nbashrc='nano ~/.bashrc' # nano your .bashrc
 alias bubashrc='cat ~/.bashrc > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/bashrc.sh' # backup bashrc

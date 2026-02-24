@@ -42,6 +42,7 @@ qsv replace -s Expression -i "\[started" "[STARTED" | ^
 qsv replace -s Expression -i "\[agegroup" "[AGEGROUP" | ^
 qsv replace -s Expression -i "\[finished" "[FINISHED" | ^
 qsv replace -s Expression -i "\[language" "[LANGUAGE" | ^
+qsv replace -s Expression -i "language\]" "LANGUAGE]" | ^
 qsv replace -s Expression -i "\[bib\]" "[BIB]" | ^
 qsv replace -s Expression -i "\[openentryfee" "[OPENENTRYFEE"  | ^
 qsv replace -s Expression -i "\[opmethod" "[opmethod"  | ^
@@ -55,6 +56,7 @@ qsv replace -s Expression -i "\[event" "[EVENT"  | ^
 qsv replace -s Expression -i "ioc\]" "IOCNAME]"  | ^
 qsv replace -s Expression -i "entryfee" "ENTRYFEE"  | ^
 qsv replace -s Expression -i "opentryfee" "OPENTRYFEE"  | ^
+qsv replace -s Expression -i "opmethod" "OPMETHOD"  | ^
 qsv replace -s Expression -i "\[paidentryfee" "[PAIDENTRYFEE" > UDF_compare_gdrive.csv
 
 :: ---------- COMPARISON
