@@ -1,0 +1,193 @@
+
+
+# setup
+rm(list = ls())
+rootpath <- "C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/R/" 
+Sys.setlocale("LC_ALL", "German")
+source(paste0(rootpath, "BM_Function_v01.r"), encoding="utf-8")
+
+
+suppressWarnings(suppressMessages(library(leaflet)))
+suppressWarnings(suppressMessages(library(leaflet.extras)))
+# suppressWarnings(suppressMessages(library(rayshaderanimate)))
+suppressWarnings(suppressMessages(library(htmlwidgets)))
+suppressWarnings(suppressMessages(library(RColorBrewer)))
+suppressWarnings(suppressMessages(library(sf)))
+suppressWarnings(suppressMessages(library(gpx)))
+suppressWarnings(suppressMessages(library(xml2)))
+# display.brewer.all()
+
+wd <- rP("file:///C:/Users/doria/Downloads/testkml/")
+wdout <- wd
+setwd(wd)
+
+cat("\nwd = ", wd)
+
+
+
+
+# read gpx ----------------------------------------------------------------
+
+ll <- data.table(path = list.files(wd, pattern = "gpx$", full = T, recursive = T))
+ll[, file := basename(path)]
+ll[, What := basename(dirname(path))]
+
+
+ll[, colorID := .GRP, What]
+ll[, .N, colorID]
+ll[, color := brewer.pal(n = length(u(ll$colorID)), name = "Set1")[colorID]]
+# ll[, color := qualitative_hcl(length(u(ll$colorID)), palette = "Dark 3")[colorID]]
+ll[, .N, .(colorID, color)]
+
+
+ll[, desc := p0(file, '<br><a target="_blank" href="https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/gpx/', What, "/", file, '" download>Download</a>')]
+
+ll <- ll[What!= "time"]
+
+data <- data.table()
+for (i in seq_along(ll$path)) {
+  cat(i, "- Try:", ll$file[i])
+  temp <- read.gpx(ll$path[i], type="trk")
+  temp[, file := ll$file[i]]
+  temp[, What := ll$What[i]]
+  temp[, isStart := F]
+  temp[1, isStart := T]
+  data <- rbind(data, temp, fill = T)
+  cat(green(" - Read done\n"))
+}
+
+# # Old
+# data <- data.table()
+# for(i in seq_along(ll)) {
+#   temp <- read.gpx(ll[i], type="wpt")
+#   data <- rbind(data, temp)
+# }
+# brewer.pal(n = 2, name = "Set1")
+
+
+source(p0(rootpath, "Map_Github/Map_providers.R"))
+
+
+# Add layers --------------------------------------------------------------
+
+
+groupLayers <- c(u(ll$What), "Wild Camping")
+
+
+for(i in seq_along(ll$file)) {
+  
+  data1 <- st_as_sf(x = data[file == ll$file[i]],                         
+                    coords = c("lon", "lat"))
+  data2 <- data1 %>%
+    st_combine() %>%
+    st_cast(to = "LINESTRING") %>%
+    st_sf()
+  
+  
+  m <- m %>%
+    addPolylines(data = data2,
+                 group = ll$What[i],
+                 color = ll$color[i],
+                 popup = ll$desc[i],
+                 opacity = ifelse(ll$What[i]=="Stop", 0.4, 1),
+                 weight = 4
+                 # label = ~name
+                 )
+}
+
+
+zelt <- read.gpx(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/gpx/Zelt.gpx"), type = "wpt")
+zelt <- zelt[time > "2025-10-13" & time < "2026-02-15"]
+
+rrIcons <- iconList(
+  camp = makeIcon(
+    iconUrl = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/icon/camping.png",
+    iconWidth = 36,
+    iconHeight = 36
+  )
+)
+
+
+m <- m %>%
+  addMarkers(data = zelt, lng = ~lon, lat = ~lat,
+             group = "Wild Camping",
+             # color = "#ff3355",
+             icon = rrIcons["camp"]
+             # popup = ~SplitName,
+             # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
+             # opacity = 1,
+             # radius = 4,
+             # fillOpacity = 0.5
+  )
+
+m <- m %>%
+  addCircleMarkers(data = data[isStart == T], lng = ~lon, lat = ~lat,
+                   group = ll$What[1],
+                   color = ll$color[1],
+                   # popup = ~SplitName,
+                   # popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
+                   opacity = 1,
+                   radius = 4,
+                   fillOpacity = 0.8)
+
+
+
+# output ------------------------------------------------------------------
+
+latMiddle <- (max(data$lat)-min(data$lat))/2+min(data$lat)
+lonMiddle <- (max(data$lon)-min(data$lon))/2+min(data$lon)
+m <- setView(map=m,
+             lat= latMiddle,
+             lng= lonMiddle,
+             zoom = 5, options = )
+
+
+m <-  m %>% 
+  # setView(11, 45,  zoom = 6) %>%
+  addLayersControl(
+    baseGroups = mapGroups, 
+    overlayGroups = groupLayers,
+    options = layersControlOptions(collapsed=FALSE)) %>%
+  addFullscreenControl() %>%
+  addHash() %>%
+  addSearchOSM() %>%
+  addControlGPS() %>%
+  hideGroup("Wild Camping")
+
+
+# %>% 
+      # hideGroup(groupslayer[3:length(groupslayer)]) #hide all groups except the 1st and 2nd )
+cat("\nLeaflet ready")
+
+setwd(wdout)
+
+outfilename <- "kml.html"
+
+saveWidget(m, file=outfilename)
+
+
+# change few thing in the html
+
+t <- readLines(outfilename)
+idwidget <- gsub('<script type\\="application/htmlwidget-sizing" data-for\\="(.*)">\\{"viewer".*', "\\1", t[length(t)-2])
+
+# change meta that is good phones 
+# t[t %like% "<meta"]
+t <- gsub(t[t %like% "<meta"], '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />', t)
+
+t <- gsub("<title>leaflet</title>", p0("<title>", gsub(".html", "", outfilename), "</title>"), t)
+
+
+
+# Mouse position ---------------------------------------------------------
+
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
+write.table(t, outfilename, row.names = F, col.names = F, quote = F)
+
+
+
+cat("\nLeaflet DONE :)\n")
+

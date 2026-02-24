@@ -28,7 +28,6 @@ scoop install extras/notepadplusplus && scoop update extras/notepadplusplus
 scoop install main/7zip && scoop update main/7zip
 scoop install extras/freecommander && scoop update extras/freecommander
 scoop install extras/pdf-xchange-editor && scoop update extras/pdf-xchange-editor
-scoop install main/cmder && scoop update main/cmder
 scoop install extras/obs-studio && scoop update extras/obs-studio
 scoop install extras/powertoys && scoop update extras/powertoys
 scoop install extras/quicklook && scoop update extras/quicklook
@@ -62,6 +61,7 @@ cd C:\Users\%USERNAME%\Downloads
 
 :: windows-switcher
 sed -i "s/enable = no/enable = yes/g" C:\Users\%USERNAME%\scoop\apps\window-switcher\current\window-switcher.ini
+copy "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\Window Switcher.lnk" "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 
 :: CMD Color
 ansicon -i
