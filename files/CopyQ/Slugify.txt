@@ -1,0 +1,18 @@
+[Command]
+Name=Slugify Text
+Command="
+    copyq:
+    // lowercase, replace non-word with hyphens, trim multiple hyphens, trim leading and trailing hyphens
+
+    // text=str(clipboard()).toLowerCase().replace(/\\W/g, \"-\").replace(/-+/g, '-').replace(/^-|-$/g, '')
+    text=str(clipboard()).replace(/\\W/g, \"_\").replace(/-+/g, '-').replace(/^-|-$/g, '')
+    tab(selectedtab())
+    write(0, 'text/plain', text)
+    copy('text/plain', text)
+    paste()"
+GlobalShortcut=alt+k
+Icon=\xf15b
+InMenu=true
+IsGlobalShortcut=true
+Shortcut=alt+k
+Tab=&clipboard

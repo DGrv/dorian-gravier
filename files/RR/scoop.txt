@@ -36,7 +36,6 @@ scoop install main/ffmpeg && scoop update main/ffmpeg
 scoop install extras/mpv && scoop update extras/mpv
 scoop install main/nmap && scoop update main/nmap
 scoop install extras/geekuninstaller && scoop update extras/geekuninstaller
-scoop install extras/awake && scoop update extras/awake
 scoop install sysinternals/process-explorer && scoop update sysinternals/process-explorer
 scoop install extras/qimgv && scoop update extras/qimgv
 scoop install extras/msrt && scoop update extras/msrt
@@ -53,7 +52,9 @@ scoop install main/qsv && scoop update main/qsv
 scoop install main/mlr && scoop update main/mlr
 scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
 scoop install extras/window-switcher && scoop update extras/window-switcher
-scoop install main/ansicon
+scoop install extras/copyq && scoop update extras/copyq 
+
+scoop uninstall cmder awake
 
 
 
@@ -64,8 +65,10 @@ sed -i "s/enable = no/enable = yes/g" C:\Users\%USERNAME%\scoop\apps\window-swit
 copy "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\Window Switcher.lnk" "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 
 :: CMD Color
-ansicon -i
+REM ansicon -i
+ansicon -u 
 setx prompt $e[1;31m$p$s$e[1;34m$g$s$e[1;37m
+scoop uninstall ansicon
 
 
 :: clink

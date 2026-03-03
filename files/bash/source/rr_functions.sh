@@ -3,7 +3,7 @@
 # source me in your script or .bashrc/.zshrc if wanna use cecho
 # source '/path/to/cecho.sh'
 
-uColor() { # change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: uColor "filename" "hex code your color" 
+uColorold() { # change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: uColor "filename" "hex code your color" 
 	checkdep convert
 	convert "$1" -channel RGB -auto-level +level-colors "$2" "${1%.*}_uColor1.png"
 	convert "$1" -colorspace gray -contrast-stretch 0 +level-colors "none,$2" -transparent black "${1%.*}_uColor2.png"
@@ -11,7 +11,66 @@ uColor() { # change all color from a logo to one unique color (e.g. for template
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
-
+uColor() { # change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: uColor "filename" "hex code your color" 
+	checkdep convert
+	
+	local input="$1"
+	local color="$2"
+	local base="${input%.*}"
+	local ext="${input##*.}"
+	
+	# Check if input is GIF
+	if [[ "${ext,,}" == "gif" ]]; then
+		cecho -r "Processing GIF: $input"
+		
+		# Get GIF properties (delay between frames)
+		local delay=$(identify -format "%T\n" "$input" | head -n1)
+		[ -z "$delay" ] && delay=10  # default to 100ms if not found
+		
+		# Get loop count (0 = infinite loop)
+		local loop=$(identify -verbose "$input" | grep -oP 'Loop: \K\d+' | head -n1)
+		[ -z "$loop" ] && loop=0  # default to infinite loop
+		
+		# Process each variant
+		for variant in 1 2 3; do
+			cecho -y "Creating variant $variant..."
+			
+			# Create temporary directory for frames
+			local tmpdir=$(mktemp -d)
+			
+			# Split GIF into frames
+			convert "$input" -coalesce "$tmpdir/frame_%04d.png"
+			
+			# Process each frame
+			for frame in "$tmpdir"/frame_*.png; do
+				case $variant in
+					1)
+						convert "$frame" -channel RGB -auto-level +level-colors "$color" "$frame"
+						;;
+					2)
+						convert "$frame" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
+						;;
+					3)
+						convert "$frame" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
+						;;
+				esac
+			done
+			
+			# Recombine frames into GIF with original properties
+			convert -dispose previous -delay "$delay" -loop "$loop" "$tmpdir"/frame_*.png "${base}_uColor${variant}.gif"
+			
+			# Cleanup
+			rm -rf "$tmpdir"
+			
+			cecho -g "✓ Created ${base}_uColor${variant}.gif"
+		done
+	else
+		# Original PNG/JPG processing
+		convert "$input" -channel RGB -auto-level +level-colors "$color" "${base}_uColor1.png"
+		convert "$input" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor2.png"
+		convert "$input" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor3.png"
+	fi
+}
 
 rmbg() { # Remove the white/first piel background based on different fuzz
     color=$(convert "$1"  -format "%[pixel:p{0,0}]" info:)

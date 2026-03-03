@@ -43,7 +43,7 @@ ytsearch() { # function to search on youtube and download the first found video 
 
 
 gifx4() { # speed up a gif 4 times
-	ffmpeg -i "$1" -filter_complex "[0:v]mpdecimate,setpts=0.25*PTS,split[a][b];[a]palettegen[p];[b][p]paletteuse" -y "$(basename $i .gif)_x4.gif"
+	ffmpeg -i "$1" -filter_complex "[0:v]mpdecimate,setpts=0.25*PTS,split[a][b];[a]palettegen[p];[b][p]paletteuse" -y "$(basename $1 .gif)_x4.gif"
 }
 
 

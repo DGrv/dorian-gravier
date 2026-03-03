@@ -11,6 +11,10 @@
 lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066")
 create.dir(wd, "svg", "wdsvg")
 
+# if( length(grepcol("Split", data))== 0) {
+#   data[, Split := ""]
+# }
+
 
 svgall <- c()
 svgallblack <- c()

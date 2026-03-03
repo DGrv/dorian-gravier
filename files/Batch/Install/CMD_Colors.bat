@@ -4,7 +4,7 @@ REM if %OS%==32BIT (
 	REM C:\Users\doria\Downloads\Software\ansi189\x86\ansicon.exe -i
 REM )
 REM if %OS%==64BIT (
-	C:\Users\doria\scoop\apps\ansicon\current\ansicon.exe -i
+	REM C:\Users\doria\scoop\apps\ansicon\current\ansicon.exe -i
 REM )
 
 REM if %ver%==XP (
