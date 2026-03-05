@@ -1,5 +1,13 @@
 @echo on
 
+echo cd c:\Users\%USERNAME%\Downloads > RRST_Update.bat
+echo curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/scoop.txt -o scoop.bat >> RRST_Update.bat
+echo powershell >> RRST_Update.bat
+echo (Get-Content scoop.bat) -join "`r`n" | Out-File -Encoding ASCII scoop.bat >> RRST_Update.bat
+echo cmd >> RRST_Update.bat
+echo scoop.bat >> RRST_Update.bat
+
+
 
 REM cmd
 scoop install git && scoop update git
