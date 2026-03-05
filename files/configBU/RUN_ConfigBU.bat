@@ -6,6 +6,11 @@ xcopy C:\Users\doria\scoop\persist\notepadplusplus C:\Users\doria\Downloads\GitH
 @REM for /f %p in ('bash -c "date +"%Y%m%d-%H%M%S""') do set TIMESTAMP=%p
 for /f %%p in ('bash -c "date +"%%Y%%m%%d-%%H%%M%%S""') do set TIMESTAMP=%%p
 
+
+:: copyq
+xcopy C:\Users\doria\scoop\apps\copyq\current\config\copyq C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\copyq /Y
+
+
 :: vscodium -----------------------------
 copy C:\Users\doria\scoop\apps\vscodium\current\data\user-data\User\keybindings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\vscodium\keybindings_%TIMESTAMP%.json
 copy C:\Users\doria\scoop\apps\vscodium\current\data\user-data\User\settings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\vscodium\settings_%TIMESTAMP%.json 

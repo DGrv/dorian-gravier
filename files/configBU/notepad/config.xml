@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="\r\n" />
-        <Find name="^" />
-        <Find name="Service" />
-        <Find name="jpg" />
-        <Find name="City" />
-        <Find name="ZIP" />
-        <Find name="timefromstring([RunTimeEstimationD])" />
-        <Find name="BibRank];" />
-        <Find name="BibAllocationRank" />
-        <Find name="\d*,(\d*),,(\d*),,.*" />
-        <Replace name="" />
-        <Replace name='&quot;' />
-        <Replace name="png" />
-        <Replace name="Event.City" />
-        <Replace name="Event.ZIP" />
-        <Replace name="val(timefromstring([RunTimeEstimationD]))" />
-        <Replace name="BibRank]-1;" />
-        <Replace name="BibRank" />
-        <Replace name="[Contest]=$2;$1+[BibAllocationRank];" />
-        <Replace name="[Contest]=$2;$1+[BibAllocationRank]" />
-        <Replace name="\r\n" />
+        <Find name="gifx" />
+        <Find name="gif4" />
+        <Find name="gif" />
+        <Find name="echo" />
+        <Find name="ratio" />
+        <Find name=" " />
+        <Find name="ansicon" />
+        <Find name="copy" />
+        <Find name="cmder" />
+        <Find name="Extract_" />
+        <Replace name="_" />
+        <Replace name="RR\R\Leaflet\" />
+        <Replace name="RR\R\sesExtract\" />
+        <Replace name="RR\Leaflet\Leaflet" />
+        <Replace name=" !important;" />
+        <Replace name="%" />
+        <Replace name="/" />
+        <Replace name='&quot;Group&quot;: &quot;Filters&quot;' />
+        <Replace name='&quot;Group&quot;: &quot;Expected&quot;' />
+        <Replace name='&quot;Group&quot;: &quot;Flags&quot;' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\20260122-1603__45._GP_Osterhas_2026_Payouts.csv" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
-        <File filename="C:\Users\doria\Downloads\iconList.svg" />
-        <File filename="C:\Users\doria\Downloads\GitHub\RR_Pimper\icons\svg2png.txt" />
-        <File filename="C:\Users\doria\Downloads\BibRanges_export.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260913__Stadtlauf_St._Gallen_2026\Registration\Registration_online_v06.html" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\Zc3_2026_v01\files\Videos\code.txt" />
         <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\WWF\List_wwf_2026.tsv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\20260913__Stadtlauf_St._Gallen_2026\Registration\Registration_online_v08.html" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\WWF\Draft_wwf.ada" />
-        <File filename="C:\Users\doria\Downloads\history_export.csv" />
+        <File filename="C:\Users\doria\scoop\apps\window-switcher\current\manifest.json" />
+        <File filename="C:\Users\doria\scoop\apps\googlechrome\current\manifest.json" />
+        <File filename="C:\Users\doria\scoop\apps\window-switcher\current\window-switcher.ini" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\Zc3_2026_v01\Zc3_2026_SPRO.ScreensProServerConfig" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2025__Matterhorn_ultraks\MattUltraks_2025_v01\MattUltraks_2025_RRE_v02.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\Zc3_2026_v01\RRE_Zc3_v02.RaceResultExchangeConfig" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\Zc3_2026_v01\Open_RRE_SP.bat" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -43,7 +41,7 @@
     </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
-        <number initial="1" increase="1" repeat="1" formatChoice="dec" leadingChoice="zeros" />
+        <number initial="2" increase="1" repeat="1" formatChoice="dec" leadingChoice="none" />
     </ColumnEditor>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">small</GUIConfig>
@@ -52,8 +50,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="206" y="51" width="1645" height="908" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="1041" top="113" right="1644" bottom="472" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="244" y="85" width="1485" height="797" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="1100" top="155" right="1703" bottom="514" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
