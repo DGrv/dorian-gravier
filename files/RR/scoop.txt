@@ -101,6 +101,20 @@ REM Windows Terminal  ----------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
  
+ 
+
+REM copyq ---------------------------------------------------------------------------------------
+cd C:\Users\%USERNAME%\scoop\apps\copyq\current\config\copyq
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-monitor.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-filter.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_tabs.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-commands.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-scripts.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_geometry.ini
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.pub
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.lock
+
 
 
 REM Freecommander ---------------------------------------------------------------------------------------
