@@ -102,6 +102,10 @@ cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
 curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
  
  
+REM windows terminal ---------------------------------------------------------------------------------------
+cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
+curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
+
 
 REM copyq ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\copyq\current\config\copyq
