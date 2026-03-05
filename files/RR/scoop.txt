@@ -1,13 +1,9 @@
-REM powershell
-REM Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-REM Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+@echo on
 
-REM powershell (Get-CimInstance -ClassName Win32_ComputerSystem).Model
-
-REM clink update
 
 REM cmd
-scoop update git
+scoop install git && scoop update git
+scoop install main/perl && scoop update main/perl
 scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
@@ -73,6 +69,7 @@ scoop uninstall ansicon
 
 :: clink
 clink inject
+clink update
 
 
 REM shareX ---------------------------------------------------------------------------------------
