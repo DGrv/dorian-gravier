@@ -1,5 +1,6 @@
 @echo on
 
+cd c:\Users\%USERNAME%\Desktop
 echo cd c:\Users\%USERNAME%\Downloads > RRST_Update.bat
 echo curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/scoop.txt -o scoop.bat >> RRST_Update.bat
 echo powershell >> RRST_Update.bat
