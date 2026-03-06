@@ -7,7 +7,6 @@ curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/fil
 
 REM cmd
 scoop install git && scoop update git
-scoop install main/perl && scoop update main/perl
 scoop bucket add extras
 scoop bucket add main
 scoop bucket add versions
@@ -22,6 +21,7 @@ taskkill /IM QuickLook.exe /F
 taskkill /IM notepad++.exe /F
 taskkill /IM chrome.exe /F
 
+scoop install main/sed && scoop update main/sed
 scoop install nerd-fonts/JetBrains-Mono
 scoop install extras/googlechrome && scoop update extras/googlechrome
 scoop install extras/notepadplusplus && scoop update extras/notepadplusplus

@@ -25,6 +25,17 @@ alias rmLl='head -n -1' # rm last line of a file
 alias vscodium='/mnt/c/Windows/System32/cmd.exe /C "vscodium"' # open vscodium in windows
 alias slugify='slugify --separator "_" --no-lowercase' # Slugify a filename
 
+jsonDecode() { # Decode json to remove unicode and \r\n for viewing, like RRE files
+
+	local input="$1"
+	# extract basename and extension
+    local base="${input%.*}"
+    local ext="${input##*.}"
+	
+	perl -pe 's/\\u([0-9a-fA-F]{4})/chr(hex($1))/eg; s/\\r\\n/\r\n/g; s/\\"/"/g' "${input}" > "${base}_VIEW.json"
+	
+}
+
 cdd() { # use cd on windows path cdd "C:\Users\doria\Downloads"
     cd "$(wslpath "$1")"
 }
