@@ -155,7 +155,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
+complete -r git # remove git completion - Dorian
 
 
 
@@ -166,3 +166,6 @@ if [ -f /home/dori/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo 
 	source /home/dori/.config/synth-shell/synth-shell-prompt.sh
 fi
 . "$HOME/.cargo/env"
+
+# Created by `pipx` on 2026-01-02 21:06:03
+export PATH="$PATH:/home/dori/.local/bin"

@@ -1,8 +1,5 @@
 @echo on
 
-cd c:\Users\%USERNAME%\Desktop
-curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/runscoop.txt -o RRST_Update.bat
-
 
 
 REM cmd

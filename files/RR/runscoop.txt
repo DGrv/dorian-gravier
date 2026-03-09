@@ -1,4 +1,0 @@
-cd c:\Users\%USERNAME%\Downloads
-curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/scoop.txt -o scoop.bat
-powershell -Command "(Get-Content scoop.bat) -join \"`r`n\" | Out-File -Encoding ASCII scoop.bat"
-scoop.bat

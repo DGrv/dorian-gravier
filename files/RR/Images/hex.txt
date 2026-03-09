@@ -1,0 +1,7 @@
+Nice Pair (balanced together)
+Connected: 
+#77DD77
+Disconnected: 
+#FF6961
+
+magick input.png \( +clone -channel A -morphology EdgeOut Disk:2 -background black -alpha shape \) -compose DstOver -composite output.png
