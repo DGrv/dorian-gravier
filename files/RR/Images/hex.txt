@@ -4,4 +4,7 @@ Connected:
 Disconnected: 
 #FF6961
 
-magick input.png \( +clone -channel A -morphology EdgeOut Disk:2 -background black -alpha shape \) -compose DstOver -composite output.png
+in bash
+ 
+ 
+convert input.png \( +clone -channel RGBA -morphology EdgeOut Disk:5 -fill black +opaque none \) -compose DstOver -composite output.png

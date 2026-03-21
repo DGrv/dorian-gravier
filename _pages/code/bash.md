@@ -60,6 +60,7 @@ cat fee-summary.tsv | \
 Single Commands
 
 ```sh
+then cut -f Name, Sum \     # select only those columns
 then sort -nr Sum | \                                 # sort, check  mlr sort -h
 then put '$Sum=round($Sum)'\                          # do calculatoon
 then filter '$Sum > 0' | \  # filter only positive values, need to use single quotes NO DOUBLE QUOTES

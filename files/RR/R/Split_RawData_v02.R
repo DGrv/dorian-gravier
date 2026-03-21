@@ -20,7 +20,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/WWF/BU/rr_backup_WWF-Lauf_Zurich_2026_20260316-144828/rawdata/")
   input <- "RawData.csv"
   keepbib <- 1 
 } else{
@@ -53,7 +53,7 @@ data[, .N, .(RD_TimingPoint, RD_DeviceID)]
 data[RD_TimingPoint == "", RD_TimingPoint := "MANUAL"]
 data[, RD_LoopID := NULL] # otherwise it is taking the rules
 data[, RD_Channel := NULL] # otherwise it is taking the rules
-setnames(data, "ï..RD_Invalid", "RD_Invalid")
+# setnames(data, "?..RD_Invalid", "RD_Invalid")
 
 
 # # create fake one
@@ -74,7 +74,10 @@ data[, RD_ID := NULL] # making mess if you import again
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
-    keepbib <- 0
+    keepbib <- 1
+
+
+
     if( keepbib == 0 ) {
       
         # get bib from Event 2024

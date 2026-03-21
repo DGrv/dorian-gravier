@@ -101,7 +101,7 @@ end
 RuntimeString("13:00:00.0", "Walking", "Red")
 RuntimeString("13:10:00.0", "10km", "Green")
 
-func CountdownString(Start)
+func CountdownStringmLED(Start)
     start_time = Start | ToSeconds
     now = date.now | Format "HH:mm:ss" | ToSeconds
     runtime2 = start_time - now | FormatRaceResult "HH:Mm:ss"
@@ -112,6 +112,17 @@ end
 
 CountdownString(SG.First.Start)
 
+func RunTimeString(Start)
+	a=datetime.now|ToSeconds
+	b=Start
+	a-b | FormatRaceResult "hh:mm:ss"
+end
+
+func CountdownString(Start)
+	a=datetime.now|ToSeconds
+	b=Start
+	b-a | FormatRaceResult "hh:mm:ss"
+end
 
 
 

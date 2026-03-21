@@ -32,7 +32,10 @@ jsonDecode() { # Decode json to remove unicode and \r\n for viewing, like RRE fi
     local base="${input%.*}"
     local ext="${input##*.}"
 	
-	perl -pe 's/\\u([0-9a-fA-F]{4})/chr(hex($1))/eg; s/\\r\\n/\r\n/g; s/\\"/"/g' "${input}" > "${base}_VIEW.json"
+	cat "${input}"  | jq "." > temp
+	
+	perl -pe 's/\\u([0-9a-fA-F]{4})/chr(hex($1))/eg; s/\\r\\n/\r\n/g; s/\\"/"/g' temp > "${base}_VIEW.json"
+	rm temp
 	
 }
 

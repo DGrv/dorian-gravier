@@ -218,6 +218,24 @@ endlocal
 exit /b %errorlevel%
 ```
 
+Test: 
+
+```batchfile
+:: you can try by running this in the Command
+for %I in (*.xlsx) do (
+echo "~I :" %~I 
+echo "~fI:" %~fI
+echo "~dI:" %~dI
+echo "~pI:" %~pI
+echo "~nI:" %~nI
+echo "~xI:" %~xI
+echo "~sI:" %~sI
+echo "~aI:" %~aI
+echo "~tI:" %~tI
+echo "~zI:" %~zI
+)
+```
+
 ## Modify Path
 
 Echo PATH with new line

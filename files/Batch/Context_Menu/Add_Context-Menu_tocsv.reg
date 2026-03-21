@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xlsx\shell\tocsv\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\tocsvWrapper.bat\" \"%1\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xls\shell\tocsv\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\tocsvWrapper.bat\" \"%1\""

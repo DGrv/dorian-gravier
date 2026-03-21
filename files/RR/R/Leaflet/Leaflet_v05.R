@@ -141,6 +141,7 @@ if( file.exists("splits.csv") ) {
     cd[, .N, .(ContestName)]
     
   }
+  
 }
 
 
@@ -170,12 +171,10 @@ tt <- max(ll$ncharName)
 ll[, Name := ifelse(Name == "NA__NA--NA__NA", gsub(".gpx", "", file), Name)]
 ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name), Name]
 
+if( all(is.na(ll$ContestName)) ){
+  ll[, ContestName := Name]
+} 
 
-# SVG
-ll[, breaksx := ifelse(Length >= 40, 10, ifelse(Length < 5, 1, 5))]
-ll[, nylabel := 1000]
-ll[, nxlabel := ifelse(Length >= 80, -5, ifelse(Length >= 40, -2, -1))]
-ll
 
 
 # read gpx
@@ -188,11 +187,14 @@ for (i in seq_along(ll$filepath)) {
   dt <- read.gpx(ll$filepath[i], type="trk")
   setnames(dt, "name", "GpxName")
   dt[, file := ll$file[i]]
-  if( is.na(ll$ContestName[i]) ){
-    dt[, ContestName := ll$Name[i]]
-  } else {
-    dt[, ContestName := ll$ContestName[i]]
-  }
+  dt[, ContestName := ll$ContestName[i]]
+  
+  
+  # if( is.na(ll$ContestName[i]) ){
+  #   dt[, ContestName := ll$Name[i]]
+  # } else {
+  #   dt[, ContestName := ll$ContestName[i]]
+  # }
   
   
   #svg
@@ -262,7 +264,17 @@ if( file.exists("splits.csv") ) {
 }
 
 
+# add length from gpx if not from contest infos
+if( all(is.na(ll$Length)) ) {
+  ll[, Length := NULL]
+  ll <- dtjoin(ll, data[, .(Length=max(dist)), .(Name=ContestName)])
+}
 
+# SVG
+ll[, breaksx := ifelse(Length >= 40, 10, ifelse(Length < 5, 1, 5))]
+ll[, nylabel := 1000]
+ll[, nxlabel := ifelse(Length >= 80, -5, ifelse(Length >= 40, -2, -1))]
+ll
 
 
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v02.R"))

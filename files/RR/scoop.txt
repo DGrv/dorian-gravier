@@ -1,6 +1,6 @@
 @echo on
 
-
+:: if you want grep and so on add in PATH : C:\Users\%USERNAME%\scoop\apps\git\current\usr\bin\
 
 REM cmd
 scoop install git && scoop update git
@@ -50,6 +50,8 @@ scoop install main/mlr && scoop update main/mlr
 scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
 scoop install extras/window-switcher && scoop update extras/window-switcher
 scoop install extras/copyq && scoop update extras/copyq 
+:: for Obs-Studio
+::scoop install extras/vcredist2022 
 
 scoop uninstall cmder awake
 

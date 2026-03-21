@@ -3953,3 +3953,11 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   return(data)
   
 }
+
+RRgetDataAPI <- function(urlapi, fields) {
+  url2 <- paste0(urlapi, "?&fields=", paste0(fields, collapse="%2C"), collapse="")
+  cat("[DEBUG] - You try to get ", url2, "\n")
+  DATA <- data.table(jsonlite::fromJSON(url(url2), flatten = TRUE))
+  setnames(DATA, fields)
+  return(DATA)
+}

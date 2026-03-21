@@ -9,14 +9,13 @@ suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), 
 # Args --------------------------------------------------------------------
 
 
-cat(green("Tool to transform RawData.csv to 1 csv file per split:\n\t- $1 is filename:\n\t- $2 is keep bib, 1 or 0\n"))
 
 args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2025/2025______SwissBikeCup/STAGES/#3_Savognin/Ranking/")
-  stageid <- 4
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Swiss_Bike_Cup/STAGES/#1_Tamaro/Ranking/auto/")
+  stageid <- 1
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -54,16 +53,27 @@ for(j in seq_along(u(data$RankingType)) ) {
   }
 }
 
+uci
 
-setnames(sc, c("UCI.ID", "Rang", "Pkt."), c("UCI_ID", p0("Stage", stageid, "SwissCycling_Ranking"), "SC_Points"))
+
+
+if(nrow(sc)>0) {
+  setnames(sc, c("UCI.ID", "Rang", "Pkt."), c("UCI_ID", p0("Stage", stageid, "SwissCycling_Ranking"), "SC_Points"))
+}
 setnames(uci, c("UCI.ID", "Rank", "Points", "Category"), c("UCI_ID", p0("Stage", stageid, "UCI_Ranking"),
                                                  p0("Stage", stageid, "UCI_Points"),
                                                  p0("Stage", stageid, "UCI_RankingType")))
 
+if(nrow(sc)>0) {
 all <- dtjoin(uci[, c("UCI_ID", "Name", p0("Stage", stageid, "UCI_Ranking"),
                       p0("Stage", stageid, "UCI_Points"),
                       p0("Stage", stageid, "UCI_RankingType"), "Nationality"), with =F],
               sc[, c("UCI_ID", p0("Stage", stageid, "SwissCycling_Ranking"), "SC_Points"), with = F])
+} else {
+  all <- uci[, c("UCI_ID", "Name", p0("Stage", stageid, "UCI_Ranking"),
+                 p0("Stage", stageid, "UCI_Points"),
+                 p0("Stage", stageid, "UCI_RankingType"), "Nationality"), with =F]
+}
 setnames(all, "Nationality", "Nat")
 
 # replace name RankingType
