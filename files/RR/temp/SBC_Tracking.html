@@ -5310,7 +5310,7 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
 </script>
 <link rel="stylesheet" href="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.css">
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
-<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v04.js"></script>
+<script src="file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Leaflet-functions_rrst_v05.js"></script>
 <script>
 
     const youridhtmlwidget = "#htmlwidget-970662d17461dfa64554"
@@ -5320,6 +5320,12 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
             // Fetch device list
             const devices = await fetchrrstdevices();
             addMarkerDevices(youridhtmlwidget, devices);
+
+            const devices2 = await fetchracemap(["5b6ac1561c6a700020a00b19",]) ;
+            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", devices2);
+            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", devices2, "red", "red", "Dorian");
+            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", devices2, "green", "green", "Morris");
+
 
             // Fetch specific device positions
             // const data = await fetchrrst(["T-20320", "T-20344", "T-20342", "T-20341", "T-20351"]);

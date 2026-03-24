@@ -52,7 +52,7 @@ fjson() { # pretty print json
 }
 
 headers() { # print the header, names, labels from a csv file 
-	head -n 1 "$1" | tr ',' '\n'
+	head -n 1 "$1" | tr ',' '\n' | tr ';' '\n' | sed 's/\"//g'
 }
 
 

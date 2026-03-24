@@ -109,15 +109,28 @@ concatmp4 () { # concat all mp4 in a folder
     ls -1 |grep -E ".*.ts$" | xargs rm
 }
 
-mergemp4 () { # Do not use this function, use concatmp4 instead
-    cecho -r "Do not use this function, use concatmp4 instead"
-    rm listmerge 2> /dev/null
-    touch listmerge
-    for i in *.mp4; do 
-        echo file \'$i\' >> listmerge
-    done
-    ffmpeg -stats -loglevel error -f concat -safe 0 -i listmerge -c copy merge.mp4
-    rm listmerge
+
+
+mergemp3 () { # Merge mp3 and copy cover from first file in the output
+	rm -f listmerge
+	first=$(ls *.mp3 | head -n 1)
+
+	for i in *.mp3; do 
+		echo "file '$i'" >> listmerge
+	done
+
+	ffmpeg -stats -loglevel error \
+		-f concat -safe 0 -i listmerge \
+		-i "$first" \
+		-map 0:a \
+		-map 1:v \
+		-c copy \
+		-id3v2_version 3 \
+		-metadata:s:v title="Album cover" \
+		-metadata:s:v comment="Cover (front)" \
+		merge.mp3
+
+	rm listmerge
 }
 
 
