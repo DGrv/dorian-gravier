@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Add Time</title></head>
+<body>
+<script>
+  (function(){
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const api = urlParams.get('api');
+    const bib = urlParams.get('bib');
+    
+    if (!api || !bib) {
+      document.body.innerHTML = '<h2>Error: Missing parameters</h2><p>Please provide both "api" and "bib" parameters in the URL.</p>';
+      return;
+    }
+    
+    // Calculate current time in seconds since midnight
+    const n = new Date();
+    const secs = n.getHours() * 3600 + n.getMinutes() * 60 + n.getSeconds();
+    
+    // Build the URL
+    const firstUrl = api + "?bib=" + bib + "&time=" + secs;
+    
+    // Create invisible iframe to make the request
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = firstUrl;
+    document.body.appendChild(iframe);
+    
+    // Show confirmation
+    document.body.innerHTML = '<h2>Time recorded!</h2><p>Bib: ' + bib + '<br>Time: ' + secs + ' seconds</p>';
+  })();
+</script>
+</body>
+</html>
