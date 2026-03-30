@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xlsx\shell\topdf]
+@="To CSV"
+"Icon"="C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\icons\\csv.ico"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xls\shell\topdf]
+@="To CSV"
+"Icon"="C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\icons\\csv.ico"
+
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xlsx\shell\tocsv\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\xlsx2csvWrapper.bat\" \"%1\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.xls\shell\tocsv\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\xlsx2csvWrapper.bat\" \"%1\""

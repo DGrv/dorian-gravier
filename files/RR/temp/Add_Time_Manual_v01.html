@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Add Time</title></head>
+<body>
+<script>
+  (function(){
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const api = urlParams.get('api');
+    const bib = urlParams.get('bib');
+    
+    // Check if parameters exist
+    if (!api || !bib) {
+      document.body.innerHTML = '<h2>Error: Missing parameters</h2><p>Please provide both "api" and "bib" parameters in the URL.</p>';
+      return;
+    }
+    
+    // Calculate current time in seconds since midnight
+    const n = new Date();
+    const secs = n.getHours() * 3600 + n.getMinutes() * 60 + n.getSeconds();
+    
+    // Build the redirect URL
+    const firstUrl = api + "?bib=" + bib + "&time=" + secs;
+    
+    // Redirect current tab immediately
+    location.href = firstUrl;
+  })();
+</script>
+</body>
+</html>

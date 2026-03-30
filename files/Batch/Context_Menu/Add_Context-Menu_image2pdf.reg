@@ -1,0 +1,23 @@
+Windows Registry Editor Version 5.00
+
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.png\shell\topdf]
+@="To PDF"
+"Icon"="C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\icons\\pdf.ico"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.jpg\shell\topdf]
+@="To PDF"
+"Icon"="C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\icons\\pdf.ico"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.jpeg\shell\topdf]
+@="To PDF"
+"Icon"="C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\icons\\pdf.ico"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.png\shell\topdf\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\image2pdfWrapper.bat\" \"%1\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.jpg\shell\topdf\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\image2pdfWrapper.bat\" \"%1\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.jpeg\shell\topdf\command]
+@="\"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\Context_Menu\\image2pdfWrapper.bat\" \"%1\""

@@ -11,11 +11,11 @@ uColorold() { # change all color from a logo to one unique color (e.g. for templ
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
-uColor() { # change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: uColor "filename" "hex code your color" 
+uColor() { # uColor "#00ff00 "filename" - change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: 
 	checkdep convert
 	
-	local input="$1"
-	local color="$2"
+	local color="$1"
+	local input="$2"
 	local base="${input%.*}"
 	local ext="${input##*.}"
 	

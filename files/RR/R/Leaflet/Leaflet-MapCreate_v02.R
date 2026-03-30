@@ -95,7 +95,7 @@ m <- m %>%
 # Add layers --------------------------------------------------------------
 
 
-for (i in seq_along(ll$filepath)) {
+for (i in seq_along(ll$filepath) ) {
   
   data1 <- st_as_sf(x = data[file == ll$file[i]],                         
                     coords = c("lon", "lat"))
@@ -175,22 +175,26 @@ if( nrow(tp) > 0 ) {
   )
 } 
   
-  # # used before tamaro
-  # fitBounds(
-  #   lng1 = min(data$lon), lat1 = min(data$lat),
-  #   lng2 = max(data$lon), lat2 = max(data$lat)
-  # )
-  if( nrow(data)>0) {
-    m <- setView(map=m, lng=(max(data$lon)-min(data$lon))/2+min(data$lon),
-                    lat=(max(data$lat)-min(data$lat))/2+min(data$lat),
-                    zoom = 11, options = )
-    
-  } else {
-    m <- setView(map=m, lng=46.7615,
-            lat=8.4601,
-            zoom = 8)
-  }
+# # used before tamaro
+# fitBounds(
+#   lng1 = min(data$lon), lat1 = min(data$lat),
+#   lng2 = max(data$lon), lat2 = max(data$lat)
+# )
+
+
+if( nrow(data)> 0 ) {
+  m <- setView(map=m, lng=(max(data$lon)-min(data$lon))/2+min(data$lon),
+                  lat=(max(data$lat)-min(data$lat))/2+min(data$lat),
+                  zoom = 11, options = )
   
+} else {
+  m <- setView(map=m, lng=46.7615,
+          lat=8.4601,
+          zoom = 8)
+}
+  
+
+
 if( exists("tpr") ) {
   if( nrow(tpr) > 1 ) {
   
