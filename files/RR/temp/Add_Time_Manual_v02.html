@@ -8,7 +8,9 @@
     const urlParams = new URLSearchParams(window.location.search);
     const api = urlParams.get('api');
     const bib = urlParams.get('bib');
+    const tp = urlParams.get('tp');
     
+    // Check if parameters exist
     if (!api || !bib) {
       document.body.innerHTML = '<h2>Error: Missing parameters</h2><p>Please provide both "api" and "bib" parameters in the URL.</p>';
       return;
@@ -18,17 +20,11 @@
     const n = new Date();
     const secs = n.getHours() * 3600 + n.getMinutes() * 60 + n.getSeconds();
     
-    // Build the URL
-    const firstUrl = api + "?bib=" + bib + "&time=" + secs;
+    // Build the redirect URL
+    const firstUrl = api + "?bib=" + bib + "&TimingPoint="+ tp + "&time=" + secs;
     
-    // Create invisible iframe to make the request
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = firstUrl;
-    document.body.appendChild(iframe);
-    
-    // Show confirmation
-    document.body.innerHTML = '<h2>Time recorded!</h2><p>Bib: ' + bib + '<br>Time: ' + secs + ' seconds</p>';
+    // Redirect current tab immediately
+    location.href = firstUrl;
   })();
 </script>
 </body>
