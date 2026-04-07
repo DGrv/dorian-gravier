@@ -29,7 +29,7 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     
     
     gpxdata <- data[ContestName == ll$ContestName[i]]
-    
+    gpxdata[1, dist := gpxdata$dist[2]]
     
     
     # Create the elevation profile plot
@@ -51,12 +51,12 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     
     minele <- min(gpxdata[ele != 0]$ele)
     maxele <- max(gpxdata$ele)
-    if( maxele > 500 & minele > 300) {
+    if( maxele > 500 & minele > 300 ) {
       ylim2 <- round(minele - minele*0.1, -2)
       p <- p + coord_cartesian(ylim=c(ylim2, NA))
     } else {
       p <- p + scale_y_continuous( # avoid small gap at 0 
-        expand = expansion(mult = c(0, 0.05)), # 0 at bottom, small top padding
+        expand = expansion(mult = c(0, 0.000005)), # 0 at bottom, small top padding
         limits = c(0, NA)                       # start at 0, let top be automatic
       )
     }
