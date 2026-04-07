@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/GP_Osterhas/BU/rr_backup_44._GP_Osterhas_2025_20260327-151451/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_Marathon_2026/BU/rr_backup_OCHSNER_SPORT_Zurich_Marathon_2026_20260407-121818/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -68,7 +68,6 @@ setnames(tp, "Name", "TimingPoint")
 tp <- tp[!is.na(lon)]
 tp[, url:= p0("https://www.google.com/maps/place/", lat, ",", lon)]
 tp[, label := p0(TimingPoint, '<br><a href="', url, '" target="_blank">GoogleMap</a>' )]
-
 tp[, icon := ifelse(grepl("start|finish|ziel", TimingPoint, ignore.case = T), "iconFinish", "iconUbi")]
 tp[, TimingPointUTF8 := TimingPoint] 
 tp[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
@@ -107,6 +106,10 @@ setnames(contest, grepcol("Name", contest), p0("Contest", grepcol("Name", contes
 
 contest <- contest[ContestName != ""]
 contest[, Length := ifelse(LengthUnit=="m", Length/1000, Length)/10000]
+
+contest[, ContestName := gsub("\\{|\\}", "", ContestName)]
+contest[ContestName %like% "\\|", ContestName := gsub("..:(.*?)\\|.*", "\\1", ContestName)]
+
 contest[, ContestNameShort := ifelse(is.na(ContestNameShort), ContestName, ContestNameShort)]
 contest[, Start := hms::as_hms(Start/10000)]
 contest[, Dist := p0(round(Length, 2), "km")]
@@ -115,35 +118,6 @@ setnames(contest, "ID", "Contest")
 # get color contest
 contest[, ColorHEX := gsub(".*\\#(.{6}).*", "#\\1", Attributes)]
 contest[, ColorCID := hex2rgba(ColorHEX, 0.8)]
-
-# splits ------------------------------------------------------------------
-
-if( file.exists("splits.csv") ) {
-  
-  if( file.info("splits.csv")$size > 0 ) {
-    
-    splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
-    splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos, Label)]
-    splits[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
-    splits <- splits[TimingPoint != ""]
-    setnames(splits, c("Name", "Label"), c("SplitName", "Split"))
-    
-    cd <- dtjoin(contest[, .(Contest, ContestName)], splits)
-    cd[, Split := gsub(",", ".", Split)]
-    cd[, Split := gsub(" km", "km", Split)]
-    cd[, Split := gsub(" ca. ", " - ", Split)]
-    cd[, dist := Distance / 1000 / 10000]
-    
-    cd[cd[, .I[dist==max(dist)], ContestName]$V1] # Wichtig should feet the Contest.Length
-    
-    cd <- cd[!grep("start|finish|spotter", SplitName, ignore.case = T)]
-    cd[cd[, .I[dist==max(dist)], ContestName]$V1]
-    cd[, .N, .(ContestName)]
-    
-  }
-  
-}
-
 
 
 
@@ -174,6 +148,62 @@ ll[, Name := gsub("--", paste0(rep("_", (tt-ncharName+2)), collapse = ""), Name)
 if( all(is.na(ll$ContestName)) ){
   ll[, ContestName := Name]
 } 
+
+ll[, ContestName := gsub("\\{|\\}", "", ContestName)]
+ll[ContestName %like% "\\|", ContestName := gsub("..:(.*?)\\|.*", "\\1", ContestName)]
+
+
+
+
+
+
+
+# splits ------------------------------------------------------------------
+
+if( file.exists("splits.csv") ) {
+  
+  if( file.info("splits.csv")$size > 0 ) {
+    
+    splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+    splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos, Label)]
+    splits[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
+    splits <- splits[TimingPoint != ""]
+    splits[, Distance := as.numeric(Distance)]
+    setnames(splits, c("Name", "Label"), c("SplitName", "Split"))
+    splits[, Split := gsub("\\{|\\}", "", Split)]
+    splits[Split %like% "\\|", Split := gsub("..:(.*?)\\|.*", "\\1", Split)]
+    
+    
+    cd <- dtjoin(contest[, .(Contest, ContestName)], splits)
+    cd[, ContestName := gsub("\\{|\\}", "", ContestName)]
+    cd[ContestName %like% "\\|", ContestName := gsub("..:(.*?)\\|.*", "\\1", ContestName)]
+    cd[, Split := gsub(",", ".", Split)]
+    cd[, Split := gsub(" km", "km", Split)]
+    cd[, Split := gsub(" ca. ", " - ", Split)]
+    
+    
+    for(i in u(ll$Contest)) {
+      if ( max(cd[Contest == i]$Distance) / ll[Contest == i]$Length > 2 ) {
+        cd[Contest == i, Distance := Distance / 10000]
+      } else {
+        cd[Contest == i, Distance := Distance / 1000 / 10000]
+      }
+    }
+    
+    cd[, dist := Distance]
+    
+    cd[cd[, .I[dist==max(dist)], ContestName]$V1] # Wichtig should feet the Contest.Length
+    
+    cd <- cd[!grep("start|finish|ziel|spotter|zielgerade", SplitName, ignore.case = T)]
+    cd[cd[, .I[dist==max(dist)], ContestName]$V1]
+    cd[, .N, .(ContestName)]
+    
+  }
+  
+}
+
+
+
 
 
 
@@ -227,7 +257,14 @@ for (i in seq_along(ll$filepath)) {
 }
 
 
+
 data[data[, .I[dist==max(dist)], ContestName]$V1]
+data[, ContestName := gsub("\\{|\\}", "", ContestName)]
+data[ContestName %like% "\\|", ContestName := gsub("..:(.*?)\\|.*", "\\1", ContestName)]
+data[data[, .I[dist==max(dist)], ContestName]$V1]
+
+
+
 
 
 # svg again 
@@ -257,6 +294,7 @@ if( file.exists("splits.csv") ) {
         temp2[t, Split := cd2$Split[i]]
       }
       data <- rbind(data, temp2)
+      data[Split != ""]
     }
     
     data[Split != "", .N, .(ContestName, Split)]
