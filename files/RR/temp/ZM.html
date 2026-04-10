@@ -5419,36 +5419,37 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
 
 
     var contest = getUrlParameter('contest');
+    console.log("Your contest in geturlparameter is: ", contest)
 
     setInterval(async () => {
         try {
 
 
-          if( contest = 1 ) {
+          if( contest == 1 ) {
             const gps1 = await fetchracemap("5b6ac1561c6a700020a00b24");
             const gps2 = await fetchracemap("5b6ac1561c6a700020a00af7");
-            const gps3 = await fetchracemap("5b6ac1561c6a700020a00b2e");
+            // const gps3 = await fetchracemap("5b6ac1561c6a700020a00b2e");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b24", gps1,  "blue", "#1488ca",  "🏃‍♂️Ma-M");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00af7", gps2,  "pink", "#1488ca",  "🏃‍♀Ma-W");
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", gps3,  "red",  "#1488ca", "🧹Ma");
+            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", gps3,  "red",  "#1488ca", "🧹Ma");
           }
           
-          if( contest = 3 ) {
+          if( contest == 3 ) {
             const gps4 = await fetchracemap("5b6ac1561c6a700020a00b17");
             const gps5 = await fetchracemap("5b6ac1561c6a700020a00b3c");
-            const gps6 = await fetchracemap("5b6ac1561c6a700020a00b19");
+            // const gps6 = await fetchracemap("5b6ac1561c6a700020a00b19");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b17", gps4,  "blue", "#95C11F",  "🏃‍♂️Hm-M");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3c", gps5,  "pink", "#95C11F",  "🏃‍♀️Hm-W");
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", gps6,  "red",  "#95C11F", "🧹Hm");
+            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", gps6,  "red",  "#95C11F", "🧹Hm");
           }
 
-          if( contest = 2 ) {
+          if( contest == 2 ) {
             const gps7 = await fetchracemap("5b6ac1561c6a700020a00b25");
             const gps8 = await fetchracemap("5b6ac1561c6a700020a00aee");
-            const gps9 = await fetchracemap("5b6ac1561c6a700020a00b3d");
+            // const gps9 = await fetchracemap("5b6ac1561c6a700020a00b3d");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b25", gps7,  "blue", "#e5005b",  "🏃‍♂️10-M");
             addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00aee", gps8,  "pink", "#e5005b",  "🏃‍♀️10-W");
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3d", gps9,  "red",  "#e5005b", "🧹10");
+            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3d", gps9,  "red",  "#e5005b", "🧹10");
           }
 
         } catch (error) {
