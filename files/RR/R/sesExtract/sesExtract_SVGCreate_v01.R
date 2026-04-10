@@ -8,6 +8,11 @@
 #   breaksx <- 10
 # }
 
+
+
+
+
+
 lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066")
 create.dir(wd, "svg", "wdsvg")
 
@@ -29,7 +34,10 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     
     
     gpxdata <- data[ContestName == ll$ContestName[i]]
-    gpxdata[1, dist := gpxdata$dist[2]]
+    # to have clean borders
+    gpxdata <- rbind(gpxdata[1], gpxdata, gpxdata[nrow(gpxdata)])
+    gpxdata[2, ele := gpxdata$ele[3]]
+    gpxdata[(nrow(gpxdata)-1), ele := gpxdata$ele[(nrow(gpxdata)-2)]]
     
     
     # Create the elevation profile plot
@@ -84,6 +92,13 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
     t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
               "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
+    if( !debug ) {
+      t <- gsub("Arial;", 'urw-din, Arial, Helvetica, sans-serif;', t)
+    } else {
+      # difference in quotes
+      t <- gsub("'Arial';", '"urw-din, Arial, Helvetica, sans-serif";', t)
+    }
+    
     
     write.table(t, p0(ll$ContestName[i],".svg"), row.names = F, col.names = F, quote = F)
     svgall <- c(svgall,   paste0(t, collapse=""))
@@ -96,7 +111,8 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
     t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
               "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
-    
+    t <- gsub("'Arial';", "'urw-din, Arial, Helvetica, sans-serif';", t)
+  
     write.table(t, p0(ll$ContestName[i],"Black.svg"), row.names = F, col.names = F, quote = F)
     svgallblack <- c(svgallblack,   paste0(t, collapse=""))
     
@@ -105,11 +121,16 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
   
   # UDF ---------------------------------------------------------------------
   
-  svgallUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgall, collapse='"; "'),  '")& "</div>"'), collapse="")
-  svgallblackUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgallblack, collapse='"; "'), '")& "</div>"'), collapse="")
+  svgallUDF <- copy(svgall)
+  svgallblackUDF<- copy(svgallblack)
+  svgallUDFcheck <- copy(svgall)
+  svgallblackUDFcheck <- copy(svgallblack)
   
-  svgallUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgall, collapse='<br>'),  '</div>"'), collapse="")
-  svgallblackUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgallblack, collapse='<br>'),  '</div>"'), collapse="")
+  svgallUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgallUDF, collapse='"; "'),  '")& "</div>"'), collapse="")
+  svgallblackUDF <- paste0(c('"<div id=""elevation_chart"" style=""100%"">" & choose([x];"', paste0(svgallblackUDF, collapse='"; "'), '")& "</div>"'), collapse="")
+
+  svgallUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgallUDFcheck, collapse='<br>'),  '</div>"'), collapse="")
+  svgallblackUDFcheck <- paste0(c('"<div id=""elevation_chart"" style=""100%"">', paste0(svgallblackUDFcheck, collapse='<br>'),  '</div>"'), collapse="")
   
   
   UDF <- c("svg(x)", svgallUDF, "svgblack(x)" , svgallblackUDF, "svgCHECK", svgallUDFcheck, "svgblackCHECK", svgallblackUDFcheck)
@@ -119,6 +140,15 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
   
   svgallblackUDFchecklocal <- paste0(c('<div id="elevation_chart style="100%>', paste0(gsub('"&\\[GradientLimit.*?\\]&"', "50", svgallblack), collapse='<br>'),  '</div>'), collapse="")
   writeLines(svgallblackUDFchecklocal, "test.html")
+  for(i in 1:length(svgallblack) ) {
+    temp <- svgallblack[i]
+    writeLines(temp, p0(ll$ContestName[i], "Black_Test_local.html"))
+  }
+  
+  
+  
+  
+  
   
   
   

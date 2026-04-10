@@ -19,6 +19,7 @@ taskkill /IM notepad++.exe /F
 taskkill /IM chrome.exe /F
 
 scoop install main/sed && scoop update main/sed
+scoop install main/eza && scoop update main/eza
 scoop install nerd-fonts/JetBrains-Mono
 scoop install extras/googlechrome && scoop update extras/googlechrome
 scoop install extras/notepadplusplus && scoop update extras/notepadplusplus

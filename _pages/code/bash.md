@@ -130,6 +130,13 @@ cat yourjson | jq -r '.[]' | jq -r @csv > test.csv
 cat Contests.lvs | jq -r ' (.[0] | to_entries | map(.key)), (.[] | [.[]]) | @csv' > Contest.csv
 ```
 
+With mlr:
+
+```sh
+cat "User Defined Fields_Fcts. (2).lvs"  | mlr --ijson --ocsv  > test.csv
+cat "User Defined Fields_Fcts. (2).lvs"  | mlr --ijson --ocsv filter '$Expression !=~ "---------------"' > test.csv
+```
+
 [Source here](https://stackoverflow.com/a/30032247/2444948)
 
 You can try everything here : [](https://jqplay.org/)

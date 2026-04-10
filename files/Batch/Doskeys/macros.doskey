@@ -23,3 +23,6 @@ cd4=cd "C:\Users\doria\Downloads\gdrive\RR"
 cd5=cd "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source"
 cd6=cd "C:\Users\doria\scoop"
 cd7=cd "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code"
+ls=eza -lh -smod --git
+lsa=eza -lha -smod --git
+json2csv=cat "$1"  | mlr --ijson --ocsv filter '$Expression !=~ "---------------"'
