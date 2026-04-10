@@ -372,10 +372,11 @@ async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, 
 // Hide 1 layer: ?hide=0
 // Hide mutiples layers: ?hide=1,3
 
+var widgettemp = window.HTMLWidgets.find(idhtmlwidget);
 // Wait for the map to be ready
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
-        var widget = window.HTMLWidgets.find(youridhtmlwidget);
+        var widget = window.HTMLWidgets.find(widgettemp);
         if (widget) {
             var map = widget.getMap();
 
