@@ -224,14 +224,14 @@ msmallcircle <- copy(m)
 
 
 msmallcircle <- msmallcircle %>%
-  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
-  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
-  addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
-  addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxZoom = 20), "OpenTopoMap") %>%
-  addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxZoom = 20), "Esri.WorldImagery") %>%
-  addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxZoom = 20), "CartoDB.PositronNoLabels")%>%
-  addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
-  addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxZoom = 20), "CartoDB.VoyagerNoLabels")
+  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
+  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
+  addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
+  addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "OpenTopoMap") %>%
+  addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "Esri.WorldImagery") %>%
+  addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.PositronNoLabels")%>%
+  addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
+  addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.VoyagerNoLabels")
 
 
 
@@ -297,14 +297,14 @@ m <- m %>%
   # addTiles(urlTemplate = "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
   #          attribution = '&copy; <a href="https://www.geo.admin.ch/de/about-swiss-geoportal/impressum.html#copyright">swisstopo</a>',
   #          group = "SwissTopo Sat", options = providerTileOptions(maxZoom = 20)) %>%
-  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
-  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
-  addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
-  addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxZoom = 20), "OpenTopoMap") %>%
-  addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxZoom = 20), "Esri.WorldImagery") %>%
-  addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxZoom = 20), "CartoDB.PositronNoLabels")%>%
-  addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
-  addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxZoom = 20), "CartoDB.VoyagerNoLabels")
+  addProviderTiles( group = mapGroups[1], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.NationalMapColor") %>%
+  addProviderTiles( group = mapGroups[2], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.NationalMapGrey") %>%
+  addProviderTiles( group = mapGroups[3], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "SwissFederalGeoportal.SWISSIMAGE") %>%
+  addProviderTiles( group = mapGroups[4], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "OpenTopoMap") %>%
+  addProviderTiles( group = mapGroups[5], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "Esri.WorldImagery") %>%
+  addProviderTiles( group = mapGroups[6], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.PositronNoLabels")%>%
+  addProviderTiles( group = mapGroups[7], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.DarkMatterNoLabels") %>%
+  addProviderTiles( group = mapGroups[8], options = providerTileOptions(maxNativeZoom = 20, maxZoom = 20), "CartoDB.VoyagerNoLabels")
 # addWMSTiles(
 #   "http://ows.mundialis.de/services/service?",
 #   layers = "SRTM30-Hillshade",
