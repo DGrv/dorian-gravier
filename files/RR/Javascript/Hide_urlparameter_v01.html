@@ -1,7 +1,7 @@
 <script>
 
 
-    const youridhtmlwidget = "#idwidget"
+    const youridhtmlwidgethide = "#idwidget"
 
 
     // Function to get URL parameters
@@ -23,7 +23,7 @@
     // Wait for the map to be ready
     document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
-            var widget = window.HTMLWidgets.find(youridhtmlwidget);
+            var widget = window.HTMLWidgets.find(youridhtmlwidgethide);
             if (widget) {
                 var map = widget.getMap();
 

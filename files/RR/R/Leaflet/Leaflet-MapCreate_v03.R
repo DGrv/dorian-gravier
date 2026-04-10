@@ -52,8 +52,8 @@ m <- m %>%
   onRender("
     function(el, x) {
       var map = this;
-      map.options.zoomSnap = 0.5;
-      map.options.zoomDelta = 0.5;
+      map.options.zoomSnap = 0.25;   // Allows zooming to half levels (e.g., 10.5, 11.0, 11.5)
+      map.options.zoomDelta = 0.5;  // Changes zoom by 0.5 levels per click/scroll
     }
   ")
 
