@@ -46,14 +46,14 @@
                             }
                         });
 
-                        console.log('Groups from layer control:', groupNames);
+                        // console.log('Groups from layer control:', groupNames);
 
                         // Get group names to hide based on indices
                         var groupsToHide = indicesToHide.map(function (index) {
                             return groupNames[index];
                         }).filter(Boolean);
 
-                        console.log('Groups to hide:', groupsToHide);
+                        // console.log('Groups to hide:', groupsToHide);
 
                         // Remove all layers belonging to those groups
                         var layersToRemove = [];
@@ -63,7 +63,7 @@
                             }
                         });
 
-                        console.log('Layers to remove:', layersToRemove.length);
+                        // console.log('Layers to remove:', layersToRemove.length);
 
                         // Remove layers
                         layersToRemove.forEach(function (layer) {
@@ -82,7 +82,7 @@
                             });
                         });
 
-                        console.log('Layers hidden successfully');
+                        // console.log('Layers hidden successfully');
                     }
                 }
             }

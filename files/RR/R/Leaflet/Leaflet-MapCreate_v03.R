@@ -54,6 +54,24 @@ m <- m %>%
       var map = this;
       map.options.zoomSnap = 0.2;   // Allows zooming to half levels (e.g., 10.5, 11.0, 11.5)
       map.options.zoomDelta = 0.2;  // Changes zoom by 0.5 levels per click/scroll
+     
+     
+      // Function to log map info
+      function logMapInfo() {
+        var center = map.getCenter();
+        console.log('#' + map.getZoom() + '/' + center.lat.toFixed(4) + '/' + center.lng.toFixed(4));
+      }
+      
+      // Log on zoom change
+      map.on('zoomend', logMapInfo);
+      
+      // Log on map move/pan
+      map.on('moveend', logMapInfo);
+      
+      // Log initial state
+      logMapInfo();
+     
+     
     }
   ")
 
