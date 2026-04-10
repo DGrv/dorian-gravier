@@ -92,12 +92,7 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     t <- gsub("<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>", "<rect width='100%' height='100%' style='stroke: none; fill: none;'/>", t)
     t <- gsub("<rect x='(.*)' y='(.*)' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />",
               "<rect x='\\1' y='\\2' width='960.00' height='240.00' style='stroke-width: 1.07; stroke: none; fill: none;' />", t)
-    if( !debug ) {
-      t <- gsub("Arial;", 'urw-din, Arial, Helvetica, sans-serif;', t)
-    } else {
-      # difference in quotes
-      t <- gsub("'Arial';", '"urw-din, Arial, Helvetica, sans-serif";', t)
-    }
+    t <- gsub("'Arial';", "'urw-din, Arial, Helvetica, sans-serif';", t)
     
     
     write.table(t, p0(ll$ContestName[i],".svg"), row.names = F, col.names = F, quote = F)
