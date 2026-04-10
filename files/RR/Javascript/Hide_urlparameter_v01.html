@@ -1,0 +1,95 @@
+<script>
+
+
+    const youridhtmlwidget = "#idwidget"
+
+
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+
+    // -------------------------------------------------------------------------------------
+    //                                         HIDE Parameters
+    // -------------------------------------------------------------------------------------
+    // Allow the user to use url parameter hide, to hide the layers :youridhtmlwidget
+    // Hide 1 layer: ?hide=0
+    // Hide mutiples layers: ?hide=1,3
+
+    // Wait for the map to be ready
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            var widget = window.HTMLWidgets.find(youridhtmlwidget);
+            if (widget) {
+                var map = widget.getMap();
+
+                if (map) {
+                    // Get which overlays to hide (by index)
+                    var hideOverlays = getUrlParameter('hide');
+
+                    if (hideOverlays) {
+                        var indicesToHide = hideOverlays.split(',').map(function (id) {
+                            return parseInt(id.trim());
+                        });
+
+                        // Extract group names from the layer control in the correct order
+                        var groupNames = [];
+                        var overlaysList = document.querySelectorAll('.leaflet-control-layers-overlays label');
+                        overlaysList.forEach(function (label) {
+                            var groupName = label.textContent.trim();
+                            if (groupName) {
+                                groupNames.push(groupName);
+                            }
+                        });
+
+                        console.log('Groups from layer control:', groupNames);
+
+                        // Get group names to hide based on indices
+                        var groupsToHide = indicesToHide.map(function (index) {
+                            return groupNames[index];
+                        }).filter(Boolean);
+
+                        console.log('Groups to hide:', groupsToHide);
+
+                        // Remove all layers belonging to those groups
+                        var layersToRemove = [];
+                        map.eachLayer(function (layer) {
+                            if (layer.options && layer.options.group && groupsToHide.indexOf(layer.options.group) !== -1) {
+                                layersToRemove.push(layer);
+                            }
+                        });
+
+                        console.log('Layers to remove:', layersToRemove.length);
+
+                        // Remove layers
+                        layersToRemove.forEach(function (layer) {
+                            map.removeLayer(layer);
+                        });
+
+                        // Uncheck the checkboxes in the layer control
+                        groupsToHide.forEach(function (groupName) {
+                            var checkboxes = document.querySelectorAll('.leaflet-control-layers-selector');
+                            checkboxes.forEach(function (checkbox) {
+                                var label = checkbox.parentElement.textContent.trim();
+                                if (label === groupName) {
+                                    checkbox.checked = false;
+                                    console.log('Unchecked checkbox for:', groupName);
+                                }
+                            });
+                        });
+
+                        console.log('Layers hidden successfully');
+                    }
+                }
+            }
+        }, 500);
+    });
+
+
+
+
+</script>

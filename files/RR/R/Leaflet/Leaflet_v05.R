@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_Marathon_2026/BU/rr_backup_OCHSNER_SPORT_Zurich_Marathon_2026_20260407-121818/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_Marathon_2026/BU/rr_backup_OCHSNER_SPORT_Zurich_Marathon_2026_20260410-123113/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -315,7 +315,7 @@ ll[, nxlabel := ifelse(Length >= 80, -5, ifelse(Length >= 40, -2, -1))]
 ll
 
 
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v02.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v03.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_SVGCreate_v01.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Track_for_LED_v03.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Split_RawData-from-ses_v02.R"))

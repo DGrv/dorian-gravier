@@ -118,21 +118,22 @@ for (i in seq_along(ll$filepath) ) {
     splits3 <- splits2[, .(SplitName = paste(SplitName, collapse = ", ")), TimingPoint]
     tp2 <- dtjoin(tp2, splits3)
     
-
+    
     if( nrow(tp2) > 0 ) {
+      msmallcircle <- copy(m)
       m <- m %>%
         addCircleMarkers(data = tp2, lng = ~lon, lat = ~lat,
                          group = ll$Name[i],
                          color = ll$ColorTrack[i],
-                          popup = ~SplitName,
+                         popup = ~SplitName,
                          popupOptions = popupOptions(autoClose = TRUE, offset=c(0, -30)),
                          opacity = 1,
                          radius = 30,
                          fillOpacity = 0.8)
-
+      
     }
   }
-
+  
 }
 
 
@@ -301,7 +302,15 @@ t <- gsub("<title>leaflet</title>", p0("<title>", EventName, "</title>"), t)
 tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Copy_MousePosition_v01.html"))
 tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
 t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
+
+# Hide url parameters ---------------------------------------------------------
+
+
+tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Hide_urlparameter_v01.html"))
+tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
+t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
 write.table(t, outfilename, row.names = F, col.names = F, quote = F)
+
 
 
 
