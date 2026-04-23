@@ -52,7 +52,7 @@ module Timetrap
 
         entries.each do |e|
           next unless e.end
-          note = e.note || ""
+          note = (e.note || "").sub(/#.*$/, "").strip
 
           has_event = note.include?("@event")
           has_ka    = note.include?("@ka")

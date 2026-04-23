@@ -9,7 +9,7 @@ suppressWarnings(suppressMessages(source(paste0(rootpath, "BM_Function_v01.r"), 
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/20260628__Zurich_City_Triathlon_2026/BU/rr_backup_Zurich_City_Triathlon_2026_20251227-152734/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Granfondo_Vaduz/BU/rr_backup_Granfondo_Vaduz_2026_20260423-143847/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
 }
@@ -22,7 +22,7 @@ gpx.name <- data[raw %like% "GPXFileName"]
 gpx <- data[!raw %like% "GPXFileName"]
 
 gpx.name[, Contest := gsub("\\d*\tGPXFileName\t\\d*\t(\\d*)\t(.*)\t\\d*", "\\1", raw)]
-gpx.name[, Filename := p0(Contest, "__", gsub("\\d*\tGPXFileName\t\\d*\t(\\d*)\t(.*)\t\\d*", "\\2", raw))]
+gpx.name[, Filename := gsub('\\"','',p0(Contest, "__", gsub("\\d*\tGPXFileName\t\\d*\t(\\d*)\t(.*)\t\\d*", "\\2", raw)))]
 # gpx.name
 
 gpx[, Contest := gsub("\\d*\tGPXFile\t\\d*\t(\\d*)\t(.*)", "\\1", raw)]

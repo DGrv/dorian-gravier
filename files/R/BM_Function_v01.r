@@ -3959,5 +3959,20 @@ RRgetDataAPI <- function(urlapi, fields) {
   cat("[DEBUG] - You try to get ", url2, "\n")
   DATA <- data.table(jsonlite::fromJSON(url(url2), flatten = TRUE))
   setnames(DATA, fields)
+  
+  if( "Contest" %in% fields ) {
+    DATA[, Contest := as.integer(Contest)]
+  }
+  if( "Status" %in% fields ) {
+    DATA[, Status := as.integer(Status)]
+  }
+  if( "ID" %in% fields ) {
+    DATA[, ID := as.integer(ID)]
+  }
+  if( "Bib" %in% fields ) {
+    DATA[, Status := as.integer(Bib)]
+  }
+  
+  
   return(DATA)
 }

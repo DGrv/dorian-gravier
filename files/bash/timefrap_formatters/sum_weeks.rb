@@ -45,6 +45,7 @@ module Timetrap
         # Sum weekly durations
         entries.each do |e|
           next unless e.end
+          note = (e.note || "").sub(/#.*$/, "").strip
           week = e.start.strftime("%Y-%W")
           weeks[week] += e.duration
         end

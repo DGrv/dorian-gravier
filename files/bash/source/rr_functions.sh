@@ -11,6 +11,12 @@ uColorold() { # change all color from a logo to one unique color (e.g. for templ
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
+getColors() { # get the x number of colors from picture, $1 number of color and $2, the file
+	
+	convert "${2}" -format %c histogram:info: | sort -rn | head -$1 |  grep -oP '#[0-9A-F]{6}'
+
+}
+
 uColor() { # uColor "#00ff00 "filename" - change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: 
 	checkdep convert
 	

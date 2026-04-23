@@ -9,12 +9,12 @@
 . "$HOME/.cargo/env"
 
 # source cecho for color echo
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/ansi_colors.sh
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/cecho.sh
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/small_functions.sh
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/video_functions.sh
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/gpx_functions.sh
-source /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/bash/source/rr_functions.sh
+source ~/.bash_sources/ansi_colors.sh
+source ~/.bash_sources/cecho.sh
+source ~/.bash_sources/small_functions.sh
+source ~/.bash_sources/video_functions.sh
+source ~/.bash_sources/gpx_functions.sh
+source ~/.bash_sources/rr_functions.sh
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -34,7 +34,8 @@ fi
 #cd synth-shell
 #./setup.sh
 
-
+export GIT_PROMPT_DISABLE=1
+export PROMPT_COMMAND=""
 
 
 # END DORIAN --------------------------------------------

@@ -20,7 +20,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/GP_Osterhas/BU/rr_backup_44._GP_Osterhas_2025_20260327-151451/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_City_Triathlon_2026/BU/rr_backup_Zurich_City_Triathlon_2025_20260414-154314/")
   # input <- "RawDataunique.csv"
   input <- "RawData.csv"
   keepbib <- 1 
@@ -37,6 +37,9 @@ if (length(args)==0) {
     keepbib <- args[3]
   }
 }
+
+
+
 cat(yellow("\n[INFO] - wd:\t", wd))
 cat(yellow("\n[INFO] - file:\t", input))
 cat(yellow("\n[INFO] - Keep Bib:\t", keepbib, "\n"))
@@ -112,13 +115,13 @@ data[, ID := NULL] # making mess if you import again
 
 
 
-    if( keepbib == 0 ) {
+    # if( keepbib == 0 ) {
       
       
-      
+        
         apilist <- data.table(Year=2025:2026, url =
-                                c("https://api.raceresult.com/316629/JVFRRCW3SMGFZVI4OZHZI9OAYCSRKS6V",
-                                  "https://api.raceresult.com/364325/OLUNOKY8GYK4Q424RN29CME8HWQUQ5X6"))
+                                c("https://api.raceresult.com/307885/YXBE3LZQSHBOXB6V1FHF7HR5CYOIOZMC",
+                                  "https://api.raceresult.com/360525/W3PHTM9OLCCHTBRL1252599SE8WK1BM0"))
         
         lcol <- c("Contest", "Bib")
         databib <- data.table()
@@ -156,46 +159,80 @@ data[, ID := NULL] # making mess if you import again
         db2 <- databib[Year == u(Year)[2]]
         setnames(db2, "Bib", "Bib2")
         
+        db1 <- db1[Contest > 0 & Contest <100]
+        db2 <- db2[Contest > 0 & Contest <100]
+        
+                  # only for Zc3
+                  db1 <- db1[Contest <20][Contest != 11 & Contest != 10]
+                  db2 <- db2[Contest <20][Contest != 9 & Contest != 10]
+                  
+                  db1[Contest==6, Contest := 11]
+                  db1[Contest==9, Contest := 6]
+        
+        
+        db1[,.N, Contest]
+        db2[,.N, Contest]
+        
+        
+        db1 <- db1[!is.na(Bib)]
+        db2 <- db2[!is.na(Bib2)]
+        
+        db1 <- db1[!is.na(Contest)]
+        db2 <- db2[!is.na(Contest)]
+        
+        db1 <- db1[Contest %in% u(db2$Contest)]
+        db2 <- db2[Contest %in% u(db1$Contest)]
+        db1 <- db1[Contest %in% u(db2$Contest)]
+        
+        db1 <- db1[order(Contest, Bib)]
+        db2 <- db2[order(Contest, Bib2)]
+        
         u1 <- u(db1$Bib)
         u2 <- u(db2$Bib2)
         
         
-        j = 1
-        for( i in seq_along(u1)[1:length(u2)]) {
-          if( db1$Contest[i] == db2$Contest[j] ) {
-            db2[j, Bib := db1$Bib[i]]
-            j <- j+1
-          }
+        
+        for(c in u(db2$Contest) ) {
           
+          Idb1 <- db1[,.I[Contest == c]]
+          Idb2 <- db2[,.I[Contest == c]]
+          
+          for( i in 1:(min( length(Idb1), length(Idb2) ) ) ) {
+            if( db1[Idb1[i]]$Contest == db2[Idb2[i]]$Contest ) {
+              db2[Idb2[i], Bib := db1[Idb1[i]]$Bib]
+            }
+          }
         }
         db2
         db2
         
         
+        # seqfor <- seq_along(u1)[1:(min(length(u1),length(u2)))]
+        # # db2 <- db2[1:(min(length(u1),length(u2)))] # reduce db2 to the number of bib in db1
+        # j = 1
+        # for( i in seqfor ) {
+        #   if( db1$Contest[i] == db2$Contest[j] ) {
+        #     db2[j, Bib := db1$Bib[i]]
+        #     j <- j+1
+        #   }
+        #   
+        # }
+        # db2
+        # db2
         
-        
-        
-        
-        # manual modification
-        db2[Bib==10, Bib2 := 1]
-        db2[Bib==69, Bib2 := 2]
-        db2[Bib==819, Bib2 := 3]
-        db2[Bib==800, Bib2 := 4]
-        db2[Bib==56, Bib2 := 5]
-        db2[Bib==67, Bib2 := 6]
-        db2[Bib2 %in% c(10,69, 812)]
-        
+        dataBU <- copy(data)
+        # data <- copy(dataBU)
 
 
-
-
-
-        data <- dtjoin(data, db2[!is.na(Bib)])
+        data <- dtjoin(data, db2[!is.na(Bib2)])
         data[, Bib := NULL]
         setnames(data, "Bib2", "Bib")
         data <- data[!is.na(Bib)]
-        data[, Contest := NULL]
         data[, Transponder := Bib]
+        
+        data[, .(BibMin=min(Transponder), BibMax = max(Transponder)), Contest]
+        
+        data[, Contest := NULL]
     
         # check
         id <- 1415
@@ -205,7 +242,7 @@ data[, ID := NULL] # making mess if you import again
         data[,.N, Bib]
       
     
-    }
+    # }
 
 
 
