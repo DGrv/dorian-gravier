@@ -139,7 +139,7 @@ exclude: # otherwse way too slow https://stackoverflow.com/questions/26855552/je
   - package.json
   - Rakefile
   - README*
-  - */node_modules/*
+  - /assets/js//node_modules/*
   - tmp
   - _site
   - Run_jekyll_local.bat
