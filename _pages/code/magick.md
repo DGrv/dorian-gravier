@@ -39,8 +39,17 @@ magick mogrify -resize 100^< *png
 
 # Resize and Extend
 
+
+
 ```sh
 magick Sponsor1.png -resize x244 -gravity center -extent 470x244 Sponsor1b.png
+```
+
+## Add margin around
+
+```sh
+magick input.png -bordercolor none -border 20 output.png
+magick input.png -background none -gravity center -extent 120%x120% output.png
 ```
 
 

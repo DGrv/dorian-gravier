@@ -67,10 +67,16 @@ end
 
 
 func RuntimeTrail(EvDate, T0)
-	# --> EvDate is date of Event text([Event.Date];"de") in format "2025-08-05"
-	# ---> T0 in decimal with day 
-	ret datetime.now-(date.parse(EvDate)+timespan.parse(T0)) | FormatRaceResult "hh:mm:ss"
-	# --> RuntimeTrail(SG.First.EventDate, SG.First.StartTime)
+	# This is doing as well Countdown
+    # --> EvDate is date of Event text([Event.Date];"de") in format "2025-08-05"
+    # ---> T0 in decimal with day 
+	rt=datetime.now-(date.parse(EvDate)+timespan.parse(T0)) | ToSeconds
+    if rt > 0
+       ret rt | FormatRaceResult "HH:mm:ss"
+    else
+       ret "-" + ((-rt) | FormatRaceResult "HH:mm:ss")
+    end
+    # --> RuntimeTrail(SG.First.EventDate, SG.First.StartTime)
 end
 
 

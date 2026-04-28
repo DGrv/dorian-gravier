@@ -71,6 +71,12 @@ then put '$Label=$ID."_".$Label' # Concatenate ID "_" and Label
 then rename "Name EN", "name", "Coordinates", "coord", "Description EN", "desc" then \  # rename "Name EN" to "Name" and so on
 ```
 
+Example:
+
+```sh
+mlr --csv filter '$Field=="CompanyName" && $Timestamp =~ "20.04.2026"' then cut -f "Old Value,New Value" "history_export (3).csv"  | uniq |csview
+```
+
 
 ## termgraph
 

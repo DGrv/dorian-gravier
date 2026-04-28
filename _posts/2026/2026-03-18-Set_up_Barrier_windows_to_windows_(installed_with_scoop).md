@@ -12,6 +12,7 @@ I had difficulties to set it up so here the explanation:
 - be sure that the service is started, `services.msc` and search for Barrier
 - Be sure that SSL disable in settings from barrier (F4)
 - Be sure to be on Private domain wifi/LAN
+- Disable SSL in Settings Barrier
 
 
 

@@ -11,6 +11,21 @@ uColorold() { # change all color from a logo to one unique color (e.g. for templ
 	# convert "map.jpg" -colorspace gray -contrast-stretch 0 +level-colors "none,#ff0000" -transparent black "map_uColor3.png"
 }
 
+jsonDecode() { # Decode json to remove unicode and \r\n for viewing, like RRE files
+
+	local input="$1"
+	# extract basename and extension
+    local base="${input%.*}"
+    local ext="${input##*.}"
+	
+	cat "$1"  | jq "." > temp
+	
+	perl -pe 's/\\u([0-9a-fA-F]{4})/chr(hex($1))/eg; s/\\r\\n/\r\n/g; s/\\"/"/g' temp > "${base}_VIEW.json"
+	rm temp
+	
+}
+
+
 getColors() { # get the x number of colors from picture, $1 number of color and $2, the file
 	
 	convert "${2}" -format %c histogram:info: | sort -rn | head -$1 |  grep -oP '#[0-9A-F]{6}'
