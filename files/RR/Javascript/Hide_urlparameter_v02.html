@@ -12,17 +12,6 @@
 
             if (map) {
 
-                L.control.mousePosition({
-                    position: 'bottomleft',
-                    separator: ',',
-                    emptyString: 'Unavailable',
-                    lngFirst: false,
-                    numDigits: 6,
-                    lngFormatter: undefined,
-                    latFormatter: undefined,
-                    prefix: "Ctrl+c to copy: "
-                }).addTo(map);
-
                 // Add URL help control
                 var urlHelpControl = L.control({ position: 'bottomright' });
                 urlHelpControl.onAdd = function (map) {
