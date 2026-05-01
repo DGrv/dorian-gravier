@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Granfondo_Vaduz/BU/rr_backup_Granfondo_Vaduz_2026_20260423-143847/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/IATF/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2026_20260430-170406/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -134,7 +134,8 @@ if(nrow(ll)==0){
 
 ll[, file := basename(filepath)]
 ll <- ll[!filepath %like% "ContestID_|All_Splits"]
-suppressWarnings(suppressMessages(ll[, ColorTrack := brewer.pal(n = nrow(ll), name = "Set1")[1:nrow(ll)]]))
+pal <- rep(brewer.pal(n = 9, name = "Set1"),10)
+ll[, ColorTrack := pal[1:nrow(ll)]]
 ll[, Contest := as.numeric(gsub("(\\d*)__.*", "\\1", file))]
 
 ll <- dtjoin(ll, contest[, .(Contest, Start, Dist, ContestName, Length, ColorCID)])
@@ -165,10 +166,14 @@ if( file.exists("splits.csv") ) {
   if( file.info("splits.csv")$size > 0 ) {
     
     splits <- data.table(read.csv("splits.csv", sep = "\t", header = T, fileEncoding = "utf-8"))
+    
+    splits[, Distance := as.numeric(Distance)]
+    splits[DistanceUnit =="m", Distance := Distance/1000]
+    
+    
     splits <- splits[, .(Contest, Name, TimingPoint, Distance, OrderPos, Label)]
     splits[, TimingPoint := stri_trans_general(TimingPoint, "de-ASCII")] # replace the german umlaut
     splits <- splits[TimingPoint != ""]
-    splits[, Distance := as.numeric(Distance)]
     setnames(splits, c("Name", "Label"), c("SplitName", "Split"))
     splits[, Split := gsub("\\{|\\}", "", Split)]
     splits[Split %like% "\\|", Split := gsub("..:(.*?)\\|.*", "\\1", Split)]

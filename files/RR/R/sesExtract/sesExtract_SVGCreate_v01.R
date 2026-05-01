@@ -13,7 +13,7 @@
 
 
 
-lcolor <- c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066")
+lcolor <- rep(c("#FFFF00", "#0000FF", "#00FF00", "#FF0000", "#FF6600", "#6600FF", "#FF0066"),10)
 create.dir(wd, "svg", "wdsvg")
 
 if( length(grepcol("Split", data))== 0) {
@@ -38,6 +38,7 @@ if( !all(is.na(data[ele != 0]$ele)) ) {
     gpxdata <- rbind(gpxdata[1], gpxdata, gpxdata[nrow(gpxdata)])
     gpxdata[2, ele := gpxdata$ele[3]]
     gpxdata[(nrow(gpxdata)-1), ele := gpxdata$ele[(nrow(gpxdata)-2)]]
+    gpxdata[, ele := round(ele)]
     
     
     # Create the elevation profile plot
