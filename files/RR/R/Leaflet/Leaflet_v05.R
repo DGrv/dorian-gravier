@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/IATF/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2026_20260430-170406/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/IATF/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2026_20260501-145359/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -208,7 +208,9 @@ if( file.exists("splits.csv") ) {
 }
 
 
-
+# manual remove from IATF
+splist <- splits[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
+cd <- cd[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
 
 
 
@@ -321,7 +323,7 @@ ll
 
 
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v03.R"))
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_SVGCreate_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_SVGCreate_v02.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Track_for_LED_v03.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Split_RawData-from-ses_v02.R"))
 
