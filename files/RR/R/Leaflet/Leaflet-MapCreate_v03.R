@@ -432,7 +432,7 @@ for(i in seq_along(loutput)) {
   # Hide url parameters ---------------------------------------------------------
   
   
-  tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Hide_urlparameter_v01.html"))
+  tadd <- readLines(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/Javascript/Hide_urlparameter_v02.html"))
   tadd <- gsub("\\#idwidget", p0("#", idwidget), tadd)
   t <- c(t[1:(length(t)-2)], tadd, t[(length(t)-1):length(t)])
   write.table(t, outfilename, row.names = F, col.names = F, quote = F)
