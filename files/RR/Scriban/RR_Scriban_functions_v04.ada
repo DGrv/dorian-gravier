@@ -65,6 +65,16 @@ end
 
 # ---------------------------------------------
 
+func RuntimeSameDay(T0)
+	rt=Clock | ToSeconds-SG.First.WinnerStarttime
+    if rt > 0
+       ret rt | FormatRaceResult "HH:mm:ss"
+    else
+       ret "-" + ((-rt) | FormatRaceResult "HH:mm:ss")
+    end
+end
+
+# ---------------------------------------------
 
 func RuntimeTrail(EvDate, T0)
 	# This is doing as well Countdown

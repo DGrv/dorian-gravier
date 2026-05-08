@@ -75,6 +75,7 @@ Example:
 
 ```sh
 mlr --csv filter '$Field=="CompanyName" && $Timestamp =~ "20.04.2026"' then cut -f "Old Value,New Value" "history_export (3).csv"  | uniq |csview
+mlr --csv uniq -g RD_DeviceID RawData.csv # list uniq value from column
 ```
 
 
@@ -200,7 +201,11 @@ echo '[{
 ```
 
 
+### Examples
 
+- Extract Label and Expression from list RR, .lvs with headers (run in bash due to ')
+	- `jq -r '["Label","Expression"], (.Fields[] | [.Label, .Expression]) | @csv' "input.lvs"`
+	- `jq -r '["Label","Expression"], (.Fields[] |  select(.Label != "") | [.Label, .Expression]| [.Label, .Expression]) | @csv' "input.lvs"` with filtering
 
 
 

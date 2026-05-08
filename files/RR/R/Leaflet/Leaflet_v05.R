@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/IATF/BU/rr_backup_Innsbruck_Alpine_Trailrun_Festival_2026_20260501-145359/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Swiss_Bike_Cup/STAGES/#2_Moleson")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -208,9 +208,9 @@ if( file.exists("splits.csv") ) {
 }
 
 
-# manual remove from IATF
-splist <- splits[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
-cd <- cd[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
+# # manual remove from IATF
+# splist <- splits[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
+# cd <- cd[!Split %like% "Birgitz Dorfplatz - 22.9|Kranebitten - 28.9|Kranebitten - 13.8|Birgitz Dorfplatz - 7.8|Birgitz Dorfplatz - 13.9"]
 
 
 

@@ -1,0 +1,16 @@
+for f in *.png; do
+  convert "$f" \
+    -alpha set \
+    \( +clone -channel A -morphology Erode Disk:10 +channel \) \
+    \( +clone -channel A -morphology Erode Disk:10 \
+       -channel A -morphology Dilate Disk:25 +channel \) \
+    -delete 0 \
+    -alpha extract \
+    -compose difference -composite \
+    -write mpr:ring +delete \
+    -size "$(identify -format "%wx%h" "$f")" canvas:none \
+    -fill "#FFC300" -colorize 100 \
+    mpr:ring -compose copyopacity -composite \
+    "$f" -compose dst-over -composite \
+    "${f%.png}_TP.png"
+done
