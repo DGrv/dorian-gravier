@@ -5511,10 +5511,21 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
 
 
 
-            // const gps1 = await fetchracemap("5b6ac1561c6a700020a00b19") ;
-            // const gps2 = await fetchracemap("5b6ac1561c6a700020a00b17") ;
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", gps1, "red", "red", "Dorian");
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b17", gps2, "green", "green", "Bernhard");
+const gps2 = await fetchracemap("5b6ac1561c6a700020a00af7");
+const gps3 = await fetchracemap("5b6ac1561c6a700020a00b3c");
+const gps4 = await fetchracemap("5b6ac1561c6a700020a00b19");
+const gps5 = await fetchracemap("5b6ac1561c6a700020a00b17");
+const gps6 = await fetchracemap("5b6ac1561c6a700020a00b00");
+const gps7 = await fetchracemap("5b6ac1561c6a700020a00b3d");
+const gps8 = await fetchracemap("5b6ac1561c6a700020a00b2e");
+
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00af7", gps2, "green","green",  "LEAD 3.5/6 KM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3c", gps3, "red",  "green",   "SWEEP 3.5/6 KM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", gps4, "blue", "yellow", "LEAD M HM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b17", gps5, "pink", "yellow", "LEAD F HM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b00", gps6, "red",  "yellow", "SWEEP HM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3d", gps7, "green","purple", "LEAD 10 KM");
+addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", gps8, "red",  "purple",  "SWEEP 10 KM");
 
 
 
