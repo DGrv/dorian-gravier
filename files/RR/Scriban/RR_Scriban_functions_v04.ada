@@ -63,6 +63,17 @@ end
 # -->      end
 # -->   end
 
+# {{
+# timer=min5
+# whichRange=rWelcome
+# allowedIndexes = [1,4,7,10,13,16,19,22,25]
+# for i in 0..((whichRange | array.size) - 1)
+#   if timer >= whichRange[i][0] && timer < whichRange[i][1]
+#     array.contains(allowedIndexes,i)
+#   end
+# end
+# }}
+
 # ---------------------------------------------
 
 func RuntimeSameDay(T0)
