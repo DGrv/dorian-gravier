@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Auffahrtslauf_St_Gallen/BU/rr_backup_Auffahrtslauf_St._Gallen_2026_20260514-103053/")
+  wd <- rP("file:///C:/Users/doria/Downloads/wwf/rr_backup_WWF-Lauf_Gossau_2026_20260520-150807/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)
@@ -50,6 +50,9 @@ if( file.exists("settings.csv") ) {
 } else {
   EventName <- ""
 }
+
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_join_FieldID_v01.R"))
+source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Split_RawData-from-ses_v03.R"))
 
 
 
@@ -325,6 +328,5 @@ ll
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/Leaflet/Leaflet-MapCreate_v03.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Track_for_LED_v03.R"))
 source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_SVGCreate_v02.R"))
-source(rP("file:///C:/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/RR/R/sesExtract/sesExtract_Split_RawData-from-ses_v02.R"))
 
  

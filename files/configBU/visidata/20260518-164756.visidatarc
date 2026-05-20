@@ -1,0 +1,20 @@
+options.quitguard = True
+options.theme = 'ascii8'
+
+from visidata import CellColorizer, TableSheet
+
+def color_01(sheet, col, row, value):
+    if not row or not col:
+        return None
+    
+    val = value.value
+    
+    # Check both string and numeric values
+    if val == 0 or val == '0':
+        return 'red'
+    elif val == 1 or val == '1':
+        return 'green'
+    else:
+        return None
+
+TableSheet.colorizers.append(CellColorizer(10, None, color_01))

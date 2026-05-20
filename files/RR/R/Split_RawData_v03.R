@@ -20,7 +20,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_City_Triathlon_2026/BU/rr_backup_Zurich_City_Triathlon_2025_20260414-154314/")
+  wd <- rP("file:///C:/Users/doria/Downloads/wwf/rr_backup_WWF-Lauf_Horgen_2026_20260520-152954/")
   # input <- "RawDataunique.csv"
   input <- "RawData.csv"
   keepbib <- 1 
@@ -110,12 +110,12 @@ data[, ID := NULL] # making mess if you import again
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
-    keepbib <- 0
+    keepbib <- 1
 
 
 
 
-    # if( keepbib == 0 ) {
+    if( keepbib == 0 ) {
       
       
         
@@ -242,7 +242,7 @@ data[, ID := NULL] # making mess if you import again
         data[,.N, Bib]
       
     
-    # }
+    }
 
 
 

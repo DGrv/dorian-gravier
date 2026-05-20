@@ -30,8 +30,9 @@ mkdir wt
 copy C:\Users\doria\scoop\apps\windows-terminal\current\settings\settings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wt\%TIMESTAMP%_settings.json
 copy C:\Users\doria\scoop\apps\windows-terminal\current\settings\settings.json C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wt\settings.json /Y
 
-:: wezterm
-REM copy C:\Users\doria\scoop\apps\wezterm\current\wezterm.lua C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\wezterm\%TIMESTAMP%_wezterm.lua
+:: visidata
+mkdir visidata
+copy C:\Users\doria\.visidatarc C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\visidata\%TIMESTAMP%.visidatarc
 
 
 :: synth-shell config

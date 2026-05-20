@@ -186,6 +186,8 @@ sesExtract () { # Extract ses data
         sqlite3 "$1" ".tables"
         cecho -y "Export mdb:"
         for value in "${tablewanted[@]}"; do sqlite3 -header -csv -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
+		sqlite3 -header -csv -separator $',' "$1" "SELECT * FROM history " > "$fdir/history2.csv"
+
 		# use quote in participant to avoid error in comments field
 		# sqlite3 -header -csv -separator $"," "$1" "SELECT * FROM participants" > "$fdir/participants_quote.csv"
         cecho -g "csv Done"
