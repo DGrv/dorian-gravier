@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAN Remote Desktop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #151b2e;
+      --accent: #00d9ff;
+      --accent-glow: rgba(0, 217, 255, 0.3);
+      --text: #e8f0ff;
+      --text-dim: #7a8aa8;
+      --border: #1e2942;
+      --success: #00ff88;
+      --error: #ff3366;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      background: var(--bg-primary);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .logo::before {
+      content: '◆';
+      font-size: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      transition: all 0.3s;
+    }
+
+    .status.connected .status-dot {
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .status.error .status-dot {
+      background: var(--error);
+      box-shadow: 0 0 10px var(--error);
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn.primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn:disabled:hover {
+      border-color: var(--border);
+      color: var(--text);
+      box-shadow: none;
+      background: transparent;
+    }
+
+    /* Screen container */
+    .screen-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen-wrapper {
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #remoteScreen {
+      max-width: 100%;
+      max-height: calc(100vh - 150px);
+      display: block;
+      cursor: none;
+    }
+
+    .cursor-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: opacity 0.1s;
+    }
+
+    .cursor-dot.hidden {
+      opacity: 0;
+    }
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--text-dim);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Info overlay */
+    .info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(10, 14, 26, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: var(--text-dim);
+      backdrop-filter: blur(10px);
+    }
+
+    .info-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 4px;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      color: var(--accent);
+      font-weight: 600;
+      min-width: 80px;
+    }
+
+    /* Keyboard overlay */
+    .keyboard-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .keyboard-overlay.active {
+      display: flex;
+    }
+
+    .keyboard-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 30px;
+      max-width: 500px;
+      box-shadow: 0 0 50px var(--accent-glow);
+    }
+
+    .keyboard-title {
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .keyboard-input {
+      width: 100%;
+      padding: 12px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .keyboard-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .keyboard-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="logo">
+        <span>LAN Remote Desktop</span>
+      </div>
+      
+      <div class="controls">
+        <div class="status" id="status">
+          <span class="status-dot"></span>
+          <span id="statusText">Connecting...</span>
+        </div>
+        
+        <button class="btn" id="keyboardBtn" disabled>Keyboard</button>
+        <button class="btn primary" id="connectBtn">Connect</button>
+      </div>
+    </div>
+
+    <div class="screen-container">
+      <div class="screen-wrapper">
+        <img id="remoteScreen" alt="Remote Desktop" style="display: none;">
+        <div class="cursor-dot hidden" id="cursorDot"></div>
+        
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <div>Waiting for stream...</div>
+        </div>
+      </div>
+
+      <div class="info" id="info" style="display: none;">
+        <div class="info-row">
+          <span class="info-label">Resolution:</span>
+          <span id="resolution">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">FPS:</span>
+          <span id="fps">0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Latency:</span>
+          <span id="latency">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard overlay -->
+  <div class="keyboard-overlay" id="keyboardOverlay">
+    <div class="keyboard-panel">
+      <div class="keyboard-title">Type Text</div>
+      <input type="text" class="keyboard-input" id="keyboardInput" placeholder="Type text to send to remote...">
+      <div class="keyboard-actions">
+        <button class="btn" id="cancelKeyboard">Cancel</button>
+        <button class="btn primary" id="sendKeyboard">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    
+    const elements = {
+      screen: document.getElementById('remoteScreen'),
+      loading: document.getElementById('loading'),
+      status: document.getElementById('status'),
+      statusText: document.getElementById('statusText'),
+      connectBtn: document.getElementById('connectBtn'),
+      keyboardBtn: document.getElementById('keyboardBtn'),
+      info: document.getElementById('info'),
+      resolution: document.getElementById('resolution'),
+      fps: document.getElementById('fps'),
+      latency: document.getElementById('latency'),
+      cursorDot: document.getElementById('cursorDot'),
+      keyboardOverlay: document.getElementById('keyboardOverlay'),
+      keyboardInput: document.getElementById('keyboardInput'),
+      sendKeyboard: document.getElementById('sendKeyboard'),
+      cancelKeyboard: document.getElementById('cancelKeyboard')
+    };
+
+    let isStreaming = false;
+    let screenSize = { width: 1920, height: 1080 };
+    let frameCount = 0;
+    let lastFpsUpdate = Date.now();
+    let lastFrameTime = Date.now();
+
+    // Connection management
+    socket.on('connect', () => {
+      updateStatus('connected', 'Connected');
+      elements.connectBtn.textContent = 'Start Stream';
+      elements.connectBtn.disabled = false;
+    });
+
+    socket.on('disconnect', () => {
+      updateStatus('error', 'Disconnected');
+      isStreaming = false;
+      elements.connectBtn.textContent = 'Connect';
+      elements.keyboardBtn.disabled = true;
+      elements.screen.style.display = 'none';
+      elements.loading.style.display = 'block';
+      elements.info.style.display = 'none';
+    });
+
+    socket.on('screen-size', (size) => {
+      screenSize = size;
+      elements.resolution.textContent = `${size.width} × ${size.height}`;
+    });
+
+    // Screen streaming
+    socket.on('screen', (base64) => {
+      const now = Date.now();
+      const latency = now - lastFrameTime;
+      lastFrameTime = now;
+
+      elements.screen.src = 'data:image/jpeg;base64,' + base64;
+      elements.screen.style.display = 'block';
+      elements.loading.style.display = 'none';
+      elements.info.style.display = 'block';
+
+      // Update FPS counter
+      frameCount++;
+      if (now - lastFpsUpdate >= 1000) {
+        elements.fps.textContent = frameCount;
+        frameCount = 0;
+        lastFpsUpdate = now;
+      }
+
+      elements.latency.textContent = `${latency}ms`;
+    });
+
+    // Update status
+    function updateStatus(state, text) {
+      elements.status.className = 'status ' + state;
+      elements.statusText.textContent = text;
+    }
+
+    // Connect/disconnect button
+    elements.connectBtn.addEventListener('click', () => {
+      if (!isStreaming) {
+        socket.emit('start-stream');
+        isStreaming = true;
+        elements.connectBtn.textContent = 'Stop Stream';
+        elements.keyboardBtn.disabled = false;
+        updateStatus('connected', 'Streaming');
+      } else {
+        socket.emit('stop-stream');
+        isStreaming = false;
+        elements.connectBtn.textContent = 'Start Stream';
+        elements.keyboardBtn.disabled = true;
+        elements.screen.style.display = 'none';
+        elements.loading.style.display = 'block';
+        elements.info.style.display = 'none';
+        updateStatus('connected', 'Connected');
+      }
+    });
+
+    // Mouse input
+    elements.screen.addEventListener('mousemove', (e) => {
+      if (!isStreaming) return;
+
+      const rect = elements.screen.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Update cursor dot position
+      elements.cursorDot.style.left = (e.clientX) + 'px';
+      elements.cursorDot.style.top = (e.clientY) + 'px';
+      elements.cursorDot.classList.remove('hidden');
+
+      socket.emit('mouse-move', {
+        x,
+        y,
+        screenWidth: rect.width,
+        screenHeight: rect.height
+      });
+    });
+
+    elements.screen.addEventListener('mouseleave', () => {
+      elements.cursorDot.classList.add('hidden');
+    });
+
+    elements.screen.addEventListener('click', (e) => {
+      if (!isStreaming) return;
+      e.preventDefault();
+      socket.emit('mouse-click', { button: 'left' });
+    });
+
+    elements.screen.addEventListener('contextmenu', (e) => {
+      if (!isStreaming) return;
+      e.preventDefault();
+      socket.emit('mouse-click', { button: 'right' });
+    });
+
+    elements.screen.addEventListener('dblclick', (e) => {
+      if (!isStreaming) return;
+      e.preventDefault();
+      socket.emit('mouse-dblclick', { button: 'left' });
+    });
+
+    elements.screen.addEventListener('wheel', (e) => {
+      if (!isStreaming) return;
+      e.preventDefault();
+      socket.emit('mouse-scroll', { deltaY: e.deltaY });
+    });
+
+    // Keyboard input
+    elements.keyboardBtn.addEventListener('click', () => {
+      elements.keyboardOverlay.classList.add('active');
+      elements.keyboardInput.value = '';
+      elements.keyboardInput.focus();
+    });
+
+    elements.cancelKeyboard.addEventListener('click', () => {
+      elements.keyboardOverlay.classList.remove('active');
+    });
+
+    elements.sendKeyboard.addEventListener('click', () => {
+      const text = elements.keyboardInput.value;
+      if (text) {
+        socket.emit('type-text', { text });
+        elements.keyboardOverlay.classList.remove('active');
+      }
+    });
+
+    elements.keyboardInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        elements.sendKeyboard.click();
+      } else if (e.key === 'Escape') {
+        elements.cancelKeyboard.click();
+      }
+    });
+
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (!isStreaming || elements.keyboardOverlay.classList.contains('active')) return;
+
+      // Map common keys
+      const keyMap = {
+        'Enter': 'enter',
+        'Backspace': 'backspace',
+        'Tab': 'tab',
+        'Escape': 'escape',
+        'Delete': 'delete',
+        'ArrowUp': 'up',
+        'ArrowDown': 'down',
+        'ArrowLeft': 'left',
+        'ArrowRight': 'right',
+        ' ': 'space'
+      };
+
+      let key = keyMap[e.key] || e.key.toLowerCase();
+      let modifiers = [];
+
+      if (e.ctrlKey) modifiers.push('control');
+      if (e.altKey) modifiers.push('alt');
+      if (e.shiftKey) modifiers.push('shift');
+      if (e.metaKey) modifiers.push('command');
+
+      // Prevent browser shortcuts
+      if (modifiers.length > 0 || Object.keys(keyMap).includes(e.key)) {
+        e.preventDefault();
+      }
+
+      if (key.length === 1 && !modifiers.length) {
+        // For single characters without modifiers, use type-text for better accuracy
+        socket.emit('type-text', { text: e.key });
+      } else {
+        socket.emit('key-press', { key, modifiers });
+      }
+    });
+  </script>
+</body>
+</html>
