@@ -77,7 +77,7 @@ end
 # ---------------------------------------------
 
 func RuntimeSameDay(T0)
-	rt=Clock | ToSeconds-SG.First.WinnerStarttime
+	rt=Clock | ToSeconds-SG.First.StartTime
     if rt > 0
        ret rt | FormatRaceResult "HH:mm:ss"
     else

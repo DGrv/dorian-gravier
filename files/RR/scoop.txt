@@ -51,6 +51,8 @@ scoop install main/mlr && scoop update main/mlr
 scoop install nerd-fonts/JetBrains-Mono && scoop update nerd-fonts/JetBrains-Mono
 scoop install extras/window-switcher && scoop update extras/window-switcher
 scoop install extras/copyq && scoop update extras/copyq 
+scoop install extras/rustdesk && scoop update extras/rustdesk
+:: for rustdesk allow Direct IP Access in security settings and create a single password
 :: for Obs-Studio
 ::scoop install extras/vcredist2022 
 
