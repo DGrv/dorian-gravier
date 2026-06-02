@@ -511,3 +511,22 @@ echo 100/fps | bc
 # convert with Magick
 convert -delay 3 GetReady2.mp4 -loop 0 GetReady2.gif
 ```
+
+
+# Pictures to pdf
+
+```sh
+magick *.jpg *.jpeg combined_pictures.pdf
+```
+
+If you have problem with some pictures regarding resolution. Check them with exiftool. It will create automatically a backup of the files.
+
+```sh
+exiftool -XResolution=72 -YResolution=72 -ResolutionUnit=inches *.jpg *.jpeg
+magick *.jpg *.jpeg combined_pictures.pdf
+```
+
+
+
+
+

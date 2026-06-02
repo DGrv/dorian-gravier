@@ -11,14 +11,14 @@ func CreateTimeRange(total, first_range, parts)
    # ---> first_range can be 0 if no first video or more if 30s video for example
    # ---> how many categories with the first_range included if there is one
    remaining = total - first_range
+	temparray=[]
    if first_range==0
       step = total / parts
    else
+      temparray = temparray | array.concat [[0, first_range]] # Add first range
       step = remaining / (parts-1)
       parts = parts - 1
    end
-   temparray=[]
-   temparray = temparray | array.concat [[0, first_range]] # Add first range
    i = 0 # Simulate a range using a loop counter
    while i < parts
       start = first_range + i * step
@@ -66,10 +66,13 @@ end
 # {{
 # timer=min5
 # whichRange=rWelcome
+# aText=["WELCOME   BIEVENUE   WILLKOMMEN","START TIME","START TIME","DIE NACHT DER NÄCHTE","WELCOME   BIEVENUE   WILLKOMMEN","START TIME","START TIME","LA NUIT DES NUITS","WELCOME   BIEVENUE   WILLKOMMEN","START TIME","START TIME","THE NIGHT OF ALL NIGHTS"]
 # allowedIndexes = [1,4,7,10,13,16,19,22,25]
 # for i in 0..((whichRange | array.size) - 1)
 #   if timer >= whichRange[i][0] && timer < whichRange[i][1]
-#     array.contains(allowedIndexes,i)
+#     if array.contains(allowedIndexes,i)
+#          aText[i]
+#		end
 #   end
 # end
 # }}
