@@ -180,11 +180,51 @@ sesExtract () { # Extract ses data
 		
         # tablewanted=( settings customFields rankings teamscores contests results timingpoints splits history data RawData )
         # tablewanted=( agegroups exporters rawdatarules times bibranges history results timingpointrules contests overwriteValues settings timingpoints customFieldValues participants splits vouchers customFields rankings tableValues entryfees rawdata teamScores )
-        tablewanted=( agegroups exporters rankings tableValues bibranges history rawdata teamScores contests invoiceSourceItems rawdatarules times customFieldValues invoices results timingpointrules customFields overwriteValues settings timingpoints entryfees participants splits vouchers )
         fdir=$(echo rr_${1} | perl -pe "s|.ses||g" | perl -pe "s| |_|g" )
         mkdir -p $fdir
         sqlite3 "$1" ".tables"
         cecho -y "Export mdb:"
+		
+		tablewanted=( contests timingpointrules timingpoints splits settings)
+        for value in "${tablewanted[@]}"; do sqlite3 -header -csv -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
+		
+		# Export gpx ------------------------------------
+        cecho -y "Export gpx:"
+        mkdir -p $fdir/gpx
+        rm $fdir/gpx/*
+        # extract gpx daten
+		grep -s "GPXFile" "$fdir/settings.csv" > "$fdir/gpx/gpxallinfo"
+		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Extract_gpx_ses_v01.R" "$PWD/$fdir"
+
+		#old
+        # grep -P "GPXFile\t" "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
+        # # extract name gpx
+        # grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s/.*GPXFileName\t.*?\t(.*?)\t(.*?).gpx.*/\1__\2.gpx/g" > "$fdir/gpx/namegpx"
+        # # export gpx
+        # while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
+        # rm $fdir/gpx/namegpx $fdir/gpx/gpx
+        rm $fdir/gpx/gpxallinfo
+        ls -1 $fdir/gpx/*gpx | cat -n | while read n i; do gpsbabel -i gpx -f "$i" -x simplify,crosstrack,error=0.01k -o gpx -F "$i"; done
+        cecho -g Done
+        
+        # Export Contest infos --------------------------
+        # does not work
+        # does not work
+        # does not work
+        # does not work
+        # cecho -y "Export contest info:"
+        # paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/contests.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/contests.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > "$fdir/Info_Contest.txt"
+        # cecho -g Done
+
+        cecho -y "R Split_map:"
+        #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
+        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Leaflet\Leaflet_v05.R" "$PWD/$fdir"
+		
+		
+		
+		
+        # tablewanted=( agegroups exporters rankings tableValues bibranges history rawdata teamScores contests invoiceSourceItems rawdatarules times customFieldValues invoices results timingpointrules customFields overwriteValues settings timingpoints entryfees participants splits vouchers )
+        tablewanted=( agegroups exporters rankings tableValues bibranges history rawdata teamScores invoiceSourceItems rawdatarules times customFieldValues invoices results customFields overwriteValues entryfees participants vouchers )
         for value in "${tablewanted[@]}"; do sqlite3 -header -csv -separator $'\t' "$1" "SELECT * FROM $value " > "$fdir/${value}.csv"; done
 		sqlite3 -header -csv -separator $',' "$1" "SELECT * FROM history " > "$fdir/history2.csv"
 
@@ -265,41 +305,6 @@ sesExtract () { # Extract ses data
         /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Kable_v01.R" "$PWD/$fdir"
         cecho -g Done
 
-        
-        # Export gpx ------------------------------------
-        cecho -y "Export gpx:"
-        mkdir -p $fdir/gpx
-        rm $fdir/gpx/*
-        # extract gpx daten
-		grep -s "GPXFile" "$fdir/settings.csv" > "$fdir/gpx/gpxallinfo"
-		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\sesExtract\sesExtract_Extract_gpx_ses_v01.R" "$PWD/$fdir"
-
-		#old
-        # grep -P "GPXFile\t" "$fdir/settings.csv" | perl -pe "s;\n|\r|\r\n;;g" | perl -pe "s|\<\?xml|\n<\?xml|g" | perl -pe "s|\<\/gpx>|</gpx>\n|g" | grep "<gpx" > "$fdir/gpx/gpx"
-        # # extract name gpx
-        # grep -s "GPXFileName" "$fdir/settings.csv" | perl -pe "s/.*GPXFileName\t.*?\t(.*?)\t(.*?).gpx.*/\1__\2.gpx/g" > "$fdir/gpx/namegpx"
-        # # export gpx
-        # while read -r -u 3 lineA && read -r -u 4 lineB; do echo $lineB >> "$fdir/gpx/${lineA}" ; done 3<"$fdir/gpx/namegpx" 4<"$fdir/gpx/gpx"
-        # rm $fdir/gpx/namegpx $fdir/gpx/gpx
-        rm $fdir/gpx/gpxallinfo
-        ls -1 $fdir/gpx/*gpx | cat -n | while read n i; do gpsbabel -i gpx -f "$i" -x simplify,crosstrack,error=0.01k -o gpx -F "$i"; done
-        cecho -g Done
-        
-        # Export Contest infos --------------------------
-        # does not work
-        # does not work
-        # does not work
-        # does not work
-        # cecho -y "Export contest info:"
-        # paste -d , <(csvcut -c ID,ContestName,ContestNameShort,ContestLength "$fdir/contests.csv") <(echo ContestStart && (csvcut -c ContestStart "$fdir/contests.csv" | tail -n +2 | perl -pe "s|(.*)\..*|\1|g" | xargs -I \\ date -d@\\ -u +%H:%M:%S)) | csvlook > "$fdir/Info_Contest.txt"
-        # cecho -g Done
-		
-
-
-        cecho -y "R Split_map:"
-        #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
-        /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Leaflet\Leaflet_v05.R" "$PWD/$fdir"
-		
 		
         cecho -g Done
     else
