@@ -1,7 +1,251 @@
 <!doctype html>
 <html>
   <head>
-    <script type="module">
+   
+
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #0b1220;
+        color: #e5e7eb;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+
+
+      
+
+      /* Mermaid container */
+      .mermaid {
+        background: #494949;
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      /* Grid lines */
+      .grid .tick line {
+        stroke: #1f2a3a !important;
+        stroke-opacity: 0.7;
+      }
+
+      /* Axis text */
+      text {
+        fill: #ffffff !important;
+        font-size: 12px;
+      }
+
+      /* Section headers */
+      .titleText {
+        fill: #ffffff !important;
+        font-weight: 600;
+      }
+
+      /* Default task bars */
+      .task {
+        fill: #3b82f6 !important; /* modern blue */
+        opacity: 0.85;
+      }
+
+      /* Critical tasks (mermaid emits numbered classes: crit0, crit1, …) */
+      rect[class*="crit"] {
+        fill: #ef4444 !important;
+        stroke: #ef4444 !important;
+      }
+
+      /* Active tasks (active0, active1, …) */
+      rect[class*="active"] {
+        fill: #10b981 !important;
+      }
+
+      /* Active task labels (activeText0, activeText3, …) — keep them white */
+      text[class*="activeText"] {
+        fill: #ffffff !important;
+      }
+
+      /* Done tasks (done0, done1, …) */
+      rect[class*="done"] {
+        fill: #6b7280 !important;
+      }
+
+      /* Vertical markers (ToD) */
+      .marker {
+        stroke: #fbbf24 !important;
+        stroke-width: 2px;
+      }
+
+      /* Marker labels */
+      text.marker {
+        fill: #fbbf24 !important;
+        font-weight: 600;
+      }
+
+      /* Hover */
+      .task:hover {
+        opacity: 1;
+        filter: brightness(1.15);
+      }
+
+      /* Slight UI polish */
+      svg {
+        border-radius: 12px;
+      }
+    </style>
+
+    <style>
+      #liveLine {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #ff4d4d;
+        opacity: 0.9;
+        pointer-events: none;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <pre class="mermaid">
+
+gantt
+	tickInterval 1hour
+	todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H
+
+    Ankommen: vert, v1, 2026-06-26 12:00, 5m
+    Hostel bezahlen: vert, v1, 2026-06-26 12:20, 5m
+    Saturday: vert, v1, 2026-06-27 00:00, 5m
+    Sunday: vert, v2, 2026-06-28 00:00, 5m
+    Zielschluss: crit, vert, v2, 2026-06-28 18:00, 5m
+    Zielschluss: crit, vert, v2, 2026-06-27 13:10, 5m
+
+
+	section Start
+		Start SS B1:  f1, 2026-06-27 8:00, 5m
+		Start SS B2:  f2, 2026-06-27 8:40, 5m
+		Start Youth M:  f3, 2026-06-27 9:20, 5m
+		Start Youth W:  f4, 2026-06-27 9:50, 5m
+		Start Junior U16:  f5, 2026-06-27 10:20, 5m
+		Start Junior U14:  f6, 2026-06-27 10:40, 5m
+		Start SS Final:  f7, 2026-06-27 11:15, 5m
+		Start SS Final:  f8, 2026-06-27 12:00, 5m
+		Start Kids 1:  f9 , 2026-06-27 15:00, 5m
+		Start Kids 2:  f10, 2026-06-27 15:15, 5m
+		Start Kids 3:  f11, 2026-06-27 15:30, 5m
+		Start Kids 4:  f13, 2026-06-27 15:45, 5m
+		Start Kids 5:  f14, 2026-06-27 16:00, 5m
+		Start Sprint B1:  f15, 2026-06-28 9:00, 5m
+		Start Sprint B2:  f16, 2026-06-28 9:15, 5m
+		Start Sprint B3:  f17, 2026-06-28 9:30, 5m
+		Start Olympic B1:  f18, 2026-06-28 10:30, 5m
+		Start Olympic B2:  f19, 2026-06-28 10:45, 5m
+		Start Olympic B3:  f20, 2026-06-28 11:00, 5m
+		Start Olympic B4:  f21, 2026-06-28 11:30, 5m
+		Start Olympic B5:  f22, 2026-06-28 11:45, 5m
+		Start Olympic B6:  f23, 2026-06-28 12:00, 5m
+		Start Olympic team B1:  f24, 2026-06-28 13:45, 5m
+		Start Olympic team B2:  f25, 2026-06-28 14:00, 5m
+		Start Sprint Team B1:  f26, 2026-06-28 15:00, 5m
+		Start Sprint Team B2:  f27, 2026-06-28 15:15, 5m
+  
+	section Awards
+		YL/Junior: crit, a1,  2026-06-27 13:30, 5m
+		SS: crit, a2,  2026-06-27 13:45, 5m
+		Sprint: crit, a3,  2026-06-28 12:00, 5m
+		Olympic:crit,  a4,  2026-06-28 15:30, 5m
+		Club: crit, a5,  2026-06-28 16:30, 5m
+		Helping: crit, a6,  2026-06-28 17:15, 5m
+		Teams: crit, a7,  2026-06-28 17:30, 5m
+		Fittest: crit, a8,  2026-06-28 17:45, 5m
+  
+  section SMS
+    SS Finale: active, 2026-06-27 09:45, 5m
+    Awards YL Junior: active, 2026-06-27 13:00, 5m
+    Awards SS: active, 2026-06-27 13:15, 5m
+    Awards Sprint: active, 2026-06-28 11:30, 5m
+    Awards Olympic: active, 2026-06-28 15:00, 5m
+    Awards Club Challenge: active, 2026-06-28 16:00, 5m
+    Awards Teams: active, 2026-06-28 17:00, 5m
+    Awards Fittest: active, 2026-06-28 17:15, 5m
+
+  section CHIPS
+    CHIP : active, d0, 2026-06-27 06:30, 2026-06-27 15:00
+    CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
+    CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
+    2xHelfer: d2, 2026-06-28 06:30, 2026-06-28 11:00
+    2xHelfer: d3, 2026-06-28 8:00, 2026-06-28 14:15
+
+  section BIBS
+    SNA: s1, 2026-06-27 06:30, 2026-06-27 09:45
+    SNA: s2, 2026-06-27 12:00, 2026-06-27 18:00
+    SNA: s3, 2026-06-28 6:30, 2026-06-28 13:15
+	
+	section rrst
+	  Dorian: 	crit, r1, 2026-06-26 12:00, 2026-06-28 22:00
+		Leonie:  r3, 2026-06-26 12:00, 2026-06-28 22:00
+		Reinhard:  r4, 2026-06-26 12:00, 2026-06-28 22:00
+		Roman: 		r6, 2026-06-26 12:00, 2026-06-28 22:00
+		Morris: 	r2, 2026-06-26 12:00, 2026-06-26 20:00
+		Morris: 	r2b, 2026-06-27 10:00, 2026-06-28 20:00
+		Yannick: 	r5, 2026-06-27 6:00,  2026-06-27 16:00
+		Yannick: 	r5b, 2026-06-28 6:30,  2026-06-28 20:00
+		Felix: 	f1, 2026-06-27 20:00,  8h
+			
+	section Dorian
+    Bus: 		dd1, 2026-06-26 12:00, 1h
+    LED Marco Fragen:2h
+		Tracker+trackbox: 	1h
+    Timing+LED: dd6, 2026-06-27 7:30, 2026-06-27 17:00
+    Timing+LED: dd7, 2026-06-28 6:00, 2026-06-28 20:00
+    
+  section Morris
+    Bus: 		mm1, 2026-06-26 12:00, 1h
+    LED: 			2h
+    Timing Points Ziel: 1h
+    CHIP:			active, 2h
+    Timing:			mm4, 2026-06-27 10:00, 2026-06-27 17:00
+    Timing:			mm5, 2026-06-28 8:00, 2026-06-28 20:00
+  
+	section Reinhard
+    SNA:			rr1, 2026-06-26 12:00, 1h
+    Timing Points WZ:    3h
+		Start Badi: 			1h
+		CHIP : 	active,2h	
+		Start Badi: 			rr4, 2026-06-27 6:30, 2026-06-27 13:00
+		Start : 				  rr5, 2026-06-28 7:30, 2026-06-28 15:30
+		Start Sprint-Olympic: rr6, 2026-06-28 7:00, 1h
+		
+		
+	section Leonie
+		SNA:			          ll1, 2026-06-26 12:00, 1h
+    Timing Points WZ:    3h
+    CHIP:			active, 2h
+		CHIP: 		active,		ll4, 2026-06-27 6:00, 2026-06-27 15:00
+		CHIP : 		active,		ll5, 2026-06-28 07:00, 2026-06-28 17:00
+    Aufraumen : 	     3h
+	
+	section Yannick
+		CHIP: 	active, yy1, 2026-06-27 6:00, 2026-06-27 15:00
+		CHIP : active, 	yy2, 2026-06-28 07:00, 2026-06-28 17:00
+    Aufraumen : 	 3h
+
+	section Roman
+      Wall: ro1, 2026-06-26 12:00, 4h
+      Wall should be finish: crit, 5m
+		
+
+</pre
+    >
+
+
+
+     <script type="module">
       import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
       // Capture the raw gantt source BEFORE mermaid replaces the <pre> with SVG.
@@ -261,245 +505,5 @@
         tooltip.style.display = "none";
       }
     </script>
-
-    <style>
-      body {
-        margin: 0;
-        padding: 20px;
-        background: #0b1220;
-        color: #e5e7eb;
-        font-family:
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          sans-serif;
-      }
-
-
-      
-
-      /* Mermaid container */
-      .mermaid {
-        background: #494949;
-        border-radius: 12px;
-        padding: 10px;
-      }
-
-      /* Grid lines */
-      .grid .tick line {
-        stroke: #1f2a3a !important;
-        stroke-opacity: 0.7;
-      }
-
-      /* Axis text */
-      text {
-        fill: #ffffff !important;
-        font-size: 12px;
-      }
-
-      /* Section headers */
-      .titleText {
-        fill: #ffffff !important;
-        font-weight: 600;
-      }
-
-      /* Default task bars */
-      .task {
-        fill: #3b82f6 !important; /* modern blue */
-        opacity: 0.85;
-      }
-
-      /* Critical tasks (mermaid emits numbered classes: crit0, crit1, …) */
-      rect[class*="crit"] {
-        fill: #ef4444 !important;
-        stroke: #ef4444 !important;
-      }
-
-      /* Active tasks (active0, active1, …) */
-      rect[class*="active"] {
-        fill: #10b981 !important;
-      }
-
-      /* Active task labels (activeText0, activeText3, …) — keep them white */
-      text[class*="activeText"] {
-        fill: #ffffff !important;
-      }
-
-      /* Done tasks (done0, done1, …) */
-      rect[class*="done"] {
-        fill: #6b7280 !important;
-      }
-
-      /* Vertical markers (ToD) */
-      .marker {
-        stroke: #fbbf24 !important;
-        stroke-width: 2px;
-      }
-
-      /* Marker labels */
-      text.marker {
-        fill: #fbbf24 !important;
-        font-weight: 600;
-      }
-
-      /* Hover */
-      .task:hover {
-        opacity: 1;
-        filter: brightness(1.15);
-      }
-
-      /* Slight UI polish */
-      svg {
-        border-radius: 12px;
-      }
-    </style>
-
-    <style>
-      #liveLine {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: #ff4d4d;
-        opacity: 0.9;
-        pointer-events: none;
-        z-index: 10;
-      }
-    </style>
-  </head>
-  <body>
-    <pre class="mermaid">
-
-gantt
-	tickInterval 1hour
-	todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H
-
-    Ankommen: vert, v1, 2026-06-26 12:00, 5m
-    Hostel bezahlen: vert, v1, 2026-06-26 12:20, 5m
-    Saturday: vert, v1, 2026-06-27 00:00, 5m
-    Sunday: vert, v2, 2026-06-28 00:00, 5m
-    Zielschluss: crit, vert, v2, 2026-06-28 18:00, 5m
-    Zielschluss: crit, vert, v2, 2026-06-27 13:10, 5m
-
-
-	section Start
-		Start SS B1:  f1, 2026-06-27 8:00, 5m
-		Start SS B2:  f2, 2026-06-27 8:40, 5m
-		Start Youth M:  f3, 2026-06-27 9:20, 5m
-		Start Youth W:  f4, 2026-06-27 9:50, 5m
-		Start Junior U16:  f5, 2026-06-27 10:20, 5m
-		Start Junior U14:  f6, 2026-06-27 10:40, 5m
-		Start SS Final:  f7, 2026-06-27 11:15, 5m
-		Start SS Final:  f8, 2026-06-27 12:00, 5m
-		Start Kids 1:  f9 , 2026-06-27 15:00, 5m
-		Start Kids 2:  f10, 2026-06-27 15:15, 5m
-		Start Kids 3:  f11, 2026-06-27 15:30, 5m
-		Start Kids 4:  f13, 2026-06-27 15:45, 5m
-		Start Kids 5:  f14, 2026-06-27 16:00, 5m
-		Start Sprint B1:  f15, 2026-06-28 9:00, 5m
-		Start Sprint B2:  f16, 2026-06-28 9:15, 5m
-		Start Sprint B3:  f17, 2026-06-28 9:30, 5m
-		Start Olympic B1:  f18, 2026-06-28 10:30, 5m
-		Start Olympic B2:  f19, 2026-06-28 10:45, 5m
-		Start Olympic B3:  f20, 2026-06-28 11:00, 5m
-		Start Olympic B4:  f21, 2026-06-28 11:30, 5m
-		Start Olympic B5:  f22, 2026-06-28 11:45, 5m
-		Start Olympic B6:  f23, 2026-06-28 12:00, 5m
-		Start Olympic team B1:  f24, 2026-06-28 13:45, 5m
-		Start Olympic team B2:  f25, 2026-06-28 14:00, 5m
-		Start Sprint Team B1:  f26, 2026-06-28 15:00, 5m
-		Start Sprint Team B2:  f27, 2026-06-28 15:15, 5m
-  
-	section Awards
-		YL/Junior: crit, a1,  2026-06-27 13:30, 5m
-		SS: crit, a2,  2026-06-27 13:45, 5m
-		Sprint: crit, a3,  2026-06-28 12:00, 5m
-		Olympic:crit,  a4,  2026-06-28 15:30, 5m
-		Club: crit, a5,  2026-06-28 16:30, 5m
-		Helping: crit, a6,  2026-06-28 17:15, 5m
-		Teams: crit, a7,  2026-06-28 17:30, 5m
-		Fittest: crit, a8,  2026-06-28 17:45, 5m
-  
-  section SMS
-    SS Finale: active, 2026-06-27 09:45, 5m
-    Awards YL Junior: active, 2026-06-27 13:00, 5m
-    Awards SS: active, 2026-06-27 13:15, 5m
-    Awards Sprint: active, 2026-06-28 11:30, 5m
-    Awards Olympic: active, 2026-06-28 15:00, 5m
-    Awards Club Challenge: active, 2026-06-28 16:00, 5m
-    Awards Teams: active, 2026-06-28 17:00, 5m
-    Awards Fittest: active, 2026-06-28 17:15, 5m
-
-  section CHIPS
-    CHIP : active, d0, 2026-06-27 06:30, 2026-06-27 15:00
-    CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
-    CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
-    2xHelfer: d2, 2026-06-28 06:30, 2026-06-28 11:00
-    2xHelfer: d3, 2026-06-28 8:00, 2026-06-28 14:15
-
-  section BIBS
-    SNA: s1, 2026-06-27 06:30, 2026-06-27 09:45
-    SNA: s2, 2026-06-27 12:00, 2026-06-27 18:00
-    SNA: s3, 2026-06-28 6:30, 2026-06-28 13:15
-	
-	section rrst
-	  Dorian: 	crit, r1, 2026-06-26 12:00, 2026-06-28 22:00
-		Leonie:  r3, 2026-06-26 12:00, 2026-06-28 22:00
-		Reinhard:  r4, 2026-06-26 12:00, 2026-06-28 22:00
-		Roman: 		r6, 2026-06-26 12:00, 2026-06-28 22:00
-		Morris: 	r2, 2026-06-26 12:00, 2026-06-26 20:00
-		Morris: 	r2b, 2026-06-27 10:00, 2026-06-28 20:00
-		Yannick: 	r5, 2026-06-27 6:00,  2026-06-27 16:00
-		Yannick: 	r5b, 2026-06-28 6:30,  2026-06-28 20:00
-		Felix: 	f1, 2026-06-27 20:00,  8h
-			
-	section Dorian
-    Bus: 		dd1, 2026-06-26 12:00, 1h
-    LED Marco Fragen:2h
-		Tracker+trackbox: 	1h
-    Timing+LED: dd6, 2026-06-27 7:30, 2026-06-27 17:00
-    Timing+LED: dd7, 2026-06-28 6:00, 2026-06-28 20:00
-    
-  section Morris
-    Bus: 		mm1, 2026-06-26 12:00, 1h
-    LED: 			2h
-    Timing Points Ziel: 1h
-    CHIP:			active, 2h
-    Timing:			mm4, 2026-06-27 10:00, 2026-06-27 17:00
-    Timing:			mm5, 2026-06-28 8:00, 2026-06-28 20:00
-  
-	section Reinhard
-    SNA:			rr1, 2026-06-26 12:00, 1h
-    Timing Points WZ:    3h
-		Start Badi: 			1h
-		CHIP : 	active,2h	
-		Start Badi: 			rr4, 2026-06-27 6:30, 2026-06-27 13:00
-		Start : 				  rr5, 2026-06-28 7:30, 2026-06-28 15:30
-		Start Sprint-Olympic: rr6, 2026-06-28 7:00, 1h
-		
-		
-	section Leonie
-		SNA:			          ll1, 2026-06-26 12:00, 1h
-    Timing Points WZ:    3h
-    CHIP:			active, 2h
-		CHIP: 		active,		ll4, 2026-06-27 6:00, 2026-06-27 15:00
-		CHIP : 		active,		ll5, 2026-06-28 07:00, 2026-06-28 17:00
-    Aufraumen : 	     3h
-	
-	section Yannick
-		CHIP: 	active, yy1, 2026-06-27 6:00, 2026-06-27 15:00
-		CHIP : active, 	yy2, 2026-06-28 07:00, 2026-06-28 17:00
-    Aufraumen : 	 3h
-
-	section Roman
-      Wall: ro1, 2026-06-26 12:00, 4h
-      Wall should be finish: crit, 5m
-		
-
-</pre
-    >
   </body>
 </html>
