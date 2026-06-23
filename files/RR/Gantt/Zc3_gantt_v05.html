@@ -273,9 +273,9 @@ gantt
 
       const taskMap = parseGantt(ganttSource);
 
-      // Keep rendering IDENTICAL to v03 (same init + startOnLoad behaviour).
+      // Render explicitly (no startOnLoad) so we can await completion.
       mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: "dark",
       });
 
@@ -283,13 +283,12 @@ gantt
         window.location.reload();
       }, 180000);
 
-      // Mermaid renders on DOMContentLoaded; attach popups once it has finished.
-      document.addEventListener("DOMContentLoaded", () => {
-           setTimeout(() => {
-          attachPopups();
-          whitenActiveText();
-        }, 500);
-      });
+      // Render the diagram and wait for the SVG to exist before wiring up popups,
+      // instead of guessing with a fixed timeout (which loses the race on slower,
+      // network-served loads such as GitHub Pages).
+      await mermaid.run();
+      attachPopups();
+      whitenActiveText();
 
 
  // Mermaid's injected theme colours active-task labels (.activeText*) with
