@@ -20,7 +20,7 @@ args <- commandArgs(trailingOnly=TRUE)
 
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/wwf/rr_backup_WWF-Lauf_Horgen_2026_20260520-152954/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Zurich_City_Triathlon_2026/BU/rr_backup_Zurich_City_Triathlon_2025_20260414-154314/")
   # input <- "RawDataunique.csv"
   input <- "RawData.csv"
   keepbib <- 1 
@@ -110,7 +110,7 @@ data[, ID := NULL] # making mess if you import again
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
     # desactivate if you do not want this, you have to adapt it 
-    keepbib <- 1
+    keepbib <- 0
 
 
 
@@ -155,20 +155,36 @@ data[, ID := NULL] # making mess if you import again
         # u1 <- u(parti$Bib)
         # u2 <- u(new$Bib2)
         
-        db1 <- databib[Year == u(Year)[1]]
-        db2 <- databib[Year == u(Year)[2]]
+        db1 <- databib[Year == apilist$Year[1]]
+        db2 <- databib[Year == apilist$Year[2]]
         setnames(db2, "Bib", "Bib2")
         
         db1 <- db1[Contest > 0 & Contest <100]
         db2 <- db2[Contest > 0 & Contest <100]
         
+        
+        
+        
                   # only for Zc3
-                  db1 <- db1[Contest <20][Contest != 11 & Contest != 10]
-                  db2 <- db2[Contest <20][Contest != 9 & Contest != 10]
+                  # only for Zc3
+                  # only for Zc3
+                  # only for Zc3
+                  # only for Zc3
+                  # only for Zc3
+                  # only for Zc3
+                  # only for Zc3
+                  db1 <- db1[Contest <20][!Contest %in% c(6, 10, 11)]
+                  db1[, .N, Contest]
+                  db1[Contest == 9, Contest := 6]
+                  db2 <- db2[Contest <20][!Contest %in% c(9:14)]
+                  db2[, .N, Contest]
                   
                   db1[Contest==6, Contest := 11]
                   db1[Contest==9, Contest := 6]
         
+                  
+                  
+                  
         
         db1[,.N, Contest]
         db2[,.N, Contest]
@@ -235,8 +251,8 @@ data[, ID := NULL] # making mess if you import again
         data[, Contest := NULL]
     
         # check
-        id <- 1415
-        data[Bib == id]
+        id <- 3110
+        data[Bib  == id]
         db2[Bib2 == id]
         
         data[,.N, Bib]
@@ -308,7 +324,7 @@ for (i in seq_along(tp)) {
 
 
 # # Or Push online ----------------------------------------------------------
-# 
+
 # library(httr)
 # library(furrr)
 # plan(multisession)  # or multicore on Linux/Mac
@@ -319,8 +335,8 @@ for (i in seq_along(tp)) {
 # 
 # data[, push := p0(api, "?TimingPoint=", TimingPoint, "&bib=", Bib, "&time=", Time)]
 # results <- future_map(data$push, ~GET(.x))
-
-
+# 
+# 
 # headers <- add_headers(
 #   `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
 #   `Accept` = "text/html",
@@ -331,7 +347,7 @@ for (i in seq_along(tp)) {
 #   # Sys.sleep(runif(1, 0.2, 0.5))  # avoid being blocked
 #   GET(url, headers)
 # })
-
+# 
 # for(i in 1:nrow(data)) {
 #   Sys.sleep(runif(1, 0.2, 0.6))  # slight delay per request
 #   GET(data$push[i], add_headers(`User-Agent` = "Mozilla/5.0"))

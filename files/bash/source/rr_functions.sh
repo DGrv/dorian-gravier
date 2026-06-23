@@ -165,7 +165,7 @@ spareRR () { # (not used anymore)
    done
 }
 
-splitRawData() { # Split a file with rawdata to split files, using Rscript (not used anymore) used Split_RawData_v01, but now Split_RawData_v02
+splitRawData() { # Split a file with rawdata to split files, using Rscript (not used anymore) used Split_RawData_v01, but now Split_RawData_v03
 	if [ -f "$1" ]; then
 		/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Split_RawData_v01.R" "${PWD}" "${1}" "${2}"
 	fi
@@ -217,7 +217,7 @@ sesExtract () { # Extract ses data
         # cecho -g Done
 
         cecho -y "R Split_map:"
-        #/mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v02.R" "$PWD"
+        # /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Split_map_v03.R" "$PWD/$fdir"
         /mnt/c/Windows/System32/cmd.exe /C "C:\Users\doria\scoop\shims\rscript.exe" "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\R\Leaflet\Leaflet_v05.R" "$PWD/$fdir"
 		
 		

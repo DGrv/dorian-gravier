@@ -27,6 +27,14 @@ If `input.png: srgba 4.0 ` or rgba there is transparency but not if `gray` or `r
 
 # Resize
 
+## Delete metadata
+
+```sh
+magick input.jpg -strip output.jpg
+
+```
+
+
 ## Keep aspect ration
 
 ```sh

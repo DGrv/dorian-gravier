@@ -41,8 +41,22 @@
 
       // Mermaid renders on DOMContentLoaded; attach popups once it has finished.
       document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(attachPopups, 500);
+           setTimeout(() => {
+          attachPopups();
+          whitenActiveText();
+        }, 500);
       });
+
+
+ // Mermaid's injected theme colours active-task labels (.activeText*) with
+      // an ID-scoped rule we can't beat from a stylesheet (the #mermaid-… id is
+      // random each render). Force them white via inline styles instead.
+      function whitenActiveText() {
+        document
+          .querySelectorAll('text[class*="activeText"]')
+          .forEach((t) => t.style.setProperty("fill", "#ffffff", "important"));
+      }
+
 
       // ---- Gantt source parser -------------------------------------------
       // Builds a Map<taskId, {label, start: Date, end: Date}>.
@@ -262,9 +276,12 @@
           sans-serif;
       }
 
+
+      
+
       /* Mermaid container */
       .mermaid {
-        background: #0b1220;
+        background: #494949;
         border-radius: 12px;
         padding: 10px;
       }
@@ -277,7 +294,7 @@
 
       /* Axis text */
       text {
-        fill: #cbd5e1 !important;
+        fill: #ffffff !important;
         font-size: 12px;
       }
 
@@ -302,6 +319,11 @@
       /* Active tasks (active0, active1, …) */
       rect[class*="active"] {
         fill: #10b981 !important;
+      }
+
+      /* Active task labels (activeText0, activeText3, …) — keep them white */
+      text[class*="activeText"] {
+        fill: #ffffff !important;
       }
 
       /* Done tasks (done0, done1, …) */
@@ -355,7 +377,8 @@ gantt
     dateFormat YYYY-MM-DD HH:mm
     axisFormat %H
 
-    Ankommen: vert, v1, 2026-06-26 11:45, 5m
+    Ankommen: vert, v1, 2026-06-26 12:00, 5m
+    Hostel bezahlen: vert, v1, 2026-06-26 12:20, 5m
     Saturday: vert, v1, 2026-06-27 00:00, 5m
     Sunday: vert, v2, 2026-06-28 00:00, 5m
     Zielschluss: crit, vert, v2, 2026-06-28 18:00, 5m
@@ -399,9 +422,20 @@ gantt
 		Helping: crit, a6,  2026-06-28 17:15, 5m
 		Teams: crit, a7,  2026-06-28 17:30, 5m
 		Fittest: crit, a8,  2026-06-28 17:45, 5m
+  
+  section SMS
+    SS Finale: active, 2026-06-27 09:45, 5m
+    Awards YL Junior: active, 2026-06-27 13:00, 5m
+    Awards SS: active, 2026-06-27 13:15, 5m
+    Awards Sprint: active, 2026-06-28 11:30, 5m
+    Awards Olympic: active, 2026-06-28 15:00, 5m
+    Awards Club Challenge: active, 2026-06-28 16:00, 5m
+    Awards Teams: active, 2026-06-28 17:00, 5m
+    Awards Fittest: active, 2026-06-28 17:15, 5m
 
   section CHIPS
     CHIP : active, d0, 2026-06-27 06:30, 2026-06-27 15:00
+    CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
     CHIP : active, d1, 2026-06-28 07:00, 2026-06-28 17:00
     2xHelfer: d2, 2026-06-28 06:30, 2026-06-28 11:00
     2xHelfer: d3, 2026-06-28 8:00, 2026-06-28 14:15
@@ -442,8 +476,8 @@ gantt
     Timing Points WZ:    3h
 		Start Badi: 			1h
 		CHIP : 	active,2h	
-		Start Badi: 			rr4, 2026-06-27 7:30, 2026-06-27 13:00
-		Start : 				  rr5, 2026-06-28 8:30, 2026-06-28 15:30
+		Start Badi: 			rr4, 2026-06-27 6:30, 2026-06-27 13:00
+		Start : 				  rr5, 2026-06-28 7:30, 2026-06-28 15:30
 		Start Sprint-Olympic: rr6, 2026-06-28 7:00, 1h
 		
 		
