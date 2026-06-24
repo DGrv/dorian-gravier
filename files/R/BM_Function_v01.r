@@ -3908,6 +3908,12 @@ ToDToDecimal <- function(x) {
   period_to_seconds(lubridate::hms(x))
 }
 
+diffToD <- function(time1, time2) {
+  DecimalToToD(ToDToDecimal(time1)-ToDToDecimal(time2))
+}
+
+
+
 readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
   # get data
