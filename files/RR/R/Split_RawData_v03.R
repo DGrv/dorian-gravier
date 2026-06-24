@@ -53,6 +53,7 @@ data
 setnames(data, names(data), gsub("^RD_", "", names(data)))
 
 tp <- u(data$TimingPoint)
+tp <- tp[tp != "CHIP_RETURN"]
 
 
 
