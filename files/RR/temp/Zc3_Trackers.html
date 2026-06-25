@@ -5483,7 +5483,7 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
     }
 </style>
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
-<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v05.js"></script>
+<script src="Leaflet-functions_rrst_v06.js"></script>
 <script>
 
     const youridhtmlwidget = "#htmlwidget-8c0eff44abdbbd12fa97"
@@ -5495,69 +5495,36 @@ u.rest=u.tail=u.drop=function(a,b,c){return m.call(a,null==b||c?1:b)},u.compact=
 
             // --------------------------- RaceMap tracker------------------------------------
 
-            const A00B3D = await fetchracemap("5b6ac1561c6a700020a00b3d");
-            const A00AEE = await fetchracemap("5b6ac1561c6a700020a00aee");
-            const A00B25 = await fetchracemap("5b6ac1561c6a700020a00b25");
-            const A00B19 = await fetchracemap("5b6ac1561c6a700020a00b19");
-            const A00B3C = await fetchracemap("5b6ac1561c6a700020a00b3c");
-            const A00B17 = await fetchracemap("5b6ac1561c6a700020a00b17");
-            const A00B2E = await fetchracemap("5b6ac1561c6a700020a00b2e");
-            const A00AF7 = await fetchracemap("5b6ac1561c6a700020a00af7");
+      const { A00B3D, A00AEE, A00B25, A00B19, A00B3C, A00B2E, A00AF7 } = await fetchAllRacemap();
 
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3d", A00B3D, "red", "red", "Bike1")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", A00B19, "red", "red", "Bike2")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00af7", A00AF7, "red", "red", "Bike3")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00aee", A00AEE, "red", "red", "Bike4")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3c", A00B3C, "red", "red", "FirstResp. 5")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", A00B2E, "red", "red", "FirstResp. 6")
-            addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b25", A00B25, "red", "red", "FirstResp. 7")
+addMarkerRaceMap(youridhtmlwidget, A00B3D, "red", "red", "Bike1");
+addMarkerRaceMap(youridhtmlwidget, A00B19, "red", "red", "Bike2");
+addMarkerRaceMap(youridhtmlwidget, A00AF7, "red", "red", "Bike3");
+addMarkerRaceMap(youridhtmlwidget, A00AEE, "red", "red", "Bike4");
+addMarkerRaceMap(youridhtmlwidget, A00B3C, "red", "red", "FirstResp. 5");
+addMarkerRaceMap(youridhtmlwidget, A00B2E, "red", "red", "FirstResp. 6");
+addMarkerRaceMap(youridhtmlwidget, A00B25, "red", "red", "FirstResp. 7");
 
 
 
             // -----------------------Active TrackBox ----------------------------------------
-            // Fetch specific device positions
-            const data = await fetchrrst(["T-20193","T-20340","T-20197","T-20196","T-20353","T-20320","T-20317","T-20318","T-20321","T-20255"]);
-            addMarkerToLeafletMap(data.position[0].DeviceID, // box id
-                youridhtmlwidget, // youridhtmlwidget
-                data.position[0].Position.Latitude, // latM
-                data.position[0].Position.Longitude, // lonM
-                data.position[0].Position.Flag, // flag
-                "", // icon
-                [20, 20], // iconUserSize
-                "red", //iconPulseColor
-                "red" // iconPulseFill
-            );
+            // Keys are the DeviceID with the hyphen removed (T-20193 -> T20193).
+            const { T20193, T20340, T20197, T20196, T20353, T20320, T20317, T20318, T20321, T20255 } = await fetchAllrrst();
 
-            // addMarkerToLeafletMap(data.position[1].DeviceID, // box id
-            //     youridhtmlwidget, // youridhtmlwidget
-            //     data.position[1].Position.Latitude, // latM
-            //     data.position[1].Position.Longitude, // lonM
-            //     data.position[1].Position.Flag, // flag
-            //     "", // icon
-            //     [20,20], // iconUserSize
-            //     "green", //iconPulseColor
-            //     "green" // iconPulseFill
-            // );
+            addMarkerToLeafletMap(youridhtmlwidget, T20193, "", [20, 20], "red", "red", "Box1");
+            addMarkerToLeafletMap(youridhtmlwidget, T20340, "", [20, 20], "red", "red", "Box2");
+            addMarkerToLeafletMap(youridhtmlwidget, T20197, "", [20, 20], "red", "red", "Box3");
+            addMarkerToLeafletMap(youridhtmlwidget, T20196, "", [20, 20], "red", "red", "Box4");
+            addMarkerToLeafletMap(youridhtmlwidget, T20353, "", [20, 20], "red", "red", "Box5");
+            addMarkerToLeafletMap(youridhtmlwidget, T20320, "", [20, 20], "red", "red", "Box6");
+            addMarkerToLeafletMap(youridhtmlwidget, T20317, "", [20, 20], "red", "red", "Box7");
+            addMarkerToLeafletMap(youridhtmlwidget, T20318, "", [20, 20], "red", "red", "Box8");
+            addMarkerToLeafletMap(youridhtmlwidget, T20321, "", [20, 20], "red", "red", "Box9");
+            addMarkerToLeafletMap(youridhtmlwidget, T20255, "", [20, 20], "red", "red", "Box10");
 
             // Icon
             // Bäsen : https://cdn-icons-png.flaticon.com/512/8323/8323626.png
             // First : https://cdn-icons-png.flaticon.com/128/2583/2583381.png
-
-
-            // If you want always the same point for each box -------------
-
-            // data.position.forEach(function(id) {
-            //     addMarkerToLeafletMap(id.DeviceID, // box id
-            //         youridhtmlwidget, // youridhtmlwidget
-            //         id.Position.Latitude, // latM
-            //         id.Position.Longitude, // lonM
-            //         id.Position.Flag, // flag
-            //         "", // icon
-            //         [20,20], // iconUserSize
-            //         "red", //iconPulseColor
-            //         "red" // iconPulseFill
-            //     );
-            // })
 
         } catch (error) {
             console.error('Error during periodic fetch:', error);

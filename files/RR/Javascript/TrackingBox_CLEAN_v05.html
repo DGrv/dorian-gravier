@@ -6,7 +6,7 @@
     }
 </style>
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
-<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v06.js"></script>
+<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v05.js"></script>
 <script>
 
     const youridhtmlwidget = "#idwidget"
@@ -18,88 +18,37 @@
             const devices = await fetchrrstdevices();
             addMarkerDevices(youridhtmlwidget, devices);
 
-
             // --------------------------- RaceMap tracker------------------------------------
-            // Name     ID							IMEI			ICCID
-            // A00B00	5b6ac1561c6a700020a00b00	015181003509610	8944538523020474386
-            // A00B24	5b6ac1561c6a700020a00b24	015181003503381	8944538523030378718
-            // A00AF7	5b6ac1561c6a700020a00af7	015181003504868	8944538523020544436
-            // A00B2E	5b6ac1561c6a700020a00b2e	015181003502078	8944538523020544626
-            // A00B17	5b6ac1561c6a700020a00b17	015181003505642	8944538523020544543
-            // A00B3C	5b6ac1561c6a700020a00b3c	015181003508521	8944538523020544691
-            // A00B19	5b6ac1561c6a700020a00b19	015181003503449	8944538523020544402
-            // A00B25	5b6ac1561c6a700020a00b25	015181003504058	8944538523020466440
-            // A00AEE	5b6ac1561c6a700020a00aee	015181003502698	8944538523020544196
-            // A00B3D	5b6ac1561c6a700020a00b3d	015181003502235	8944538523020545037
 
-            // const A00B00 = await fetchracemap("5b6ac1561c6a700020a00b00");
-            // const A00B3D = await fetchracemap("5b6ac1561c6a700020a00b3d");
-            // const A00AEE = await fetchracemap("5b6ac1561c6a700020a00aee");
-            // const A00B25 = await fetchracemap("5b6ac1561c6a700020a00b25");
-            // const A00B19 = await fetchracemap("5b6ac1561c6a700020a00b19");
-            // const A00B3C = await fetchracemap("5b6ac1561c6a700020a00b3c");
-            // const A00B17 = await fetchracemap("5b6ac1561c6a700020a00b17");
-            // const A00B2E = await fetchracemap("5b6ac1561c6a700020a00b2e");
-            // const A00AF7 = await fetchracemap("5b6ac1561c6a700020a00af7");
-            // const A00B24 = await fetchracemap("5b6ac1561c6a700020a00b24");
-            // 
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3d", A00B3D, "red", "red", "Bike1")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b19", A00B19, "red", "red", "Bike2")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00af7", A00AF7, "red", "red", "Bike3")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00aee", A00AEE, "red", "red", "Bike4")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b3c", A00B3C, "red", "red", "Bike5")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b2e", A00B2E, "red", "red", "Bike6")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b25", A00B25, "red", "red", "Bike7")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b17", A00B17, "red", "red", "Bike8")
-            // addMarkerRaceMap(youridhtmlwidget, "5b6ac1561c6a700020a00b24", A00B24, "red", "red", "Bike9")
+            // const { A00B3D, A00AEE, A00B25, A00B19, A00B3C, A00B2E, A00AF7 } = await fetchAllRacemap();
 
+            // addMarkerRaceMap(youridhtmlwidget, A00B3D, "red", "red", "Bike1");
+            // addMarkerRaceMap(youridhtmlwidget, A00B19, "red", "red", "Bike2");
+            // addMarkerRaceMap(youridhtmlwidget, A00AF7, "red", "red", "Bike3");
+            // addMarkerRaceMap(youridhtmlwidget, A00AEE, "red", "red", "Bike4");
+            // addMarkerRaceMap(youridhtmlwidget, A00B3C, "red", "red", "FirstResp. 5");
+            // addMarkerRaceMap(youridhtmlwidget, A00B2E, "red", "red", "FirstResp. 6");
+            // addMarkerRaceMap(youridhtmlwidget, A00B25, "red", "red", "FirstResp. 7");
 
 
 
             // -----------------------Active TrackBox ----------------------------------------
-            // Fetch specific device positions
-            // const data = await fetchrrst(["T-20320", "T-20344", "T-20342", "T-20341", "T-20351"]);
-            // addMarkerToLeafletMap(data.position[0].DeviceID, // box id
-            //     youridhtmlwidget, // youridhtmlwidget
-            //     data.position[0].Position.Latitude, // latM
-            //     data.position[0].Position.Longitude, // lonM
-            //     data.position[0].Position.Flag, // flag
-            //     "", // icon
-            //     [20, 20], // iconUserSize
-            //     "red", //iconPulseColor
-            //     "red" // iconPulseFill
-            // );
-
-            // addMarkerToLeafletMap(data.position[1].DeviceID, // box id
-            //     youridhtmlwidget, // youridhtmlwidget
-            //     data.position[1].Position.Latitude, // latM
-            //     data.position[1].Position.Longitude, // lonM
-            //     data.position[1].Position.Flag, // flag
-            //     "", // icon
-            //     [20,20], // iconUserSize
-            //     "green", //iconPulseColor
-            //     "green" // iconPulseFill
-            // );
-
-            // Icon
-            // Bäsen : https://cdn-icons-png.flaticon.com/512/8323/8323626.png
-            // First : https://cdn-icons-png.flaticon.com/128/2583/2583381.png
+            // Keys are the DeviceID with the hyphen removed (T-20193 -> T20193).
 
 
-            // If you want always the same point for each box -------------
+            // const { T20193, T20340, T20197, T20196, T20353, T20320, T20317, T20318, T20321, T20255 } = await fetchAllrrst();
 
-            // data.position.forEach(function(id) {
-            //     addMarkerToLeafletMap(id.DeviceID, // box id
-            //         youridhtmlwidget, // youridhtmlwidget
-            //         id.Position.Latitude, // latM
-            //         id.Position.Longitude, // lonM
-            //         id.Position.Flag, // flag
-            //         "", // icon
-            //         [20,20], // iconUserSize
-            //         "red", //iconPulseColor
-            //         "red" // iconPulseFill
-            //     );
-            // })
+            // addMarkerToLeafletMap(youridhtmlwidget, T20193, "", [20, 20], "red", "red", "Box1");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20340, "", [20, 20], "red", "red", "Box2");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20197, "", [20, 20], "red", "red", "Box3");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20196, "", [20, 20], "red", "red", "Box4");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20353, "", [20, 20], "red", "red", "Box5");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20320, "", [20, 20], "red", "red", "Box6");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20317, "", [20, 20], "red", "red", "Box7");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20318, "", [20, 20], "red", "red", "Box8");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20321, "", [20, 20], "red", "red", "Box9");
+            // addMarkerToLeafletMap(youridhtmlwidget, T20255, "", [20, 20], "red", "red", "Box10");
+
 
         } catch (error) {
             console.error('Error during periodic fetch:', error);
