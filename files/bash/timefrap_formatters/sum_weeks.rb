@@ -1,15 +1,25 @@
 # text formatter for sum of spent time grouped by week with progress bar.
-# Can adapt with progess bar, change the formatter fields as you which:
-# The progress bar can go above 100% you see the delimitation with the characters difference : ████▉▉▉▉
+#
+# What it calculates:
+#   - Every entry is bucketed into a week using its START date, keyed "YEAR-WEEK"
+#     where WEEK is strftime("%W"): week-of-year with weeks starting on Monday (00-53).
+#   - For each week it SUMS all entry durations and converts to hours (seconds / 3600).
+#   - % = week hours / TARGET_HOURS * 100, i.e. progress toward the weekly hours goal.
+#   - The progress bar fills one block per BAR_WIDTH-th of the target up to 100% (CHAR_NORMAL),
+#     pads the rest with CHAR_EMPTY, and if the week goes OVER target adds CHAR_OVER blocks.
+#     So the bar can exceed 100% and you spot it by the character change: ████▉▉▉▉
+#   - Weeks are listed in chronological order. Running entries (no end) are skipped.
+#
+# Adjust the constants below to retune (target and bar look).
 #
 # $ t d other -f sum_weeks
 #
-# TARGET_HOURS = 28.8
-# BAR_WIDTH = 25
-# CHAR_NORMAL = "█"
-# CHAR_OVER   = "▉"
-# CHAR_EMPTY  = "-"
-# 
+# TARGET_HOURS = 28.8   # weekly hours goal (the 100% mark)
+# BAR_WIDTH = 25        # width of the progress bar at 100%
+# CHAR_NORMAL = "█"     # filled, up to 100%
+# CHAR_OVER   = "▉"     # extra blocks when over 100%
+# CHAR_EMPTY  = "-"     # unfilled remainder
+#
 # Week       Hours     %        Progress
 # 2024-53     62.01     215%   █████████████████████████▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉
 # 2025-01      5.65      20%   ████---------------------
@@ -42,10 +52,9 @@ module Timetrap
 
         weeks = Hash.new(0)
 
-        # Sum weekly durations
+        # Sum weekly durations (bucket by the entry's start week)
         entries.each do |e|
           next unless e.end
-          note = (e.note || "").sub(/#.*$/, "").strip
           week = e.start.strftime("%Y-%W")
           weeks[week] += e.duration
         end

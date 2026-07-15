@@ -292,15 +292,16 @@ end)
 ------------------------------
 
 
--- mp.add_key_binding('y', function ()
-	-- strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Keyframe_v01___FFMPEG.bat"'
-	-- --video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
-	-- video_path = mp.get_property("path")
+mp.add_key_binding('y', function ()
+	strProgram = '"C:\\Users\\doria\\Downloads\\GitHub\\dorian.gravier.github.io\\files\\Batch\\FFmpeg\\Keyframe_v01___FFMPEG.bat"'
+	--video_path = '"C:\\Users\\doria\\Downloads\\Pictures\\GoPro\\E9\\test\\0002.mp4"'
+	video_path = mp.get_property("path")
+	strCmd = strProgram..' '..video_path
 	-- strCmd = 'cmder /x "/cmd '..strProgram..' '..video_path..'"'
-	-- print(strCmd)
-	-- mp.osd_message("Keyframes")
-	-- os.execute(strCmd)
--- end)
+	print(strCmd)
+	mp.osd_message("Keyframes")
+	os.execute(strCmd)
+end)
 
 
 ------------------------------

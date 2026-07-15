@@ -45,30 +45,18 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                     if (Flag != "U") {
 
-                        if (did.DeviceType2 === "U") {
-                            // Do something with iconUrl, override it, log it, etc.
-                            var iconUrltemp = did.Connected == true
-                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerGreen.png"
-                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ubidiumMapMarkerRed.png";
-                        }
-                        if (did.DeviceType2 === "D") {
-                            // Do something with iconUrl, override it, log it, etc.
-                            var iconUrltemp = did.Connected == true
-                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/rrsMapMarkerGreen.png"
-                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/rrsMapMarkerRed.png";
-                        }
-                        if (did.DeviceType2 === "T") {
-                            // Do something with iconUrl, override it, log it, etc.
-                            var iconUrltemp = did.Connected == true
-                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ptbMapMarkerGreen.png"
-                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/ptbMapMarkerRed.png";
-                        }
-                           if (did.DeviceType2 === "A") {
-                            // Do something with iconUrl, override it, log it, etc.
-                            var iconUrltemp = did.Connected == true
-                                ? "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/tbMapMarkerGreen.png"
-                                : "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/tbMapMarkerRed.png";
-                        }
+                        //---------------
+                        // Connection state, normalized to match the backend fetchDevices()
+                        // enrichment (Connected derived from ConnStatus === 1 for Ubidium).
+                        // Tolerates boolean/number Connected and falls back to raw ConnStatus.
+                        var isConnected = did.Connected === true || did.Connected === 1 || did.ConnStatus === 1;
+
+                        // DeviceType2 -> base icon name. Default to "ptb" for unexpected types
+                        // so we never feed an undefined iconUrl into L.icon().
+                        var ICONS = { U: "ubidium", D: "rrs", T: "ptb", A: "tb" };
+                        var base = ICONS[did.DeviceType2] || "ptb";
+                        var iconUrltemp = "icons/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
+                        //---------------
 
                         var iconType = L.icon({
                             iconUrl: iconUrltemp,
@@ -91,6 +79,10 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                         if (window.markerDevices[id]) {
 
                             window.markerDevices[id].setLatLng([latM, lonM])
+                            if (window.markerDevices[id]._rrConnected !== isConnected) {
+                                window.markerDevices[id].setIcon(iconType)
+                                window.markerDevices[id]._rrConnected = isConnected
+                            }
                             // console.log("Setlat for ", id)
 
                         } else {
@@ -99,11 +91,29 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                             window.markerDevices[id] = L.marker([latM, lonM], { icon: iconType })
                                 .bindPopup(id)
                                 .openPopup();
+                            window.markerDevices[id]._rrConnected = isConnected;
                             // Add marker to the LayerGroup
                             DevicesLayer.addLayer(markerDevices[id]);
                             // Ensure the layer is added to the map
                             DevicesLayer.addTo(map);
-                            // console.log("create marker for ", id)
+
+                            //---------------
+                            // New device just appeared on the map — log once with all useful context.
+                            console.log(
+                                "[DEVICE_APPEARED]",
+                                "Name:", did.DeviceName ?? id,
+                                "| ID:", id,
+                                "| Type:", did.DeviceType2,
+                                "| Lat:", latM,
+                                "| Lon:", lonM,
+                                "| Flag:", Flag,
+                                "| Connected:", isConnected,
+                                "| LastConnection:", did.Received,
+                                "| Battery:", did.BatteryCharge,
+                                "| TimingPoint:", did.TimingPoint,
+                                "| Passings:", did.PassingsWritten
+                            );
+                            //---------------
                         }
                     }
                 });
@@ -120,22 +130,7 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
     }
 }
 
-async function addMarkerToLeafletMap(idhtmlwidget, data, iconUser, iconUserSize, iconPulseColor, iconPulseFill, popUpstring) {
-    var id = data?.DeviceID;
-    var latM = data?.Position?.Latitude;
-    var lonM = data?.Position?.Longitude;
-    var flag = data?.Position?.Flag;
-
-    console.log("TrackBox:", popUpstring || id, "(" + id + ")",
-        "Received:", data?.Received, "Flag:", flag, "Lat:", latM, "Lon:", lonM,
-        "Connected:", data?.Connected, "Type:", data?.DeviceType2);
-
-    // Skip devices with no valid position yet (e.g. Flag "U" -> Lat/Lon undefined),
-    // otherwise L.marker throws "Invalid LatLng object".
-    if (!id || latM == null || lonM == null || isNaN(latM) || isNaN(lonM)) {
-        return;
-    }
-
+async function addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize, iconPulseColor, iconPulseFill, popUpstring) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 
     if (widget) {
@@ -223,8 +218,7 @@ async function addMarkerToLeafletMap(idhtmlwidget, data, iconUser, iconUserSize,
 
                 // Add a new marker using the dynamic id as the key
                 window.markerAB[id] = L.marker([latM, lonM], { icon: iconType })
-                    .bindPopup(popUpstring || id)
-                    .bindTooltip(popUpstring || id, { permanent: true, direction: 'top', offset: [0, -20], className: 'racemaptracker' })
+                    .bindPopup(popUpstring)
                     .openPopup();
                 // Add marker to the LayerGroup
                 aktivBoxLayer.addLayer(markerAB[id]);
@@ -236,7 +230,7 @@ async function addMarkerToLeafletMap(idhtmlwidget, data, iconUser, iconUserSize,
 
         } else {
             console.warn("Leaflet widget found, but map is not ready yet. Retrying...");
-            setTimeout(() => addMarkerToLeafletMap(idhtmlwidget, data, iconUser, iconUserSize, iconPulseColor, iconPulseFill, popUpstring), 500); // Retry after 500ms
+            setTimeout(() => addMarkerToLeafletMap(id, idhtmlwidget, latM, lonM, flag, iconUser, iconUserSize), 500); // Retry after 500ms
         }
     } else {
         console.warn("Leaflet widget not found. Retrying...");
@@ -273,32 +267,6 @@ async function fetchrrst(boxids) {
         throw new Error(`API Request Failed: ${response.status}`);
     }
     return await responseData; // Return API response
-}
-
-async function fetchAllrrst() {
-
-    // Fetch ALL live devices (no IDs sent). The caller picks the ones it wants by
-    // destructuring: const { T20193, T20340 } = await fetchAllrrst();
-    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-devices', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-
-    const responseData = await response.json();
-
-    if (!response.ok) {
-        throw new Error(`API Request Failed: ${response.status}`);
-    }
-
-    // Key each device by a JS-safe version of its DeviceID, e.g. "T-20353" -> "T20353".
-    const keyed = {};
-    (responseData.position || []).forEach(function (d) {
-        keyed[d.DeviceID.replace(/[^a-zA-Z0-9]/g, "")] = d;
-    });
-
-    return keyed; // e.g. { T20193: {...}, T20353: {...}, ... }
 }
 
 async function fetchrrstdevices() {
@@ -339,32 +307,7 @@ async function fetchracemap(deviceId) {
     return responseData;
 }
 
-async function fetchAllRacemap() {
-
-    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-racemap-all', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-
-    const responseData = await response.json();
-
-    if (!response.ok) {
-        throw new Error(`API Request Failed: ${response.status}`);
-    }
-
-    return responseData;
-}
-
-async function addMarkerRaceMap(idhtmlwidget, data, color, fillColor, label) {
-    var deviceId = data?.deviceId;
-    if (!deviceId) return; // tracker missing from the response
-
-    console.log("RaceMap:", label || data?.trackerName || deviceId, "(" + deviceId + ")",
-        "Lat:", data?.lastGeo?.lat, "Lon:", data?.lastGeo?.lng,
-        "Speed:", data?.lastGeo?.speed, "Time:", data?.lastGeo?.lastTime);
-
+async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, label) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
 
     if (widget) {
@@ -412,7 +355,7 @@ async function addMarkerRaceMap(idhtmlwidget, data, color, fillColor, label) {
 
         } else {
             console.warn("Leaflet widget found, but map is not ready yet. Retrying...");
-            setTimeout(() => addMarkerRaceMap(idhtmlwidget, data, color, fillColor, label), 500);
+            setTimeout(() => addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, label), 500);
         }
     } else {
         console.warn("Leaflet widget not found. Retrying...");
