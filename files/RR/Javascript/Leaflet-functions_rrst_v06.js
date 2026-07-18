@@ -55,7 +55,8 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                         // so we never feed an undefined iconUrl into L.icon().
                         var ICONS = { U: "ubidium", D: "rrs", T: "ptb", A: "tb" };
                         var base = ICONS[did.DeviceType2] || "ptb";
-                        var iconUrltemp = "icons/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
+                        // var iconUrltemp = "icons/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
+                        var iconUrltemp = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
                         //---------------
 
                         var iconType = L.icon({
