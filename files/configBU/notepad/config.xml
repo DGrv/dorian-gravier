@@ -2,39 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="ZLCBN03" />
-        <Find name="ZLCBK51" />
-        <Find name="26" />
-        <Find name="   " />
+        <Find name="verti" />
+        <Find name="pdf" />
+        <Find name="vertical" />
+        <Find name="StageBib\((.)\)" />
+        <Find name='&quot;&quot;&quot;&quot; &amp; &quot;' />
+        <Find name='&quot; &amp; &quot;&quot;&quot;&quot;' />
+        <Find name='&quot;&quot;&quot;' />
+        <Find name="mobile" />
         <Find name="    " />
-        <Find name="          " />
-        <Find name="keyframe" />
-        <Find name="ffmpeg" />
-        <Find name="20317" />
-        <Find name="317" />
-        <Replace name="" />
+        <Find name="     " />
+        <Replace name='&quot;&amp; StageBib\($1\) &amp;&quot;' />
+        <Replace name='&quot;&amp; StageBib($1) &amp;&quot;' />
+        <Replace name='&quot;&quot;&quot;' />
+        <Replace name='&quot;&quot;' />
+        <Replace name="Spotter.D" />
+        <Replace name="Finish ;;" />
+        <Replace name="split$1 " />
         <Replace name="target" />
         <Replace name='&quot;&quot; ' />
         <Replace name='&quot;&quot;&quot;&quot; AND' />
-        <Replace name='&lt;&gt;&quot;&quot;&quot;&quot;' />
-        <Replace name="LastSplit" />
-        <Replace name='&quot;Name&quot;: &quot;Split' />
-        <Replace name="15_Test" />
-        <Replace name="Finish Line" />
-        <Replace name='&quot;ItemName&quot;: &quot;Old|Chip Assignment per Minute&quot;,' />
-        <Replace name='&quot;ItemName&quot;: &quot;Old|Transponders used&quot;,' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\scoop\apps\mpv\current\portable_config\scripts\cropeasy.lua" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstBibReco\output.log" />
-        <File filename="C:\Users\doria\scoop\apps\mpv\current\portable_config\scripts\Dorian_mpv_lua_filtered.lua" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstBibReco\output\detected_bibs.csv" />
-        <File filename="C:\Users\doria\Downloads\11_FittestCompany_FittestCompany_Online.lvs" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstBibReco\README.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\rrstBibReco\output\detect.log" />
-        <File filename="C:\Users\doria\Downloads\Zc3_uniq_Chip.txt" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Zurich_City_Triathlon_2026\Code\Chip_return\HyroxChips.csv" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Swiss_Bike_Cup\STAGES\#4_Leysin\timingpoints.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\LED\Ori\logo\zermatters logo.png" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\LED\Ori\logo\desktop.ini" />
+        <File filename="C:\USERS\DORIA\APPDATA\LOCAL\MICROSOFT\WINDOWS\FONTS\AmsiProCond-Ultra.ttf" />
+        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\LEDBalken\Fonts\CODE_SEARCH_FONT.txt" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\magick.md" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Make_it_ALL_v14___FFMPEG.bat" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\code.txt" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\GetReady\04_remove_background.bat" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\GetReady\05_Create_gif_from_png.bat" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -52,7 +51,7 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="388" y="479" width="1539" height="535" isMaximized="yes" />
+        <GUIConfig name="AppPosition" x="-2" y="132" width="1924" height="902" isMaximized="no" />
         <GUIConfig name="FindWindowPosition" left="889" top="320" right="1494" bottom="679" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
@@ -93,7 +92,7 @@
         <GUIConfig name="MarkAll" matchCase="no" wholeWordOnly="yes" />
         <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="no" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="241" topHeight="200" bottomHeight="441">
             <PluginDlg pluginName="JsonTools" id="19" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />

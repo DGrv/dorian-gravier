@@ -1,0 +1,62 @@
+09:46:10 INFO    Video: C:\Users\doria\Downloads\test.mp4  fps=29.884  frames=1884  -> ~1884 frames to process (stride 1)
+09:46:10 INFO    Time mode: elapsed video time
+09:46:10 INFO    Start list: 0 valid bibs
+09:46:10 INFO    OCR engine: paddle | detector: yolo11m.pt
+09:46:10 INFO    Loading models (first run downloads weights)...
+09:46:24 INFO    Processing frames...
+09:46:31 DEBUG     frame 0  (00:00:00.00)  reads so far: 0
+09:46:37 DEBUG     frame 1  (00:00:00.03)  reads so far: 0
+09:46:42 DEBUG     frame 2  (00:00:00.07)  reads so far: 0
+09:46:48 DEBUG     frame 3  (00:00:00.10)  reads so far: 0
+09:46:53 DEBUG     frame 4  (00:00:00.13)  reads so far: 0
+09:46:59 DEBUG     frame 5  (00:00:00.17)  reads so far: 0
+09:47:05 DEBUG     frame 6  (00:00:00.20)  reads so far: 0
+09:47:11 DEBUG     frame 7  (00:00:00.23)  reads so far: 0
+09:47:11 DEBUG       frame 7 track 14: read '0' (conf 0.53)
+09:47:16 DEBUG     frame 8  (00:00:00.27)  reads so far: 1
+09:47:23 DEBUG     frame 9  (00:00:00.30)  reads so far: 1
+09:47:29 DEBUG     frame 10  (00:00:00.33)  reads so far: 1
+09:47:34 DEBUG     frame 11  (00:00:00.37)  reads so far: 1
+09:47:40 DEBUG     frame 12  (00:00:00.40)  reads so far: 1
+09:47:47 DEBUG     frame 13  (00:00:00.44)  reads so far: 1
+09:47:53 DEBUG     frame 14  (00:00:00.47)  reads so far: 1
+09:47:59 DEBUG     frame 15  (00:00:00.50)  reads so far: 1
+09:48:05 DEBUG     frame 16  (00:00:00.54)  reads so far: 1
+09:48:11 DEBUG     frame 17  (00:00:00.57)  reads so far: 1
+09:48:17 DEBUG     frame 18  (00:00:00.60)  reads so far: 1
+09:48:17 DEBUG       frame 18 track 14: read '0' (conf 0.41)
+09:48:23 DEBUG     frame 19  (00:00:00.64)  reads so far: 2
+09:48:23 DEBUG       frame 19 track 14: read '0' (conf 0.39)
+09:48:29 DEBUG     frame 20  (00:00:00.67)  reads so far: 3
+09:48:35 DEBUG     frame 21  (00:00:00.70)  reads so far: 3
+09:48:42 DEBUG     frame 22  (00:00:00.74)  reads so far: 3
+09:48:47 DEBUG     frame 23  (00:00:00.77)  reads so far: 3
+09:48:54 DEBUG     frame 24  (00:00:00.80)  reads so far: 3
+09:49:00 DEBUG     frame 25  (00:00:00.84)  reads so far: 3
+09:49:07 DEBUG     frame 26  (00:00:00.87)  reads so far: 3
+09:49:13 DEBUG     frame 27  (00:00:00.90)  reads so far: 3
+09:49:19 DEBUG     frame 28  (00:00:00.94)  reads so far: 3
+09:49:25 DEBUG     frame 29  (00:00:00.97)  reads so far: 3
+09:49:27 DEBUG       frame 29 track 52: read '0' (conf 0.31)
+09:49:32 DEBUG     frame 30  (00:00:01.00)  reads so far: 4
+09:49:38 DEBUG     frame 31  (00:00:01.04)  reads so far: 4
+09:49:44 DEBUG     frame 32  (00:00:01.07)  reads so far: 4
+09:49:51 DEBUG     frame 33  (00:00:01.10)  reads so far: 4
+09:49:57 DEBUG     frame 34  (00:00:01.14)  reads so far: 4
+09:50:04 DEBUG     frame 35  (00:00:01.17)  reads so far: 4
+09:50:10 DEBUG     frame 36  (00:00:01.20)  reads so far: 4
+09:50:17 DEBUG     frame 37  (00:00:01.24)  reads so far: 4
+09:50:23 DEBUG     frame 38  (00:00:01.27)  reads so far: 4
+09:50:29 DEBUG     frame 39  (00:00:01.31)  reads so far: 4
+09:50:36 DEBUG     frame 40  (00:00:01.34)  reads so far: 4
+09:50:43 DEBUG     frame 41  (00:00:01.37)  reads so far: 4
+09:50:50 DEBUG     frame 42  (00:00:01.41)  reads so far: 4
+09:50:52 DEBUG       frame 42 track 50: read '09' (conf 0.55)
+09:50:58 DEBUG     frame 43  (00:00:01.44)  reads so far: 5
+09:50:59 DEBUG       frame 43 track 50: read '09' (conf 0.44)
+09:51:04 DEBUG     frame 44  (00:00:01.47)  reads so far: 6
+09:51:05 DEBUG       frame 44 track 2: read '15' (conf 0.52)
+09:51:06 DEBUG       frame 44 track 50: read '09' (conf 0.36)
+09:51:11 DEBUG     frame 45  (00:00:01.51)  reads so far: 8
+09:51:13 DEBUG       frame 45 track 50: read '09' (conf 0.36)
+09:51:13 DEBUG       frame 45 track 63: read '4' (conf 0.32)

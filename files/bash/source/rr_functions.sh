@@ -128,6 +128,7 @@ gpx2svg() { # convert a gpx to svg for profile, gpx2svg *.gpx  or gpx2svg input.
 vertiAppendPdf() { # convert png and append them together vertically and create a pdf for commenting
 	convert *.png -append output.png
 	img2pdf output.png -o output.pdf
+	convert *.png output_pages.pdf
 }
 
 svg2png() { # convert svg to png in directory with $1 a color to replace it and $2 resize size (e.g. 50x50) or none
@@ -496,3 +497,50 @@ RRgroupingColors() { # Function to update BackgroundColor and Color in JSON file
         return 1
     fi
 }
+
+
+png2mp4() { # png to mp4 with a time : can be used : png2video *.png 5 or png2video single.png 5
+	local output="output.mp4"
+
+	mkdir -p .png2video_tmp
+	> .png2video_tmp/list.txt
+
+	local i=0
+
+	# Last argument is the duration if it's numeric
+	local duration="${@: -1}"
+	local images=("${@:1:$#-1}")
+
+	if ! [[ $duration =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+		duration=5
+		images=("$@")
+	fi
+
+	for img in "${images[@]}"; do
+		local clip=".png2video_tmp/clip_$(printf "%03d" "$i").mp4"
+
+		ffmpeg -stats -loglevel error -y \
+			-loop 1 \
+			-i "$img" \
+			-c:v libx264 \
+			-t "$duration" \
+			-pix_fmt yuv420p \
+			-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" \
+			"$clip"
+
+		echo "file '$PWD/$clip'" >> .png2video_tmp/list.txt
+		((i++))
+	done
+
+	ffmpeg -stats -loglevel error -y \
+		-f concat \
+		-safe 0 \
+		-i .png2video_tmp/list.txt \
+		-c copy \
+		"$output"
+
+	rm -rf .png2video_tmp
+
+	echo "Created $output"
+}
+

@@ -1,0 +1,499 @@
+<!doctype html>
+<html>
+  <head>
+   
+
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #0b1220;
+        color: #e5e7eb;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+
+
+      
+
+      /* Mermaid container */
+      .mermaid {
+        background: #494949;
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      /* Grid lines */
+      .grid .tick line {
+        stroke: #1f2a3a !important;
+        stroke-opacity: 0.7;
+      }
+
+      /* Axis text */
+      text {
+        fill: #ffffff !important;
+        font-size: 12px;
+      }
+
+      /* Section headers */
+      .titleText {
+        fill: #ffffff !important;
+        font-weight: 600;
+      }
+
+      /* Default task bars */
+      .task {
+        fill: #3b82f6 !important; /* modern blue */
+        opacity: 0.85;
+      }
+
+      /* Critical tasks (mermaid emits numbered classes: crit0, crit1, …) */
+      rect[class*="crit"] {
+        fill: #ef4444 !important;
+        stroke: #ef4444 !important;
+      }
+
+      /* Active tasks (active0, active1, …) */
+      rect[class*="active"] {
+        fill: #10b981 !important;
+      }
+
+      /* Active task labels (activeText0, activeText3, …) — keep them white */
+      text[class*="activeText"] {
+        fill: #ffffff !important;
+      }
+
+      /* Done tasks (done0, done1, …) */
+      rect[class*="done"] {
+        fill: #6b7280 !important;
+      }
+
+      /* Vertical markers (ToD) */
+      .marker {
+        stroke: #fbbf24 !important;
+        stroke-width: 2px;
+      }
+
+      /* Marker labels */
+      text.marker {
+        fill: #fbbf24 !important;
+        font-weight: 600;
+      }
+
+      /* Hover */
+      .task:hover {
+        opacity: 1;
+        filter: brightness(1.15);
+      }
+
+      /* Slight UI polish */
+      svg {
+        border-radius: 12px;
+      }
+    </style>
+
+    <style>
+      #liveLine {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #ff4d4d;
+        opacity: 0.9;
+        pointer-events: none;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <pre class="mermaid">
+
+gantt
+  tickInterval 1hour
+  todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
+  dateFormat YYYY-MM-DD HH:mm
+  axisFormat %H
+
+  Ankommen   : vert, v1,   2026-08-20 12:00, 5m
+  Friday   : vert, v2,   2026-08-21 00:00, 5m
+  Saturday   : vert, v2,   2026-08-22 00:00, 5m
+  Sunday   : vert, v2,   2026-08-23 00:00, 5m
+
+
+  section Start
+  EXTREME        : f1,  2026-08-21 08:00,  10m
+  RELAY          : f7,  2026-08-21 09:30,  10m
+  VERTINIGHT     : f4,  2026-08-21 20:45,  10m
+  SKY            : f5,  2026-08-22 07:00,  10m
+  MOUNTAIN       : f6,  2026-08-22 09:30,  10m
+  WOLLI          : f2,  2026-08-22 017:30, 10m
+  SUPERWOLLI     : f3,  2026-08-22 017:45, 10m
+  ACTIVE         : f8,  2026-08-23 08:30,  10m
+
+
+  
+  section Awards
+  EXTREME        : a1,  2026-08-21 14:15, 10m
+  VERTINIGHT     : a4,  2026-08-21 22:00, 10m
+  SKY            : a5,  2026-08-22 15:30, 10m
+  MOUNTAIN       : a6,  2026-08-22 15:30, 10m
+  RELAY          : a7,  2026-08-22 15:30, 10m
+  WOLLI          : a2,  2026-08-22 18:15, 10m
+  SUPERWOLLI     : a3,  2026-08-22 18:15, 10m
+  ACTIVE         : a8,  2026-08-23 12:30, 10m
+  
+
+  section BIBS
+  EXTREM		: s1, 2026-08-20 16:00, 2026-08-20 18:00
+  EXTREM		: s2, 2026-08-21 06:30, 2026-08-21 07:45
+  W-SW	  	: s3, 2026-08-21 14:30, 2026-08-21 16:30
+  V		    	: s4, 2026-08-21 14:30, 2026-08-21 20:15
+  Sk-M-R		: s5, 2026-08-21 17:45, 2026-08-21 20:45
+  Sk		  	: s6, 2026-08-22 06:00, 2026-08-22 06:45
+  M-R		  	: s7, 2026-08-22 07:00, 2026-08-22 10:30
+  Ac		  	: s8, 2026-08-22 14:30, 2026-08-22 19:30
+  Ac		  	: s9, 2026-08-23 07:00, 2026-08-23 08:15  
+
+  section LED
+Freetext=10        : led1, 2026-08-20 16:00, 2026-08-20 18:30
+Freetext=11        : 2026-08-20 20:00
+Freetext=12 & cID=1       : led2, 2026-08-21 06:30, 2026-08-21 07:45
+COUNTDOWN & cID=1        : 15m
+GetReady-Go: 15m
+RuntimeClock cID: 4h
+Passings: 4h
+Freetext=13 + cID=2;3: led3, 2026-08-21 16:00, 2026-08-21 17:15
+COUNTDOWN & cID=2        : 15m
+GetReady-Go: 15m
+Freetext=14 + LED_cid=2 or 2;3 : led4, 2026-08-21 18:00, 15m
+Freetext=15 + LED_cid=4:  2026-08-21 20:30
+COUNTDOWN & cID=4       : 15m
+GetReady-Go: 15m
+Thank you Zermatt, see you tomorrow!: 2026-08-22 06:00
+Freetext=16 LED_cid=5: 45m
+COUNTDOWN & cID=5      : 15m
+GetReady-Go: 15m
+Freetext=16 LED_cid=6: 2026-08-22 09:15
+COUNTDOWN & cID=6;7      : 15m
+GetReady-Go: 15m
+RuntimeClock cID: 4h
+Passings: 4h
+Freetext=20: led6, 2026-08-22 19:30, 2026-08-23 07:00
+Freetext=16 LED_cid=8: 90m
+COUNTDOWN & cID=8      : 15m
+GetReady-Go: 15m
+Runtime:4h
+Passings:4h
+Freetext=2: 2h
+
+
+  section rrst
+
+ 
+  
+
+</pre
+    >
+
+
+
+     <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+      // Capture the raw gantt source BEFORE mermaid replaces the <pre> with SVG.
+      // (Module scripts run after the DOM is parsed but before DOMContentLoaded.)
+      const ganttSource = document.querySelector("pre.mermaid").textContent;
+
+      // Constants used by parseGantt()/formatInfo() must be initialised BEFORE
+      // they are referenced (avoid the temporal-dead-zone).
+      const TAG_TOKENS = new Set([
+        "crit",
+        "active",
+        "done",
+        "milestone",
+        "vert",
+      ]);
+
+      const fmt = new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      const taskMap = parseGantt(ganttSource);
+
+      // Render explicitly (no startOnLoad) so we can await completion.
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: "dark",
+      });
+
+      setInterval(() => {
+        window.location.reload();
+      }, 180000);
+
+      // Render the diagram and wait for the SVG to exist before wiring up popups,
+      // instead of guessing with a fixed timeout (which loses the race on slower,
+      // network-served loads such as GitHub Pages).
+      await mermaid.run();
+      attachPopups();
+      whitenActiveText();
+
+
+ // Mermaid's injected theme colours active-task labels (.activeText*) with
+      // an ID-scoped rule we can't beat from a stylesheet (the #mermaid-… id is
+      // random each render). Force them white via inline styles instead.
+      function whitenActiveText() {
+        document
+          .querySelectorAll('text[class*="activeText"]')
+          .forEach((t) => t.style.setProperty("fill", "#ffffff", "important"));
+      }
+
+
+      // ---- Gantt source parser -------------------------------------------
+      // Builds a Map<taskId, {label, start: Date, end: Date}>.
+
+      function parseDateTime(str) {
+        // Format: YYYY-MM-DD H:mm  (hours may be 1 or 2 digits)
+        const m = str
+          .trim()
+          .match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{1,2}):(\d{2})$/);
+        if (!m) return null;
+        return new Date(
+          Number(m[1]),
+          Number(m[2]) - 1,
+          Number(m[3]),
+          Number(m[4]),
+          Number(m[5]),
+        );
+      }
+
+      function parseDuration(str) {
+        // e.g. 2m, 20m, 3h, 1h, 1d, 1w, 30s  -> milliseconds
+        const m = str.trim().match(/^(\d+(?:\.\d+)?)\s*([smhdw])$/);
+        if (!m) return null;
+        const value = Number(m[1]);
+        const unit = m[2];
+        const factor = {
+          s: 1000,
+          m: 60 * 1000,
+          h: 60 * 60 * 1000,
+          d: 24 * 60 * 60 * 1000,
+          w: 7 * 24 * 60 * 60 * 1000,
+        }[unit];
+        return value * factor;
+      }
+
+      function parseGantt(src) {
+        const lines = src.split(/\r?\n/);
+        // First pass: collect raw task definitions keyed by id.
+        const raw = new Map();
+        const order = [];
+        // Mirror mermaid's own bookkeeping so our ids line up with the rendered
+        // rects: mermaid auto-generates "task1", "task2", … for tasks that don't
+        // declare an explicit id, and lets a task with no start inherit the
+        // previous task's end ("prevTaskEnd").
+        let taskCnt = 0;
+        let prevId = null;
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          if (
+            /^(gantt|dateFormat|axisFormat|tickInterval|todayMarker|section|title|excludes|includes|weekday)\b/i.test(
+              trimmed,
+            ) ||
+            trimmed.startsWith("%%")
+          ) {
+            continue;
+          }
+          const colon = trimmed.indexOf(":");
+          if (colon === -1) continue;
+
+          const label = trimmed.slice(0, colon).trim();
+          const tokens = trimmed
+            .slice(colon + 1)
+            .split(",")
+            .map((t) => t.trim());
+
+          // Strip leading tag tokens (mermaid removes crit/active/done/…
+          // only from the front of the token list).
+          let i = 0;
+          while (i < tokens.length && TAG_TOKENS.has(tokens[i])) i++;
+          const rest = tokens.slice(i);
+
+          // Mermaid classifies the remaining tokens purely by COUNT:
+          //   3 -> [id, start, end|duration]
+          //   2 -> [start, end|duration]      (id auto-generated)
+          //   1 -> [end|duration]             (id auto-generated, start = prev end)
+          let id;
+          let startTok;
+          let endTok;
+          let prev = null;
+          if (rest.length >= 3) {
+            id = rest[0];
+            startTok = rest[1];
+            endTok = rest[2];
+          } else if (rest.length === 2) {
+            id = "task" + ++taskCnt;
+            startTok = rest[0];
+            endTok = rest[1];
+          } else if (rest.length === 1) {
+            id = "task" + ++taskCnt;
+            startTok = null; // inherits the previous task's end time
+            prev = prevId;
+            endTok = rest[0];
+          } else {
+            continue;
+          }
+          if (!id) continue;
+
+          raw.set(id, { label, startTok, endTok, prev });
+          order.push(id);
+          prevId = id;
+        }
+
+        // Second pass: resolve start/end (with "after <id>" and prev-task-end deps).
+        const resolved = new Map();
+        const resolving = new Set();
+
+        function resolve(id) {
+          if (resolved.has(id)) return resolved.get(id);
+          const def = raw.get(id);
+          if (!def || resolving.has(id)) return null;
+          resolving.add(id);
+
+          let start = null;
+          if (def.startTok == null) {
+            // No explicit start: inherit the previous task's end time.
+            const dep = def.prev != null ? resolve(def.prev) : null;
+            start = dep ? dep.end : null;
+          } else {
+            const afterMatch = def.startTok.match(/^after\s+(\S+)/i);
+            if (afterMatch) {
+              const dep = resolve(afterMatch[1]);
+              start = dep ? dep.end : null;
+            } else {
+              start = parseDateTime(def.startTok);
+            }
+          }
+
+          let end = null;
+          if (start) {
+            const explicitEnd = parseDateTime(def.endTok);
+            if (explicitEnd) {
+              end = explicitEnd;
+            } else {
+              const dur = parseDuration(def.endTok);
+              // Empty/unknown duration -> default to 1 day (matches mermaid).
+              end = new Date(start.getTime() + (dur ?? 24 * 60 * 60 * 1000));
+            }
+          }
+
+          resolving.delete(id);
+          const entry = { label: def.label, start, end };
+          resolved.set(id, entry);
+          return entry;
+        }
+
+        for (const id of order) resolve(id);
+        return resolved;
+      }
+
+      // ---- Popups --------------------------------------------------------
+
+      function formatInfo(entry) {
+        const start = entry.start ? fmt.format(entry.start) : "?";
+        const end = entry.end ? fmt.format(entry.end) : "?";
+        let durLine = "";
+        if (entry.start && entry.end) {
+          const mins = Math.round((entry.end - entry.start) / 60000);
+          const h = Math.floor(mins / 60);
+          const m = mins % 60;
+          durLine =
+            "\nDuration: " + (h ? h + "h " : "") + (m || !h ? m + "m" : "");
+        }
+        return `${entry.label}\nStart: ${start}\nEnd:   ${end}${durLine}`;
+      }
+
+      let pinned = false;
+
+      function attachPopups() {
+        let rects = document.querySelectorAll("rect.task");
+        if (!rects.length) rects = document.querySelectorAll("svg rect[id]");
+
+        rects.forEach((rect) => {
+          const id = rect.id.split("-").pop();
+          const entry = taskMap.get(id);
+          if (!entry) return;
+
+          rect.style.cursor = "pointer";
+
+          rect.addEventListener("mouseenter", (e) => {
+            if (pinned) return;
+            showTooltip(e, formatInfo(entry));
+          });
+          rect.addEventListener("mousemove", (e) => {
+            if (pinned) return;
+            moveTooltip(e);
+          });
+          rect.addEventListener("mouseleave", () => {
+            if (pinned) return;
+            hideTooltip();
+          });
+          rect.addEventListener("click", (e) => {
+            e.stopPropagation();
+            pinned = true;
+            showTooltip(e, formatInfo(entry));
+          });
+        });
+
+        // Click anywhere else dismisses a pinned popup.
+        document.addEventListener("click", () => {
+          if (pinned) {
+            pinned = false;
+            hideTooltip();
+          }
+        });
+      }
+
+      // Tooltip element (reused for hover + pinned click popup).
+      const tooltip = document.createElement("div");
+      tooltip.style.position = "absolute";
+      tooltip.style.background = "#111827";
+      tooltip.style.color = "#fff";
+      tooltip.style.padding = "8px 12px";
+      tooltip.style.borderRadius = "6px";
+      tooltip.style.fontSize = "12px";
+      tooltip.style.lineHeight = "1.5";
+      tooltip.style.whiteSpace = "pre";
+      tooltip.style.boxShadow = "0 4px 14px rgba(0,0,0,0.4)";
+      tooltip.style.pointerEvents = "none";
+      tooltip.style.display = "none";
+      tooltip.style.zIndex = 1000;
+      document.body.appendChild(tooltip);
+
+      function showTooltip(event, text) {
+        tooltip.textContent = text;
+        tooltip.style.display = "block";
+        moveTooltip(event);
+      }
+
+      function moveTooltip(event) {
+        tooltip.style.left = event.pageX + 12 + "px";
+        tooltip.style.top = event.pageY + 12 + "px";
+      }
+
+      function hideTooltip() {
+        tooltip.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

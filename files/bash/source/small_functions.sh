@@ -148,51 +148,85 @@ checkdep() { # check if packages are installed arguments as packages
     [[ $deps -ne 1 ]] || { cecho -r "\nInstall the above and rerun this script\n"; }
 }
 
-riaf() { # replace string in all files in folder run
-  # Replace In All Files
-  cecho -g "riaf=Replace in All Files, '$1' is search string, '$2' is replacement: USE DOUBLE QUOTES: riaf \"#fa9b2c\" \"Color1\""
-  local in="$1"
-  local out="$2"
-  # old \Q is opening quote and \E ending quote
-  # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|\Q${in}\E|${out}|g" "{}"
-  grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
-}
+# riaf() { # replace string in all files in folder run
+  # # Replace In All Files
+  # cecho -g "riaf=Replace in All Files, '$1' is search string, '$2' is replacement: USE DOUBLE QUOTES: riaf \"#fa9b2c\" \"Color1\""
+  # local in="$1"
+  # local out="$2"
+  # # old \Q is opening quote and \E ending quote
+  # # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|\Q${in}\E|${out}|g" "{}"
+  # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+# }
 
 
-riaf() { # replace string in folder or recursive (-r)
+riaf() { # replace string in folder or recursive (-r), literal by default, regex with -E
   # Replace In All Files
-  local recursive=true
+  local recursive=false
+  local regex_mode=false
   local in=""
   local out=""
-  
-  # Parse arguments
-  if [[ "$1" == "-r" ]]; then
-    recursive=true
-    in="$2"
-    out="$3"
-  else
-    recursive=false
-    in="$1"
-    out="$2"
-  fi
-  
-  # Validate arguments
+
+  while [[ "$1" == -* ]]; do
+    case "$1" in
+      -r) recursive=true ;;
+      -E) regex_mode=true ;;
+      *)
+        cecho -r "Unknown flag: $1"
+        return 1
+        ;;
+    esac
+    shift
+  done
+  in="$1"
+  out="$2"
+
   if [[ -z "$in" || -z "$out" ]]; then
     cecho -g "riaf=Replace in All Files"
-    cecho -g "Usage: riaf [-r] \"search_string\" \"replacement\""
-    cecho -g "  -r: recursive search (default if not specified)"
+    cecho -g "Usage: riaf [-r] [-E] \"search_string\" \"replacement\""
+    cecho -g "  -r: recursive search"
+    cecho -g "  -E: treat search/replacement as a Perl regex (default: literal, no regex)"
     cecho -g "  Without -r: search only in current directory"
     cecho -g "USE DOUBLE QUOTES: riaf \"#fa9b2c\" \"Color1\""
     return 1
   fi
-  
+
   cecho -g "riaf=Replace in All Files, '$in' is search string, '$out' is replacement"
-  
-  if [[ "$recursive" == true ]]; then
-    cecho -g "Searching recursively..."
-    grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+
+  local files
+  local q_in q_out full_cmd
+  printf -v q_in '%q' "$in"
+  printf -v q_out '%q' "$out"
+
+  if [[ "$regex_mode" == true ]]; then
+    if [[ "$recursive" == true ]]; then
+      cecho -g "Searching recursively (regex mode)..."
+      full_cmd="grep -rlP -- $q_in . | xargs -d '\\n' -I {} perl -pi -e $(printf '%q' "s|${in}|${out}|g") {}"
+      files=$(grep -rlP -- "${in}" . 2>/dev/null)
+    else
+      cecho -g "Searching in current directory only (regex mode)..."
+      full_cmd="grep -lP -- $q_in * | xargs -d '\\n' -I {} perl -pi -e $(printf '%q' "s|${in}|${out}|g") {}"
+      files=$(grep -lP -- "${in}" * 2>/dev/null)
+    fi
   else
-    cecho -g "Searching in current directory only..."
-    grep -l -- "${in}" * 2>/dev/null | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+    if [[ "$recursive" == true ]]; then
+      cecho -g "Searching recursively (literal mode)..."
+      full_cmd="grep -rlF -- $q_in . | xargs -d '\\n' -I {} env IN=$q_in OUT=$q_out perl -pi -e $(printf '%q' 's/\Q$ENV{IN}\E/$ENV{OUT}/g') {}"
+      files=$(grep -rlF -- "${in}" . 2>/dev/null)
+    else
+      cecho -g "Searching in current directory only (literal mode)..."
+      full_cmd="grep -lF -- $q_in * | xargs -d '\\n' -I {} env IN=$q_in OUT=$q_out perl -pi -e $(printf '%q' 's/\Q$ENV{IN}\E/$ENV{OUT}/g') {}"
+      files=$(grep -lF -- "${in}" * 2>/dev/null)
+    fi
+  fi
+
+  cecho -g "Equivalent command (copy-paste ready, run in the target directory):"
+  cecho -g "  $full_cmd"
+
+  [[ -z "$files" ]] && { cecho -g "No matches found."; return 0; }
+
+  if [[ "$regex_mode" == true ]]; then
+    printf '%s\n' "$files" | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
+  else
+    printf '%s\n' "$files" | xargs -d '\n' -I {} env IN="$in" OUT="$out" perl -pi -e 's/\Q$ENV{IN}\E/$ENV{OUT}/g' "{}"
   fi
 }
