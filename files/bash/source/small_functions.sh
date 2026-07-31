@@ -158,6 +158,11 @@ checkdep() { # check if packages are installed arguments as packages
   # grep -rl -- "${in}" . | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
 # }
 
+_riaf_quote() {
+  # Wrap in single quotes, escaping embedded single quotes the POSIX way
+  local s="$1"
+  printf "'%s'" "${s//\'/\'\\\'\'}"
+}
 
 riaf() { # replace string in folder or recursive (-r), literal by default, regex with -E
   # Replace In All Files
@@ -192,41 +197,71 @@ riaf() { # replace string in folder or recursive (-r), literal by default, regex
 
   cecho -g "riaf=Replace in All Files, '$in' is search string, '$out' is replacement"
 
-  local files
-  local q_in q_out full_cmd
-  printf -v q_in '%q' "$in"
-  printf -v q_out '%q' "$out"
+  local q_in q_out full_cmd grep_target grep_str has_matches
+  q_in=$(_riaf_quote "$in")
+  q_out=$(_riaf_quote "$out")
+
+  if [[ "$recursive" == true ]]; then
+    cecho -g "Searching recursively..."
+    grep_target="."
+    grep_str="-rlZ"
+  else
+    cecho -g "Searching in current directory only..."
+    grep_target="*"
+    grep_str="-lZ"
+  fi
 
   if [[ "$regex_mode" == true ]]; then
-    if [[ "$recursive" == true ]]; then
-      cecho -g "Searching recursively (regex mode)..."
-      full_cmd="grep -rlP -- $q_in . | xargs -d '\\n' -I {} perl -pi -e $(printf '%q' "s|${in}|${out}|g") {}"
-      files=$(grep -rlP -- "${in}" . 2>/dev/null)
+    grep_str="${grep_str}P"
+    full_cmd="grep ${grep_str} -- $q_in $grep_target | xargs -0 perl -pi -e $(_riaf_quote "s|${in}|${out}|g")"
+  else
+    grep_str="${grep_str}F"
+	full_cmd="grep ${grep_str} -- $q_in $grep_target | xargs -0 env IN=$q_in OUT=$q_out perl -pi -e $(_riaf_quote 's/\Q$ENV{IN}\E/$ENV{OUT}/g')"
+  fi
+
+  
+
+  # Quick existence check (boolean, avoids NUL-in-variable issues)
+  if [[ "$recursive" == true ]]; then
+    if [[ "$regex_mode" == true ]]; then
+      grep -qrP -- "${in}" . 2>/dev/null; has_matches=$?
     else
-      cecho -g "Searching in current directory only (regex mode)..."
-      full_cmd="grep -lP -- $q_in * | xargs -d '\\n' -I {} perl -pi -e $(printf '%q' "s|${in}|${out}|g") {}"
-      files=$(grep -lP -- "${in}" * 2>/dev/null)
+      grep -qrF -- "${in}" . 2>/dev/null; has_matches=$?
     fi
   else
-    if [[ "$recursive" == true ]]; then
-      cecho -g "Searching recursively (literal mode)..."
-      full_cmd="grep -rlF -- $q_in . | xargs -d '\\n' -I {} env IN=$q_in OUT=$q_out perl -pi -e $(printf '%q' 's/\Q$ENV{IN}\E/$ENV{OUT}/g') {}"
-      files=$(grep -rlF -- "${in}" . 2>/dev/null)
+    if [[ "$regex_mode" == true ]]; then
+      grep -qP -- "${in}" * 2>/dev/null; has_matches=$?
     else
-      cecho -g "Searching in current directory only (literal mode)..."
-      full_cmd="grep -lF -- $q_in * | xargs -d '\\n' -I {} env IN=$q_in OUT=$q_out perl -pi -e $(printf '%q' 's/\Q$ENV{IN}\E/$ENV{OUT}/g') {}"
-      files=$(grep -lF -- "${in}" * 2>/dev/null)
+      grep -qF -- "${in}" * 2>/dev/null; has_matches=$?
     fi
   fi
 
-  cecho -g "Equivalent command (copy-paste ready, run in the target directory):"
+  if [[ "$has_matches" -ne 0 ]]; then
+    cecho -g "No matches found."
+    return 0
+  fi
+
+  if [[ "$regex_mode" == true ]]; then
+    if [[ "$recursive" == true ]]; then
+      grep -rlZP -- "${in}" . | xargs -0 perl -pi -e "s|${in}|${out}|g"
+    else
+      grep -lZP -- "${in}" * | xargs -0 perl -pi -e "s|${in}|${out}|g"
+    fi
+  else
+    if [[ "$recursive" == true ]]; then
+      grep -rlZF -- "${in}" . | xargs -0 env IN="$in" OUT="$out" perl -pi -e 's/\Q$ENV{IN}\E/$ENV{OUT}/g'
+    else
+      grep -lZF -- "${in}" * | xargs -0 env IN="$in" OUT="$out" perl -pi -e 's/\Q$ENV{IN}\E/$ENV{OUT}/g'
+    fi
+  fi
+  
+  local cmd_file="riaf_last_cmd.sh"
+  printf '%s\n' "$full_cmd" >> "$cmd_file"
+
+	cecho -g "Equivalent command (copy-paste ready, run in the target directory):"
   cecho -g "  $full_cmd"
-
-  [[ -z "$files" ]] && { cecho -g "No matches found."; return 0; }
-
-  if [[ "$regex_mode" == true ]]; then
-    printf '%s\n' "$files" | xargs -d '\n' -I {} perl -pi -e "s|${in}|${out}|g" "{}"
-  else
-    printf '%s\n' "$files" | xargs -d '\n' -I {} env IN="$in" OUT="$out" perl -pi -e 's/\Q$ENV{IN}\E/$ENV{OUT}/g' "{}"
-  fi
+  cecho -g "Also saved to $cmd_file -- cat/scp/open that file instead of copying from the terminal if you see garbage (^[[D etc.) when pasting a long line."
+  
+  
+  
 }
