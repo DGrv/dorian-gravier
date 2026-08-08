@@ -133,7 +133,7 @@ vertiAppendPdf() { # convert png and append them together vertically and create 
 
 svg2png() { # convert svg to png in directory with $1 a color to replace it and $2 resize size (e.g. 50x50) or none
   # Replace In All Files
-  cecho -g "rrsvg=Replace in all svg : \n\t- $1 with hex color -> USE DOUBLE QUOTES: rrsvg \"#fa9b2c\"\n\t- $2 with resize (50x50) or none"
+  cecho -g "svg2png=Replace in all svg : \n\t- $1 with hex color -> USE DOUBLE QUOTES: rrsvg \"#fa9b2c\"\n\t- $2 with resize (50x50) or none"
   local color="$1"
   local resize="$2"
   # old \Q is opening quote and \E ending quote

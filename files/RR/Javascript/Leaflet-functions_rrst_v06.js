@@ -289,22 +289,21 @@ async function fetchrrstdevices() {
     return await responseData; // Return API response
 }
 
-async function fetchracemap(deviceId) {
+async function fetchAllRacemap() {
 
-    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-racemap', {
+    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-racemap-all', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ deviceId })
+        }
     });
 
     const responseData = await response.json();
-    console.log("RaceMap device:", deviceId, "Lat:", responseData.lastGeo?.lat, "Lon:", responseData.lastGeo?.lng, "Speed:", responseData.lastGeo?.speed);
 
     if (!response.ok) {
         throw new Error(`API Request Failed: ${response.status}`);
     }
+
     return responseData;
 }
 
