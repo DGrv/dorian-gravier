@@ -11,8 +11,7 @@
 
     const youridhtmlwidget = "#idwidget"
 
-
-    setInterval(async () => {
+    const fetchData = async () => {
         try {
             // Fetch device list
             const devices = await fetchrrstdevices();
@@ -53,9 +52,10 @@
         } catch (error) {
             console.error('Error during periodic fetch:', error);
         }
-    }, 10000);
-    // 5000 milliseconds = 5 seconds
+    };
 
 
+    fetchData();
+    setInterval(fetchData, 10000);
     
 </script>
