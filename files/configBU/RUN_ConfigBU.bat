@@ -22,7 +22,7 @@ REM copy C:\Users\doria\.timetrap.db C:\Users\doria\Downloads\GitHub\dorian.grav
 C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;cp ~/.timetrap.db /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.db"
 REM t d -f csv > C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\timetrap\%TIMESTAMP%_timetrap.csv
 C:\Users\doria\AppData\Local\Microsoft\WindowsApps\bash.exe -c "source ~/.bashrc;t d -f csv > /mnt/c/Users/doria/Downloads/GitHub/dorian.gravier.github.io/files/configBU/timetrap/$(date +"%%Y%%m%%d-%%H%%M%%S")_timetrap.csv"
-C:\Users\doria\scoop\shims\rscript.exe "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
+REM C:\Users\doria\scoop\shims\rscript.exe "C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\RR\Timetrap_v01.R"
 
 ::wt windows-terminal
 cd C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\configBU\

@@ -2,38 +2,38 @@
 <NotepadPlus>
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name="verti" />
-        <Find name="pdf" />
-        <Find name="vertical" />
-        <Find name="StageBib\((.)\)" />
-        <Find name='&quot;&quot;&quot;&quot; &amp; &quot;' />
-        <Find name='&quot; &amp; &quot;&quot;&quot;&quot;' />
-        <Find name='&quot;&quot;&quot;' />
-        <Find name="mobile" />
-        <Find name="    " />
-        <Find name="     " />
+        <Find name=";" />
+        <Find name="free" />
+        <Find name="[x]" />
+        <Find name='\&quot;' />
+        <Find name="iscorrect" />
+        <Find name=";.*?;(.*?);.*" />
+        <Find name=";.*?;" />
+        <Find name="listcolor" />
+        <Find name="riaf" />
+        <Find name=".*EN:(.*)[\}|\|]" />
+        <Replace name=";\r\n" />
+        <Replace name=";\r\" />
+        <Replace name="[Phone]" />
+        <Replace name='&quot;' />
+        <Replace name="$1" />
+        <Replace name='&quot;&quot;' />
+        <Replace name=" " />
         <Replace name='&quot;&amp; StageBib\($1\) &amp;&quot;' />
         <Replace name='&quot;&amp; StageBib($1) &amp;&quot;' />
         <Replace name='&quot;&quot;&quot;' />
-        <Replace name='&quot;&quot;' />
-        <Replace name="Spotter.D" />
-        <Replace name="Finish ;;" />
-        <Replace name="split$1 " />
-        <Replace name="target" />
-        <Replace name='&quot;&quot; ' />
-        <Replace name='&quot;&quot;&quot;&quot; AND' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\LED\Ori\logo\zermatters logo.png" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\LED\Ori\logo\desktop.ini" />
-        <File filename="C:\USERS\DORIA\APPDATA\LOCAL\MICROSOFT\WINDOWS\FONTS\AmsiProCond-Ultra.ttf" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\BU\rr_backup_TREK_Matterhorn_Ultraks_2026_20260723-162716\settings.csv" />
         <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\LEDBalken\Fonts\CODE_SEARCH_FONT.txt" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\magick.md" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\FFmpeg\Make_it_ALL_v14___FFMPEG.bat" />
-        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\bash\source\rr_functions.sh" />
-        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\code.txt" />
-        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\GetReady\04_remove_background.bat" />
-        <File filename="C:\Users\doria\Downloads\RR\LED\2026__Matterhorn_ultraks\MattUltraks_2026_v01\1024x128\Videos\GetReady\05_Create_gif_from_png.bat" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2025__Pitz_Alpine_Glacier_Trail_2025\20250803__Pitz_Alpine_Glacier_Trail_2025\TUTO.md" />
+        <File filename="C:\Users\doria\Downloads\RR\LED\2025__Pitz_Alpine_Glacier_Trail_2025\20250803__Pitz_Alpine_Glacier_Trail_2025\Draft.ada" />
+        <File filename="C:\Users\doria\Downloads\RR\RR_tools\Export_all_list\Function_console.js" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Pitz_Alpine_Glacier_Trail_2026\BU\rr_backup_Pitz_Alpine_Glacier_Trail_2026_20260727-164314\settings.csv" />
+        <File filename="C:\Users\doria\Downloads\SBC_20260717.json" />
+        <File filename="C:\Users\doria\Downloads\Pitz_Alpine_Glacier_Trail_2025_splits.json" />
+        <File filename="C:\Users\doria\Downloads\Splits.lvs" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Pitz_Alpine_Glacier_Trail_2026\BU\2025_restored_in_2026\Pitz_Alpine_Glacier_Trail_2025_lists.json" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -51,7 +51,7 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="-2" y="132" width="1924" height="902" isMaximized="no" />
+        <GUIConfig name="AppPosition" x="28" y="121" width="1876" height="902" isMaximized="no" />
         <GUIConfig name="FindWindowPosition" left="889" top="320" right="1494" bottom="679" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
