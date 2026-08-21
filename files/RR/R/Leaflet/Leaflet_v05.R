@@ -28,7 +28,7 @@ suppressWarnings(suppressMessages(library(ggrepel)))
 args <- commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
-  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Swiss_Bike_Cup/STAGES/#4_Leysin/")
+  wd <- rP("file:///C:/Users/doria/Downloads/gdrive/RR/2026/Matterhorn_Ultraks/BU/rr_backup_TREK_Matterhorn_Ultraks_2026_20260821-091535/")
 } else{
   wd <- gsub("/mnt/c", "C:", args[1])
   wd <- gsub("\\\\", "/", wd)

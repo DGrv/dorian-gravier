@@ -12,7 +12,7 @@ library(stringi)
 library(dplyr)
 library(GrpString)
 library(knitr)
-library(dataCompareR)
+# library(dataCompareR) # removed 20260817_143939
 library(tableHTML)
 library(clipr) # to read clipboard
 library(crayon)
@@ -809,8 +809,10 @@ rolling.value.if.empty <- function(data, list.col) {
 }
 
 dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max_dist = 100) {
-      
+  
+  # use distance 0 = total match actually
   require(fuzzyjoin)
+  
   
   # will search on2 in each on1 like grepl and give a distance. Then a small calcul to see which would be the best depending on the number of character of each and boom you got it.
   # on2 should be the one to look in on1
@@ -847,7 +849,8 @@ dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max
     }
   }      
   
-  DATA0[, c(on1, on2, "str.diff", "str.diff.on2") := NULL]
+  # DATA0[, c("str.diff", "str.diff.on2") := NULL]
+  # DATA0[, c(on1, on2, "str.diff", "str.diff.on2") := NULL]
   
   return(DATA0)
   

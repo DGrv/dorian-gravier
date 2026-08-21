@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
+<title>Kiosk + QR</title>
+<link rel="shortcut icon" href="https://events.raceresult.com/graphics/favicon.png" type="image/png">
+<style>
+  /* Mirrors the fonts the RACE RESULT kiosk shell declares, with absolute URLs
+     (the original uses root-relative paths, which would 404 on this origin). */
+  @font-face{font-family:urw-din;src:url(https://events.raceresult.com/gen/webfonts/urwDin_normal.woff2) format("woff2");font-style:normal;font-weight:400}
+  @font-face{font-family:urw-din;src:url(https://events.raceresult.com/gen/webfonts/urwDin_bold.woff2) format("woff2");font-style:normal;font-weight:600}
+  html,body{margin:0}
+  #setup{font:16px/1.5 system-ui,sans-serif;max-width:38em;margin:3em auto;padding:0 1.2em;color:#1c364b}
+  #setup code{background:#eee;padding:.15em .35em;border-radius:3px;word-break:break-all}
+</style>
+</head>
+<body id="body">
+
+<div id="setup" hidden>
+  <h2>Missing kiosk parameters</h2>
+  <p>Take your RACE RESULT kiosk link and keep its query string, replacing only
+     the host and path with this page. The parameter names are unchanged.</p>
+  <p><code id="example"></code></p>
+  <p>Required: <code>event</code>, <code>n</code>, <code>k</code>. Optional: <code>lang</code>.</p>
+</div>
+
+<script>
+/* ---------------------------------------------------------------------------
+ * Host the real RACE RESULT kiosk on this origin.
+ *
+ * init.js supports this officially: it reads a global RRKiosk_server and only
+ * falls back to window.location.origin when that is unset. Setting it makes
+ * init.js pull kiosk.css, genfunctions.js, localAdapter.js, signature_pad.js
+ * and kiosk.js from RACE RESULT.
+ *
+ * The gap: kiosk.js prefixes only Upload() with that server. Search(),
+ * Request(), Countries() and the picture endpoint use root-relative paths,
+ * which would resolve to THIS origin and 404. The two patches below redirect
+ * them. Both must run before init.js executes.
+ *
+ * This works because the kiosk API sends `access-control-allow-origin: *`.
+ *
+ * Everything else stays RACE RESULT's: steps, field definitions, the
+ * server-evaluated display expressions, the event's custom CSS.
+ * ------------------------------------------------------------------------- */
+(function () {
+  var RR = "https://events.raceresult.com";
+  window.RRKiosk_server = RR;
+  window.RR_ORIGIN = RR;
+
+  // Query params are passed straight through: kiosk.js reads event / n / k /
+  // lang from OUR location via its own getURLParam, so any kiosk works by
+  // swapping the host. (RRKiosk_name is deliberately NOT set: kiosk.js
+  // overwrites that argument from the URL whenever window.name is falsy.)
+  var q = new URLSearchParams(location.search);
+  if (!q.get("event") || !q.get("k")) {
+    var s = document.getElementById("setup");
+    s.hidden = false;
+    document.getElementById("example").textContent =
+      location.origin + location.pathname + "?event=407733&n=KioskName&k=YOURKEY&lang=en";
+    return;
+  }
+
+  var abs = function (u) {
+    return (typeof u === "string" && u.charAt(0) === "/" && u.charAt(1) !== "/") ? RR + u : u;
+  };
+
+  var nativeFetch = window.fetch.bind(window);
+  window.fetch = function (input, init) {
+    return nativeFetch(typeof input === "string" ? abs(input) : input, init);
+  };
+
+  // DisplayFields of type picture / datadependentimage assign a root-relative
+  // /api/kiosk/picture URL straight to img.src.
+  var d = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+  if (d && d.set) {
+    Object.defineProperty(HTMLImageElement.prototype, "src", {
+      configurable: true, enumerable: d.enumerable,
+      get: function () { return d.get.call(this); },
+      set: function (v) { d.set.call(this, abs(v)); }
+    });
+  }
+
+  // Load order: decoder, then our scanner (it observes for the kiosk's search
+  // input), then RACE RESULT's loader.
+  //
+  // Appended rather than document.write()n: Chrome's document.write
+  // intervention blocks parser-blocking cross-origin scripts on slow
+  // connections, which is exactly what a race venue has. Dynamically inserted
+  // scripts with async=false still execute in insertion order.
+  //
+  // Appended to BODY, not head: init.js inserts the loading div, the stylesheet
+  // and #divRRKiosk as siblings of its own currentScript, so from <head> the
+  // kiosk would render inside <head> and never be visible.
+  ["lib/jsQR.js", "app/scan.js", RR + "/kiosks/init.js?lang=en-&build=v14.0.19-2"]
+    .forEach(function (src) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.async = false;
+      document.body.appendChild(s);
+    });
+})();
+</script>
+
+</body>
+</html>
