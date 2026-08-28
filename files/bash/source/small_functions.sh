@@ -5,7 +5,7 @@ git config --global status.showUntrackedFiles no
 
 
 
-
+alias git='echo "Git disabled in WSL"' # disable git cmd to avoid slow down of wsl
 
 # eza as ls
 alias ls="eza -lh -smod --git" # use eza instead of ls `eza -lh -smod --git`, smod is sorted modified
