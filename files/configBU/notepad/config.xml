@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="0" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" regexBackward4PowerUser="no" bookmarkLine="yes" purge="no">
         <Filter name="" />
-        <Find name=";" />
-        <Find name="free" />
-        <Find name="[x]" />
-        <Find name='\&quot;' />
-        <Find name="iscorrect" />
-        <Find name=";.*?;(.*?);.*" />
-        <Find name=";.*?;" />
-        <Find name="listcolor" />
-        <Find name="riaf" />
-        <Find name=".*EN:(.*)[\}|\|]" />
-        <Replace name=";\r\n" />
-        <Replace name=";\r\" />
-        <Replace name="[Phone]" />
+        <Find name="f&#x00FC;r die Bienen und die Biodiversit&#x00E4;t.f&#x00FC;r die Bienen und die Biodiversit&#x00E4;t." />
+        <Find name="mlr" />
+        <Find name='&quot;&quot;' />
+        <Find name='Grid.Column=&quot;3' />
+        <Find name='Grid.Column=&quot;4' />
+        <Find name='Grid.Column=&quot;2&quot;' />
+        <Find name='Grid.Column=&quot;3&quot;' />
+        <Find name='Grid.Column=&quot;4&quot;' />
+        <Find name="    " />
+        <Find name="         " />
+        <Replace name="f&#x00FC;r die Bienen und die Biodiversit&#x00E4;t." />
         <Replace name='&quot;' />
-        <Replace name="$1" />
-        <Replace name='&quot;&quot;' />
+        <Replace name='Grid.Column=&quot;4' />
+        <Replace name='Grid.Column=&quot;5' />
+        <Replace name='Grid.Column=&quot;3&quot;' />
+        <Replace name='Grid.Column=&quot;4&quot;' />
+        <Replace name='Grid.Column=&quot;5&quot;' />
         <Replace name=" " />
-        <Replace name='&quot;&amp; StageBib\($1\) &amp;&quot;' />
-        <Replace name='&quot;&amp; StageBib($1) &amp;&quot;' />
-        <Replace name='&quot;&quot;&quot;' />
+        <Replace name="NameShort" />
+        <Replace name='\{\&quot;Expression\&quot;:\&quot;choose\(\{n\};LapWinnerBib\($1;$2\&quot;DynamicFormat\&quot;:\&quot;if\($1 IN \[Contest.SprintLaps\];\\\&quot;BG\(#EFBF04\)\\\&quot;;$3\)\&quot;,\&quot;PreviewOnly\&quot;' />
     </FindHistory>
     <History nbMaxFile="10" inSubMenu="no" customLength="-1">
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Matterhorn_Ultraks\BU\rr_backup_TREK_Matterhorn_Ultraks_2026_20260723-162716\settings.csv" />
-        <File filename="G:\.shortcut-targets-by-id\1-KMsFP3YZPGvLYpxltYAT3fmITNZSdLN\mLED_Config\LEDBalken\Fonts\CODE_SEARCH_FONT.txt" />
-        <File filename="C:\Users\doria\Downloads\RR\LED\2025__Pitz_Alpine_Glacier_Trail_2025\20250803__Pitz_Alpine_Glacier_Trail_2025\TUTO.md" />
-        <File filename="C:\Users\doria\Downloads\RR\LED\2025__Pitz_Alpine_Glacier_Trail_2025\20250803__Pitz_Alpine_Glacier_Trail_2025\Draft.ada" />
-        <File filename="C:\Users\doria\Downloads\RR\RR_tools\Export_all_list\Function_console.js" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Pitz_Alpine_Glacier_Trail_2026\BU\rr_backup_Pitz_Alpine_Glacier_Trail_2026_20260727-164314\settings.csv" />
-        <File filename="C:\Users\doria\Downloads\SBC_20260717.json" />
-        <File filename="C:\Users\doria\Downloads\Pitz_Alpine_Glacier_Trail_2025_splits.json" />
-        <File filename="C:\Users\doria\Downloads\Splits.lvs" />
-        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Pitz_Alpine_Glacier_Trail_2026\BU\2025_restored_in_2026\Pitz_Alpine_Glacier_Trail_2025_lists.json" />
+        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\assets\data\services.csv" />
+        <File filename="C:\Users\doria\Downloads\GitHub\rrst_website\assets\data\team.csv" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\files\Batch\Context_Menu\Add_Context-Menu_bash_addts.reg" />
+        <File filename="C:\Users\doria\Downloads\License free.txt" />
+        <File filename="C:\Users\doria\Downloads\output.txt" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\Pitz_Alpine_Glacier_Trail_2026\Devices_used.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\Software\Ascii_codes.txt" />
+        <File filename="C:\Users\doria\Downloads\devices_used.csv" />
+        <File filename="C:\Users\doria\Downloads\gdrive\RR\2026\WWF\List_wwf_2026.csv" />
+        <File filename="C:\Users\doria\Downloads\GitHub\dorian.gravier.github.io\_pages\code\bash.md" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
@@ -51,8 +51,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="no" size="4" backspaceUnindent="no" />
-        <GUIConfig name="AppPosition" x="28" y="121" width="1876" height="902" isMaximized="no" />
-        <GUIConfig name="FindWindowPosition" left="889" top="320" right="1494" bottom="679" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="17" y="93" width="1876" height="902" isMaximized="no" />
+        <GUIConfig name="FindWindowPosition" left="496" top="309" right="1101" bottom="668" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20080426">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
@@ -94,8 +94,8 @@
         <GUIConfig name="DarkMode" enable="yes" colorTone="0" customColorTop="2105376" customColorMenuHotTrack="4210752" customColorActive="4210752" customColorMain="2105376" customColorError="176" customColorText="14737632" customColorDarkText="12632256" customColorDisabledText="8421504" customColorLinkText="65535" customColorEdge="6579300" customColorHotEdge="10197915" customColorDisabledEdge="4737096" enableWindowsMode="no" darkThemeName="DansLeRuSH-Dark.xml" darkToolBarIconSet="0" darkTabIconSet="2" darkTabUseTheme="no" lightThemeName="Monokai.xml" lightToolBarIconSet="4" lightTabIconSet="0" lightTabUseTheme="yes" />
         <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" lineNumberDynamicWidth="yes" bookMarkMargin="show" indentGuideLine="show" folderMarkStyle="box" isChangeHistoryEnabled="1" lineWrapMethod="aligned" currentLineIndicator="1" currentLineFrameWidth="1" virtualSpace="no" scrollBeyondLastLine="no" rightClickKeepsSelection="no" disableAdvancedScrolling="no" wrapSymbolShow="hide" Wrap="yes" borderEdge="yes" isEdgeBgMode="no" edgeMultiColumnPos="" zoom="0" zoom2="0" whiteSpaceShow="hide" eolShow="hide" eolMode="1" npcShow="hide" npcMode="1" npcCustomColor="no" npcIncludeCcUniEOL="no" npcNoInputC0="no" ccShow="no" borderWidth="2" smoothFont="no" paddingLeft="0" paddingRight="0" distractionFreeDivPart="4" lineCopyCutWithoutSelection="yes" multiSelection="yes" columnSel2MultiEdit="yes" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="241" topHeight="200" bottomHeight="441">
-            <PluginDlg pluginName="JsonTools" id="19" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="ComparePlugin.dll" id="11" curr="1" prev="-1" isVisible="no" />
+            <PluginDlg pluginName="JsonTools" id="19" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="Notepad++::InternalFunction" id="0" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="Python Script" id="-1" curr="3" prev="-1" isVisible="no" />
             <PluginDlg pluginName="CSV Lint" id="0" curr="3" prev="-1" isVisible="no" />
