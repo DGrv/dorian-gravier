@@ -858,6 +858,124 @@ dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max
 
 
 
+compareDT <- function(
+    old,
+    new,
+    by = "ID",
+    keep = c("ID", "Lastname", "Firstname", "Contest", "ContestName")
+) {
+  
+  # Check that the key exists
+  if (!by %in% names(old))
+    stop("Column '", by, "' not found in old")
+  
+  if (!by %in% names(new))
+    stop("Column '", by, "' not found in new")
+  
+  # Columns present in both tables
+  common <- intersect(names(old), names(new))
+  
+  # Context columns
+  keep <- intersect(keep, common)
+  
+  # Columns to compare
+  cols <- setdiff(common, keep)
+  
+  if (length(cols) == 0) {
+    warning("No columns available for comparison")
+    return(data.table())
+  }
+  
+  # -----------------------------
+  # OLD
+  # -----------------------------
+  
+  old2 <- old[, c(keep, cols), with = FALSE]
+  
+  # -----------------------------
+  # NEW
+  # -----------------------------
+  
+  new2 <- new[, c(by, cols), with = FALSE]
+  
+  # Rename NEW columns
+  setnames(
+    new2,
+    cols,
+    paste0(cols, "_new")
+  )
+  
+  # -----------------------------
+  # JOIN
+  # -----------------------------
+  
+  x <- merge(
+    old2,
+    new2,
+    by = by,
+    all = TRUE,
+    sort = FALSE
+  )
+  
+  # -----------------------------
+  # COMPARE
+  # -----------------------------
+  
+  result <- rbindlist(
+    lapply(cols, function(col) {
+      
+      new_col <- paste0(col, "_new")
+      
+      old_value <- x[[col]]
+      new_value <- x[[new_col]]
+      
+      changed <- (
+        (is.na(old_value) & !is.na(new_value)) |
+          (!is.na(old_value) & is.na(new_value)) |
+          (!is.na(old_value) &
+             !is.na(new_value) &
+             old_value != new_value)
+      )
+      
+      if (!any(changed))
+        return(NULL)
+      
+      out <- x[changed, .(ID = get(by))]
+      
+      # Add context columns
+      for (k in keep) {
+        out[, (k) := x[[k]][changed]]
+      }
+      
+      # Add comparison information
+      out[, column := col]
+      out[, old := old_value[changed]]
+      out[, new := new_value[changed]]
+      
+      out
+    }),
+    fill = TRUE
+  )
+  
+  # -----------------------------
+  # COLUMN ORDER
+  # -----------------------------
+  
+  if (nrow(result) > 0) {
+    setcolorder(
+      result,
+      c(keep, "column", "old", "new")
+    )
+  }
+  
+  kable(result[])
+}
+
+
+
+
+
+
 # read - write ------------------------------------------------------------
 
 readAll <- function(listfile, fill = F, skip = 0, header = T) {
@@ -3963,11 +4081,23 @@ readRR12 <- function(APIrawdata, APItimes, APIresults, getrawdata = T) {
   
 }
 
-RRgetDataAPI <- function(urlapi, fields) {
-  url2 <- paste0(urlapi, "?&fields=", paste0(fields, collapse="%2C"), collapse="")
+RRgetDataAPI <- function(urlapi, fields, labels) {
+  url2 <- paste0(
+    urlapi,
+    "?&fields=",
+    paste0(utils::URLencode(fields, reserved = TRUE), collapse = "%2C")
+  )
+  
   cat("[DEBUG] - You try to get ", url2, "\n")
+  
   DATA <- data.table(jsonlite::fromJSON(url(url2), flatten = TRUE))
-  setnames(DATA, fields)
+  
+  if( !is.null(labels) ) {
+    setnames(DATA, labels)
+  } else {
+    setnames(DATA, fields)
+  }
+    
   
   if( "Contest" %in% fields ) {
     DATA[, Contest := as.integer(Contest)]
