@@ -79,14 +79,14 @@ clink update
 
 
 REM shareX ---------------------------------------------------------------------------------------
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/shareX/ShareX-17.0.0-backup.sxb > ShareX-17.0.0-backup.sxb
 
 REM Doskey ---------------------------------------------------------------------------------------
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/Batch/Doskeys/macros.doskey > macros.doskey
 reg add "HKCU\Software\Microsoft\Command Processor" /v Autorun /d "doskey /macrofile=\"C:\Users\%USERNAME%\Downloads\macros.doskey\" %*" /f
 
-REM Wallpaper ---------------------------------------------------------------------------------------
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png
+REM Wallpaper --------------------------------------------------------------------------------------- 
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/RR_background_search_desktop.png > RR_background_search_desktop.png
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\%USERNAME%\Downloads\RR_background_search_desktop.png" /f
 REM to delete
 REM reg delete "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /f
@@ -102,43 +102,45 @@ REM Cmder ----------------------------------------------------------------------
 
 REM Windows Terminal  ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json > settings.json
+ 
  
  
 REM windows terminal ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\windows-terminal\current\settings\
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/wt/settings.json > settings.json
+ 
 
 
 REM copyq ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\copyq\current\config\copyq
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-monitor.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-filter.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_tabs.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-commands.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-scripts.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_geometry.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.pub
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.lock
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-monitor.ini > copyq-monitor.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-filter.ini > copyq-filter.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_tabs.ini > copyq_tabs.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-commands.ini > copyq-commands.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.ini > copyq.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq-scripts.ini > copyq-scripts.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq_geometry.ini > copyq_geometry.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.pub > copyq.pub
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/copyq/copyq.lock > copyq.lock
 
 
 
 REM Freecommander ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\persist\freecommander\Settings
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.mren.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.find.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.shc
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.hist.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.wcx.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ftp.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FcExceptionLog.txt
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/WebVersion32.txt
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.xml
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini
-curl -O https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.mren.ini > FreeCommander.mren.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.find.ini > FreeCommander.find.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.shc > FreeCommander.shc
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.ini > FreeCommander.fav.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ini > FreeCommander.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.hist.ini > FreeCommander.hist.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.wcx.ini > FreeCommander.wcx.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.ftp.ini > FreeCommander.ftp.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FcExceptionLog.txt > FcExceptionLog.txt
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/WebVersion32.txt > WebVersion32.txt
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.fav.xml > FreeCommander.fav.xml
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.views.ini > FreeCommander.views.ini
+curl https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/configBU/FreeCommander/FreeCommander.sync.ini > FreeCommander.sync.ini
 
 REM notepadplusplus ---------------------------------------------------------------------------------------
 cd C:\Users\%USERNAME%\scoop\apps\notepadplusplus\current\userDefineLangs
