@@ -968,7 +968,7 @@ compareDT <- function(
     )
   }
   
-  kable(result[])
+  result[]
 }
 
 
