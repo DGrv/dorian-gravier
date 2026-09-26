@@ -5739,8 +5739,8 @@ L.control.mousePosition = function (options) {
 
             const { A00B3D,  A00B3C } = await fetchAllRacemap();
 
-            addMarkerRaceMap(youridhtmlwidget, A00B3D, A00B3D, "red", "red", "Bike1");
-            addMarkerRaceMap(youridhtmlwidget, A00B3C, A00B3C, "green", "green", "Bike2");
+            addMarkerRaceMap(youridhtmlwidget, "A00B3D", A00B3D, "red", "red", "Bike1");
+            addMarkerRaceMap(youridhtmlwidget, "A00B3C", A00B3C, "green", "green", "Bike2");
 
         } catch (error) {
             console.error('Error during periodic fetch:', error);

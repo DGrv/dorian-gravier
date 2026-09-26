@@ -368,8 +368,7 @@ async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, 
                     window.markerRaceMap[deviceId] = L.marker([lat, lon], { icon: iconType })
                         .bindPopup(popupText)
                         .bindTooltip(label || data.trackerName || deviceId, { permanent: true, direction: 'top', offset: [0, -20],  className: 'racemaptracker' });
-                    // RaceMapLayer.addLayer(markerRaceMap[deviceId]);
-                    RaceMapLayer.addLayer(window.markerRaceMap[deviceId]); // ✅ Fixed
+                    RaceMapLayer.addLayer(window.markerRaceMap[deviceId]);
                     RaceMapLayer.addTo(map);
                 }
             }
