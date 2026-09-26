@@ -2,12 +2,10 @@
 var aktivBoxLayer = L.layerGroup(); // Define a global LayerGroup
 var DevicesLayer = L.layerGroup(); // Define a global LayerGroup
 var RaceMapLayer = L.layerGroup(); // Define a global LayerGroup
-var LeadersLayer = L.layerGroup(); // Define a global LayerGroup
 
 var aktivBoxLayerAdded = false; // Control flag to ensure it's added only once
 var DevicesLayerAdded = false; // Control flag to ensure it's added only once
 var RaceMapLayerAdded = false; // Control flag to ensure it's added only once
-var LeadersLayerAdded = false; // Control flag to ensure it's added only once
 
 
 
@@ -57,10 +55,8 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                         // so we never feed an undefined iconUrl into L.icon().
                         var ICONS = { U: "ubidium", D: "rrs", T: "ptb", A: "tb" };
                         var base = ICONS[did.DeviceType2] || "ptb";
-                        // Icon folder is page-configurable via window.RR_ICON_BASE (e.g. "images/"
-                        // for the tracking map in map/). Defaults to "icons/" for existing pages.
-                        var iconBase = window.RR_ICON_BASE || "icons/";
-                        var iconUrltemp = iconBase + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
+                        // var iconUrltemp = "icons/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
+                        var iconUrltemp = "https://raw.githubusercontent.com/DGrv/dorian-gravier/refs/heads/master/files/RR/Images/" + base + "MapMarker" + (isConnected ? "Green" : "Red") + ".png";
                         //---------------
 
                         var iconType = L.icon({
@@ -94,16 +90,8 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
 
                             // Add a new marker using the dynamic id as the key
                             window.markerDevices[id] = L.marker([latM, lonM], { icon: iconType })
-                                .bindPopup(String(id));
-                            // Devices Map (window.RR_DEVICE_LABELS): show a permanent
-                            // DeviceID label above each icon instead of auto-opening popups.
-                            if (window.RR_DEVICE_LABELS) {
-                                window.markerDevices[id].bindTooltip(String(id), {
-                                    permanent: true, direction: 'top', offset: [0, -60], className: 'rrp-device-label'
-                                });
-                            } else {
-                                window.markerDevices[id].openPopup();
-                            }
+                                .bindPopup(id)
+                                .openPopup();
                             window.markerDevices[id]._rrConnected = isConnected;
                             // Add marker to the LayerGroup
                             DevicesLayer.addLayer(markerDevices[id]);
@@ -111,30 +99,21 @@ async function addMarkerDevices(idhtmlwidget, datadevices) {
                             DevicesLayer.addTo(map);
 
                             //---------------
-                            // New device just appeared on the map — log as CSV (comma-separated, no
-                            // titles in the data rows), but only when it falls within the current
-                            // map viewport. The column header is printed once, up front.
-                            if (map.getBounds().contains(L.latLng(latM, lonM))) {
-                                if (!window._deviceLogHeaderPrinted) {
-                                    console.log("[DEVICE_APPEARED] ID,Type,Trackbox,Lat,Lon,Flag,Connected,LastConnection,Battery,TimingPoint,Passings");
-                                    window._deviceLogHeaderPrinted = true;
-                                }
-                                // Trackbox kind from the derived DeviceType2 (A = active/ATrack, T = passive/ptb).
-                                var trackbox = did.DeviceType2 === "A" ? "active" : (did.DeviceType2 === "T" ? "passive" : "");
-                                console.log("[DEVICE_APPEARED] " + [
-                                    id,
-                                    did.DeviceType2,
-                                    trackbox,
-                                    latM,
-                                    lonM,
-                                    Flag,
-                                    isConnected,
-                                    did.Received,
-                                    did.BatteryCharge,
-                                    did.TimingPoint,
-                                    did.PassingsWritten
-                                ].join(","));
-                            }
+                            // New device just appeared on the map — log once with all useful context.
+                            console.log(
+                                "[DEVICE_APPEARED]",
+                                "Name:", did.DeviceName ?? id,
+                                "| ID:", id,
+                                "| Type:", did.DeviceType2,
+                                "| Lat:", latM,
+                                "| Lon:", lonM,
+                                "| Flag:", Flag,
+                                "| Connected:", isConnected,
+                                "| LastConnection:", did.Received,
+                                "| Battery:", did.BatteryCharge,
+                                "| TimingPoint:", did.TimingPoint,
+                                "| Passings:", did.PassingsWritten
+                            );
                             //---------------
                         }
                     }
@@ -310,6 +289,7 @@ async function fetchrrstdevices() {
     return await responseData; // Return API response
 }
 
+
 async function fetchracemap(deviceId) {
 
     const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-racemap', {
@@ -329,38 +309,23 @@ async function fetchracemap(deviceId) {
     return responseData;
 }
 
-//---------------
-// Devices Map helpers — driven by js/map-devices-bridge.js via postMessage.
-// Remove every device marker so a refetch / refilter can redraw from scratch.
-function clearDeviceMarkers() {
-    if (window.markerDevices) {
-        Object.keys(window.markerDevices).forEach(function (id) {
-            try { DevicesLayer.removeLayer(window.markerDevices[id]); } catch (e) { /* ignore */ }
-        });
+async function fetchAllRacemap() {
+
+    const response = await fetch('https://rrstdevices-app-zntch.ondigitalocean.app/api/get-racemap-all', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        throw new Error(`API Request Failed: ${response.status}`);
     }
-    window.markerDevices = {};
+
+    return responseData;
 }
-
-// Draw / update the search-area circle (radius in km) and its centre marker.
-var _rrAreaCircle = null, _rrAreaCenter = null;
-function drawDevicesArea(idhtmlwidget, area) {
-    var widget = window.HTMLWidgets.find(idhtmlwidget);
-    if (!widget) { setTimeout(function () { drawDevicesArea(idhtmlwidget, area); }, 500); return; }
-    var map = widget.getMap();
-    if (!map) { setTimeout(function () { drawDevicesArea(idhtmlwidget, area); }, 500); return; }
-
-    if (_rrAreaCircle) { map.removeLayer(_rrAreaCircle); _rrAreaCircle = null; }
-    if (_rrAreaCenter) { map.removeLayer(_rrAreaCenter); _rrAreaCenter = null; }
-    if (!area || !Number.isFinite(area.lat) || !Number.isFinite(area.lon) || !Number.isFinite(area.radiusKm) || area.radiusKm <= 0) return;
-
-    _rrAreaCircle = L.circle([area.lat, area.lon], {
-        radius: area.radiusKm * 1000, color: '#c41011', weight: 2, fill: true, fillOpacity: 0.05
-    }).addTo(map);
-    _rrAreaCenter = L.circleMarker([area.lat, area.lon], {
-        radius: 5, color: '#c41011', fillColor: '#c41011', fillOpacity: 1
-    }).bindPopup('Search center<br>' + area.lat + ', ' + area.lon + '<br>radius ' + area.radiusKm + ' km').addTo(map);
-}
-//---------------
 
 async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, label) {
     var widget = window.HTMLWidgets.find(idhtmlwidget);
@@ -403,7 +368,8 @@ async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, 
                     window.markerRaceMap[deviceId] = L.marker([lat, lon], { icon: iconType })
                         .bindPopup(popupText)
                         .bindTooltip(label || data.trackerName || deviceId, { permanent: true, direction: 'top', offset: [0, -20],  className: 'racemaptracker' });
-                    RaceMapLayer.addLayer(markerRaceMap[deviceId]);
+                    // RaceMapLayer.addLayer(markerRaceMap[deviceId]);
+                    RaceMapLayer.addLayer(window.markerRaceMap[deviceId]); // ✅ Fixed
                     RaceMapLayer.addTo(map);
                 }
             }
@@ -421,200 +387,3 @@ async function addMarkerRaceMap(idhtmlwidget, deviceId, data, color, fillColor, 
 
 
 
-
-
-//---------------
-// RR_Pimper: live leader dots (top N men / women of one contest) estimated along the
-// course by js/getLeaderPositions.js. Same shape as addMarkerRaceMap above: markers are
-// keyed so a refresh moves them with setLatLng() instead of rebuilding the layer, which
-// keeps the pulse animation and any open popup alive between ticks.
-//
-// `payload` is the object built by the engine; only `payload.athletes` is required here.
-// Each athlete carries { id, lat, lng, color, tooltip, popup, state, rank }.
-// Static styling for a leader point: a FILLED dot coloured by gender (the colour comes from
-// the engine as athlete.color, so map and elevation profile stay in step). Deliberately no
-// pulse or animation — the position is a discrete 10-second estimate, and animating it would
-// imply live GPS precision that does not exist.
-//
-// Fill always carries gender, so state is carried by the STROKE instead:
-//   ontrack    white outline (reads on both light and satellite basemaps)
-//   estimated  dashed outline  (position from pace-so-far, not RR's prediction)
-//   finished   dark outline    (reads as "done" at a glance)
-//   notstarted faint
-// The gender place, not a.rank: a.rank carries whatever the event's live rank returns,
-// which on an overall rank means no woman is ever 1st and the female leader's dot stays
-// small. genderRank is 1 for the leader of each sex.
-function leaderPlace(a) {
-    return (a && isFinite(a.genderRank) && a.genderRank > 0) ? a.genderRank : a.rank;
-}
-
-// Permanent-label classes. Recomputed on every refresh because an athlete's place and
-// state both change mid-race.
-function leaderLabelClass(a) {
-    var place = leaderPlace(a);
-    return 'rrp-leader-label rrp-leader-' + (a.state || 'ontrack') +
-        (place === 1 ? ' rrp-leader-first' : '') +
-        (a.lap > 1 ? ' rrp-leader-lap' + a.lap : '');
-}
-
-function leaderStyle(a) {
-    var fill = a.color || '#FF4181';
-    var place = leaderPlace(a);
-    var radius = place === 1 ? 9 : (place === 2 ? 7 : 6);
-    var style = {
-        radius: radius,
-        color: '#ffffff',
-        weight: 2,
-        opacity: 1,
-        fillColor: fill,
-        fillOpacity: 1,
-        dashArray: null,
-        interactive: true
-    };
-    if (a.state === 'finished') { style.color = '#222222'; }
-    else if (a.state === 'estimated') { style.dashArray = '3,3'; }
-    else if (a.state === 'notstarted') { style.opacity = 0.35; style.fillOpacity = 0.35; }
-    return style;
-}
-
-function addMarkerLeaders(idhtmlwidget, payload) {
-    var widget = window.HTMLWidgets && window.HTMLWidgets.find(idhtmlwidget);
-    if (!widget) {
-        console.warn("Leaflet widget not found. Retrying...");
-        setTimeout(function () { addMarkerLeaders(idhtmlwidget, payload); }, 500);
-        return;
-    }
-    var map = widget.getMap();
-    if (!map) {
-        console.warn("Leaflet widget found, but map is not ready yet. Retrying...");
-        setTimeout(function () { addMarkerLeaders(idhtmlwidget, payload); }, 500);
-        return;
-    }
-
-    if (!LeadersLayerAdded) {
-        L.control.layers(null, { "Leaders": LeadersLayer }, { collapsed: false }).addTo(map);
-        LeadersLayer.addTo(map);
-        LeadersLayerAdded = true;
-        // Labels are stacked to avoid overlap, which depends on pixel distance and so has
-        // to be recomputed whenever the scale changes.
-        map.on('zoomend', function () { layoutLeaderLabels(map); });
-    }
-
-    var athletes = (payload && payload.athletes) || [];
-    if (!window.markerLeaders) window.markerLeaders = {};
-
-    var seen = {};
-    athletes.forEach(function (a) {
-        if (!a || !isFinite(a.lat) || !isFinite(a.lng)) return;   // never feed NaN to setLatLng
-        var key = String(a.id);
-        seen[key] = true;
-
-        // A plain static point: no colour, no pulse, no animation. The map already carries
-        // the course polyline, split circles and device icons in colour, so anything
-        // animated or hued here competes with real data. Rank is size, state is fill and
-        // dash; identity is the label text, which is what an operator actually reads.
-        var style = leaderStyle(a);
-        var marker = window.markerLeaders[key];
-
-        if (marker) {
-            // circleMarker can be restyled in place, so a marker is never rebuilt — the
-            // popup stays open across refreshes and there is nothing to re-animate.
-            marker.setLatLng([a.lat, a.lng]);
-            marker.setRadius(style.radius);
-            marker.setStyle(style);
-            marker.setPopupContent(a.popup || '');
-            marker.setTooltipContent(a.tooltip || '');
-            // The class was only ever set at bind time, so a marker that survives a refresh
-            // kept the styling of the place and state it had when it first appeared.
-            var cls = leaderLabelClass(a);
-            if (marker._rrpTipClass !== cls) {
-                marker._rrpTipClass = cls;
-                var tip = marker.getTooltip();
-                if (tip) {
-                    tip.options.className = cls;
-                    if (tip._container) tip._container.className = 'leaflet-tooltip ' + cls;
-                }
-            }
-        } else {
-            marker = L.circleMarker([a.lat, a.lng], style);
-            marker.bindPopup(a.popup || '');
-            marker._rrpTipClass = leaderLabelClass(a);
-            marker.bindTooltip(a.tooltip || '', {
-                permanent: true, direction: 'top', offset: [0, -12],
-                className: marker._rrpTipClass
-            });
-            window.markerLeaders[key] = marker;
-            LeadersLayer.addLayer(marker);
-        }
-        marker._rrpDist = a.dist || 0;
-    });
-
-    // Drop markers for athletes who have left the top N (or the contest changed).
-    Object.keys(window.markerLeaders).forEach(function (key) {
-        if (!seen[key]) {
-            LeadersLayer.removeLayer(window.markerLeaders[key]);
-            delete window.markerLeaders[key];
-        }
-    });
-
-    layoutLeaderLabels(map);
-}
-//---------------
-
-
-//---------------
-// Stack the permanent labels of leaders who are physically close together, so six dots in
-// a tight pack stay readable. The MARKERS are never displaced — this map also carries a
-// measure/mouse-position control, so a moved dot would be a measurable lie. Only the label
-// offset changes.
-function layoutLeaderLabels(map) {
-    if (!map || !window.markerLeaders) return;
-    var LABEL_H = 16;      // px between stacked labels
-    var NEAR_PX = 40;      // horizontal distance at which labels are considered colliding
-
-    var items = Object.keys(window.markerLeaders).map(function (key) {
-        var m = window.markerLeaders[key];
-        var pt;
-        try { pt = map.latLngToLayerPoint(m.getLatLng()); } catch (e) { pt = null; }
-        return { marker: m, pt: pt, dist: m._rrpDist || 0 };
-    }).filter(function (it) { return it.pt; });
-
-    // Front-runner first, so the leader keeps the closest label position.
-    items.sort(function (a, b) { return b.dist - a.dist; });
-
-    var placed = [];
-    items.forEach(function (it) {
-        var row = 0;
-        // Walk outward until this label's row is free of anything nearby.
-        while (placed.some(function (p) {
-            return p.row === row && Math.abs(p.pt.x - it.pt.x) < NEAR_PX &&
-                Math.abs(p.pt.y - it.pt.y) < LABEL_H * 3;
-        })) { row++; }
-        placed.push({ row: row, pt: it.pt });
-
-        var tt = it.marker.getTooltip();
-        if (tt) {
-            tt.options.offset = [0, -12 - LABEL_H * row];
-            it.marker.setZIndexOffset && it.marker.setZIndexOffset(1000 - row);
-            // Re-apply the offset: Leaflet only reads tooltip options on open.
-            if (it.marker.isTooltipOpen && it.marker.isTooltipOpen()) {
-                it.marker.closeTooltip();
-                it.marker.openTooltip();
-            }
-        }
-    });
-}
-//---------------
-
-
-//---------------
-// Remove every leader marker (used when the selected contest changes or the overlay is
-// switched off), mirroring clearDeviceMarkers().
-function clearLeaderMarkers() {
-    if (!window.markerLeaders) return;
-    Object.keys(window.markerLeaders).forEach(function (key) {
-        LeadersLayer.removeLayer(window.markerLeaders[key]);
-    });
-    window.markerLeaders = {};
-}
-//---------------
