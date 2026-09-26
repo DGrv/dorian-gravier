@@ -5719,7 +5719,7 @@ L.control.mousePosition = function (options) {
   </style>
   <!-- RR_Pimper static export: live overlays (devices, leader dots) removed. -->
 
-  <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
+<script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/pulse-icon/L.Icon.Pulse.js"></script>
 <script src="https://dgrv.github.io/dorian-gravier/files/RR/Javascript/Leaflet-functions_rrst_v06.js"></script>
 <script>
 
@@ -5730,9 +5730,10 @@ L.control.mousePosition = function (options) {
             // --------------------------- RaceMap tracker------------------------------------
 
             // const { A00B3D, A00AEE, A00B25, A00B19, A00B3C, A00B2E, A00AF7 } = await fetchAllRacemap();
+            const { A00B3D,  A00B3C} = await fetchAllRacemap();
 
-            // addMarkerRaceMap(youridhtmlwidget, A00B3D, A00B3D, "red", "red", "Bike1");
-            // addMarkerRaceMap(youridhtmlwidget, A00B19, A00B19, "red", "red", "Bike2");
+            addMarkerRaceMap(youridhtmlwidget, A00B3D, A00B3D, "red", "red", "Bike1");
+            addMarkerRaceMap(youridhtmlwidget, A00B3C, A00B3C, "green", "green", "Bike2");
 
         } catch (error) {
             console.error('Error during periodic fetch:', error);
