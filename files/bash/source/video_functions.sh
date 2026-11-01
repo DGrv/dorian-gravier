@@ -47,6 +47,20 @@ gifx4() { # speed up a gif 4 times
 }
 
 
+mp42gif() { # mp4 2 gif Usage: mp4gif input.mp4 [output.gif]"
+    if [[ $# -lt 1 ]]; then
+        echo "Usage: mp4gif input.mp4 [output.gif]"
+        return 1
+    fi
+
+    local input="$1"
+    local output="${2:-"${input%.*}.gif"}"
+
+    ffmpeg -i "$input" \
+        -vf "fps=15,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+        "$output"
+}
+
 
 
 addpad () { # add padding if vertical video - right now video should be 1920x1080 or 1080 x1920

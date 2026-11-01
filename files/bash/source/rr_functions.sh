@@ -32,65 +32,104 @@ getColors() { # get the x number of colors from picture, $1 number of color and 
 
 }
 
-uColor() { # uColor "#00ff00 "filename" - change all color from a logo to one unique color (e.g. for templates 9370DB or test events FF1493): usage: 
+uColor() { # Recolor logos to one unique color. Creates 3 variants per file: _uColor1, _uColor2, _uColor3 Usage: uColor "#rrggbb" file1 [file2 ...]
+	#
+	# Examples:
+	#   uColor "#01426a" logo.png                 # single file
+	#   uColor "#01426a" *.png                    # all PNGs in the folder (shell expands the glob)
+	#   uColor "#01426a" *.png *.jpg *.gif        # mixed formats
+	#   uColor "#9370DB" templates/*.png          # templates (purple)
+	#   uColor "#FF1493" events/test_*.gif        # test events (pink), animated GIFs supported
+	#   uColor "#00ff00" "my logo.png"            # filenames with spaces: quote the filename
+	#
+	# Notes:
+	#   - Do NOT quote the glob ("*.png"); let the shell expand it.
+	#   - Always quote the color, otherwise # starts a comment.
+	#   - Already generated files (*_uColor1/2/3.*) are skipped automatically,
+	#     so you can re-run on a folder safely.
+	#   - Variants:
+	#       1 = auto-level, black->color gradient mapping
+	#       2 = grayscale, white parts become the color, black becomes transparent
+	#       3 = inverted version of 2
+
 	checkdep convert
-	
+
 	local color="$1"
-	local input="$2"
-	local base="${input%.*}"
-	local ext="${input##*.}"
-	
-	# Check if input is GIF
-	if [[ "${ext,,}" == "gif" ]]; then
-		cecho -r "Processing GIF: $input"
-		
-		# Get GIF properties (delay between frames)
-		local delay=$(identify -format "%T\n" "$input" | head -n1)
-		[ -z "$delay" ] && delay=10  # default to 100ms if not found
-		
-		# Get loop count (0 = infinite loop)
-		local loop=$(identify -verbose "$input" | grep -oP 'Loop: \K\d+' | head -n1)
-		[ -z "$loop" ] && loop=0  # default to infinite loop
-		
-		# Process each variant
-		for variant in 1 2 3; do
-			cecho -y "Creating variant $variant..."
-			
-			# Create temporary directory for frames
-			local tmpdir=$(mktemp -d)
-			
-			# Split GIF into frames
-			convert "$input" -coalesce "$tmpdir/frame_%04d.png"
-			
-			# Process each frame
-			for frame in "$tmpdir"/frame_*.png; do
-				case $variant in
-					1)
-						convert "$frame" -channel RGB -auto-level +level-colors "$color" "$frame"
-						;;
-					2)
-						convert "$frame" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
-						;;
-					3)
-						convert "$frame" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
-						;;
-				esac
-			done
-			
-			# Recombine frames into GIF with original properties
-			convert -dispose previous -delay "$delay" -loop "$loop" "$tmpdir"/frame_*.png "${base}_uColor${variant}.gif"
-			
-			# Cleanup
-			rm -rf "$tmpdir"
-			
-			cecho -g "✓ Created ${base}_uColor${variant}.gif"
-		done
-	else
-		# Original PNG/JPG processing
-		convert "$input" -channel RGB -auto-level +level-colors "$color" "${base}_uColor1.png"
-		convert "$input" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor2.png"
-		convert "$input" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor3.png"
+	shift
+
+	if [[ -z "$color" || $# -eq 0 ]]; then
+		echo "Usage: uColor \"#rrggbb\" file1 [file2 ...]" >&2
+		return 1
 	fi
+
+	local input
+	for input in "$@"; do
+		# Skip anything that isn't a regular file (e.g. unmatched glob)
+		if [[ ! -f "$input" ]]; then
+			echo "Skipping (not a file): $input" >&2
+			continue
+		fi
+
+		local base="${input%.*}"
+		local ext="${input##*.}"
+
+		# Skip files we generated in a previous run
+		if [[ "$base" == *_uColor[123] ]]; then
+			continue
+		fi
+
+		# ---------- GIF (animated) ----------
+		if [[ "${ext,,}" == "gif" ]]; then
+			cecho -r "Processing GIF: $input"
+
+			# Frame delay (in 1/100 s) and loop count (0 = infinite)
+			local delay loop
+			delay=$(identify -format "%T\n" "$input" | head -n1)
+			[[ -z "$delay" ]] && delay=10
+			loop=$(identify -verbose "$input" | grep -oP 'Loop: \K\d+' | head -n1)
+			[[ -z "$loop" ]] && loop=0
+
+			local variant
+			for variant in 1 2 3; do
+				cecho -y "Creating variant $variant for $input..."
+
+				local tmpdir
+				tmpdir=$(mktemp -d)
+
+				# Split into full frames
+				convert "$input" -coalesce "$tmpdir/frame_%04d.png"
+
+				local frame
+				for frame in "$tmpdir"/frame_*.png; do
+					case $variant in
+						1)
+							convert "$frame" -channel RGB -auto-level +level-colors "$color" "$frame"
+							;;
+						2)
+							convert "$frame" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
+							;;
+						3)
+							convert "$frame" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "$frame"
+							;;
+					esac
+				done
+
+				# Rebuild the GIF with the original timing and looping
+				convert -dispose previous -delay "$delay" -loop "$loop" "$tmpdir"/frame_*.png "${base}_uColor${variant}.gif"
+
+				rm -rf "$tmpdir"
+				cecho -g "✓ Created ${base}_uColor${variant}.gif"
+			done
+
+		# ---------- PNG / JPG / other still images ----------
+		else
+			cecho -r "Processing image: $input"
+			convert "$input" -channel RGB -auto-level +level-colors "$color" "${base}_uColor1.png"
+			convert "$input" -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor2.png"
+			convert "$input" -negate -colorspace gray -contrast-stretch 0 +level-colors "none,$color" -transparent black "${base}_uColor3.png"
+			cecho -g "✓ Created ${base}_uColor{1,2,3}.png"
+		fi
+	done
 }
 
 rmbg() { # Remove the white/first piel background based on different fuzz

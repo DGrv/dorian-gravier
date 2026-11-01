@@ -858,6 +858,170 @@ dtjoin.fuzzy <- function(DATA1, DATA2, on1 = "col.DATA", on2 = "col.DATA2", .max
 
 
 
+compareDT2 <- function(DT1, DT2, key = "GoActiveRegistrationID") {
+  
+  library(data.table)
+  library(DT)
+  
+  # Work on copies to preserve the original tables
+  A <- copy(as.data.table(DT1))
+  B <- copy(as.data.table(DT2))
+  
+  # Validate key
+  stopifnot(key %in% names(A), key %in% names(B))
+  
+  if (anyNA(A[[key]]) || anyNA(B[[key]])) {
+    stop("The key column cannot contain NA.")
+  }
+  
+  if (anyDuplicated(A[[key]]) || anyDuplicated(B[[key]])) {
+    stop("The key must be unique in both tables.")
+  }
+  
+  # Compare only columns shared by both tables
+  common <- setdiff(intersect(names(A), names(B)), key)
+  
+  if (!length(common)) {
+    stop("No common columns to compare.")
+  }
+  
+  # Rename columns for side-by-side comparison
+  setnames(A, common, paste0(common, "_A"))
+  setnames(B, common, paste0(common, "_B"))
+  
+  # Full join keeps records missing from either table
+  out <- merge(A, B, by = key, all = TRUE, sort = FALSE)
+  
+  # Compare each pair of columns, treating NA vs NA as equal
+  changed_cols <- character()
+  
+  for (nm in common) {
+    
+    col_A <- paste0(nm, "_A")
+    col_B <- paste0(nm, "_B")
+    
+    a <- out[[col_A]]
+    b <- out[[col_B]]
+    
+    both_na <- is.na(a) & is.na(b)
+    both_present <- !is.na(a) & !is.na(b)
+    
+    same <- both_na
+    same[both_present] <- a[both_present] == b[both_present]
+    
+    # Create a flag for each column pair
+    flag <- paste0("diff_", nm)
+    out[, (flag) := !same]
+    
+    changed_cols <- c(changed_cols, flag)
+  }
+  
+  # Keep only rows with at least one difference
+  changed <- rep(FALSE, nrow(out))
+  
+  for (flag in changed_cols) {
+    changed <- changed | out[[flag]]
+  }
+  
+  out <- out[changed]
+  
+  if (nrow(out) == 0L) {
+    message("No differences found between the tables.")
+    return(invisible(NULL))
+  }
+  
+  # Interleave columns: A, B, A, B, ...
+  ordered_cols <- c(
+    key,
+    unlist(lapply(common, function(nm) {
+      c(paste0(nm, "_A"), paste0(nm, "_B"))
+    }))
+  )
+  
+  setcolorder(out, c(ordered_cols, changed_cols))
+  
+  # Keep difference flags available for styling,
+  # but hide them from the displayed table
+  display_data <- as.data.frame(out)
+  
+  hidden_targets <- seq(
+    from = length(ordered_cols),
+    to = length(ordered_cols) + length(changed_cols) - 1L
+  )
+  
+  # Interactive HTML table
+  result <- DT::datatable(
+    display_data,
+    rownames = FALSE,
+    colnames = c(
+      key,
+      unlist(lapply(common, function(nm) {
+        c(paste0(nm, " (DT1)"), paste0(nm, " (DT2)"))
+      })),
+      changed_cols
+    ),
+    extensions = "FixedColumns",
+    options = list(
+      pageLength = 20,
+      lengthMenu = list(
+        c(10, 20, 50, 100, -1),
+        c("10", "20", "50", "100", "All")
+      ),
+      scrollX = TRUE,
+      fixedColumns = list(leftColumns = 1),
+      autoWidth = TRUE,
+      dom = "lftip",
+      columnDefs = list(
+        list(
+          targets = hidden_targets,
+          visible = FALSE,
+          searchable = FALSE
+        ),
+        list(
+          className = "dt-center",
+          targets = 0
+        )
+      )
+    )
+  )
+  
+  # Highlight differing cells in red
+  for (nm in common) {
+    
+    flag <- paste0("diff_", nm)
+    
+    result <- result |>
+      DT::formatStyle(
+        columns = c(paste0(nm, "_A"), paste0(nm, "_B")),
+        valueColumns = flag,
+        target = "cell",
+        backgroundColor = DT::styleEqual(
+          c(TRUE, FALSE),
+          c("#fde2e2", "white")
+        ),
+        color = DT::styleEqual(
+          c(TRUE, FALSE),
+          c("#991b1b", "#222222")
+        ),
+        fontWeight = DT::styleEqual(
+          c(TRUE, FALSE),
+          c("bold", "normal")
+        )
+      )
+  }
+  
+  # Highlight the ID column
+  result <- result |>
+    DT::formatStyle(
+      columns = key,
+      fontWeight = "bold",
+      backgroundColor = "#f1f5f9"
+    )
+  
+  return(result)
+}
+
+
 compareDT <- function(
     old,
     new,
