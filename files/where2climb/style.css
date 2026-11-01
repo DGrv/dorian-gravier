@@ -91,6 +91,23 @@ html, body {
   background: #2a2a2a;
 }
 
+/* --- full-screen toggle (whole app, works standalone and in an iframe) --- */
+#app-fullscreen-toggle {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 1000;
+  background: #1e1e1e;
+  color: #e8e8e8;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
 /* --- mobile sidebar toggle (hidden on desktop) --- */
 #mobile-sidebar-toggle {
   display: none;
@@ -358,8 +375,14 @@ html, body {
 
   #search-box {
     left: 10px;
-    right: 10px;
+    right: 56px;
     width: auto;
+  }
+
+  #app-fullscreen-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 8px;
   }
 
   /* 16px prevents iOS Safari auto-zooming in on focus */

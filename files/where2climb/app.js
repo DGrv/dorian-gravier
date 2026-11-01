@@ -346,3 +346,37 @@ function toggleSidebarFullscreen() {
 
 document.getElementById("fullscreen-toggle").addEventListener("click", toggleSidebarFullscreen);
 document.getElementById("mobile-sidebar-toggle").addEventListener("click", toggleSidebarFullscreen);
+
+// --- whole-app browser full screen (works standalone and inside an iframe
+// that has the allowfullscreen attribute) ---
+const appFullscreenToggle = document.getElementById("app-fullscreen-toggle");
+
+appFullscreenToggle.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    appEl.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+document.addEventListener("fullscreenchange", () => {
+  appFullscreenToggle.innerHTML = document.fullscreenElement ? "&#x2715;" : "&#x26F6;";
+  appFullscreenToggle.title = document.fullscreenElement ? "Exit full screen" : "Full screen";
+});
+
+// --- lightbox swipe left/right to navigate pins (mobile) ---
+const lightboxEl = document.getElementById("lightbox");
+let touchStartX = null;
+
+lightboxEl.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].clientX;
+});
+
+lightboxEl.addEventListener("touchend", (e) => {
+  if (touchStartX == null) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  touchStartX = null;
+  const SWIPE_THRESHOLD = 40;
+  if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+  navigateLightbox(dx < 0 ? 1 : -1);
+});

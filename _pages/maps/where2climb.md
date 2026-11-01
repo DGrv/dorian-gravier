@@ -11,4 +11,4 @@ layout: single
 	}
 </style>
 
-<iframe width="100%" height="900px" src="{{ "/files/where2climb/index.html" | relative_url}}"> </iframe>
+<iframe width="100%" height="900px" allowfullscreen allow="fullscreen" src="{{ "/files/where2climb/index.html" | relative_url}}"> </iframe>
