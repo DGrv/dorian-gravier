@@ -1,0 +1,407 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #121212;
+  color: #e8e8e8;
+  font-family: system-ui, sans-serif;
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+  /* 100vh on mobile browsers includes the area hidden behind the
+     address bar, pushing fixed/absolute elements off-screen; 100dvh
+     tracks the actually-visible viewport. Falls back to 100vh above. */
+  height: 100dvh;
+  width: 100vw;
+}
+
+#map-container {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #121212;
+}
+
+/* dim OSM-style basemap tiles so they sit well on a dark page */
+#map .leaflet-tile-pane {
+  filter: brightness(0.6) contrast(1.1);
+}
+
+/* --- search box --- */
+#search-box {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  z-index: 1000;
+  width: 280px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #1e1e1e;
+  color: #e8e8e8;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#search-input::placeholder {
+  color: #888;
+}
+
+#search-results {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  margin-top: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+  display: none;
+}
+
+#search-results.open {
+  display: block;
+}
+
+#search-results .result-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 13px;
+}
+
+#search-results .result-item:last-child {
+  border-bottom: none;
+}
+
+#search-results .result-item:hover {
+  background: #2a2a2a;
+}
+
+/* --- mobile sidebar toggle (hidden on desktop) --- */
+#mobile-sidebar-toggle {
+  display: none;
+  position: absolute;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 1000;
+  background: #1e1e1e;
+  color: #e8e8e8;
+  border: 1px solid #333;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* --- sidebar resize handle --- */
+#sidebar-resize-handle {
+  flex: 0 0 6px;
+  background: #2a2a2a;
+  cursor: col-resize;
+}
+
+#sidebar-resize-handle:hover {
+  background: #3a7bd5;
+}
+
+/* --- sidebar --- */
+#sidebar {
+  flex: 0 0 320px;
+  width: 320px;
+  background: #1a1a1a;
+  border-left: 1px solid #2a2a2a;
+  overflow-y: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+#app.sidebar-fullscreen #map-container,
+#app.sidebar-fullscreen #sidebar-resize-handle {
+  display: none;
+}
+
+#app.sidebar-fullscreen #sidebar {
+  flex: 1 1 auto;
+  width: auto;
+}
+
+#app-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e8e8e8;
+  margin-bottom: 12px;
+}
+
+#app-version {
+  font-size: 11px;
+  font-weight: 400;
+  color: #777;
+}
+
+#sidebar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#sidebar h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #ccc;
+}
+
+#sidebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#autoopen-label {
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#delete-all-btn {
+  background: #3a1a1a;
+  color: #e8a0a0;
+  border: 1px solid #5a2a2a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#fullscreen-toggle {
+  background: #2a2a2a;
+  color: #e8e8e8;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+#sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* in full-screen mode, lay cards side by side so bigger meteograms compare well */
+#app.sidebar-fullscreen #sidebar-list {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#app.sidebar-fullscreen .sidebar-card {
+  flex: 1 1 420px;
+  max-width: 480px;
+}
+
+.sidebar-card {
+  background: #202020;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.sidebar-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.sidebar-card .card-header strong {
+  font-size: 14px;
+}
+
+.sidebar-card img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+
+/* --- leaflet popup dark theme --- */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #202020;
+  color: #e8e8e8;
+}
+
+/* Leaflet locks popup width to the content's size at open time, before the
+   meteogram <img> has loaded, leaving a text-sized box the image overflows.
+   Force a fixed width so the image always fits. */
+.leaflet-popup-content {
+  width: 300px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #ccc;
+}
+
+.meteogram-popup {
+  text-align: center;
+}
+
+.meteogram-popup img,
+.sidebar-card img {
+  max-width: 280px;
+  display: block;
+  margin: 6px auto;
+  /* meteoblue's free meteogram PNG is white-background only; approximate
+     a dark theme on the image itself since the API has no dark param */
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
+  border-radius: 4px;
+  cursor: zoom-in;
+}
+
+/* --- lightbox (click a meteogram to enlarge) --- */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  cursor: zoom-out;
+}
+
+#lightbox.hidden {
+  display: none;
+}
+
+#lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+#lightbox-title {
+  color: #e8e8e8;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#lightbox img {
+  max-width: 90vw;
+  max-height: calc(90vh - 40px);
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
+  border-radius: 6px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.delete-pin {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* ================= mobile layout ================= */
+@media (max-width: 768px) {
+  /* dragging a 6px handle doesn't work with a finger; sidebar becomes a
+     full-screen overlay instead, opened/closed via the two toggle buttons */
+  #sidebar-resize-handle {
+    display: none;
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  #app.sidebar-fullscreen #sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    width: 100% !important;
+    z-index: 2000;
+  }
+
+  #mobile-sidebar-toggle {
+    display: block;
+  }
+
+  #app.sidebar-fullscreen #mobile-sidebar-toggle {
+    display: none;
+  }
+
+  #search-box {
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+
+  /* 16px prevents iOS Safari auto-zooming in on focus */
+  #search-input {
+    font-size: 16px;
+  }
+
+  #sidebar-top {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  #fullscreen-toggle,
+  #delete-all-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .delete-pin {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  #autoopen-label {
+    font-size: 13px;
+  }
+
+  /* one column of full-width cards instead of the desktop side-by-side grid */
+  #app.sidebar-fullscreen #sidebar-list {
+    flex-direction: column;
+  }
+
+  #app.sidebar-fullscreen .sidebar-card {
+    flex: none;
+    max-width: none;
+  }
+
+  .leaflet-popup-content {
+    width: min(78vw, 300px) !important;
+  }
+
+  .meteogram-popup img {
+    max-width: 100%;
+  }
+}
