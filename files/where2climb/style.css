@@ -33,11 +33,6 @@ html, body {
   background: #121212;
 }
 
-/* dim OSM-style basemap tiles so they sit well on a dark page */
-#map .leaflet-tile-pane {
-  filter: brightness(0.6) contrast(1.1);
-}
-
 /* --- search box --- */
 #search-box {
   position: absolute;
@@ -125,6 +120,13 @@ html, body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
+/* the browser's own "press Esc / swipe to exit full screen" banner sits at
+   the bottom of the screen in full screen mode; push Places up out of its
+   way (we can't suppress that banner, it isn't page content) */
+:fullscreen #mobile-sidebar-toggle {
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
 /* --- sidebar resize handle --- */
 #sidebar-resize-handle {
   flex: 0 0 6px;
@@ -186,18 +188,29 @@ html, body {
 
 #sidebar-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
 
-#autoopen-label {
+#meteogram-type-select {
+  background: #2a2a2a;
+  color: #e8e8e8;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  padding: 4px 6px;
   font-size: 12px;
-  color: #aaa;
-  display: flex;
-  align-items: center;
-  gap: 4px;
   cursor: pointer;
-  white-space: nowrap;
+}
+
+#refresh-all-btn {
+  background: #2a2a2a;
+  color: #e8e8e8;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 #delete-all-btn {
@@ -287,9 +300,6 @@ html, body {
   max-width: 280px;
   display: block;
   margin: 6px auto;
-  /* meteoblue's free meteogram PNG is white-background only; approximate
-     a dark theme on the image itself since the API has no dark param */
-  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
   border-radius: 4px;
   cursor: zoom-in;
 }
@@ -329,7 +339,6 @@ html, body {
 #lightbox img {
   max-width: 90vw;
   max-height: calc(90vh - 40px);
-  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.95);
   border-radius: 6px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
 }
@@ -396,17 +405,15 @@ html, body {
   }
 
   #fullscreen-toggle,
-  #delete-all-btn {
+  #delete-all-btn,
+  #refresh-all-btn,
+  #meteogram-type-select {
     padding: 8px 12px;
     font-size: 14px;
   }
 
   .delete-pin {
     padding: 8px 12px;
-    font-size: 13px;
-  }
-
-  #autoopen-label {
     font-size: 13px;
   }
 

@@ -1,22 +1,67 @@
+const APP_VERSION = "1.1.0";
+document.getElementById("app-version").textContent = `v${APP_VERSION}`;
+
 // Fill in your free meteoblue API key here.
 const METEOBLUE_API_KEY = "uBQRdWhsJvMZ1SDf";
 
 const STORAGE_KEY = "meteoblue_pins";
 
-// Meteoblue's Picture API gives you a pre-filled meteogram URL on your
-// account dashboard (my.meteoblue.com -> Picture API). Paste the exact
-// query-param set they give you here, swapping the lat/lon/asl values for
-// the template placeholders below. This default covers the common case.
-// Note: this free image endpoint has no documented dark-background param,
-// so the dark look is applied via a CSS filter on the <img> instead.
-function buildMeteogramUrl(lat, lng, city) {
+// Meteoblue regenerates each meteogram roughly hourly, so we don't need a
+// fresh fetch every page view: per (pin, meteogram type) we remember when
+// the URL was last "generated" and reuse that same URL — letting the
+// browser serve it from its own HTTP cache with zero network request —
+// until it's 2h old. "Refresh all" forces a new one regardless of age.
+const IMAGE_TS_KEY = "meteoblue_image_ts";
+const IMAGE_TS_MAX_AGE_MS = 2 * 60 * 60 * 1000;
+
+function loadImageTimestamps() {
+  try {
+    return JSON.parse(localStorage.getItem(IMAGE_TS_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveImageTimestamps(map) {
+  localStorage.setItem(IMAGE_TS_KEY, JSON.stringify(map));
+}
+
+let imageTimestamps = loadImageTimestamps();
+
+function getImageTimestamp(pinId, type, forceRefresh) {
+  const key = `${pinId}:${type}`;
+  const existing = imageTimestamps[key];
+  const now = Date.now();
+  if (!forceRefresh && existing && now - existing < IMAGE_TS_MAX_AGE_MS) {
+    return existing;
+  }
+  imageTimestamps[key] = now;
+  saveImageTimestamps(imageTimestamps);
+  return now;
+}
+
+// Which meteoblue image endpoint to use (Standard/Compact/14-Day).
+const METEOGRAM_TYPE_KEY = "meteoblue_meteogram_type";
+
+function loadMeteogramType() {
+  return localStorage.getItem(METEOGRAM_TYPE_KEY) || "meteogram";
+}
+
+function saveMeteogramType(value) {
+  localStorage.setItem(METEOGRAM_TYPE_KEY, value);
+}
+
+let meteogramType = loadMeteogramType();
+
+function buildMeteogramUrl(lat, lng, city, pinId, forceRefresh) {
   const params = new URLSearchParams({
     apikey: METEOBLUE_API_KEY,
     lat: lat.toFixed(4),
     lon: lng.toFixed(4),
     // asl omitted on purpose: meteoblue fills real elevation from its own
     // elevation model when asl isn't passed.
-    city: city || "",
+    location_name: city || "",
+    format: "webp",
     temperature: "C",
     windspeed: "kmh",
     winddirection: "degree",
@@ -24,29 +69,20 @@ function buildMeteogramUrl(lat, lng, city) {
     timeformat: "dd.mm",
     coloured: "coloured",
     numberofdays: 7,
+    _t: getImageTimestamp(pinId, meteogramType, forceRefresh),
   });
-  return `https://my.meteoblue.com/images/meteogram?${params.toString()}`;
-}
-
-const AUTOOPEN_KEY = "meteoblue_autoopen";
-
-function loadAutoOpen() {
-  return localStorage.getItem(AUTOOPEN_KEY) === "true";
-}
-
-function saveAutoOpen(value) {
-  localStorage.setItem(AUTOOPEN_KEY, value ? "true" : "false");
+  return `https://my.meteoblue.com/images/${meteogramType}?${params.toString()}`;
 }
 
 let currentLightboxId = null;
 
-function openLightboxForPin(pinId) {
+function openLightboxForPin(pinId, forceRefresh) {
   const pin = pins.find((p) => p.id === pinId);
   if (!pin) return;
   const lightbox = document.getElementById("lightbox");
   const img = document.getElementById("lightbox-img");
   const title = document.getElementById("lightbox-title");
-  img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city);
+  img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city, pin.id, forceRefresh);
   img.alt = `Meteogram for ${pin.name}`;
   title.textContent = pin.name;
   currentLightboxId = pin.id;
@@ -94,15 +130,16 @@ function savePins(pins) {
 const map = L.map("map", { zoomControl: false }).setView([46.8, 8.2], 7);
 L.control.zoom({ position: "bottomleft" }).addTo(map);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "&copy; OpenStreetMap contributors",
-  maxZoom: 19,
+L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+  attribution:
+    "Map data: &copy; OpenStreetMap contributors, SRTM | Map display: &copy; OpenTopoMap (CC-BY-SA)",
+  maxZoom: 17,
 }).addTo(map);
 
 const markersById = new Map();
 let pins = loadPins();
 
-function popupContent(pin) {
+function popupContent(pin, forceRefresh) {
   const div = document.createElement("div");
   div.className = "meteogram-popup";
 
@@ -111,7 +148,7 @@ function popupContent(pin) {
   div.appendChild(title);
 
   const img = document.createElement("img");
-  img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city);
+  img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city, pin.id, forceRefresh);
   img.alt = `Meteogram for ${pin.name}`;
   img.onclick = (e) => {
     e.stopPropagation();
@@ -136,13 +173,10 @@ function addMarker(pin) {
     closeOnClick: false,
     closeOnEscapeKey: false,
   });
-  if (loadAutoOpen()) {
-    marker.openPopup();
-  }
   markersById.set(pin.id, marker);
 }
 
-function renderSidebar() {
+function renderSidebar(forceRefresh) {
   const list = document.getElementById("sidebar-list");
   list.innerHTML = "";
 
@@ -166,7 +200,7 @@ function renderSidebar() {
     card.appendChild(header);
 
     const img = document.createElement("img");
-    img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city);
+    img.src = buildMeteogramUrl(pin.lat, pin.lng, pin.city, pin.id, forceRefresh);
     img.alt = `Meteogram for ${pin.name}`;
     img.onclick = () => openLightboxForPin(pin.id);
     card.appendChild(img);
@@ -215,6 +249,19 @@ function removeAllPins() {
 }
 
 document.getElementById("delete-all-btn").addEventListener("click", removeAllPins);
+
+function refreshAll() {
+  markersById.forEach((marker, id) => {
+    const pin = pins.find((p) => p.id === id);
+    if (pin) marker.setPopupContent(popupContent(pin, true));
+  });
+  renderSidebar(true);
+  if (currentLightboxId != null) {
+    openLightboxForPin(currentLightboxId, true);
+  }
+}
+
+document.getElementById("refresh-all-btn").addEventListener("click", refreshAll);
 
 map.on("click", async (e) => {
   const name = prompt("Name this location:");
@@ -276,11 +323,13 @@ async function runSearch(q) {
   searchResults.classList.add("open");
 }
 
-// --- auto-open popups checkbox ---
-const autoopenCheckbox = document.getElementById("autoopen-checkbox");
-autoopenCheckbox.checked = loadAutoOpen();
-autoopenCheckbox.addEventListener("change", () => {
-  saveAutoOpen(autoopenCheckbox.checked);
+// --- meteogram type selector ---
+const meteogramTypeSelect = document.getElementById("meteogram-type-select");
+meteogramTypeSelect.value = meteogramType;
+meteogramTypeSelect.addEventListener("change", () => {
+  meteogramType = meteogramTypeSelect.value;
+  saveMeteogramType(meteogramType);
+  refreshAll();
 });
 
 // --- lightbox close (click anywhere on the overlay) ---
@@ -362,6 +411,19 @@ appFullscreenToggle.addEventListener("click", () => {
 document.addEventListener("fullscreenchange", () => {
   appFullscreenToggle.innerHTML = document.fullscreenElement ? "&#x2715;" : "&#x26F6;";
   appFullscreenToggle.title = document.fullscreenElement ? "Exit full screen" : "Full screen";
+
+  // Make the phone/browser back button exit full screen instead of
+  // navigating away: pushing an extra history entry on fullscreen-enter
+  // means "back" consumes that entry first, which popstate below catches.
+  if (document.fullscreenElement) {
+    history.pushState({ w2cFullscreen: true }, "");
+  }
+});
+
+window.addEventListener("popstate", () => {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
 });
 
 // --- lightbox swipe left/right to navigate pins (mobile) ---

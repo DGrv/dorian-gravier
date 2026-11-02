@@ -30,10 +30,12 @@
       <div id="sidebar-top">
         <h2>Saved places</h2>
         <div id="sidebar-controls">
-          <label id="autoopen-label">
-            <input type="checkbox" id="autoopen-checkbox">
-            Auto-open popups
-          </label>
+          <select id="meteogram-type-select" title="Meteogram type">
+            <option value="meteogram">Standard</option>
+            <option value="meteogram_one">Compact</option>
+            <option value="meteogram_14day">14-Day</option>
+          </select>
+          <button id="refresh-all-btn" title="Reload all meteograms">&#x21BB; Refresh</button>
           <button id="delete-all-btn" title="Delete all saved places">Delete all</button>
           <button id="fullscreen-toggle" title="Toggle full-screen sidebar">&#x26F6;</button>
         </div>
